@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
-import 'chat_message.dart';
+import '../models/word.dart';
 
-class MessageBubble extends StatelessWidget {
-  const MessageBubble({
+class DictionaryBubble extends StatelessWidget {
+  const DictionaryBubble({
     Key? key,
     required this.isMe,
     required this.message,
   }) : super(key: key);
 
   final bool isMe;
-  final ChatMessage message;
+  final Word message;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 16.0,
         vertical: 8.0,
       ),
       child: Row(
         children: [
-          isMe ? Spacer() : Container(),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 250),
+          isMe ? const Spacer() : Container(),
+          Flexible( // Added Flexible widget to able to scale base on form's size
+            flex: 5,
             child: Card(
               color: isMe ? Colors.blue : Colors.grey[800],
               shape: RoundedRectangleBorder(
@@ -37,7 +37,7 @@ class MessageBubble extends StatelessWidget {
                 padding: EdgeInsets.all(12.0),
                 child: Column(
                   crossAxisAlignment:
-                      isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,15 +62,11 @@ class MessageBubble extends StatelessWidget {
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
-
-                          ],
-                        ),
-
-                        Row(
-                          children: [
-                            Text("US:"),
+                            Spacer(),
                             IconButton(
-                              icon: Icon(Icons.volume_up_sharp,),
+                              icon: Icon(
+                                Icons.volume_up_sharp,
+                              ),
                               onPressed: () {
                                 // handle button press here
                               },
@@ -111,7 +107,6 @@ class MessageBubble extends StatelessWidget {
                         SizedBox(
                           height: 8.0,
                         ),
-
                       ],
                     ),
                   ],
@@ -119,6 +114,8 @@ class MessageBubble extends StatelessWidget {
               ),
             ),
           ),
+          isMe ? Container() : const Spacer(),
+
         ],
       ),
     );

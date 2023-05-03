@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/chat_message.dart';
-import '../models/message_buble.dart';
+import '../models/word.dart';
+import '../components/dictionary_buble.dart';
 
 class DictionaryView extends StatefulWidget {
   @override
@@ -9,8 +9,8 @@ class DictionaryView extends StatefulWidget {
 }
 
 class _DictionaryViewState extends State<DictionaryView> {
-  List<ChatMessage> _messages = [
-    ChatMessage(
+  List<Word> _messages = [
+    Word(
       word: 'Dart',
       pronunciation: '/dɑːt/',
       meaning:
@@ -18,7 +18,7 @@ class _DictionaryViewState extends State<DictionaryView> {
       type: 'Noun',
       sender: 'John',
     ),
-    ChatMessage(
+    Word(
       word: 'Dart',
       pronunciation: '/dɑːt/',
       meaning:
@@ -26,7 +26,7 @@ class _DictionaryViewState extends State<DictionaryView> {
       type: 'Noun',
       sender: 'John',
     ),
-    ChatMessage(
+    Word(
       word: 'Dart',
       pronunciation: '/dɑːt/',
       meaning:
@@ -34,7 +34,7 @@ class _DictionaryViewState extends State<DictionaryView> {
       type: 'Noun',
       sender: 'John',
     ),
-    ChatMessage(
+    Word(
       word: 'Dart',
       pronunciation: '/dɑːt/',
       meaning:
@@ -42,11 +42,11 @@ class _DictionaryViewState extends State<DictionaryView> {
       type: 'Noun',
       sender: 'John',
     ),
-    ChatMessage(
+    Word(
       word: 'Dart',
       pronunciation: '/dɑːt/',
       meaning:
-          'a client-optimized language for fast apps on multiple platforms',
+          'a client-optima client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platformized language for fast apps on multiple platforms',
       type: 'Noun',
       sender: 'John',
     ),
@@ -57,7 +57,7 @@ class _DictionaryViewState extends State<DictionaryView> {
   final FocusNode _textFieldFocusNode = FocusNode();
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
-  void _handleSubmitted(ChatMessage text) {
+  void _handleSubmitted(Word text) {
     _textController.clear();
     setState(() {
       _messages.add(text);
@@ -86,12 +86,12 @@ class _DictionaryViewState extends State<DictionaryView> {
               initialItemCount: _messages.length,
               itemBuilder: (BuildContext context, int index,
                   Animation<double> animation) {
-                ChatMessage message = _messages[index];
+                Word message = _messages[index];
 
                 bool isMe = message.sender == 'John';
                 return FadeTransition(
                   opacity: animation,
-                  child: MessageBubble(isMe: isMe, message: message),
+                  child: DictionaryBubble(isMe: isMe, message: message),
                 );
               },
             ),
@@ -106,7 +106,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                     focusNode: _textFieldFocusNode,
                     onSubmitted: (value) {
                       _handleSubmitted(
-                          ChatMessage(word: value, sender: "Jane"));
+                          Word(word: value, sender: "Jane"));
                     },
                     decoration: InputDecoration(
                       hintText: "Send a message",

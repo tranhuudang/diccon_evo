@@ -41,15 +41,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
               appBar: AppBar(
                 title: const Text("Diccon"),
-                actions: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 16),
-                    child: IconButton(
-                      icon: Icon(Icons.settings),
-                      onPressed: () {  },
-                    ),
-                  ),
-                ],
+                
               ),
               body: Row(
                 children: <Widget>[

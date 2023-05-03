@@ -1,11 +1,11 @@
-class ChatMessage {
+class Word {
   final String sender;
   final String word;
   final String? pronunciation;
   final String? type;
   final String? meaning;
 
-  ChatMessage({
+  Word({
     required this.sender,
     required this.word,
     this.pronunciation,
