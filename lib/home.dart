@@ -50,6 +50,7 @@ class _HomeViewState extends State<HomeView> {
 
   loadUpData() async {
     Global.wordList = await getWordList();
+    print(Global.wordList[0].word);
   }
 
   @override

@@ -50,6 +50,10 @@ dev_dependencies:
   window_manager: ^0.3.2
   # Provide ability to speak a provided word.
   flutter_tts: ^3.6.3
+  http: ^0.13.6
+  # A Flutter plugin for finding commonly used locations on the filesystem
+  path_provider: ^2.0.14
+  audioplayers: ^4.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

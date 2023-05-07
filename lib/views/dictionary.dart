@@ -1,8 +1,10 @@
+import 'package:diccon_evo/viewModels/word_handler.dart';
 import 'package:flutter/material.dart';
 
 import '../global.dart';
 import '../models/word.dart';
 import '../components/dictionary_buble.dart';
+import '../viewModels/searching.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -11,7 +13,8 @@ class DictionaryView extends StatefulWidget {
   _DictionaryViewState createState() => _DictionaryViewState();
 }
 
-class _DictionaryViewState extends State<DictionaryView> with AutomaticKeepAliveClientMixin{
+class _DictionaryViewState extends State<DictionaryView>
+    with AutomaticKeepAliveClientMixin {
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
@@ -23,17 +26,23 @@ class _DictionaryViewState extends State<DictionaryView> with AutomaticKeepAlive
 
   void _handleSubmitted(String searchWord) {
     _textController.clear();
-    Word? wordResult = Global.wordList
-        .firstWhere((word) => word.word.indexOf("$searchWord ") == 0);
+    Word? wordResult = Searching.getDefinition(searchWord);
 
     var emptyWord = Word(word: searchWord);
+    // Add left bubble as user message
     _messages.add(DictionaryBubble(isMachine: false, message: emptyWord));
+    // Right bubble represent machine reply
+    _messages.add(DictionaryBubble(
+      isMachine: true,
+      message: wordResult!,
+      onWordTap: (clickedWord) {
+        clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
 
-      _messages.add(DictionaryBubble(isMachine: true, message: wordResult));
-      setState(() {
-
-      });
-      _textFieldFocusNode.requestFocus();
+        _handleSubmitted(clickedWord);
+      },
+    ));
+    setState(() {});
+    _textFieldFocusNode.requestFocus();
     // Delay the scroll animation until after the list has been updated
     Future.delayed(Duration(milliseconds: 300), () {
       _chatListController.animateTo(
@@ -80,7 +89,6 @@ class _DictionaryViewState extends State<DictionaryView> with AutomaticKeepAlive
                     ),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -88,6 +96,4 @@ class _DictionaryViewState extends State<DictionaryView> with AutomaticKeepAlive
       ),
     );
   }
-
-
 }
