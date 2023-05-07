@@ -1,69 +1,39 @@
 import 'package:flutter/material.dart';
 
+import '../global.dart';
 import '../models/word.dart';
 import '../components/dictionary_buble.dart';
 
 class DictionaryView extends StatefulWidget {
+  const DictionaryView({super.key});
+
   @override
   _DictionaryViewState createState() => _DictionaryViewState();
 }
 
-class _DictionaryViewState extends State<DictionaryView> {
-  List<Word> _messages = [
-    Word(
-      word: 'Dart',
-      pronunciation: '/dɑːt/',
-      meaning:
-          'a client-optimized language for fast apps on multiple platforms',
-      type: 'Noun',
-      sender: 'John',
-    ),
-    Word(
-      word: 'Dart',
-      pronunciation: '/dɑːt/',
-      meaning:
-          'a client-optimized language for fast apps on multiple platforms',
-      type: 'Noun',
-      sender: 'John',
-    ),
-    Word(
-      word: 'Dart',
-      pronunciation: '/dɑːt/',
-      meaning:
-          'a client-optimized language for fast apps on multiple platforms',
-      type: 'Noun',
-      sender: 'John',
-    ),
-    Word(
-      word: 'Dart',
-      pronunciation: '/dɑːt/',
-      meaning:
-          'a client-optimized language for fast apps on multiple platforms',
-      type: 'Noun',
-      sender: 'John',
-    ),
-    Word(
-      word: 'Dart',
-      pronunciation: '/dɑːt/',
-      meaning:
-          'a client-optima client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platforma client-optimized language for fast apps on multiple platformized language for fast apps on multiple platforms',
-      type: 'Noun',
-      sender: 'John',
-    ),
-  ];
+class _DictionaryViewState extends State<DictionaryView> with AutomaticKeepAliveClientMixin{
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+  final List<DictionaryBubble> _messages = [];
 
   final TextEditingController _textController = TextEditingController();
   final ScrollController _chatListController = ScrollController();
   final FocusNode _textFieldFocusNode = FocusNode();
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
-  void _handleSubmitted(Word text) {
+  void _handleSubmitted(String searchWord) {
     _textController.clear();
-    setState(() {
-      _messages.add(text);
-      _listKey.currentState!.insertItem(_messages.length - 1);
+    Word? wordResult = Global.wordList
+        .firstWhere((word) => word.word.indexOf("$searchWord ") == 0);
+
+    var emptyWord = Word(word: searchWord);
+    _messages.add(DictionaryBubble(isMachine: false, message: emptyWord));
+
+      _messages.add(DictionaryBubble(isMachine: true, message: wordResult));
+      setState(() {
+
+      });
       _textFieldFocusNode.requestFocus();
-    });
     // Delay the scroll animation until after the list has been updated
     Future.delayed(Duration(milliseconds: 300), () {
       _chatListController.animateTo(
@@ -80,43 +50,37 @@ class _DictionaryViewState extends State<DictionaryView> {
       body: Column(
         children: [
           Expanded(
-            child: AnimatedList(
-              key: _listKey,
-              controller: _chatListController,
-              initialItemCount: _messages.length,
-              itemBuilder: (BuildContext context, int index,
-                  Animation<double> animation) {
-                Word message = _messages[index];
-
-                bool isMe = message.sender == 'John';
-                return FadeTransition(
-                  opacity: animation,
-                  child: DictionaryBubble(isMe: isMe, message: message),
-                );
-              },
-            ),
-          ),
+              child: ListView.builder(
+            itemCount: _messages.length,
+            controller: _chatListController,
+            itemBuilder: (BuildContext context, int index) {
+              return _messages[index];
+            },
+          )),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             margin: EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: TextField(
-                    focusNode: _textFieldFocusNode,
-                    onSubmitted: (value) {
-                      _handleSubmitted(
-                          Word(word: value, sender: "Jane"));
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Send a message",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: TextField(
+                      focusNode: _textFieldFocusNode,
+                      onSubmitted: (value) {
+                        _handleSubmitted(value);
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Send a message",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
                       ),
+                      controller: _textController,
                     ),
-                    controller: _textController,
                   ),
                 ),
+
               ],
             ),
           ),
@@ -124,4 +88,6 @@ class _DictionaryViewState extends State<DictionaryView> {
       ),
     );
   }
+
+
 }
