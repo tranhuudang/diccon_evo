@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 class ClickableWords extends StatefulWidget {
   final String text;
+  final TextStyle? style;
   final Function(String) onWordTap;
 
   ClickableWords({
     required this.text,
-    required this.onWordTap,
+    required this.onWordTap, this.style,
   });
 
   @override
@@ -41,10 +42,11 @@ class _ClickableWordsState extends State<ClickableWords> {
                   _hoverIndex = -1;
                 });
               },
-              style: TextStyle(
+              style: widget.style ?? TextStyle(
                 color: Colors.white,
                 decoration: _hoverIndex == i ? TextDecoration.underline: TextDecoration.none,
-              ),
+              )
+              ,
             ),
         ],
       ),

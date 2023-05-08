@@ -18,7 +18,7 @@ class _DictionaryViewState extends State<DictionaryView>
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-  final List<DictionaryBubble> _messages = [];
+  final List<Widget> _messages = [];
 
   final TextEditingController _textController = TextEditingController();
   final ScrollController _chatListController = ScrollController();
@@ -26,21 +26,31 @@ class _DictionaryViewState extends State<DictionaryView>
 
   void _handleSubmitted(String searchWord) {
     _textController.clear();
-    Word? wordResult = Searching.getDefinition(searchWord);
 
+
+    
     var emptyWord = Word(word: searchWord);
-    // Add left bubble as user message
-    _messages.add(DictionaryBubble(isMachine: false, message: emptyWord));
-    // Right bubble represent machine reply
-    _messages.add(DictionaryBubble(
-      isMachine: true,
-      message: wordResult!,
-      onWordTap: (clickedWord) {
-        clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
 
-        _handleSubmitted(clickedWord);
-      },
-    ));
+      /// Add left bubble as user message
+      _messages.add(DictionaryBubble(isMachine: false, message: emptyWord));
+    try {
+      /// This line is the skeleton of finding word in dictionary
+      Word? wordResult = Searching.getDefinition(searchWord);
+      /// Right bubble represent machine reply
+      _messages.add(DictionaryBubble(
+        isMachine: true,
+        message: wordResult!,
+        onWordTap: (clickedWord) {
+          clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
+
+          _handleSubmitted(clickedWord);
+        },
+      ));
+    }
+    catch (e)
+    {
+      _messages.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Sorry, we couldn't find this word at this time.")],));
+    }
     setState(() {});
     _textFieldFocusNode.requestFocus();
     // Delay the scroll animation until after the list has been updated
@@ -55,20 +65,25 @@ class _DictionaryViewState extends State<DictionaryView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Column(
         children: [
           Expanded(
-              child: ListView.builder(
-            itemCount: _messages.length,
-            controller: _chatListController,
-            itemBuilder: (BuildContext context, int index) {
-              return _messages[index];
-            },
-          )),
+            /// List of all bubble messages on a conversation
+            child: ListView.builder(
+              itemCount: _messages.length,
+              controller: _chatListController,
+              itemBuilder: (BuildContext context, int index) {
+                return _messages[index];
+              },
+            ),
+          ),
+
+          /// TextField for user to enter their words
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: <Widget>[
                 Expanded(

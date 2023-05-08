@@ -1,6 +1,5 @@
 import 'package:diccon_evo/components/expand_bubble_button.dart';
 import 'package:diccon_evo/viewModels/sound_handler.dart';
-import 'package:diccon_evo/viewModels/word_handler.dart';
 import 'package:flutter/material.dart';
 import '../models/word.dart';
 import 'clickable_words.dart';
@@ -27,7 +26,7 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
   void initState() {
     super.initState();
 
-    if (countLine() > 20) {
+    if (countLine() > 15) {
       _isTooLarge = true;
     } else {
       _isTooLarge = false;
@@ -81,12 +80,15 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(
-                                          widget.message.word,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.0,
+                                        Flexible(
+                                          //flex: 8,
+                                          child: Text(
+                                            widget.message.word,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0,
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -99,7 +101,6 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                                             fontStyle: FontStyle.italic,
                                           ),
                                         ),
-                                        const Spacer(),
                                         IconButton(
                                           icon: const Icon(
                                             Icons.volume_up_sharp,
@@ -114,13 +115,51 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                                       ],
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Flexible(
-                                          child: ClickableWords(
-                                            text: widget.message.meaning!,
-                                            onWordTap: widget.onWordTap!,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: widget.message.meaning!
+                                                .split('\n')
+                                                .map((meaningLine) {
+                                              /// Change text style to BOLD to some specific lines with special character in the first line
+                                              final lineSplit =
+                                                  meaningLine.split('-');
+                                              final lineStart =
+                                                  lineSplit.first.trim();
+                                              final lineEnd = lineSplit
+                                                  .sublist(1)
+                                                  .join('-');
+                                              return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  lineStart.isNotEmpty
+                                                      ? ClickableWords(
+                                                          text: lineStart,
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                          onWordTap: (value) {
+                                                            widget.onWordTap!(
+                                                                value);
+                                                          })
+                                                      : Container(),
+                                                  lineEnd.isNotEmpty
+                                                      ? ClickableWords(
+                                                          text: "-$lineEnd",
+                                                          onWordTap: (value) {
+                                                            widget.onWordTap!(
+                                                                value);
+                                                          })
+                                                      : Container(),
+                                                ],
+                                              );
+                                            }).toList(),
                                           ),
                                         ),
                                       ],
@@ -151,11 +190,12 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                                 ),
                         ),
                       ),
+
+                      /// Show ExpandButton when the number of line in Meaning to large.
                       Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             //Spacer(),
-                            /// Show ExpandButton when the number of line in Meaning to large.
                             _isTooLarge
                                 ? ExpandBubbleButton(
                                     onTap: () {

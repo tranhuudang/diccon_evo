@@ -5,7 +5,9 @@ import '../global.dart';
 import '../models/word.dart';
 
 Future<List<Word>> getWordList() async {
-  String data = await rootBundle.loadString(Global.EV_DATA_PATH);
+  String dataEv = await rootBundle.loadString(Global.EV_DATA_PATH);
+  String dataVe = await rootBundle.loadString(Global.VE_DATA_PATH);
+  String data = dataEv + dataVe;
   List<String> wordDataList = data.split('@');
   List<Word> wordList = [];
 
