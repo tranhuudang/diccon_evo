@@ -23,7 +23,7 @@ class SoundHandler {
     return url;
   }
 
-  static void playOnline(String word) async {
+  static void playAnyway(String word) async {
     String url = onlineSoundUrlPath(word);
     String firstLetter = word.substring(0, 1).toUpperCase();
     String afterFirstLetter =
