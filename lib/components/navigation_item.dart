@@ -21,8 +21,13 @@ class _NavigationItemState extends State<NavigationItem> {
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+    return AnimatedContainer(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+            color: isHover ? Colors.black12 : Colors.transparent,
+      ),
+      duration: Duration(milliseconds: 200),
       child: InkWell(
         onHover: (value) {
           setState(() {
@@ -31,6 +36,7 @@ class _NavigationItemState extends State<NavigationItem> {
         },
         onTap: widget.onPressed,
         child: Row(
+          mainAxisAlignment:  widget.isExpanded! ? MainAxisAlignment.start: MainAxisAlignment.center,
           children: [
             Icon(
               widget.icon,
@@ -40,7 +46,7 @@ class _NavigationItemState extends State<NavigationItem> {
                 ? const SizedBox(
                     width: 8,
                   )
-                : const SizedBox.shrink(),
+                : Container(),
             widget.isExpanded! ? Text(widget.title) : Container(),
           ],
         ),

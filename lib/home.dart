@@ -126,7 +126,7 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                   width: isExpanded ? 250 : 58,
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -142,7 +142,6 @@ class _HomeViewState extends State<HomeView> {
                     color: Colors.white,
                   ),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       NavigationItem(

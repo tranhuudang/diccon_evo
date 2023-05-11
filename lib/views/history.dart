@@ -17,6 +17,7 @@ class HistoryView extends StatelessWidget {
         HeaderBox(title: Global.HISTORY, icon: Icons.history,
           actions: [
             IconButton(onPressed: (){}, icon: Icon(Icons.sort_by_alpha)),
+            IconButton(onPressed: (){}, icon: Icon(Icons.more_vert)),
           ],),
         Expanded(
           child: ListView.builder(
