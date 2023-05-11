@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "untitled" "\0"
+            VALUE "CompanyName", "Zeroboy" "\0"
+            VALUE "FileDescription", "Diccon Dictionary" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "untitled" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "untitled.exe" "\0"
-            VALUE "ProductName", "untitled" "\0"
+            VALUE "InternalName", "Diccon Dictionary" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 Zeroboy. All rights reserved." "\0"
+            VALUE "OriginalFilename", "Diccon Dictionary.exe" "\0"
+            VALUE "ProductName", "Diccon Dictionary" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -1,17 +1,9 @@
+import 'package:diccon_evo/components/header_box.dart';
 import 'package:flutter/material.dart';
-class Word {
-  final String word;
-  final String pronunciation;
-  final String meaning;
-  final String type;
-
-  const Word({
-    required this.word,
-    required this.pronunciation,
-    required this.meaning,
-    required this.type,
-  });
-}
+import 'package:flutter/rendering.dart';
+import '../components/history_tile.dart';
+import '../global.dart';
+import '../models/word.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({Key? key, required this.words}) : super(key: key);
@@ -19,28 +11,25 @@ class HistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: words.length,
-      itemBuilder: (context, index) {
-        final word = words[index];
-        return ListTile(
-          title: Text(
-            word.word,
-            style: TextStyle(fontWeight: FontWeight.bold),
+    return Column(
+      
+      children: [
+        HeaderBox(title: Global.HISTORY, icon: Icons.history,
+          actions: [
+            IconButton(onPressed: (){}, icon: Icon(Icons.sort_by_alpha)),
+          ],),
+        Expanded(
+          child: ListView.builder(
+            itemCount: words.length,
+            itemBuilder: (context, index) {
+              final word = words[index];
+              return HistoryTile(word: word);
+            },
           ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(word.pronunciation),
-              SizedBox(height: 4),
-              Text(
-                '${word.type} - ${word.meaning}',
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
-        );
-      },
+        ),
+      ],
     );
   }
 }
+
+

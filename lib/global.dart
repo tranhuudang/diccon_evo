@@ -11,4 +11,5 @@ class Global{
   static const String EV_DATA_PATH = 'assets/dictionary/diccon_ev.txt';
   static const String VE_DATA_PATH = 'assets/dictionary/diccon_ve.txt';
   static const String BLANK_SPACE = ' ';
+  static const String HISTORY_FILENAME = 'history.json';
 }
