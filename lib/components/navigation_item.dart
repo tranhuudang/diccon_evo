@@ -8,7 +8,7 @@ class NavigationItem extends StatefulWidget {
       this.onPressed,
       this.isExpanded = false})
       : super(key: key);
-  final String title;
+  final String? title;
   final IconData icon;
   final VoidCallback? onPressed;
   final bool? isExpanded;
@@ -47,7 +47,7 @@ class _NavigationItemState extends State<NavigationItem> {
                     width: 8,
                   )
                 : Container(),
-            widget.isExpanded! ? Text(widget.title) : Container(),
+            widget.isExpanded! ? Text(widget.title ?? "") : Container(),
           ],
         ),
       ),

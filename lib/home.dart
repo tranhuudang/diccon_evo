@@ -5,9 +5,12 @@ import 'package:diccon_evo/viewModels/file_handler.dart';
 import 'package:diccon_evo/views/community.dart';
 import 'package:diccon_evo/views/dictionary.dart';
 import 'package:diccon_evo/views/history.dart';
+import 'package:diccon_evo/views/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'components/navigation_item.dart';
+import 'components/side_navigation_bar.dart';
 import 'global.dart';
 import 'models/word.dart';
 
@@ -18,11 +21,12 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   List<Widget> pages = [];
   PageController pageController = PageController();
   bool isExpanded = false;
+  bool isLarge = false;
   Future<List<Word>> readHistory() async {
     return await FileHandler.readHistory();
   }
@@ -31,25 +35,48 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     loadUpData();
+    WindowManager.instance.addListener(this);
+  }
+
+  /// Detect when windows is changing size
+  @override
+  void onWindowResize() async {
+    Size windowsSize = await WindowManager.instance.getSize();
+    if (windowsSize.width > 800) {
+      setState(() {
+        isExpanded = true;
+        isLarge = true;
+      });
+    } else {
+      setState(() {
+        isExpanded = false;
+        isLarge = false;
+      });
+    }
   }
 
   loadUpData() async {
     pages = [
-      const DictionaryView(),
+       DictionaryView(),
+      HistoryView(),
+      CommunityView(),
+      SettingsView(),
     ];
 
     /// Because getWordList take time to complete, so it'll be put behind pages[] to have a better feel of speed.
     Global.wordList = await getWordList();
+
+
+  }
+
+  /// Helper method to update the selected page and collapse the navigation
+  void _jumpToSelectedPage(int index, bool? popContext) {
     setState(() {
-      readHistory().then((words) {
-        pages.add(
-          HistoryView(
-            words: words,
-          ),
-        );
-        pages.add(const CommunityView());
-      });
+      isExpanded = false;
     });
+    _selectedPageIndex = index;
+    pageController.jumpToPage(_selectedPageIndex);
+    if (popContext ?? false) Navigator.pop(context);
   }
 
   @override
@@ -61,6 +88,8 @@ class _HomeViewState extends State<HomeView> {
               title: const Text(Global.DICCON),
             ),
       drawer: Platform.isAndroid || Platform.isIOS
+
+          /// Drawer for mobile platform navigation
           ? Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -77,31 +106,19 @@ class _HomeViewState extends State<HomeView> {
                   ListTile(
                     title: const Text(Global.DICTIONARY),
                     onTap: () {
-                      setState(() {
-                        _selectedPageIndex = 0;
-                        pageController.jumpToPage(_selectedPageIndex);
-                        Navigator.pop(context);
-                      });
+                      _jumpToSelectedPage(0, true);
                     },
                   ),
                   ListTile(
                     title: const Text(Global.HISTORY),
                     onTap: () {
-                      setState(() {
-                        _selectedPageIndex = 1;
-                        pageController.jumpToPage(_selectedPageIndex);
-                        Navigator.pop(context);
-                      });
+                      _jumpToSelectedPage(1, true);
                     },
                   ),
                   ListTile(
                     title: const Text(Global.COMMUNITY),
                     onTap: () {
-                      setState(() {
-                        _selectedPageIndex = 2;
-                        pageController.jumpToPage(_selectedPageIndex);
-                        Navigator.pop(context);
-                      });
+                      _jumpToSelectedPage(2, true);
                     },
                   ),
                 ],
@@ -113,9 +130,13 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Row(
                   children: <Widget>[
+                    /// Create a blank space for SideNavigationBar in desktop platform to live in
                     SizedBox(
-                      width: 58,
+                      width: isExpanded && isLarge ? 250 : 58,
                     ),
+
+                    /// PageView where different pages live on
+                    /// Desktop platform
                     Expanded(
                       child: PageView(
                         controller: pageController,
@@ -125,89 +146,64 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                  width: isExpanded ? 250 : 58,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: isExpanded ? Colors.black38 : Colors.black12,
-                        blurRadius: isExpanded ? 250 : 5,
-                      )
-                    ],
-                    border: Border(
-                      right: BorderSide(
-                          color: isExpanded ? Colors.black26 : Colors.black12),
+
+                /// Side navigation bar for desktop devices
+                SideNavigationBar(
+                  isExpanded: isExpanded,
+                  navigationItem: [
+                    NavigationItem(
+                      title: "", //Menu
+                      isExpanded: isExpanded,
+                      icon: Icons.menu,
+                      onPressed: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
                     ),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      NavigationItem(
-                        title: "Menu",
-                        isExpanded: isExpanded,
-                        icon: Icons.menu,
-                        onPressed: () {
-                          setState(() {
-                            isExpanded = !isExpanded;
-                          });
-                        },
-                      ),
-                      NavigationItem(
-                        title: "Search",
-                        isExpanded: isExpanded,
-                        icon: Icons.search,
-                        onPressed: () {
-                          setState(() {
-                            _selectedPageIndex = 0;
-                            pageController.jumpToPage(_selectedPageIndex);
-                            isExpanded = false;
-                          });
-                        },
-                      ),
-                      NavigationItem(
-                        title: "History",
-                        isExpanded: isExpanded,
-                        icon: Icons.history,
-                        onPressed: () {
-                          setState(() {
-                            _selectedPageIndex = 1;
-                            pageController.jumpToPage(_selectedPageIndex);
-                            isExpanded = false;
-                          });
-                        },
-                      ),
-                      NavigationItem(
-                        title: "Community",
-                        isExpanded: isExpanded,
-                        icon: Icons.chat_bubble_outline,
-                        onPressed: () {
-                          setState(() {
-                            _selectedPageIndex = 2;
-                            pageController.jumpToPage(_selectedPageIndex);
-                            isExpanded = false;
-                          });
-                        },
-                      ),
-                      const Spacer(),
-                      NavigationItem(
-                        title: "Settings",
-                        isExpanded: isExpanded,
-                        icon: Icons.settings,
-                        onPressed: () {
-                          setState(() {
-                            _selectedPageIndex = 3;
-                            pageController.jumpToPage(_selectedPageIndex);
-                            isExpanded = false;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                    NavigationItem(
+                      title: "Search",
+                      isExpanded: isExpanded,
+                      icon: Icons.search,
+                      onPressed: () {
+                        _jumpToSelectedPage(0, false);
+                      },
+                    ),
+                    Divider(),
+                    NavigationItem(
+                      title: "History",
+                      isExpanded: isExpanded,
+                      icon: Icons.history,
+                      onPressed: () {
+                        _jumpToSelectedPage(1, false);
+                      },
+                    ),
+                    Divider(),
+                    NavigationItem(
+                      title: "Community",
+                      isExpanded: isExpanded,
+                      icon: Icons.chat_bubble_outline,
+                      onPressed: () {
+                        _jumpToSelectedPage(2, false);
+                      },
+                    ),
+                    const Spacer(),
+                    Divider(),
+                    NavigationItem(
+                      title: "Settings",
+                      isExpanded: isExpanded,
+                      icon: Icons.settings,
+                      onPressed: () {
+                        _jumpToSelectedPage(3, false);
+                      },
+                    ),
+                  ],
                 ),
               ],
             )
+
+          /// PageView where different pages live on
+          /// Mobile platform
           : Row(
               children: [
                 Expanded(
@@ -222,4 +218,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-

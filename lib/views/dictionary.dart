@@ -52,7 +52,6 @@ class _DictionaryViewState extends State<DictionaryView>
         message: wordResult!,
         onWordTap: (clickedWord) {
           clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
-
           _handleSubmitted(clickedWord);
         },
       ));

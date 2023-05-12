@@ -10,7 +10,8 @@ void main() async {
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setSize(const Size(400, 700));
-    WindowManager.instance.setMinimumSize(const Size(400, 700));
+    WindowManager.instance.setMinimumSize(const Size(400, 500));
+    WindowManager.instance.setTitle(Global.DICCON_DICTIONARY);
   }
   runApp(const MaterialApp(
     title: Global.DICCON_DICTIONARY,
