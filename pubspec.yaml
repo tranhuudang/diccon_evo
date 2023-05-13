@@ -54,6 +54,8 @@ dev_dependencies:
   # A Flutter plugin for finding commonly used locations on the filesystem
   path_provider: ^2.0.14
   audioplayers: ^4.0.1
+  # Package for Packaging Windows App
+  msix: ^3.12.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -95,3 +97,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+msix_config:
+  display_name: Diccon Evo
+  publisher_display_name: Zeroboy
+  identity_name: 24555Zeroboy.DicconEvo
+  publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
+  msix_version: 1.0.1.0
+  store: true

@@ -1,7 +1,8 @@
-import 'package:diccon_evo/components/header_box.dart';
+import 'package:diccon_evo/components/header.dart';
 import 'package:diccon_evo/components/welcome_box.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
 import 'package:diccon_evo/viewModels/word_handler.dart';
+import 'package:diccon_evo/views/history.dart';
 import 'package:flutter/material.dart';
 
 import '../global.dart';
@@ -84,9 +85,14 @@ class _DictionaryViewState extends State<DictionaryView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      appBar: Header(title: Global.DICTIONARY, icon: Icons.search, actions: [
+        IconButton(onPressed: (){
+          Global.pageController.jumpToPage(AppViews.HistoryView.index);
+        }, icon: Icon(Icons.history))
+      ],),
       body: Column(
         children: [
-        HeaderBox(title: Global.DICTIONARY, icon: Icons.search,),
+
           Expanded(
             /// List of all bubble messages on a conversation
             child: ListView.builder(
@@ -108,7 +114,7 @@ class _DictionaryViewState extends State<DictionaryView>
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: TextField(
-                      focusNode: _textFieldFocusNode,
+                      //focusNode: _textFieldFocusNode,
                       onSubmitted: (value) {
                         _handleSubmitted(value);
                       },

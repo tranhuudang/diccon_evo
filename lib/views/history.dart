@@ -1,4 +1,4 @@
-import 'package:diccon_evo/components/header_box.dart';
+import 'package:diccon_evo/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../components/history_tile.dart';
@@ -29,53 +29,49 @@ class _HistoryViewState extends State<HistoryView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        HeaderBox(
-          title: Global.HISTORY,
-          icon: Icons.history,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  words.sort((a, b) => a.word.compareTo(b.word));
-                  setState(() {});
-                },
-                icon: Icon(Icons.sort_by_alpha)),
-            PopupMenuButton(
-              //splashRadius: 10.0,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Theme.of(context).dividerColor),
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: const Text("Reverse List"),
-                  onTap: () async {
-                    words = words.reversed.toList();
+    return Scaffold(
+      appBar: Header(title: Global.HISTORY, icon: Icons.history, actions: [
+        IconButton(
+            onPressed: () {
+              words.sort((a, b) => a.word.compareTo(b.word));
+              setState(() {});
+            },
+            icon: const Icon(Icons.sort_by_alpha)),
+        PopupMenuButton(
+          //splashRadius: 10.0,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Theme.of(context).dividerColor),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: const Text("Reverse List"),
+              onTap: () async {
+                words = words.reversed.toList();
 
-                    setState(() {});
-                  },
-                ),
-
-                PopupMenuItem(
-                  child: const Text("Clear all"),
-                  onTap: () async {
-
-                  },
-                ),
+                setState(() {});
+              },
+            ),
+            PopupMenuItem(
+              child: const Text("Clear all"),
+              onTap: () async {},
+            ),
           ],
         ),
-        ]),
-        Expanded(
-          child: ListView.builder(
-            itemCount: words.length,
-            itemBuilder: (context, index) {
-              final word = words[index];
-              return HistoryTile(word: word);
-            },
+      ]),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: words.length,
+              itemBuilder: (context, index) {
+                final word = words[index];
+                return HistoryTile(word: word);
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

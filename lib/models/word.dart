@@ -19,7 +19,7 @@ class Word {
     String? truncatedMeaning = '';
     if (meaning != null) {
       truncatedMeaning =
-          meaning!.length > 50 ? meaning!.substring(0, 50) : meaning;
+          meaning!.length > 60 ? meaning!.substring(0, 60) : meaning;
     }
     return {
       'word': word,

@@ -2,10 +2,6 @@ import 'dart:io';
 
 import 'package:diccon_evo/viewModels/data_manager.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
-import 'package:diccon_evo/views/community.dart';
-import 'package:diccon_evo/views/dictionary.dart';
-import 'package:diccon_evo/views/history.dart';
-import 'package:diccon_evo/views/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -23,8 +19,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
-  List<Widget> pages = [];
-  PageController pageController = PageController();
   bool isExpanded = false;
   bool isLarge = false;
   Future<List<Word>> readHistory() async {
@@ -56,17 +50,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   }
 
   loadUpData() async {
-    pages = [
-       DictionaryView(),
-      HistoryView(),
-      CommunityView(),
-      SettingsView(),
-    ];
-
-    /// Because getWordList take time to complete, so it'll be put behind pages[] to have a better feel of speed.
+    /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
     Global.wordList = await getWordList();
-
-
   }
 
   /// Helper method to update the selected page and collapse the navigation
@@ -75,146 +60,183 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       isExpanded = false;
     });
     _selectedPageIndex = index;
-    pageController.jumpToPage(_selectedPageIndex);
+    Global.pageController.jumpToPage(_selectedPageIndex);
     if (popContext ?? false) Navigator.pop(context);
   }
 
+  /// Need this globalKey to open drawer by custom button
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: Platform.isWindows
-          ? null
-          : AppBar(
-              title: const Text(Global.DICCON),
-            ),
-      drawer: Platform.isAndroid || Platform.isIOS
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: Platform.isAndroid || Platform.isIOS
 
-          /// Drawer for mobile platform navigation
-          ? Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  const DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
+            /// Drawer for mobile platform navigation
+            ? Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    const DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                      ),
+                      child: Text(
+                        Global.DICCON_DICTIONARY,
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
                     ),
-                    child: Text(
-                      Global.DICCON_DICTIONARY,
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ListTile(
+                      title: const Text(Global.DICTIONARY),
+                      onTap: () {
+                        _jumpToSelectedPage(
+                            AppViews.DictionaryView.index, true);
+                      },
                     ),
+                    ListTile(
+                      title: const Text(Global.HISTORY),
+                      onTap: () {
+                        _jumpToSelectedPage(AppViews.HistoryView.index, true);
+                      },
+                    ),
+                    // ListTile(
+                    //   title: const Text(Global.COMMUNITY),
+                    //   onTap: () {
+                    //     _jumpToSelectedPage(AppViews,CommunityView.index, true);
+                    //   },
+                    //),
+                  ],
+                ),
+              )
+            : null,
+        body: Platform.isWindows || Platform.isMacOS || Platform.isLinux
+            ? Stack(
+                children: [
+                  Row(
+                    children: <Widget>[
+                      /// Create a blank space for SideNavigationBar in desktop platform to live in
+                      SizedBox(
+                        width: isExpanded && isLarge ? 250 : 58,
+                      ),
+
+                      /// PageView where different pages live on
+                      /// Desktop platform
+                      Expanded(
+                        child: PageView(
+                          controller: Global.pageController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: Global.pages,
+                        ),
+                      ),
+                    ],
                   ),
-                  ListTile(
-                    title: const Text(Global.DICTIONARY),
-                    onTap: () {
-                      _jumpToSelectedPage(0, true);
-                    },
+
+                  /// Side navigation bar for desktop devices
+                  SideNavigationBar(
+                    isExpanded: isExpanded,
+                    navigationItem: [
+                      NavigationItem(
+                        title: "", //Menu
+                        isExpanded: isExpanded,
+                        icon: Icons.menu,
+                        onPressed: () {
+                          setState(() {
+                            isExpanded = !isExpanded;
+                          });
+                        },
+                      ),
+
+                      Divider(),
+                      NavigationItem(
+                        title: "Listening",
+                        isExpanded: isExpanded,
+                        icon: Icons.headphones,
+                        onPressed: () {
+                          _jumpToSelectedPage(2, false);
+                        },
+                      ),
+                      Divider(),
+                      NavigationItem(
+                        title: "Reading",
+                        isExpanded: isExpanded,
+                        icon: Icons.chrome_reader_mode,
+                        onPressed: () {
+                          _jumpToSelectedPage(AppViews.ArticleListView.index, false);
+                        },
+                      ),
+                      Divider(),
+                      NavigationItem(
+                        title: "Writing",
+                        isExpanded: isExpanded,
+                        icon: Icons.draw_outlined,
+                        onPressed: () {
+                          _jumpToSelectedPage(2, false);
+                        },
+                      ),
+                      const Spacer(),
+                      Divider(),
+                      NavigationItem(
+                        title: "Dictionary",
+                        isExpanded: isExpanded,
+                        icon: Icons.search,
+                        onPressed: () {
+                          _jumpToSelectedPage(0, false);
+                        },
+                      ),
+                      // Divider(),
+                      // NavigationItem(
+                      //   title: "History",
+                      //   isExpanded: isExpanded,
+                      //   icon: Icons.history,
+                      //   onPressed: () {
+                      //     _jumpToSelectedPage(1, false);
+                      //   },
+                      // ),
+                      Divider(),
+                      NavigationItem(
+                        title: "Settings",
+                        isExpanded: isExpanded,
+                        icon: Icons.settings,
+                        onPressed: () {
+                          _jumpToSelectedPage(
+                              AppViews.SettingsView.index, false);
+                        },
+                      ),
+                    ],
                   ),
-                  ListTile(
-                    title: const Text(Global.HISTORY),
-                    onTap: () {
-                      _jumpToSelectedPage(1, true);
-                    },
+                ],
+              )
+
+            /// PageView where different pages live on
+            /// Mobile platform
+            : Stack(
+                children: [
+                  PageView(
+                    controller: Global.pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: Global.pages,
                   ),
-                  ListTile(
-                    title: const Text(Global.COMMUNITY),
-                    onTap: () {
-                      _jumpToSelectedPage(2, true);
-                    },
+                  Positioned(
+                    top: 8.0,
+                    left: 8.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black12),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          _scaffoldKey.currentState?.openDrawer();
+                        },
+                        icon: Icon(Icons.menu),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            )
-          : null,
-      body: Platform.isWindows || Platform.isMacOS || Platform.isLinux
-          ? Stack(
-              children: [
-                Row(
-                  children: <Widget>[
-                    /// Create a blank space for SideNavigationBar in desktop platform to live in
-                    SizedBox(
-                      width: isExpanded && isLarge ? 250 : 58,
-                    ),
-
-                    /// PageView where different pages live on
-                    /// Desktop platform
-                    Expanded(
-                      child: PageView(
-                        controller: pageController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: pages,
-                      ),
-                    ),
-                  ],
-                ),
-
-                /// Side navigation bar for desktop devices
-                SideNavigationBar(
-                  isExpanded: isExpanded,
-                  navigationItem: [
-                    NavigationItem(
-                      title: "", //Menu
-                      isExpanded: isExpanded,
-                      icon: Icons.menu,
-                      onPressed: () {
-                        setState(() {
-                          isExpanded = !isExpanded;
-                        });
-                      },
-                    ),
-                    NavigationItem(
-                      title: "Search",
-                      isExpanded: isExpanded,
-                      icon: Icons.search,
-                      onPressed: () {
-                        _jumpToSelectedPage(0, false);
-                      },
-                    ),
-                    Divider(),
-                    NavigationItem(
-                      title: "History",
-                      isExpanded: isExpanded,
-                      icon: Icons.history,
-                      onPressed: () {
-                        _jumpToSelectedPage(1, false);
-                      },
-                    ),
-                    Divider(),
-                    NavigationItem(
-                      title: "Community",
-                      isExpanded: isExpanded,
-                      icon: Icons.chat_bubble_outline,
-                      onPressed: () {
-                        _jumpToSelectedPage(2, false);
-                      },
-                    ),
-                    const Spacer(),
-                    Divider(),
-                    NavigationItem(
-                      title: "Settings",
-                      isExpanded: isExpanded,
-                      icon: Icons.settings,
-                      onPressed: () {
-                        _jumpToSelectedPage(3, false);
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            )
-
-          /// PageView where different pages live on
-          /// Mobile platform
-          : Row(
-              children: [
-                Expanded(
-                  child: PageView(
-                    controller: pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: pages,
-                  ),
-                ),
-              ],
-            ),
+      ),
     );
   }
 }
