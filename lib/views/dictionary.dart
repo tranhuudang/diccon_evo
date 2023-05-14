@@ -87,7 +87,7 @@ class _DictionaryViewState extends State<DictionaryView>
     return Scaffold(
       appBar: Header(title: Global.DICTIONARY, icon: Icons.search, actions: [
         IconButton(onPressed: (){
-          Global.pageController.jumpToPage(AppViews.HistoryView.index);
+          Global.pageController.jumpToPage(AppViews.historyView.index);
         }, icon: Icon(Icons.history))
       ],),
       body: Column(

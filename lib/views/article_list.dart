@@ -8,52 +8,61 @@ class Article {
   Article({required this.title, required this.imageUrl});
 }
 
-
 class temple {
   static List<Article> articles = [
     Article(
-      title: 'Câu chuyện về một chàng hề cưỡimmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm ngựa trắng trên đỉnh núi xanh ở nam cực.',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
+      title:
+          'Câu chuyện về một chàng hề cưỡimmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm ngựa trắng trên đỉnh núi xanh ở nam cực.',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
     ),
     Article(
       title: 'Article 2',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
     ),
     Article(
       title: 'Article 1',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
     ),
     Article(
       title: 'Article 2',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
     ),
     Article(
       title: 'Article 1',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
     ),
     Article(
       title: 'Article 2',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
     ),
     Article(
       title: 'Article 1',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
     ),
     Article(
       title: 'Article 2',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
     ),
     // Add more articles as needed
   ];
 }
 
-
-
 class ArticleListView extends StatelessWidget {
+  const ArticleListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header(title: 'Reading articles',),
+      appBar:
+          const Header(title: 'Reading time', icon: Icons.chrome_reader_mode),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
@@ -90,7 +99,7 @@ class ArticleListView extends StatelessWidget {
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
-borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       width: 300,
                       child: Row(

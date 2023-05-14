@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:diccon_evo/viewModels/data_manager.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
+import 'package:diccon_evo/viewModels/platform_check.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -72,170 +73,80 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: Platform.isAndroid || Platform.isIOS
-
-            /// Drawer for mobile platform navigation
-            ? Drawer(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: <Widget>[
-                    const DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                      child: Text(
-                        Global.DICCON_DICTIONARY,
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                    ),
-                    ListTile(
-                      title: const Text(Global.DICTIONARY),
-                      onTap: () {
-                        _jumpToSelectedPage(
-                            AppViews.DictionaryView.index, true);
-                      },
-                    ),
-                    ListTile(
-                      title: const Text(Global.HISTORY),
-                      onTap: () {
-                        _jumpToSelectedPage(AppViews.HistoryView.index, true);
-                      },
-                    ),
-                    // ListTile(
-                    //   title: const Text(Global.COMMUNITY),
-                    //   onTap: () {
-                    //     _jumpToSelectedPage(AppViews,CommunityView.index, true);
-                    //   },
-                    //),
-                  ],
+        body: Stack(
+          children: [
+            Row(
+              children: <Widget>[
+                /// Create a blank space for SideNavigationBar in desktop platform to live in
+                SizedBox(
+                  width: isExpanded && isLarge ? 250 : 58,
                 ),
-              )
-            : null,
-        body: Platform.isWindows || Platform.isMacOS || Platform.isLinux
-            ? Stack(
-                children: [
-                  Row(
-                    children: <Widget>[
-                      /// Create a blank space for SideNavigationBar in desktop platform to live in
-                      SizedBox(
-                        width: isExpanded && isLarge ? 250 : 58,
-                      ),
-
-                      /// PageView where different pages live on
-                      /// Desktop platform
-                      Expanded(
-                        child: PageView(
-                          controller: Global.pageController,
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: Global.pages,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  /// Side navigation bar for desktop devices
-                  SideNavigationBar(
-                    isExpanded: isExpanded,
-                    navigationItem: [
-                      NavigationItem(
-                        title: "", //Menu
-                        isExpanded: isExpanded,
-                        icon: Icons.menu,
-                        onPressed: () {
-                          setState(() {
-                            isExpanded = !isExpanded;
-                          });
-                        },
-                      ),
-
-                      Divider(),
-                      NavigationItem(
-                        title: "Listening",
-                        isExpanded: isExpanded,
-                        icon: Icons.headphones,
-                        onPressed: () {
-                          _jumpToSelectedPage(2, false);
-                        },
-                      ),
-                      Divider(),
-                      NavigationItem(
-                        title: "Reading",
-                        isExpanded: isExpanded,
-                        icon: Icons.chrome_reader_mode,
-                        onPressed: () {
-                          _jumpToSelectedPage(AppViews.ArticleListView.index, false);
-                        },
-                      ),
-                      Divider(),
-                      NavigationItem(
-                        title: "Writing",
-                        isExpanded: isExpanded,
-                        icon: Icons.draw_outlined,
-                        onPressed: () {
-                          _jumpToSelectedPage(2, false);
-                        },
-                      ),
-                      const Spacer(),
-                      Divider(),
-                      NavigationItem(
-                        title: "Dictionary",
-                        isExpanded: isExpanded,
-                        icon: Icons.search,
-                        onPressed: () {
-                          _jumpToSelectedPage(0, false);
-                        },
-                      ),
-                      // Divider(),
-                      // NavigationItem(
-                      //   title: "History",
-                      //   isExpanded: isExpanded,
-                      //   icon: Icons.history,
-                      //   onPressed: () {
-                      //     _jumpToSelectedPage(1, false);
-                      //   },
-                      // ),
-                      Divider(),
-                      NavigationItem(
-                        title: "Settings",
-                        isExpanded: isExpanded,
-                        icon: Icons.settings,
-                        onPressed: () {
-                          _jumpToSelectedPage(
-                              AppViews.SettingsView.index, false);
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              )
-
-            /// PageView where different pages live on
-            /// Mobile platform
-            : Stack(
-                children: [
-                  PageView(
+                /// PageView where different pages live on
+                /// Desktop platform
+                Expanded(
+                  child: PageView(
                     controller: Global.pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     children: Global.pages,
                   ),
-                  Positioned(
-                    top: 8.0,
-                    left: 8.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black12),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          _scaffoldKey.currentState?.openDrawer();
-                        },
-                        icon: Icon(Icons.menu),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
+            ),
+            /// Side navigation bar for desktop devices
+            SideNavigationBar(
+              isExpanded: isExpanded,
+              navigationItem: [
+                NavigationItem(
+                  title: "", //Menu
+                  isExpanded: isExpanded,
+                  icon: Icons.menu,
+                  onPressed: () {
+                    setState(() {
+                      isExpanded = !isExpanded;
+                    });
+                  },
+                ),
+                Divider(),
+                NavigationItem(
+                  title: "Reading",
+                  isExpanded: isExpanded,
+                  icon: Icons.chrome_reader_mode,
+                  onPressed: () {
+                    _jumpToSelectedPage(AppViews.articleListView.index, false);
+                  },
+                ),
+                Divider(),
+                NavigationItem(
+                  title: "Writing",
+                  isExpanded: isExpanded,
+                  icon: Icons.draw_outlined,
+                  onPressed: () {
+                    _jumpToSelectedPage(AppViews.writingView.index, false);
+                  },
+                ),
+                const Spacer(),
+                Divider(),
+                NavigationItem(
+                  title: "Dictionary",
+                  isExpanded: isExpanded,
+                  icon: Icons.search,
+                  onPressed: () {
+                    _jumpToSelectedPage(AppViews.dictionaryView.index, false);
+                  },
+                ),
+                Divider(),
+                NavigationItem(
+                  title: "Settings",
+                  isExpanded: isExpanded,
+                  icon: Icons.settings,
+                  onPressed: () {
+                    _jumpToSelectedPage(AppViews.settingsView.index, false);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
