@@ -1,59 +1,9 @@
 import 'package:diccon_evo/components/header.dart';
+import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';
 
-class Article {
-  final String title;
-  final String imageUrl;
+import '../global.dart';
 
-  Article({required this.title, required this.imageUrl});
-}
-
-class temple {
-  static List<Article> articles = [
-    Article(
-      title:
-          'Câu chuyện về một chàng hề cưỡimmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm ngựa trắng trên đỉnh núi xanh ở nam cực.',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
-    ),
-    Article(
-      title: 'Article 2',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
-    ),
-    Article(
-      title: 'Article 1',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
-    ),
-    Article(
-      title: 'Article 2',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
-    ),
-    Article(
-      title: 'Article 1',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
-    ),
-    Article(
-      title: 'Article 2',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
-    ),
-    Article(
-      title: 'Article 1',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1200px-Sunflower_from_Silesia2.jpg',
-    ),
-    Article(
-      title: 'Article 2',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg',
-    ),
-    // Add more articles as needed
-  ];
-}
 
 class ArticleListView extends StatelessWidget {
   const ArticleListView({super.key});
@@ -81,7 +31,7 @@ class ArticleListView extends StatelessWidget {
           }
 
           return GridView.builder(
-            itemCount: temple.articles.length,
+            itemCount: Global.defaultArticleList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
               childAspectRatio: 7 / 3, // Adjust the aspect ratio as needed
@@ -92,6 +42,13 @@ class ArticleListView extends StatelessWidget {
                   onTap: () {
                     // Handle tap on article
                     // For example, navigate to article details page
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ArticlePageView(
+                                  content: Global.defaultArticleList[index].content,
+                                  title: Global.defaultArticleList[index].title,
+                                )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8),
@@ -105,23 +62,48 @@ class ArticleListView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Image.network(
-                              temple.articles[index].imageUrl,
-                              height: 100.0,
-                              width: 100.0,
-                              fit: BoxFit.cover,
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.network(
+                                Global.defaultArticleList[index].imageUrl ?? '',
+                                height: 100.0,
+                                width: 100.0,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                           SizedBox(width: 8.0),
                           Flexible(
-                            child: SingleChildScrollView(
-                              physics: NeverScrollableScrollPhysics(),
-                              child: Text(
-                                temple.articles[index].title,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 16.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SingleChildScrollView(
+                                physics: NeverScrollableScrollPhysics(),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      Global.defaultArticleList[index].title,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      Global.defaultArticleList[index].shortDescription,
+                                      textAlign: TextAlign.justify,
+                                      style: TextStyle(fontSize: 12.0, color: Colors.black45),
+                                    ),
+
+                                  ],
+                                ),
                               ),
                             ),
                           ),

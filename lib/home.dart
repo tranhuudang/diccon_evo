@@ -53,6 +53,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   loadUpData() async {
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
     Global.wordList = await getWordList();
+    Global.defaultArticleList = await FileHandler.readDefaultStories();
   }
 
   /// Helper method to update the selected page and collapse the navigation
@@ -108,6 +109,15 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                 ),
                 Divider(),
                 NavigationItem(
+                  title: "Dictionary",
+                  isExpanded: isExpanded,
+                  icon: Icons.search,
+                  onPressed: () {
+                    _jumpToSelectedPage(AppViews.dictionaryView.index, false);
+                  },
+                ),
+                Divider(),
+                NavigationItem(
                   title: "Reading",
                   isExpanded: isExpanded,
                   icon: Icons.chrome_reader_mode,
@@ -125,15 +135,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   },
                 ),
                 const Spacer(),
-                Divider(),
-                NavigationItem(
-                  title: "Dictionary",
-                  isExpanded: isExpanded,
-                  icon: Icons.search,
-                  onPressed: () {
-                    _jumpToSelectedPage(AppViews.dictionaryView.index, false);
-                  },
-                ),
+
                 Divider(),
                 NavigationItem(
                   title: "Settings",

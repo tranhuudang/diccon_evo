@@ -27,7 +27,7 @@ class _ClickableWordsState extends State<ClickableWords> {
         children: [
           for (var i = 0; i < words.length; i++)
             TextSpan(
-              text: words[i] + ' ',
+              text: '${words[i]} ',
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   widget.onWordTap(words[i]);

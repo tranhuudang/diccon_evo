@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:diccon_evo/global.dart';
+import 'package:diccon_evo/models/article.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/word.dart';
 
@@ -85,5 +87,22 @@ class FileHandler {
       }
       return [];
     }
+  }
+
+  /// Read default stories data
+  static Future<String> loadAssetFile(String filePath) async {
+    return await rootBundle.loadString(filePath);
+  }
+
+  static Future<List<Article>> readDefaultStories() async {
+    String contents = await loadAssetFile('assets/stories/default.json');
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<Article> articles =
+          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
+          return articles;
+        } else {
+          return [];
+        }
   }
 }
