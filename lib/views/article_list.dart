@@ -1,9 +1,8 @@
 import 'package:diccon_evo/components/header.dart';
 import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../global.dart';
-
 
 class ArticleListView extends StatelessWidget {
   const ArticleListView({super.key});
@@ -46,7 +45,8 @@ class ArticleListView extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ArticlePageView(
-                                  content: Global.defaultArticleList[index].content,
+                                  content:
+                                      Global.defaultArticleList[index].content,
                                   title: Global.defaultArticleList[index].title,
                                 )));
                   },
@@ -72,22 +72,30 @@ class ArticleListView extends StatelessWidget {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(13),
-                              child: Image.network(
-
-                                Global.defaultArticleList[index].imageUrl ?? '',
+                              child: CachedNetworkImage(
+                                placeholder: (context, url) =>
+                                    const LinearProgressIndicator(
+                                      backgroundColor: Colors.black45,
+                                  color: Colors.black54,
+                                ),
+                                imageUrl:
+                                    Global.defaultArticleList[index].imageUrl ??
+                                        '',
                                 height: 100.0,
                                 width: 100.0,
                                 fit: BoxFit.cover,
-                                errorBuilder: (context, Object exception, StackTrace? stackTrace){
+                                errorWidget: (context, String exception,
+                                    dynamic stackTrace) {
                                   return Container(
                                     width: 100.0,
                                     height: 100.0,
-                                    color: Colors.grey, // Display a placeholder color or image
+                                    color: Colors
+                                        .grey, // Display a placeholder color or image
                                     child: Center(
                                       child: Text('No Image'),
                                     ),
                                   );
-                                } ,
+                                },
                               ),
                             ),
                           ),
@@ -108,11 +116,13 @@ class ArticleListView extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      Global.defaultArticleList[index].shortDescription,
+                                      Global.defaultArticleList[index]
+                                          .shortDescription,
                                       textAlign: TextAlign.justify,
-                                      style: TextStyle(fontSize: 12.0, color: Colors.black45),
+                                      style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.black45),
                                     ),
-
                                   ],
                                 ),
                               ),

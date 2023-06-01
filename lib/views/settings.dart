@@ -19,36 +19,38 @@ class _SettingsViewState extends State<SettingsView> {
         icon: Icons.settings,
         title: "Settings",
       ),
-      body: Container(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SettingSection(
-              title: 'Reading Section',
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.text_increase),
-                    Slider(
-                        min: 0.1,
-                        value: Global.readingFontSizeSliderValue,
-                        onChanged: (newValue) {
-                          setState(() {
-                            Global.readingFontSizeSliderValue = newValue;
-                            Global.readingFontSize = newValue * 70;
-                          });
-                        })
-                  ],
-                ),
-                Text(
-                  "Sample text that will be displayed on Reading.",
-                  style: TextStyle(fontSize: Global.readingFontSize),
-                )
-              ],
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SettingSection(
+                title: 'Reading Section',
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.text_increase),
+                      Slider(
+                          min: 0.1,
+                          value: Global.readingFontSizeSliderValue,
+                          onChanged: (newValue) {
+                            setState(() {
+                              Global.readingFontSizeSliderValue = newValue;
+                              Global.readingFontSize = newValue * 70;
+                            });
+                          })
+                    ],
+                  ),
+                  Text(
+                    "Sample text that will be displayed on Reading.",
+                    style: TextStyle(fontSize: Global.readingFontSize),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
