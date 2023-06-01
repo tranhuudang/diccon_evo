@@ -24,6 +24,8 @@ class Global {
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
   // All view in application
+  static double readingFontSizeSliderValue = 0.2;
+  static double readingFontSize = 16;
   static List<Widget> pages =  [
     DictionaryView(),
 

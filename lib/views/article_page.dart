@@ -30,6 +30,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
     return await translator.translate(word, from: 'auto', to: 'vi');
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +44,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -59,8 +61,9 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                         paragraph.isNotEmpty
                             ? ClickableWords(
                                 text: paragraph,
-                                style: const TextStyle(
+                                style:  TextStyle(
                                   color: Colors.black,
+                                  fontSize: Global.readingFontSize,
                                   //fontWeight: FontWeight.bold,
                                 ),
                                 onWordTap: (value) {
@@ -75,6 +78,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                                   });
                                 })
                             : Container(),
+                        SizedBox(height: 5,)
                       ],
                     );
                   }).toList(),
@@ -104,4 +108,5 @@ class _ArticlePageViewState extends State<ArticlePageView> {
       ),
     );
   }
+
 }

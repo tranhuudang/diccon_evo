@@ -71,12 +71,23 @@ class ArticleListView extends StatelessWidget {
                               ),
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(13),
                               child: Image.network(
+
                                 Global.defaultArticleList[index].imageUrl ?? '',
                                 height: 100.0,
                                 width: 100.0,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, Object exception, StackTrace? stackTrace){
+                                  return Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    color: Colors.grey, // Display a placeholder color or image
+                                    child: Center(
+                                      child: Text('No Image'),
+                                    ),
+                                  );
+                                } ,
                               ),
                             ),
                           ),

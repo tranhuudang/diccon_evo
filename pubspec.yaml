@@ -104,5 +104,5 @@ msix_config:
   publisher_display_name: Zeroboy
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
-  msix_version: 1.0.1.0
+  msix_version: 1.0.2.0
   store: true

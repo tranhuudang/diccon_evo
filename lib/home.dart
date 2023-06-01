@@ -125,15 +125,15 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                     _jumpToSelectedPage(AppViews.articleListView.index, false);
                   },
                 ),
-                Divider(),
-                NavigationItem(
-                  title: "Writing",
-                  isExpanded: isExpanded,
-                  icon: Icons.draw_outlined,
-                  onPressed: () {
-                    _jumpToSelectedPage(AppViews.writingView.index, false);
-                  },
-                ),
+                // Divider(),
+                // NavigationItem(
+                //   title: "Writing",
+                //   isExpanded: isExpanded,
+                //   icon: Icons.draw_outlined,
+                //   onPressed: () {
+                //     _jumpToSelectedPage(AppViews.writingView.index, false);
+                //   },
+                // ),
                 const Spacer(),
 
                 Divider(),
