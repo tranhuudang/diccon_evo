@@ -61,11 +61,8 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                         paragraph.isNotEmpty
                             ? ClickableWords(
                                 text: paragraph,
-                                style:  TextStyle(
-                                  color: Colors.black,
-                                  fontSize: Global.readingFontSize,
-                                  //fontWeight: FontWeight.bold,
-                                ),
+                                fontSize: Global.readingFontSize,
+                                textColor: Colors.black,
                                 onWordTap: (value) {
                                   setState(() {
                                     isTranslating = true;

@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/article_page.dart';
 import 'package:diccon_evo/views/dictionary.dart';
 import 'package:diccon_evo/views/history.dart';
 import 'package:diccon_evo/views/settings.dart';
 import 'package:diccon_evo/views/writing.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'models/article.dart';
 import 'models/word.dart';
 import 'package:flutter/material.dart';
@@ -47,4 +49,19 @@ class Global {
   static const String VE_DATA_PATH = 'assets/dictionary/diccon_ve.txt';
   static const String BLANK_SPACE = ' ';
   static const String HISTORY_FILENAME = 'history.json';
+
+  static void saveSettings(double newReadingFontSize, double newReadingFontSizeSliderValue) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('readingFontSize', newReadingFontSize);
+    await prefs.setDouble('readingFontSizeSliderValue', newReadingFontSizeSliderValue);
+  }
+
+  static Future<bool> getSettings() async {
+    Completer complete = Completer();
+    var prefs = await SharedPreferences.getInstance();
+    complete.complete(prefs);
+    readingFontSize = prefs.getDouble('readingFontSize') ?? readingFontSize;
+    readingFontSizeSliderValue = prefs.getDouble('readingFontSizeSliderValue') ?? readingFontSizeSliderValue;
+    return true;
+  }
 }

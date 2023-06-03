@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class ClickableWords extends StatefulWidget {
   final String text;
   final TextStyle? style;
+  final Color? textColor;
+  final double? fontSize;
   final Function(String) onWordTap;
 
   ClickableWords({
     required this.text,
-    required this.onWordTap, this.style,
+    required this.onWordTap, this.style, this.textColor, this.fontSize,
   });
 
   @override
@@ -43,7 +45,8 @@ class _ClickableWordsState extends State<ClickableWords> {
                 });
               },
               style: widget.style ?? TextStyle(
-                color: Colors.white,
+                color: widget.textColor ?? Colors.white,
+                fontSize: widget.fontSize,
                 decoration: _hoverIndex == i ? TextDecoration.underline: TextDecoration.none,
               )
               ,

@@ -58,6 +58,8 @@ dev_dependencies:
   msix: ^3.12.1
   translator: ^0.1.7
   cached_network_image: ^3.2.3
+  # Save settings
+  shared_preferences: ^2.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

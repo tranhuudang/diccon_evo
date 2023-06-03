@@ -30,6 +30,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   void initState() {
     super.initState();
     loadUpData();
+    Global.getSettings();
     WindowManager.instance.addListener(this);
   }
 

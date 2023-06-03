@@ -2,6 +2,7 @@ import 'package:diccon_evo/components/header.dart';
 import 'package:diccon_evo/components/welcome_box.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
 import 'package:diccon_evo/viewModels/word_handler.dart';
+import 'package:flutter/foundation.dart';
 import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,6 @@ class _DictionaryViewState extends State<DictionaryView>
     try {
       /// This line is the skeleton of finding word in dictionary
       wordResult = Searching.getDefinition(searchWord);
-      print(wordResult);
       if (wordResult!= null) {
         /// Right bubble represent machine reply
         _messages.add(DictionaryBubble(
@@ -79,7 +79,9 @@ class _DictionaryViewState extends State<DictionaryView>
         });
       }
     } catch (e) {
-      print("Exception is thrown when searching in dictionary");
+      if (kDebugMode) {
+        print("Exception is thrown when searching in dictionary");
+      }
       /// When a word can't be found. It'll show a message to notify that error.
       _messages.add(const Row(
         mainAxisAlignment: MainAxisAlignment.center,

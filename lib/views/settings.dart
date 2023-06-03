@@ -36,9 +36,12 @@ class _SettingsViewState extends State<SettingsView> {
                           min: 0.1,
                           value: Global.readingFontSizeSliderValue,
                           onChanged: (newValue) {
+
                             setState(() {
                               Global.readingFontSizeSliderValue = newValue;
                               Global.readingFontSize = newValue * 70;
+                              Global.saveSettings(Global.readingFontSize,
+                                  Global.readingFontSizeSliderValue);
                             });
                           })
                     ],
