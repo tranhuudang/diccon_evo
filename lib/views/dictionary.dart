@@ -2,7 +2,7 @@ import 'package:diccon_evo/components/header.dart';
 import 'package:diccon_evo/components/welcome_box.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
 import 'package:diccon_evo/viewModels/word_handler.dart';
-import 'package:diccon_evo/views/history.dart';
+import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
 
 import '../global.dart';
@@ -23,6 +23,7 @@ class _DictionaryViewState extends State<DictionaryView>
   final TextEditingController _textController = TextEditingController();
   final ScrollController _chatListController = ScrollController();
   final FocusNode _textFieldFocusNode = FocusNode();
+  final translator = GoogleTranslator();
 
   @override
   void initState() {
@@ -36,34 +37,53 @@ class _DictionaryViewState extends State<DictionaryView>
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+  Future<Translation> translate(String word) async {
+    return await translator.translate(word, from: 'auto', to: 'vi');
+  }
+
   void _handleSubmitted(String searchWord) async {
     _textController.clear();
-
+    Word? wordResult;
     var emptyWord = Word(word: searchWord);
 
     /// Add left bubble as user message
     _messages.add(DictionaryBubble(isMachine: false, message: emptyWord));
     try {
       /// This line is the skeleton of finding word in dictionary
-      Word? wordResult = Searching.getDefinition(searchWord);
+      wordResult = Searching.getDefinition(searchWord);
+      print(wordResult);
+      if (wordResult!= null) {
+        /// Right bubble represent machine reply
+        _messages.add(DictionaryBubble(
+          isMachine: true,
+          message: wordResult!,
+          onWordTap: (clickedWord) {
+            clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
+            _handleSubmitted(clickedWord);
+          },
+        ));
 
-      /// Right bubble represent machine reply
-      _messages.add(DictionaryBubble(
-        isMachine: true,
-        message: wordResult!,
-        onWordTap: (clickedWord) {
-          clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
-          _handleSubmitted(clickedWord);
-        },
-      ));
-
-      /// Add found word to history file
-      await FileHandler.saveToHistory(wordResult);
+        /// Add found word to history file
+        await FileHandler.saveToHistory(wordResult);
+      }
+      else {
+        await translate(searchWord).then((translatedWord) {
+          _messages.add(DictionaryBubble(
+            isMachine: true,
+            message: Word(word: searchWord, meaning: translatedWord.text),
+            onWordTap: (clickedWord) {
+              clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
+              _handleSubmitted(clickedWord);
+            },
+          ));
+        });
+      }
     } catch (e) {
+      print("Exception is thrown when searching in dictionary");
       /// When a word can't be found. It'll show a message to notify that error.
-      _messages.add(Row(
+      _messages.add(const Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text("Sorry, we couldn't find this word at this time.")
         ],
       ));
