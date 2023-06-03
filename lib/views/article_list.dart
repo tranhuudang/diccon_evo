@@ -10,8 +10,11 @@ class ArticleListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          const Header(title: 'Reading time', icon: Icons.chrome_reader_mode),
+      appBar: Header(
+        title: 'Reading time',
+        icon: Icons.chrome_reader_mode,
+
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
@@ -75,7 +78,7 @@ class ArticleListView extends StatelessWidget {
                               child: CachedNetworkImage(
                                 placeholder: (context, url) =>
                                     const LinearProgressIndicator(
-                                      backgroundColor: Colors.black45,
+                                  backgroundColor: Colors.black45,
                                   color: Colors.black54,
                                 ),
                                 imageUrl:

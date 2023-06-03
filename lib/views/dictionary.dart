@@ -52,7 +52,7 @@ class _DictionaryViewState extends State<DictionaryView>
     try {
       /// This line is the skeleton of finding word in dictionary
       wordResult = Searching.getDefinition(searchWord);
-      if (wordResult!= null) {
+      if (wordResult != null) {
         /// Right bubble represent machine reply
         _messages.add(DictionaryBubble(
           isMachine: true,
@@ -65,8 +65,7 @@ class _DictionaryViewState extends State<DictionaryView>
 
         /// Add found word to history file
         await FileHandler.saveToHistory(wordResult);
-      }
-      else {
+      } else {
         await translate(searchWord).then((translatedWord) {
           _messages.add(DictionaryBubble(
             isMachine: true,
@@ -82,12 +81,11 @@ class _DictionaryViewState extends State<DictionaryView>
       if (kDebugMode) {
         print("Exception is thrown when searching in dictionary");
       }
+
       /// When a word can't be found. It'll show a message to notify that error.
       _messages.add(const Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Sorry, we couldn't find this word at this time.")
-        ],
+        children: [Text("Sorry, we couldn't find this word at this time.")],
       ));
     }
     setState(() {});
@@ -107,14 +105,19 @@ class _DictionaryViewState extends State<DictionaryView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: Header(title: Global.DICTIONARY, icon: Icons.search, actions: [
-        IconButton(onPressed: (){
-          Global.pageController.jumpToPage(AppViews.historyView.index);
-        }, icon: Icon(Icons.history))
-      ],),
+      appBar: Header(
+        title: Global.DICTIONARY,
+        icon: Icons.search,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Global.pageController.jumpToPage(AppViews.historyView.index);
+              },
+              icon: Icon(Icons.history))
+        ],
+      ),
       body: Column(
         children: [
-
           Expanded(
             /// List of all bubble messages on a conversation
             child: ListView.builder(
