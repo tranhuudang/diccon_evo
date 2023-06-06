@@ -25,6 +25,7 @@ enum AppViews {
 class Global {
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
+  static Map<String, List<String>> synonymsData = {};
   // All view in application
   static double readingFontSizeSliderValue = 0.2;
   static double readingFontSize = 16;
@@ -49,6 +50,7 @@ class Global {
   static const String VE_DATA_PATH = 'assets/dictionary/diccon_ve.txt';
   static const String BLANK_SPACE = ' ';
   static const String HISTORY_FILENAME = 'history.json';
+
 
   static void saveSettings(double newReadingFontSize, double newReadingFontSizeSliderValue) async {
     var prefs = await SharedPreferences.getInstance();

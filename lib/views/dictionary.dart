@@ -1,11 +1,13 @@
 import 'package:diccon_evo/components/header.dart';
 import 'package:diccon_evo/components/welcome_box.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
+import 'package:diccon_evo/viewModels/synonyms_dictionary.dart';
 import 'package:diccon_evo/viewModels/word_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
 
+import '../components/brick_wall_buttons.dart';
 import '../global.dart';
 import '../models/word.dart';
 import '../components/dictionary_buble.dart';
@@ -25,6 +27,12 @@ class _DictionaryViewState extends State<DictionaryView>
   final ScrollController _chatListController = ScrollController();
   final FocusNode _textFieldFocusNode = FocusNode();
   final translator = GoogleTranslator();
+  final SynonymsDictionary synonymsDictionary = SynonymsDictionary();
+  late List<String> _listSynonyms = [];
+  bool hasImages = false;
+  bool hasAntonyms = false;
+  bool hasSynonyms = false;
+  bool needCorrector = false;
 
   @override
   void initState() {
@@ -38,12 +46,33 @@ class _DictionaryViewState extends State<DictionaryView>
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+  void resetSuggestion() {
+    setState(() {
+      hasImages = false;
+      hasAntonyms = false;
+      hasSynonyms = false;
+      needCorrector = false;
+    });
+  }
+
   Future<Translation> translate(String word) async {
     return await translator.translate(word, from: 'auto', to: 'vi');
   }
 
+  void scrollToBottom() {
+    /// Delay the scroll animation until after the list has been updated
+    Future.delayed(const Duration(milliseconds: 300), () {
+      _chatListController.animateTo(
+        _chatListController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
   void _handleSubmitted(String searchWord) async {
     _textController.clear();
+    resetSuggestion();
     Word? wordResult;
     var emptyWord = Word(word: searchWord);
 
@@ -65,6 +94,14 @@ class _DictionaryViewState extends State<DictionaryView>
 
         /// Add found word to history file
         await FileHandler.saveToHistory(wordResult);
+
+        /// Get and add list synonyms to message box
+        _listSynonyms = synonymsDictionary.getSynonyms(searchWord);
+        if (_listSynonyms.isNotEmpty) {
+          setState(() {
+            hasSynonyms = true;
+          });
+        }
       } else {
         await translate(searchWord).then((translatedWord) {
           _messages.add(DictionaryBubble(
@@ -92,13 +129,7 @@ class _DictionaryViewState extends State<DictionaryView>
     _textFieldFocusNode.requestFocus();
 
     /// Delay the scroll animation until after the list has been updated
-    Future.delayed(const Duration(milliseconds: 300), () {
-      _chatListController.animateTo(
-        _chatListController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
+    scrollToBottom();
   }
 
   @override
@@ -128,6 +159,51 @@ class _DictionaryViewState extends State<DictionaryView>
               },
             ),
           ),
+          SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 16,
+                  ),
+                  needCorrector
+                      ? const SuggestedItem(
+                          title: 'Corrector',
+                          backgroundColor: Colors.orange,
+                        )
+                      : Container(),
+                  hasSynonyms
+                      ? SuggestedItem(
+                          onPressed: () {
+                            setState(() {
+                              _messages.add(BrickWallButtons(
+                                stringList: _listSynonyms,
+                                itemOnPressed: (clickedWord) {
+                                  clickedWord =
+                                      WordHandler.removeSpecialCharacters(
+                                          clickedWord);
+                                  _handleSubmitted(clickedWord);
+                                },
+                              ));
+                              hasSynonyms = false;
+                            });
+                            scrollToBottom();
+                          },
+                          title: 'Synonyms',
+                        )
+                      : Container(),
+                  hasAntonyms
+                      ? const SuggestedItem(
+                          title: 'Antonyms',
+                        )
+                      : Container(),
+                  hasImages
+                      ? SuggestedItem(
+                          title: 'Images',
+                        )
+                      : Container(),
+                ],
+              )),
 
           /// TextField for user to enter their words
           Container(
@@ -157,6 +233,38 @@ class _DictionaryViewState extends State<DictionaryView>
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SuggestedItem extends StatefulWidget {
+  final String title;
+  final VoidCallback? onPressed;
+  final Color? backgroundColor;
+  const SuggestedItem(
+      {super.key, required this.title, this.onPressed, this.backgroundColor});
+
+  @override
+  State<SuggestedItem> createState() => _SuggestedItemState();
+}
+
+class _SuggestedItemState extends State<SuggestedItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: widget.backgroundColor ?? Colors.grey[800],
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: TextButton(
+            onPressed: widget.onPressed ?? () {},
+            child: Text(
+              widget.title,
+              style: TextStyle(color: Colors.white),
+            )),
       ),
     );
   }

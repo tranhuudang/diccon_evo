@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/dictionary/
     - assets/stories/
+    - assets/synonyms/english_synonyms.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -108,5 +109,6 @@ msix_config:
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
   msix_version: 1.0.3.0
+  logo_path: C:\Users\zero\StudioProjects\diccon_evo\windows\runner\resources\app_icon.ico
   store: true
 

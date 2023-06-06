@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:diccon_evo/viewModels/data_manager.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
 import 'package:diccon_evo/viewModels/platform_check.dart';
+import 'package:diccon_evo/viewModels/synonyms_dictionary.dart';
+import 'package:diccon_evo/viewModels/synonyms_dictionary.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -22,6 +24,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   bool isExpanded = false;
   bool isLarge = false;
+  SynonymsDictionary synonymsDictionary = SynonymsDictionary();
   Future<List<Word>> readHistory() async {
     return await FileHandler.readHistory();
   }
@@ -30,6 +33,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   void initState() {
     super.initState();
     loadUpData();
+    synonymsDictionary.loadSynonymsData();
     Global.getSettings();
     WindowManager.instance.addListener(this);
   }
