@@ -64,6 +64,24 @@ class FileHandler {
     }
   }
 
+
+  static Future<bool> clearHistory() async {
+    final filePath = await getLocalFilePath(Global.HISTORY_FILENAME);
+    try {
+      final file = File(filePath);
+      file.delete();
+      if (kDebugMode) {
+        print('Text file cleared successfully.');
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Failed to clear text file: $e');
+      }
+      return false;
+    }
+  }
+
   static Future<List<Word>> readHistory() async {
     final filePath = await getLocalFilePath(Global.HISTORY_FILENAME);
     try {

@@ -48,13 +48,18 @@ class _HistoryViewState extends State<HistoryView> {
               child: const Text("Reverse List"),
               onTap: () async {
                 words = words.reversed.toList();
-
                 setState(() {});
               },
             ),
             PopupMenuItem(
               child: const Text("Clear all"),
-              onTap: () async {},
+              onTap: () async {
+                FileHandler.clearHistory();
+                setState(() {
+                  words = List.empty();
+                });
+
+              },
             ),
           ],
         ),
