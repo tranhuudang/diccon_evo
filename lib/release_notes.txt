@@ -1,0 +1,1 @@
+Don't forget to check msix config for icon's path in pubspec.yaml. The path might be not right as we change the location path.
