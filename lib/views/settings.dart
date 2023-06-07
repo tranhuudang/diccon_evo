@@ -25,25 +25,58 @@ class _SettingsViewState extends State<SettingsView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SettingSection(title: 'Dictionary Section', children: [
+                Row(children: [
+                  const Text("Number of synonyms"),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  DropdownButton<int>(
+                    focusColor: Colors.white,
+                    value: Global.numberOfSynonyms,
+                    hint: Text('Select a number'),
+                    onChanged: (int? newValue) {
+                      setState(() {
+                        Global.numberOfSynonyms = newValue!;
+                      });
+                    },
+                    items: [
+                      DropdownMenuItem<int>(
+                        value: 10,
+                        child: Text(10.toString()),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: 20,
+                        child: Text(20.toString()),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: 30,
+                        child: Text(30.toString()),
+                      ),
+                    ],
+                  ),
+                ])
+              ]),
               SettingSection(
                 title: 'Reading Section',
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.text_increase),
+                      const Icon(Icons.text_increase),
                       Slider(
                           min: 0.1,
                           value: Global.readingFontSizeSliderValue,
                           onChanged: (newValue) {
-
                             setState(() {
                               Global.readingFontSizeSliderValue = newValue;
                               Global.readingFontSize = newValue * 70;
-                              Global.saveSettings(Global.readingFontSize,
-                                  Global.readingFontSizeSliderValue);
+                              Global.saveSettings(
+                                  Global.readingFontSize,
+                                  Global.readingFontSizeSliderValue,
+                                  Global.numberOfSynonyms);
                             });
-                          })
+                          }),
                     ],
                   ),
                   Text(

@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import '../global.dart';
 
 class SynonymsDictionary {
-  //Map<String, List<String>> _synonymsData = {};
-
   Future<void> loadSynonymsData() async {
     String jsonString =
         await rootBundle.loadString('assets/synonyms/english_synonyms.json');
@@ -17,6 +15,7 @@ class SynonymsDictionary {
 
   /// Return a list of String synonyms for provided word and return [] if nothing found
   List<String> getSynonyms(String word) {
-    return Global.synonymsData[word] ?? [];
+    List<String> synonyms = Global.synonymsData[word] ?? [];
+    return synonyms.take(Global.numberOfSynonyms).toList();
   }
 }
