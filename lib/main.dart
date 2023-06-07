@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 import 'global.dart';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,9 +16,7 @@ void main() async {
   }
 
   runApp( const ProgramRoot());
-  doWhenWindowReady(() {
-    appWindow.show();
-  });
+
 }
 
 class ProgramRoot extends StatelessWidget {
@@ -28,6 +26,7 @@ class ProgramRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
         themeMode: ThemeMode.light,
         theme: ThemeData.light().copyWith(

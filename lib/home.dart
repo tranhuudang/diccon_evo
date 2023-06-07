@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 import 'package:diccon_evo/viewModels/data_manager.dart';
 import 'package:diccon_evo/viewModels/file_handler.dart';
@@ -60,6 +61,13 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Global.wordList = await getWordList();
     Global.defaultArticleList = await FileHandler.readDefaultStories();
     Global.defaultArticleList.shuffle();
+    /// Load windows setting for custom title bar
+    doWhenWindowReady(() {
+      final win = appWindow;
+      const initialSize =  Size(400, 514);
+      win.minSize = initialSize;
+      appWindow.show();
+    });
   }
 
   /// Helper method to update the selected page and collapse the navigation
@@ -87,6 +95,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       mouseDown: const Color(0xFFB71C1C),
       iconNormal: Colors.black,
       iconMouseOver: Colors.white);
+
+
 
   @override
   Widget build(BuildContext context) {
