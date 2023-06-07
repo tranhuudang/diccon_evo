@@ -159,51 +159,55 @@ class _DictionaryViewState extends State<DictionaryView>
               },
             ),
           ),
-          SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 16,
-                  ),
-                  needCorrector
-                      ? const SuggestedItem(
-                          title: 'Corrector',
-                          backgroundColor: Colors.orange,
-                        )
-                      : Container(),
-                  hasSynonyms
-                      ? SuggestedItem(
-                          onPressed: () {
-                            setState(() {
-                              _messages.add(BrickWallButtons(
-                                stringList: _listSynonyms,
-                                itemOnPressed: (clickedWord) {
-                                  clickedWord =
-                                      WordHandler.removeSpecialCharacters(
-                                          clickedWord);
-                                  _handleSubmitted(clickedWord);
-                                },
-                              ));
-                              hasSynonyms = false;
-                            });
-                            scrollToBottom();
-                          },
-                          title: 'Synonyms',
-                        )
-                      : Container(),
-                  hasAntonyms
-                      ? const SuggestedItem(
-                          title: 'Antonyms',
-                        )
-                      : Container(),
-                  hasImages
-                      ? SuggestedItem(
-                          title: 'Images',
-                        )
-                      : Container(),
-                ],
-              )),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 16,
+                    ),
+                    needCorrector
+                        ? const SuggestedItem(
+                            title: 'Corrector',
+                            backgroundColor: Colors.orange,
+                          )
+                        : Container(),
+                    hasSynonyms
+                        ? SuggestedItem(
+                            onPressed: () {
+                              setState(() {
+                                _messages.add(BrickWallButtons(
+                                  stringList: _listSynonyms,
+                                  itemOnPressed: (clickedWord) {
+                                    clickedWord =
+                                        WordHandler.removeSpecialCharacters(
+                                            clickedWord);
+                                    _handleSubmitted(clickedWord);
+                                  },
+                                ));
+                                hasSynonyms = false;
+                              });
+                              scrollToBottom();
+                            },
+                            title: 'Synonyms',
+                          )
+                        : Container(),
+                    hasAntonyms
+                        ? const SuggestedItem(
+                            title: 'Antonyms',
+                          )
+                        : Container(),
+                    hasImages
+                        ? SuggestedItem(
+                            title: 'Images',
+                          )
+                        : Container(),
+                  ],
+                )),
+          ),
 
           /// TextField for user to enter their words
           Container(

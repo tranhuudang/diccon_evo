@@ -29,6 +29,7 @@ class Global {
   // All view in application
   static double readingFontSizeSliderValue = 0.2;
   static double readingFontSize = 16;
+  static int numberOfSynonyms = 10;
   static List<Widget> pages =  [
     DictionaryView(),
 
@@ -52,10 +53,11 @@ class Global {
   static const String HISTORY_FILENAME = 'history.json';
 
 
-  static void saveSettings(double newReadingFontSize, double newReadingFontSizeSliderValue) async {
+  static void saveSettings(double newReadingFontSize, double newReadingFontSizeSliderValue, int newNumberOfSynonyms) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('readingFontSize', newReadingFontSize);
     await prefs.setDouble('readingFontSizeSliderValue', newReadingFontSizeSliderValue);
+    await prefs.setInt('numberOfSynonyms', newNumberOfSynonyms);
   }
 
   static Future<bool> getSettings() async {
@@ -64,6 +66,7 @@ class Global {
     complete.complete(prefs);
     readingFontSize = prefs.getDouble('readingFontSize') ?? readingFontSize;
     readingFontSizeSliderValue = prefs.getDouble('readingFontSizeSliderValue') ?? readingFontSizeSliderValue;
+    numberOfSynonyms = prefs.getInt('numberOfSynonyms') ?? numberOfSynonyms;
     return true;
   }
 }
