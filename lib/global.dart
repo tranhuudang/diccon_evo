@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/article_page.dart';
@@ -24,13 +25,12 @@ enum AppViews {
 
 class Level {
   static String beginner = "beginner",
-  elementary = "elementary",
-  intermediate = "intermediate",
-  advanced = "advanced";
+      elementary = "elementary",
+      intermediate = "intermediate",
+      advanced = "advanced";
 }
 
 class Global {
-
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
   static Map<String, List<String>> synonymsData = {};
@@ -38,16 +38,33 @@ class Global {
   static double readingFontSizeSliderValue = 0.2;
   static double readingFontSize = 16;
   static int numberOfSynonyms = 10;
+  // Focus of this textField cause a lot of trouble as the keyboard keep open up
+  // when focus still in the textField, so we move it here to make it static to
+  // control focus
+  static FocusNode textFieldFocusNode = FocusNode();
 
-  static List<Widget> pages =  [
+  // Theme for custom title button on Windows
+  static final buttonColors = WindowButtonColors(
+      iconNormal: Colors.black,
+      mouseOver: Colors.grey.shade100,
+      mouseDown: Colors.grey.shade200,
+      iconMouseOver: Colors.black,
+      iconMouseDown: Colors.black);
+
+  static final closeButtonColors = WindowButtonColors(
+      mouseOver: const Color(0xFFD32F2F),
+      mouseDown: const Color(0xFFB71C1C),
+      iconNormal: Colors.black,
+      iconMouseOver: Colors.white);
+
+
+  static List<Widget> pages = [
     DictionaryView(),
-
     ArticleListView(),
     WritingView(),
     SettingsView(),
     HistoryView(),
   ];
-
 
   static PageController pageController = PageController();
 
@@ -61,11 +78,12 @@ class Global {
   static const String BLANK_SPACE = ' ';
   static const String HISTORY_FILENAME = 'history.json';
 
-
-  static void saveSettings(double newReadingFontSize, double newReadingFontSizeSliderValue, int newNumberOfSynonyms) async {
+  static void saveSettings(double newReadingFontSize,
+      double newReadingFontSizeSliderValue, int newNumberOfSynonyms) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('readingFontSize', newReadingFontSize);
-    await prefs.setDouble('readingFontSizeSliderValue', newReadingFontSizeSliderValue);
+    await prefs.setDouble(
+        'readingFontSizeSliderValue', newReadingFontSizeSliderValue);
     await prefs.setInt('numberOfSynonyms', newNumberOfSynonyms);
   }
 
@@ -74,7 +92,9 @@ class Global {
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
     readingFontSize = prefs.getDouble('readingFontSize') ?? readingFontSize;
-    readingFontSizeSliderValue = prefs.getDouble('readingFontSizeSliderValue') ?? readingFontSizeSliderValue;
+    readingFontSizeSliderValue =
+        prefs.getDouble('readingFontSizeSliderValue') ??
+            readingFontSizeSliderValue;
     numberOfSynonyms = prefs.getInt('numberOfSynonyms') ?? numberOfSynonyms;
     return true;
   }
