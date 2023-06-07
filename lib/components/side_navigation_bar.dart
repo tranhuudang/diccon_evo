@@ -13,17 +13,11 @@ class SideNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-      width: isExpanded ? 250 : 58,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5,
-          )
-        ],
+      width: isExpanded ? 250 : 50,
+      decoration: const BoxDecoration(
         border: Border(
           right: BorderSide(
-              color: Colors.black12),
+              color: Colors.black12, width: 0.7),
         ),
         color: Colors.white,
       ),

@@ -22,7 +22,7 @@ class _NavigationItemState extends State<NavigationItem> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
             color: isHover ? Colors.black12 : Colors.transparent,
@@ -39,12 +39,13 @@ class _NavigationItemState extends State<NavigationItem> {
           mainAxisAlignment:  widget.isExpanded! ? MainAxisAlignment.start: MainAxisAlignment.center,
           children: [
             Icon(
+              size : 20,
               widget.icon,
               color: isHover ? Colors.blue : Colors.black,
             ),
             widget.isExpanded!
                 ? const SizedBox(
-                    width: 8,
+                    width: 16,
                   )
                 : Container(),
             widget.isExpanded! ? Text(widget.title ?? "") : Container(),

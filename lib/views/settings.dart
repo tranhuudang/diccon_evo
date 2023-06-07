@@ -15,31 +15,33 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header(
+      appBar: const Header(
         icon: Icons.settings,
         title: "Settings",
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SettingSection(title: 'Dictionary Section', children: [
                 Row(children: [
                   const Text("Number of synonyms"),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   DropdownButton<int>(
+
                     focusColor: Colors.white,
                     value: Global.numberOfSynonyms,
-                    hint: Text('Select a number'),
+                    hint: const Text('Select a number'),
                     onChanged: (int? newValue) {
                       setState(() {
                         Global.numberOfSynonyms = newValue!;
                       });
                     },
+
                     items: [
                       DropdownMenuItem<int>(
                         value: 10,

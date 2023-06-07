@@ -22,7 +22,15 @@ enum AppViews {
   historyView,
 }
 
+class Level {
+  static String beginner = "beginner",
+  elementary = "elementary",
+  intermediate = "intermediate",
+  advanced = "advanced";
+}
+
 class Global {
+
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
   static Map<String, List<String>> synonymsData = {};
@@ -30,6 +38,7 @@ class Global {
   static double readingFontSizeSliderValue = 0.2;
   static double readingFontSize = 16;
   static int numberOfSynonyms = 10;
+
   static List<Widget> pages =  [
     DictionaryView(),
 
