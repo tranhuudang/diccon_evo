@@ -61,13 +61,16 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Global.wordList = await getWordList();
     Global.defaultArticleList = await FileHandler.readDefaultStories();
     Global.defaultArticleList.shuffle();
+
     /// Load windows setting for custom title bar
-    doWhenWindowReady(() {
-      final win = appWindow;
-      const initialSize =  Size(400, 514);
-      win.minSize = initialSize;
-      appWindow.show();
-    });
+    if (Platform.isWindows) {
+      doWhenWindowReady(() {
+        final win = appWindow;
+        const initialSize = Size(400, 514);
+        win.minSize = initialSize;
+        appWindow.show();
+      });
+    }
   }
 
   /// Helper method to update the selected page and collapse the navigation
@@ -83,69 +86,62 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   /// Need this globalKey to open drawer by custom button
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final buttonColors = WindowButtonColors(
-      iconNormal: Colors.black,
-      mouseOver: Colors.grey.shade100,
-      mouseDown: Colors.grey.shade200,
-      iconMouseOver: Colors.black,
-      iconMouseDown: Colors.black);
-
-  final closeButtonColors = WindowButtonColors(
-      mouseOver: const Color(0xFFD32F2F),
-      mouseDown: const Color(0xFFB71C1C),
-      iconNormal: Colors.black,
-      iconMouseOver: Colors.white);
-
-
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: !Platform.isWindows ? null:  PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white, // Windows 11 title bar color
-              border: Border(
-                bottom: BorderSide(color: Colors.black12, width: 0.7),
-              ),
-            ),
-            child: MoveWindow(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 16,
+        appBar: PlatformCheck.isMobile()
+            ? null
+            : PreferredSize(
+                preferredSize: Size.fromHeight(50.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white, // Windows 11 title bar color
+                    border: Border(
+                      bottom: BorderSide(color: Colors.black12, width: 0.7),
+                    ),
                   ),
-                  Image.asset(
-                    'assets/dictionary/icon.ico',
-                    height: 20,
-                    width: 20,
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Text(
-                    "Diccon Evo",
-                    style: TextStyle(
-                        color: Colors.black),
-                  ),
-                  Spacer(),
-                  Align(
-                    alignment: Alignment.topRight,
+                  child: MoveWindow(
                     child: Row(
                       children: [
-                        MinimizeWindowButton(colors: buttonColors,),
-                        MaximizeWindowButton(colors: buttonColors,),
-                        CloseWindowButton(colors: closeButtonColors,),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Image.asset(
+                          'assets/dictionary/icon.ico',
+                          height: 20,
+                          width: 20,
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Text(
+                          "Diccon Evo",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        Spacer(),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Row(
+                            children: [
+                              MinimizeWindowButton(
+                                colors: Global.buttonColors,
+                              ),
+                              MaximizeWindowButton(
+                                colors: Global.buttonColors,
+                              ),
+                              CloseWindowButton(
+                                colors: Global.closeButtonColors,
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
         key: _scaffoldKey,
         body: Stack(
           children: [
@@ -153,7 +149,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
               children: <Widget>[
                 /// Create a blank space for SideNavigationBar in desktop platform to live in
                 SizedBox(
-                  width: isExpanded && isLarge ? 250 : 50,
+                  width: isExpanded && isLarge
+                      ? 250
+                      : PlatformCheck.isMobile()
+                          ? 60
+                          : 50,
                 ),
 
                 /// PageView where different pages live on
@@ -197,6 +197,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   isExpanded: isExpanded,
                   icon: Icons.chrome_reader_mode_outlined,
                   onPressed: () {
+                    // Remove focus out of TextField in DictionaryView
+                    Global.textFieldFocusNode.unfocus();
                     _jumpToSelectedPage(AppViews.articleListView.index, false);
                   },
                 ),
@@ -217,6 +219,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   isExpanded: isExpanded,
                   icon: Icons.settings,
                   onPressed: () {
+                    // Remove focus out of TextField in DictionaryView
+                    Global.textFieldFocusNode.unfocus();
                     _jumpToSelectedPage(AppViews.settingsView.index, false);
                   },
                 ),

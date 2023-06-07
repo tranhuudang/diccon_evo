@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../global.dart';
+import '../viewModels/platform_check.dart';
+
 class NavigationItem extends StatefulWidget {
-   const NavigationItem(
+  const NavigationItem(
       {Key? key,
       required this.title,
       required this.icon,
@@ -21,25 +25,28 @@ class _NavigationItemState extends State<NavigationItem> {
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-            color: isHover ? Colors.black12 : Colors.transparent,
-      ),
-      duration: Duration(milliseconds: 200),
-      child: InkWell(
-        onHover: (value) {
-          setState(() {
-            isHover = value;
-          });
-        },
-        onTap: widget.onPressed,
+    return InkWell(
+      onTap: widget.onPressed,
+      onHover: (value) {
+        setState(() {
+          isHover = value;
+
+        });
+      },
+      child: AnimatedContainer(
+        padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: isHover ? Colors.black12 : Colors.transparent,
+        ),
+        duration: const Duration(milliseconds: 200),
         child: Row(
-          mainAxisAlignment:  widget.isExpanded! ? MainAxisAlignment.start: MainAxisAlignment.center,
+          mainAxisAlignment: widget.isExpanded!
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
           children: [
             Icon(
-              size : 20,
+              size: PlatformCheck.isMobile() ? 24 : 20,
               widget.icon,
               color: isHover ? Colors.blue : Colors.black,
             ),
