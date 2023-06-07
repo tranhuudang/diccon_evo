@@ -3,12 +3,18 @@ import 'package:translator/translator.dart';
 import '../components/clickable_words.dart';
 import '../components/header.dart';
 import '../global.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ArticlePageView extends StatefulWidget {
   final String title;
+  final String imageUrl;
   final String content;
 
-  const ArticlePageView({Key? key, required this.content, required this.title})
+  const ArticlePageView(
+      {Key? key,
+      required this.content,
+      required this.title,
+      required this.imageUrl})
       : super(key: key);
 
   @override
@@ -30,7 +36,6 @@ class _ArticlePageViewState extends State<ArticlePageView> {
     return await translator.translate(word, from: 'auto', to: 'vi');
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,15 +49,37 @@ class _ArticlePageViewState extends State<ArticlePageView> {
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
-
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          
           children: [
+            /// Image for the article
             Flexible(
               child: SingleChildScrollView(
                 child: Column(
+                children: [
+                CachedNetworkImage(
+                    placeholder: (context, url) => const LinearProgressIndicator(
+                          backgroundColor: Colors.black45,
+                          color: Colors.black54,
+                        ),
+                    imageUrl: widget.imageUrl,
+
+                    fit: BoxFit.none,
+                    errorWidget: (context, String exception, dynamic stackTrace) {
+                      return Container(
+                        width: 100.0,
+                        height: 100.0,
+                        color: Colors.grey, // Display a placeholder color or image
+                        child: Center(
+                          child: Text('No Image'),
+                        ),
+                      );
+                    }),
+                SizedBox(height: 16,),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.content.split('\n').map((paragraph) {
                     return Column(
@@ -75,13 +102,17 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                                   });
                                 })
                             : Container(),
-                        SizedBox(height: 5,)
+                        SizedBox(
+                          height: 5,
+                        )
                       ],
                     );
                   }).toList(),
                 ),
+                ],),
               ),
             ),
+            /// Bottom box for translation
             Container(
               padding: EdgeInsets.all(8),
               height: 50,
@@ -95,7 +126,9 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                   ),
                   isTranslating
                       ? Container(
-                          height: 8, width: 40, child: LinearProgressIndicator())
+                          height: 8,
+                          width: 40,
+                          child: LinearProgressIndicator())
                       : Text(translatedWord),
                 ],
               ),
@@ -105,5 +138,4 @@ class _ArticlePageViewState extends State<ArticlePageView> {
       ),
     );
   }
-
 }

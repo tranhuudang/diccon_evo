@@ -13,7 +13,6 @@ class ArticleListView extends StatelessWidget {
       appBar: Header(
         title: 'Reading time',
         icon: Icons.chrome_reader_mode,
-
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -51,6 +50,8 @@ class ArticleListView extends StatelessWidget {
                                   content:
                                       Global.defaultArticleList[index].content,
                                   title: Global.defaultArticleList[index].title,
+                                  imageUrl:
+                                      Global.defaultArticleList[index].imageUrl ?? "",
                                 )));
                   },
                   child: Padding(
