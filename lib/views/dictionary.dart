@@ -224,6 +224,7 @@ class _DictionaryViewState extends State<DictionaryView>
                         _handleSubmitted(value);
                       },
                       decoration: InputDecoration(
+
                         hintText: "Send a message",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
