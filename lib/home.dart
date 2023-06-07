@@ -121,11 +121,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                     _jumpToSelectedPage(AppViews.dictionaryView.index, false);
                   },
                 ),
-                Divider(),
+                const Divider(),
                 NavigationItem(
                   title: "Reading",
                   isExpanded: isExpanded,
-                  icon: Icons.chrome_reader_mode,
+                  icon: Icons.chrome_reader_mode_outlined,
                   onPressed: () {
                     _jumpToSelectedPage(AppViews.articleListView.index, false);
                   },
@@ -141,7 +141,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                 // ),
                 const Spacer(),
 
-                Divider(),
+                const Divider(),
                 NavigationItem(
                   title: "Settings",
                   isExpanded: isExpanded,
