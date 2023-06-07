@@ -11,6 +11,7 @@ import '../components/brick_wall_buttons.dart';
 import '../global.dart';
 import '../models/word.dart';
 import '../components/dictionary_buble.dart';
+import '../viewModels/platform_check.dart';
 import '../viewModels/searching.dart';
 
 class DictionaryView extends StatefulWidget {
@@ -25,7 +26,7 @@ class _DictionaryViewState extends State<DictionaryView>
   final List<Widget> _messages = [];
   final TextEditingController _textController = TextEditingController();
   final ScrollController _chatListController = ScrollController();
-  final FocusNode _textFieldFocusNode = FocusNode();
+
   final translator = GoogleTranslator();
   final SynonymsDictionary synonymsDictionary = SynonymsDictionary();
   late List<String> _listSynonyms = [];
@@ -126,10 +127,17 @@ class _DictionaryViewState extends State<DictionaryView>
       ));
     }
     setState(() {});
-    _textFieldFocusNode.requestFocus();
+
 
     /// Delay the scroll animation until after the list has been updated
     scrollToBottom();
+    if (PlatformCheck.isMobile()) {
+      // Remove focus out of TextField in DictionaryView
+      Global.textFieldFocusNode.unfocus();
+    } else {
+      // On desktop we request focus, not on mobile
+      Global.textFieldFocusNode.requestFocus();
+    }
   }
 
   @override
@@ -142,6 +150,8 @@ class _DictionaryViewState extends State<DictionaryView>
         actions: [
           IconButton(
               onPressed: () {
+                // Remove focus out of TextField in DictionaryView
+                Global.textFieldFocusNode.unfocus();
                 Global.pageController.jumpToPage(AppViews.historyView.index);
               },
               icon: Icon(Icons.history))
@@ -219,7 +229,7 @@ class _DictionaryViewState extends State<DictionaryView>
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: TextField(
-                      //focusNode: _textFieldFocusNode,
+                      focusNode: Global.textFieldFocusNode,
                       onSubmitted: (value) {
                         _handleSubmitted(value);
                       },
