@@ -21,10 +21,20 @@ class _HistoryViewState extends State<HistoryView> {
   }
 
   List<Word> words = [];
+  bool isHistoryEmpty = false;
+
   void loadHistory() async {
     words = await FileHandler.readHistory();
+    if (words.isEmpty) {
+      setState(() {
+        isHistoryEmpty = true;
+      });
+    }
+    else{
+      setState(() {
 
-    setState(() {});
+      });
+    }
   }
 
   @override
@@ -57,6 +67,7 @@ class _HistoryViewState extends State<HistoryView> {
                 FileHandler.clearHistory();
                 setState(() {
                   words = List.empty();
+                  isHistoryEmpty = true;
                 });
 
               },
@@ -65,7 +76,15 @@ class _HistoryViewState extends State<HistoryView> {
         ),
       ]),
       body: Column(
+mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          isHistoryEmpty ? const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+            Icon(Icons.broken_image, color: Colors.black45,),
+            SizedBox(width: 8,),
+            Text("History is empty", style: TextStyle(color: Colors.black45, fontSize: 18),)]
+          ):
           Expanded(
             child: ListView.builder(
               itemCount: words.length,
