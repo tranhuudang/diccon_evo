@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.3+3
+version: 1.0.4+4
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -63,6 +63,8 @@ dev_dependencies:
   # Custom title bar on Windows device.
   # This can work on MacOS and Linux as well but we currently config for Windows.
   bitsdojo_window: ^0.1.5
+  # This package help us create a notification in the bottom app
+  fluttertoast: ^8.2.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
