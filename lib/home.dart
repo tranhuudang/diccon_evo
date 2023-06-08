@@ -13,6 +13,7 @@ import 'components/navigation_item.dart';
 import 'components/side_navigation_bar.dart';
 import 'global.dart';
 import 'models/word.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -86,147 +87,160 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   /// Need this globalKey to open drawer by custom button
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
+  DateTime backPressedTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: PlatformCheck.isMobile()
-            ? null
-            : PreferredSize(
-                preferredSize: Size.fromHeight(50.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white, // Windows 11 title bar color
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black12, width: 0.7),
+    return WillPopScope(
+      onWillPop: () async {
+        final difference = DateTime.now().difference(backPressedTime);
+        if (difference >= const Duration(seconds: 2)) {
+          Fluttertoast.showToast(msg: 'Press back again to exit', fontSize: 14);
+          backPressedTime = DateTime.now();
+          return false;
+        } else {
+          Fluttertoast.cancel();
+          return true;
+        }
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: PlatformCheck.isMobile()
+              ? null
+              : PreferredSize(
+                  preferredSize: const Size.fromHeight(50.0),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white, // Windows 11 title bar color
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black12, width: 0.7),
+                      ),
                     ),
-                  ),
-                  child: MoveWindow(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Image.asset(
-                          'assets/dictionary/icon.ico',
-                          height: 20,
-                          width: 20,
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Text(
-                          "Diccon Evo",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Row(
-                            children: [
-                              MinimizeWindowButton(
-                                colors: Global.buttonColors,
-                              ),
-                              MaximizeWindowButton(
-                                colors: Global.buttonColors,
-                              ),
-                              CloseWindowButton(
-                                colors: Global.closeButtonColors,
-                              ),
-                            ],
+                    child: MoveWindow(
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 16,
                           ),
-                        ),
-                      ],
+                          Image.asset(
+                            'assets/dictionary/icon.ico',
+                            height: 20,
+                            width: 20,
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          const Text(
+                            "Diccon Evo",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          const Spacer(),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Row(
+                              children: [
+                                MinimizeWindowButton(
+                                  colors: Global.buttonColors,
+                                ),
+                                MaximizeWindowButton(
+                                  colors: Global.buttonColors,
+                                ),
+                                CloseWindowButton(
+                                  colors: Global.closeButtonColors,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-        key: _scaffoldKey,
-        body: Stack(
-          children: [
-            Row(
-              children: <Widget>[
-                /// Create a blank space for SideNavigationBar in desktop platform to live in
-                SizedBox(
-                  width: isExpanded && isLarge
-                      ? 250
-                      : PlatformCheck.isMobile()
-                          ? 60
-                          : 50,
-                ),
-
-                /// PageView where different pages live on
-                /// Desktop platform
-                Expanded(
-                  child: PageView(
-                    controller: Global.pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: Global.pages,
+          key: _scaffoldKey,
+          body: Stack(
+            children: [
+              Row(
+                children: <Widget>[
+                  /// Create a blank space for SideNavigationBar in desktop platform to live in
+                  SizedBox(
+                    width: isExpanded && isLarge
+                        ? 250
+                        : PlatformCheck.isMobile()
+                            ? 60
+                            : 50,
                   ),
-                ),
-              ],
-            ),
 
-            /// Side navigation bar for desktop devices
-            SideNavigationBar(
-              isExpanded: isExpanded,
-              navigationItem: [
-                NavigationItem(
-                  title: "", //Menu
-                  isExpanded: isExpanded,
-                  icon: Icons.menu,
-                  onPressed: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
-                  },
-                ),
-                Divider(),
-                NavigationItem(
-                  title: "Dictionary",
-                  isExpanded: isExpanded,
-                  icon: Icons.search,
-                  onPressed: () {
-                    _jumpToSelectedPage(AppViews.dictionaryView.index, false);
-                  },
-                ),
-                const Divider(),
-                NavigationItem(
-                  title: "Reading",
-                  isExpanded: isExpanded,
-                  icon: Icons.chrome_reader_mode_outlined,
-                  onPressed: () {
-                    // Remove focus out of TextField in DictionaryView
-                    Global.textFieldFocusNode.unfocus();
-                    _jumpToSelectedPage(AppViews.articleListView.index, false);
-                  },
-                ),
-                // Divider(),
-                // NavigationItem(
-                //   title: "Writing",
-                //   isExpanded: isExpanded,
-                //   icon: Icons.draw_outlined,
-                //   onPressed: () {
-                //     _jumpToSelectedPage(AppViews.writingView.index, false);
-                //   },
-                // ),
-                const Spacer(),
+                  /// PageView where different pages live on
+                  /// Desktop platform
+                  Expanded(
+                    child: PageView(
+                      controller: Global.pageController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: Global.pages,
+                    ),
+                  ),
+                ],
+              ),
 
-                const Divider(),
-                NavigationItem(
-                  title: "Settings",
-                  isExpanded: isExpanded,
-                  icon: Icons.settings,
-                  onPressed: () {
-                    // Remove focus out of TextField in DictionaryView
-                    Global.textFieldFocusNode.unfocus();
-                    _jumpToSelectedPage(AppViews.settingsView.index, false);
-                  },
-                ),
-              ],
-            ),
-          ],
+              /// Side navigation bar for desktop devices
+              SideNavigationBar(
+                isExpanded: isExpanded,
+                navigationItem: [
+                  NavigationItem(
+                    title: "", //Menu
+                    isExpanded: isExpanded,
+                    icon: Icons.menu,
+                    onPressed: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                  ),
+                  const Divider(),
+                  NavigationItem(
+                    title: "Dictionary",
+                    isExpanded: isExpanded,
+                    icon: Icons.search,
+                    onPressed: () {
+                      _jumpToSelectedPage(AppViews.dictionaryView.index, false);
+                    },
+                  ),
+                  const Divider(),
+                  NavigationItem(
+                    title: "Reading",
+                    isExpanded: isExpanded,
+                    icon: Icons.chrome_reader_mode_outlined,
+                    onPressed: () {
+                      // Remove focus out of TextField in DictionaryView
+                      Global.textFieldFocusNode.unfocus();
+                      _jumpToSelectedPage(AppViews.articleListView.index, false);
+                    },
+                  ),
+                  // Divider(),
+                  // NavigationItem(
+                  //   title: "Writing",
+                  //   isExpanded: isExpanded,
+                  //   icon: Icons.draw_outlined,
+                  //   onPressed: () {
+                  //     _jumpToSelectedPage(AppViews.writingView.index, false);
+                  //   },
+                  // ),
+                  const Spacer(),
+
+                  const Divider(),
+                  NavigationItem(
+                    title: "Settings",
+                    isExpanded: isExpanded,
+                    icon: Icons.settings,
+                    onPressed: () {
+                      // Remove focus out of TextField in DictionaryView
+                      Global.textFieldFocusNode.unfocus();
+                      _jumpToSelectedPage(AppViews.settingsView.index, false);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
