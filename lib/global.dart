@@ -33,11 +33,15 @@ class Level {
 class Global {
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
+  // Thesaurus
   static Map<String, List<String>> synonymsData = {};
+  static Map<String, List<String>> antonymsData = {};
+  static int numberOfSynonyms = 10;
+  static int numberOfAntonyms = 10;
+
   // All view in application
   static double readingFontSizeSliderValue = 0.2;
   static double readingFontSize = 16;
-  static int numberOfSynonyms = 10;
   // Focus of this textField cause a lot of trouble as the keyboard keep open up
   // when focus still in the textField, so we move it here to make it static to
   // control focus
@@ -77,6 +81,8 @@ class Global {
   static const String VE_DATA_PATH = 'assets/dictionary/diccon_ve.txt';
   static const String BLANK_SPACE = ' ';
   static const String HISTORY_FILENAME = 'history.json';
+  static const String EN_SYNONYMS_PATH = 'assets/thesaurus/english_synonyms.json';
+  static const String EN_ANTONYMS_PATH = 'assets/thesaurus/english_antonyms.json';
 
   static void saveSettings(double newReadingFontSize,
       double newReadingFontSizeSliderValue, int newNumberOfSynonyms) async {

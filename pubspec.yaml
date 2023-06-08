@@ -81,7 +81,8 @@ flutter:
   assets:
     - assets/dictionary/
     - assets/stories/
-    - assets/synonyms/english_synonyms.json
+    - assets/thesaurus/english_synonyms.json
+    - assets/thesaurus/english_antonyms.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

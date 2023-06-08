@@ -28,8 +28,9 @@ class _DictionaryViewState extends State<DictionaryView>
   final ScrollController _chatListController = ScrollController();
 
   final translator = GoogleTranslator();
-  final SynonymsDictionary synonymsDictionary = SynonymsDictionary();
+  final ThesaurusDictionary thesaurusDictionary = ThesaurusDictionary();
   late List<String> _listSynonyms = [];
+  late List<String> _listAntonyms = [];
   bool hasImages = false;
   bool hasAntonyms = false;
   bool hasSynonyms = false;
@@ -97,10 +98,16 @@ class _DictionaryViewState extends State<DictionaryView>
         await FileHandler.saveToHistory(wordResult);
 
         /// Get and add list synonyms to message box
-        _listSynonyms = synonymsDictionary.getSynonyms(searchWord);
+        _listSynonyms = thesaurusDictionary.getSynonyms(searchWord);
+        _listAntonyms = thesaurusDictionary.getAntonyms(searchWord);
         if (_listSynonyms.isNotEmpty) {
           setState(() {
             hasSynonyms = true;
+          });
+        }
+        if (_listAntonyms.isNotEmpty) {
+          setState(() {
+            hasAntonyms = true;
           });
         }
       } else {
@@ -206,7 +213,22 @@ class _DictionaryViewState extends State<DictionaryView>
                           )
                         : Container(),
                     hasAntonyms
-                        ? const SuggestedItem(
+                        ?  SuggestedItem(
+                      onPressed: () {
+                        setState(() {
+                          _messages.add(BrickWallButtons(
+                            stringList: _listAntonyms,
+                            itemOnPressed: (clickedWord) {
+                              clickedWord =
+                                  WordHandler.removeSpecialCharacters(
+                                      clickedWord);
+                              _handleSubmitted(clickedWord);
+                            },
+                          ));
+                          hasAntonyms = false;
+                        });
+                        scrollToBottom();
+                      },
                             title: 'Antonyms',
                           )
                         : Container(),

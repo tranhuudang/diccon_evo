@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   bool isExpanded = false;
   bool isLarge = false;
-  SynonymsDictionary synonymsDictionary = SynonymsDictionary();
+  ThesaurusDictionary synonymsDictionary = ThesaurusDictionary();
   Future<List<Word>> readHistory() async {
     return await FileHandler.readHistory();
   }
@@ -36,6 +36,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     super.initState();
     loadUpData();
     synonymsDictionary.loadSynonymsData();
+    synonymsDictionary.loadAntonymsData();
     Global.getSettings();
     WindowManager.instance.addListener(this);
   }
