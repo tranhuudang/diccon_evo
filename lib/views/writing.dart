@@ -72,7 +72,7 @@ class _WritingViewState extends State<WritingView> {
           ),
           ElevatedButton(
             onPressed: _submitText,
-            child: Text('Submit'),
+            child: const Text('Submit'),
           ),
           Expanded(
             child: Padding(
