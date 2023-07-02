@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../global.dart';
-import '../viewModels/platform_check.dart';
+import '../../global.dart';
+import '../../helpers/platform_check.dart';
 
 class NavigationItem extends StatefulWidget {
   const NavigationItem(

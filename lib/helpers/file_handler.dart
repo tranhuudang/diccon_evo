@@ -108,19 +108,22 @@ class FileHandler {
   }
 
   /// Read default stories data
-  static Future<String> loadAssetFile(String filePath) async {
+  static Future<String> getAssetFile(String filePath) async {
     return await rootBundle.loadString(filePath);
   }
 
-  static Future<List<Article>> readDefaultStories() async {
-    String contents = await loadAssetFile('assets/stories/default.json');
-        final json = jsonDecode(contents);
-        if (json is List<dynamic>) {
-          final List<Article> articles =
-          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
-          return articles;
-        } else {
-          return [];
-        }
+  static Future<dynamic> getJsonFromUrl(String url) async {
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      // If the request is successful, parse the JSON
+      return json.decode(response.body);
+    } else {
+      // If the request fails, throw an exception or handle the error accordingly
+      throw Exception('Failed to fetch JSON from URL');
+    }
   }
+
+
 }

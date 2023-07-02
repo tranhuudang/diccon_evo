@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/word.dart';
+import '../../models/word.dart';
 
 class HistoryTile extends StatelessWidget {
   const HistoryTile({

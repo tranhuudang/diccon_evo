@@ -1,16 +1,20 @@
 import 'dart:io';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:diccon_evo/repositories/data_repository.dart';
+import 'package:diccon_evo/services/data_service.dart';
 
-import 'package:diccon_evo/viewModels/data_manager.dart';
-import 'package:diccon_evo/viewModels/file_handler.dart';
-import 'package:diccon_evo/viewModels/platform_check.dart';
-import 'package:diccon_evo/viewModels/synonyms_dictionary.dart';
-import 'package:diccon_evo/viewModels/synonyms_dictionary.dart';
+import 'package:diccon_evo/repositories/data_repository.dart';
+import 'package:diccon_evo/helpers/file_handler.dart';
+import 'package:diccon_evo/helpers/platform_check.dart';
+import 'package:diccon_evo/repositories/thesaurus_repository.dart';
+import 'package:diccon_evo/repositories/thesaurus_repository.dart';
+import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'components/navigation_item.dart';
-import 'components/side_navigation_bar.dart';
+import 'interfaces/data.dart';
+import 'views/components/navigation_item.dart';
+import 'views/components/side_navigation_bar.dart';
 import 'global.dart';
 import 'models/word.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,7 +30,13 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   bool isExpanded = false;
   bool isLarge = false;
-  ThesaurusDictionary synonymsDictionary = ThesaurusDictionary();
+  // Instance of Repository implementations
+  DataRepository dataRepository = DataRepository();
+  ThesaurusRepository thesaurusRepository = ThesaurusRepository();
+
+  // Instance of Services to inject Repository implementations
+  late DataService dataService;
+  late ThesaurusService thesaurusService;
   Future<List<Word>> readHistory() async {
     return await FileHandler.readHistory();
   }
@@ -34,11 +44,15 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   @override
   void initState() {
     super.initState();
-    loadUpData();
-    synonymsDictionary.loadSynonymsData();
-    synonymsDictionary.loadAntonymsData();
-    Global.getSettings();
     WindowManager.instance.addListener(this);
+    // Inject Repository implementations to Services
+    dataService = DataService(dataRepository);
+    thesaurusService = ThesaurusService(thesaurusRepository);
+    // Other loading steps
+    loadUpData();
+
+    Global.getSettings();
+
   }
 
   /// Detect when windows is changing size
@@ -60,9 +74,18 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
   loadUpData() async {
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
-    Global.wordList = await getWordList();
-    Global.defaultArticleList = await FileHandler.readDefaultStories();
+
+    Global.wordList = await dataService.getWordList();
+    var onlineStories = await dataService.getOnlineStoryList();
+    Global.defaultArticleList = await dataService.getDefaultStories();
+    for (var story in onlineStories) {
+      if (story.title!=""){
+        Global.defaultArticleList.add(story);
+      }
+    }
     Global.defaultArticleList.shuffle();
+    // Load up thesaurus dictionary
+    thesaurusService.loadThesaurus();
 
     /// Load windows setting for custom title bar
     if (Platform.isWindows) {

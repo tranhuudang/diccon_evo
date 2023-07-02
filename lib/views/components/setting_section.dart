@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../global.dart';
+import '../../global.dart';
 
 class SettingSection extends StatefulWidget {
   final String? title;

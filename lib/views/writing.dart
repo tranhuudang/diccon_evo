@@ -1,4 +1,4 @@
-import 'package:diccon_evo/components/header.dart';
+import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 
 class WritingView extends StatefulWidget {

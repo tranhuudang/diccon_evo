@@ -1,10 +1,10 @@
-import 'package:diccon_evo/components/header.dart';
+import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../components/history_tile.dart';
+import '../views/components/history_tile.dart';
 import '../global.dart';
 import '../models/word.dart';
-import 'package:diccon_evo/viewModels/file_handler.dart';
+import 'package:diccon_evo/helpers/file_handler.dart';
 
 class HistoryView extends StatefulWidget {
   const HistoryView({Key? key}) : super(key: key);

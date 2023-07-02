@@ -1,4 +1,4 @@
-import 'package:diccon_evo/components/header.dart';
+import 'package:diccon_evo/views/components/header.dart';
 import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';

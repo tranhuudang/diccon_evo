@@ -1,7 +1,7 @@
-import 'package:diccon_evo/components/expand_bubble_button.dart';
-import 'package:diccon_evo/viewModels/sound_handler.dart';
+import 'package:diccon_evo/views/components/expand_bubble_button.dart';
+import 'package:diccon_evo/helpers/sound_handler.dart';
 import 'package:flutter/material.dart';
-import '../models/word.dart';
+import '../../models/word.dart';
 import 'clickable_words.dart';
 
 class DictionaryBubble extends StatefulWidget {

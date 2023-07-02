@@ -1,18 +1,19 @@
-import 'package:diccon_evo/components/header.dart';
-import 'package:diccon_evo/components/welcome_box.dart';
-import 'package:diccon_evo/viewModels/file_handler.dart';
-import 'package:diccon_evo/viewModels/synonyms_dictionary.dart';
-import 'package:diccon_evo/viewModels/word_handler.dart';
+import 'package:diccon_evo/services/thesaurus_service.dart';
+import 'package:diccon_evo/views/components/header.dart';
+import 'package:diccon_evo/views/components/welcome_box.dart';
+import 'package:diccon_evo/helpers/file_handler.dart';
+import 'package:diccon_evo/repositories/thesaurus_repository.dart';
+import 'package:diccon_evo/helpers/word_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
 
-import '../components/brick_wall_buttons.dart';
+import '../views/components/brick_wall_buttons.dart';
 import '../global.dart';
 import '../models/word.dart';
-import '../components/dictionary_buble.dart';
-import '../viewModels/platform_check.dart';
-import '../viewModels/searching.dart';
+import '../views/components/dictionary_buble.dart';
+import '../helpers/platform_check.dart';
+import '../helpers/searching.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -28,7 +29,8 @@ class _DictionaryViewState extends State<DictionaryView>
   final ScrollController _chatListController = ScrollController();
 
   final translator = GoogleTranslator();
-  final ThesaurusDictionary thesaurusDictionary = ThesaurusDictionary();
+  ThesaurusRepository thesaurusRepository = ThesaurusRepository();
+  late final ThesaurusService thesaurusService;
   late List<String> _listSynonyms = [];
   late List<String> _listAntonyms = [];
   bool hasImages = false;
@@ -39,6 +41,7 @@ class _DictionaryViewState extends State<DictionaryView>
   @override
   void initState() {
     // TODO: implement initState
+    thesaurusService = ThesaurusService(thesaurusRepository);
     _messages.add(WelcomeBox());
 
     super.initState();
@@ -98,8 +101,8 @@ class _DictionaryViewState extends State<DictionaryView>
         await FileHandler.saveToHistory(wordResult);
 
         /// Get and add list synonyms to message box
-        _listSynonyms = thesaurusDictionary.getSynonyms(searchWord);
-        _listAntonyms = thesaurusDictionary.getAntonyms(searchWord);
+        _listSynonyms = thesaurusService.getSynonyms(searchWord);
+        _listAntonyms = thesaurusService.getAntonyms(searchWord);
         if (_listSynonyms.isNotEmpty) {
           setState(() {
             hasSynonyms = true;

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:diccon_evo/viewModels/file_handler.dart';
+import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:audioplayers/audioplayers.dart';
 

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../viewModels/platform_check.dart';
+import '../../helpers/platform_check.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   const Header({Key? key, required this.title, this.icon, this.subtitle, this.actions})

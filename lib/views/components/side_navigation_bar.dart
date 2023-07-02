@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../viewModels/platform_check.dart';
+import '../../helpers/platform_check.dart';
 
 class SideNavigationBar extends StatelessWidget {
   const SideNavigationBar({

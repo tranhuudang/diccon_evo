@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
-import '../components/clickable_words.dart';
-import '../components/header.dart';
+import '../views/components/clickable_words.dart';
+import '../views/components/header.dart';
 import '../global.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
-import '../viewModels/platform_check.dart';
+import '../helpers/platform_check.dart';
 
 class ArticlePageView extends StatefulWidget {
   final String title;

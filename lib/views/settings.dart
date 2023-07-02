@@ -1,7 +1,7 @@
-import 'package:diccon_evo/components/header.dart';
+import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 
-import '../components/setting_section.dart';
+import '../views/components/setting_section.dart';
 import '../global.dart';
 
 class SettingsView extends StatefulWidget {
