@@ -164,7 +164,7 @@ class _DictionaryViewState extends State<DictionaryView>
                 Global.textFieldFocusNode.unfocus();
                 Global.pageController.jumpToPage(AppViews.historyView.index);
               },
-              icon: Icon(Icons.history))
+              icon: const Icon(Icons.history))
         ],
       ),
       body: Column(
@@ -186,7 +186,7 @@ class _DictionaryViewState extends State<DictionaryView>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     needCorrector
@@ -220,6 +220,8 @@ class _DictionaryViewState extends State<DictionaryView>
                       onPressed: () {
                         setState(() {
                           _messages.add(BrickWallButtons(
+                            borderColor: Colors.orange,
+                            textColor: Colors.orange,
                             stringList: _listAntonyms,
                             itemOnPressed: (clickedWord) {
                               clickedWord =
@@ -236,7 +238,7 @@ class _DictionaryViewState extends State<DictionaryView>
                           )
                         : Container(),
                     hasImages
-                        ? SuggestedItem(
+                        ? const SuggestedItem(
                             title: 'Images',
                           )
                         : Container(),

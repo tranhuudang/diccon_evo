@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class BrickWallButtons extends StatefulWidget {
   final List<String> stringList;
   final Function(String) itemOnPressed;
-  const BrickWallButtons(
-      {super.key, required this.stringList, required this.itemOnPressed});
+  final Color borderColor;
+  final Color textColor;
+   const BrickWallButtons(
+      {super.key, required this.stringList, required this.itemOnPressed, this.borderColor= Colors.blue, this.textColor= Colors.blue});
 
   @override
   State<BrickWallButtons> createState() => _BrickWallButtonsState();
@@ -27,7 +29,7 @@ class _BrickWallButtonsState extends State<BrickWallButtons> {
                 return Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.blue,
+                        color: widget.borderColor,
                       ),
                       //color: Colors.blue[400],
                       borderRadius: BorderRadius.circular(16),
@@ -38,7 +40,7 @@ class _BrickWallButtonsState extends State<BrickWallButtons> {
                       },
                       child: Text(
                         item,
-                        style: const TextStyle(color: Colors.blue),
+                        style: TextStyle(color: widget.textColor),
                       ),
                     ));
               }).toList(),
