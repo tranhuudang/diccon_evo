@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:diccon_evo/services/data_service.dart';
+import 'package:diccon_evo/services/thesaurus_service.dart';
 
 import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/article_page.dart';
@@ -31,6 +33,10 @@ class Level {
 }
 
 class Global {
+
+  static late DataService dataService;
+  static late ThesaurusService thesaurusService;
+
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
   // Thesaurus

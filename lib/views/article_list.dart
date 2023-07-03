@@ -13,12 +13,33 @@ class ArticleListView extends StatefulWidget {
 }
 
 class _ArticleListViewState extends State<ArticleListView> {
-  List<Article> _listArticles = [];
+  var isLoading = true;
 
   @override
   void initState() {
+    loadUp();
     super.initState;
-    _listArticles = Global.defaultArticleList;
+
+
+  }
+
+  void loadUp() async {
+    if (Global.defaultArticleList.isEmpty) {
+      var onlineStories = await Global.dataService.getOnlineStoryList();
+      Global.defaultArticleList = await Global.dataService.getDefaultStories();
+      for (var story in onlineStories) {
+        if (story.title != "") {
+          Global.defaultArticleList.add(story);
+        }
+      }
+      Global.defaultArticleList.shuffle();
+      setState(() {
+        isLoading = false;
+      });
+    }
+    else {
+      isLoading = false;
+    }
   }
 
   @override
@@ -39,7 +60,7 @@ class _ArticleListViewState extends State<ArticleListView> {
               //   child: const Text("Beginner"),
               //   onTap: () {
               //     setState(() {
-              //       _listArticles = Global.defaultArticleList
+              //       Global.defaultArticleList = Global.defaultArticleList
               //           .where((element) => element.level == Level.beginner)
               //           .toList();
               //     });
@@ -49,8 +70,8 @@ class _ArticleListViewState extends State<ArticleListView> {
                 child: const Text("Elementary"),
                 onTap: () {
                   setState(() {
-                    _listArticles = [];
-                    _listArticles = Global.defaultArticleList
+                    Global.defaultArticleList = [];
+                    Global.defaultArticleList = Global.defaultArticleList
                         .where((element) => element.level == Level.elementary)
                         .toList();
                   });
@@ -60,7 +81,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                 child: const Text("Intermediate"),
                 onTap: () {
                   setState(() {
-                    _listArticles = Global.defaultArticleList
+                    Global.defaultArticleList = Global.defaultArticleList
                         .where((element) => element.level == Level.intermediate)
                         .toList();
                   });
@@ -70,7 +91,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                 child: const Text("Advanced"),
                 onTap: () {
                   setState(() {
-                    _listArticles = Global.defaultArticleList
+                    Global.defaultArticleList = Global.defaultArticleList
                         .where((element) => element.level == Level.advanced)
                         .toList();
                   });
@@ -85,7 +106,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                 child: const Text("All"),
                 onTap: () {
                   setState(() {
-                    _listArticles = Global.defaultArticleList;
+                    Global.defaultArticleList = Global.defaultArticleList;
                   });
                 },
               ),
@@ -93,7 +114,7 @@ class _ArticleListViewState extends State<ArticleListView> {
           ),
         ],
       ),
-      body: LayoutBuilder(
+      body: isLoading? Container(child: Center(child: CircularProgressIndicator(),),) : LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
           int crossAxisCount;
@@ -111,7 +132,7 @@ class _ArticleListViewState extends State<ArticleListView> {
           }
 
           return GridView.builder(
-            itemCount: _listArticles.length,
+            itemCount: Global.defaultArticleList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
               childAspectRatio: 7 / 3, // Adjust the aspect ratio as needed
@@ -128,8 +149,8 @@ class _ArticleListViewState extends State<ArticleListView> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ArticlePageView(
-                                    content: _listArticles[index].content,
-                                    title: _listArticles[index].title,
+                                    content: Global.defaultArticleList[index].content,
+                                    title: Global.defaultArticleList[index].title,
                                     imageUrl: Global
                                             .defaultArticleList[index].imageUrl ??
                                         "",
@@ -163,7 +184,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                                     backgroundColor: Colors.black45,
                                     color: Colors.black54,
                                   ),
-                                  imageUrl: _listArticles[index].imageUrl ?? '',
+                                  imageUrl: Global.defaultArticleList[index].imageUrl ?? '',
                                   height: 100.0,
                                   width: 100.0,
                                   fit: BoxFit.cover,
@@ -196,14 +217,14 @@ class _ArticleListViewState extends State<ArticleListView> {
                                         child: Row(
                                           children: [
                                             LevelIcon(
-                                              level: _listArticles[index].level ??
+                                              level: Global.defaultArticleList[index].level ??
                                                   Level.intermediate,
                                             ),
                                             const SizedBox(
                                               width: 4,
                                             ),
                                             Text(
-                                              _listArticles[index].title,
+                                              Global.defaultArticleList[index].title,
                                               textAlign: TextAlign.center,
                                               style: const TextStyle(
                                                   fontSize: 16.0,
@@ -213,7 +234,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                                         ),
                                       ),
                                       Text(
-                                        _listArticles[index].shortDescription,
+                                        Global.defaultArticleList[index].shortDescription,
                                         textAlign: TextAlign.justify,
                                         style: TextStyle(
                                             fontSize: 12.0,
