@@ -142,7 +142,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                             paragraph.isNotEmpty
                                 ? ClickableWords(
                                     text: paragraph,
-                                    fontSize: Global.readingFontSize,
+                                    fontSize: Global.defaultReadingFontSize,
                                     textColor: Colors.black,
                                     onWordTap: (value) {
                                       setState(() {

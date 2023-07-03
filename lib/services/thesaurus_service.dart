@@ -13,12 +13,12 @@ class ThesaurusService {
   /// Return a list of String synonyms for provided word and return [] if nothing found
   List<String> getSynonyms(String word) {
     List<String> synonyms = Global.synonymsData[word] ?? [];
-    return synonyms.take(Global.numberOfSynonyms).toList();
+    return synonyms.take(Global.defaultNumberOfSynonyms).toList();
   }
 
   /// Return a list of String synonyms for provided word and return [] if nothing found
   List<String> getAntonyms(String word) {
     List<String> synonyms = Global.antonymsData[word] ?? [];
-    return synonyms.take(Global.numberOfAntonyms).toList();
+    return synonyms.take(Global.defaultNumberOfAntonyms).toList();
   }
 }

@@ -42,12 +42,12 @@ class Global {
   // Thesaurus
   static Map<String, List<String>> synonymsData = {};
   static Map<String, List<String>> antonymsData = {};
-  static int numberOfSynonyms = 10;
-  static int numberOfAntonyms = 10;
+  static int defaultNumberOfSynonyms = 10;
+  static int defaultNumberOfAntonyms = 10;
 
   // All view in application
-  static double readingFontSizeSliderValue = 0.2;
-  static double readingFontSize = 16;
+  static double defaultReadingFontSizeSliderValue = 0.2;
+  static double defaultReadingFontSize = 16;
   // Focus of this textField cause a lot of trouble as the keyboard keep open up
   // when focus still in the textField, so we move it here to make it static to
   // control focus
@@ -91,23 +91,25 @@ class Global {
   static const String EN_ANTONYMS_PATH = 'assets/thesaurus/english_antonyms.json';
 
   static void saveSettings(double newReadingFontSize,
-      double newReadingFontSizeSliderValue, int newNumberOfSynonyms) async {
+      double newReadingFontSizeSliderValue, int newNumberOfSynonyms, int newNumberOfAntonyms) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('readingFontSize', newReadingFontSize);
     await prefs.setDouble(
         'readingFontSizeSliderValue', newReadingFontSizeSliderValue);
     await prefs.setInt('numberOfSynonyms', newNumberOfSynonyms);
+    await prefs.setInt('numberOfAntonyms', newNumberOfAntonyms);
   }
 
   static Future<bool> getSettings() async {
     Completer complete = Completer();
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
-    readingFontSize = prefs.getDouble('readingFontSize') ?? readingFontSize;
-    readingFontSizeSliderValue =
+    defaultReadingFontSize = prefs.getDouble('readingFontSize') ?? defaultReadingFontSize;
+    defaultReadingFontSizeSliderValue =
         prefs.getDouble('readingFontSizeSliderValue') ??
-            readingFontSizeSliderValue;
-    numberOfSynonyms = prefs.getInt('numberOfSynonyms') ?? numberOfSynonyms;
+            defaultReadingFontSizeSliderValue;
+    defaultNumberOfSynonyms = prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
+    defaultNumberOfAntonyms = prefs.getInt('numberOfAntonyms') ?? defaultNumberOfAntonyms;
     return true;
   }
 }

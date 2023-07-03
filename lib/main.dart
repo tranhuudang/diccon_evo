@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:diccon_evo/cubits/history_list_cubit.dart';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'cubits/article_list_cubit.dart';
+import 'cubits/setting_cubit.dart';
 import 'global.dart';
 
 void main() async {
@@ -15,8 +17,7 @@ void main() async {
     WindowManager.instance.setTitle(Global.DICCON_DICTIONARY);
   }
 
-  runApp( const ProgramRoot());
-
+  runApp(const ProgramRoot());
 }
 
 class ProgramRoot extends StatelessWidget {
@@ -26,27 +27,42 @@ class ProgramRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
-        themeMode: ThemeMode.light,
-        theme: ThemeData.light().copyWith(
-          // Customize light theme properties
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Colors.blue, // Light mode background color
-            selectedItemColor: Colors.black, // Light mode selected item color
-            unselectedItemColor: Colors.grey, // Light mode unselected item color
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<ArticleListCubit>(
+            create: (context) => ArticleListCubit(),
           ),
-        ),
-        darkTheme: ThemeData.dark().copyWith(
-          // Customize dark theme properties
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Colors.grey[900], // Dark mode background color
-            selectedItemColor: Colors.white, // Dark mode selected item color
-            unselectedItemColor: Colors.grey, // Dark mode unselected item color
+          BlocProvider<HistoryListCubit>(
+            create: (context) => HistoryListCubit(),
           ),
-        ),
-      title: Global.DICCON_DICTIONARY,
-        debugShowCheckedModeBanner: false,
-        home: HomeView());
+          BlocProvider<SettingCubit>(
+            create: (context) => SettingCubit(),
+          )
+        ],
+        child: MaterialApp(
+            themeMode: ThemeMode.light,
+            theme: ThemeData.light().copyWith(
+              // Customize light theme properties
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                backgroundColor: Colors.blue, // Light mode background color
+                selectedItemColor:
+                    Colors.black, // Light mode selected item color
+                unselectedItemColor:
+                    Colors.grey, // Light mode unselected item color
+              ),
+            ),
+            darkTheme: ThemeData.dark().copyWith(
+              // Customize dark theme properties
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: Colors.grey[900], // Dark mode background color
+                selectedItemColor:
+                    Colors.white, // Dark mode selected item color
+                unselectedItemColor:
+                    Colors.grey, // Dark mode unselected item color
+              ),
+            ),
+            title: Global.DICCON_DICTIONARY,
+            debugShowCheckedModeBanner: false,
+            home: HomeView()));
   }
 }
