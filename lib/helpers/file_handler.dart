@@ -64,7 +64,6 @@ class FileHandler {
     }
   }
 
-
   static Future<bool> clearHistory() async {
     final filePath = await getLocalFilePath(Global.HISTORY_FILENAME);
     try {
@@ -91,7 +90,7 @@ class FileHandler {
         final json = jsonDecode(contents);
         if (json is List<dynamic>) {
           final List<Word> words =
-          json.map((e) => Word.fromJson(e)).toList().cast<Word>();
+              json.map((e) => Word.fromJson(e)).toList().cast<Word>();
           return words;
         } else {
           return [];
@@ -116,7 +115,6 @@ class FileHandler {
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      print(response.body);
       // If the request is successful, parse the JSON
       return json.decode(response.body);
     } else {
@@ -124,6 +122,4 @@ class FileHandler {
       throw Exception('Failed to fetch JSON from URL');
     }
   }
-
-
 }

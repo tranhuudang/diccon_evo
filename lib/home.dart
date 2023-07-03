@@ -30,13 +30,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   bool isExpanded = false;
   bool isLarge = false;
+  int selectedPageIndex = 0;
   // Instance of Repository implementations
   DataRepository dataRepository = DataRepository();
   ThesaurusRepository thesaurusRepository = ThesaurusRepository();
 
-  // Instance of Services to inject Repository implementations
-  late DataService dataService;
-  late ThesaurusService thesaurusService;
   Future<List<Word>> readHistory() async {
     return await FileHandler.readHistory();
   }
@@ -46,13 +44,12 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     super.initState();
     WindowManager.instance.addListener(this);
     // Inject Repository implementations to Services
-    dataService = DataService(dataRepository);
-    thesaurusService = ThesaurusService(thesaurusRepository);
+    Global.dataService = DataService(dataRepository);
+    Global.thesaurusService = ThesaurusService(thesaurusRepository);
     // Other loading steps
     loadUpData();
 
     Global.getSettings();
-
   }
 
   /// Detect when windows is changing size
@@ -74,18 +71,10 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
   loadUpData() async {
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
+    Global.wordList = await Global.dataService.getWordList();
 
-    Global.wordList = await dataService.getWordList();
-    var onlineStories = await dataService.getOnlineStoryList();
-    Global.defaultArticleList = await dataService.getDefaultStories();
-    for (var story in onlineStories) {
-      if (story.title!=""){
-        Global.defaultArticleList.add(story);
-      }
-    }
-    Global.defaultArticleList.shuffle();
     // Load up thesaurus dictionary
-    thesaurusService.loadThesaurus();
+    Global.thesaurusService.loadThesaurus();
 
     /// Load windows setting for custom title bar
     if (Platform.isWindows) {
@@ -185,11 +174,12 @@ class _HomeViewState extends State<HomeView> with WindowListener {
               Row(
                 children: <Widget>[
                   /// Create a blank space for SideNavigationBar in desktop platform to live in
+
                   SizedBox(
                     width: isExpanded && isLarge
                         ? 250
                         : PlatformCheck.isMobile()
-                            ? 60
+                            ? 0
                             : 50,
                   ),
 
@@ -206,65 +196,111 @@ class _HomeViewState extends State<HomeView> with WindowListener {
               ),
 
               /// Side navigation bar for desktop devices
-              SideNavigationBar(
-                isExpanded: isExpanded,
-                navigationItem: [
-                  NavigationItem(
-                    title: "", //Menu
-                    isExpanded: isExpanded,
-                    icon: Icons.menu,
-                    onPressed: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                    },
-                  ),
-                  const Divider(),
-                  NavigationItem(
-                    title: "Dictionary",
-                    isExpanded: isExpanded,
-                    icon: Icons.search,
-                    onPressed: () {
-                      _jumpToSelectedPage(AppViews.dictionaryView.index, false);
-                    },
-                  ),
-                  const Divider(),
-                  NavigationItem(
-                    title: "Reading",
-                    isExpanded: isExpanded,
-                    icon: Icons.chrome_reader_mode_outlined,
-                    onPressed: () {
-                      // Remove focus out of TextField in DictionaryView
-                      Global.textFieldFocusNode.unfocus();
-                      _jumpToSelectedPage(AppViews.articleListView.index, false);
-                    },
-                  ),
-                  // Divider(),
-                  // NavigationItem(
-                  //   title: "Writing",
-                  //   isExpanded: isExpanded,
-                  //   icon: Icons.draw_outlined,
-                  //   onPressed: () {
-                  //     _jumpToSelectedPage(AppViews.writingView.index, false);
-                  //   },
-                  // ),
-                  const Spacer(),
+              PlatformCheck.isMobile()
+                  ? Container()
+                  : SideNavigationBar(
+                      isExpanded: isExpanded,
+                      navigationItem: [
+                        NavigationItem(
+                          title: "", //Menu
+                          isExpanded: isExpanded,
+                          icon: Icons.menu,
+                          onPressed: () {
+                            setState(() {
+                              isExpanded = !isExpanded;
+                            });
+                          },
+                        ),
+                        const Divider(),
+                        NavigationItem(
+                          title: "Dictionary",
+                          isExpanded: isExpanded,
+                          icon: Icons.search,
+                          onPressed: () {
+                            _jumpToSelectedPage(
+                                AppViews.dictionaryView.index, false);
+                          },
+                        ),
+                        const Divider(),
+                        NavigationItem(
+                          title: "Reading",
+                          isExpanded: isExpanded,
+                          icon: Icons.chrome_reader_mode_outlined,
+                          onPressed: () {
+                            // Remove focus out of TextField in DictionaryView
+                            Global.textFieldFocusNode.unfocus();
+                            _jumpToSelectedPage(
+                                AppViews.articleListView.index, false);
+                          },
+                        ),
+                        // Divider(),
+                        // NavigationItem(
+                        //   title: "Writing",
+                        //   isExpanded: isExpanded,
+                        //   icon: Icons.draw_outlined,
+                        //   onPressed: () {
+                        //     _jumpToSelectedPage(AppViews.writingView.index, false);
+                        //   },
+                        // ),
+                        const Spacer(),
 
-                  const Divider(),
-                  NavigationItem(
-                    title: "Settings",
-                    isExpanded: isExpanded,
-                    icon: Icons.settings,
-                    onPressed: () {
-                      // Remove focus out of TextField in DictionaryView
-                      Global.textFieldFocusNode.unfocus();
-                      _jumpToSelectedPage(AppViews.settingsView.index, false);
-                    },
-                  ),
-                ],
-              ),
+                        const Divider(),
+                        NavigationItem(
+                          title: "Settings",
+                          isExpanded: isExpanded,
+                          icon: Icons.settings,
+                          onPressed: () {
+                            // Remove focus out of TextField in DictionaryView
+                            Global.textFieldFocusNode.unfocus();
+                            _jumpToSelectedPage(
+                                AppViews.settingsView.index, false);
+                          },
+                        ),
+                      ],
+                    ),
             ],
           ),
+          bottomNavigationBar: PlatformCheck.isMobile()
+              ? NavigationBar(
+                  selectedIndex: selectedPageIndex,
+                  onDestinationSelected: (index) {
+                    if (mounted) {
+                      setState(() {
+                        switch (index) {
+                          case 0:
+                            _jumpToSelectedPage(
+                                AppViews.dictionaryView.index, false);
+                            break;
+                          case 1:
+                            _jumpToSelectedPage(
+                                AppViews.articleListView.index, false);
+                            break;
+                          // case 2:
+                          //   _jumpToSelectedPage(AppViews.writingView.index, false);
+                          //   break;
+                          case 2:
+                            _jumpToSelectedPage(
+                                AppViews.settingsView.index, false);
+                            break;
+                        }
+                        selectedPageIndex = index;
+                      });
+                    }
+                  },
+                  labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+                  destinations: const [
+                    NavigationDestination(
+                        icon: Icon(Icons.search), label: "Dictionary"),
+                    NavigationDestination(
+                        icon: Icon(Icons.chrome_reader_mode_outlined),
+                        label: "Reading Time"),
+                    // NavigationDestination(
+                    //     icon: Icon(Icons.draw_outlined,), label: "Writing"),
+                    NavigationDestination(
+                        icon: Icon(Icons.settings), label: "Settings"),
+                  ],
+                )
+              : null,
         ),
       ),
     );

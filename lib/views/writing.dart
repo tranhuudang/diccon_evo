@@ -1,5 +1,6 @@
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
 class WritingView extends StatefulWidget {
   @override
@@ -10,7 +11,28 @@ class _WritingViewState extends State<WritingView> {
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _typingScrollController = ScrollController();
   final ScrollController _resultScrollController = ScrollController();
+  ///[openAI]
+  late OpenAI openAI;
   String _submittedText = '';
+
+  @override
+  void initState(){
+    openAI = OpenAI.instance.build(
+        token: "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",
+        baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 18)));
+    super.initState();
+  }
+
+  ///send Hello to ChatCompletion
+  void chatComplete() async {
+    Messages message = Messages(role: Role.user, content: "Hello!");
+    final request = ChatCompleteText(messages: [message], maxToken: 200, model: GptTurbo0301ChatModel());
+
+    final response = await openAI.onChatCompletion(request: request);
+    for (var element in response!.choices) {
+      print("data -> ${element.message?.content}");
+    }
+  }
 
   @override
   void dispose() {
@@ -21,6 +43,7 @@ class _WritingViewState extends State<WritingView> {
   }
 
   void _submitText() {
+    chatComplete();
     setState(() {
       _submittedText = _textEditingController.text;
     });
