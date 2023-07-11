@@ -1,5 +1,9 @@
+import 'package:diccon_evo/helpers/word_handler.dart';
+import 'package:diccon_evo/views/components/dictionary_buble.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
+import '../helpers/searching.dart';
+import '../models/word.dart';
 import '../views/components/clickable_words.dart';
 import '../views/components/header.dart';
 import '../global.dart';
@@ -7,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 import '../helpers/platform_check.dart';
+import 'components/bottom_sheet_translate.dart';
 
 class ArticlePageView extends StatefulWidget {
   final String title;
@@ -69,9 +74,11 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                       const SizedBox(
                         width: 8,
                       ),
-                      IconButton(onPressed: (){
-                        Navigator.pop(context);
-                      }, icon: const Icon(Icons.arrow_back)),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.arrow_back)),
                       const SizedBox(
                         width: 16,
                       ),
@@ -117,7 +124,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                               color: Colors.black54,
                             ),
                         imageUrl: widget.imageUrl,
-                        fit: BoxFit.none,
+                        fit: BoxFit.cover,
                         errorWidget:
                             (context, String exception, dynamic stackTrace) {
                           return Container(
@@ -147,12 +154,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                                     onWordTap: (value) {
                                       setState(() {
                                         isTranslating = true;
-                                      });
-                                      translate(value).then((value) {
-                                        setState(() {
-                                          translatedWord = value.text;
-                                          isTranslating = false;
-                                        });
+                                        _showModalBottomSheet(context, value);
                                       });
                                     })
                                 : Container(),
@@ -193,5 +195,37 @@ class _ArticlePageViewState extends State<ArticlePageView> {
         ),
       ),
     );
+  }
+
+  void _showModalBottomSheet(BuildContext context, String searchWord) {
+    Word? wordResult;
+    searchWord = WordHandler.removeSpecialCharacters(searchWord);
+
+    /// This line is the skeleton of finding word in dictionary
+    wordResult = Searching.getDefinition(searchWord);
+
+    if (wordResult == null) {
+      translate(searchWord).then((value) {
+        setState(() {
+          translatedWord = value.text;
+          isTranslating = false;
+        });
+      });
+    } else {
+      isTranslating = false;
+      translatedWord = "";
+      showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return SizedBox(
+              height: 300,
+              child: SingleChildScrollView(
+                child: BottomSheetTranslation(
+                  message: wordResult!,
+                ),
+              ),
+            );
+          });
+    }
   }
 }

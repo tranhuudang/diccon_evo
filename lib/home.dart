@@ -104,9 +104,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+
       onWillPop: () async {
         final difference = DateTime.now().difference(backPressedTime);
         if (difference >= const Duration(seconds: 2)) {
+
           Fluttertoast.showToast(msg: 'Press back again to exit', fontSize: 14);
           backPressedTime = DateTime.now();
           return false;
