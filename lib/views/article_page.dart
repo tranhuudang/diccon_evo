@@ -5,7 +5,6 @@ import 'package:translator/translator.dart';
 import '../helpers/searching.dart';
 import '../models/word.dart';
 import '../views/components/clickable_words.dart';
-import '../views/components/header.dart';
 import '../global.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';

@@ -1,8 +1,10 @@
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../cubits/setting_cubit.dart';
+import '../helpers/platform_check.dart';
 import '../models/setting.dart';
 import '../views/components/setting_section.dart';
 
@@ -108,11 +110,69 @@ class SettingsView extends StatelessWidget {
                     )
                   ],
                 ),
+                const SettingSection(
+                  title: "About",
+                  children: [
+                    Row(
+                      children: [
+                        Text("Diccon Evo", style: TextStyle()),
+                        Spacer(),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("© 2023 Zeroboy. All rights reserved."),
+                        Spacer(),
+                        Text("1.0.9"),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                !PlatformCheck.isMobile()
+                    ? playStoreBadge()
+                    : microsoftStoreBadge()
               ],
             ),
           ),
         );
       }),
+    );
+  }
+
+  Widget playStoreBadge() {
+    return GestureDetector(
+      onTap: () async {
+        final Uri url = Uri.parse(
+            'https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo');
+        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+          throw Exception('Could not launch $url');
+        }
+      }, // Replace with your image path
+
+      child: Image.network(
+        "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png",
+        height: 50,
+      ),
+    );
+  }
+
+  Widget microsoftStoreBadge() {
+    return GestureDetector(
+      onTap: () async {
+        final Uri url = Uri.parse(
+            'https://apps.microsoft.com/store/detail/diccon-evo/9NPF4HBMNG5D');
+        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+          throw Exception('Could not launch $url');
+        }
+      }, // Replace with your image path
+
+      child: SvgPicture.network(
+        "https://get.microsoft.com/images/en-US%20dark.svg",
+        height: 50,
+      ),
     );
   }
 }

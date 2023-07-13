@@ -2,17 +2,12 @@ import 'dart:io';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
-
-import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:diccon_evo/helpers/platform_check.dart';
-import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'interfaces/data.dart';
 import 'views/components/navigation_item.dart';
 import 'views/components/side_navigation_bar.dart';
 import 'global.dart';
@@ -70,6 +65,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   }
 
   loadUpData() async {
+    //Global.packageInfo = await PackageInfo.fromPlatform();
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
     Global.wordList = await Global.dataService.getWordList();
 

@@ -25,7 +25,7 @@ class _SettingSectionState extends State<SettingSection> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.black12),
