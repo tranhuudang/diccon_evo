@@ -7,7 +7,6 @@ import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/dictionary.dart';
 import 'package:diccon_evo/views/word_history.dart';
 import 'package:diccon_evo/views/settings.dart';
-import 'package:diccon_evo/views/writing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/article.dart';
 import 'models/word.dart';
@@ -18,7 +17,6 @@ import 'package:flutter/material.dart';
 enum AppViews {
   dictionaryView,
   articleListView,
-  writingView,
   settingsView,
   historyView,
   articleHistoryView
@@ -71,7 +69,6 @@ class Global {
   static List<Widget> pages = [
     DictionaryView(),
     ArticleListView(),
-    WritingView(),
     SettingsView(),
     HistoryView(),
     ArticleListHistoryView()

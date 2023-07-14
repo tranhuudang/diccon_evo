@@ -115,14 +115,16 @@ class SettingsView extends StatelessWidget {
                     Row(
                       children: [
                         Text("Diccon Evo", style: TextStyle()),
+
                         Spacer(),
                       ],
                     ),
+                    SizedBox(height: 5,),
                     Row(
                       children: [
                         Text("© 2023 Zeroboy. All rights reserved."),
                         Spacer(),
-                        Text("1.1.0"),
+                        Text("1.1.1"),
                       ],
                     )
                   ],
