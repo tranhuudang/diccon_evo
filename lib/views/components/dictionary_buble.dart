@@ -1,8 +1,10 @@
 import 'package:diccon_evo/views/components/expand_bubble_button.dart';
-import 'package:diccon_evo/helpers/sound_handler.dart';
+import 'package:diccon_evo/views/components/word_meaning.dart';
+import 'package:diccon_evo/views/components/word_playback_button.dart';
+import 'package:diccon_evo/views/components/word_pronunciation.dart';
+import 'package:diccon_evo/views/components/word_title.dart';
 import 'package:flutter/material.dart';
 import '../../models/word.dart';
-import 'clickable_words.dart';
 
 class DictionaryBubble extends StatefulWidget {
   const DictionaryBubble({
@@ -80,87 +82,26 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                                   children: [
                                     Row(
                                       children: [
-                                        Flexible(
-                                          //flex: 8,
-                                          child: Text(
-                                            widget.message.word,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18.0,
-                                            ),
-                                          ),
+                                        WordTitle(
+                                          message: widget.message,
+                                          titleColor: Colors.white,
                                         ),
                                         const SizedBox(
                                           width: 8.0,
                                         ),
-                                        Text(
-                                          widget.message.pronunciation ?? "",
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.volume_up_sharp,
-                                          ),
-                                          onPressed: () {
-                                            SoundHandler.playAnyway(
-                                                widget.message.word);
-                                          },
-                                          iconSize: 20,
-                                          splashRadius: 15,
-                                        ),
+                                        WordPronunciation(
+                                            message: widget.message),
+                                        WordPlaybackButton(
+                                            message: widget.message),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Flexible(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: widget.message.meaning!
-                                                .split('\n')
-                                                .map((meaningLine) {
-                                              /// Change text style to BOLD to some specific lines with special character in the first line
-                                              final lineSplit =
-                                                  meaningLine.split('-');
-                                              final lineStart =
-                                                  lineSplit.first.trim();
-                                              final lineEnd = lineSplit
-                                                  .sublist(1)
-                                                  .join('-');
-                                              return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  lineStart.isNotEmpty
-                                                      ? ClickableWords(
-                                                          text: lineStart,
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                          onWordTap: (value) {
-                                                            widget.onWordTap!(
-                                                                value);
-                                                          })
-                                                      : Container(),
-                                                  lineEnd.isNotEmpty
-                                                      ? ClickableWords(
-                                                          text: "-$lineEnd",
-                                                          onWordTap: (value) {
-                                                            widget.onWordTap!(
-                                                                value);
-                                                          })
-                                                      : Container(),
-                                                ],
-                                              );
-                                            }).toList(),
-                                          ),
+                                        WordMeaning(
+                                          message: widget.message,
+                                          onWordTap: widget.onWordTap,
+                                          highlightColor: Colors.white,
+                                          subColor: Colors.white70,
                                         ),
                                       ],
                                     ),

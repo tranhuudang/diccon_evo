@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:diccon_evo/cubits/clickable_word_cubit.dart';
 import 'package:diccon_evo/cubits/history_list_cubit.dart';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,10 @@ class ProgramRoot extends StatelessWidget {
           ),
           BlocProvider<SettingCubit>(
             create: (context) => SettingCubit(),
-          )
+          ),
+          BlocProvider<ClickableWordCubit>(
+            create: (context) => ClickableWordCubit(),
+          ),
         ],
         child: MaterialApp(
             themeMode: ThemeMode.light,

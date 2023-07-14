@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ExpandBubbleButton extends StatefulWidget {
-  const ExpandBubbleButton({Key? key, required this.onTap}) : super(key: key);
 
+class ExpandBubbleButton extends StatelessWidget {
   final Function() onTap;
+  const ExpandBubbleButton({super.key, required this.onTap});
 
-  @override
-  State<ExpandBubbleButton> createState() => _ExpandBubbleButtonState();
-}
-
-class _ExpandBubbleButtonState extends State<ExpandBubbleButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 50,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: const Radius.circular(16.0),
-          bottomRight: const Radius.circular(16.0),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(16.0),
+          bottomRight: Radius.circular(16.0),
         ),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -30,8 +25,8 @@ class _ExpandBubbleButtonState extends State<ExpandBubbleButton> {
         ),
       ),
       child: TextButton(
-        onPressed: widget.onTap,
-        child: Text(
+        onPressed: onTap,
+        child: const Text(
           'Expand More',
           style: TextStyle(
             color: Colors.white,

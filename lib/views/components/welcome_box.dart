@@ -6,17 +6,17 @@ class WelcomeBox extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
             width: 2.0,
           ),
           color: Colors.amberAccent,
-          borderRadius: BorderRadius.all(Radius.circular(16))
+          borderRadius: const BorderRadius.all(Radius.circular(16))
         ),
-        child: Column(
-          children: const [
+        child: const Column(
+          children: [
             SizedBox(height: 16.0),
             Text(
               'Welcome to the Diccon Evo',

@@ -1,35 +1,16 @@
-import 'package:diccon_evo/views/components/expand_bubble_button.dart';
-import 'package:diccon_evo/helpers/sound_handler.dart';
+import 'package:diccon_evo/views/components/word_meaning.dart';
+import 'package:diccon_evo/views/components/word_playback_button.dart';
+import 'package:diccon_evo/views/components/word_pronunciation.dart';
+import 'package:diccon_evo/views/components/word_title.dart';
 import 'package:flutter/material.dart';
 import '../../models/word.dart';
 import 'clickable_words.dart';
 
-class BottomSheetTranslation extends StatefulWidget {
-  const BottomSheetTranslation({
-    Key? key,
-    required this.message,
-    this.onWordTap,
-  }) : super(key: key);
-
+class BottomSheetTranslation extends StatelessWidget {
   final Word message;
   final Function(String)? onWordTap;
-
-  @override
-  _BottomSheetTranslationState createState() => _BottomSheetTranslationState();
-}
-
-class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  int countLine() {
-    if (widget.message.meaning != null) {
-      return widget.message.meaning!.split('\n').length;
-    }
-    return 0;
-  }
+  const BottomSheetTranslation(
+      {super.key, required this.message, this.onWordTap});
 
   @override
   Widget build(BuildContext context) {
@@ -56,89 +37,17 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                             children: [
                               Row(
                                 children: [
-                                  Flexible(
-                                    //flex: 8,
-                                    child: Text(
-                                      widget.message.word,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24.0,
-                                      ),
-                                    ),
-                                  ),
+                                  WordTitle(message: message),
                                   const SizedBox(
                                     width: 8.0,
                                   ),
-                                  Text(
-                                    widget.message.pronunciation ?? "",
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.volume_up_sharp,
-                                    ),
-                                    onPressed: () {
-                                      SoundHandler.playAnyway(
-                                          widget.message.word);
-                                    },
-                                    iconSize: 20,
-                                    splashRadius: 15,
-                                  ),
+                                  WordPronunciation(message: message),
+                                  WordPlaybackButton(message: message),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Flexible(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: widget.message.meaning!
-                                          .split('\n')
-                                          .map((meaningLine) {
-                                        /// Change text style to BOLD to some specific lines with special character in the first line
-                                        final lineSplit =
-                                            meaningLine.split('-');
-                                        final lineStart =
-                                            lineSplit.first.trim();
-                                        final lineEnd =
-                                            lineSplit.sublist(1).join('-');
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            lineStart.isNotEmpty
-                                                ? ClickableWords(
-                                                    text: lineStart,
-                                                    style: const TextStyle(
-                                                      color: Colors.black54,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    onWordTap: (value) {
-                                                      widget.onWordTap!(value);
-                                                    })
-                                                : Container(),
-                                            lineEnd.isNotEmpty
-                                                ? ClickableWords(
-                                                    style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    text: "-$lineEnd",
-                                                    onWordTap: (value) {
-                                                      widget.onWordTap!(value);
-                                                    })
-                                                : Container(),
-                                          ],
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
+                                  WordMeaning(message: message, onWordTap: onWordTap),
                                 ],
                               ),
                             ],
@@ -154,3 +63,6 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     );
   }
 }
+
+
+

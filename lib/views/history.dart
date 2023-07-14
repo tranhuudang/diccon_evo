@@ -12,10 +12,11 @@ class HistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final historyListCubit = context.read<HistoryListCubit>();
     return Scaffold(
       appBar: Header(title: Global.HISTORY, icon: Icons.history, actions: [
         IconButton(
-            onPressed: () => context.read<HistoryListCubit>().sortAlphabet(),
+            onPressed: () => historyListCubit.sortAlphabet(),
             icon: const Icon(Icons.sort_by_alpha)),
         PopupMenuButton(
           //splashRadius: 10.0,
@@ -26,11 +27,11 @@ class HistoryView extends StatelessWidget {
           itemBuilder: (context) => [
             PopupMenuItem(
               child: const Text("Reverse List"),
-              onTap: () => context.read<HistoryListCubit>().sortReverse(),
+              onTap: () => historyListCubit.sortReverse(),
             ),
             PopupMenuItem(
               child: const Text("Clear all"),
-              onTap: () => context.read<HistoryListCubit>().clearHistory(),
+              onTap: () => historyListCubit.clearHistory(),
             ),
           ],
         ),
@@ -38,7 +39,7 @@ class HistoryView extends StatelessWidget {
       body: BlocBuilder<HistoryListCubit, List<Word>>(
         builder: (context, state) {
           if (state.isEmpty) {
-            context.read<HistoryListCubit>().loadHistory();
+            historyListCubit.loadHistory();
             return const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
