@@ -14,3 +14,5 @@ Go to pubspec.yml to change version: 1.0.2+2
 ### KEYSTORE
 Keystore is saved in Onedrive Vault
 Remember to change path for keystore in android/key.properties
+
+Remember to change version in Setting view too

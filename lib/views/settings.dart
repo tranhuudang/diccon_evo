@@ -122,7 +122,7 @@ class SettingsView extends StatelessWidget {
                       children: [
                         Text("© 2023 Zeroboy. All rights reserved."),
                         Spacer(),
-                        Text("1.0.9"),
+                        Text("1.1.0"),
                       ],
                     )
                   ],
