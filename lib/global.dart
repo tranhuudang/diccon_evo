@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
+import 'package:diccon_evo/views/article_history.dart';
 import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/dictionary.dart';
-import 'package:diccon_evo/views/history.dart';
+import 'package:diccon_evo/views/word_history.dart';
 import 'package:diccon_evo/views/settings.dart';
 import 'package:diccon_evo/views/writing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,11 +17,11 @@ import 'package:flutter/material.dart';
 /// As in this app, the order/index is used to detect what view to open.
 enum AppViews {
   dictionaryView,
-
   articleListView,
   writingView,
   settingsView,
   historyView,
+  articleHistoryView
 }
 
 class Level {
@@ -73,6 +74,7 @@ class Global {
     WritingView(),
     SettingsView(),
     HistoryView(),
+    ArticleListHistoryView()
   ];
 
   static PageController pageController = PageController();
@@ -86,6 +88,7 @@ class Global {
   static const String VE_DATA_PATH = 'assets/dictionary/diccon_ve.txt';
   static const String BLANK_SPACE = ' ';
   static const String HISTORY_FILENAME = 'history.json';
+  static const String ARTICLE_HISTORY_FILENAME = 'article_history.json';
   static const String EN_SYNONYMS_PATH = 'assets/thesaurus/english_synonyms.json';
   static const String EN_ANTONYMS_PATH = 'assets/thesaurus/english_antonyms.json';
 

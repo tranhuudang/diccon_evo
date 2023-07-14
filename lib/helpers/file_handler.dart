@@ -65,8 +65,55 @@ class FileHandler {
     }
   }
 
+  static Future<bool> saveReadArticleToHistory(Article article) async {
+    final filePath = await getLocalFilePath(Global.ARTICLE_HISTORY_FILENAME);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          json.add(article.toJson());
+          final encoded = jsonEncode(json);
+          await file.writeAsString(encoded);
+        } else {
+          final List<dynamic> list = [json, article.toJson()];
+          final encoded = jsonEncode(list);
+          await file.writeAsString(encoded);
+        }
+      } else {
+        final encoded = jsonEncode([article.toJson()]);
+        await file.writeAsString(encoded);
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't save to article history.json. Error detail: $e");
+      }
+      return false;
+    }
+  }
+
+
   static Future<bool> clearHistory() async {
     final filePath = await getLocalFilePath(Global.HISTORY_FILENAME);
+    try {
+      final file = File(filePath);
+      file.delete();
+      if (kDebugMode) {
+        print('Text file cleared successfully.');
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Failed to clear text file: $e');
+      }
+      return false;
+    }
+  }
+
+  static Future<bool> clearArticleHistory() async {
+    final filePath = await getLocalFilePath(Global.ARTICLE_HISTORY_FILENAME);
     try {
       final file = File(filePath);
       file.delete();
@@ -102,6 +149,31 @@ class FileHandler {
     } catch (e) {
       if (kDebugMode) {
         print("Can't read history.json. Error detail: $e");
+      }
+      return [];
+    }
+  }
+
+  static Future<List<Article>> readArticleHistory() async {
+    final filePath = await getLocalFilePath(Global.ARTICLE_HISTORY_FILENAME);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<Article> articles =
+          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
+          return articles;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't read article history.json. Error detail: $e");
       }
       return [];
     }

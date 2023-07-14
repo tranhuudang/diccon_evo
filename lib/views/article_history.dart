@@ -1,32 +1,25 @@
 import 'package:diccon_evo/views/components/header.dart';
-import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';
-import '../cubits/article_list_cubit.dart';
-import '../global.dart';
+import '../cubits/article_history_list_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/article.dart';
 import 'components/reading_tile.dart';
 
-class ArticleListView extends StatelessWidget {
-  const ArticleListView({super.key});
+class ArticleListHistoryView extends StatelessWidget {
+  const ArticleListHistoryView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final articleListCubit = context.read<ArticleListCubit>();
+    final articleHistoryListCubit = context.read<ArticleHistoryListCubit>();
     return Scaffold(
       appBar: Header(
-        title: 'Reading time',
+        title: 'History',
         icon: Icons.chrome_reader_mode,
         actions: [
           IconButton(
-            onPressed: () {
-              // Remove focus out of TextField in DictionaryView
-              Global.textFieldFocusNode.unfocus();
-              Global.pageController.jumpToPage(AppViews.articleHistoryView.index);
-            },
-            icon: const Icon(Icons.history),
-          ),
+              onPressed: () => articleHistoryListCubit.sortAlphabet(),
+              icon: const Icon(Icons.sort_by_alpha)),
           PopupMenuButton(
             //splashRadius: 10.0,
             shape: RoundedRectangleBorder(
@@ -36,15 +29,15 @@ class ArticleListView extends StatelessWidget {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: const Text("Elementary"),
-                onTap: () => articleListCubit.sortElementary(),
+                onTap: () => articleHistoryListCubit.sortElementary(),
               ),
               PopupMenuItem(
                 child: const Text("Intermediate"),
-                onTap: () => articleListCubit.sortIntermediate(),
+                onTap: () => articleHistoryListCubit.sortIntermediate(),
               ),
               PopupMenuItem(
                 child: const Text("Advanced"),
-                onTap: () => articleListCubit.sortAdvanced(),
+                onTap: () => articleHistoryListCubit.sortAdvanced(),
               ),
               const PopupMenuItem(
                 enabled: false,
@@ -53,16 +46,29 @@ class ArticleListView extends StatelessWidget {
               ),
               PopupMenuItem(
                 child: const Text("All"),
-                onTap: () => articleListCubit.getAll(),
+                onTap: () => articleHistoryListCubit.getAll(),
+              ),
+              const PopupMenuItem(
+                enabled: false,
+                height: 0,
+                child: Divider(),
+              ),
+              PopupMenuItem(
+                child: const Text("Reverse List"),
+                onTap: () => articleHistoryListCubit.sortReverse(),
+              ),
+              PopupMenuItem(
+                child: const Text("Clear all"),
+                onTap: () => articleHistoryListCubit.clearHistory(),
               ),
             ],
           ),
         ],
       ),
-      body: BlocBuilder<ArticleListCubit, List<Article>>(
+      body: BlocBuilder<ArticleHistoryListCubit, List<Article>>(
         builder: (context, state) {
           if (state.isEmpty) {
-            articleListCubit.loadUp();
+            articleHistoryListCubit.loadArticleHistory();
             return const Center(child: CircularProgressIndicator());
           } else {
             return LayoutBuilder(

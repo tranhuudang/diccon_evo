@@ -1,8 +1,8 @@
 import 'package:diccon_evo/helpers/word_handler.dart';
-import 'package:diccon_evo/views/components/dictionary_buble.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 import '../helpers/searching.dart';
+import '../models/article.dart';
 import '../models/word.dart';
 import '../views/components/clickable_words.dart';
 import '../global.dart';
@@ -13,15 +13,11 @@ import '../helpers/platform_check.dart';
 import 'components/bottom_sheet_translate.dart';
 
 class ArticlePageView extends StatefulWidget {
-  final String title;
-  final String imageUrl;
-  final String content;
+  final Article article;
 
   const ArticlePageView(
-      {Key? key,
-      required this.content,
-      required this.title,
-      required this.imageUrl})
+      {Key? key, required this.article,
+      })
       : super(key: key);
 
   @override
@@ -50,7 +46,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
           ? AppBar(
               backgroundColor: Colors.white,
               title: Text(
-                widget.title,
+                widget.article.title,
                 style: const TextStyle(color: Colors.black),
               ),
               elevation: 0.5,
@@ -82,7 +78,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                         width: 16,
                       ),
                       Text(
-                        widget.title,
+                        widget.article.title,
                         style: const TextStyle(color: Colors.black),
                       ),
                       const Spacer(),
@@ -122,7 +118,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                               backgroundColor: Colors.black45,
                               color: Colors.black54,
                             ),
-                        imageUrl: widget.imageUrl,
+                        imageUrl: widget.article.imageUrl ??"",
                         fit: BoxFit.cover,
                         errorWidget:
                             (context, String exception, dynamic stackTrace) {
@@ -141,7 +137,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.content.split('\n').map((paragraph) {
+                      children: widget.article.content.split('\n').map((paragraph) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

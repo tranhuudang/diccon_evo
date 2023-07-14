@@ -5,6 +5,7 @@ import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'cubits/article_history_list_cubit.dart';
 import 'cubits/article_list_cubit.dart';
 import 'cubits/setting_cubit.dart';
 import 'global.dart';
@@ -38,6 +39,9 @@ class ProgramRoot extends StatelessWidget {
           ),
           BlocProvider<SettingCubit>(
             create: (context) => SettingCubit(),
+          ),
+          BlocProvider<ArticleHistoryListCubit>(
+            create: (context) => ArticleHistoryListCubit(),
           ),
           BlocProvider<ClickableWordCubit>(
             create: (context) => ClickableWordCubit(),

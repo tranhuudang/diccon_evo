@@ -175,8 +175,8 @@ class SettingsView extends StatelessWidget {
         }
       }, // Replace with your image path
 
-      child: Image.network(
-        "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png",
+      child: Image.asset(
+        "assets/badges/en_badge_web_generic.png",
       ),
     );
   }
@@ -207,8 +207,8 @@ class SettingsView extends StatelessWidget {
         }
       }, // Replace with your image path
 
-      child: SvgPicture.network(
-        "https://get.microsoft.com/images/en-US%20dark.svg",
+      child: SvgPicture.asset(
+        "assets/badges/ms-en-US-dark.svg",
       ),
     );
   }
