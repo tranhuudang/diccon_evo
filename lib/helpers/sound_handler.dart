@@ -31,6 +31,7 @@ class SoundHandler {
     String fileName = "$firstLetter$afterFirstLetter.mp3";
     String properWord = "$firstLetter$afterFirstLetter";
     File file = File(await FileHandler.getLocalFilePath(fileName));
+
     // Check if the file is already downloaded before and play it
     if (await file.exists()) {
       playLocal(fileName);

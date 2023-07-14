@@ -27,8 +27,9 @@ class FileHandler {
 
   /// Get default Application Document Directory in the platform
   static Future<String> getLocalFilePath(String fileName) async {
+    await createDicconDirectoryIfNotExists();
     var directory = await getApplicationDocumentsDirectory();
-    var filePath = '${directory.path}/$fileName';
+    var filePath = '${directory.path}/Diccon/$fileName';
     return filePath;
   }
 
@@ -120,6 +121,20 @@ class FileHandler {
     } else {
       // If the request fails, throw an exception or handle the error accordingly
       throw Exception('Failed to fetch JSON from URL');
+    }
+  }
+
+  static Future<void> createDicconDirectoryIfNotExists() async {
+    // Get the document directory
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+
+    // Create the directory path
+    String directoryPath = '${appDocDir.path}/Diccon';
+
+    // Create the directory if it doesn't exist
+    Directory directory = Directory(directoryPath);
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
     }
   }
 }

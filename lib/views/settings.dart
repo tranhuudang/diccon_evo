@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../cubits/setting_cubit.dart';
-import '../helpers/platform_check.dart';
 import '../models/setting.dart';
 import '../views/components/setting_section.dart';
 
@@ -131,9 +130,33 @@ class SettingsView extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                !PlatformCheck.isMobile()
-                    ? playStoreBadge()
-                    : microsoftStoreBadge()
+                Column(
+                  children: [
+                    const Text(
+                      "Available at",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      height: 200,
+                      width: 370,
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        childAspectRatio: 3,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
+                        children: [
+                          microsoftStoreBadge(),
+                          amazonStoreBadge(),
+                          playStoreBadge(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -143,7 +166,7 @@ class SettingsView extends StatelessWidget {
   }
 
   Widget playStoreBadge() {
-    return GestureDetector(
+    return InkWell(
       onTap: () async {
         final Uri url = Uri.parse(
             'https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo');
@@ -154,13 +177,28 @@ class SettingsView extends StatelessWidget {
 
       child: Image.network(
         "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png",
-        height: 50,
+      ),
+    );
+  }
+
+  Widget amazonStoreBadge() {
+    return InkWell(
+      onTap: () async {
+        final Uri url =
+            Uri.parse('https://www.amazon.com/dp/B0CBP3XSQJ/ref=apps_sf_sta');
+        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+          throw Exception('Could not launch $url');
+        }
+      }, // Replace with your image path
+
+      child: Image.asset(
+        "assets/badges/amazon-appstore-badge-english-white.png",
       ),
     );
   }
 
   Widget microsoftStoreBadge() {
-    return GestureDetector(
+    return InkWell(
       onTap: () async {
         final Uri url = Uri.parse(
             'https://apps.microsoft.com/store/detail/diccon-evo/9NPF4HBMNG5D');
@@ -171,7 +209,6 @@ class SettingsView extends StatelessWidget {
 
       child: SvgPicture.network(
         "https://get.microsoft.com/images/en-US%20dark.svg",
-        height: 50,
       ),
     );
   }
