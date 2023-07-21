@@ -15,10 +15,10 @@ import 'components/bottom_sheet_translate.dart';
 class ArticlePageView extends StatefulWidget {
   final Article article;
 
-  const ArticlePageView(
-      {Key? key, required this.article,
-      })
-      : super(key: key);
+  const ArticlePageView({
+    Key? key,
+    required this.article,
+  }) : super(key: key);
 
   @override
   _ArticlePageViewState createState() => _ArticlePageViewState();
@@ -105,10 +105,11 @@ class _ArticlePageViewState extends State<ArticlePageView> {
             ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: Stack(
           children: [
             /// Image for the article
-            Flexible(
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -118,7 +119,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                               backgroundColor: Colors.black45,
                               color: Colors.black54,
                             ),
-                        imageUrl: widget.article.imageUrl ??"",
+                        imageUrl: widget.article.imageUrl ?? "",
                         fit: BoxFit.cover,
                         errorWidget:
                             (context, String exception, dynamic stackTrace) {
@@ -137,7 +138,8 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.article.content.split('\n').map((paragraph) {
+                      children:
+                          widget.article.content.split('\n').map((paragraph) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -164,28 +166,14 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                 ),
               ),
             ),
-
             /// Bottom box for translation
-            Container(
-              padding: const EdgeInsets.all(8),
-              height: 50,
-              decoration: const BoxDecoration(),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Icon(Icons.translate),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  isTranslating
-                      ? const SizedBox(
-                          height: 8,
-                          width: 40,
-                          child: LinearProgressIndicator())
-                      : Text(translatedWord),
-                ],
-              ),
-            ),
+            Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: BottomOnlineTranslationBox(
+                    isTranslating: isTranslating,
+                    translatedWord: translatedWord)),
           ],
         ),
       ),
@@ -222,5 +210,42 @@ class _ArticlePageViewState extends State<ArticlePageView> {
             );
           });
     }
+  }
+}
+
+class BottomOnlineTranslationBox extends StatelessWidget {
+  const BottomOnlineTranslationBox({
+    super.key,
+    required this.isTranslating,
+    required this.translatedWord,
+  });
+
+  final bool isTranslating;
+  final String translatedWord;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(Icons.translate),
+            const SizedBox(
+              width: 8,
+            ),
+            isTranslating
+                ? const SizedBox(
+                    height: 8, width: 40, child: LinearProgressIndicator())
+                : Text(translatedWord),
+          ],
+        ),
+      ),
+    );
   }
 }
