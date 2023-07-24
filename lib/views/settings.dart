@@ -5,7 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../cubits/setting_cubit.dart';
 import '../models/setting.dart';
+import '../services/auth_service.dart';
 import '../views/components/setting_section.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -24,6 +26,10 @@ class SettingsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                ElevatedButton(onPressed:() async {
+                  GoogleSignInAccount user = await AuthService().signInWithGoogle();
+                  print(user.email);
+                }, child: Text("Sign in with google")),
                 SettingSection(title: 'Dictionary Section', children: [
                   Row(children: [
                     const Text("Number of synonyms"),

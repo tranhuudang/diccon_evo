@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "867146042969",
+    "project_id": "diccon-evo",
+    "storage_bucket": "diccon-evo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867146042969:android:3a71841159418ebf246b48",
+        "android_client_info": {
+          "package_name": "com.zeroboy.diccon_evo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867146042969-o0i0hfjmqtceqa9oqnjedirp429ic3n6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeroboy.diccon_evo",
+            "certificate_hash": "bc69a47ab62abd75b46256fcf43ca5c51f38ef22"
+          }
+        },
+        {
+          "client_id": "867146042969-63mvbjllfa0nsl84u09lgdcl28pjn2m3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoVhDnefLm1ql2-LY2GFCel0iA5KBb5SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867146042969-0a45n25qrt3tm647uii2lv8mq2rq8kia.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "867146042969-4qtid0s8vu9gbpccsmhq6hpipm9eakmp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zeroboy.dicconEvo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

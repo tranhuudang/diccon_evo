@@ -8,10 +8,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'cubits/article_history_list_cubit.dart';
 import 'cubits/article_list_cubit.dart';
 import 'cubits/setting_cubit.dart';
+import 'firebase_options.dart';
 import 'global.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setSize(const Size(400, 700));
