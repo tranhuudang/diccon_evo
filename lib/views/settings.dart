@@ -1,17 +1,26 @@
+import 'dart:io';
+
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../cubits/setting_cubit.dart';
+import '../global.dart';
 import '../models/setting.dart';
+import '../models/user_info.dart';
 import '../services/auth_service.dart';
 import '../views/components/setting_section.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SettingsView extends StatelessWidget {
+class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 
+  @override
+  State<SettingsView> createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +35,115 @@ class SettingsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed:() async {
-                  GoogleSignInAccount user = await AuthService().signInWithGoogle();
-                  print(user.email);
-                }, child: Text("Sign in with google")),
+                Platform.isAndroid
+                    ? SettingSection(title: "User", children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: Global.userInfo.avatarUrl != ""
+                                  ? BorderRadius.circular(50.0)
+                                  : BorderRadius.circular(0),
+                              child: Global.userInfo.avatarUrl != ""
+                                  ? Image(
+                                      height: 70,
+                                      width: 70,
+                                      image: NetworkImage(
+                                          Global.userInfo.avatarUrl),
+                                      fit: BoxFit
+                                          .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
+                                    )
+                                  : const Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices",
+                                        style: TextStyle(fontSize: 16),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                            ),
+                            Global.userInfo.name != ""
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      Global.userInfo.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              Global.userInfo.email,
+                              style: const TextStyle(color: Colors.black26),
+                            ),
+                          ],
+                        ),
+                        Global.userInfo.id != ""
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: const Text("Sync your data"),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      AuthService authService = AuthService();
+                                      authService.googleSignOut();
+                                      setState(() {
+                                        Global.userInfo =
+                                            UserInfo("", "", "", "");
+                                      });
+                                    },
+                                    child: const Text("Log out"),
+                                  ),
+                                ],
+                              )
+                            : ElevatedButton(
+                                onPressed: () async {
+                                  AuthService authService = AuthService();
+                                  GoogleSignInAccount? user =
+                                      await authService.googleSignIn();
+                                  setState(() {
+                                    Global.userInfo = UserInfo(
+                                        user!.id,
+                                        user.displayName ?? "",
+                                        user.photoUrl ?? "",
+                                        user.email);
+                                  });
+                                },
+                                child:  Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(3),
+                                        color: Colors.white,
+                                        child: const Image(
+                                          height: 20,
+                                          image: AssetImage("assets/google.svg"),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text("Continue with Google"),
+                                  ],
+                                )),
+                      ])
+                    : Container(),
                 SettingSection(title: 'Dictionary Section', children: [
                   Row(children: [
                     const Text("Number of synonyms"),
@@ -121,11 +235,12 @@ class SettingsView extends StatelessWidget {
                     Row(
                       children: [
                         Text("Diccon Evo", style: TextStyle()),
-
                         Spacer(),
                       ],
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       children: [
                         Text("© 2023 Zeroboy. All rights reserved."),

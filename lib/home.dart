@@ -246,7 +246,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         NavigationItem(
                           title: "Settings",
                           isExpanded: isExpanded,
-                          icon: Icons.settings,
+                          icon: Icons.manage_accounts_outlined,
                           onPressed: () {
                             // Remove focus out of TextField in DictionaryView
                             Global.textFieldFocusNode.unfocus();
@@ -295,7 +295,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                     // NavigationDestination(
                     //     icon: Icon(Icons.draw_outlined,), label: "Writing"),
                     NavigationDestination(
-                        icon: Icon(Icons.settings), label: "Settings"),
+                        icon: Icon(Icons.manage_accounts_outlined), label: "Settings"),
                   ],
                 )
               : null,

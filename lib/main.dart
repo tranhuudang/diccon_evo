@@ -17,9 +17,11 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+  if (Platform.isAndroid) {
+    await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  }
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setSize(const Size(400, 700));
@@ -79,6 +81,6 @@ class ProgramRoot extends StatelessWidget {
             ),
             title: Global.DICCON_DICTIONARY,
             debugShowCheckedModeBanner: false,
-            home: HomeView()));
+            home: const HomeView()));
   }
 }

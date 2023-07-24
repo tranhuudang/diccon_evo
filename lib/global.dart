@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'models/article.dart';
 import 'models/word.dart';
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/models/user_info.dart';
 
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
@@ -30,7 +31,7 @@ class Level {
 }
 
 class Global {
-
+  static UserInfo userInfo = UserInfo("", "", "", "");
 
   static late DataService dataService;
   static late ThesaurusService thesaurusService;
@@ -65,7 +66,6 @@ class Global {
       iconNormal: Colors.black,
       iconMouseOver: Colors.white);
 
-
   static List<Widget> pages = [
     DictionaryView(),
     ArticleListView(),
@@ -86,11 +86,16 @@ class Global {
   static const String BLANK_SPACE = ' ';
   static const String HISTORY_FILENAME = 'history.json';
   static const String ARTICLE_HISTORY_FILENAME = 'article_history.json';
-  static const String EN_SYNONYMS_PATH = 'assets/thesaurus/english_synonyms.json';
-  static const String EN_ANTONYMS_PATH = 'assets/thesaurus/english_antonyms.json';
+  static const String EN_SYNONYMS_PATH =
+      'assets/thesaurus/english_synonyms.json';
+  static const String EN_ANTONYMS_PATH =
+      'assets/thesaurus/english_antonyms.json';
 
-  static void saveSettings(double newReadingFontSize,
-      double newReadingFontSizeSliderValue, int newNumberOfSynonyms, int newNumberOfAntonyms) async {
+  static void saveSettings(
+      double newReadingFontSize,
+      double newReadingFontSizeSliderValue,
+      int newNumberOfSynonyms,
+      int newNumberOfAntonyms) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('readingFontSize', newReadingFontSize);
     await prefs.setDouble(
@@ -103,12 +108,15 @@ class Global {
     Completer complete = Completer();
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
-    defaultReadingFontSize = prefs.getDouble('readingFontSize') ?? defaultReadingFontSize;
+    defaultReadingFontSize =
+        prefs.getDouble('readingFontSize') ?? defaultReadingFontSize;
     defaultReadingFontSizeSliderValue =
         prefs.getDouble('readingFontSizeSliderValue') ??
             defaultReadingFontSizeSliderValue;
-    defaultNumberOfSynonyms = prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
-    defaultNumberOfAntonyms = prefs.getInt('numberOfAntonyms') ?? defaultNumberOfAntonyms;
+    defaultNumberOfSynonyms =
+        prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
+    defaultNumberOfAntonyms =
+        prefs.getInt('numberOfAntonyms') ?? defaultNumberOfAntonyms;
     return true;
   }
 }

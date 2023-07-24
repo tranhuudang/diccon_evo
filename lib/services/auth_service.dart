@@ -3,13 +3,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService{
+  late final GoogleSignInAccount? gUser;
+  late final GoogleSignInAuthentication gAuth;
   // Google sign in
-  Future<GoogleSignInAccount> signInWithGoogle() async {
+  Future<GoogleSignInAccount?> googleSignIn() async {
     // begin interactive sign in process
-    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+    gUser = await GoogleSignIn().signIn();
 
     //obtain auth details from request
-    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+    gAuth = await gUser!.authentication;
 
     // create a new credential for user
     final credential = GoogleAuthProvider.credential(
@@ -19,5 +21,18 @@ class AuthService{
     // finally lets sign in
     await FirebaseAuth.instance.signInWithCredential(credential);
     return gUser;
+  }
+// Google sign out
+  Future<void> googleSignOut() async {
+    try {
+      // Sign out from Firebase Auth
+      await FirebaseAuth.instance.signOut();
+
+      // Sign out from Google Sign-In
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut();
+    } catch (error) {
+      print("Error during sign out: $error");
+    }
   }
 }
