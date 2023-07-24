@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
-import 'package:diccon_evo/views/article_history.dart';
 import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/dictionary.dart';
-import 'package:diccon_evo/views/word_history.dart';
 import 'package:diccon_evo/views/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/article.dart';
@@ -18,9 +16,7 @@ import 'package:diccon_evo/models/user_info.dart';
 enum AppViews {
   dictionaryView,
   articleListView,
-  settingsView,
-  historyView,
-  articleHistoryView
+  settingsView
 }
 
 class Level {
@@ -66,12 +62,10 @@ class Global {
       iconNormal: Colors.black,
       iconMouseOver: Colors.white);
 
-  static List<Widget> pages = [
+  static List<Widget> pages = const [
     DictionaryView(),
     ArticleListView(),
-    SettingsView(),
-    HistoryView(),
-    ArticleListHistoryView()
+    SettingsView()
   ];
 
   static PageController pageController = PageController();

@@ -6,6 +6,7 @@ import '../global.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/article.dart';
+import 'article_history.dart';
 import 'components/reading_tile.dart';
 
 class ArticleListView extends StatelessWidget {
@@ -23,7 +24,7 @@ class ArticleListView extends StatelessWidget {
             onPressed: () {
               // Remove focus out of TextField in DictionaryView
               Global.textFieldFocusNode.unfocus();
-              Global.pageController.jumpToPage(AppViews.articleHistoryView.index);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const ArticleListHistoryView()));
             },
             icon: const Icon(Icons.history),
           ),

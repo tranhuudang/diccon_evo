@@ -4,6 +4,7 @@ import 'package:diccon_evo/views/components/welcome_box.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/helpers/word_handler.dart';
+import 'package:diccon_evo/views/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +163,7 @@ class _DictionaryViewState extends State<DictionaryView>
               onPressed: () {
                 // Remove focus out of TextField in DictionaryView
                 Global.textFieldFocusNode.unfocus();
-                Global.pageController.jumpToPage(AppViews.historyView.index);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryView()));
               },
               icon: const Icon(Icons.history))
         ],
