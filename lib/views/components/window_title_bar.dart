@@ -14,7 +14,9 @@ class WindowTileBar extends StatelessWidget  implements PreferredSizeWidget{
     return
 
       PlatformCheck.isMobile()
-          ? Container()
+          ? SizedBox(
+        height: 0,
+      )
           : PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
         child: Container(

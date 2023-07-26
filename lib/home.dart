@@ -85,9 +85,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
   /// Helper method to update the selected page and collapse the navigation
   void _jumpToSelectedPage(int index, bool? popContext) {
-    setState(() {
-      isExpanded = false;
-    });
+    // setState(() {
+    //   isExpanded = false;
+    // });
     _selectedPageIndex = index;
     Global.pageController.jumpToPage(_selectedPageIndex);
     if (popContext ?? false) Navigator.pop(context);

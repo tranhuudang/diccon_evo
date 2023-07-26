@@ -225,7 +225,7 @@ class _SettingsViewState extends State<SettingsView> {
                       children: [
                         Text("© 2023 Zeroboy. All rights reserved."),
                         Spacer(),
-                        Text("1.1.1"),
+                        Text("1.1.3"),
                       ],
                     )
                   ],

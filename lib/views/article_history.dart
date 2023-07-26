@@ -20,67 +20,36 @@ class ArticleListHistoryView extends StatelessWidget {
           builder: (context, state) {
             if (state.isEmpty) {
               articleHistoryListCubit.loadArticleHistory();
-              return const Center(child: CircularProgressIndicator());
+              return Column(
+                children: [
+                  ArticleHistoryHeader(articleHistoryListCubit: articleHistoryListCubit),
+                  const Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+
+                        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                          Icon(
+                            Icons.broken_image,
+                            color: Colors.black45,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            "History is empty",
+                            style: TextStyle(color: Colors.black45, fontSize: 18),
+                          )
+                        ]),
+                      ],
+                    ),
+                  ),
+                ],
+              );
             } else {
               return Column(
                 children: [
-                  Header(
-                    title: 'History',
-                    iconButton: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    actions: [
-                      IconButton(
-                          onPressed: () => articleHistoryListCubit.sortAlphabet(),
-                          icon: const Icon(Icons.sort_by_alpha)),
-                      PopupMenuButton(
-                        //splashRadius: 10.0,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Theme.of(context).dividerColor),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        itemBuilder: (context) => [
-                          PopupMenuItem(
-                            child: const Text("Elementary"),
-                            onTap: () => articleHistoryListCubit.sortElementary(),
-                          ),
-                          PopupMenuItem(
-                            child: const Text("Intermediate"),
-                            onTap: () => articleHistoryListCubit.sortIntermediate(),
-                          ),
-                          PopupMenuItem(
-                            child: const Text("Advanced"),
-                            onTap: () => articleHistoryListCubit.sortAdvanced(),
-                          ),
-                          const PopupMenuItem(
-                            enabled: false,
-                            height: 0,
-                            child: Divider(),
-                          ),
-                          PopupMenuItem(
-                            child: const Text("All"),
-                            onTap: () => articleHistoryListCubit.getAll(),
-                          ),
-                          const PopupMenuItem(
-                            enabled: false,
-                            height: 0,
-                            child: Divider(),
-                          ),
-                          PopupMenuItem(
-                            child: const Text("Reverse List"),
-                            onTap: () => articleHistoryListCubit.sortReverse(),
-                          ),
-                          PopupMenuItem(
-                            child: const Text("Clear all"),
-                            onTap: () => articleHistoryListCubit.clearHistory(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  ArticleHistoryHeader(articleHistoryListCubit: articleHistoryListCubit),
                   Expanded(
                     child: LayoutBuilder(
                       builder: (context, constraints) {
@@ -119,6 +88,76 @@ class ArticleListHistoryView extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class ArticleHistoryHeader extends StatelessWidget {
+  const ArticleHistoryHeader({
+    super.key,
+    required this.articleHistoryListCubit,
+  });
+
+  final ArticleHistoryListCubit articleHistoryListCubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Header(
+      title: 'History',
+      iconButton: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      actions: [
+        IconButton(
+            onPressed: () => articleHistoryListCubit.sortAlphabet(),
+            icon: const Icon(Icons.sort_by_alpha)),
+        PopupMenuButton(
+          //splashRadius: 10.0,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Theme.of(context).dividerColor),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: const Text("Elementary"),
+              onTap: () => articleHistoryListCubit.sortElementary(),
+            ),
+            PopupMenuItem(
+              child: const Text("Intermediate"),
+              onTap: () => articleHistoryListCubit.sortIntermediate(),
+            ),
+            PopupMenuItem(
+              child: const Text("Advanced"),
+              onTap: () => articleHistoryListCubit.sortAdvanced(),
+            ),
+            const PopupMenuItem(
+              enabled: false,
+              height: 0,
+              child: Divider(),
+            ),
+            PopupMenuItem(
+              child: const Text("All"),
+              onTap: () => articleHistoryListCubit.getAll(),
+            ),
+            const PopupMenuItem(
+              enabled: false,
+              height: 0,
+              child: Divider(),
+            ),
+            PopupMenuItem(
+              child: const Text("Reverse List"),
+              onTap: () => articleHistoryListCubit.sortReverse(),
+            ),
+            PopupMenuItem(
+              child: const Text("Clear all"),
+              onTap: () => articleHistoryListCubit.clearHistory(),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

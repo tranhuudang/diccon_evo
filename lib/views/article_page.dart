@@ -7,9 +7,7 @@ import '../models/word.dart';
 import '../views/components/clickable_words.dart';
 import '../global.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
-
-import '../helpers/platform_check.dart';
+import 'package:window_manager/window_manager.dart';
 import 'components/bottom_sheet_translate.dart';
 import 'components/header.dart';
 import 'components/window_title_bar.dart';
@@ -32,6 +30,8 @@ class _ArticlePageViewState extends State<ArticlePageView> {
   final translator = GoogleTranslator();
   bool isTranslating = false;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -43,98 +43,100 @@ class _ArticlePageViewState extends State<ArticlePageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:  const WindowTileBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Header(
-              title: widget.article.title,
-              iconButton: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),),
-            Expanded(
-              child: Stack(
-                children: [
-                  /// Image for the article
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 50),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
+    return SafeArea(
+      child: Scaffold(
+        appBar:  const WindowTileBar(),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Header(
+                title: widget.article.title,
+                iconButton: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),),
+              Expanded(
+                child: Stack(
+                  children: [
+                    /// Image for the article
+                    Padding(
+                      padding:  EdgeInsets.only(bottom: 50, left: Global.isLargeWindows ? 100:  0 ,right: Global.isLargeWindows ? 100:  0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
 
-                          Column(children: [
-                            CachedNetworkImage(
-                                placeholder: (context, url) =>
-                                const LinearProgressIndicator(
-                                  backgroundColor: Colors.black45,
-                                  color: Colors.black54,
-                                ),
-                                imageUrl: widget.article.imageUrl ?? "",
-                                fit: BoxFit.cover,
-                                errorWidget:
-                                    (context, String exception, dynamic stackTrace) {
-                                  return Container(
-                                    width: 100.0,
-                                    height: 100.0,
-                                    color: Colors
-                                        .grey, // Display a placeholder color or image
-                                    child: const Center(
-                                      child: Text('No Image'),
-                                    ),
+                            Column(children: [
+                              CachedNetworkImage(
+                                  placeholder: (context, url) =>
+                                  const LinearProgressIndicator(
+                                    backgroundColor: Colors.black45,
+                                    color: Colors.black54,
+                                  ),
+                                  imageUrl: widget.article.imageUrl ?? "",
+                                  fit: BoxFit.cover,
+                                  errorWidget:
+                                      (context, String exception, dynamic stackTrace) {
+                                    return Container(
+                                      width: 100.0,
+                                      height: 100.0,
+                                      color: Colors
+                                          .grey, // Display a placeholder color or image
+                                      child: const Center(
+                                        child: Text('No Image'),
+                                      ),
+                                    );
+                                  }),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children:
+                                widget.article.content.split('\n').map((paragraph) {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      paragraph.isNotEmpty
+                                          ? ClickableWords(
+                                          text: paragraph,
+                                          fontSize: Global.defaultReadingFontSize,
+                                          textColor: Colors.black,
+                                          onWordTap: (value) {
+                                            setState(() {
+                                              isTranslating = true;
+                                              _showModalBottomSheet(context, value);
+                                            });
+                                          })
+                                          : Container(),
+                                      const SizedBox(
+                                        height: 5,
+                                      )
+                                    ],
                                   );
-                                }),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children:
-                              widget.article.content.split('\n').map((paragraph) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    paragraph.isNotEmpty
-                                        ? ClickableWords(
-                                        text: paragraph,
-                                        fontSize: Global.defaultReadingFontSize,
-                                        textColor: Colors.black,
-                                        onWordTap: (value) {
-                                          setState(() {
-                                            isTranslating = true;
-                                            _showModalBottomSheet(context, value);
-                                          });
-                                        })
-                                        : Container(),
-                                    const SizedBox(
-                                      height: 5,
-                                    )
-                                  ],
-                                );
-                              }).toList(),
-                            ),
-                          ],),
+                                }).toList(),
+                              ),
+                            ],),
 
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  /// Bottom box for translation
-                  Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: BottomOnlineTranslationBox(
-                          isTranslating: isTranslating,
-                          translatedWord: translatedWord)),
-                ],
+                    /// Bottom box for translation
+                    Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: BottomOnlineTranslationBox(
+                            isTranslating: isTranslating,
+                            translatedWord: translatedWord)),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
