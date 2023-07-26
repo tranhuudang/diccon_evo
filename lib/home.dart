@@ -6,6 +6,7 @@ import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:diccon_evo/helpers/platform_check.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
+import 'package:diccon_evo/views/components/window_title_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'views/components/navigation_item.dart';
@@ -115,57 +116,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       },
       child: SafeArea(
         child: Scaffold(
-          appBar: PlatformCheck.isMobile()
-              ? null
-              : PreferredSize(
-                  preferredSize: const Size.fromHeight(50.0),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white, // Windows 11 title bar color
-                      border: Border(
-                        bottom: BorderSide(color: Colors.black12, width: 0.7),
-                      ),
-                    ),
-                    child: MoveWindow(
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          Image.asset(
-                            'assets/dictionary/icon.ico',
-                            height: 20,
-                            width: 20,
-                          ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          const Text(
-                            "Diccon Evo",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          const Spacer(),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Row(
-                              children: [
-                                MinimizeWindowButton(
-                                  colors: Global.buttonColors,
-                                ),
-                                MaximizeWindowButton(
-                                  colors: Global.buttonColors,
-                                ),
-                                CloseWindowButton(
-                                  colors: Global.closeButtonColors,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+          appBar: const WindowTileBar(),
           key: _scaffoldKey,
           body: Stack(
             children: [
