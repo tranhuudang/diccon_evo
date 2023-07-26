@@ -51,14 +51,19 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
               : const SizedBox(
                   width: 16,
                 ),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+          Expanded(
+            flex: 4,
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
           const Spacer(),
+
           Row(children: actions ?? []),
         ],
       ),

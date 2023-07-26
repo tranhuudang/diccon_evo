@@ -80,43 +80,33 @@ class ReadingTile extends StatelessWidget {
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                LevelIcon(
-                                  level: article.level ??
-                                      Level.intermediate,
-                                ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                Text(
-                                  article.title,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
+
+                          Text(
+                            article.title,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Expanded (
+                            child: Text(
+                              article.shortDescription,
+                              textAlign: TextAlign.justify,
+                              style: const TextStyle(
+                                  fontSize: 12.0, color: Colors.black45),
                             ),
                           ),
-                          Text(
-                            article.shortDescription,
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                                fontSize: 12.0, color: Colors.black45),
+                          LevelIcon(
+                            level: article.level ??
+                                Level.intermediate,
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

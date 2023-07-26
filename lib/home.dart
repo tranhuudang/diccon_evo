@@ -25,7 +25,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   bool isExpanded = false;
-  bool isLarge = false;
   int selectedPageIndex = 0;
   // Instance of Repository implementations
   DataRepository dataRepository = DataRepository();
@@ -55,12 +54,12 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     if (windowsSize.width > 800) {
       setState(() {
         isExpanded = true;
-        isLarge = true;
+        Global.isLargeWindows = true;
       });
     } else {
       setState(() {
         isExpanded = false;
-        isLarge = false;
+        Global.isLargeWindows = false;
       });
     }
   }
@@ -125,7 +124,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   /// Create a blank space for SideNavigationBar in desktop platform to live in
 
                   SizedBox(
-                    width: isExpanded && isLarge
+                    width: isExpanded && Global.isLargeWindows
                         ? 250
                         : PlatformCheck.isMobile()
                             ? 0

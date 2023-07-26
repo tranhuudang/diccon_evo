@@ -38,30 +38,30 @@ class WelcomeBox extends StatelessWidget {
                     width: double.infinity,
                     fit: BoxFit.cover,
                     image: AssetImage(randomImagePath),
-                    errorBuilder: (context, ob, s){
+                    errorBuilder: (context, ob, s) {
                       return const Image(
                         height: 170,
                         width: double.infinity,
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/welcome/42e1de5e-994c-4ee2-813d-448be978b9ba.jpg"),
+                        image: AssetImage(
+                            "assets/welcome/42e1de5e-994c-4ee2-813d-448be978b9ba.jpg"),
                       );
                     },
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
-                  child: Container(
+                  child: SizedBox(
                     height: 170,
-                    child:  const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         Text(
                           'Welcome to Diccon Evo',
                           style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                             shadows: [
                               Shadow(
                                 color: Colors.black,
@@ -75,16 +75,14 @@ class WelcomeBox extends StatelessWidget {
                         Text(
                           'Start exploring the world of words!',
                           style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white54,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black,
-                                blurRadius: 2,
-                                offset: Offset(2,2)
-                              )
-                            ]
-                          ),
+                              fontSize: 16.0,
+                              color: Colors.white54,
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black,
+                                    blurRadius: 1,
+                                    offset: Offset(1, 1))
+                              ]),
                         ),
                         SizedBox(height: 16.0),
                       ],

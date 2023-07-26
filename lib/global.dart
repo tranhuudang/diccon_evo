@@ -48,6 +48,9 @@ class Global {
   // control focus
   static FocusNode textFieldFocusNode = FocusNode();
 
+  // Windows size
+  static bool isLargeWindows = false;
+
   // Theme for custom title button on Windows
   static final buttonColors = WindowButtonColors(
       iconNormal: Colors.black,
