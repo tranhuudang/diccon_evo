@@ -5,8 +5,10 @@ import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/dictionary.dart';
 import 'package:diccon_evo/views/settings.dart';
+import 'package:diccon_evo/views/video_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/article.dart';
+import 'models/video.dart';
 import 'models/word.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/models/user_info.dart';
@@ -16,6 +18,7 @@ import 'package:diccon_evo/models/user_info.dart';
 enum AppViews {
   dictionaryView,
   articleListView,
+  videoListView,
   settingsView
 }
 
@@ -34,6 +37,8 @@ class Global {
 
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
+  static List<Video> defaultVideoList = [];
+
   // Thesaurus
   static Map<String, List<String>> synonymsData = {};
   static Map<String, List<String>> antonymsData = {};
@@ -68,11 +73,14 @@ class Global {
   static List<Widget> pages = const [
     DictionaryView(),
     ArticleListView(),
+    VideoListView(),
     SettingsView()
   ];
 
   static PageController pageController = PageController();
 
+  static const double MIN_WIDTH = 400;
+  static const double MIN_HEIGHT = 514;
   static const String DICCON = "Diccon";
   static const String DICCON_DICTIONARY = "Diccon Evo";
   static const String DICTIONARY = "Dictionary";

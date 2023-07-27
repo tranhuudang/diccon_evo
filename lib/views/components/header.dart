@@ -56,7 +56,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               title,
               style: const TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis,
               ),

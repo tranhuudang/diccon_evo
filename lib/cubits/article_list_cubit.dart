@@ -7,7 +7,7 @@ class ArticleListCubit extends Cubit<List<Article>> {
 
   Future<void> loadUp() async {
     Global.defaultArticleList = await Global.dataService.getDefaultStories();
-    emit(Global.defaultArticleList);
+    //emit(Global.defaultArticleList);
 
     var onlineStories = await Global.dataService.getOnlineStoryList();
 

@@ -20,7 +20,7 @@ class WelcomeBox extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             height: 170,
-            width: 305,
+            width: 300,
             //padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
                 border: Border.all(

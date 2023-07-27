@@ -76,7 +76,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     if (Platform.isWindows) {
       doWhenWindowReady(() {
         final win = appWindow;
-        const initialSize = Size(400, 514);
+        const initialSize = Size(Global.MIN_WIDTH, Global.MIN_HEIGHT);
         win.minSize = initialSize;
         appWindow.show();
       });
@@ -100,11 +100,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-
       onWillPop: () async {
         final difference = DateTime.now().difference(backPressedTime);
         if (difference >= const Duration(seconds: 2)) {
-
           Fluttertoast.showToast(msg: 'Press back again to exit', fontSize: 14);
           backPressedTime = DateTime.now();
           return false;
@@ -171,6 +169,16 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         ),
                         const Divider(),
                         NavigationItem(
+                          title: "Videos",
+                          isExpanded: isExpanded,
+                          icon: Icons.video_library_outlined,
+                          onPressed: () {
+                            _jumpToSelectedPage(
+                                AppViews.videoListView.index, false);
+                          },
+                        ),
+                        const Divider(),
+                        NavigationItem(
                           title: "Reading",
                           isExpanded: isExpanded,
                           icon: Icons.chrome_reader_mode_outlined,
@@ -181,17 +189,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                 AppViews.articleListView.index, false);
                           },
                         ),
-                        // Divider(),
-                        // NavigationItem(
-                        //   title: "Writing",
-                        //   isExpanded: isExpanded,
-                        //   icon: Icons.draw_outlined,
-                        //   onPressed: () {
-                        //     _jumpToSelectedPage(AppViews.writingView.index, false);
-                        //   },
-                        // ),
                         const Spacer(),
-
                         const Divider(),
                         NavigationItem(
                           title: "Settings",
@@ -221,12 +219,14 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                             break;
                           case 1:
                             _jumpToSelectedPage(
+                                AppViews.videoListView.index, false);
+                            break;
+                          case 2:
+                            _jumpToSelectedPage(
                                 AppViews.articleListView.index, false);
                             break;
-                          // case 2:
-                          //   _jumpToSelectedPage(AppViews.writingView.index, false);
-                          //   break;
-                          case 2:
+
+                          case 3:
                             _jumpToSelectedPage(
                                 AppViews.settingsView.index, false);
                             break;
@@ -240,12 +240,16 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                     NavigationDestination(
                         icon: Icon(Icons.search), label: "Dictionary"),
                     NavigationDestination(
+                        icon: Icon(
+                          Icons.video_library_outlined,
+                        ),
+                        label: "Videos"),
+                    NavigationDestination(
                         icon: Icon(Icons.chrome_reader_mode_outlined),
                         label: "Reading Time"),
-                    // NavigationDestination(
-                    //     icon: Icon(Icons.draw_outlined,), label: "Writing"),
                     NavigationDestination(
-                        icon: Icon(Icons.manage_accounts_outlined), label: "Settings"),
+                        icon: Icon(Icons.manage_accounts_outlined),
+                        label: "Settings"),
                   ],
                 )
               : null,

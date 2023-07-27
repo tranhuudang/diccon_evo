@@ -75,6 +75,9 @@ dev_dependencies:
   google_sign_in: ^6.1.4
   firebase_auth: ^4.7.1
   firebase_core: ^2.15.0
+
+  # Video player
+  video_player: ^2.7.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -92,6 +95,7 @@ flutter:
     - assets/welcome/
     - assets/dictionary/
     - assets/stories/
+    - assets/videos/
     - assets/thesaurus/english_synonyms.json
     - assets/thesaurus/english_antonyms.json
     - assets/badges/

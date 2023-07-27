@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:diccon_evo/cubits/clickable_word_cubit.dart';
 import 'package:diccon_evo/cubits/history_list_cubit.dart';
+import 'package:diccon_evo/cubits/video_list_cubit.dart';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -25,7 +26,7 @@ void main() async {
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setSize(const Size(400, 700));
-    WindowManager.instance.setMinimumSize(const Size(400, 514));
+    WindowManager.instance.setMinimumSize(const Size(Global.MIN_WIDTH, Global.MIN_HEIGHT));
     WindowManager.instance.setTitle(Global.DICCON_DICTIONARY);
   }
 
@@ -55,7 +56,10 @@ class ProgramRoot extends StatelessWidget {
           ),
           BlocProvider<ClickableWordCubit>(
             create: (context) => ClickableWordCubit(),
+
           ),
+    BlocProvider<VideoListCubit>(
+    create: (context) => VideoListCubit(),),
         ],
         child: MaterialApp(
             themeMode: ThemeMode.light,

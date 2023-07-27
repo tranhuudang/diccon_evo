@@ -4,6 +4,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import '../global.dart';
 import '../models/article.dart';
+import '../models/video.dart';
 import '../models/word.dart';
 
 import '../helpers/file_handler.dart';
@@ -55,7 +56,7 @@ class DataRepository implements Data {
   @override
   Future<List<Article>> getDefaultStories() async {
     String contents =
-        await FileHandler.getAssetFile('assets/stories/default.json');
+        await FileHandler.getAssetFile('assets/stories/story-default.json');
     final json = jsonDecode(contents);
     if (json is List<dynamic>) {
       final List<Article> articles =
@@ -65,4 +66,40 @@ class DataRepository implements Data {
       return [];
     }
   }
+
+  @override
+  Future<List<Video>> getDefaultVideos() async {
+    String contents =
+    await FileHandler.getAssetFile('assets/videos/video-default.json');
+    print("hi");
+    final json = jsonDecode(contents);
+    if (json is List<dynamic>) {
+      final List<Video> videos =
+      json.map((e) => Video.fromJson(e)).toList().cast<Video>();
+      return videos;
+    } else {
+      return [];
+    }
+  }
+
+  @override
+  Future<List<Video>> getOnlineVideosList() async {
+    try {
+      var jsonData = await FileHandler.getJsonFromUrl(
+          'https://github.com/tranhuudang/Diccon-Assets/raw/main/videos/extends.json');
+      if (jsonData is List<dynamic>) {
+        final List<Video> video =
+        jsonData.map((e) => Video.fromJson(e)).toList().cast<Video>();
+        return video;
+      } else {
+        return [];
+      }
+      // Do something with the jsonData
+    } catch (e) {
+      // Handle any errors that occur during the fetch
+      print('Error: $e');
+      return [];
+    }
+  }
+
 }
