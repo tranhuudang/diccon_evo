@@ -1,7 +1,7 @@
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../cubits/history_list_cubit.dart';
+import '../cubits/word_history_list_cubit.dart';
 import '../helpers/platform_check.dart';
 import '../views/components/history_tile.dart';
 import '../global.dart';

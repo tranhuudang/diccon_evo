@@ -99,7 +99,7 @@ class _DictionaryViewState extends State<DictionaryView>
         ));
 
         /// Add found word to history file
-        await FileHandler.saveToHistory(wordResult);
+        await FileHandler.saveWordToHistory(wordResult);
 
         /// Get and add list synonyms to message box
         _listSynonyms = thesaurusService.getSynonyms(searchWord);

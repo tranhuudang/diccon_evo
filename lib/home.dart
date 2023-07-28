@@ -31,7 +31,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   ThesaurusRepository thesaurusRepository = ThesaurusRepository();
 
   Future<List<Word>> readHistory() async {
-    return await FileHandler.readHistory();
+    return await FileHandler.readWordHistory();
   }
 
   @override

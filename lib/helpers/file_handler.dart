@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import '../models/video.dart';
 import '../models/word.dart';
 
 class FileHandler {
@@ -36,8 +37,8 @@ class FileHandler {
   /// Convert a [Word] object to Json format before save it to history.json
   ///
   /// Returns a [Boolean] value as true if the process is completed without error.
-  static Future<bool> saveToHistory(Word word) async {
-    final filePath = await getLocalFilePath(Global.HISTORY_FILENAME);
+  static Future<bool> saveWordToHistory(Word word) async {
+    final filePath = await getLocalFilePath(Global.WORD_HISTORY_FILENAME);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -94,9 +95,40 @@ class FileHandler {
     }
   }
 
+  static Future<bool> saveVideoToHistory(Video video) async {
+    final filePath = await getLocalFilePath(Global.VIDEO_HISTORY_FILENAME);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          json.add(video.toJson());
+          final encoded = jsonEncode(json);
+          await file.writeAsString(encoded);
+        } else {
+          final List<dynamic> list = [json, video.toJson()];
+          final encoded = jsonEncode(list);
+          await file.writeAsString(encoded);
+        }
+      } else {
+        final encoded = jsonEncode([video.toJson()]);
+        await file.writeAsString(encoded);
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't save to video history.json. Error detail: $e");
+      }
+      return false;
+    }
+  }
 
-  static Future<bool> clearHistory() async {
-    final filePath = await getLocalFilePath(Global.HISTORY_FILENAME);
+  /// Delete a provided file name in local document file path
+  ///
+  /// Returns a [Boolean] value as true if the process is completed without error.
+  static Future<bool> deleteFile(String fileName) async {
+    final filePath = await getLocalFilePath(fileName);
     try {
       final file = File(filePath);
       file.delete();
@@ -112,25 +144,8 @@ class FileHandler {
     }
   }
 
-  static Future<bool> clearArticleHistory() async {
-    final filePath = await getLocalFilePath(Global.ARTICLE_HISTORY_FILENAME);
-    try {
-      final file = File(filePath);
-      file.delete();
-      if (kDebugMode) {
-        print('Text file cleared successfully.');
-      }
-      return true;
-    } catch (e) {
-      if (kDebugMode) {
-        print('Failed to clear text file: $e');
-      }
-      return false;
-    }
-  }
-
-  static Future<List<Word>> readHistory() async {
-    final filePath = await getLocalFilePath(Global.HISTORY_FILENAME);
+  static Future<List<Word>> readWordHistory() async {
+    final filePath = await getLocalFilePath(Global.WORD_HISTORY_FILENAME);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -163,7 +178,7 @@ class FileHandler {
         final json = jsonDecode(contents);
         if (json is List<dynamic>) {
           final List<Article> articles =
-          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
+              json.map((e) => Article.fromJson(e)).toList().cast<Article>();
           return articles;
         } else {
           return [];
@@ -174,6 +189,31 @@ class FileHandler {
     } catch (e) {
       if (kDebugMode) {
         print("Can't read article history.json. Error detail: $e");
+      }
+      return [];
+    }
+  }
+
+  static Future<List<Video>> readVideoHistory() async {
+    final filePath = await getLocalFilePath(Global.VIDEO_HISTORY_FILENAME);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<Video> videos =
+              json.map((e) => Video.fromJson(e)).toList().cast<Video>();
+          return videos;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't read video history.json. Error detail: $e");
       }
       return [];
     }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:diccon_evo/cubits/clickable_word_cubit.dart';
-import 'package:diccon_evo/cubits/history_list_cubit.dart';
+import 'package:diccon_evo/cubits/video_history_list_cubit.dart';
+import 'package:diccon_evo/cubits/word_history_list_cubit.dart';
 import 'package:diccon_evo/cubits/video_list_cubit.dart';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
@@ -14,19 +15,18 @@ import 'global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setSize(const Size(400, 700));
-    WindowManager.instance.setMinimumSize(const Size(Global.MIN_WIDTH, Global.MIN_HEIGHT));
+    WindowManager.instance
+        .setMinimumSize(const Size(Global.MIN_WIDTH, Global.MIN_HEIGHT));
     WindowManager.instance.setTitle(Global.DICCON_DICTIONARY);
   }
 
@@ -56,10 +56,13 @@ class ProgramRoot extends StatelessWidget {
           ),
           BlocProvider<ClickableWordCubit>(
             create: (context) => ClickableWordCubit(),
-
           ),
-    BlocProvider<VideoListCubit>(
-    create: (context) => VideoListCubit(),),
+          BlocProvider<VideoHistoryListCubit>(
+            create: (context) => VideoHistoryListCubit(),
+          ),
+          BlocProvider<VideoListCubit>(
+            create: (context) => VideoListCubit(),
+          ),
         ],
         child: MaterialApp(
             themeMode: ThemeMode.light,

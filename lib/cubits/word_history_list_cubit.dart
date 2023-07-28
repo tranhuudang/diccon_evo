@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../global.dart';
 import '../helpers/file_handler.dart';
 import '../models/word.dart';
 
@@ -9,7 +10,7 @@ class HistoryListCubit extends Cubit<List<Word>> {
   List<Word> words = [];
 
   void loadHistory() async {
-    words = await FileHandler.readHistory();
+    words = await FileHandler.readWordHistory();
     emit(words);
   }
 
@@ -25,7 +26,7 @@ class HistoryListCubit extends Cubit<List<Word>> {
   }
 
   void clearHistory() {
-    FileHandler.clearHistory();
+    FileHandler.deleteFile(Global.WORD_HISTORY_FILENAME);
     words = List.empty();
     emit(words);
   }

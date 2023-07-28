@@ -23,7 +23,7 @@ class VideoTile extends StatelessWidget {
         onTap: () {
           // Handle tap on article
           // For example, navigate to article details page
-          //FileHandler.saveReadArticleToHistory(video);
+          FileHandler.saveVideoToHistory(video);
           Navigator.push(
               context,
               MaterialPageRoute(

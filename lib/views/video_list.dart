@@ -1,16 +1,10 @@
 import 'package:diccon_evo/views/components/header.dart';
-import 'package:diccon_evo/views/article_page.dart';
-import 'package:diccon_evo/views/video_page.dart';
+import 'package:diccon_evo/views/video_history.dart';
 import 'package:flutter/material.dart';
-import '../cubits/article_list_cubit.dart';
 import '../cubits/video_list_cubit.dart';
 import '../global.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../models/article.dart';
 import '../models/video.dart';
-import 'article_history.dart';
-import 'components/reading_tile.dart';
 import 'components/video_tile.dart';
 
 class VideoListView extends StatelessWidget {
@@ -20,18 +14,18 @@ class VideoListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final videoListCubit = context.read<VideoListCubit>();
     return Scaffold(
-      appBar: Header(
+      appBar:  Header(
         title: 'Watching time',
-        icon: Icons.chrome_reader_mode,
+        icon: Icons.video_library_outlined,
         actions: [
-          // IconButton(
-          //   onPressed: () {
-          //     // Remove focus out of TextField in DictionaryView
-          //     Global.textFieldFocusNode.unfocus();
-          //     Navigator.push(context, MaterialPageRoute(builder: (context) => const ArticleListHistoryView()));
-          //   },
-          //   icon: const Icon(Icons.history),
-          // ),
+          IconButton(
+            onPressed: () {
+              // Remove focus out of TextField in DictionaryView
+              Global.textFieldFocusNode.unfocus();
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const VideoListHistoryView()));
+            },
+            icon: const Icon(Icons.history),
+          ),
         ],
       ),
       body: BlocBuilder<VideoListCubit, List<Video>>(
