@@ -82,24 +82,84 @@ class VideoTile extends StatelessWidget {
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            video.title,
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          video.title,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Row(
+                            children: [
+                              SourceTag(video: video),
+                              const SizedBox(width: 3,),
+                              video.content!= "" ? const FootNoteTag() : const SizedBox.shrink(),
+                            ],
                           ),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
+                ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class SourceTag extends StatelessWidget {
+  const SourceTag({
+    super.key,
+    required this.video,
+  });
+
+  final Video video;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.black,
+      ),
+      child: Align(
+        alignment: Alignment.center,
+        child: Text(
+          video.source ?? "Unknown",
+          style: const TextStyle(
+              color: Colors.white, fontSize: 11),
+        ),
+      ),
+    );
+  }
+}
+
+class FootNoteTag extends StatelessWidget {
+  const FootNoteTag({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: Colors.black45),
+      child: const Align(
+        alignment: Alignment.center,
+        child: Text(
+          "footnote",
+          style: TextStyle(color: Colors.white, fontSize: 11),
         ),
       ),
     );

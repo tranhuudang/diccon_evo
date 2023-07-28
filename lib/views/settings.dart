@@ -35,95 +35,96 @@ class _SettingsViewState extends State<SettingsView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Platform.isAndroid
-                    ? SettingSection(title: "User", children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: Global.userInfo.avatarUrl != ""
-                                  ? BorderRadius.circular(50.0)
-                                  : BorderRadius.circular(0),
-                              child: Global.userInfo.avatarUrl != ""
-                                  ? Image(
-                                      height: 70,
-                                      width: 70,
-                                      image: NetworkImage(
-                                          Global.userInfo.avatarUrl),
-                                      fit: BoxFit
-                                          .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
-                                    )
-                                  : const Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices",
-                                        style: TextStyle(fontSize: 16),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                            ),
-                            Global.userInfo.name != ""
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      Global.userInfo.name,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              Global.userInfo.email,
-                              style: const TextStyle(color: Colors.black26),
-                            ),
-                          ],
-                        ),
-                        Global.userInfo.id != ""
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text("Sync your data"),
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      AuthService authService = AuthService();
-                                      authService.googleSignOut();
-                                      setState(() {
-                                        Global.userInfo =
-                                            UserInfo("", "", "", "");
-                                      });
-                                    },
-                                    child: const Text("Log out"),
-                                  ),
-                                ],
-                              )
-                            : GoogleSignInButton(
-                                onPressed: () async {
-                                  AuthService authService = AuthService();
-                                  GoogleSignInAccount? user =
-                                      await authService.googleSignIn();
-                                  setState(() {
-                                    Global.userInfo = UserInfo(
-                                        user!.id,
-                                        user.displayName ?? "",
-                                        user.photoUrl ?? "",
-                                        user.email);
-                                  });
-                                },
-                              ),
-                      ])
-                    : Container(),
+                /// Login form and user infomations
+                // Platform.isAndroid
+                //     ? SettingSection(title: "User", children: [
+                //         Column(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             ClipRRect(
+                //               borderRadius: Global.userInfo.avatarUrl != ""
+                //                   ? BorderRadius.circular(50.0)
+                //                   : BorderRadius.circular(0),
+                //               child: Global.userInfo.avatarUrl != ""
+                //                   ? Image(
+                //                       height: 70,
+                //                       width: 70,
+                //                       image: NetworkImage(
+                //                           Global.userInfo.avatarUrl),
+                //                       fit: BoxFit
+                //                           .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
+                //                     )
+                //                   : const Align(
+                //                       alignment: Alignment.center,
+                //                       child: Text(
+                //                         "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices",
+                //                         style: TextStyle(fontSize: 16),
+                //                         textAlign: TextAlign.center,
+                //                       ),
+                //                     ),
+                //             ),
+                //             Global.userInfo.name != ""
+                //                 ? Padding(
+                //                     padding: const EdgeInsets.all(8.0),
+                //                     child: Text(
+                //                       Global.userInfo.name,
+                //                       style: const TextStyle(
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //                   )
+                //                 : Container(),
+                //           ],
+                //         ),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             Text(
+                //               Global.userInfo.email,
+                //               style: const TextStyle(color: Colors.black26),
+                //             ),
+                //           ],
+                //         ),
+                //         Global.userInfo.id != ""
+                //             ? Row(
+                //                 mainAxisAlignment: MainAxisAlignment.center,
+                //                 children: [
+                //                   ElevatedButton(
+                //                     onPressed: () {},
+                //                     child: const Text("Sync your data"),
+                //                   ),
+                //                   const SizedBox(
+                //                     width: 8,
+                //                   ),
+                //                   ElevatedButton(
+                //                     onPressed: () {
+                //                       AuthService authService = AuthService();
+                //                       authService.googleSignOut();
+                //                       setState(() {
+                //                         Global.userInfo =
+                //                             UserInfo("", "", "", "");
+                //                       });
+                //                     },
+                //                     child: const Text("Log out"),
+                //                   ),
+                //                 ],
+                //               )
+                //             : GoogleSignInButton(
+                //                 onPressed: () async {
+                //                   AuthService authService = AuthService();
+                //                   GoogleSignInAccount? user =
+                //                       await authService.googleSignIn();
+                //                   setState(() {
+                //                     Global.userInfo = UserInfo(
+                //                         user!.id,
+                //                         user.displayName ?? "",
+                //                         user.photoUrl ?? "",
+                //                         user.email);
+                //                   });
+                //                 },
+                //               ),
+                //       ])
+                //     : Container(),
                 SettingSection(title: 'Dictionary Section', children: [
                   Row(children: [
                     const Text("Number of synonyms"),

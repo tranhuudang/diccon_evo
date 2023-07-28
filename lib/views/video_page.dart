@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../models/video.dart';
+import 'components/video_footnote_paragraph.dart';
 import 'components/window_title_bar.dart';
 
 class VideoPageView extends StatefulWidget {
@@ -67,6 +68,7 @@ class _VideoPageViewState extends State<VideoPageView> {
                   ],
                 ),
               ),
+              VideoFootNoteParagraph(text: widget.video.content,)
             ],
           ),
         ),

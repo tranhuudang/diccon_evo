@@ -16,7 +16,7 @@ class VideoListView extends StatelessWidget {
     return Scaffold(
       appBar:  Header(
         title: 'Watching time',
-        icon: Icons.video_library_outlined,
+        icon: Icons.play_circle_outline,
         actions: [
           IconButton(
             onPressed: () {

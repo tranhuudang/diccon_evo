@@ -241,7 +241,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         icon: Icon(Icons.search), label: "Dictionary"),
                     NavigationDestination(
                         icon: Icon(
-                          Icons.video_library_outlined,
+                          Icons.play_circle_outline,
                         ),
                         label: "Videos"),
                     NavigationDestination(

@@ -78,6 +78,7 @@ dev_dependencies:
 
   # Video player
   video_player: ^2.7.0
+  google_fonts: ^4.0.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
