@@ -43,40 +43,54 @@ class VideoTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(13),
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) =>
-                          const LinearProgressIndicator(
-                        backgroundColor: Colors.black45,
-                        color: Colors.black54,
+                Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
                       ),
-                      imageUrl: video.videoThumbnail,
-                      height: 100.0,
-                      width: 100.0,
-                      fit: BoxFit.cover,
-                      errorWidget:
-                          (context, String exception, dynamic stackTrace) {
-                        return Container(
-                          width: 100.0,
-                          height: 100.0,
-                          color: Colors
-                              .grey, // Display a placeholder color or image
-                          child: const Center(
-                            child: Text('No Image'),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(13),
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) =>
+                              const LinearProgressIndicator(
+                            backgroundColor: Colors.black45,
+                            color: Colors.black54,
                           ),
-                        );
-                      },
+                          imageUrl: video.videoThumbnail,
+                          height: 100.0,
+                          width: 100.0,
+                          fit: BoxFit.cover,
+                          errorWidget:
+                              (context, String exception, dynamic stackTrace) {
+                            return Container(
+                              width: 100.0,
+                              height: 100.0,
+                              color: Colors
+                                  .grey, // Display a placeholder color or image
+                              child: const Center(
+                                child: Text('No Image'),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      height: 104.0,
+                      width: 104.0,
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(16),
+
+                      ),
+
+                      child: const Icon(Icons.play_circle_outline, size: 40, color: Colors.white70,),)
+                  ],
                 ),
                 const SizedBox(width: 8.0),
                 Flexible(
@@ -154,7 +168,7 @@ class FootNoteTag extends StatelessWidget {
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Colors.black45),
+          color: Colors.orange),
       child: const Align(
         alignment: Alignment.center,
         child: Text(
