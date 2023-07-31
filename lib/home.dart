@@ -44,13 +44,15 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     // Other loading steps
     loadUpData();
 
-    Global.getSettings();
   }
 
   /// Detect when windows is changing size
   @override
   void onWindowResize() async {
     Size windowsSize = await WindowManager.instance.getSize();
+    Global.defaultWindowWidth = windowsSize.width;
+    Global.defaultWindowHeight = windowsSize.height;
+    Global.saveSettings(null,null,null,null);
     if (windowsSize.width > 800) {
       setState(() {
         isExpanded = true;

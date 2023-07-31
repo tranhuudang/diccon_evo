@@ -2,13 +2,13 @@ import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-
-import '../models/video.dart';
+import '../helpers/platform_check.dart';
+import '../models/video.dart' as video_model;
 import 'components/video_footnote_paragraph.dart';
 import 'components/window_title_bar.dart';
 
 class VideoPageView extends StatefulWidget {
-  final Video video;
+  final video_model.Video video;
 
   const VideoPageView({super.key, required this.video});
   @override
@@ -25,7 +25,6 @@ class _VideoPageViewState extends State<VideoPageView> {
       Uri.parse(widget.video.videoUrl),
       videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
     );
-
     _controller.addListener(() {
       setState(() {});
     });
@@ -56,19 +55,30 @@ class _VideoPageViewState extends State<VideoPageView> {
                   },
                 ),
               ),
-              AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    VideoPlayer(_controller),
-                    ClosedCaption(text: _controller.value.caption.text),
-                    _ControlsOverlay(controller: _controller),
-                    VideoProgressIndicator(_controller, allowScrubbing: true),
-                  ],
+
+              /// Video Player on Mobile devices
+              Container(
+                height: PlatformCheck.isMobile()?  null:  500,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.black87
+                ),
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: <Widget>[
+                      VideoPlayer(_controller),
+                      ClosedCaption(text: _controller.value.caption.text),
+                      _ControlsOverlay(controller: _controller),
+                      VideoProgressIndicator(_controller, allowScrubbing: true),
+                    ],
+                  ),
                 ),
               ),
-              VideoFootNoteParagraph(text: widget.video.content,)
+              VideoFootNoteParagraph(
+                text: widget.video.content,
+              )
             ],
           ),
         ),

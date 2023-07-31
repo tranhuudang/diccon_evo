@@ -12,11 +12,12 @@ import 'cubits/article_list_cubit.dart';
 import 'cubits/setting_cubit.dart';
 import 'firebase_options.dart';
 import 'global.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:video_player_win/video_player_win_plugin.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Global.getSettings();
+
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -24,11 +25,16 @@ void main() async {
   }
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
-    WindowManager.instance.setSize(const Size(400, 700));
+    /// register player first
+    WindowsVideoPlayer.registerWith();
+    WindowManager.instance.setSize(Size(Global.defaultWindowWidth, Global.defaultWindowHeight));
     WindowManager.instance
         .setMinimumSize(const Size(Global.MIN_WIDTH, Global.MIN_HEIGHT));
     WindowManager.instance.setTitle(Global.DICCON_DICTIONARY);
   }
+
+  /// Initialize Video Player for Desktop devices
+
 
   runApp(const ProgramRoot());
 }

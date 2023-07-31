@@ -15,12 +15,7 @@ import 'package:diccon_evo/models/user_info.dart';
 
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
-enum AppViews {
-  dictionaryView,
-  articleListView,
-  videoListView,
-  settingsView
-}
+enum AppViews { dictionaryView, articleListView, videoListView, settingsView }
 
 class Level {
   static String beginner = "beginner",
@@ -80,7 +75,9 @@ class Global {
   static PageController pageController = PageController();
 
   static const double MIN_WIDTH = 400;
-  static const double MIN_HEIGHT = 514;
+  static const double MIN_HEIGHT = 600;
+  static double defaultWindowHeight = 700;
+  static double defaultWindowWidth = 400;
   static const String DICCON = "Diccon";
   static const String DICCON_DICTIONARY = "Diccon Evo";
   static const String DICTIONARY = "Dictionary";
@@ -105,16 +102,21 @@ class Global {
   ];
 
   static void saveSettings(
-      double newReadingFontSize,
-      double newReadingFontSizeSliderValue,
-      int newNumberOfSynonyms,
-      int newNumberOfAntonyms) async {
+      double? newReadingFontSize,
+      double? newReadingFontSizeSliderValue,
+      int? newNumberOfSynonyms,
+      int? newNumberOfAntonyms) async {
     var prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('readingFontSize', newReadingFontSize);
     await prefs.setDouble(
-        'readingFontSizeSliderValue', newReadingFontSizeSliderValue);
-    await prefs.setInt('numberOfSynonyms', newNumberOfSynonyms);
-    await prefs.setInt('numberOfAntonyms', newNumberOfAntonyms);
+        'readingFontSize', newReadingFontSize ?? defaultReadingFontSize);
+    await prefs.setDouble('readingFontSizeSliderValue',
+        newReadingFontSizeSliderValue ?? defaultReadingFontSizeSliderValue);
+    await prefs.setInt(
+        'numberOfSynonyms', newNumberOfSynonyms ?? defaultNumberOfSynonyms);
+    await prefs.setInt(
+        'numberOfAntonyms', newNumberOfAntonyms ?? defaultNumberOfAntonyms);
+    await prefs.setDouble('widthOfWindowSize', defaultWindowWidth);
+    await prefs.setDouble('heightOfWindowSize', defaultWindowHeight);
   }
 
   static Future<bool> getSettings() async {
@@ -130,6 +132,8 @@ class Global {
         prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
     defaultNumberOfAntonyms =
         prefs.getInt('numberOfAntonyms') ?? defaultNumberOfAntonyms;
+    defaultWindowWidth= prefs.getDouble("widthOfWindowSize") ?? defaultWindowWidth;
+    defaultWindowHeight = prefs.getDouble("heightOfWindowSize") ?? defaultWindowHeight;
     return true;
   }
 }
