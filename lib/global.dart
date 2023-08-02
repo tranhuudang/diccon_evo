@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+//import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/views/article_list.dart';
@@ -52,18 +52,18 @@ class Global {
   static bool isLargeWindows = false;
 
   // Theme for custom title button on Windows
-  static final buttonColors = WindowButtonColors(
-      iconNormal: Colors.black,
-      mouseOver: Colors.grey.shade100,
-      mouseDown: Colors.grey.shade200,
-      iconMouseOver: Colors.black,
-      iconMouseDown: Colors.black);
+  // static final buttonColors = WindowButtonColors(
+  //     iconNormal: Colors.black,
+  //     mouseOver: Colors.grey.shade100,
+  //     mouseDown: Colors.grey.shade200,
+  //     iconMouseOver: Colors.black,
+  //     iconMouseDown: Colors.black);
 
-  static final closeButtonColors = WindowButtonColors(
-      mouseOver: const Color(0xFFD32F2F),
-      mouseDown: const Color(0xFFB71C1C),
-      iconNormal: Colors.black,
-      iconMouseOver: Colors.white);
+  // static final closeButtonColors = WindowButtonColors(
+  //     mouseOver: const Color(0xFFD32F2F),
+  //     mouseDown: const Color(0xFFB71C1C),
+  //     iconNormal: Colors.black,
+  //     iconMouseOver: Colors.white);
 
   static List<Widget> pages = const [
     DictionaryView(),

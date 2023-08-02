@@ -9,7 +9,6 @@ import '../global.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'components/bottom_sheet_translate.dart';
 import 'components/header.dart';
-import 'components/window_title_bar.dart';
 
 class ArticlePageView extends StatefulWidget {
   final Article article;
@@ -42,18 +41,17 @@ class _ArticlePageViewState extends State<ArticlePageView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const WindowTileBar(),
+        appBar: Header(
+          title: widget.article.title,
+          iconButton: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: Column(
           children: [
-            Header(
-              title: widget.article.title,
-              iconButton: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             Expanded(
               child: Stack(
                 children: [

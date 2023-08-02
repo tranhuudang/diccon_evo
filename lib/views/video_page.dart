@@ -5,7 +5,6 @@ import 'package:video_player/video_player.dart';
 import '../helpers/platform_check.dart';
 import '../models/video.dart' as video_model;
 import 'components/video_footnote_paragraph.dart';
-import 'components/window_title_bar.dart';
 
 class VideoPageView extends StatefulWidget {
   final video_model.Video video;
@@ -42,25 +41,25 @@ class _VideoPageViewState extends State<VideoPageView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const WindowTileBar(),
+        appBar: Header(
+          title: widget.video.title,
+          iconButton: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Header(
-                title: widget.video.title,
-                iconButton: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
+
 
               /// Video Player on Mobile devices
               Container(
                 height: PlatformCheck.isMobile()?  null:  500,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black87
                 ),
                 child: AspectRatio(

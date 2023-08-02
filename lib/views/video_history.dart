@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubits/video_history_list_cubit.dart';
 import '../models/video.dart';
 import 'components/video_tile.dart';
-import 'components/window_title_bar.dart';
 
 class VideoListHistoryView extends StatelessWidget {
   const VideoListHistoryView({super.key});
@@ -14,15 +13,28 @@ class VideoListHistoryView extends StatelessWidget {
     final videoHistoryListCubit = context.read<VideoHistoryListCubit>();
     return SafeArea(
       child: Scaffold(
-        appBar: const WindowTileBar(),
+        appBar: Header(
+          title: 'History',
+          iconButton: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+                onPressed: () => videoHistoryListCubit.sortAlphabet(),
+                icon: const Icon(Icons.sort_by_alpha)),
+
+          ],
+        ),
         body: BlocBuilder<VideoHistoryListCubit, List<Video>>(
           builder: (context, state) {
             if (state.isEmpty) {
               videoHistoryListCubit.loadArticleHistory();
-              return Column(
+              return const Column(
                 children: [
-                  VideoHistoryHeader(videoHistoryListCubit: videoHistoryListCubit),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -48,7 +60,6 @@ class VideoListHistoryView extends StatelessWidget {
             } else {
               return Column(
                 children: [
-                  VideoHistoryHeader(videoHistoryListCubit: videoHistoryListCubit),
                   Expanded(
                     child: LayoutBuilder(
                       builder: (context, constraints) {
@@ -91,30 +102,3 @@ class VideoListHistoryView extends StatelessWidget {
   }
 }
 
-class VideoHistoryHeader extends StatelessWidget {
-  const VideoHistoryHeader({
-    super.key,
-    required this.videoHistoryListCubit,
-  });
-
-  final VideoHistoryListCubit videoHistoryListCubit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Header(
-      title: 'History',
-      iconButton: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      actions: [
-        IconButton(
-            onPressed: () => videoHistoryListCubit.sortAlphabet(),
-            icon: const Icon(Icons.sort_by_alpha)),
-
-      ],
-    );
-  }
-}

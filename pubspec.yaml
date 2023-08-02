@@ -53,16 +53,13 @@ dev_dependencies:
   http: ^0.13.6
   # A Flutter plugin for finding commonly used locations on the filesystem
   path_provider: ^2.0.14
-  audioplayers: ^3.0.1
+  audioplayers: ^5.0.0
   # Package for Packaging Windows App
   msix: ^3.12.1
   translator: ^0.1.7
   cached_network_image: ^3.2.3
   # Save settings
   shared_preferences: ^2.1.1
-  # Custom title bar on Windows device.
-  # This can work on MacOS and Linux as well but we currently config for Windows.
-  bitsdojo_window: ^0.1.5
   # This package help us create a notification in the bottom app
   fluttertoast: ^8.2.2
   # State management

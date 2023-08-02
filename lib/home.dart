@@ -1,12 +1,10 @@
 import 'dart:io';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:diccon_evo/helpers/platform_check.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
-import 'package:diccon_evo/views/components/window_title_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'views/components/navigation_item.dart';
@@ -43,7 +41,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Global.thesaurusService = ThesaurusService(thesaurusRepository);
     // Other loading steps
     loadUpData();
-
   }
 
   /// Detect when windows is changing size
@@ -52,7 +49,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Size windowsSize = await WindowManager.instance.getSize();
     Global.defaultWindowWidth = windowsSize.width;
     Global.defaultWindowHeight = windowsSize.height;
-    Global.saveSettings(null,null,null,null);
+    Global.saveSettings(null, null, null, null);
     if (windowsSize.width > 800) {
       setState(() {
         isExpanded = true;
@@ -75,14 +72,14 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Global.thesaurusService.loadThesaurus();
 
     /// Load windows setting for custom title bar
-    if (Platform.isWindows) {
-      doWhenWindowReady(() {
-        final win = appWindow;
-        const initialSize = Size(Global.MIN_WIDTH, Global.MIN_HEIGHT);
-        win.minSize = initialSize;
-        appWindow.show();
-      });
-    }
+    // if (Platform.isWindows) {
+    //   doWhenWindowReady(() {
+    //     final win = appWindow;
+    //     const initialSize = Size(Global.MIN_WIDTH, Global.MIN_HEIGHT);
+    //     win.minSize = initialSize;
+    //     appWindow.show();
+    //   });
+    // }
   }
 
   /// Helper method to update the selected page and collapse the navigation
@@ -115,7 +112,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       },
       child: SafeArea(
         child: Scaffold(
-          appBar: const WindowTileBar(),
           key: _scaffoldKey,
           body: Stack(
             children: [
