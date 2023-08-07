@@ -24,7 +24,6 @@ class ArticlePageView extends StatefulWidget {
 
 class _ArticlePageViewState extends State<ArticlePageView> {
   late List<bool> isWordSelected;
-  var translatedWord = "";
   final translator = GoogleTranslator();
   bool isTranslating = false;
 
@@ -65,7 +64,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                       child: Column(
                         children: [
                           CachedNetworkImage(
-                            height: 380,
+                              height: 380,
                               placeholder: (context, url) =>
                                   const LinearProgressIndicator(
                                     backgroundColor: Colors.black45,
@@ -103,11 +102,8 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                                               Global.defaultReadingFontSize,
                                           textColor: Colors.black,
                                           onWordTap: (value) {
-                                            setState(() {
-                                              isTranslating = true;
-                                              _showModalBottomSheet(
-                                                  context, value);
-                                            });
+                                            _showModalBottomSheet(
+                                                context, value);
                                           })
                                       : Container(),
                                   const SizedBox(
@@ -117,45 +113,63 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                               );
                             }).toList(),
                           ),
+
                         ],
                       ),
                     ),
                   ),
-
                   /// Bottom box for translation
                   Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: BottomOnlineTranslationBox(
-                          isTranslating: isTranslating,
-                          translatedWord: translatedWord)),
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: BottomOnlineTranslationBox(
+                      isTranslating: isTranslating,
+                    ),
+                  ),
                 ],
               ),
             ),
+
+
           ],
         ),
       ),
     );
   }
 
-  void _showModalBottomSheet(BuildContext context, String searchWord) {
+  Future<void> _showModalBottomSheet(BuildContext context, String searchWord) async {
     Word? wordResult;
     searchWord = WordHandler.removeSpecialCharacters(searchWord);
 
     /// This line is the skeleton of finding word in dictionary
     wordResult = Searching.getDefinition(searchWord);
 
-    if (wordResult == null) {
-      translate(searchWord).then((value) {
-        setState(() {
-          translatedWord = value.text;
-          isTranslating = false;
-        });
+    if (wordResult == null){
+      setState(() {
+        isTranslating = true;
       });
+      Translation result = await translate(searchWord);
+      setState(() {
+        isTranslating = false;
+      });
+
+        wordResult =
+            Word(word: searchWord, pronunciation: "", meaning: result.text);
+        showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return SizedBox(
+                height: 300,
+                child: SingleChildScrollView(
+                  child: BottomSheetTranslation(
+                    message: wordResult!,
+                  ),
+                ),
+              );
+            });
+
     } else {
-      isTranslating = false;
-      translatedWord = "";
       showModalBottomSheet(
           context: context,
           builder: (BuildContext context) {
@@ -176,11 +190,9 @@ class BottomOnlineTranslationBox extends StatelessWidget {
   const BottomOnlineTranslationBox({
     super.key,
     required this.isTranslating,
-    required this.translatedWord,
   });
 
   final bool isTranslating;
-  final String translatedWord;
 
   @override
   Widget build(BuildContext context) {
@@ -194,14 +206,17 @@ class BottomOnlineTranslationBox extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(Icons.translate),
+            const SizedBox(
+              width: 8,
+            ),
+            const Icon(Icons.translate, size: 18,),
             const SizedBox(
               width: 8,
             ),
             isTranslating
                 ? const SizedBox(
                     height: 8, width: 40, child: LinearProgressIndicator())
-                : Text(translatedWord),
+                : Container()
           ],
         ),
       ),
