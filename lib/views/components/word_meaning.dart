@@ -30,15 +30,18 @@ class WordMeaning extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               lineStart.isNotEmpty
+              /// Examples for a word
                   ? ClickableWords(
                       text: lineStart,
                       style: TextStyle(
                         color: subColor ?? Colors.black54,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.italic
                       ),
                       onWordTap: onWordTap)
                   : Container(),
               lineEnd.isNotEmpty
+              /// Word's meaning
                   ? ClickableWords(
                       style: TextStyle(
                         color: highlightColor ?? Colors.black,

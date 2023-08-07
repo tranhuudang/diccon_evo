@@ -101,7 +101,7 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                                           message: widget.message,
                                           onWordTap: widget.onWordTap,
                                           highlightColor: Colors.white,
-                                          subColor: Colors.white70,
+                                          subColor: Colors.white,
                                         ),
                                       ],
                                     ),

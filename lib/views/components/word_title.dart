@@ -21,7 +21,7 @@ class WordTitle extends StatelessWidget {
         style: TextStyle(
           color: titleColor ?? Colors.black,
           fontWeight: FontWeight.bold,
-          fontSize: 24.0,
+          fontSize: 18.0,
         ),
       ),
     );
