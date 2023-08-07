@@ -16,20 +16,23 @@ class SoundHandler {
   static String onlineSoundUrlPath(String word) {
     // Sample link's format: https://github.com/zeroclubvn/US-Pronunciation/raw/main/A/us/Affected.mp3
     String firstLetter = word.substring(0, 1).toUpperCase();
-    String afterFirstLetter =
-        word.substring(1, word.indexOf(" ")).toLowerCase();
+    String afterFirstLetter = word
+        .substring(1, !word.contains(" ") ? word.length - 1 : word.indexOf(" "))
+        .toLowerCase();
     String url =
         "https://github.com/zeroclubvn/US-Pronunciation/raw/main/$firstLetter/us/$firstLetter$afterFirstLetter.mp3";
+
     return url;
   }
 
   static void playAnyway(String word) async {
+    print(word);
     String url = onlineSoundUrlPath(word);
     String firstLetter = word.substring(0, 1).toUpperCase();
-    String afterFirstLetter =
-        word.substring(1, word.indexOf(" ")).toLowerCase();
+    String afterFirstLetter = word
+        .substring(1, !word.contains(" ") ? word.length : word.indexOf(" "))
+        .toLowerCase();
     String fileName = "$firstLetter$afterFirstLetter.mp3";
-    String properWord = "$firstLetter$afterFirstLetter";
     File file = File(await FileHandler.getLocalFilePath(fileName));
 
     // Check if the file is already downloaded before and play it
@@ -39,15 +42,17 @@ class SoundHandler {
     } else if (await FileHandler.downloadFile(url, fileName)) {
       // Try to download if it available on Online Resources
       playLocal(fileName);
-    } else {
-      // Play sound using local tts
-      playTts(properWord);
     }
   }
 
   static void playLocal(String fileName) async {
-    var filePath = await FileHandler.getLocalFilePath(fileName);
-    AudioPlayer audioPlayer = AudioPlayer();
-    await audioPlayer.play(UrlSource(filePath));
+    try {
+      var filePath = await FileHandler.getLocalFilePath(fileName);
+      AudioPlayer audioPlayer = AudioPlayer();
+      await audioPlayer.play(UrlSource(filePath));
+    } catch (e) {
+      // Play sound using local tts
+      playTts(fileName.substring(0, fileName.indexOf('.')));
+    }
   }
 }
