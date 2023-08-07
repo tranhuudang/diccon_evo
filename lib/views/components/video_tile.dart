@@ -86,10 +86,13 @@ class VideoTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.black26,
                         borderRadius: BorderRadius.circular(16),
-
                       ),
-
-                      child: const Icon(Icons.play_circle_outline, size: 40, color: Colors.white70,),)
+                      child: const Icon(
+                        Icons.play_circle_outline,
+                        size: 40,
+                        color: Colors.white70,
+                      ),
+                    )
                   ],
                 ),
                 const SizedBox(width: 8.0),
@@ -101,7 +104,9 @@ class VideoTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          video.title,
+                          video.title.length > 55
+                              ? "${video.title.substring(0, 55)}..."
+                              : video.title,
                           textAlign: TextAlign.start,
                           style: const TextStyle(
                               fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -111,8 +116,12 @@ class VideoTile extends StatelessWidget {
                           child: Row(
                             children: [
                               SourceTag(video: video),
-                              const SizedBox(width: 3,),
-                              video.content!= "" ? const FootNoteTag() : const SizedBox.shrink(),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              video.content != ""
+                                  ? const FootNoteTag()
+                                  : const SizedBox.shrink(),
                             ],
                           ),
                         )
@@ -149,8 +158,7 @@ class SourceTag extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           video.source ?? "Unknown",
-          style: const TextStyle(
-              color: Colors.white, fontSize: 11),
+          style: const TextStyle(color: Colors.white, fontSize: 11),
         ),
       ),
     );
@@ -167,8 +175,7 @@ class FootNoteTag extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.orange),
+          borderRadius: BorderRadius.circular(5), color: Colors.orange),
       child: const Align(
         alignment: Alignment.center,
         child: Text(

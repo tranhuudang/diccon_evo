@@ -37,10 +37,10 @@ class HistoryTile extends StatelessWidget {
             color: Colors.grey[700],
           ),
         ),
-        trailing: Icon(
-          Icons.chevron_right_rounded,
-          color: Colors.grey[400],
-        ),
+        // trailing: Icon(
+        //   Icons.chevron_right_rounded,
+        //   color: Colors.grey[400],
+        // ),
       ),
     );
   }

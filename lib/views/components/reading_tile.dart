@@ -85,7 +85,9 @@ class ReadingTile extends StatelessWidget {
                         children: [
 
                           Text(
-                            article.title,
+                            article.title.length > 55
+                                ? "${article.title.substring(0, 55)}..."
+                                : article.title,
                             textAlign: TextAlign.start,
                             style: const TextStyle(
                                 fontSize: 16.0,
