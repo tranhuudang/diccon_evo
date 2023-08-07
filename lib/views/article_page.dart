@@ -65,6 +65,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                       child: Column(
                         children: [
                           CachedNetworkImage(
+                            height: 380,
                               placeholder: (context, url) =>
                                   const LinearProgressIndicator(
                                     backgroundColor: Colors.black45,
