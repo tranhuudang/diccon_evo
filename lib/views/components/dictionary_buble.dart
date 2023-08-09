@@ -19,7 +19,7 @@ class DictionaryBubble extends StatefulWidget {
   final Function(String)? onWordTap;
 
   @override
-  _DictionaryBubbleState createState() => _DictionaryBubbleState();
+  State<DictionaryBubble> createState() => _DictionaryBubbleState();
 }
 
 class _DictionaryBubbleState extends State<DictionaryBubble> {

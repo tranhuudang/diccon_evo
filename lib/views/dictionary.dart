@@ -22,7 +22,7 @@ class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
 
   @override
-  _DictionaryViewState createState() => _DictionaryViewState();
+  State<DictionaryView> createState() => _DictionaryViewState();
 }
 
 class _DictionaryViewState extends State<DictionaryView>
@@ -187,7 +187,7 @@ class _DictionaryViewState extends State<DictionaryView>
                 // Remove focus out of TextField in DictionaryView
                 Global.textFieldFocusNode.unfocus();
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HistoryView()));
+                    MaterialPageRoute(builder: (context) => const HistoryView()));
               },
               icon: const Icon(Icons.history))
         ],
@@ -336,7 +336,7 @@ class _SuggestedItemState extends State<SuggestedItem> {
             onPressed: widget.onPressed ?? () {},
             child: Text(
               widget.title,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             )),
       ),
     );

@@ -20,7 +20,7 @@ class ImageBubble extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                    padding: EdgeInsets.all(3),
+                    padding: const EdgeInsets.all(3),
                     height: 250,
                     decoration: BoxDecoration(
                       color: Colors.blue,

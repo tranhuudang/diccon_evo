@@ -10,7 +10,7 @@ class ClickableWords extends StatefulWidget {
   final double? fontSize;
   final Function(String)? onWordTap;
 
-  ClickableWords({
+  const ClickableWords({super.key,
     required this.text,
     this.onWordTap,
     this.style,
@@ -19,7 +19,7 @@ class ClickableWords extends StatefulWidget {
   });
 
   @override
-  _ClickableWordsState createState() => _ClickableWordsState();
+  State<ClickableWords> createState() => _ClickableWordsState();
 }
 
 class _ClickableWordsState extends State<ClickableWords> {

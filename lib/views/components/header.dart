@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import '../../helpers/platform_check.dart';
@@ -63,7 +61,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           const Spacer(),
-
           Row(children: actions ?? []),
         ],
       ),
