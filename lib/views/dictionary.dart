@@ -1,5 +1,6 @@
 import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/views/components/header.dart';
+import 'package:diccon_evo/views/components/image_buble.dart';
 import 'package:diccon_evo/views/components/welcome_box.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/image_handler.dart';
 import '../views/components/brick_wall_buttons.dart';
 import '../global.dart';
 import '../models/word.dart';
@@ -31,9 +33,11 @@ class _DictionaryViewState extends State<DictionaryView>
 
   final translator = GoogleTranslator();
   ThesaurusRepository thesaurusRepository = ThesaurusRepository();
+  ImageHandler imageProvider = ImageHandler();
   late final ThesaurusService thesaurusService;
   late List<String> _listSynonyms = [];
   late List<String> _listAntonyms = [];
+  late String imageUrl = '';
   bool hasImages = false;
   bool hasAntonyms = false;
   bool hasSynonyms = false;
@@ -137,11 +141,30 @@ class _DictionaryViewState extends State<DictionaryView>
         children: [Text("Sorry, we couldn't find this word at this time.")],
       ));
     }
-    setState(() {});
 
+    setState(() {});
 
     /// Delay the scroll animation until after the list has been updated
     scrollToBottom();
+
+    /// Find image to show
+    imageUrl = await imageProvider.getImageFromPixabay(searchWord);
+    if (kDebugMode) {
+      print(imageUrl);
+    }
+    if (imageUrl.isNotEmpty) {
+      setState(() {
+        hasImages = true;
+      });
+    } else {
+      setState(() {
+        hasImages = false;
+      });
+    }
+
+
+
+
     if (PlatformCheck.isMobile()) {
       // Remove focus out of TextField in DictionaryView
       Global.textFieldFocusNode.unfocus();
@@ -163,7 +186,8 @@ class _DictionaryViewState extends State<DictionaryView>
               onPressed: () {
                 // Remove focus out of TextField in DictionaryView
                 Global.textFieldFocusNode.unfocus();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryView()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HistoryView()));
               },
               icon: const Icon(Icons.history))
         ],
@@ -217,30 +241,37 @@ class _DictionaryViewState extends State<DictionaryView>
                           )
                         : Container(),
                     hasAntonyms
-                        ?  SuggestedItem(
-                      onPressed: () {
-                        setState(() {
-                          _messages.add(BrickWallButtons(
-                            borderColor: Colors.orange,
-                            textColor: Colors.orange,
-                            stringList: _listAntonyms,
-                            itemOnPressed: (clickedWord) {
-                              clickedWord =
-                                  WordHandler.removeSpecialCharacters(
-                                      clickedWord);
-                              _handleSubmitted(clickedWord);
+                        ? SuggestedItem(
+                            onPressed: () {
+                              setState(() {
+                                _messages.add(BrickWallButtons(
+                                  borderColor: Colors.orange,
+                                  textColor: Colors.orange,
+                                  stringList: _listAntonyms,
+                                  itemOnPressed: (clickedWord) {
+                                    clickedWord =
+                                        WordHandler.removeSpecialCharacters(
+                                            clickedWord);
+                                    _handleSubmitted(clickedWord);
+                                  },
+                                ));
+                                hasAntonyms = false;
+                              });
+                              scrollToBottom();
                             },
-                          ));
-                          hasAntonyms = false;
-                        });
-                        scrollToBottom();
-                      },
                             title: 'Antonyms',
                           )
                         : Container(),
                     hasImages
-                        ? const SuggestedItem(
+                        ? SuggestedItem(
                             title: 'Images',
+                            onPressed: () {
+                              setState(() {
+                                _messages.add(ImageBubble(imageUrl: imageUrl));
+                                hasImages = false;
+                              });
+                              scrollToBottom();
+                            },
                           )
                         : Container(),
                   ],
@@ -262,7 +293,6 @@ class _DictionaryViewState extends State<DictionaryView>
                         _handleSubmitted(value);
                       },
                       decoration: InputDecoration(
-
                         hintText: "Send a message",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
