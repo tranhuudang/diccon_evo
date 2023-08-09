@@ -12,6 +12,7 @@ import 'views/components/side_navigation_bar.dart';
 import 'global.dart';
 import 'models/word.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:unicons/unicons.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -179,7 +180,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         NavigationItem(
                           title: "Reading",
                           isExpanded: isExpanded,
-                          icon: Icons.chrome_reader_mode_outlined,
+                          icon: UniconsLine.books,
                           onPressed: () {
                             // Remove focus out of TextField in DictionaryView
                             Global.textFieldFocusNode.unfocus();
