@@ -44,14 +44,18 @@ class FileHandler {
       if (await file.exists()) {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
-        if (json is List<dynamic>) {
-          json.add(word.toJson());
-          final encoded = jsonEncode(json);
-          await file.writeAsString(encoded);
-        } else {
-          final List<dynamic> list = [json, word.toJson()];
-          final encoded = jsonEncode(list);
-          await file.writeAsString(encoded);
+        // Check is a word is already exists in the history
+        bool isWordExists = json.any((wordInList) => wordInList['word'] == word.word);
+        if (!isWordExists) {
+          if (json is List<dynamic>) {
+            json.add(word.toJson());
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+          } else {
+            final List<dynamic> list = [json, word.toJson()];
+            final encoded = jsonEncode(list);
+            await file.writeAsString(encoded);
+          }
         }
       } else {
         final encoded = jsonEncode([word.toJson()]);
@@ -73,14 +77,18 @@ class FileHandler {
       if (await file.exists()) {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
-        if (json is List<dynamic>) {
-          json.add(article.toJson());
-          final encoded = jsonEncode(json);
-          await file.writeAsString(encoded);
-        } else {
-          final List<dynamic> list = [json, article.toJson()];
-          final encoded = jsonEncode(list);
-          await file.writeAsString(encoded);
+        // Check is a article is already exists in the history
+        bool isArticleExist = json.any((articleInJson) => articleInJson['title'] == article.title);
+        if(!isArticleExist) {
+          if (json is List<dynamic>) {
+            json.add(article.toJson());
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+          } else {
+            final List<dynamic> list = [json, article.toJson()];
+            final encoded = jsonEncode(list);
+            await file.writeAsString(encoded);
+          }
         }
       } else {
         final encoded = jsonEncode([article.toJson()]);
@@ -102,14 +110,18 @@ class FileHandler {
       if (await file.exists()) {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
-        if (json is List<dynamic>) {
-          json.add(video.toJson());
-          final encoded = jsonEncode(json);
-          await file.writeAsString(encoded);
-        } else {
-          final List<dynamic> list = [json, video.toJson()];
-          final encoded = jsonEncode(list);
-          await file.writeAsString(encoded);
+        // Check if video is already exist in history list
+        bool isVideoExists = json.any((videoInList) => videoInList['title'] == video.title);
+        if (!isVideoExists) {
+          if (json is List<dynamic>) {
+            json.add(video.toJson());
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+          } else {
+            final List<dynamic> list = [json, video.toJson()];
+            final encoded = jsonEncode(list);
+            await file.writeAsString(encoded);
+          }
         }
       } else {
         final encoded = jsonEncode([video.toJson()]);
