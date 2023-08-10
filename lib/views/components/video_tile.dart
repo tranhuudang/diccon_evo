@@ -39,7 +39,6 @@ class VideoTile extends StatelessWidget {
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(16),
             ),
-
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -109,7 +108,9 @@ class VideoTile extends StatelessWidget {
                               : video.title,
                           textAlign: TextAlign.start,
                           style: const TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5),

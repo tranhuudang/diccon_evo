@@ -25,7 +25,23 @@ class VideoListHistoryView extends StatelessWidget {
             IconButton(
                 onPressed: () => videoHistoryListCubit.sortAlphabet(),
                 icon: const Icon(Icons.sort_by_alpha)),
-
+            PopupMenuButton(
+              //splashRadius: 10.0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Theme.of(context).dividerColor),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: const Text("Reverse List"),
+                  onTap: () => videoHistoryListCubit.sortReverse(),
+                ),
+                PopupMenuItem(
+                  child: const Text("Clear all"),
+                  onTap: () => videoHistoryListCubit.clearHistory(),
+                ),
+              ],
+            ),
           ],
         ),
         body: BlocBuilder<VideoHistoryListCubit, List<Video>>(

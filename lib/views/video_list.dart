@@ -26,6 +26,32 @@ class VideoListView extends StatelessWidget {
             },
             icon: const Icon(Icons.history),
           ),
+          PopupMenuButton(
+            //splashRadius: 10.0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Theme.of(context).dividerColor),
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: const Text("Footnote"),
+                onTap: () => videoListCubit.getFootnote(),
+              ),
+              PopupMenuItem(
+                child: const Text("Non-Footnote"),
+                onTap: () => videoListCubit.getNonFootnote(),
+              ),
+              const PopupMenuItem(
+                enabled: false,
+                height: 0,
+                child: Divider(),
+              ),
+              PopupMenuItem(
+                child: const Text("All"),
+                onTap: () => videoListCubit.getAll(),
+              ),
+            ],
+          ),
         ],
       ),
       body: BlocBuilder<VideoListCubit, List<Video>>(

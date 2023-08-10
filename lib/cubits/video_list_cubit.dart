@@ -24,26 +24,20 @@ class VideoListCubit extends Cubit<List<Video>> {
     emit(Global.defaultVideoList);
   }
 
-  void sortElementary() {
+  void getFootnote() {
     var elementaryOnly = Global.defaultVideoList
-        .where((element) => element.level == Level.elementary)
+        .where((element) => element.content !="")
         .toList();
     emit(elementaryOnly);
   }
 
-  void sortIntermediate() {
+  void getNonFootnote() {
     var intermediateOnly = Global.defaultVideoList
-        .where((element) => element.level == Level.intermediate)
+        .where((element) => element.content == "")
         .toList();
     emit(intermediateOnly);
   }
 
-  void sortAdvanced() {
-    var advancedOnly = Global.defaultVideoList
-        .where((element) => element.level == Level.advanced)
-        .toList();
-    emit(advancedOnly);
-  }
 
   void getAll() {
     var all = Global.defaultVideoList;
