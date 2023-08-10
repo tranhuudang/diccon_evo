@@ -9,7 +9,6 @@ import 'package:diccon_evo/views/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
-
 import '../helpers/image_handler.dart';
 import '../views/components/brick_wall_buttons.dart';
 import '../global.dart';
@@ -17,6 +16,7 @@ import '../models/word.dart';
 import '../views/components/dictionary_buble.dart';
 import '../helpers/platform_check.dart';
 import '../helpers/searching.dart';
+import 'components/suggested_item.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -47,7 +47,7 @@ class _DictionaryViewState extends State<DictionaryView>
   void initState() {
     // TODO: implement initState
     thesaurusService = ThesaurusService(thesaurusRepository);
-    _messages.add(WelcomeBox());
+    _messages.add(const WelcomeBox());
 
     super.initState();
   }
@@ -162,9 +162,6 @@ class _DictionaryViewState extends State<DictionaryView>
       });
     }
 
-
-
-
     if (PlatformCheck.isMobile()) {
       // Remove focus out of TextField in DictionaryView
       Global.textFieldFocusNode.unfocus();
@@ -186,8 +183,10 @@ class _DictionaryViewState extends State<DictionaryView>
               onPressed: () {
                 // Remove focus out of TextField in DictionaryView
                 Global.textFieldFocusNode.unfocus();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HistoryView()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HistoryView()));
               },
               icon: const Icon(Icons.history))
         ],
@@ -306,38 +305,6 @@ class _DictionaryViewState extends State<DictionaryView>
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SuggestedItem extends StatefulWidget {
-  final String title;
-  final VoidCallback? onPressed;
-  final Color? backgroundColor;
-  const SuggestedItem(
-      {super.key, required this.title, this.onPressed, this.backgroundColor});
-
-  @override
-  State<SuggestedItem> createState() => _SuggestedItemState();
-}
-
-class _SuggestedItemState extends State<SuggestedItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: widget.backgroundColor ?? Colors.grey[800],
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: TextButton(
-            onPressed: widget.onPressed ?? () {},
-            child: Text(
-              widget.title,
-              style: const TextStyle(color: Colors.white),
-            )),
       ),
     );
   }

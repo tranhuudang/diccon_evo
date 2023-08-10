@@ -80,35 +80,32 @@ class ReadingTile extends StatelessWidget {
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          Text(
-                            article.title.length > 55
-                                ? "${article.title.substring(0, 55)}..."
-                                : article.title,
-                            textAlign: TextAlign.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          article.title.length > 55
+                              ? "${article.title.substring(0, 55)}..."
+                              : article.title,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                        ),
+                        Expanded(
+                          child: Text(
+                            article.shortDescription,
+                            textAlign: TextAlign.justify,
                             style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 12.0, color: Colors.black45),
                           ),
-                          Expanded (
-                            child: Text(
-                              article.shortDescription,
-                              textAlign: TextAlign.justify,
-                              style: const TextStyle(
-                                  fontSize: 12.0, color: Colors.black45),
-                            ),
-                          ),
-                          LevelIcon(
-                            level: article.level ??
-                                Level.intermediate,
-                          ),
-                        ],
-                      ),
+                        ),
+                        LevelIcon(
+                          level: article.level ?? Level.intermediate,
+                        ),
+                      ],
                     ),
                   ),
+                ),
               ],
             ),
           ),
