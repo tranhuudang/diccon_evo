@@ -82,6 +82,7 @@ class VideoListHistoryView extends StatelessWidget {
                           itemCount: state.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: crossAxisCount,
+                            mainAxisExtent: 150,
                             childAspectRatio:
                                 7 / 3, // Adjust the aspect ratio as needed
                           ),

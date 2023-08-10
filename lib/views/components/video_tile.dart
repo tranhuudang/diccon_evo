@@ -39,7 +39,7 @@ class VideoTile extends StatelessWidget {
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(16),
             ),
-            width: 300,
+
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
