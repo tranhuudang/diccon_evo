@@ -18,6 +18,8 @@ class VideoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).primaryTextTheme;
+
     return GridTile(
       child: InkWell(
         onTap: () {
@@ -36,7 +38,7 @@ class VideoTile extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -107,10 +109,7 @@ class VideoTile extends StatelessWidget {
                               ? "${video.title.substring(0, 55)}..."
                               : video.title,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: Global.titleTileFontSize,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: textTheme.titleMedium
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5),

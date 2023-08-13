@@ -34,6 +34,7 @@ class _NavigationItemState extends State<NavigationItem> {
 
   @override
   Widget build(BuildContext context) {
+    BottomNavigationBarThemeData theme = Theme.of(context).bottomNavigationBarTheme;
     return StreamBuilder(
       stream: hoverStream.stream,
       builder: ( context,snapshot) {
@@ -57,7 +58,7 @@ class _NavigationItemState extends State<NavigationItem> {
               Icon(
                 size: PlatformCheck.isMobile() ? 24 : 20,
                 widget.icon,
-                color: snapshot.data??false ? Colors.blue : Colors.black,
+                color: snapshot.data??false ? theme.selectedItemColor : theme.unselectedItemColor,
               ),
               widget.isExpanded!
                   ? const SizedBox(

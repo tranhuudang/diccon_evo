@@ -100,7 +100,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                                           text: paragraph,
                                           fontSize:
                                               Global.defaultReadingFontSize,
-                                          textColor: Colors.black,
+                                          textColor: Theme.of(context).primaryTextTheme.labelMedium?.color,
                                           onWordTap: (value) {
                                             _showModalBottomSheet(
                                                 context, value);
@@ -198,8 +198,8 @@ class BottomOnlineTranslationBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration:  BoxDecoration(
+        color: Theme.of(context).navigationBarTheme.backgroundColor,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),

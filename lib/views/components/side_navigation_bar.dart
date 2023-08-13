@@ -13,15 +13,17 @@ class SideNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BottomNavigationBarThemeData theme = Theme.of(context).bottomNavigationBarTheme;
     return Container(
+
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       width: isExpanded ? 250 : PlatformCheck.isMobile() ? 60 : 50,
-      decoration: const BoxDecoration(
-        border: Border(
+      decoration:  BoxDecoration(
+        border: const Border(
           right: BorderSide(
               color: Colors.black12, width: 0.7),
         ),
-        color: Colors.white,
+        color: theme.backgroundColor,
       ),
       /// List Navigation Item
       child: Column(

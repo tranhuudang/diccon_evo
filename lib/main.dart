@@ -14,6 +14,8 @@ import 'firebase_options.dart';
 import 'global.dart';
 import 'package:video_player_win/video_player_win_plugin.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'themeData.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Global.getSettings();
@@ -25,16 +27,17 @@ void main() async {
   }
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
+
     /// register player first
     WindowsVideoPlayer.registerWith();
-    WindowManager.instance.setSize(Size(Global.defaultWindowWidth, Global.defaultWindowHeight));
+    WindowManager.instance
+        .setSize(Size(Global.defaultWindowWidth, Global.defaultWindowHeight));
     WindowManager.instance
         .setMinimumSize(const Size(Global.MIN_WIDTH, Global.MIN_HEIGHT));
     WindowManager.instance.setTitle(Global.DICCON_DICTIONARY);
   }
 
   /// Initialize Video Player for Desktop devices
-
 
   runApp(const ProgramRoot());
 }
@@ -46,6 +49,7 @@ class ProgramRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
     return MultiBlocProvider(
         providers: [
           BlocProvider<ArticleListCubit>(
@@ -71,27 +75,9 @@ class ProgramRoot extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-            themeMode: ThemeMode.light,
-            theme: ThemeData.light().copyWith(
-              // Customize light theme properties
-              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                backgroundColor: Colors.blue, // Light mode background color
-                selectedItemColor:
-                    Colors.black, // Light mode selected item color
-                unselectedItemColor:
-                    Colors.grey, // Light mode unselected item color
-              ),
-            ),
-            darkTheme: ThemeData.dark().copyWith(
-              // Customize dark theme properties
-              bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                backgroundColor: Colors.grey[900], // Dark mode background color
-                selectedItemColor:
-                    Colors.white, // Dark mode selected item color
-                unselectedItemColor:
-                    Colors.grey, // Dark mode unselected item color
-              ),
-            ),
+            themeMode: ThemeMode.system,
+            theme: CustomTheme.getLight(context),
+            darkTheme: CustomTheme.getDark(context),
             title: Global.DICCON_DICTIONARY,
             debugShowCheckedModeBanner: false,
             home: const HomeView()));

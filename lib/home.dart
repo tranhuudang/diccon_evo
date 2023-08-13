@@ -99,6 +99,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   DateTime backPressedTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    Global.isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(backPressedTime);
@@ -234,20 +236,36 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                       });
                     }
                   },
-                  labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-                  destinations: const [
+                  destinations: [
                     NavigationDestination(
-                        icon: Icon(Icons.search), label: "Dictionary"),
+                      icon: const Icon(Icons.search),
+                      label: "Dictionary",
+                      selectedIcon: Icon(Icons.search,
+                          color:
+                              Global.isDarkMode ? Colors.black : Colors.white),
+                    ),
                     NavigationDestination(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.play_circle_outline,
                         ),
+                        selectedIcon: Icon(Icons.play_circle_outline,
+                            color: Global.isDarkMode
+                                ? Colors.black
+                                : Colors.white),
                         label: "Videos"),
                     NavigationDestination(
-                        icon: Icon(Icons.chrome_reader_mode_outlined),
+                        icon: const Icon(Icons.chrome_reader_mode_outlined),
+                        selectedIcon: Icon(Icons.chrome_reader_mode_outlined,
+                            color: Global.isDarkMode
+                                ? Colors.black
+                                : Colors.white),
                         label: "Reading Time"),
                     NavigationDestination(
-                        icon: Icon(Icons.manage_accounts_outlined),
+                        selectedIcon: Icon(Icons.manage_accounts_outlined,
+                            color: Global.isDarkMode
+                                ? Colors.black
+                                : Colors.white),
+                        icon: const Icon(Icons.manage_accounts_outlined),
                         label: "Settings"),
                   ],
                 )

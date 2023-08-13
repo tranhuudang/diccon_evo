@@ -12,6 +12,8 @@ class HistoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).primaryTextTheme;
+
     return Container(
       decoration: const BoxDecoration(
         border: Border(
@@ -24,11 +26,7 @@ class HistoryTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           word.word,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0,
-            color: Colors.black87,
-          ),
+          style: textTheme.titleMedium
         ),
         subtitle: Text(
           word.meaning!,

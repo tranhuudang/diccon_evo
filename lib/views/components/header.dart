@@ -21,10 +21,13 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppBarTheme theme = Theme.of(context).appBarTheme;
     return Container(
       height: kToolbarHeight,
       decoration: PlatformCheck.isMobile()
-          ? const BoxDecoration(
+          ?  BoxDecoration(
+        color: theme.backgroundColor,
+
               border: Border(
                 bottom: BorderSide(
                   color: Colors.black12,
@@ -54,11 +57,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             flex: 4,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis,
-              ),
+              style:  theme.titleTextStyle
             ),
           ),
           const Spacer(),

@@ -16,6 +16,7 @@ class ReadingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).primaryTextTheme;
     return GridTile(
       child: InkWell(
         onTap: () {
@@ -34,7 +35,7 @@ class ReadingTile extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(16),
             ),
             width: 300,
@@ -83,20 +84,16 @@ class ReadingTile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          article.title.length > 55
-                              ? "${article.title.substring(0, 55)}..."
-                              : article.title,
+                        Text(article.title,
                           textAlign: TextAlign.start,
-                          style:  TextStyle(
-                              fontSize: Global.titleTileFontSize, fontWeight: FontWeight.bold),
+                          style: textTheme.titleMedium,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Expanded(
                           child: Text(
                             article.shortDescription,
                             textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                                fontSize: 12.0, color: Colors.black45),
+                            style: textTheme.bodySmall
                           ),
                         ),
                         LevelIcon(
