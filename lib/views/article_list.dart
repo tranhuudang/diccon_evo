@@ -17,8 +17,8 @@ class ArticleListView extends StatelessWidget {
     final articleListCubit = context.read<ArticleListCubit>();
     return Scaffold(
       appBar: Header(
+        padding: const EdgeInsets.only(left: 16, right: 0),
         title: 'Reading time',
-        icon: Icons.chrome_reader_mode,
         actions: [
           IconButton(
             onPressed: () {
@@ -87,7 +87,7 @@ class ArticleListView extends StatelessWidget {
                   itemCount: state.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    mainAxisExtent: 150,
+                    mainAxisExtent: 125,
                     childAspectRatio:
                         7 / 3, // Adjust the aspect ratio as needed
                   ),

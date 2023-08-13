@@ -177,7 +177,6 @@ class _DictionaryViewState extends State<DictionaryView>
     return Scaffold(
       appBar: Header(
         title: Global.DICTIONARY,
-        icon: Icons.search,
         actions: [
           IconButton(
               onPressed: () {

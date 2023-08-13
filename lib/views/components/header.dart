@@ -9,7 +9,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       this.icon,
       this.subtitle,
       this.actions,
-      this.iconButton})
+      this.iconButton, this.padding})
       : super(key: key);
 
   final String title;
@@ -17,6 +17,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   final IconData? icon;
   final IconButton? iconButton;
   final List<Widget>? actions;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
           iconButton ?? Container(),
@@ -47,14 +48,14 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                   width: 8,
                 )
               : const SizedBox(
-                  width: 16,
+                  width: 0,
                 ),
           Expanded(
             flex: 4,
             child: Text(
               title,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis,
               ),

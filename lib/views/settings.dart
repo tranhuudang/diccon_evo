@@ -25,7 +25,6 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Header(
-        icon: Icons.settings,
         title: "Settings",
       ),
       body: BlocBuilder<SettingCubit, Setting>(builder: (context, state) {

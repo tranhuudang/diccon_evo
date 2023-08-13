@@ -78,6 +78,7 @@ class Global {
   static const double MIN_HEIGHT = 600;
   static double defaultWindowHeight = 700;
   static double defaultWindowWidth = 400;
+  static double titleTileFontSize = 14.0;
   static const String DICCON = "Diccon";
   static const String DICCON_DICTIONARY = "Diccon Evo";
   static const String DICTIONARY = "Dictionary";

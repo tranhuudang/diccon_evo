@@ -30,7 +30,7 @@ class ReadingTile extends StatelessWidget {
                       )));
         },
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(horizontal: 8,  vertical: 4),
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -88,8 +88,8 @@ class ReadingTile extends StatelessWidget {
                               ? "${article.title.substring(0, 55)}..."
                               : article.title,
                           textAlign: TextAlign.start,
-                          style: const TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                          style:  TextStyle(
+                              fontSize: Global.titleTileFontSize, fontWeight: FontWeight.bold),
                         ),
                         Expanded(
                           child: Text(

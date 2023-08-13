@@ -14,15 +14,18 @@ class VideoListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final videoListCubit = context.read<VideoListCubit>();
     return Scaffold(
-      appBar:  Header(
+      appBar: Header(
+        padding: const EdgeInsets.only(left: 16, right: 0),
         title: 'Watching time',
-        icon: Icons.play_circle_outline,
         actions: [
           IconButton(
             onPressed: () {
               // Remove focus out of TextField in DictionaryView
               Global.textFieldFocusNode.unfocus();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const VideoListHistoryView()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const VideoListHistoryView()));
             },
             icon: const Icon(Icons.history),
           ),
@@ -57,7 +60,7 @@ class VideoListView extends StatelessWidget {
       body: BlocBuilder<VideoListCubit, List<Video>>(
         builder: (context, state) {
           if (state.isEmpty) {
-           videoListCubit.loadUp();
+            videoListCubit.loadUp();
             return const Center(child: CircularProgressIndicator());
           } else {
             return LayoutBuilder(
@@ -81,7 +84,7 @@ class VideoListView extends StatelessWidget {
                   itemCount: state.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    mainAxisExtent: 150,
+                    mainAxisExtent: 125,
                     childAspectRatio:
                         7 / 3, // Adjust the aspect ratio as needed
                   ),

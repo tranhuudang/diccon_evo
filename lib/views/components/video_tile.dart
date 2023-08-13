@@ -32,7 +32,7 @@ class VideoTile extends StatelessWidget {
                       )));
         },
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -107,8 +107,8 @@ class VideoTile extends StatelessWidget {
                               ? "${video.title.substring(0, 55)}..."
                               : video.title,
                           textAlign: TextAlign.start,
-                          style: const TextStyle(
-                            fontSize: 16.0,
+                          style: TextStyle(
+                            fontSize: Global.titleTileFontSize,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -150,9 +150,9 @@ class SourceTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(3),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(16),
         color: Colors.black,
       ),
       child: Align(
@@ -174,9 +174,11 @@ class FootNoteTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(3),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5), color: Colors.orange),
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.orange
+      ),
       child: const Align(
         alignment: Alignment.center,
         child: Text(

@@ -17,6 +17,7 @@ class HistoryView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: Header(
+            padding: const EdgeInsets.only(left: 16, right: 0),
             title: Global.HISTORY,
             iconButton: IconButton(
               icon: const Icon(Icons.arrow_back),
