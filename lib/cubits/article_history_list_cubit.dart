@@ -1,7 +1,7 @@
 import 'package:diccon_evo/models/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../global.dart';
+import '../properties.dart';
 import '../helpers/file_handler.dart';
 
 class ArticleHistoryListCubit extends Cubit<List<Article>> {
@@ -26,7 +26,7 @@ class ArticleHistoryListCubit extends Cubit<List<Article>> {
   }
 
   void clearHistory() {
-    FileHandler.deleteFile(Global.ARTICLE_HISTORY_FILENAME);
+    FileHandler.deleteFile(Properties.ARTICLE_HISTORY_FILENAME);
     articles = List.empty();
     emit(articles);
   }

@@ -2,7 +2,7 @@ import 'package:diccon_evo/views/components/header.dart';
 import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';
 import '../cubits/article_list_cubit.dart';
-import '../global.dart';
+import '../properties.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/article.dart';
@@ -23,7 +23,7 @@ class ArticleListView extends StatelessWidget {
           IconButton(
             onPressed: () {
               // Remove focus out of TextField in DictionaryView
-              Global.textFieldFocusNode.unfocus();
+              Properties.textFieldFocusNode.unfocus();
               Navigator.push(context, MaterialPageRoute(builder: (context) => const ArticleListHistoryView()));
             },
             icon: const Icon(Icons.history),

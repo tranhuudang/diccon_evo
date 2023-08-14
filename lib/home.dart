@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'views/components/navigation_item.dart';
 import 'views/components/side_navigation_bar.dart';
-import 'global.dart';
+import 'properties.dart';
 import 'models/word.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:unicons/unicons.dart';
@@ -38,8 +38,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     super.initState();
     WindowManager.instance.addListener(this);
     // Inject Repository implementations to Services
-    Global.dataService = DataService(dataRepository);
-    Global.thesaurusService = ThesaurusService(thesaurusRepository);
+    Properties.dataService = DataService(dataRepository);
+    Properties.thesaurusService = ThesaurusService(thesaurusRepository);
     // Other loading steps
     loadUpData();
   }
@@ -48,18 +48,18 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   @override
   void onWindowResize() async {
     Size windowsSize = await WindowManager.instance.getSize();
-    Global.defaultWindowWidth = windowsSize.width;
-    Global.defaultWindowHeight = windowsSize.height;
-    Global.saveSettings(null, null, null, null);
+    Properties.defaultWindowWidth = windowsSize.width;
+    Properties.defaultWindowHeight = windowsSize.height;
+    Properties.saveSettings(null, null, null, null);
     if (windowsSize.width > 800) {
       setState(() {
         isExpanded = true;
-        Global.isLargeWindows = true;
+        Properties.isLargeWindows = true;
       });
     } else {
       setState(() {
         isExpanded = false;
-        Global.isLargeWindows = false;
+        Properties.isLargeWindows = false;
       });
     }
   }
@@ -67,10 +67,10 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   loadUpData() async {
     //Global.packageInfo = await PackageInfo.fromPlatform();
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
-    Global.wordList = await Global.dataService.getWordList();
+    Properties.wordList = await Properties.dataService.getWordList();
 
     // Load up thesaurus dictionary
-    Global.thesaurusService.loadThesaurus();
+    Properties.thesaurusService.loadThesaurus();
 
     /// Load windows setting for custom title bar
     // if (Platform.isWindows) {
@@ -89,7 +89,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     //   isExpanded = false;
     // });
     _selectedPageIndex = index;
-    Global.pageController.jumpToPage(_selectedPageIndex);
+    Properties.pageController.jumpToPage(_selectedPageIndex);
     if (popContext ?? false) Navigator.pop(context);
   }
 
@@ -99,7 +99,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   DateTime backPressedTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    Global.isDarkMode =
+    Properties.isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return WillPopScope(
       onWillPop: () async {
@@ -123,7 +123,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   /// Create a blank space for SideNavigationBar in desktop platform to live in
 
                   SizedBox(
-                    width: isExpanded && Global.isLargeWindows
+                    width: isExpanded && Properties.isLargeWindows
                         ? 250
                         : PlatformCheck.isMobile()
                             ? 0
@@ -134,9 +134,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   /// Desktop platform
                   Expanded(
                     child: PageView(
-                      controller: Global.pageController,
+                      controller: Properties.pageController,
                       physics: const NeverScrollableScrollPhysics(),
-                      children: Global.pages,
+                      children: Properties.pages,
                     ),
                   ),
                 ],
@@ -185,7 +185,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                           icon: UniconsLine.books,
                           onPressed: () {
                             // Remove focus out of TextField in DictionaryView
-                            Global.textFieldFocusNode.unfocus();
+                            Properties.textFieldFocusNode.unfocus();
                             _jumpToSelectedPage(
                                 AppViews.articleListView.index, false);
                           },
@@ -198,7 +198,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                           icon: Icons.manage_accounts_outlined,
                           onPressed: () {
                             // Remove focus out of TextField in DictionaryView
-                            Global.textFieldFocusNode.unfocus();
+                            Properties.textFieldFocusNode.unfocus();
                             _jumpToSelectedPage(
                                 AppViews.settingsView.index, false);
                           },
@@ -242,27 +242,27 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                       label: "Dictionary",
                       selectedIcon: Icon(Icons.search,
                           color:
-                              Global.isDarkMode ? Colors.black : Colors.white),
+                              Properties.isDarkMode ? Colors.black : Colors.white),
                     ),
                     NavigationDestination(
                         icon: const Icon(
                           Icons.play_circle_outline,
                         ),
                         selectedIcon: Icon(Icons.play_circle_outline,
-                            color: Global.isDarkMode
+                            color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),
                         label: "Videos"),
                     NavigationDestination(
                         icon: const Icon(Icons.chrome_reader_mode_outlined),
                         selectedIcon: Icon(Icons.chrome_reader_mode_outlined,
-                            color: Global.isDarkMode
+                            color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),
                         label: "Reading Time"),
                     NavigationDestination(
                         selectedIcon: Icon(Icons.manage_accounts_outlined,
-                            color: Global.isDarkMode
+                            color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),
                         icon: const Icon(Icons.manage_accounts_outlined),

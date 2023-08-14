@@ -28,7 +28,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           ?  BoxDecoration(
         color: theme.backgroundColor,
 
-              border: Border(
+              border: const Border(
                 bottom: BorderSide(
                   color: Colors.black12,
                 ),

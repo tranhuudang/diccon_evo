@@ -11,14 +11,14 @@ import 'cubits/article_history_list_cubit.dart';
 import 'cubits/article_list_cubit.dart';
 import 'cubits/setting_cubit.dart';
 import 'firebase_options.dart';
-import 'global.dart';
+import 'properties.dart';
 import 'package:video_player_win/video_player_win_plugin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'themeData.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Global.getSettings();
+  Properties.getSettings();
 
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
@@ -31,10 +31,10 @@ void main() async {
     /// register player first
     WindowsVideoPlayer.registerWith();
     WindowManager.instance
-        .setSize(Size(Global.defaultWindowWidth, Global.defaultWindowHeight));
+        .setSize(Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
     WindowManager.instance
-        .setMinimumSize(const Size(Global.MIN_WIDTH, Global.MIN_HEIGHT));
-    WindowManager.instance.setTitle(Global.DICCON_DICTIONARY);
+        .setMinimumSize(const Size(Properties.MIN_WIDTH, Properties.MIN_HEIGHT));
+    WindowManager.instance.setTitle(Properties.DICCON_DICTIONARY);
   }
 
   /// Initialize Video Player for Desktop devices
@@ -77,7 +77,7 @@ class ProgramRoot extends StatelessWidget {
             themeMode: ThemeMode.system,
             theme: CustomTheme.getLight(context),
             darkTheme: CustomTheme.getDark(context),
-            title: Global.DICCON_DICTIONARY,
+            title: Properties.DICCON_DICTIONARY,
             debugShowCheckedModeBanner: false,
             home: const HomeView()));
   }

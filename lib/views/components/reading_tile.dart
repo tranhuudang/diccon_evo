@@ -2,7 +2,7 @@ import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../global.dart';
+import '../../properties.dart';
 import '../../models/article.dart';
 import '../article_page.dart';
 import 'level_icon.dart';
@@ -91,11 +91,7 @@ class ReadingTile extends StatelessWidget {
                           style: textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        SizedBox(
-                          height: 30,
+                        Expanded(
                           child: Text(
                             maxLines: 2,
                             article.shortDescription,
@@ -104,7 +100,6 @@ class ReadingTile extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const Spacer(),
                         LevelIcon(
                           level: article.level ?? Level.intermediate,
                         ),

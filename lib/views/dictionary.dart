@@ -11,7 +11,7 @@ import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
 import '../helpers/image_handler.dart';
 import '../views/components/brick_wall_buttons.dart';
-import '../global.dart';
+import '../properties.dart';
 import '../models/word.dart';
 import '../views/components/dictionary_buble.dart';
 import '../helpers/platform_check.dart';
@@ -164,10 +164,10 @@ class _DictionaryViewState extends State<DictionaryView>
 
     if (PlatformCheck.isMobile()) {
       // Remove focus out of TextField in DictionaryView
-      Global.textFieldFocusNode.unfocus();
+      Properties.textFieldFocusNode.unfocus();
     } else {
       // On desktop we request focus, not on mobile
-      Global.textFieldFocusNode.requestFocus();
+      Properties.textFieldFocusNode.requestFocus();
     }
   }
 
@@ -176,12 +176,12 @@ class _DictionaryViewState extends State<DictionaryView>
     super.build(context);
     return Scaffold(
       appBar: Header(
-        title: Global.DICTIONARY,
+        title: Properties.DICTIONARY,
         actions: [
           IconButton(
               onPressed: () {
                 // Remove focus out of TextField in DictionaryView
-                Global.textFieldFocusNode.unfocus();
+                Properties.textFieldFocusNode.unfocus();
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -286,7 +286,7 @@ class _DictionaryViewState extends State<DictionaryView>
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: TextField(
-                      focusNode: Global.textFieldFocusNode,
+                      focusNode: Properties.textFieldFocusNode,
                       onSubmitted: (value) {
                         _handleSubmitted(value);
                       },

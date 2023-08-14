@@ -5,7 +5,7 @@ import '../helpers/searching.dart';
 import '../models/article.dart';
 import '../models/word.dart';
 import '../views/components/clickable_words.dart';
-import '../global.dart';
+import '../properties.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'components/bottom_sheet_translate.dart';
 import 'components/header.dart';
@@ -58,8 +58,8 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                   Padding(
                     padding: EdgeInsets.only(
                         bottom: 50,
-                        left: Global.isLargeWindows ? 100 : 16,
-                        right: Global.isLargeWindows ? 100 : 16),
+                        left: Properties.isLargeWindows ? 100 : 16,
+                        right: Properties.isLargeWindows ? 100 : 16),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -99,7 +99,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                                       ? ClickableWords(
                                           text: paragraph,
                                           fontSize:
-                                              Global.defaultReadingFontSize,
+                                              Properties.defaultReadingFontSize,
                                           textColor: Theme.of(context).primaryTextTheme.labelMedium?.color,
                                           onWordTap: (value) {
                                             _showModalBottomSheet(

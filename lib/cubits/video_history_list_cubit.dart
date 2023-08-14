@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../global.dart';
+import '../properties.dart';
 import '../helpers/file_handler.dart';
 import '../models/video.dart';
 
@@ -26,7 +26,7 @@ class VideoHistoryListCubit extends Cubit<List<Video>> {
   }
 
   void clearHistory() {
-    FileHandler.deleteFile(Global.VIDEO_HISTORY_FILENAME);
+    FileHandler.deleteFile(Properties.VIDEO_HISTORY_FILENAME);
     videos = List.empty();
     emit(videos);
   }

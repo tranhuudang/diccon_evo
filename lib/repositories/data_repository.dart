@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:diccon_evo/interfaces/data.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-import '../global.dart';
+import '../properties.dart';
 import '../models/article.dart';
 import '../models/video.dart';
 import '../models/word.dart';
@@ -32,8 +32,8 @@ class DataRepository implements Data {
 
   @override
   Future<List<Word>> getWordList() async {
-    String dataEv = await rootBundle.loadString(Global.EV_DATA_PATH);
-    String dataVe = await rootBundle.loadString(Global.VE_DATA_PATH);
+    String dataEv = await rootBundle.loadString(Properties.EV_DATA_PATH);
+    String dataVe = await rootBundle.loadString(Properties.VE_DATA_PATH);
     String data = dataEv + dataVe;
     List<String> wordDataList = data.split('@');
     List<Word> wordList = [];

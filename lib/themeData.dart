@@ -1,26 +1,26 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'global.dart';
+import 'properties.dart';
 import 'helpers/platform_check.dart';
 
 class CustomTheme {
-
   static ThemeData getDark(context) {
     if (kDebugMode) {
       print("Dark Theme Applied");
     }
     ThemeData themeData = Theme.of(context);
     return ThemeData.dark().copyWith(
-
       bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: themeData.primaryColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16))),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
       splashColor: const Color(0x14B7DCFB),
       cardColor: const Color(0xFF171A1C),
       primaryColor: Colors.blue,
-      scaffoldBackgroundColor: PlatformCheck.isMobile() ? const Color(0xFF0F1314) : const Color(0x00202020),
+      scaffoldBackgroundColor: PlatformCheck.isMobile()
+          ? const Color(0xFF0F1314)
+          : const Color(0x50302D2B),
       primaryTextTheme: TextTheme(
           labelMedium: const TextStyle(
             color: Color(0xFFECEDED),
@@ -31,16 +31,21 @@ class CustomTheme {
           ),
           titleMedium: TextStyle(
               color: const Color(0xFF90CAF9),
-              fontSize: Global.titleTileFontSize,
+              fontSize: Properties.titleTileFontSize,
               fontWeight: FontWeight.bold)),
       appBarTheme: AppBarTheme(
-          titleTextStyle: TextStyle(
-            color: themeData.primaryColor,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            overflow: TextOverflow.ellipsis,
-          ),
-          color: const Color(0xFF171A1C)),
+        titleTextStyle: TextStyle(
+          color: themeData.primaryColor,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          overflow: TextOverflow.ellipsis,
+        ),
+        color: const Color(0xFF171A1C),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Color(0xFF202020),
+          selectedItemColor: themeData.primaryColor,
+          unselectedItemColor: Color(0xFFD1D1D1)),
 
 // Customize dark theme properties
       navigationBarTheme: const NavigationBarThemeData(
@@ -59,8 +64,8 @@ class CustomTheme {
       ),
       bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: themeData.primaryColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16))),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
       splashColor: const Color(0x1F0D417C),
       cardColor: const Color(0x140D417C),
       primaryColor: const Color(0xFFF8FAFD),
@@ -75,7 +80,7 @@ class CustomTheme {
           ),
           titleMedium: TextStyle(
               color: const Color(0xFF1565C0),
-              fontSize: Global.titleTileFontSize,
+              fontSize: Properties.titleTileFontSize,
               fontWeight: FontWeight.bold)),
       appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
@@ -94,5 +99,4 @@ class CustomTheme {
       ),
     );
   }
-
 }

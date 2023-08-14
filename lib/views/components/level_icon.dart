@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../global.dart';
+import '../../properties.dart';
 
 class LevelIcon extends StatelessWidget {
   final String level;

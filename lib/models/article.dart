@@ -1,4 +1,4 @@
-import '../global.dart';
+import '../properties.dart';
 
 class Article {
   late final String title;

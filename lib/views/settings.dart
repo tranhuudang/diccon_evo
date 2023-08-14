@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../cubits/setting_cubit.dart';
-import '../global.dart';
+import '../properties.dart';
 import '../models/setting.dart';
 import '../models/user_info.dart';
 import '../services/auth_service.dart';
@@ -225,7 +225,7 @@ class _SettingsViewState extends State<SettingsView> {
                       children: [
                         const Text("© 2023 Zeroboy. All rights reserved."),
                         const Spacer(),
-                        Text(Global.version),
+                        Text(Properties.version),
                       ],
                     )
                   ],

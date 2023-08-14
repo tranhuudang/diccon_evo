@@ -2,7 +2,7 @@ import 'package:diccon_evo/views/components/header.dart';
 import 'package:diccon_evo/views/video_history.dart';
 import 'package:flutter/material.dart';
 import '../cubits/video_list_cubit.dart';
-import '../global.dart';
+import '../properties.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/video.dart';
 import 'components/video_tile.dart';
@@ -21,7 +21,7 @@ class VideoListView extends StatelessWidget {
           IconButton(
             onPressed: () {
               // Remove focus out of TextField in DictionaryView
-              Global.textFieldFocusNode.unfocus();
+              Properties.textFieldFocusNode.unfocus();
               Navigator.push(
                   context,
                   MaterialPageRoute(

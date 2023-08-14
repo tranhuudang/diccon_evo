@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
-import '../../global.dart';
+import '../../properties.dart';
 
 class WelcomeBox extends StatelessWidget {
   const WelcomeBox({super.key});
@@ -11,8 +11,8 @@ class WelcomeBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Random random = Random();
-    int randomIndex = random.nextInt(Global.welcomeBackgrounds.length);
-    String randomImagePath = Global.welcomeBackgrounds[randomIndex];
+    int randomIndex = random.nextInt(Properties.welcomeBackgrounds.length);
+    String randomImagePath = Properties.welcomeBackgrounds[randomIndex];
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

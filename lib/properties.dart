@@ -24,7 +24,7 @@ class Level {
       advanced = "advanced";
 }
 
-class Global {
+class Properties {
   static UserInfo userInfo = UserInfo("", "", "", "");
 
   static late DataService dataService;
@@ -51,20 +51,6 @@ class Global {
   // Windows size
   static bool isLargeWindows = false;
 
-  // Theme for custom title button on Windows
-  // static final buttonColors = WindowButtonColors(
-  //     iconNormal: Colors.black,
-  //     mouseOver: Colors.grey.shade100,
-  //     mouseDown: Colors.grey.shade200,
-  //     iconMouseOver: Colors.black,
-  //     iconMouseDown: Colors.black);
-
-  // static final closeButtonColors = WindowButtonColors(
-  //     mouseOver: const Color(0xFFD32F2F),
-  //     mouseDown: const Color(0xFFB71C1C),
-  //     iconNormal: Colors.black,
-  //     iconMouseOver: Colors.white);
-
   static List<Widget> pages = const [
     DictionaryView(),
     ArticleListView(),
@@ -73,7 +59,7 @@ class Global {
   ];
 
   /// Manually change this version base on commit count
-  static String version = "v91";
+  static String version = "v93";
   static PageController pageController = PageController();
 
   static const double MIN_WIDTH = 400;

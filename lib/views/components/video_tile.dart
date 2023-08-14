@@ -3,7 +3,7 @@ import 'package:diccon_evo/models/video.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../global.dart';
+import '../../properties.dart';
 import '../../models/article.dart';
 import '../article_page.dart';
 import '../video_page.dart';

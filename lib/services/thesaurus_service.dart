@@ -1,4 +1,4 @@
-import '../global.dart';
+import '../properties.dart';
 import '../interfaces/thesaurus.dart';
 
 class ThesaurusService {
@@ -6,19 +6,19 @@ class ThesaurusService {
   ThesaurusService(this.thesaurus);
 
   Future<void> loadThesaurus() async {
-    Global.synonymsData = await thesaurus.loadSynonymsData();
-    Global.antonymsData = await thesaurus.loadAntonymsData();
+    Properties.synonymsData = await thesaurus.loadSynonymsData();
+    Properties.antonymsData = await thesaurus.loadAntonymsData();
   }
 
   /// Return a list of String synonyms for provided word and return [] if nothing found
   List<String> getSynonyms(String word) {
-    List<String> synonyms = Global.synonymsData[word] ?? [];
-    return synonyms.take(Global.defaultNumberOfSynonyms).toList();
+    List<String> synonyms = Properties.synonymsData[word] ?? [];
+    return synonyms.take(Properties.defaultNumberOfSynonyms).toList();
   }
 
   /// Return a list of String synonyms for provided word and return [] if nothing found
   List<String> getAntonyms(String word) {
-    List<String> synonyms = Global.antonymsData[word] ?? [];
-    return synonyms.take(Global.defaultNumberOfAntonyms).toList();
+    List<String> synonyms = Properties.antonymsData[word] ?? [];
+    return synonyms.take(Properties.defaultNumberOfAntonyms).toList();
   }
 }

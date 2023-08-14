@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../cubits/word_history_list_cubit.dart';
 import '../views/components/history_tile.dart';
-import '../global.dart';
+import '../properties.dart';
 import '../models/word.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +18,7 @@ class HistoryView extends StatelessWidget {
       child: Scaffold(
         appBar: Header(
             padding: const EdgeInsets.only(left: 16, right: 0),
-            title: Global.HISTORY,
+            title: Properties.HISTORY,
             iconButton: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
