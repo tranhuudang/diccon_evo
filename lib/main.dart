@@ -49,7 +49,6 @@ class ProgramRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
     return MultiBlocProvider(
         providers: [
           BlocProvider<ArticleListCubit>(

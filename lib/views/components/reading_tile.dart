@@ -31,7 +31,7 @@ class ReadingTile extends StatelessWidget {
                       )));
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8,  vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -84,18 +84,27 @@ class ReadingTile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(article.title,
+                        Text(
+                          article.title,
+                          maxLines: 2,
                           textAlign: TextAlign.start,
                           style: textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Expanded(
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        SizedBox(
+                          height: 30,
                           child: Text(
+                            maxLines: 2,
                             article.shortDescription,
                             textAlign: TextAlign.justify,
-                            style: textTheme.bodySmall
+                            style: textTheme.bodySmall,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                        const Spacer(),
                         LevelIcon(
                           level: article.level ?? Level.intermediate,
                         ),

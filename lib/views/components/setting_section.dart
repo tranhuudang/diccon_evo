@@ -7,6 +7,8 @@ class SettingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).primaryTextTheme;
+
     return Column(
       children: [
         Align(
@@ -15,13 +17,14 @@ class SettingSection extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               title ?? '',
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style:  TextStyle(fontWeight: FontWeight.bold, color: textTheme.titleMedium?.color),
             ),
           ),
         ),
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.black12),
           ),

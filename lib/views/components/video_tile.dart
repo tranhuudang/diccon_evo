@@ -104,13 +104,13 @@ class VideoTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          video.title.length > 55
-                              ? "${video.title.substring(0, 55)}..."
-                              : video.title,
+                        Text(video.title,
+                          maxLines: 2,
                           textAlign: TextAlign.start,
-                          style: textTheme.titleMedium
+                          style: textTheme.titleMedium,
+                          overflow: TextOverflow.ellipsis,
                         ),
+                        const Spacer(),
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Row(

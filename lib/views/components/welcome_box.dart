@@ -26,7 +26,7 @@ class WelcomeBox extends StatelessWidget {
               //padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.black,
+                    color: Theme.of(context).primaryColor,
                     width: 2.0,
                   ),
                   color: Colors.amberAccent,
@@ -34,7 +34,7 @@ class WelcomeBox extends StatelessWidget {
               child: Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(14),
                     child: Image(
                       height: 170,
                       width: double.infinity,

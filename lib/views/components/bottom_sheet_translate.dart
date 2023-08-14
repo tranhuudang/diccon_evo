@@ -14,13 +14,8 @@ class BottomSheetTranslation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-      ),
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Padding(
@@ -42,7 +37,12 @@ class BottomSheetTranslation extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    WordMeaning(message: message, onWordTap: onWordTap),
+                    WordMeaning(
+                      message: message,
+                      onWordTap: onWordTap,
+                      highlightColor: Colors.white,
+                      subColor: Colors.white70,
+                    ),
                   ],
                 ),
               ],
