@@ -209,23 +209,23 @@ class _SettingsViewState extends State<SettingsView> {
                     )
                   ],
                 ),
-                const SettingSection(
+                 SettingSection(
                   title: "About",
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         Text("Diccon Evo", style: TextStyle()),
                         Spacer(),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
                       children: [
-                        Text("© 2023 Zeroboy. All rights reserved."),
-                        Spacer(),
-                        Text("v88"),
+                        const Text("© 2023 Zeroboy. All rights reserved."),
+                        const Spacer(),
+                        Text(Global.version),
                       ],
                     )
                   ],

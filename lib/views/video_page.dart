@@ -11,7 +11,7 @@ class VideoPageView extends StatefulWidget {
 
   const VideoPageView({super.key, required this.video});
   @override
-  _VideoPageViewState createState() => _VideoPageViewState();
+  State<VideoPageView> createState() => _VideoPageViewState();
 }
 
 class _VideoPageViewState extends State<VideoPageView> {

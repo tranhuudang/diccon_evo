@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import '../global.dart';
-import '../models/article.dart';
 import 'package:bloc/bloc.dart';
 
 import '../models/video.dart';
@@ -14,8 +14,12 @@ class VideoListCubit extends Cubit<List<Video>> {
    var onlineVideos = await Global.dataService.getOnlineVideosList();
 
     for (var video in onlineVideos) {
-      print("getting videos");
-      print(video.title);
+      if (kDebugMode) {
+        print("getting videos");
+      }
+      if (kDebugMode) {
+        print(video.title);
+      }
       if (video.title != "") {
         Global.defaultVideoList.add(video);
       }

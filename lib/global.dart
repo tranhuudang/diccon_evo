@@ -72,6 +72,8 @@ class Global {
     SettingsView()
   ];
 
+  /// Manually change this version base on commit count
+  static String version = "v91";
   static PageController pageController = PageController();
 
   static const double MIN_WIDTH = 400;

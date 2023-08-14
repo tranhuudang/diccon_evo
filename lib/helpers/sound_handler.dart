@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:diccon_evo/helpers/file_handler.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -26,7 +27,9 @@ class SoundHandler {
   }
 
   static void playAnyway(String word) async {
-    print(word);
+    if (kDebugMode) {
+      print(word);
+    }
     String url = onlineSoundUrlPath(word);
     String firstLetter = word.substring(0, 1).toUpperCase();
     String afterFirstLetter = word

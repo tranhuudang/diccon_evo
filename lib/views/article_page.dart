@@ -19,7 +19,7 @@ class ArticlePageView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ArticlePageViewState createState() => _ArticlePageViewState();
+  State<ArticlePageView> createState() => _ArticlePageViewState();
 }
 
 class _ArticlePageViewState extends State<ArticlePageView> {

@@ -1,4 +1,3 @@
-import 'package:diccon_evo/models/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../global.dart';
