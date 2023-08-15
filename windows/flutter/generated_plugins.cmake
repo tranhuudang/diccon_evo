@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
-  firebase_core
   flutter_tts
   screen_retriever
   url_launcher_windows

@@ -16,7 +16,7 @@ class CustomTheme {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
       splashColor: const Color(0x14B7DCFB),
-      cardColor: const Color(0xFF171A1C),
+      cardColor: const Color(0xFF202020),
       primaryColor: Colors.blue,
       scaffoldBackgroundColor: PlatformCheck.isMobile()
           ? const Color(0xFF0F1314)

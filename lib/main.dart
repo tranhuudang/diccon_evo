@@ -13,18 +13,18 @@ import 'cubits/setting_cubit.dart';
 import 'firebase_options.dart';
 import 'properties.dart';
 import 'package:video_player_win/video_player_win_plugin.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'themeData.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();
 
-  if (Platform.isAndroid) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
+  // if (Platform.isAndroid) {
+  //   await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions.currentPlatform,
+  //   );
+  // }
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
 
