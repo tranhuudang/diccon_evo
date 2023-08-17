@@ -17,6 +17,7 @@ import 'package:video_player_win/video_player_win_plugin.dart';
 import 'themeData.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();
@@ -31,10 +32,10 @@ void main() async {
 
     /// register player first
     WindowsVideoPlayer.registerWith();
-    WindowManager.instance
-        .setSize(Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
-    WindowManager.instance
-        .setMinimumSize(const Size(Properties.MIN_WIDTH, Properties.MIN_HEIGHT));
+    WindowManager.instance.setSize(
+        Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
+    WindowManager.instance.setMinimumSize(
+        const Size(Properties.MIN_WIDTH, Properties.MIN_HEIGHT));
     WindowManager.instance.setTitle(Properties.DICCON_DICTIONARY);
   }
 
@@ -51,47 +52,49 @@ class ProgramRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider<ArticleListCubit>(
-            create: (context) => ArticleListCubit(),
-          ),
-          BlocProvider<HistoryListCubit>(
-            create: (context) => HistoryListCubit(),
-          ),
-          BlocProvider<SettingCubit>(
-            create: (context) => SettingCubit(),
-          ),
-          BlocProvider<ArticleHistoryListCubit>(
-            create: (context) => ArticleHistoryListCubit(),
-          ),
-          BlocProvider<ClickableWordCubit>(
-            create: (context) => ClickableWordCubit(),
-          ),
-          BlocProvider<VideoHistoryListCubit>(
-            create: (context) => VideoHistoryListCubit(),
-          ),
-          BlocProvider<VideoListCubit>(
-            create: (context) => VideoListCubit(),
-          ),
+      providers: [
+        BlocProvider<ArticleListCubit>(
+          create: (context) => ArticleListCubit(),
+        ),
+        BlocProvider<HistoryListCubit>(
+          create: (context) => HistoryListCubit(),
+        ),
+        BlocProvider<SettingCubit>(
+          create: (context) => SettingCubit(),
+        ),
+        BlocProvider<ArticleHistoryListCubit>(
+          create: (context) => ArticleHistoryListCubit(),
+        ),
+        BlocProvider<ClickableWordCubit>(
+          create: (context) => ClickableWordCubit(),
+        ),
+        BlocProvider<VideoHistoryListCubit>(
+          create: (context) => VideoHistoryListCubit(),
+        ),
+        BlocProvider<VideoListCubit>(
+          create: (context) => VideoListCubit(),
+        ),
+      ],
+      child: MaterialApp(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
-        child: MaterialApp(
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en', "US"),
-              Locale('vi', "VI"),
-            ],
-
-            themeMode: ThemeMode.system,
-            theme: CustomTheme.getLight(context),
-            darkTheme: CustomTheme.getDark(context),
-            title: Properties.DICCON_DICTIONARY,
-            debugShowCheckedModeBanner: false,
-            home: I18n(
-                //initialLocale: const Locale("vi", "VI"),
-                child: const HomeView())));
+        supportedLocales: const [
+          Locale('en', "US"),
+          Locale('vi', "VI"),
+        ],
+        themeMode: ThemeMode.system,
+        theme: CustomTheme.getLight(context),
+        darkTheme: CustomTheme.getDark(context),
+        title: Properties.DICCON_DICTIONARY,
+        debugShowCheckedModeBanner: false,
+        home: I18n(
+          //initialLocale: const Locale("vi", "VI"),
+          child: const HomeView(),
+        ),
+      ),
+    );
   }
 }
