@@ -38,7 +38,7 @@ class FileHandler {
   ///
   /// Returns a [Boolean] value as true if the process is completed without error.
   static Future<bool> saveWordToHistory(Word word) async {
-    final filePath = await getLocalFilePath(Properties.WORD_HISTORY_FILENAME);
+    final filePath = await getLocalFilePath(Properties.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -71,7 +71,7 @@ class FileHandler {
   }
 
   static Future<bool> saveReadArticleToHistory(Article article) async {
-    final filePath = await getLocalFilePath(Properties.ARTICLE_HISTORY_FILENAME);
+    final filePath = await getLocalFilePath(Properties.articleHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -104,7 +104,7 @@ class FileHandler {
   }
 
   static Future<bool> saveVideoToHistory(Video video) async {
-    final filePath = await getLocalFilePath(Properties.VIDEO_HISTORY_FILENAME);
+    final filePath = await getLocalFilePath(Properties.videoHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -157,7 +157,7 @@ class FileHandler {
   }
 
   static Future<List<Word>> readWordHistory() async {
-    final filePath = await getLocalFilePath(Properties.WORD_HISTORY_FILENAME);
+    final filePath = await getLocalFilePath(Properties.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -182,7 +182,7 @@ class FileHandler {
   }
 
   static Future<List<Article>> readArticleHistory() async {
-    final filePath = await getLocalFilePath(Properties.ARTICLE_HISTORY_FILENAME);
+    final filePath = await getLocalFilePath(Properties.articleHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -207,7 +207,7 @@ class FileHandler {
   }
 
   static Future<List<Video>> readVideoHistory() async {
-    final filePath = await getLocalFilePath(Properties.VIDEO_HISTORY_FILENAME);
+    final filePath = await getLocalFilePath(Properties.videoHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {

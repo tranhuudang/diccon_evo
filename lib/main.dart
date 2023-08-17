@@ -35,8 +35,8 @@ void main() async {
     WindowManager.instance.setSize(
         Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
     WindowManager.instance.setMinimumSize(
-        const Size(Properties.MIN_WIDTH, Properties.MIN_HEIGHT));
-    WindowManager.instance.setTitle(Properties.DICCON_DICTIONARY);
+        const Size(Properties.minWidth, Properties.minHeight));
+    WindowManager.instance.setTitle(Properties.diccon);
   }
 
   /// Initialize Video Player for Desktop devices
@@ -88,7 +88,7 @@ class ProgramRoot extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: CustomTheme.getLight(context),
         darkTheme: CustomTheme.getDark(context),
-        title: Properties.DICCON_DICTIONARY,
+        title: Properties.diccon,
         debugShowCheckedModeBanner: false,
         home: I18n(
           //initialLocale: const Locale("vi", "VI"),

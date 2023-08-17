@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:diccon_evo/i18n.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,7 @@ class WelcomeBox extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Welcome to Diccon Evo',
+                            'Welcome to Diccon'.i18n,
                             style: GoogleFonts.alegreyaSansSc(
                               fontSize: 24.0,
                               fontWeight: FontWeight.bold,
@@ -73,10 +74,10 @@ class WelcomeBox extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Text(
-                            'Start exploring the world of words!',
-                            style: TextStyle(
+                            'Start exploring the world of words!'.i18n,
+                            style: const TextStyle(
                                 fontSize: 16.0,
                                 color: Colors.white,
                                 shadows: [
@@ -86,7 +87,7 @@ class WelcomeBox extends StatelessWidget {
                                       offset: Offset(1, 1))
                                 ]),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                         ],
                       ),
                     ),

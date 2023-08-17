@@ -105,16 +105,12 @@ extension Localization on String {
       "en_us": "Availabe at",
       "vi_vi": "Đã có mặt ở",
     },
-    "Diccon Evo": {
-      "en_us": "Diccon Evo",
-      "vi_vi": "Diccon Evo",
-    },
     "Select a number": {
       "en_us": "Select a number",
       "vi_vi": "Chọn một số",
     },
     "Send a message": {
-      "en_us": "Send a message",
+      "en_us": "Enter for lookup",
       "vi_vi": "Nhập để tra cứu",
     },
     "Reading time": {
@@ -133,9 +129,13 @@ extension Localization on String {
       "en_us": "Press back again to exit",
       "vi_vi": "Bấm trở lại lần nữa để thoát",
     },
-    "": {
-      "en_us": "",
-      "vi_vi": "",
+    "Welcome to Diccon": {
+      "en_us": "Welcome to Diccon",
+      "vi_vi": "Diccon xin chào bạn",
+    },
+    "Start exploring the world of words!": {
+      "en_us": "Start exploring the world of words!",
+      "vi_vi": "Cùng khám phá thế giới của câu từ!",
     }
   });
 

@@ -32,8 +32,8 @@ class DataRepository implements Data {
 
   @override
   Future<List<Word>> getWordList() async {
-    String dataEv = await rootBundle.loadString(Properties.EV_DATA_PATH);
-    String dataVe = await rootBundle.loadString(Properties.VE_DATA_PATH);
+    String dataEv = await rootBundle.loadString(Properties.evDataPath);
+    String dataVe = await rootBundle.loadString(Properties.veDataPath);
     String data = dataEv + dataVe;
     List<String> wordDataList = data.split('@');
     List<Word> wordList = [];

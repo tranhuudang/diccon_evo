@@ -80,8 +80,10 @@ dev_dependencies:
 
   google_fonts: ^4.0.4
 
+  # custom icon
   unicons: ^2.1.1
 
+  # localization
   i18n_extension: ^9.0.2
   flutter_localization: ^0.1.13
 

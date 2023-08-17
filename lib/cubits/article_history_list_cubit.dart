@@ -26,7 +26,7 @@ class ArticleHistoryListCubit extends Cubit<List<Article>> {
   }
 
   void clearHistory() {
-    FileHandler.deleteFile(Properties.ARTICLE_HISTORY_FILENAME);
+    FileHandler.deleteFile(Properties.articleHistoryFileName);
     articles = List.empty();
     emit(articles);
   }

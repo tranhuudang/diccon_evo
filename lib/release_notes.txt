@@ -16,3 +16,7 @@ Keystore is saved in Onedrive Vault
 Remember to change path for keystore in android/key.properties
 
 Remember to change version (v93) in Properties view too
+
+##
+make sure icon is in the right place as it is setup in pubspec.yaml
+C:\Users\Zr\StudioProjects\diccon_evo\assets\dictionary\icon.ico

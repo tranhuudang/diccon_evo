@@ -19,7 +19,7 @@ class HistoryView extends StatelessWidget {
       child: Scaffold(
         appBar: Header(
             padding: const EdgeInsets.only(left: 16, right: 0),
-            title: Properties.HISTORY.i18n,
+            title: Properties.history.i18n,
             iconButton: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
@@ -60,11 +60,11 @@ class HistoryView extends StatelessWidget {
                       children: [
 
                         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                          Icon(
+                          const Icon(
                             Icons.broken_image,
                             color: Colors.black45,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
                           Text(

@@ -213,9 +213,9 @@ class _SettingsViewState extends State<SettingsView> {
                  SettingSection(
                   title: "About".i18n,
                   children: [
-                     Row(
+                     const Row(
                       children: [
-                        Text("Diccon Evo".i18n, style: TextStyle()),
+                        Text("Diccon", style: TextStyle()),
                         Spacer(),
                       ],
                     ),
@@ -226,7 +226,7 @@ class _SettingsViewState extends State<SettingsView> {
                       children: [
                          Row(
                           children: [
-                            Text("© 2023 Zeroboy."),
+                            const Text("© 2023 Zeroboy."),
                             const SizedBox(width: 5),
                             Text("All rights reserved.".i18n),
                           ],
@@ -244,7 +244,7 @@ class _SettingsViewState extends State<SettingsView> {
                   children: [
                      Text(
                       "Available at".i18n,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),

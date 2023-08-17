@@ -26,7 +26,7 @@ class VideoHistoryListCubit extends Cubit<List<Video>> {
   }
 
   void clearHistory() {
-    FileHandler.deleteFile(Properties.VIDEO_HISTORY_FILENAME);
+    FileHandler.deleteFile(Properties.videoHistoryFileName);
     videos = List.empty();
     emit(videos);
   }

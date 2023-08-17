@@ -62,26 +62,25 @@ class Properties {
   static String version = "v93";
   static PageController pageController = PageController();
 
-  static const double MIN_WIDTH = 400;
-  static const double MIN_HEIGHT = 600;
+  static const double minWidth = 400;
+  static const double minHeight = 600;
   static double defaultWindowHeight = 700;
-  static double defaultWindowWidth = 400;
+  static double defaultWindowWidth = 600;
   static double titleTileFontSize = 14.0;
   static bool isDarkMode = false;
-  static const String DICCON = "Diccon";
-  static const String DICCON_DICTIONARY = "Diccon Evo";
-  static  String DICTIONARY = "Dictionary";
-  static  String HISTORY = "History";
-  static  String ARTICLE_LIST = "Articles";
-  static const String EV_DATA_PATH = 'assets/dictionary/diccon_ev.txt';
-  static const String VE_DATA_PATH = 'assets/dictionary/diccon_ve.txt';
-  static const String BLANK_SPACE = ' ';
-  static const String WORD_HISTORY_FILENAME = 'history.json';
-  static const String ARTICLE_HISTORY_FILENAME = 'article_history.json';
-  static const String VIDEO_HISTORY_FILENAME = 'video_history.json';
-  static const String EN_SYNONYMS_PATH =
+  static const String diccon = "Diccon";
+  static  String dictionary = "Dictionary";
+  static  String history = "History";
+  static  String articleList = "Articles";
+  static const String evDataPath = 'assets/dictionary/diccon_ev.txt';
+  static const String veDataPath = 'assets/dictionary/diccon_ve.txt';
+  static const String blankSpace = ' ';
+  static const String wordHistoryFileName = 'history.json';
+  static const String articleHistoryFileName = 'article_history.json';
+  static const String videoHistoryFileName = 'video_history.json';
+  static const String enSynonymsPath =
       'assets/thesaurus/english_synonyms.json';
-  static const String EN_ANTONYMS_PATH =
+  static const String enAntonymsPath =
       'assets/thesaurus/english_antonyms.json';
 
   static const List<String> welcomeBackgrounds = [

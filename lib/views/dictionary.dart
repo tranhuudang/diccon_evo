@@ -177,7 +177,7 @@ class _DictionaryViewState extends State<DictionaryView>
     super.build(context);
     return Scaffold(
       appBar: Header(
-        title: Properties.DICTIONARY.i18n,
+        title: Properties.dictionary.i18n,
         actions: [
           IconButton(
               onPressed: () {
