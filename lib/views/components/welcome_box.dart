@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:diccon_evo/i18n.dart';
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 

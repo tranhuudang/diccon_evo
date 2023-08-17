@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:diccon_evo/i18n.dart';
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

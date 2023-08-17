@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SuggestedItem extends StatelessWidget {
   final String title;
-  final VoidCallback? onPressed;
+  final Function(String)? onPressed;
   final Color? backgroundColor;
   const SuggestedItem({super.key, required this.title, this.onPressed, this.backgroundColor});
 
@@ -12,7 +12,9 @@ class SuggestedItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
-        onTap: onPressed ?? () {},
+        onTap:  () {
+          onPressed!(title);
+        },
         child: Container(
          // height: 35,
           decoration: BoxDecoration(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:diccon_evo/interfaces/data.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../properties.dart';
@@ -98,6 +99,20 @@ class DataRepository implements Data {
       // Handle any errors that occur during the fetch
       print('Error: $e');
       return [];
+    }
+  }
+
+  @override
+  Future<List<String>> getSuggestionWordList() async {
+    try {
+      var content = await FileHandler.getAssetFile('assets/dictionary/109k.txt');
+      List<String> words = content.split('\n');
+      return words;
+    } catch (e) {
+    if (kDebugMode) {
+      print("Error reading file: $e");
+    }
+    return [];
     }
   }
 

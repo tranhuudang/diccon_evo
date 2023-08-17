@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:diccon_evo/i18n.dart';
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
@@ -72,6 +72,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
     // Load up thesaurus dictionary
     Properties.thesaurusService.loadThesaurus();
+
+    // Load up suggestion list word
+    Properties.suggestionListWord = await Properties.dataService.getSuggestionWordList();
 
     /// Load windows setting for custom title bar
     // if (Platform.isWindows) {

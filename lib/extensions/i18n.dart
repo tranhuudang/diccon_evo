@@ -3,19 +3,20 @@ import 'package:i18n_extension/i18n_extension.dart';
 extension Localization on String {
   /// Step to localization using flutter_i18n package:
   /// 1: install package flutter_i18n and flutter_localization
-  /// 2: in main.dart, setup localizationGelegates and supportedLocales:
-  // MaterialApp(
-  //             localizationsDelegates: const [
-  //               GlobalMaterialLocalizations.delegate,
-  //               GlobalWidgetsLocalizations.delegate,
-  //               GlobalCupertinoLocalizations.delegate,
-  //             ],
-  //             supportedLocales: const [
-  //               Locale('en', "US"),
-  //               Locale('vi', "VI"),
-  //             ],
+  /// 2: in main.dart, setup localizationDelegates and supportedLocales:
+  /// MaterialApp(
+  ///       localizationsDelegates: const [
+  ///         GlobalMaterialLocalizations.delegate,
+  ///         GlobalWidgetsLocalizations.delegate,
+  ///         GlobalCupertinoLocalizations.delegate,
+  ///       ],
+  ///       supportedLocales: const [
+  ///         Locale('en', "US"),
+  ///         Locale('vi', "VI"),
+  ///       ],
   /// 3: create a extension Localization on String like this file
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
+
   static const _t = Translations.from("en_us", {
     "Dictionary": {
       "en_us": "Dictionary",

@@ -17,7 +17,7 @@ import '../views/components/dictionary_buble.dart';
 import '../helpers/platform_check.dart';
 import '../helpers/searching.dart';
 import 'components/suggested_item.dart';
-import '../i18n.dart';
+import '../extensions/i18n.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -38,11 +38,13 @@ class _DictionaryViewState extends State<DictionaryView>
   late final ThesaurusService thesaurusService;
   late List<String> _listSynonyms = [];
   late List<String> _listAntonyms = [];
+  late List<String> suggestionWords = [];
   late String imageUrl = '';
   bool hasImages = false;
   bool hasAntonyms = false;
   bool hasSynonyms = false;
   bool needCorrector = false;
+  bool hasSuggestionWords = true;
 
   @override
   void initState() {
@@ -143,7 +145,10 @@ class _DictionaryViewState extends State<DictionaryView>
       ));
     }
 
-    setState(() {});
+    setState(() {
+      suggestionWords.clear();
+      
+    });
 
     /// Delay the scroll animation until after the list has been updated
     scrollToBottom();
@@ -213,6 +218,23 @@ class _DictionaryViewState extends State<DictionaryView>
                     const SizedBox(
                       width: 16,
                     ),
+                    hasSuggestionWords
+                        ? Row(
+                            children: suggestionWords.map((String word) {
+                              return SuggestedItem(
+                                title: word,
+                                backgroundColor: Colors.blue,
+                                onPressed: (String clickedWord){
+                                  clickedWord =
+                                      WordHandler.removeSpecialCharacters(
+                                          clickedWord);
+                                  _handleSubmitted(clickedWord);
+                                  suggestionWords.clear();
+                                },
+                              );
+                            }).toList(),
+                          )
+                        : Container(),
                     needCorrector
                         ? const SuggestedItem(
                             title: 'Corrector',
@@ -221,7 +243,7 @@ class _DictionaryViewState extends State<DictionaryView>
                         : Container(),
                     hasSynonyms
                         ? SuggestedItem(
-                            onPressed: () {
+                            onPressed: (String a) {
                               setState(() {
                                 _messages.add(BrickWallButtons(
                                   stringList: _listSynonyms,
@@ -241,7 +263,7 @@ class _DictionaryViewState extends State<DictionaryView>
                         : Container(),
                     hasAntonyms
                         ? SuggestedItem(
-                            onPressed: () {
+                            onPressed: (String a) {
                               setState(() {
                                 _messages.add(BrickWallButtons(
                                   borderColor: Colors.orange,
@@ -264,7 +286,7 @@ class _DictionaryViewState extends State<DictionaryView>
                     hasImages
                         ? SuggestedItem(
                             title: 'Images'.i18n,
-                            onPressed: () {
+                            onPressed: (String a) {
                               setState(() {
                                 _messages.add(ImageBubble(imageUrl: imageUrl));
                                 hasImages = false;
@@ -290,6 +312,32 @@ class _DictionaryViewState extends State<DictionaryView>
                       focusNode: Properties.textFieldFocusNode,
                       onSubmitted: (value) {
                         _handleSubmitted(value);
+                      },
+                      onChanged: (word) {
+                        suggestionWords = [];
+                        var suggestionLimit = 0;
+                        if (word.length > 1) {
+                          for (var element in Properties.suggestionListWord) {
+                            if (element.startsWith(word)) {
+                              suggestionWords.add(element);
+                              suggestionLimit++;
+                            }
+                            if (suggestionLimit > 10) break;
+                          }
+                          if (suggestionWords.length< 10){
+                            for (var element in Properties.suggestionListWord) {
+                              if (element.contains(word)) {
+                                suggestionWords.add(element);
+                                suggestionLimit++;
+                              }
+                              if (suggestionLimit > 10) break;
+                            }
+                          }
+                          suggestionWords.reversed;
+                        }
+                        setState(() {
+                          suggestionWords;
+                        });
                       },
                       decoration: InputDecoration(
                         hintText: "Send a message".i18n,

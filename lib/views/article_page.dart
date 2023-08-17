@@ -1,5 +1,5 @@
 import 'package:diccon_evo/helpers/word_handler.dart';
-import 'package:diccon_evo/i18n.dart';
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 import '../helpers/searching.dart';

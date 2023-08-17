@@ -1,4 +1,4 @@
-import 'package:diccon_evo/i18n.dart';
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';

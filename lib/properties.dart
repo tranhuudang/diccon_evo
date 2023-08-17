@@ -33,6 +33,7 @@ class Properties {
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
   static List<Video> defaultVideoList = [];
+  static List<String> suggestionListWord = [];
 
   // Thesaurus
   static Map<String, List<String>> synonymsData = {};

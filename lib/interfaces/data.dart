@@ -8,4 +8,5 @@ import '../models/word.dart';
    Future<List<Article>> getDefaultStories();
    Future<List<Video>> getDefaultVideos();
    Future<List<Video>> getOnlineVideosList();
+   Future<List<String>> getSuggestionWordList();
 }

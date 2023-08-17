@@ -27,4 +27,8 @@ class DataService {
   Future<List<Video>> getOnlineVideosList() async {
     return await data.getOnlineVideosList();
   }
+
+  Future<List<String>> getSuggestionWordList() async {
+    return await data.getSuggestionWordList();
+  }
 }
