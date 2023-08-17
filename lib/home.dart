@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:diccon_evo/i18n.dart';
 import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
@@ -105,7 +106,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       onWillPop: () async {
         final difference = DateTime.now().difference(backPressedTime);
         if (difference >= const Duration(seconds: 2)) {
-          Fluttertoast.showToast(msg: 'Press back again to exit', fontSize: 14);
+          Fluttertoast.showToast(msg: 'Press back again to exit'.i18n, fontSize: 14);
           backPressedTime = DateTime.now();
           return false;
         } else {
@@ -160,7 +161,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         ),
                         const Divider(),
                         NavigationItem(
-                          title: "Dictionary",
+                          title: "Dictionary".i18n,
                           isExpanded: isExpanded,
                           icon: Icons.search,
                           onPressed: () {
@@ -170,7 +171,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         ),
                         const Divider(),
                         NavigationItem(
-                          title: "Videos",
+                          title: "Watching time".i18n,
                           isExpanded: isExpanded,
                           icon: Icons.video_library_outlined,
                           onPressed: () {
@@ -180,7 +181,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         ),
                         const Divider(),
                         NavigationItem(
-                          title: "Reading",
+                          title: "Reading time".i18n,
                           isExpanded: isExpanded,
                           icon: UniconsLine.books,
                           onPressed: () {
@@ -193,7 +194,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         const Spacer(),
                         const Divider(),
                         NavigationItem(
-                          title: "Settings",
+                          title: "Settings".i18n,
                           isExpanded: isExpanded,
                           icon: Icons.manage_accounts_outlined,
                           onPressed: () {
@@ -239,7 +240,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   destinations: [
                     NavigationDestination(
                       icon: const Icon(Icons.search),
-                      label: "Dictionary",
+                      label: "Dictionary".i18n,
                       selectedIcon: Icon(Icons.search,
                           color:
                               Properties.isDarkMode ? Colors.black : Colors.white),
@@ -252,21 +253,21 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                             color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),
-                        label: "Videos"),
+                        label: "Watching time".i18n),
                     NavigationDestination(
                         icon: const Icon(Icons.chrome_reader_mode_outlined),
                         selectedIcon: Icon(Icons.chrome_reader_mode_outlined,
                             color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),
-                        label: "Reading Time"),
+                        label: "Reading time".i18n),
                     NavigationDestination(
                         selectedIcon: Icon(Icons.manage_accounts_outlined,
                             color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),
                         icon: const Icon(Icons.manage_accounts_outlined),
-                        label: "Settings"),
+                        label: "Settings".i18n),
                   ],
                 )
               : null,

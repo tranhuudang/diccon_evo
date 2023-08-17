@@ -15,7 +15,8 @@ import 'properties.dart';
 import 'package:video_player_win/video_player_win_plugin.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'themeData.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();
@@ -74,11 +75,23 @@ class ProgramRoot extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', "US"),
+              Locale('vi', "VI"),
+            ],
+
             themeMode: ThemeMode.system,
             theme: CustomTheme.getLight(context),
             darkTheme: CustomTheme.getDark(context),
             title: Properties.DICCON_DICTIONARY,
             debugShowCheckedModeBanner: false,
-            home: const HomeView()));
+            home: I18n(
+                //initialLocale: const Locale("vi", "VI"),
+                child: const HomeView())));
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:diccon_evo/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +25,8 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Header(
-        title: "Settings",
+      appBar:  Header(
+        title: "Settings".i18n,
       ),
       body: BlocBuilder<SettingCubit, Setting>(builder: (context, state) {
         return SingleChildScrollView(
@@ -124,16 +125,16 @@ class _SettingsViewState extends State<SettingsView> {
                 //               ),
                 //       ])
                 //     : Container(),
-                SettingSection(title: 'Dictionary Section', children: [
+                SettingSection(title: 'Dictionary Section'.i18n, children: [
                   Row(children: [
-                    const Text("Number of synonyms"),
+                     Text("Number of synonyms".i18n),
                     const SizedBox(
                       width: 8,
                     ),
                     DropdownButton<int>(
                       focusColor: Colors.white,
                       value: state.numberOfSynonyms,
-                      hint: const Text('Select a number'),
+                      hint:  Text('Select a number'.i18n),
                       onChanged: (int? newValue) {
                         context
                             .read<SettingCubit>()
@@ -156,14 +157,14 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ]),
                   Row(children: [
-                    const Text("Number of antonyms"),
+                     Text("Number of antonyms".i18n),
                     const SizedBox(
                       width: 8,
                     ),
                     DropdownButton<int>(
                       focusColor: Colors.white,
                       value: state.numberOfAntonyms,
-                      hint: const Text('Select a number'),
+                      hint: Text('Select a number'.i18n),
                       onChanged: (int? newValue) {
                         context
                             .read<SettingCubit>()
@@ -187,7 +188,7 @@ class _SettingsViewState extends State<SettingsView> {
                   ])
                 ]),
                 SettingSection(
-                  title: 'Reading Section',
+                  title: 'Reading Section'.i18n,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -204,17 +205,17 @@ class _SettingsViewState extends State<SettingsView> {
                       ],
                     ),
                     Text(
-                      "Sample text that will be displayed on Reading.",
+                      "Sample text that will be displayed on Reading.".i18n,
                       style: TextStyle(fontSize: state.readingFontSize),
                     )
                   ],
                 ),
                  SettingSection(
-                  title: "About",
+                  title: "About".i18n,
                   children: [
-                    const Row(
+                     Row(
                       children: [
-                        Text("Diccon Evo", style: TextStyle()),
+                        Text("Diccon Evo".i18n, style: TextStyle()),
                         Spacer(),
                       ],
                     ),
@@ -223,7 +224,13 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                     Row(
                       children: [
-                        const Text("© 2023 Zeroboy. All rights reserved."),
+                         Row(
+                          children: [
+                            Text("© 2023 Zeroboy."),
+                            const SizedBox(width: 5),
+                            Text("All rights reserved.".i18n),
+                          ],
+                        ),
                         const Spacer(),
                         Text(Properties.version),
                       ],
@@ -235,8 +242,8 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 Column(
                   children: [
-                    const Text(
-                      "Available at",
+                     Text(
+                      "Available at".i18n,
                       style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,

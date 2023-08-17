@@ -17,6 +17,7 @@ import '../views/components/dictionary_buble.dart';
 import '../helpers/platform_check.dart';
 import '../helpers/searching.dart';
 import 'components/suggested_item.dart';
+import '../i18n.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -176,7 +177,7 @@ class _DictionaryViewState extends State<DictionaryView>
     super.build(context);
     return Scaffold(
       appBar: Header(
-        title: Properties.DICTIONARY,
+        title: Properties.DICTIONARY.i18n,
         actions: [
           IconButton(
               onPressed: () {
@@ -235,7 +236,7 @@ class _DictionaryViewState extends State<DictionaryView>
                               });
                               scrollToBottom();
                             },
-                            title: 'Synonyms',
+                            title: 'Synonyms'.i18n,
                           )
                         : Container(),
                     hasAntonyms
@@ -257,12 +258,12 @@ class _DictionaryViewState extends State<DictionaryView>
                               });
                               scrollToBottom();
                             },
-                            title: 'Antonyms',
+                            title: 'Antonyms'.i18n,
                           )
                         : Container(),
                     hasImages
                         ? SuggestedItem(
-                            title: 'Images',
+                            title: 'Images'.i18n,
                             onPressed: () {
                               setState(() {
                                 _messages.add(ImageBubble(imageUrl: imageUrl));
@@ -291,7 +292,7 @@ class _DictionaryViewState extends State<DictionaryView>
                         _handleSubmitted(value);
                       },
                       decoration: InputDecoration(
-                        hintText: "Send a message",
+                        hintText: "Send a message".i18n,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),

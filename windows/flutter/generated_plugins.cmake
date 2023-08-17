@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
+  flutter_localization
   flutter_tts
   screen_retriever
   url_launcher_windows

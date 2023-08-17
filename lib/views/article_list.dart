@@ -1,3 +1,4 @@
+import 'package:diccon_evo/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class ArticleListView extends StatelessWidget {
     return Scaffold(
       appBar: Header(
         padding: const EdgeInsets.only(left: 16, right: 0),
-        title: 'Reading time',
+        title: 'Reading time'.i18n,
         actions: [
           IconButton(
             onPressed: () {
@@ -36,15 +37,15 @@ class ArticleListView extends StatelessWidget {
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: const Text("Elementary"),
+                child:  Text("Elementary".i18n),
                 onTap: () => articleListCubit.sortElementary(),
               ),
               PopupMenuItem(
-                child: const Text("Intermediate"),
+                child:  Text("Intermediate".i18n),
                 onTap: () => articleListCubit.sortIntermediate(),
               ),
               PopupMenuItem(
-                child: const Text("Advanced"),
+                child:  Text("Advanced".i18n),
                 onTap: () => articleListCubit.sortAdvanced(),
               ),
               const PopupMenuItem(
@@ -53,7 +54,7 @@ class ArticleListView extends StatelessWidget {
                 child: Divider(),
               ),
               PopupMenuItem(
-                child: const Text("All"),
+                child:  Text("All".i18n),
                 onTap: () => articleListCubit.getAll(),
               ),
             ],

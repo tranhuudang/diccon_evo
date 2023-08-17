@@ -70,9 +70,9 @@ class Properties {
   static bool isDarkMode = false;
   static const String DICCON = "Diccon";
   static const String DICCON_DICTIONARY = "Diccon Evo";
-  static const String DICTIONARY = "Dictionary";
-  static const String HISTORY = "History";
-  static const String ARTICLE_LIST = "Articles";
+  static  String DICTIONARY = "Dictionary";
+  static  String HISTORY = "History";
+  static  String ARTICLE_LIST = "Articles";
   static const String EV_DATA_PATH = 'assets/dictionary/diccon_ev.txt';
   static const String VE_DATA_PATH = 'assets/dictionary/diccon_ve.txt';
   static const String BLANK_SPACE = ' ';

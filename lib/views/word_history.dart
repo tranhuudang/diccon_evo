@@ -1,3 +1,4 @@
+import 'package:diccon_evo/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,7 +19,7 @@ class HistoryView extends StatelessWidget {
       child: Scaffold(
         appBar: Header(
             padding: const EdgeInsets.only(left: 16, right: 0),
-            title: Properties.HISTORY,
+            title: Properties.HISTORY.i18n,
             iconButton: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
@@ -37,11 +38,11 @@ class HistoryView extends StatelessWidget {
                 ),
                 itemBuilder: (context) => [
                   PopupMenuItem(
-                    child: const Text("Reverse List"),
+                    child:  Text("Reverse List".i18n),
                     onTap: () => historyListCubit.sortReverse(),
                   ),
                   PopupMenuItem(
-                    child: const Text("Clear all"),
+                    child:  Text("Clear all".i18n),
                     onTap: () => historyListCubit.clearHistory(),
                   ),
                 ],
@@ -51,7 +52,7 @@ class HistoryView extends StatelessWidget {
           builder: (context, state) {
             if (state.isEmpty) {
               historyListCubit.loadHistory();
-              return  const Column(
+              return   Column(
                 children: [
                   Expanded(
                     child: Column(
@@ -67,7 +68,7 @@ class HistoryView extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            "History is empty",
+                            "History is empty".i18n,
                             style: TextStyle(color: Colors.black45, fontSize: 18),
                           )
                         ]),

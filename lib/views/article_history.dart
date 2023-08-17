@@ -1,3 +1,4 @@
+import 'package:diccon_evo/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import '../cubits/article_history_list_cubit.dart';
@@ -16,7 +17,7 @@ class ArticleListHistoryView extends StatelessWidget {
       child: Scaffold(
         appBar: Header(
           padding: const EdgeInsets.only(left: 16, right: 0),
-          title: 'History',
+          title: 'History'.i18n,
           iconButton: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -35,15 +36,15 @@ class ArticleListHistoryView extends StatelessWidget {
               ),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: const Text("Elementary"),
+                  child:  Text("Elementary".i18n),
                   onTap: () => articleHistoryListCubit.sortElementary(),
                 ),
                 PopupMenuItem(
-                  child: const Text("Intermediate"),
+                  child:  Text("Intermediate".i18n),
                   onTap: () => articleHistoryListCubit.sortIntermediate(),
                 ),
                 PopupMenuItem(
-                  child: const Text("Advanced"),
+                  child:  Text("Advanced".i18n),
                   onTap: () => articleHistoryListCubit.sortAdvanced(),
                 ),
                 const PopupMenuItem(
@@ -52,7 +53,7 @@ class ArticleListHistoryView extends StatelessWidget {
                   child: Divider(),
                 ),
                 PopupMenuItem(
-                  child: const Text("All"),
+                  child:  Text("All".i18n),
                   onTap: () => articleHistoryListCubit.getAll(),
                 ),
                 const PopupMenuItem(
@@ -61,11 +62,11 @@ class ArticleListHistoryView extends StatelessWidget {
                   child: Divider(),
                 ),
                 PopupMenuItem(
-                  child: const Text("Reverse List"),
+                  child:  Text("Reverse List".i18n),
                   onTap: () => articleHistoryListCubit.sortReverse(),
                 ),
                 PopupMenuItem(
-                  child: const Text("Clear all"),
+                  child:  Text("Clear all".i18n),
                   onTap: () => articleHistoryListCubit.clearHistory(),
                 ),
               ],
@@ -76,7 +77,7 @@ class ArticleListHistoryView extends StatelessWidget {
           builder: (context, state) {
             if (state.isEmpty) {
               articleHistoryListCubit.loadArticleHistory();
-              return const Column(
+              return  Column(
                 children: [
 
                   Expanded(
@@ -93,7 +94,7 @@ class ArticleListHistoryView extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            "History is empty",
+                            "History is empty".i18n,
                             style: TextStyle(color: Colors.black45, fontSize: 18),
                           )
                         ]),

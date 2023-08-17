@@ -82,6 +82,9 @@ dev_dependencies:
 
   unicons: ^2.1.1
 
+  i18n_extension: ^9.0.2
+  flutter_localization: ^0.1.13
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

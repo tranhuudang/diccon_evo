@@ -1,3 +1,4 @@
+import 'package:diccon_evo/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,7 @@ class VideoListHistoryView extends StatelessWidget {
       child: Scaffold(
         appBar: Header(
           padding: const EdgeInsets.only(left: 16, right: 0),
-          title: 'History',
+          title: 'History'.i18n,
           iconButton: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -34,11 +35,11 @@ class VideoListHistoryView extends StatelessWidget {
               ),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: const Text("Reverse List"),
+                  child:  Text("Reverse List".i18n),
                   onTap: () => videoHistoryListCubit.sortReverse(),
                 ),
                 PopupMenuItem(
-                  child: const Text("Clear all"),
+                  child:  Text("Clear all".i18n),
                   onTap: () => videoHistoryListCubit.clearHistory(),
                 ),
               ],
@@ -49,7 +50,7 @@ class VideoListHistoryView extends StatelessWidget {
           builder: (context, state) {
             if (state.isEmpty) {
               videoHistoryListCubit.loadArticleHistory();
-              return const Column(
+              return  Column(
                 children: [
                   Expanded(
                     child: Column(
@@ -65,7 +66,7 @@ class VideoListHistoryView extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            "History is empty",
+                            "History is empty".i18n,
                             style: TextStyle(color: Colors.black45, fontSize: 18),
                           )
                         ]),

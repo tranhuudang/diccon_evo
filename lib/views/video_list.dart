@@ -1,3 +1,4 @@
+import 'package:diccon_evo/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:diccon_evo/views/video_history.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class VideoListView extends StatelessWidget {
     return Scaffold(
       appBar: Header(
         padding: const EdgeInsets.only(left: 16, right: 0),
-        title: 'Watching time',
+        title: 'Watching time'.i18n,
         actions: [
           IconButton(
             onPressed: () {
@@ -37,11 +38,11 @@ class VideoListView extends StatelessWidget {
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: const Text("Footnote"),
+                child:  Text("Footnote".i18n),
                 onTap: () => videoListCubit.getFootnote(),
               ),
               PopupMenuItem(
-                child: const Text("Non-Footnote"),
+                child:  Text("Non-Footnote".i18n),
                 onTap: () => videoListCubit.getNonFootnote(),
               ),
               const PopupMenuItem(
@@ -50,7 +51,7 @@ class VideoListView extends StatelessWidget {
                 child: Divider(),
               ),
               PopupMenuItem(
-                child: const Text("All"),
+                child:  Text("All".i18n),
                 onTap: () => videoListCubit.getAll(),
               ),
             ],

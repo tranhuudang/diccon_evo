@@ -71,7 +71,6 @@ class DataRepository implements Data {
   Future<List<Video>> getDefaultVideos() async {
     String contents =
     await FileHandler.getAssetFile('assets/videos/video-default.json');
-    print("hi");
     final json = jsonDecode(contents);
     if (json is List<dynamic>) {
       final List<Video> videos =

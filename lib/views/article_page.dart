@@ -1,4 +1,5 @@
 import 'package:diccon_evo/helpers/word_handler.dart';
+import 'package:diccon_evo/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 import '../helpers/searching.dart';
@@ -79,8 +80,8 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                                   height: 100.0,
                                   color: Colors
                                       .grey, // Display a placeholder color or image
-                                  child: const Center(
-                                    child: Text('No Image'),
+                                  child:  Center(
+                                    child: Text('No Image'.i18n),
                                   ),
                                 );
                               }),
