@@ -11,7 +11,6 @@ import '../helpers/image_handler.dart';
 import '../properties.dart';
 import '../models/word.dart';
 import '../helpers/platform_check.dart';
-import '../helpers/searching.dart';
 import 'components/suggested_item.dart';
 import '../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,13 +24,9 @@ class DictionaryView extends StatefulWidget {
 
 class _DictionaryViewState extends State<DictionaryView>
     with AutomaticKeepAliveClientMixin {
-  ///final List<Widget> _messages = [];
   final TextEditingController _textController = TextEditingController();
   final ScrollController _chatListController = ScrollController();
-
-  ThesaurusRepository thesaurusRepository = ThesaurusRepository();
   ImageHandler imageProvider = ImageHandler();
-  late final ThesaurusService thesaurusService;
   late List<String> _listSynonyms = [];
   late List<String> _listAntonyms = [];
   late List<String> suggestionWords = [];
@@ -39,18 +34,8 @@ class _DictionaryViewState extends State<DictionaryView>
   bool hasImages = false;
   bool hasAntonyms = false;
   bool hasSynonyms = false;
-  bool needCorrector = false;
   bool hasSuggestionWords = true;
-  late String currentSearchWord ='';
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    thesaurusService = ThesaurusService(thesaurusRepository);
-    //_messages.add(const WelcomeBox());
-
-    super.initState();
-  }
+  late String currentSearchWord = '';
 
   @override
   // TODO: implement wantKeepAlive
@@ -61,7 +46,6 @@ class _DictionaryViewState extends State<DictionaryView>
       hasImages = false;
       hasAntonyms = false;
       hasSynonyms = false;
-      needCorrector = false;
     });
   }
 
@@ -78,17 +62,16 @@ class _DictionaryViewState extends State<DictionaryView>
 
   void _handleSubmitted(
       String searchWord, BuildContext context, ChatListState state) async {
+    searchWord = WordHandler.removeSpecialCharacters(searchWord);
     currentSearchWord = searchWord;
     var chatListBloc = context.read<ChatListBloc>();
     _textController.clear();
     resetSuggestion();
     Word? wordResult;
+
     /// Add left bubble as user message
     chatListBloc.add(AddUserMessage(providedWord: searchWord));
     try {
-      /// This line is the skeleton of finding word in dictionary
-      wordResult = Searching.getDefinition(searchWord);
-
       /// Right bubble represent machine reply
       chatListBloc.add(AddLocalTranslation(
         providedWord: searchWord,
@@ -98,12 +81,9 @@ class _DictionaryViewState extends State<DictionaryView>
         },
       ));
 
-      /// Add found word to history file
-      await FileHandler.saveWordToHistory(wordResult!);
-
       /// Get and add list synonyms to message box
-      _listSynonyms = thesaurusService.getSynonyms(searchWord);
-      _listAntonyms = thesaurusService.getAntonyms(searchWord);
+      _listSynonyms = Properties.thesaurusService.getSynonyms(searchWord);
+      _listAntonyms = Properties.thesaurusService.getAntonyms(searchWord);
       if (_listSynonyms.isNotEmpty) {
         setState(() {
           hasSynonyms = true;
@@ -123,25 +103,11 @@ class _DictionaryViewState extends State<DictionaryView>
       chatListBloc.add(AddSorryMessage());
     }
 
-    setState(() {
-      suggestionWords.clear();
-    });
-
-    /// Delay the scroll animation until after the list has been updated
-    scrollToBottom();
-
     /// Find image to show
     imageUrl = await imageProvider.getImageFromPixabay(searchWord);
-    if (kDebugMode) {
-      print(imageUrl);
-    }
     if (imageUrl.isNotEmpty) {
       setState(() {
         hasImages = true;
-      });
-    } else {
-      setState(() {
-        hasImages = false;
       });
     }
 
@@ -152,6 +118,13 @@ class _DictionaryViewState extends State<DictionaryView>
       // On desktop we request focus, not on mobile
       Properties.textFieldFocusNode.requestFocus();
     }
+
+    /// Unnecessary task that do not required to be display on screen will be run after all
+    /// Delay the scroll animation until after the list has been updated
+    scrollToBottom();
+    setState(() {
+      suggestionWords.clear();
+    });
   }
 
   @override
@@ -205,9 +178,6 @@ class _DictionaryViewState extends State<DictionaryView>
                                     title: word,
                                     backgroundColor: Colors.blue,
                                     onPressed: (String clickedWord) {
-                                      clickedWord =
-                                          WordHandler.removeSpecialCharacters(
-                                              clickedWord);
                                       _handleSubmitted(
                                           clickedWord, context, state);
                                       suggestionWords.clear();
@@ -216,21 +186,12 @@ class _DictionaryViewState extends State<DictionaryView>
                                 }).toList(),
                               )
                             : Container(),
-                        needCorrector
-                            ? const SuggestedItem(
-                                title: 'Corrector',
-                                backgroundColor: Colors.orange,
-                              )
-                            : Container(),
                         hasSynonyms
                             ? SuggestedItem(
                                 onPressed: (String a) {
                                   chatListBloc.add(AddSynonyms(
                                     providedWord: currentSearchWord,
                                     itemOnPressed: (clickedWord) {
-                                      clickedWord =
-                                          WordHandler.removeSpecialCharacters(
-                                              clickedWord);
                                       _handleSubmitted(
                                           clickedWord, context, state);
                                     },
@@ -246,9 +207,6 @@ class _DictionaryViewState extends State<DictionaryView>
                                   chatListBloc.add(AddAntonyms(
                                     providedWord: currentSearchWord,
                                     itemOnPressed: (clickedWord) {
-                                      clickedWord =
-                                          WordHandler.removeSpecialCharacters(
-                                              clickedWord);
                                       _handleSubmitted(
                                           clickedWord, context, state);
                                     },
@@ -289,26 +247,25 @@ class _DictionaryViewState extends State<DictionaryView>
                           },
                           onChanged: (word) {
                             suggestionWords = [];
-                            var suggestionLimit = 0;
+                            Set<String> listStartWith = {};
+                            Set<String> listContains = {};
+                            var suggestionLimit = 5;
                             if (word.length > 1) {
                               for (var element
                                   in Properties.suggestionListWord) {
                                 if (element.startsWith(word)) {
-                                  suggestionWords.add(element);
-                                  suggestionLimit++;
-                                }
-                                if (suggestionLimit > 10) break;
-                              }
-                              if (suggestionWords.length < 10) {
-                                for (var element
-                                    in Properties.suggestionListWord) {
-                                  if (element.contains(word)) {
-                                    suggestionWords.add(element);
-                                    suggestionLimit++;
+                                  listStartWith.add(element);
+                                  if (listStartWith.length >= suggestionLimit) {
+                                    break;
                                   }
-                                  if (suggestionLimit > 10) break;
+                                } else if (element.contains(word) &&
+                                    listContains.length < suggestionLimit) {
+                                  listContains.add(element);
                                 }
                               }
+
+                              suggestionWords =
+                                  [...listStartWith, ...listContains].toList();
                               suggestionWords.reversed;
                             }
                             setState(() {

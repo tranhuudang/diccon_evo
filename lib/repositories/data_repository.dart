@@ -15,7 +15,7 @@ class DataRepository implements Data {
   Future<List<Article>> getOnlineStoryList() async {
     try {
       var jsonData = await FileHandler.getJsonFromUrl(
-          'https://github.com/tranhuudang/Diccon-Assets/raw/main/stories/extends.json');
+          'https://github.com/tranhuudang/diccon_assets/raw/main/stories/extends.json');
       if (jsonData is List<dynamic>) {
         final List<Article> articles =
             jsonData.map((e) => Article.fromJson(e)).toList().cast<Article>();
@@ -26,7 +26,9 @@ class DataRepository implements Data {
       // Do something with the jsonData
     } catch (e) {
       // Handle any errors that occur during the fetch
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: getOnlineStoryList()');
+      }
       return [];
     }
   }
@@ -86,7 +88,7 @@ class DataRepository implements Data {
   Future<List<Video>> getOnlineVideosList() async {
     try {
       var jsonData = await FileHandler.getJsonFromUrl(
-          'https://github.com/tranhuudang/Diccon-Assets/raw/main/videos/extends.json');
+          'https://github.com/tranhuudang/diccon_assets/raw/main/videos/extends.json');
       if (jsonData is List<dynamic>) {
         final List<Video> video =
         jsonData.map((e) => Video.fromJson(e)).toList().cast<Video>();
@@ -97,7 +99,9 @@ class DataRepository implements Data {
       // Do something with the jsonData
     } catch (e) {
       // Handle any errors that occur during the fetch
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: getOnlineVideosList()');
+      }
       return [];
     }
   }
@@ -110,7 +114,7 @@ class DataRepository implements Data {
       return words;
     } catch (e) {
     if (kDebugMode) {
-      print("Error reading file: $e");
+      print("Error reading file: getSuggestionWordList()");
     }
     return [];
     }

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
-import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:diccon_evo/helpers/platform_check.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
@@ -11,7 +10,6 @@ import 'package:window_manager/window_manager.dart';
 import 'views/components/navigation_item.dart';
 import 'views/components/side_navigation_bar.dart';
 import 'properties.dart';
-import 'models/word.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:unicons/unicons.dart';
 
@@ -25,14 +23,9 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   bool isExpanded = false;
-  int selectedPageIndex = 0;
   // Instance of Repository implementations
   DataRepository dataRepository = DataRepository();
   ThesaurusRepository thesaurusRepository = ThesaurusRepository();
-
-  Future<List<Word>> readHistory() async {
-    return await FileHandler.readWordHistory();
-  }
 
   @override
   void initState() {
@@ -74,24 +67,12 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Properties.thesaurusService.loadThesaurus();
 
     // Load up suggestion list word
-    Properties.suggestionListWord = await Properties.dataService.getSuggestionWordList();
-
-    /// Load windows setting for custom title bar
-    // if (Platform.isWindows) {
-    //   doWhenWindowReady(() {
-    //     final win = appWindow;
-    //     const initialSize = Size(Global.MIN_WIDTH, Global.MIN_HEIGHT);
-    //     win.minSize = initialSize;
-    //     appWindow.show();
-    //   });
-    // }
+    Properties.suggestionListWord =
+        await Properties.dataService.getSuggestionWordList();
   }
 
   /// Helper method to update the selected page and collapse the navigation
   void _jumpToSelectedPage(int index, bool? popContext) {
-    // setState(() {
-    //   isExpanded = false;
-    // });
     _selectedPageIndex = index;
     Properties.pageController.jumpToPage(_selectedPageIndex);
     if (popContext ?? false) Navigator.pop(context);
@@ -109,7 +90,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       onWillPop: () async {
         final difference = DateTime.now().difference(backPressedTime);
         if (difference >= const Duration(seconds: 2)) {
-          Fluttertoast.showToast(msg: 'Press back again to exit'.i18n, fontSize: 14);
+          Fluttertoast.showToast(
+              msg: 'Press back again to exit'.i18n, fontSize: 14);
           backPressedTime = DateTime.now();
           return false;
         } else {
@@ -213,7 +195,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
           ),
           bottomNavigationBar: PlatformCheck.isMobile()
               ? NavigationBar(
-                  selectedIndex: selectedPageIndex,
+                  selectedIndex: _selectedPageIndex,
                   onDestinationSelected: (index) {
                     if (mounted) {
                       setState(() {
@@ -236,7 +218,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                 AppViews.settingsView.index, false);
                             break;
                         }
-                        selectedPageIndex = index;
+                        _selectedPageIndex = index;
                       });
                     }
                   },
@@ -245,8 +227,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                       icon: const Icon(Icons.search),
                       label: "Dictionary".i18n,
                       selectedIcon: Icon(Icons.search,
-                          color:
-                              Properties.isDarkMode ? Colors.black : Colors.white),
+                          color: Properties.isDarkMode
+                              ? Colors.black
+                              : Colors.white),
                     ),
                     NavigationDestination(
                         icon: const Icon(

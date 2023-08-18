@@ -4,6 +4,7 @@ import 'package:diccon_evo/views/components/dictionary_buble.dart';
 import 'package:diccon_evo/helpers/searching.dart';
 import 'package:translator/translator.dart';
 import 'package:diccon_evo/properties.dart';
+import '../../helpers/file_handler.dart';
 import '../../models/word.dart';
 import '../../views/components/brick_wall_buttons.dart';
 import '../../views/components/image_buble.dart';
@@ -74,6 +75,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       state.chatList.add(DictionaryBubble(
           isMachine: true, message: wordResult!, onWordTap: event.onWordTap));
       emit(ChatListUpdated(chatList: state.chatList));
+      /// Add found word to history file
+      await FileHandler.saveWordToHistory(wordResult!);
     } else {
       await translate(event.providedWord).then((translatedWord) {
         state.chatList.add(DictionaryBubble(

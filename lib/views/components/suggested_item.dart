@@ -18,7 +18,7 @@ class SuggestedItem extends StatelessWidget {
         child: Container(
          // height: 35,
           decoration: BoxDecoration(
-            color: backgroundColor ?? Color(0xFF1A567D),
+            color: backgroundColor ?? const Color(0xFF1A567D),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Padding(
