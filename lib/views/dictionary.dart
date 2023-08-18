@@ -1,20 +1,15 @@
 import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/views/components/header.dart';
-import 'package:diccon_evo/views/components/image_buble.dart';
-import 'package:diccon_evo/views/components/welcome_box.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/helpers/word_handler.dart';
 import 'package:diccon_evo/views/word_history.dart';
 import 'package:flutter/foundation.dart';
-import 'package:translator/translator.dart';
 import 'package:flutter/material.dart';
 import '../blocs/chat_list/chat_list_bloc.dart';
 import '../helpers/image_handler.dart';
-import '../views/components/brick_wall_buttons.dart';
 import '../properties.dart';
 import '../models/word.dart';
-import '../views/components/dictionary_buble.dart';
 import '../helpers/platform_check.dart';
 import '../helpers/searching.dart';
 import 'components/suggested_item.dart';
@@ -88,11 +83,8 @@ class _DictionaryViewState extends State<DictionaryView>
     _textController.clear();
     resetSuggestion();
     Word? wordResult;
-    var emptyWord = Word(word: searchWord);
-
     /// Add left bubble as user message
-    var userMessage = (DictionaryBubble(isMachine: false, message: emptyWord));
-    chatListBloc.add(AddUserMessage(userMessage: userMessage));
+    chatListBloc.add(AddUserMessage(providedWord: searchWord));
     try {
       /// This line is the skeleton of finding word in dictionary
       wordResult = Searching.getDefinition(searchWord);
@@ -271,7 +263,7 @@ class _DictionaryViewState extends State<DictionaryView>
                                 title: 'Images'.i18n,
                                 onPressed: (String a) {
                                   chatListBloc
-                                      .add(AddImage(providedWord: currentSearchWord));
+                                      .add(AddImage(imageUrl: imageUrl));
                                   scrollToBottom();
                                 },
                               )

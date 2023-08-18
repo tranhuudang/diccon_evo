@@ -4,16 +4,16 @@ import 'package:diccon_evo/views/components/dictionary_buble.dart';
 import 'package:diccon_evo/helpers/searching.dart';
 import 'package:translator/translator.dart';
 import 'package:diccon_evo/properties.dart';
-import '../../helpers/image_handler.dart';
 import '../../models/word.dart';
 import '../../views/components/brick_wall_buttons.dart';
 import '../../views/components/image_buble.dart';
+import '../../views/components/welcome_box.dart';
 
 part 'chat_list_state.dart';
 part 'chat_list_event.dart';
 
 class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
-  ChatListBloc() : super(ChatListInitial(chatList: [])) {
+  ChatListBloc() : super(ChatListInitial(chatList: [const WelcomeBox()])) {
     on<AddLocalTranslation>(_addLocalTranslation);
     on<AddUserMessage>(_addUserMessage);
     on<AddSorryMessage>(_addSorryMessage);
@@ -29,12 +29,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   /// Implement Events and Callbacks
 
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
-    ImageHandler imageProvider = ImageHandler();
-    await imageProvider.getImageFromPixabay(event.providedWord).then((imageUrl) {
-      state.chatList.add(ImageBubble(imageUrl: imageUrl));
-      emit(ChatListUpdated(chatList: state.chatList));
-    });
-
+    state.chatList.add(ImageBubble(imageUrl: event.imageUrl));
+    emit(ChatListUpdated(chatList: state.chatList));
   }
 
   void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) {
@@ -65,7 +61,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
-    state.chatList.add(event.userMessage);
+    var word = Word(word: event.providedWord);
+    state.chatList.add(DictionaryBubble(isMachine: false, message: word));
     emit(ChatListUpdated(chatList: state.chatList));
   }
 
@@ -88,6 +85,4 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       });
     }
   }
-
-
 }

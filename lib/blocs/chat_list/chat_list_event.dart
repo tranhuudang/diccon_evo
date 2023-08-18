@@ -4,8 +4,8 @@ part of 'chat_list_bloc.dart';
 abstract class ChatListEvent{}
 
 class AddUserMessage extends ChatListEvent{
-  final DictionaryBubble userMessage;
-  AddUserMessage({required this.userMessage});
+  final String providedWord;
+  AddUserMessage({required this.providedWord});
 }
 
 class AddLocalTranslation extends ChatListEvent{
@@ -28,8 +28,8 @@ class AddAntonyms extends ChatListEvent{
 }
 
 class AddImage extends ChatListEvent{
-  final String providedWord;
-  AddImage({required this.providedWord});
+  final String imageUrl;
+  AddImage({required this.imageUrl});
 }
 
 class AddSorryMessage extends ChatListEvent{
