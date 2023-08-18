@@ -1,5 +1,4 @@
 import 'dart:async';
-//import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/views/article_list.dart';
@@ -86,9 +85,9 @@ class Properties {
 
   static const List<String> welcomeBackgrounds = [
     "assets/welcome/42e1de5e-994c-4ee2-813d-448be978b9ba.jpg",
-    "assets/welcome/aafb0a26-16d3-41eb-87a7-540deb4b61ce.jpg",
-    "assets/welcome/ba5f8c3a-b107-419c-8f8b-a2002cd8c299.jpg",
-    "assets/welcome/f8b5b134-03a8-444d-90d2-05a8fb2f0ba6.jpg"
+    // "assets/welcome/aafb0a26-16d3-41eb-87a7-540deb4b61ce.jpg",
+    // "assets/welcome/ba5f8c3a-b107-419c-8f8b-a2002cd8c299.jpg",
+    // "assets/welcome/f8b5b134-03a8-444d-90d2-05a8fb2f0ba6.jpg"
   ];
 
   static void saveSettings(

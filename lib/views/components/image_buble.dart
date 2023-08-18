@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ImageBubble extends StatelessWidget {
   final String imageUrl;
@@ -20,19 +21,20 @@ class ImageBubble extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                    padding: const EdgeInsets.all(3),
-                    height: 250,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(16),
+                  padding: const EdgeInsets.all(3),
+                  height: 250,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      fit: BoxFit.scaleDown,
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: Image.network(
-                        imageUrl,
-                        fit: BoxFit.scaleDown,
-                      ),
-                    )),
+                  ),
+                ),
               ],
             ),
           ),

@@ -158,70 +158,70 @@ class _DictionaryViewState extends State<DictionaryView>
               Align(
                 alignment: Alignment.centerLeft,
                 child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        hasSuggestionWords
-                            ? Row(
-                                children: suggestionWords.map((String word) {
-                                  return SuggestedItem(
-                                    title: word,
-                                    backgroundColor: Colors.blue,
-                                    onPressed: (String clickedWord) {
-                                      _handleSubmitted(
-                                          clickedWord, context, state);
-                                      suggestionWords.clear();
-                                    },
-                                  );
-                                }).toList(),
-                              )
-                            : Container(),
-                        hasSynonyms
-                            ? SuggestedItem(
-                                onPressed: (String a) {
-                                  chatListBloc.add(AddSynonyms(
-                                    providedWord: currentSearchWord,
-                                    itemOnPressed: (clickedWord) {
-                                      _handleSubmitted(
-                                          clickedWord, context, state);
-                                    },
-                                  ));
-                                  scrollToBottom();
-                                },
-                                title: 'Synonyms'.i18n,
-                              )
-                            : Container(),
-                        hasAntonyms
-                            ? SuggestedItem(
-                                onPressed: (String a) {
-                                  chatListBloc.add(AddAntonyms(
-                                    providedWord: currentSearchWord,
-                                    itemOnPressed: (clickedWord) {
-                                      _handleSubmitted(
-                                          clickedWord, context, state);
-                                    },
-                                  ));
-                                  scrollToBottom();
-                                },
-                                title: 'Antonyms'.i18n,
-                              )
-                            : Container(),
-                        hasImages
-                            ? SuggestedItem(
-                                title: 'Images'.i18n,
-                                onPressed: (String a) {
-                                  chatListBloc
-                                      .add(AddImage(imageUrl: imageUrl));
-                                  scrollToBottom();
-                                },
-                              )
-                            : Container(),
-                      ],
-                    )),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      hasSuggestionWords
+                          ? Row(
+                              children: suggestionWords.map((String word) {
+                                return SuggestedItem(
+                                  title: word,
+                                  backgroundColor: Colors.blue,
+                                  onPressed: (String clickedWord) {
+                                    _handleSubmitted(
+                                        clickedWord, context, state);
+                                    suggestionWords.clear();
+                                  },
+                                );
+                              }).toList(),
+                            )
+                          : Container(),
+                      hasSynonyms
+                          ? SuggestedItem(
+                              onPressed: (String a) {
+                                chatListBloc.add(AddSynonyms(
+                                  providedWord: currentSearchWord,
+                                  itemOnPressed: (clickedWord) {
+                                    _handleSubmitted(
+                                        clickedWord, context, state);
+                                  },
+                                ));
+                                scrollToBottom();
+                              },
+                              title: 'Synonyms'.i18n,
+                            )
+                          : Container(),
+                      hasAntonyms
+                          ? SuggestedItem(
+                              onPressed: (String a) {
+                                chatListBloc.add(AddAntonyms(
+                                  providedWord: currentSearchWord,
+                                  itemOnPressed: (clickedWord) {
+                                    _handleSubmitted(
+                                        clickedWord, context, state);
+                                  },
+                                ));
+                                scrollToBottom();
+                              },
+                              title: 'Antonyms'.i18n,
+                            )
+                          : Container(),
+                      hasImages
+                          ? SuggestedItem(
+                              title: 'Images'.i18n,
+                              onPressed: (String a) {
+                                chatListBloc.add(AddImage(imageUrl: imageUrl));
+                                scrollToBottom();
+                              },
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
               ),
 
               /// TextField for user to enter their words
