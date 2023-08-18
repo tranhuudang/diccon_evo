@@ -7,6 +7,7 @@ import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'blocs/chat_list/chat_list_bloc.dart';
 import 'cubits/article_history_list_cubit.dart';
 import 'cubits/article_list_cubit.dart';
 import 'cubits/setting_cubit.dart';
@@ -53,6 +54,8 @@ class ProgramRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<ChatListBloc>
+          (create: (context) => ChatListBloc()),
         BlocProvider<ArticleListCubit>(
           create: (context) => ArticleListCubit(),
         ),

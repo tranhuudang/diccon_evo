@@ -27,7 +27,7 @@ extension Localization on String {
       "vi_vi": "Hình ảnh",
     },
     "Antonyms": {
-      "en_us": "Images",
+      "en_us": "Antonyms",
       "vi_vi": "Trái nghĩa",
     },
     "History": {
