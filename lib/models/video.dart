@@ -1,4 +1,3 @@
-import '../properties.dart';
 
 class Video {
   late final String title;

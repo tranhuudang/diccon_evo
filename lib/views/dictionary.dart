@@ -1,7 +1,4 @@
-import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/views/components/header.dart';
-import 'package:diccon_evo/helpers/file_handler.dart';
-import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/helpers/word_handler.dart';
 import 'package:diccon_evo/views/word_history.dart';
 import 'package:flutter/foundation.dart';
@@ -9,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../blocs/chat_list/chat_list_bloc.dart';
 import '../helpers/image_handler.dart';
 import '../properties.dart';
-import '../models/word.dart';
 import '../helpers/platform_check.dart';
 import 'components/suggested_item.dart';
 import '../extensions/i18n.dart';
@@ -67,7 +63,6 @@ class _DictionaryViewState extends State<DictionaryView>
     var chatListBloc = context.read<ChatListBloc>();
     _textController.clear();
     resetSuggestion();
-    Word? wordResult;
 
     /// Add left bubble as user message
     chatListBloc.add(AddUserMessage(providedWord: searchWord));
@@ -76,7 +71,6 @@ class _DictionaryViewState extends State<DictionaryView>
       chatListBloc.add(AddLocalTranslation(
         providedWord: searchWord,
         onWordTap: (clickedWord) {
-          clickedWord = WordHandler.removeSpecialCharacters(clickedWord);
           _handleSubmitted(clickedWord, context, state);
         },
       ));

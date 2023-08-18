@@ -2,7 +2,7 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:diccon_evo/views/video_history.dart';
 import 'package:flutter/material.dart';
-import '../cubits/video_list_cubit.dart';
+import '../blocs/cubits/video_list_cubit.dart';
 import '../properties.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/video.dart';

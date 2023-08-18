@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import '../properties.dart';
+import '../../properties.dart';
 import 'package:bloc/bloc.dart';
 
-import '../models/video.dart';
+import '../../models/video.dart';
 
 class VideoListCubit extends Cubit<List<Video>> {
   VideoListCubit() : super([]);

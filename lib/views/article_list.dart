@@ -1,8 +1,7 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
-import 'package:diccon_evo/views/article_page.dart';
 import 'package:flutter/material.dart';
-import '../cubits/article_list_cubit.dart';
+import '../blocs/cubits/article_list_cubit.dart';
 import '../properties.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

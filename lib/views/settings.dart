@@ -6,13 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../cubits/setting_cubit.dart';
+import '../blocs/cubits/setting_cubit.dart';
 import '../properties.dart';
 import '../models/setting.dart';
-import '../models/user_info.dart';
-import '../services/auth_service.dart';
 import '../views/components/setting_section.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});

@@ -45,7 +45,8 @@ class FileHandler {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
         // Check is a word is already exists in the history
-        bool isWordExists = json.any((wordInList) => wordInList['word'] == word.word);
+        bool isWordExists =
+            json.any((wordInList) => wordInList['word'] == word.word);
         if (!isWordExists) {
           if (json is List<dynamic>) {
             json.add(word.toJson());
@@ -78,8 +79,9 @@ class FileHandler {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
         // Check is a article is already exists in the history
-        bool isArticleExist = json.any((articleInJson) => articleInJson['title'] == article.title);
-        if(!isArticleExist) {
+        bool isArticleExist = json
+            .any((articleInJson) => articleInJson['title'] == article.title);
+        if (!isArticleExist) {
           if (json is List<dynamic>) {
             json.add(article.toJson());
             final encoded = jsonEncode(json);
@@ -111,7 +113,8 @@ class FileHandler {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
         // Check if video is already exist in history list
-        bool isVideoExists = json.any((videoInList) => videoInList['title'] == video.title);
+        bool isVideoExists =
+            json.any((videoInList) => videoInList['title'] == video.title);
         if (!isVideoExists) {
           if (json is List<dynamic>) {
             json.add(video.toJson());

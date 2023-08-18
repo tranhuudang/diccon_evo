@@ -1,8 +1,8 @@
 import 'package:diccon_evo/models/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../properties.dart';
-import '../helpers/file_handler.dart';
+import '../../properties.dart';
+import '../../helpers/file_handler.dart';
 
 class ArticleHistoryListCubit extends Cubit<List<Article>> {
   ArticleHistoryListCubit() : super([]);

@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../properties.dart';
-import '../helpers/file_handler.dart';
-import '../models/video.dart';
+import '../../properties.dart';
+import '../../helpers/file_handler.dart';
+import '../../models/video.dart';
 
 class VideoHistoryListCubit extends Cubit<List<Video>> {
   VideoHistoryListCubit() : super([]);

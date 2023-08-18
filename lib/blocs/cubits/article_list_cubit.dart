@@ -1,5 +1,5 @@
-import '../properties.dart';
-import '../models/article.dart';
+import '../../properties.dart';
+import '../../models/article.dart';
 import 'package:bloc/bloc.dart';
 
 class ArticleListCubit extends Cubit<List<Article>> {
