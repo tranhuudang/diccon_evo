@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../helpers/platform_check.dart';
+
 class ClickableWords extends StatefulWidget {
   final String text;
   final TextStyle? style;
@@ -10,7 +12,8 @@ class ClickableWords extends StatefulWidget {
   final double? fontSize;
   final Function(String)? onWordTap;
 
-  const ClickableWords({super.key,
+  const ClickableWords({
+    super.key,
     required this.text,
     this.onWordTap,
     this.style,
@@ -35,11 +38,11 @@ class _ClickableWordsState extends State<ClickableWords> {
   Widget build(BuildContext context) {
     final List<String> words = widget.text.split(' ');
 
-    return StreamBuilder(
-        stream: _hoverIndexController.stream,
-        initialData: -1,
-        builder: (context, snapshot) {
-          return RichText(
+    return PlatformCheck.isMobile()
+        ?
+        // We don't want to change cursor or underline text on mobile
+        // Which make the performance decrease a lot
+        RichText(
             text: TextSpan(
               children: [
                 for (var i = 0; i < words.length; i++)
@@ -47,28 +50,54 @@ class _ClickableWordsState extends State<ClickableWords> {
                     text: '${words[i]} ',
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                      if (widget.onWordTap != null) {
-                        widget.onWordTap!(words[i]);
-                      }
+                        if (widget.onWordTap != null) {
+                          widget.onWordTap!(words[i]);
+                        }
                       },
-                    onEnter: (_) {
-                      _hoverIndexController.add(i);
-                    },
-                    onExit: (_) {
-                      _hoverIndexController.add(-1);
-                    },
                     style: widget.style ??
                         TextStyle(
                           color: widget.textColor ?? Colors.white,
                           fontSize: widget.fontSize,
-                          decoration: snapshot.data == i
-                              ? TextDecoration.underline
-                              : TextDecoration.none,
                         ),
                   ),
               ],
             ),
+          )
+        : StreamBuilder(
+            stream: _hoverIndexController.stream,
+            initialData: -1,
+            builder: (context, snapshot) {
+              return RichText(
+                text: TextSpan(
+                  children: [
+                    for (var i = 0; i < words.length; i++)
+                      TextSpan(
+                        text: '${words[i]} ',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            if (widget.onWordTap != null) {
+                              widget.onWordTap!(words[i]);
+                            }
+                          },
+                        onEnter: (_) {
+                          _hoverIndexController.add(i);
+                        },
+                        onExit: (_) {
+                          _hoverIndexController.add(-1);
+                        },
+                        style: widget.style ??
+                            TextStyle(
+                              color: widget.textColor ?? Colors.white,
+                              fontSize: widget.fontSize,
+                              decoration: snapshot.data == i
+                                  ? TextDecoration.underline
+                                  : TextDecoration.none,
+                            ),
+                      ),
+                  ],
+                ),
+              );
+            },
           );
-        });
   }
 }

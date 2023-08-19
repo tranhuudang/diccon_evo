@@ -59,7 +59,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   }
 
   loadUpData() async {
-    //Global.packageInfo = await PackageInfo.fromPlatform();
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
     Properties.wordList = await Properties.dataService.getWordList();
 
@@ -67,8 +66,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Properties.thesaurusService.loadThesaurus();
 
     // Load up suggestion list word
-    Properties.suggestionListWord =
-        await Properties.dataService.getSuggestionWordList();
+    Properties.suggestionListWord = await Properties.dataService.getSuggestionWordList();
   }
 
   /// Helper method to update the selected page and collapse the navigation
@@ -248,7 +246,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                 : Colors.white),
                         label: "Reading time".i18n),
                     NavigationDestination(
-                        selectedIcon: Icon(Icons.manage_accounts_outlined,
+                        selectedIcon: Icon(UniconsLine.books,,
                             color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),

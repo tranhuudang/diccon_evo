@@ -227,7 +227,7 @@ class _DictionaryViewState extends State<DictionaryView>
               /// TextField for user to enter their words
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
                   children: <Widget>[
