@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../blocs/cubits/article_list_cubit.dart';
 import '../properties.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../models/article.dart';
 import 'article_history.dart';
 import 'components/reading_tile.dart';
@@ -24,7 +23,10 @@ class ArticleListView extends StatelessWidget {
             onPressed: () {
               // Remove focus out of TextField in DictionaryView
               Properties.textFieldFocusNode.unfocus();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const ArticleListHistoryView()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ArticleListHistoryView()));
             },
             icon: const Icon(Icons.history),
           ),
@@ -36,15 +38,15 @@ class ArticleListView extends StatelessWidget {
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child:  Text("Elementary".i18n),
+                child: Text("Elementary".i18n),
                 onTap: () => articleListCubit.sortElementary(),
               ),
               PopupMenuItem(
-                child:  Text("Intermediate".i18n),
+                child: Text("Intermediate".i18n),
                 onTap: () => articleListCubit.sortIntermediate(),
               ),
               PopupMenuItem(
-                child:  Text("Advanced".i18n),
+                child: Text("Advanced".i18n),
                 onTap: () => articleListCubit.sortAdvanced(),
               ),
               const PopupMenuItem(
@@ -53,7 +55,7 @@ class ArticleListView extends StatelessWidget {
                 child: Divider(),
               ),
               PopupMenuItem(
-                child:  Text("All".i18n),
+                child: Text("All".i18n),
                 onTap: () => articleListCubit.getAll(),
               ),
             ],

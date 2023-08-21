@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../helpers/platform_check.dart';
 import '../models/video.dart' as video_model;
+import '../properties.dart';
 import 'components/video_footnote_paragraph.dart';
 
 class VideoPageView extends StatefulWidget {
@@ -16,6 +17,7 @@ class VideoPageView extends StatefulWidget {
 
 class _VideoPageViewState extends State<VideoPageView> {
   late VideoPlayerController _controller;
+  late double _maxHeight;
 
   @override
   void initState() {
@@ -30,6 +32,8 @@ class _VideoPageViewState extends State<VideoPageView> {
     _controller.setLooping(true);
     _controller.initialize();
   }
+
+
 
   @override
   void dispose() {
@@ -53,15 +57,11 @@ class _VideoPageViewState extends State<VideoPageView> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-
-
               /// Video Player on Mobile devices
               Container(
-                height: PlatformCheck.isMobile()?  null:  500,
+                height: PlatformCheck.isMobile() ? null : Properties.defaultWindowHeight,
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.black87
-                ),
+                decoration: const BoxDecoration(color: Colors.black87),
                 child: AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
                   child: Stack(
