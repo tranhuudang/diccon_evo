@@ -94,7 +94,6 @@ class ProgramRoot extends StatelessWidget {
         title: Properties.diccon,
         debugShowCheckedModeBanner: false,
         home: I18n(
-          //initialLocale: const Locale("vi", "VI"),
           child: const HomeView(),
         ),
       ),

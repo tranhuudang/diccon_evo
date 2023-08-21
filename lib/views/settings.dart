@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/views/components/header.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +20,11 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  Header(
+      appBar: Header(
         title: "Settings".i18n,
       ),
       body: BlocBuilder<SettingCubit, Setting>(builder: (context, state) {
+        SettingCubit settingCubit = context.read<SettingCubit>();
         return SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(8),
@@ -124,63 +123,45 @@ class _SettingsViewState extends State<SettingsView> {
                 //     : Container(),
                 SettingSection(title: 'Dictionary Section'.i18n, children: [
                   Row(children: [
-                     Text("Number of synonyms".i18n),
+                    Text("Number of synonyms".i18n),
                     const SizedBox(
-                      width: 8,
+                      width: 16,
                     ),
                     DropdownButton<int>(
+
                       focusColor: Colors.white,
                       value: state.numberOfSynonyms,
-                      hint:  Text('Select a number'.i18n),
+                      hint: Text('Select a number'.i18n),
                       onChanged: (int? newValue) {
-                        context
-                            .read<SettingCubit>()
-                            .setNumberOfSynonyms(newValue!);
+                        settingCubit.setNumberOfSynonyms(newValue!);
                       },
-                      items: [
-                        DropdownMenuItem<int>(
-                          value: 10,
-                          child: Text(10.toString()),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 20,
-                          child: Text(20.toString()),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 30,
-                          child: Text(30.toString()),
-                        ),
-                      ],
+                      items: [5,10,20,30].map((value) =>
+                       DropdownMenuItem<int>(
+                        value: value,
+                        child: Text(value.toString()),
+                      )
+                      ).toList()
                     ),
                   ]),
                   Row(children: [
-                     Text("Number of antonyms".i18n),
+                    Text("Number of antonyms".i18n),
                     const SizedBox(
-                      width: 8,
+                      width: 16,
                     ),
                     DropdownButton<int>(
+                      //isExpanded: true,
                       focusColor: Colors.white,
                       value: state.numberOfAntonyms,
                       hint: Text('Select a number'.i18n),
                       onChanged: (int? newValue) {
-                        context
-                            .read<SettingCubit>()
-                            .setNumberOfAntonyms(newValue!);
+                        settingCubit.setNumberOfAntonyms(newValue!);
                       },
-                      items: [
-                        DropdownMenuItem<int>(
-                          value: 10,
-                          child: Text(10.toString()),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 20,
-                          child: Text(20.toString()),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 30,
-                          child: Text(30.toString()),
-                        ),
-                      ],
+                      items: [5,10,20,30].map((value) =>
+                          DropdownMenuItem<int>(
+                            value: value,
+                            child: Text(value.toString()),
+                          )
+                      ).toList()
                     ),
                   ])
                 ]),
@@ -195,9 +176,7 @@ class _SettingsViewState extends State<SettingsView> {
                             min: 0.1,
                             value: state.readingFontSize! / 70,
                             onChanged: (newValue) {
-                              context
-                                  .read<SettingCubit>()
-                                  .setReadingFontSize(newValue * 70);
+                              settingCubit.setReadingFontSize(newValue * 70);
                             }),
                       ],
                     ),
@@ -207,10 +186,10 @@ class _SettingsViewState extends State<SettingsView> {
                     )
                   ],
                 ),
-                 SettingSection(
+                SettingSection(
                   title: "About".i18n,
                   children: [
-                     const Row(
+                    const Row(
                       children: [
                         Text("Diccon", style: TextStyle()),
                         Spacer(),
@@ -221,7 +200,7 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                     Row(
                       children: [
-                         Row(
+                        Row(
                           children: [
                             const Text("© 2023 Zeroboy."),
                             const SizedBox(width: 5),
@@ -239,7 +218,7 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 Column(
                   children: [
-                     Text(
+                    Text(
                       "Available at".i18n,
                       style: const TextStyle(
                           color: Colors.grey,
