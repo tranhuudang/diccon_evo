@@ -22,14 +22,14 @@ class _DictionaryViewState extends State<DictionaryView>
     with AutomaticKeepAliveClientMixin {
   final TextEditingController _textController = TextEditingController();
   final ScrollController _chatListController = ScrollController();
-  ImageHandler imageProvider = ImageHandler();
-  late List<String> suggestionWords = [];
-  late String imageUrl = '';
+  final ImageHandler imageProvider = ImageHandler();
+  List<String> suggestionWords = [];
+  String imageUrl = '';
   bool hasImages = false;
   bool hasAntonyms = false;
   bool hasSynonyms = false;
   bool hasSuggestionWords = true;
-  late String currentSearchWord = '';
+  String currentSearchWord = '';
 
   @override
   // TODO: implement wantKeepAlive
@@ -162,6 +162,7 @@ class _DictionaryViewState extends State<DictionaryView>
                     },
                   ),
                 ),
+
                 /// Suggestion bar with different suggestive button
                 Align(
                   alignment: Alignment.centerLeft,
@@ -245,12 +246,11 @@ class _DictionaryViewState extends State<DictionaryView>
                               _handleSubmitted(providedWord, context, state);
                             },
                             onChanged: (word) {
-                              suggestionWords = [];
                               Set<String> listStartWith = {};
                               Set<String> listContains = {};
-                              var suggestionLimit = 5;
+                              const int suggestionLimit = 5;
                               if (word.length > 1) {
-                                for (var element
+                                for (final element
                                     in Properties.suggestionListWord) {
                                   if (element.startsWith(word)) {
                                     listStartWith.add(element);

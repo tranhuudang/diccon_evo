@@ -59,7 +59,7 @@ class Properties {
   ];
 
   /// Manually change this version base on commit count
-  static String version = "v93";
+  static String version = "v109";
   static PageController pageController = PageController();
 
   static const double minWidth = 400;
