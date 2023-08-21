@@ -31,7 +31,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
     state.chatList.add(ImageBubble(imageUrl: event.imageUrl));
-    emit(ChatListUpdated(chatList: state.chatList));
+    emit(ImageAdded(chatList: state.chatList));
   }
 
   void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) {
@@ -39,7 +39,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         Properties.thesaurusService.getSynonyms(event.providedWord);
     state.chatList.add(BrickWallButtons(
         stringList: listSynonyms, itemOnPressed: event.itemOnPressed));
-    emit(ChatListUpdated(chatList: state.chatList));
+    emit(SynonymsAdded(chatList: state.chatList));
   }
 
   void _addAntonymsList(AddAntonyms event, Emitter<ChatListState> emit) {
@@ -50,7 +50,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         borderColor: Colors.orangeAccent,
         stringList: listAntonyms,
         itemOnPressed: event.itemOnPressed));
-    emit(ChatListUpdated(chatList: state.chatList));
+    emit(AntonymsAdded(chatList: state.chatList));
   }
 
   void _addSorryMessage(AddSorryMessage event, Emitter<ChatListState> emit) {

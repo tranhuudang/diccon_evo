@@ -246,7 +246,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                 : Colors.white),
                         label: "Reading time".i18n),
                     NavigationDestination(
-                        selectedIcon: Icon(UniconsLine.books,,
+                        selectedIcon: Icon(UniconsLine.books,
                             color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),
