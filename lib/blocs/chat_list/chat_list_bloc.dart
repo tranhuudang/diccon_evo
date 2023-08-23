@@ -8,7 +8,7 @@ import '../../helpers/file_handler.dart';
 import '../../models/word.dart';
 import '../../views/components/brick_wall_buttons.dart';
 import '../../views/components/image_buble.dart';
-import '../../views/components/welcome_box.dart';
+import '../../views/components/quote_box.dart';
 
 part 'chat_list_state.dart';
 part 'chat_list_event.dart';

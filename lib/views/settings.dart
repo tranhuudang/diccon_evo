@@ -121,68 +121,52 @@ class _SettingsViewState extends State<SettingsView> {
                 //               ),
                 //       ])
                 //     : Container(),
-                SettingSection(title: 'Dictionary Section'.i18n, children: [
-                  Row(children: [
-                    Text("Number of synonyms".i18n),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    DropdownButton<int>(
-                        borderRadius: BorderRadius.circular(16),
-                        focusColor: Colors.white,
-                        value: state.numberOfSynonyms,
-                        hint: Text('Select a number'.i18n),
-                        onChanged: (int? newValue) {
-                          settingCubit.setNumberOfSynonyms(newValue!);
-                        },
-                        items: [5, 10, 20, 30]
-                            .map((value) => DropdownMenuItem<int>(
-                                  value: value,
-                                  child: Text(value.toString()),
-                                ))
-                            .toList()),
-                  ]),
-                  Row(children: [
-                    Text("Number of antonyms".i18n),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    DropdownButton<int>(
-                        borderRadius: BorderRadius.circular(16),
-
-                        //isExpanded: true,
-                        focusColor: Colors.white,
-                        value: state.numberOfAntonyms,
-                        hint: Text('Select a number'.i18n),
-                        onChanged: (int? newValue) {
-                          settingCubit.setNumberOfAntonyms(newValue!);
-                        },
-                        items: [5, 10, 20, 30]
-                            .map((value) => DropdownMenuItem<int>(
-                                  value: value,
-                                  child: Text(value.toString()),
-                                ))
-                            .toList()),
-                  ])
-                ]),
                 SettingSection(
-                  title: 'Reading Section'.i18n,
+                  title: 'Dictionary Section'.i18n,
                   children: [
+                    Row(children: [
+                      Text("Number of synonyms".i18n),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      DropdownButton<int>(
+                          borderRadius: BorderRadius.circular(16),
+                          focusColor: Colors.white,
+                          value: state.numberOfSynonyms,
+                          hint: Text('Select a number'.i18n),
+                          onChanged: (int? newValue) {
+                            settingCubit.setNumberOfSynonyms(newValue!);
+                          },
+                          items: [5, 10, 20, 30]
+                              .map((value) => DropdownMenuItem<int>(
+                                    value: value,
+                                    child: Text(value.toString()),
+                                  ))
+                              .toList()),
+                    ]),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.text_increase),
-                        Slider(
-                            min: 0.1,
-                            value: state.readingFontSize! / 70,
-                            onChanged: (newValue) {
-                              settingCubit.setReadingFontSize(newValue * 70);
-                            }),
+                        Text("Number of antonyms".i18n),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        DropdownButton<int>(
+                            borderRadius: BorderRadius.circular(16),
+
+                            //isExpanded: true,
+                            focusColor: Colors.white,
+                            value: state.numberOfAntonyms,
+                            hint: Text('Select a number'.i18n),
+                            onChanged: (int? newValue) {
+                              settingCubit.setNumberOfAntonyms(newValue!);
+                            },
+                            items: [5, 10, 20, 30]
+                                .map((value) => DropdownMenuItem<int>(
+                                      value: value,
+                                      child: Text(value.toString()),
+                                    ))
+                                .toList()),
                       ],
-                    ),
-                    Text(
-                      "Sample text that will be displayed on Reading.".i18n,
-                      style: TextStyle(fontSize: state.readingFontSize),
                     )
                   ],
                 ),

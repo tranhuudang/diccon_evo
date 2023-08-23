@@ -19,7 +19,7 @@ class HistoryView extends StatelessWidget {
       child: Scaffold(
         appBar: Header(
             padding: const EdgeInsets.only(left: 16, right: 0),
-            title: Properties.history.i18n,
+            title: "History".i18n,
             iconButton: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {

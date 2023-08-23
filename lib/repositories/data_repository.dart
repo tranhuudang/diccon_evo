@@ -1,36 +1,11 @@
-import 'dart:convert';
 import 'package:diccon_evo/interfaces/data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
 import '../properties.dart';
-import '../models/article.dart';
 import '../models/word.dart';
-
 import '../helpers/file_handler.dart';
 
 class DataRepository implements Data {
-  @override
-  Future<List<Article>> getOnlineStoryList() async {
-    try {
-      var jsonData = await FileHandler.getJsonFromUrl(
-          'https://github.com/tranhuudang/diccon_assets/raw/main/stories/extends.json');
-      if (jsonData is List<dynamic>) {
-        final List<Article> articles =
-            jsonData.map((e) => Article.fromJson(e)).toList().cast<Article>();
-        return articles;
-      } else {
-        return [];
-      }
-      // Do something with the jsonData
-    } catch (e) {
-      // Handle any errors that occur during the fetch
-      if (kDebugMode) {
-        print('Error: getOnlineStoryList()');
-      }
-      return [];
-    }
-  }
 
   @override
   Future<List<Word>> getWordList() async {
@@ -55,19 +30,6 @@ class DataRepository implements Data {
     return wordList;
   }
 
-  @override
-  Future<List<Article>> getDefaultStories() async {
-    String contents =
-        await FileHandler.getAssetFile('assets/stories/story-default.json');
-    final json = jsonDecode(contents);
-    if (json is List<dynamic>) {
-      final List<Article> articles =
-          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
-      return articles;
-    } else {
-      return [];
-    }
-  }
 
   @override
   Future<List<String>> getSuggestionWordList() async {

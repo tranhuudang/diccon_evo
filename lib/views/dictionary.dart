@@ -119,7 +119,7 @@ class _DictionaryViewState extends State<DictionaryView>
     var chatListBloc = context.read<ChatListBloc>();
     return Scaffold(
       appBar: Header(
-        title: Properties.dictionary.i18n,
+        title: "Dictionary".i18n,
         actions: [
           IconButton(
               onPressed: () {

@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/chat_list/chat_list_bloc.dart';
-import 'blocs/cubits/article_history_list_cubit.dart';
-import 'blocs/cubits/article_list_cubit.dart';
 import 'blocs/cubits/setting_cubit.dart';
 import 'firebase_options.dart';
 import 'properties.dart';
@@ -49,14 +47,8 @@ class ProgramRoot extends StatelessWidget {
       providers: [
         BlocProvider<ChatListBloc>
           (create: (context) => ChatListBloc()),
-        BlocProvider<ArticleListCubit>(
-          create: (context) => ArticleListCubit(),
-        ),
         BlocProvider<SettingCubit>(
           create: (context) => SettingCubit(),
-        ),
-        BlocProvider<ArticleHistoryListCubit>(
-          create: (context) => ArticleHistoryListCubit(),
         ),
         BlocProvider<ClickableWordCubit>(
           create: (context) => ClickableWordCubit(),

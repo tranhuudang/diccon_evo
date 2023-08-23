@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
@@ -44,7 +43,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Size windowsSize = await WindowManager.instance.getSize();
     Properties.defaultWindowWidth = windowsSize.width;
     Properties.defaultWindowHeight = windowsSize.height;
-    Properties.saveSettings(null, null, null, null);
+    Properties.saveSettings(null, null);
     if (windowsSize.width > 800) {
       setState(() {
         isExpanded = true;
@@ -152,18 +151,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                 AppViews.dictionaryView.index, false);
                           },
                         ),
-                        const Divider(),
-                        NavigationItem(
-                          title: "Reading time".i18n,
-                          isExpanded: isExpanded,
-                          icon: UniconsLine.books,
-                          onPressed: () {
-                            // Remove focus out of TextField in DictionaryView
-                            Properties.textFieldFocusNode.unfocus();
-                            _jumpToSelectedPage(
-                                AppViews.articleListView.index, false);
-                          },
-                        ),
                         const Spacer(),
                         const Divider(),
                         NavigationItem(
@@ -194,11 +181,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                             break;
                           case 1:
                             _jumpToSelectedPage(
-                                AppViews.articleListView.index, false);
-                            break;
-
-                          case 2:
-                            _jumpToSelectedPage(
                                 AppViews.settingsView.index, false);
                             break;
                         }
@@ -215,13 +197,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                               ? Colors.black
                               : Colors.white),
                     ),
-                    NavigationDestination(
-                        icon: const Icon(Icons.chrome_reader_mode_outlined),
-                        selectedIcon: Icon(Icons.chrome_reader_mode_outlined,
-                            color: Properties.isDarkMode
-                                ? Colors.black
-                                : Colors.white),
-                        label: "Reading time".i18n),
                     NavigationDestination(
                         selectedIcon: Icon(UniconsLine.books,
                             color: Properties.isDarkMode
