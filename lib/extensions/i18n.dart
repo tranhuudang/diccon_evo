@@ -42,18 +42,6 @@ extension Localization on String {
       "en_us": "Clear all",
       "vi_vi": "Xóa tất cả",
     },
-    "Watching time": {
-      "en_us": "Watching time",
-      "vi_vi": "Video ngắn",
-    },
-    "Footnote": {
-      "en_us": "Footnote",
-      "vi_vi": "Ghi chú",
-    },
-    "Non-Footnote": {
-      "en_us": "Non-Footnote",
-      "vi_vi": "Không ghi chú",
-    },
     "All": {
       "en_us": "All",
       "vi_vi": "Tất cả",

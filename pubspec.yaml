@@ -70,13 +70,8 @@ dev_dependencies:
   url_launcher: ^6.1.12
 
   google_sign_in: ^6.1.4
-#  firebase_auth: ^4.7.1
-#  firebase_core: ^2.15.0
-
-  # Video player for mobile
-  video_player: ^2.7.0
-  # Video player for windows
-  video_player_win: ^2.0.0
+  # firebase_auth: ^4.7.1
+  # firebase_core: ^2.15.0
 
   google_fonts: ^4.0.4
 

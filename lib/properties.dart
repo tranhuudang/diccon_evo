@@ -4,17 +4,15 @@ import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/views/article_list.dart';
 import 'package:diccon_evo/views/dictionary.dart';
 import 'package:diccon_evo/views/settings.dart';
-import 'package:diccon_evo/views/video_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/article.dart';
-import 'models/video.dart';
 import 'models/word.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/models/user_info.dart';
 
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
-enum AppViews { dictionaryView, articleListView, videoListView, settingsView }
+enum AppViews { dictionaryView, articleListView, settingsView }
 
 class Level {
   static String beginner = "beginner",
@@ -31,7 +29,6 @@ class Properties {
 
   static List<Word> wordList = [];
   static List<Article> defaultArticleList = [];
-  static List<Video> defaultVideoList = [];
   static List<String> suggestionListWord = [];
 
   // Thesaurus
@@ -54,7 +51,6 @@ class Properties {
   static List<Widget> pages = const [
     DictionaryView(),
     ArticleListView(),
-    VideoListView(),
     SettingsView()
   ];
 

@@ -1,7 +1,5 @@
 import 'package:diccon_evo/interfaces/data.dart';
-
 import '../models/article.dart';
-import '../models/video.dart';
 import '../models/word.dart';
 
 class DataService {
@@ -18,14 +16,6 @@ class DataService {
 
   Future<List<Article>> getDefaultStories() async {
     return await data.getDefaultStories();
-  }
-
-  Future<List<Video>> getDefaultVideos() async {
-    return await data.getDefaultVideos();
-  }
-
-  Future<List<Video>> getOnlineVideosList() async {
-    return await data.getOnlineVideosList();
   }
 
   Future<List<String>> getSuggestionWordList() async {

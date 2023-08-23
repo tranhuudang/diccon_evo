@@ -154,16 +154,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         ),
                         const Divider(),
                         NavigationItem(
-                          title: "Watching time".i18n,
-                          isExpanded: isExpanded,
-                          icon: Icons.video_library_outlined,
-                          onPressed: () {
-                            _jumpToSelectedPage(
-                                AppViews.videoListView.index, false);
-                          },
-                        ),
-                        const Divider(),
-                        NavigationItem(
                           title: "Reading time".i18n,
                           isExpanded: isExpanded,
                           icon: UniconsLine.books,
@@ -204,14 +194,10 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                             break;
                           case 1:
                             _jumpToSelectedPage(
-                                AppViews.videoListView.index, false);
-                            break;
-                          case 2:
-                            _jumpToSelectedPage(
                                 AppViews.articleListView.index, false);
                             break;
 
-                          case 3:
+                          case 2:
                             _jumpToSelectedPage(
                                 AppViews.settingsView.index, false);
                             break;
@@ -229,15 +215,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                               ? Colors.black
                               : Colors.white),
                     ),
-                    NavigationDestination(
-                        icon: const Icon(
-                          Icons.play_circle_outline,
-                        ),
-                        selectedIcon: Icon(Icons.play_circle_outline,
-                            color: Properties.isDarkMode
-                                ? Colors.black
-                                : Colors.white),
-                        label: "Watching time".i18n),
                     NavigationDestination(
                         icon: const Icon(Icons.chrome_reader_mode_outlined),
                         selectedIcon: Icon(Icons.chrome_reader_mode_outlined,

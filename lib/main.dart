@@ -1,8 +1,5 @@
 import 'dart:io';
 import 'package:diccon_evo/blocs/cubits/clickable_word_cubit.dart';
-import 'package:diccon_evo/blocs/cubits/video_history_list_cubit.dart';
-import 'package:diccon_evo/blocs/cubits/word_history_list_cubit.dart';
-import 'package:diccon_evo/blocs/cubits/video_list_cubit.dart';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -13,7 +10,6 @@ import 'blocs/cubits/article_list_cubit.dart';
 import 'blocs/cubits/setting_cubit.dart';
 import 'firebase_options.dart';
 import 'properties.dart';
-import 'package:video_player_win/video_player_win_plugin.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'themeData.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -32,15 +28,12 @@ void main() async {
     await windowManager.ensureInitialized();
 
     /// register player first
-    WindowsVideoPlayer.registerWith();
     WindowManager.instance.setSize(
         Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
     WindowManager.instance.setMinimumSize(
         const Size(Properties.minWidth, Properties.minHeight));
     WindowManager.instance.setTitle(Properties.diccon);
   }
-
-  /// Initialize Video Player for Desktop devices
 
   runApp(const ProgramRoot());
 }
@@ -59,9 +52,6 @@ class ProgramRoot extends StatelessWidget {
         BlocProvider<ArticleListCubit>(
           create: (context) => ArticleListCubit(),
         ),
-        BlocProvider<HistoryListCubit>(
-          create: (context) => HistoryListCubit(),
-        ),
         BlocProvider<SettingCubit>(
           create: (context) => SettingCubit(),
         ),
@@ -70,12 +60,6 @@ class ProgramRoot extends StatelessWidget {
         ),
         BlocProvider<ClickableWordCubit>(
           create: (context) => ClickableWordCubit(),
-        ),
-        BlocProvider<VideoHistoryListCubit>(
-          create: (context) => VideoHistoryListCubit(),
-        ),
-        BlocProvider<VideoListCubit>(
-          create: (context) => VideoListCubit(),
         ),
       ],
       child: MaterialApp(
