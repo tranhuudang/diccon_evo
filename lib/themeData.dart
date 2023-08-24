@@ -68,7 +68,7 @@ class CustomTheme {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
       splashColor: const Color(0x1F0D417C),
       cardColor: const Color(0x140D417C),
-      primaryColor: const Color(0xFFF8FAFD),
+        primaryColor: Colors.blue,
       scaffoldBackgroundColor: const Color(0xFFF8FAFD),
       primaryTextTheme: TextTheme(
           labelMedium: const TextStyle(
