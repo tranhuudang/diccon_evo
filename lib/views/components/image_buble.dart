@@ -7,39 +7,40 @@ class ImageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
-      child: Row(
-        children: [
-          const Spacer(),
-          Flexible(
-            /// Added Flexible widget to able to scale base on form's size
-            flex: 5,
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(3),
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl,
-                      fit: BoxFit.scaleDown,
+    return Row(
+      children: [
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 600,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 48, top: 8, right: 16, bottom: 8),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrl,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

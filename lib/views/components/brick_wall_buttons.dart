@@ -14,39 +14,39 @@ class BrickWallButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Spacer(),
-        Flexible(
-          flex: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: stringList.map((String item) {
-                return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: borderColor,
-                      ),
-                      //color: Colors.blue[400],
-                      borderRadius: BorderRadius.circular(16),
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 600),
+        child: Padding(
+          padding:
+              const EdgeInsets.only(left: 48, top: 8, right: 16, bottom: 8),
+          child: Wrap(
+            alignment: WrapAlignment.end,
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: stringList.map((String item) {
+              return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: borderColor,
                     ),
-                    child: TextButton(
-                      onPressed: () {
-                        itemOnPressed(item);
-                      },
-                      child: Text(
-                        item,
-                        style: TextStyle(color: textColor),
-                      ),
-                    ));
-              }).toList(),
-            ),
+                    //color: Colors.blue[400],
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      itemOnPressed(item);
+                    },
+                    child: Text(
+                      item,
+                      style: TextStyle(color: textColor),
+                    ),
+                  ));
+            }).toList(),
           ),
         ),
-      ],
+      ),
     );
   }
 }

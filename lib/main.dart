@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:diccon_evo/blocs/cubits/clickable_word_cubit.dart';
+import 'package:diccon_evo/blocs/quote/quote_bloc.dart';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -28,8 +29,8 @@ void main() async {
     /// register player first
     WindowManager.instance.setSize(
         Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
-    WindowManager.instance.setMinimumSize(
-        const Size(Properties.minWidth, Properties.minHeight));
+    WindowManager.instance
+        .setMinimumSize(const Size(Properties.minWidth, Properties.minHeight));
     WindowManager.instance.setTitle(Properties.diccon);
   }
 
@@ -45,14 +46,14 @@ class ProgramRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ChatListBloc>
-          (create: (context) => ChatListBloc()),
+        BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
         BlocProvider<SettingCubit>(
           create: (context) => SettingCubit(),
         ),
         BlocProvider<ClickableWordCubit>(
           create: (context) => ClickableWordCubit(),
         ),
+        BlocProvider<QuoteBloc>(create: (context) => QuoteBloc()),
       ],
       child: MaterialApp(
         localizationsDelegates: const [

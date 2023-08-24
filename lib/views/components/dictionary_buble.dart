@@ -29,11 +29,14 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
     super.initState();
 
     if (countLine() > 15) {
-      _isTooLarge = true;
+      setState(() {
+        _isTooLarge = true;
+      });
     } else {
-      _isTooLarge = false;
+      setState(() {
+        _isTooLarge = false;
+      });
     }
-    setState(() {});
   }
 
   int countLine() {
@@ -52,110 +55,124 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
       ),
       child: Row(
         children: [
-          /// This approach used to align the bubble to the left or right
-          widget.isMachine ? const Spacer() : Container(),
-          Flexible(
-            /// Added Flexible widget to able to scale base on form's size
-            flex: 5,
-            child: Column(
-              children: [
-                Container(
-                  height: _isTooLarge ? 500 : null,
-                  decoration: BoxDecoration(
-                    color: widget.isMachine ? Colors.blue : Colors.grey[800],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(widget.isMachine ? 16.0 : 0.0),
-                      topRight: Radius.circular(widget.isMachine ? 0.0 : 16.0),
-                      bottomLeft: const Radius.circular(16.0),
-                      bottomRight: const Radius.circular(16.0),
-                    ),
-                  ),
-                  child: Stack(
-                    children: [
-                      /// This widget contains meaning of the word
-                      SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: widget.isMachine
-                              ? Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        WordTitle(
-                                          message: widget.message,
-                                          titleColor: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          width: 8.0,
-                                        ),
-                                        WordPronunciation(
-                                            message: widget.message),
-                                        WordPlaybackButton(
-                                            message: widget.message),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        WordMeaning(
-                                          message: widget.message,
-                                          onWordTap: widget.onWordTap,
-                                          highlightColor: Colors.white,
-                                          subColor: Colors.white70,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              :
-
-                              /// This is user input with different UI
-                              Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          widget.message.word,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.0,
+          Expanded(
+            child: Align(
+              alignment: widget.isMachine
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              child: Container(
+                constraints: const BoxConstraints(
+                  maxWidth: 600,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: widget.isMachine
+                          ? const EdgeInsets.only(left: 32)
+                          : const EdgeInsets.only(right: 32),
+                      child: Container(
+                        height: _isTooLarge ? 500 : null,
+                        decoration: BoxDecoration(
+                          color:
+                              widget.isMachine ? Colors.blue : Colors.grey[800],
+                          borderRadius: BorderRadius.only(
+                            topLeft:
+                                Radius.circular(widget.isMachine ? 16.0 : 0.0),
+                            topRight:
+                                Radius.circular(widget.isMachine ? 0.0 : 16.0),
+                            bottomLeft: const Radius.circular(16.0),
+                            bottomRight: const Radius.circular(16.0),
+                          ),
+                        ),
+                        child: Stack(
+                          children: [
+                            /// This widget contains meaning of the word
+                            SingleChildScrollView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: widget.isMachine
+                                    ? Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              WordTitle(
+                                                message: widget.message,
+                                                titleColor: Colors.white,
+                                              ),
+                                              const SizedBox(
+                                                width: 8.0,
+                                              ),
+                                              WordPronunciation(
+                                                  message: widget.message),
+                                              WordPlaybackButton(
+                                                  message: widget.message),
+                                            ],
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 8.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                          Row(
+                                            children: [
+                                              WordMeaning(
+                                                message: widget.message,
+                                                onWordTap: widget.onWordTap,
+                                                highlightColor: Colors.white,
+                                                subColor: Colors.white70,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    :
+
+                                    /// This is user input with different UI
+                                    Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                widget.message.word,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 8.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                              ),
+                            ),
+
+                            /// Show ExpandButton when the number of line in Meaning to large.
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                //Spacer(),
+                                _isTooLarge
+                                    ? ExpandBubbleButton(
+                                        onTap: () {
+                                          setState(
+                                            () {
+                                              _isTooLarge = !_isTooLarge;
+                                            },
+                                          );
+                                        },
+                                      )
+                                    : Container(),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-
-                      /// Show ExpandButton when the number of line in Meaning to large.
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            //Spacer(),
-                            _isTooLarge
-                                ? ExpandBubbleButton(
-                                    onTap: () {
-                                      setState(() {
-                                        _isTooLarge = !_isTooLarge;
-                                      });
-                                    },
-                                  )
-                                : Container(),
-                          ]),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-
-          /// This approach used to align the bubble to the left or right
-          widget.isMachine ? Container() : const Spacer(),
         ],
       ),
     );
