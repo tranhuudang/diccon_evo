@@ -65,7 +65,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Properties.thesaurusService.loadThesaurus();
 
     // Load up suggestion list word
-    Properties.suggestionListWord = await Properties.dataService.getSuggestionWordList();
+    Properties.suggestionListWord =
+        await Properties.dataService.getSuggestionWordList();
   }
 
   /// Helper method to update the selected page and collapse the navigation

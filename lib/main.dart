@@ -1,5 +1,7 @@
+
 import 'dart:io';
 import 'package:diccon_evo/blocs/cubits/clickable_word_cubit.dart';
+import 'package:diccon_evo/blocs/cubits/word_history_list_cubit.dart';
 import 'package:diccon_evo/blocs/quote/quote_bloc.dart';
 import 'package:diccon_evo/home.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +51,9 @@ class ProgramRoot extends StatelessWidget {
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
         BlocProvider<SettingCubit>(
           create: (context) => SettingCubit(),
+        ),
+        BlocProvider<HistoryListCubit>(
+          create: (context) => HistoryListCubit(),
         ),
         BlocProvider<ClickableWordCubit>(
           create: (context) => ClickableWordCubit(),
