@@ -18,14 +18,17 @@ class SuggestedItem extends StatelessWidget {
         child: Container(
          // height: 35,
           decoration: BoxDecoration(
-            color: backgroundColor ?? const Color(0xFF1A567D),
+            color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: Theme.of(context).primaryColor
+            )
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
               title,
-              style: const TextStyle(color: Colors.white),
+              style:  TextStyle(color: Theme.of(context).textTheme.titleSmall?.color),
             ),
           ),
         ),

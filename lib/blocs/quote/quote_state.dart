@@ -9,8 +9,12 @@ abstract class QuoteActionState extends QuoteState{}
 class QuoteInitialState extends QuoteState{}
 
 
-class QuoteFetchingSuccessfulState extends QuoteState{
+class QuoteLoadedState extends QuoteState{
    final String quote;
 
-  QuoteFetchingSuccessfulState({required this.quote});
+   QuoteLoadedState({required this.quote});
+}
+
+class QuoteErrorState extends QuoteState{
+
 }

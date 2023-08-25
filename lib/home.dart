@@ -198,7 +198,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                               : Colors.white),
                     ),
                     NavigationDestination(
-                        selectedIcon: Icon(UniconsLine.books,
+                        selectedIcon: Icon(Icons.manage_accounts_outlined,
                             color: Properties.isDarkMode
                                 ? Colors.black
                                 : Colors.white),

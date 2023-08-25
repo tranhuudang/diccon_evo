@@ -15,55 +15,70 @@ class WelcomeBox extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         switch (state.runtimeType) {
-          case QuoteFetchingSuccessfulState:
-            final successfulState = state as QuoteFetchingSuccessfulState;
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  constraints: const BoxConstraints(
-                    minHeight: 100,
-                    maxWidth: 600,
-                  ),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2.0,
-                      ),
-                      //color: Colors.amberAccent,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(16))),
-                  child: Center(child: Text(successfulState.quote),),
-                ),
-              ),
-            );
+          case QuoteLoadedState:
+            final successfulState = state as QuoteLoadedState;
+            return QuoteContent(text: successfulState.quote);
+          case QuoteErrorState:
+            return const QuoteContent(text: "Nourish your mind, even offline: Where words illuminate without the web.",);
           default:
-            return const SizedBox.shrink();
+            return const QuoteContent();
         }
       },
     );
   }
 }
 
-// return Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// Expanded(
-// child: Padding(
-// padding: const EdgeInsets.all(16.0),
-// child: Container(
-// height: 170,
-// decoration: BoxDecoration(
-// border: Border.all(
-// color: Theme.of(context).primaryColor,
-// width: 2.0,
-// ),
-// color: Colors.amberAccent,
-// borderRadius: const BorderRadius.all(Radius.circular(16))),
-// child: Text("hello"),
-// ),
-// ),
-// ),
-// ],
-// );
+class QuoteContent extends StatelessWidget {
+  const QuoteContent({
+    super.key,
+    this.text,
+  });
+
+  final String? text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 28, left: 16, bottom: 16, right: 16),
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          constraints: const BoxConstraints(
+            minHeight: 120,
+            maxWidth: 600,
+          ),
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Theme.of(context).primaryColor,
+                    blurRadius: 1,
+                    blurStyle: BlurStyle.outer,
+                    offset: const Offset(6, 9)),
+                BoxShadow(
+                    color: Theme.of(context).primaryColor,
+                    blurRadius: 1,
+                    blurStyle: BlurStyle.outer,
+                    offset: const Offset(-2, -9)),
+                BoxShadow(
+                    color: Theme.of(context).primaryColor,
+                    blurRadius: 1,
+                    blurStyle: BlurStyle.outer,
+                    offset: const Offset(-8, 1)),
+
+                //BoxShadow(color: Theme.of(context).scaffoldBackgroundColor,),
+              ],
+              border: Border.all(
+                color: Theme.of(context).primaryColor,
+                width: 2.0,
+              ),
+              //color: Colors.amberAccent,
+              borderRadius: const BorderRadius.all(Radius.circular(16))),
+          child: Center(
+            child: Text(text ?? "Unlock the Doors to Words: Explore, Discover, and Learn"),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
