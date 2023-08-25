@@ -5,7 +5,8 @@ import '../../helpers/platform_check.dart';
 class SideNavigationBar extends StatelessWidget {
   const SideNavigationBar({
     super.key,
-    required this.isExpanded, required this.navigationItem,
+    required this.isExpanded,
+    required this.navigationItem,
   });
 
   final bool isExpanded;
@@ -13,18 +14,22 @@ class SideNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BottomNavigationBarThemeData theme = Theme.of(context).bottomNavigationBarTheme;
+    BottomNavigationBarThemeData theme =
+        Theme.of(context).bottomNavigationBarTheme;
     return Container(
-
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-      width: isExpanded ? 250 : PlatformCheck.isMobile() ? 60 : 50,
-      decoration:  BoxDecoration(
+      width: isExpanded
+          ? 250
+          : PlatformCheck.isMobile()
+              ? 60
+              : 50,
+      decoration: BoxDecoration(
         border: const Border(
-          right: BorderSide(
-              color: Colors.black12, width: 0.7),
+          right: BorderSide(color: Colors.black12, width: 0.7),
         ),
         color: theme.backgroundColor,
       ),
+
       /// List Navigation Item
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
