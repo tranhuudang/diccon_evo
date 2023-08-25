@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/word.dart';
+import '../dictionary/models/word.dart';
 
 class WordTitle extends StatelessWidget {
   final Word message;

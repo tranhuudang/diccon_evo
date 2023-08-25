@@ -1,15 +1,15 @@
-import 'package:diccon_evo/interfaces/data.dart';
-import '../models/word.dart';
+import 'package:diccon_evo/repositories/data_repository.dart';
+import '../features/dictionary/models/word.dart';
 
 class DataService {
-  final Data data;
+  final DataRepository dataRepository;
 
-  DataService(this.data);
+  DataService(this.dataRepository);
   Future<List<Word>> getWordList() async {
-    return await data.getWordList();
+    return await dataRepository.getWordList();
   }
 
   Future<List<String>> getSuggestionWordList() async {
-    return await data.getSuggestionWordList();
+    return await dataRepository.getSuggestionWordList();
   }
 }

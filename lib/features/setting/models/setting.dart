@@ -1,5 +1,5 @@
 
-import '../properties.dart';
+import '../../../properties.dart';
 
 class Setting {
   int? numberOfSynonyms;

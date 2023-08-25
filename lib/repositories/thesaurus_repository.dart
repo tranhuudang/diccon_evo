@@ -2,12 +2,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../properties.dart';
-import '../interfaces/thesaurus.dart';
 
-class ThesaurusRepository implements Thesaurus {
-
-  @override
-  Future<Map<String,List<String>>> loadSynonymsData() async {
+class ThesaurusRepository {
+  Future<Map<String, List<String>>> loadSynonymsData() async {
     String jsonString = await rootBundle.loadString(Properties.enSynonymsPath);
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     return jsonData.map((key, value) {
@@ -15,14 +12,11 @@ class ThesaurusRepository implements Thesaurus {
     });
   }
 
-  @override
-  Future<Map<String,List<String>>> loadAntonymsData() async {
+  Future<Map<String, List<String>>> loadAntonymsData() async {
     String jsonString = await rootBundle.loadString(Properties.enAntonymsPath);
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     return jsonData.map((key, value) {
       return MapEntry<String, List<String>>(key, List<String>.from(value));
     });
   }
-
-
 }

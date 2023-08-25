@@ -1,10 +1,10 @@
-import 'package:diccon_evo/views/components/expand_bubble_button.dart';
-import 'package:diccon_evo/views/components/word_meaning.dart';
-import 'package:diccon_evo/views/components/word_playback_button.dart';
-import 'package:diccon_evo/views/components/word_pronunciation.dart';
-import 'package:diccon_evo/views/components/word_title.dart';
+import 'package:diccon_evo/features/components/expand_bubble_button.dart';
+import 'package:diccon_evo/features/components/word_meaning.dart';
+import 'package:diccon_evo/features/components/word_playback_button.dart';
+import 'package:diccon_evo/features/components/word_pronunciation.dart';
+import 'package:diccon_evo/features/components/word_title.dart';
 import 'package:flutter/material.dart';
-import '../../models/word.dart';
+import '../dictionary/models/word.dart';
 
 class DictionaryBubble extends StatefulWidget {
   const DictionaryBubble({

@@ -1,13 +1,14 @@
+import 'package:diccon_evo/repositories/thesaurus_repository.dart';
+
 import '../properties.dart';
-import '../interfaces/thesaurus.dart';
 
 class ThesaurusService {
-  final Thesaurus thesaurus;
-  ThesaurusService(this.thesaurus);
+  final ThesaurusRepository thesaurusRepository;
+  ThesaurusService(this.thesaurusRepository);
 
   Future<void> loadThesaurus() async {
-    Properties.synonymsData = await thesaurus.loadSynonymsData();
-    Properties.antonymsData = await thesaurus.loadAntonymsData();
+    Properties.synonymsData = await thesaurusRepository.loadSynonymsData();
+    Properties.antonymsData = await thesaurusRepository.loadAntonymsData();
   }
 
   /// Return a list of String synonyms for provided word and return [] if nothing found

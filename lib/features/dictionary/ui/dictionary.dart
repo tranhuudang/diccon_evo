@@ -1,14 +1,14 @@
-import 'package:diccon_evo/views/components/header.dart';
+import 'package:diccon_evo/features/components/header.dart';
 import 'package:diccon_evo/helpers/word_handler.dart';
-import 'package:diccon_evo/views/word_history.dart';
+import 'package:diccon_evo/features/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../blocs/chat_list/chat_list_bloc.dart';
-import '../helpers/image_handler.dart';
-import '../properties.dart';
-import '../helpers/platform_check.dart';
-import 'components/suggested_item.dart';
-import '../extensions/i18n.dart';
+import '../bloc/chat_list_bloc.dart';
+import '../../../helpers/image_handler.dart';
+import '../../../properties.dart';
+import '../../../helpers/platform_check.dart';
+import '../../components/suggested_item.dart';
+import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DictionaryView extends StatefulWidget {

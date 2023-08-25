@@ -6,9 +6,9 @@ import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'views/components/navigation_item.dart';
-import 'views/components/side_navigation_bar.dart';
-import 'properties.dart';
+import '../../components/navigation_item.dart';
+import '../../components/side_navigation_bar.dart';
+import '../../../properties.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:unicons/unicons.dart';
 

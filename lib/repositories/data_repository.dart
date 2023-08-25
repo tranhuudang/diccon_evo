@@ -1,13 +1,10 @@
-import 'package:diccon_evo/interfaces/data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../properties.dart';
-import '../models/word.dart';
+import '../features/dictionary/models/word.dart';
 import '../helpers/file_handler.dart';
 
-class DataRepository implements Data {
-
-  @override
+class DataRepository {
   Future<List<Word>> getWordList() async {
     String dataEv = await rootBundle.loadString(Properties.evDataPath);
     String dataVe = await rootBundle.loadString(Properties.veDataPath);
@@ -30,19 +27,17 @@ class DataRepository implements Data {
     return wordList;
   }
 
-
-  @override
   Future<List<String>> getSuggestionWordList() async {
     try {
-      var content = await FileHandler.getAssetFile('assets/dictionary/109k.txt');
+      var content =
+          await FileHandler.getAssetFile('assets/dictionary/109k.txt');
       List<String> words = content.split('\n');
       return words;
     } catch (e) {
-    if (kDebugMode) {
-      print("Error reading file: getSuggestionWordList()");
-    }
-    return [];
+      if (kDebugMode) {
+        print("Error reading file: getSuggestionWordList()");
+      }
+      return [];
     }
   }
-
 }

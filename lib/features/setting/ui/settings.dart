@@ -1,13 +1,13 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/views/components/header.dart';
+import 'package:diccon_evo/features/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../blocs/cubits/setting_cubit.dart';
-import '../properties.dart';
+import '../cubit/setting_cubit.dart';
+import '../../../properties.dart';
 import '../models/setting.dart';
-import '../views/components/setting_section.dart';
+import '../../components/setting_section.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});

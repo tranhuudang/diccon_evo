@@ -1,11 +1,11 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/views/components/header.dart';
+import 'package:diccon_evo/features/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../blocs/cubits/word_history_list_cubit.dart';
-import '../views/components/history_tile.dart';
-import '../properties.dart';
-import '../models/word.dart';
+import '../cubit/word_history_list_cubit.dart';
+import '../../components/history_tile.dart';
+import '../../../properties.dart';
+import '../../dictionary/models/word.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 

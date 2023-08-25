@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
-import 'package:diccon_evo/views/components/dictionary_buble.dart';
+import 'package:diccon_evo/features/components/dictionary_buble.dart';
 import 'package:diccon_evo/helpers/searching.dart';
 import 'package:translator/translator.dart';
 import 'package:diccon_evo/properties.dart';
-import '../../helpers/file_handler.dart';
-import '../../models/word.dart';
-import '../../views/components/brick_wall_buttons.dart';
-import '../../views/components/image_buble.dart';
-import '../../views/components/quote_box.dart';
+import '../../../helpers/file_handler.dart';
+import '../models/word.dart';
+import '../../components/brick_wall_buttons.dart';
+import '../../components/image_buble.dart';
+import '../../components/quote_box/ui/quote_box.dart';
 
 part 'chat_list_state.dart';
 part 'chat_list_event.dart';

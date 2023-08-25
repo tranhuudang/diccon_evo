@@ -1,8 +1,8 @@
 
 
 
-import '../../properties.dart';
-import '../../models/setting.dart';
+import '../../../properties.dart';
+import '../models/setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingCubit extends Cubit<Setting> {

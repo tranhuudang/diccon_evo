@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../helpers/platform_check.dart';
+import '../../../../helpers/platform_check.dart';
 
 class ClickableWords extends StatefulWidget {
   final String text;

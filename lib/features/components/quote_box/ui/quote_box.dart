@@ -1,4 +1,4 @@
-import 'package:diccon_evo/blocs/quote/quote_bloc.dart';
+import 'package:diccon_evo/features/components/quote_box/bloc/quote_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,20 +50,20 @@ class QuoteContent extends StatelessWidget {
           decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                    color: Theme.of(context).primaryColor,
-                    blurRadius: 1,
+                    color: Theme.of(context).primaryColor.withOpacity(0.5),
+                    blurRadius: 0.5,
                     blurStyle: BlurStyle.outer,
-                    offset: const Offset(6, 9)),
+                    offset: const Offset(6, 6)),
                 BoxShadow(
-                    color: Theme.of(context).primaryColor,
-                    blurRadius: 1,
+                    color: Theme.of(context).primaryColor.withOpacity(0.8),
+                    blurRadius: 0.5,
                     blurStyle: BlurStyle.outer,
-                    offset: const Offset(-2, -9)),
+                    offset: const Offset(-2, -6)),
                 BoxShadow(
-                    color: Theme.of(context).primaryColor,
-                    blurRadius: 1,
+                    color: Theme.of(context).primaryColor.withOpacity(0.3),
+                    blurRadius: 0.5,
                     blurStyle: BlurStyle.outer,
-                    offset: const Offset(-8, 1)),
+                    offset: const Offset(-6, 1)),
 
                 //BoxShadow(color: Theme.of(context).scaffoldBackgroundColor,),
               ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/word.dart';
-import 'clickable_words.dart';
+import '../dictionary/models/word.dart';
+import 'clickable_word/ui/clickable_words.dart';
 
 class WordMeaning extends StatelessWidget {
   const WordMeaning({

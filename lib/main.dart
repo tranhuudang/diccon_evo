@@ -1,16 +1,16 @@
 import 'dart:io';
-import 'package:diccon_evo/blocs/cubits/clickable_word_cubit.dart';
-import 'package:diccon_evo/blocs/quote/quote_bloc.dart';
-import 'package:diccon_evo/home.dart';
+import 'package:diccon_evo/features/components/clickable_word/cubit/clickable_word_cubit.dart';
+import 'package:diccon_evo/features/components/quote_box/bloc/quote_bloc.dart';
+import 'package:diccon_evo/features/home/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'blocs/chat_list/chat_list_bloc.dart';
-import 'blocs/cubits/setting_cubit.dart';
+import 'features/dictionary/bloc/chat_list_bloc.dart';
+import 'features/setting/cubit/setting_cubit.dart';
 import 'firebase_options.dart';
 import 'properties.dart';
 //import 'package:firebase_core/firebase_core.dart';
-import 'themeData.dart';
+import 'theme_data.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 

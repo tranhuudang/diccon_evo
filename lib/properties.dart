@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
-import 'package:diccon_evo/views/dictionary.dart';
-import 'package:diccon_evo/views/settings.dart';
+import 'package:diccon_evo/features/dictionary/ui/dictionary.dart';
+import 'package:diccon_evo/features/setting/ui/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'models/word.dart';
+import 'features/dictionary/models/word.dart';
 import 'package:flutter/material.dart';
-import 'package:diccon_evo/models/user_info.dart';
+import 'package:diccon_evo/features/setting/models/user_info.dart';
 
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
