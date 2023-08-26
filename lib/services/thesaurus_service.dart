@@ -1,6 +1,6 @@
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 
-import '../properties.dart';
+import '../config/properties.dart';
 
 class ThesaurusService {
   final ThesaurusRepository thesaurusRepository;

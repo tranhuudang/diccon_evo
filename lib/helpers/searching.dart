@@ -1,5 +1,5 @@
-import '../properties.dart';
-import '../features/dictionary/models/word.dart';
+import '../config/properties.dart';
+import '../models/word.dart';
 
 class Searching {
   static Word? getDefinition(String searchWord) {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
-import '../properties.dart';
+import '../config/properties.dart';
 
 class ThesaurusRepository {
   Future<Map<String, List<String>>> loadSynonymsData() async {

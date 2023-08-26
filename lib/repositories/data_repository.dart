@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import '../properties.dart';
-import '../features/dictionary/models/word.dart';
+import '../config/properties.dart';
+import '/models/word.dart';
 import '../helpers/file_handler.dart';
 
 class DataRepository {

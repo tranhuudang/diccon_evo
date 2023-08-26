@@ -1,5 +1,5 @@
 import 'package:diccon_evo/repositories/data_repository.dart';
-import '../features/dictionary/models/word.dart';
+import '../models/word.dart';
 
 class DataService {
   final DataRepository dataRepository;

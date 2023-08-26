@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:diccon_evo/properties.dart';
+import 'package:diccon_evo/config/properties.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import '../features/dictionary/models/word.dart';
+import '../models/word.dart';
 
 class FileHandler {
   /// Download provided [fileName] from a [url] and save it to default Application Document Directory in the platform
