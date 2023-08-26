@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:diccon_evo/screens/components/clickable_word/cubit/clickable_word_cubit.dart';
 import 'package:diccon_evo/screens/components/quote_box/bloc/quote_bloc.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
+import 'package:diccon_evo/screens/word_history/cubit/word_history_list_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +48,7 @@ class ProgramRoot extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
+        BlocProvider<HistoryListCubit>(create: (context) => HistoryListCubit()),
         BlocProvider<SettingCubit>(
           create: (context) => SettingCubit(),
         ),
