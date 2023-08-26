@@ -1,5 +1,5 @@
+import 'package:diccon_evo/extensions/string_extension.dart';
 import 'package:diccon_evo/screens/components/header.dart';
-import 'package:diccon_evo/helpers/word_handler.dart';
 import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class _DictionaryViewState extends State<DictionaryView>
 
   void _handleSubmitted(
       String searchWord, BuildContext context, ChatListState state) async {
-    searchWord = WordHandler.removeSpecialCharacters(searchWord);
+    searchWord = searchWord.removeSpecialCharacters();
     currentSearchWord = searchWord;
     var chatListBloc = context.read<ChatListBloc>();
     _textController.clear();
