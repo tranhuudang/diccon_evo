@@ -1,9 +1,10 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/repositories/data_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
-import 'package:diccon_evo/helpers/platform_check.dart';
+import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/services/thesaurus_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import '../../components/navigation_item.dart';
@@ -107,7 +108,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                   SizedBox(
                     width: isExpanded && Properties.isLargeWindows
                         ? 250
-                        : PlatformCheck.isMobile()
+                        : defaultTargetPlatform.isMobile()
                             ? 0
                             : 50,
                   ),
@@ -125,7 +126,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
               ),
 
               /// Side navigation bar for desktop devices
-              PlatformCheck.isMobile()
+              defaultTargetPlatform.isMobile()
                   ? Container()
                   : SideNavigationBar(
                       isExpanded: isExpanded,
@@ -167,7 +168,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                     ),
             ],
           ),
-          bottomNavigationBar: PlatformCheck.isMobile()
+          bottomNavigationBar: defaultTargetPlatform.isMobile()
               ? NavigationBar(
                   selectedIndex: _selectedPageIndex,
                   onDestinationSelected: (index) {

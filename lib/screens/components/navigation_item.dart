@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../helpers/platform_check.dart';
+import '../../extensions/target_platform.dart';
 
 
 class NavigationItem extends StatefulWidget {
@@ -56,7 +56,7 @@ class _NavigationItemState extends State<NavigationItem> {
                 : MainAxisAlignment.center,
             children: [
               Icon(
-                size: PlatformCheck.isMobile() ? 24 : 20,
+                size: defaultTargetPlatform.isMobile() ? 24 : 20,
                 widget.icon,
                 color: snapshot.data??false ? theme.selectedItemColor : theme.unselectedItemColor,
               ),

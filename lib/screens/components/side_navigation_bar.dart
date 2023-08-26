@@ -1,6 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../helpers/platform_check.dart';
+import '../../extensions/target_platform.dart';
 
 class SideNavigationBar extends StatelessWidget {
   const SideNavigationBar({
@@ -20,7 +21,7 @@ class SideNavigationBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       width: isExpanded
           ? 250
-          : PlatformCheck.isMobile()
+          : defaultTargetPlatform.isMobile()
               ? 60
               : 50,
       decoration: BoxDecoration(

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'properties.dart';
-import '../helpers/platform_check.dart';
+import '../extensions/target_platform.dart';
 
 class DarkColors {
   static const primaryColor = Colors.blue;
@@ -97,7 +97,7 @@ class CustomTheme {
       splashColor: DarkColors.splashColor,
       cardColor: DarkColors.cardColor,
       primaryColor: DarkColors.primaryColor,
-      scaffoldBackgroundColor: PlatformCheck.isMobile()
+      scaffoldBackgroundColor: defaultTargetPlatform.isMobile()
           ? DarkColors.scaffoldBackgroundColorMobile
           : DarkColors.scaffoldBackgroundColorDesktop,
       primaryTextTheme: TextTheme(

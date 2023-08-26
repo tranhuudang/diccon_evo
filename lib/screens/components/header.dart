@@ -1,6 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../helpers/platform_check.dart';
+import '../../extensions/target_platform.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   const Header(
@@ -24,7 +25,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
     AppBarTheme theme = Theme.of(context).appBarTheme;
     return Container(
       height: kToolbarHeight,
-      decoration: PlatformCheck.isMobile()
+      decoration: defaultTargetPlatform.isMobile()
           ?  BoxDecoration(
         color: theme.backgroundColor,
 

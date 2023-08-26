@@ -1,4 +1,4 @@
-import 'package:diccon_evo/extensions/string_extension.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/components/header.dart';
 import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../bloc/chat_list_bloc.dart';
 import '../../../helpers/image_handler.dart';
 import '../../../config/properties.dart';
-import '../../../helpers/platform_check.dart';
+import '../../../extensions/target_platform.dart';
 import '../../components/suggested_item.dart';
 import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,7 +92,7 @@ class _DictionaryViewState extends State<DictionaryView>
       chatListBloc.add(AddSorryMessage());
     }
 
-    if (PlatformCheck.isMobile()) {
+    if (defaultTargetPlatform.isMobile()) {
       // Remove focus out of TextField in DictionaryView
       Properties.textFieldFocusNode.unfocus();
     } else {

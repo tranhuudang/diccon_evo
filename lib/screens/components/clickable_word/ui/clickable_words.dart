@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../helpers/platform_check.dart';
+import '../../../../extensions/target_platform.dart';
 
 class ClickableWords extends StatefulWidget {
   final String text;
@@ -38,7 +39,7 @@ class _ClickableWordsState extends State<ClickableWords> {
   Widget build(BuildContext context) {
     final List<String> words = widget.text.split(' ');
 
-    return PlatformCheck.isMobile()
+    return defaultTargetPlatform.isMobile()
         ?
         // We don't want to change cursor or underline text on mobile
         // Which make the performance decrease a lot
