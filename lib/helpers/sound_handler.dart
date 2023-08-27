@@ -23,16 +23,10 @@ class SoundHandler {
 
   String _onlineSoundUrlPath() {
     // Sample link's format: https://github.com/zeroclubvn/US-Pronunciation/raw/main/A/us/Affected.mp3
-    String firstLetter = providedWordToPlay.substring(0, 1).toUpperCase();
-    String afterFirstLetter = providedWordToPlay
-        .substring(
-            1,
-            !providedWordToPlay.contains(" ")
-                ? providedWordToPlay.length - 1
-                : providedWordToPlay.indexOf(" "))
-        .toLowerCase();
+    String firstLetter = providedWordToPlay.getFirstLetter().toUpperCase();
+    String word = providedWordToPlay.getFirstWord().upperCaseFirstLetter();
     String url =
-        "https://github.com/zeroclubvn/US-Pronunciation/raw/main/$firstLetter/us/$firstLetter$afterFirstLetter.mp3";
+        "https://github.com/zeroclubvn/US-Pronunciation/raw/main/$firstLetter/us/$word.mp3";
 
     return url;
   }
