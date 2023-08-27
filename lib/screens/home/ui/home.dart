@@ -1,9 +1,7 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/repositories/dictionary_repository.dart';
-import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
-import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -30,9 +28,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   void initState() {
     super.initState();
     WindowManager.instance.addListener(this);
-    // Inject Repository implementations to Services
-    Properties.dataService = DataService(dataRepository);
-    Properties.thesaurusService = ThesaurusService(thesaurusRepository);
     // Other loading steps
     loadUpData();
   }
@@ -59,13 +54,13 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
   loadUpData() async {
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
-    Properties.wordList = await Properties.dataService.getWordList();
+    Properties.wordList = await DictionaryRepository().getWordList();
 
     // Load up thesaurus dictionary
-    Properties.thesaurusService.loadThesaurus();
+    ThesaurusRepository().loadThesaurus();
 
     // Load up suggestion list word
-    Properties.suggestionListWord = await Properties.dataService.getSuggestionWordList();
+    Properties.suggestionListWord = await DictionaryRepository().getSuggestionWordList();
   }
 
   /// Helper method to update the selected page and collapse the navigation

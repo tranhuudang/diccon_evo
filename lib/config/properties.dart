@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:diccon_evo/services/data_service.dart';
-import 'package:diccon_evo/services/thesaurus_service.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/setting/ui/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,9 +19,6 @@ class Level {
 
 class Properties {
   static UserInfo userInfo = UserInfo("", "", "", "");
-
-  static late DataService dataService;
-  static late ThesaurusService thesaurusService;
 
   static List<Word> wordList = [];
   static List<String> suggestionListWord = [];

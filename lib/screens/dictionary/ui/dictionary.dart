@@ -1,4 +1,5 @@
 import 'package:diccon_evo/extensions/string.dart';
+import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:diccon_evo/screens/components/header.dart';
 import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
@@ -75,8 +76,8 @@ class _DictionaryViewState extends State<DictionaryView>
       ));
 
       /// Get and add list synonyms to message box
-      var listSynonyms = Properties.thesaurusService.getSynonyms(searchWord);
-      var listAntonyms = Properties.thesaurusService.getAntonyms(searchWord);
+      var listSynonyms = ThesaurusRepository().getSynonyms(searchWord);
+      var listAntonyms = ThesaurusRepository().getAntonyms(searchWord);
       if (listSynonyms.isNotEmpty) {
         hasSynonyms = true;
       }

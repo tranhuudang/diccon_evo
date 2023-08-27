@@ -129,36 +129,16 @@ class _SettingsViewState extends State<SettingsView> {
                       const SizedBox(
                         width: 16,
                       ),
-                      DropdownButton<int>(
-                          borderRadius: BorderRadius.circular(16),
-                          focusColor: Colors.white,
-                          value: state.numberOfSynonyms,
-                          hint: Text('Select a number'.i18n),
-                          onChanged: (int? newValue) {
-                            settingCubit.setNumberOfSynonyms(newValue!);
-                          },
-                          items: [5, 10, 20, 30]
-                              .map((value) => DropdownMenuItem<int>(
-                                    value: value,
-                                    child: Text(value.toString()),
-                                  ))
-                              .toList()),
-                    ]),
-                    Row(
-                      children: [
-                        Text("Number of antonyms".i18n),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        DropdownButton<int>(
+                      SizedBox(
+                        width: 50,
+                        child: DropdownButton<int>(
+                            isExpanded: true,
                             borderRadius: BorderRadius.circular(16),
-
-                            //isExpanded: true,
                             focusColor: Colors.white,
-                            value: state.numberOfAntonyms,
+                            value: state.numberOfSynonyms,
                             hint: Text('Select a number'.i18n),
                             onChanged: (int? newValue) {
-                              settingCubit.setNumberOfAntonyms(newValue!);
+                              settingCubit.setNumberOfSynonyms(newValue!);
                             },
                             items: [5, 10, 20, 30]
                                 .map((value) => DropdownMenuItem<int>(
@@ -166,6 +146,32 @@ class _SettingsViewState extends State<SettingsView> {
                                       child: Text(value.toString()),
                                     ))
                                 .toList()),
+                      ),
+                    ]),
+                    Row(
+                      children: [
+                        Text("Number of antonyms".i18n),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        SizedBox(
+                          width: 50,
+                          child: DropdownButton<int>(
+                              borderRadius: BorderRadius.circular(16),
+                              isExpanded: true,
+                              focusColor: Colors.white,
+                              value: state.numberOfAntonyms,
+                              hint: Text('Select a number'.i18n),
+                              onChanged: (int? newValue) {
+                                settingCubit.setNumberOfAntonyms(newValue!);
+                              },
+                              items: [5, 10, 20, 30]
+                                  .map((value) => DropdownMenuItem<int>(
+                                        value: value,
+                                        child: Text(value.toString()),
+                                      ))
+                                  .toList()),
+                        ),
                       ],
                     )
                   ],

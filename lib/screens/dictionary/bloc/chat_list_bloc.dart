@@ -7,6 +7,7 @@ import 'package:translator/translator.dart';
 import 'package:diccon_evo/config/properties.dart';
 import '../../../helpers/file_handler.dart';
 import '../../../models/word.dart';
+import '../../../repositories/thesaurus_repository.dart';
 import '../../components/brick_wall_buttons.dart';
 import '../../components/image_buble.dart';
 import '../../components/quote_box/ui/quote_box.dart';
@@ -37,7 +38,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) {
     var listSynonyms =
-        Properties.thesaurusService.getSynonyms(event.providedWord);
+    ThesaurusRepository().getSynonyms(event.providedWord);
     state.chatList.add(BrickWallButtons(
         stringList: listSynonyms, itemOnPressed: event.itemOnPressed));
     emit(SynonymsAdded(chatList: state.chatList));
@@ -45,7 +46,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addAntonymsList(AddAntonyms event, Emitter<ChatListState> emit) {
     var listAntonyms =
-        Properties.thesaurusService.getAntonyms(event.providedWord);
+    ThesaurusRepository().getAntonyms(event.providedWord);
     state.chatList.add(BrickWallButtons(
         textColor: Colors.orange,
         borderColor: Colors.orangeAccent,
