@@ -1,3 +1,4 @@
+import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:diccon_evo/screens/components/dictionary_buble.dart';
@@ -76,7 +77,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           isMachine: true, message: wordResult!, onWordTap: event.onWordTap));
       emit(ChatListUpdated(chatList: state.chatList));
       /// Add found word to history file
-      await FileHandler.saveWordToHistory(wordResult!);
+      await HistoryManager.saveWordToHistory(wordResult!);
     } else {
       await translate(event.providedWord).then((translatedWord) {
         state.chatList.add(DictionaryBubble(

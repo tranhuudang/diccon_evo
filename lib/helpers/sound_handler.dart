@@ -36,13 +36,13 @@ class SoundHandler {
         .substring(1, !word.contains(" ") ? word.length : word.indexOf(" "))
         .toLowerCase();
     String fileName = "$firstLetter$afterFirstLetter.mp3";
-    File file = File(await FileHandler.getLocalFilePath(fileName));
+    File file = File(await FileHandler(fileName).getLocalFilePath());
 
     // Check if the file is already downloaded before and play it
     if (await file.exists()) {
       playLocal(fileName);
       return;
-    } else if (await FileHandler.downloadFile(url, fileName)) {
+    } else if (await FileHandler(fileName).downloadFile(url)) {
       // Try to download if it available on Online Resources
       playLocal(fileName);
     }
@@ -50,7 +50,7 @@ class SoundHandler {
 
   static void playLocal(String fileName) async {
     try {
-      var filePath = await FileHandler.getLocalFilePath(fileName);
+      var filePath = await FileHandler(fileName).getLocalFilePath();
       AudioPlayer audioPlayer = AudioPlayer();
       await audioPlayer.play(UrlSource(filePath));
     } catch (e) {

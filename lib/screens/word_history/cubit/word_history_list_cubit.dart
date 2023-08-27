@@ -1,3 +1,4 @@
+import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/properties.dart';
@@ -10,7 +11,7 @@ class HistoryListCubit extends Cubit<List<Word>> {
   List<Word> words = [];
 
   void loadHistory() async {
-    words = await FileHandler.readWordHistory();
+    words = await HistoryManager.readWordHistory();
     emit(words);
   }
 
@@ -26,7 +27,7 @@ class HistoryListCubit extends Cubit<List<Word>> {
   }
 
   void clearHistory() {
-    FileHandler.deleteFile(Properties.wordHistoryFileName);
+    FileHandler(Properties.wordHistoryFileName).deleteFile();
     words = List.empty();
     emit(words);
   }

@@ -1,8 +1,8 @@
-import 'package:diccon_evo/repositories/data_repository.dart';
+import 'package:diccon_evo/repositories/dictionary_repository.dart';
 import '../models/word.dart';
 
 class DataService {
-  final DataRepository dataRepository;
+  final DictionaryRepository dataRepository;
 
   DataService(this.dataRepository);
   Future<List<Word>> getWordList() async {

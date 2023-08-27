@@ -1,5 +1,5 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/repositories/data_repository.dart';
+import 'package:diccon_evo/repositories/dictionary_repository.dart';
 import 'package:diccon_evo/services/data_service.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
@@ -23,7 +23,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   int _selectedPageIndex = 0;
   bool isExpanded = false;
   // Instance of Repository implementations
-  DataRepository dataRepository = DataRepository();
+  DictionaryRepository dataRepository = DictionaryRepository();
   ThesaurusRepository thesaurusRepository = ThesaurusRepository();
 
   @override

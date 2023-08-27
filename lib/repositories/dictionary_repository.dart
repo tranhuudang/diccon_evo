@@ -4,8 +4,15 @@ import '../config/properties.dart';
 import '/models/word.dart';
 import '../helpers/file_handler.dart';
 
-class DataRepository {
-  Future<List<Word>> getWordList() async {
+class DictionaryRepository {
+
+  /// Get list of words with definition in dataset.
+  Future<List<Word>> getWordList() async => await _getWordList();
+
+  /// Get list of word without definition in dataset.
+  Future<List<String>> getSuggestionWordList() async => await _getSuggestionWordList();
+
+  Future<List<Word>> _getWordList() async {
     String dataEv = await rootBundle.loadString(Properties.evDataPath);
     String dataVe = await rootBundle.loadString(Properties.veDataPath);
     String data = dataEv + dataVe;
@@ -27,10 +34,10 @@ class DataRepository {
     return wordList;
   }
 
-  Future<List<String>> getSuggestionWordList() async {
+  Future<List<String>> _getSuggestionWordList() async {
     try {
       var content =
-          await FileHandler.getAssetFile('assets/dictionary/109k.txt');
+       await rootBundle.loadString('assets/dictionary/109k.txt');
       List<String> words = content.split('\n');
       return words;
     } catch (e) {
