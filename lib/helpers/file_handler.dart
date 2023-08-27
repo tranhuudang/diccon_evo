@@ -20,9 +20,6 @@ class FileHandler {
   /// Returns a [Boolean] value as true if the process is completed without error.
   Future<bool> deleteFile() async => await _deleteFile();
 
-  Future<void> createDicconDirectoryIfNotExists() async =>
-      await _createDicconDirectoryIfNotExists();
-
   Future<bool> _downloadFile(String url) async {
     try {
       var response = await http.get(Uri.parse(url));
@@ -36,7 +33,7 @@ class FileHandler {
   }
 
   Future<String> _getLocalFilePath() async {
-    await createDicconDirectoryIfNotExists();
+    await _createDicconDirectoryIfNotExists();
     var directory = await getApplicationDocumentsDirectory();
     var filePath = '${directory.path}/Diccon/$fileName';
     return filePath;

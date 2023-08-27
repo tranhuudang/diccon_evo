@@ -19,7 +19,7 @@ class WordPlaybackButton extends StatelessWidget {
         Icons.volume_up_sharp,
       ),
       onPressed: () {
-        SoundHandler.playAnyway(message.word);
+        SoundHandler(message.word).playAnyway();
       },
       iconSize: 20,
       splashRadius: 15,
