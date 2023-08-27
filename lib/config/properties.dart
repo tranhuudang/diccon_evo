@@ -40,7 +40,7 @@ class Properties {
   static List<Widget> pages = const [DictionaryView(), SettingsView()];
 
   /// Manually change this version base on commit count
-  static String version = "v110";
+  static String version = "v126";
   static PageController pageController = PageController();
 
   static const double minWidth = 400;
