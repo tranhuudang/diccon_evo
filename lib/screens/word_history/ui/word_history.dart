@@ -2,10 +2,9 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../../../models/word.dart';
-import '../../components/header.dart';
+import '../../components/circle_button.dart';
 import '../cubit/word_history_list_cubit.dart';
-import '../../components/history_tile.dart';
-import '../../../config/properties.dart';
+import 'history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -17,43 +16,14 @@ class HistoryView extends StatelessWidget {
     final historyListCubit = context.read<HistoryListCubit>();
     return SafeArea(
       child: Scaffold(
-        appBar: Header(
-            padding: const EdgeInsets.only(left: 16, right: 0),
-            title: "History".i18n,
-            iconButton: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            actions: [
-              IconButton(
-                  onPressed: () => historyListCubit.sortAlphabet(),
-                  icon: const Icon(Icons.sort_by_alpha)),
-              PopupMenuButton(
-                //splashRadius: 10.0,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Theme.of(context).dividerColor),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    child:  Text("Reverse List".i18n),
-                    onTap: () => historyListCubit.sortReverse(),
-                  ),
-                  PopupMenuItem(
-                    child:  Text("Clear all".i18n),
-                    onTap: () => historyListCubit.clearHistory(),
-                  ),
-                ],
-              ),
-            ]),
         body: BlocBuilder<HistoryListCubit, List<Word>>(
           builder: (context, state) {
             if (state.isEmpty) {
               historyListCubit.loadHistory();
               return   Column(
                 children: [
+                  /// Header
+                  HistoryHeader(historyListCubit: historyListCubit),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +51,7 @@ class HistoryView extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  HistoryHeader(historyListCubit: historyListCubit),
                   Expanded(
                     child: ListView.builder(
                       itemCount: state.length,
@@ -95,6 +66,55 @@ class HistoryView extends StatelessWidget {
             }
           },
         ),
+      ),
+    );
+  }
+}
+
+class HistoryHeader extends StatelessWidget {
+  const HistoryHeader({
+    super.key,
+    required this.historyListCubit,
+  });
+
+  final HistoryListCubit historyListCubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 16, left: 16, bottom : 16, right: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleButton(
+              iconData: Icons.arrow_back,
+              onTap: () {
+                Navigator.pop(context);
+              }),
+          const SizedBox(width: 16,),
+          Text("History".i18n, style: const TextStyle(fontSize: 28)),
+          Spacer(),
+          IconButton(
+              onPressed: () => historyListCubit.sortAlphabet(),
+              icon: const Icon(Icons.sort_by_alpha)),
+          PopupMenuButton(
+            //splashRadius: 10.0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Theme.of(context).dividerColor),
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child:  Text("Reverse List".i18n),
+                onTap: () => historyListCubit.sortReverse(),
+              ),
+              PopupMenuItem(
+                child:  Text("Clear all".i18n),
+                onTap: () => historyListCubit.clearHistory(),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

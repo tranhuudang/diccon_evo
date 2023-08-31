@@ -1,16 +1,12 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/screens/components/circle_button.dart';
-import 'package:diccon_evo/screens/components/header.dart';
+import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/screens/setting/ui/settings.dart';
+import 'package:flutter/foundation.dart';
 import '../../components/head_sentence.dart';
 import 'to_dictionary_view_button.dart';
 import 'to_essential_word_view_button.dart';
-import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dotted_border/dotted_border.dart';
-
-import '../../dictionary/ui/dictionary.dart';
 import 'list_home_item.dart';
 
 class HomeView extends StatelessWidget {
@@ -25,23 +21,31 @@ class HomeView extends StatelessWidget {
         child: Stack(
           children: [
             /// Menu button
-            Positioned(
-              right: 16,
-              top: 16,
-              child: PopupMenuButton(
-                icon: const Icon(Icons.menu),
-                //splashRadius: 10.0,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Theme.of(context).dividerColor),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                itemBuilder: (context) => [
-                  PopupMenuItem(child: Text("Settings".i18n), onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsView()));
-                  }),
-                ],
-              ),
-            ),
+            defaultTargetPlatform.isMobile()
+                ? Positioned(
+                    right: 16,
+                    top: 16,
+                    child: PopupMenuButton(
+                      icon: const Icon(Icons.menu),
+                      //splashRadius: 10.0,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Theme.of(context).dividerColor),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                            child: Text("Settings".i18n),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SettingsView()));
+                            }),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
             Container(
               padding: EdgeInsets.all(16),
               child: const Column(
@@ -59,7 +63,9 @@ class HomeView extends StatelessWidget {
                     children: [
                       ///  phrasal verb
                       ToDictionaryViewButton(),
-                      SizedBox(width: 8,),
+                      SizedBox(
+                        width: 8,
+                      ),
                       ToEssentialWordView(),
                     ],
                   ),

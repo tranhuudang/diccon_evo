@@ -1,9 +1,6 @@
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
-
-import '../../components/header.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../components/circle_button.dart';
 import 'guidance_box.dart';
 import '../../components/head_sentence.dart';

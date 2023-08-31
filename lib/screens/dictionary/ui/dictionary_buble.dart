@@ -4,7 +4,7 @@ import 'package:diccon_evo/screens/components/word_playback_button.dart';
 import 'package:diccon_evo/screens/components/word_pronunciation.dart';
 import 'package:diccon_evo/screens/components/word_title.dart';
 import 'package:flutter/material.dart';
-import '../../models/word.dart';
+import '../../../models/word.dart';
 
 class DictionaryBubble extends StatefulWidget {
   const DictionaryBubble({

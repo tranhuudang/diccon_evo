@@ -19,21 +19,26 @@ class LearningView extends StatefulWidget {
 class _LearningViewState extends State<LearningView> {
   @override
   void initState() {
-    loadData();
+    loadData("school-supplies");
     // TODO: implement initState
     super.initState();
   }
 
-  loadData() async {
-    final jsonString =
-        await rootBundle.loadString('assets/3000/school-supplies.json');
-    final List<dynamic> jsonData = json.decode(jsonString);
+  Future<Map<String, List<Map<String, dynamic>>>> loadJsonData() async {
+    final jsonString = await rootBundle.loadString('assets/3000/school-supplies.json');
+    final jsonData = json.decode(jsonString);
+    return jsonData;
+  }
 
-    List<EssentialWord> words = jsonData.map((wordData) {
+  loadData(String topic) async {
+    Map<String, List<Map<String, dynamic>>> jsonData = await loadJsonData();
+    List<Map<String, dynamic>>? schoolSupplies= jsonData['school-supplies'];
+
+    List<EssentialWord>? words = schoolSupplies?.map((wordData) {
       return EssentialWord.fromJson(wordData);
     }).toList();
     setState(() {
-      _words = words;
+      _words = words!;
 
     });
   }

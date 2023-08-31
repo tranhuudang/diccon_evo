@@ -1,5 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/screens/components/header.dart';
+import 'package:diccon_evo/extensions/target_platform.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,27 +27,32 @@ class _SettingsViewState extends State<SettingsView> {
           SettingCubit settingCubit = context.read<SettingCubit>();
           return SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   /// Header
-                  Container(
-                    padding: const EdgeInsets.only(top: 16, left: 16, bottom : 8, right: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleButton(
-                            iconData: Icons.arrow_back,
-                            onTap: () {
-                              Navigator.pop(context);
-                            }),
-                        const SizedBox(width: 16,),
-                        Text("Settings".i18n, style: const TextStyle(fontSize: 28))
-                      ],
-                    ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      defaultTargetPlatform.isMobile()
+                          ? Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: CircleButton(
+                                iconData: Icons.arrow_back,
+                                onTap: () {
+                                  Navigator.pop(context);
+                                }),
+                          )
+                          : const SizedBox.shrink(),
+                      Text("Settings".i18n,
+                          style: const TextStyle(fontSize: 28))
+                    ],
                   ),
-                  const SizedBox(height: 16,),
+                  const SizedBox(
+                    height: 16,
+                  ),
+
                   /// Login form and user infomations
                   // Platform.isAndroid
                   //     ? SettingSection(title: "User", children: [

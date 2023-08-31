@@ -1,7 +1,5 @@
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
-import 'package:diccon_evo/screens/components/header.dart';
-import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../components/circle_button.dart';
@@ -241,56 +239,53 @@ class _DictionaryViewState extends State<DictionaryView>
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: TextField(
-                              focusNode: Properties.textFieldFocusNode,
-                              onSubmitted: (providedWord) {
-                                _handleSubmitted(providedWord, context, state);
-                              },
-                              onChanged: (word) {
-                                Set<String> listStartWith = {};
-                                Set<String> listContains = {};
-                                const int suggestionLimit = 5;
-                                if (word.length > 1) {
-                                  for (final element
-                                      in Properties.suggestionListWord) {
-                                    if (element.startsWith(word)) {
-                                      listStartWith.add(element);
-                                      if (listStartWith.length >=
-                                          suggestionLimit) {
-                                        break;
-                                      }
-                                    } else if (element.contains(word) &&
-                                        listContains.length < suggestionLimit) {
-                                      listContains.add(element);
+                          child: TextField(
+                            focusNode: Properties.textFieldFocusNode,
+                            onSubmitted: (providedWord) {
+                              _handleSubmitted(providedWord, context, state);
+                            },
+                            onChanged: (word) {
+                              Set<String> listStartWith = {};
+                              Set<String> listContains = {};
+                              const int suggestionLimit = 5;
+                              if (word.length > 1) {
+                                for (final element
+                                    in Properties.suggestionListWord) {
+                                  if (element.startsWith(word)) {
+                                    listStartWith.add(element);
+                                    if (listStartWith.length >=
+                                        suggestionLimit) {
+                                      break;
                                     }
+                                  } else if (element.contains(word) &&
+                                      listContains.length < suggestionLimit) {
+                                    listContains.add(element);
                                   }
-
-                                  suggestionWords = [
-                                    ...listStartWith,
-                                    ...listContains
-                                  ].toList();
-                                  suggestionWords.reversed;
                                 }
-                                setState(() {
-                                  hasSuggestionWords = true;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                hintText: "Send a message".i18n,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(32.0),
-                                ),
+
+                                suggestionWords = [
+                                  ...listStartWith,
+                                  ...listContains
+                                ].toList();
+                                suggestionWords.reversed;
+                              }
+                              setState(() {
+                                hasSuggestionWords = true;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Send a message".i18n,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(32.0),
                               ),
-                              controller: _textController,
                             ),
+                            controller: _textController,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               );
             }
