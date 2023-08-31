@@ -24,22 +24,19 @@ class _LearningViewState extends State<LearningView> {
     super.initState();
   }
 
-  Future<Map<String, List<Map<String, dynamic>>>> loadJsonData() async {
-    final jsonString = await rootBundle.loadString('assets/3000/school-supplies.json');
-    final jsonData = json.decode(jsonString);
-    return jsonData;
-  }
+
 
   loadData(String topic) async {
-    Map<String, List<Map<String, dynamic>>> jsonData = await loadJsonData();
-    List<Map<String, dynamic>>? schoolSupplies= jsonData['school-supplies'];
+    final jsonString = await rootBundle.loadString('assets/3000/school-supplies.json');
+    final jsonData = json.decode(jsonString);
+    List<EssentialWord> essentialWords = [];
 
-    List<EssentialWord>? words = schoolSupplies?.map((wordData) {
-      return EssentialWord.fromJson(wordData);
-    }).toList();
+    for (var essentialData in jsonData[topic]!) {
+      essentialWords.add(EssentialWord.fromJson(essentialData));
+    }
+
     setState(() {
-      _words = words!;
-
+      _words = essentialWords;
     });
   }
 
