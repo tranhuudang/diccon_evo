@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:diccon_evo/screens/components/clickable_word/cubit/clickable_word_cubit.dart';
 import 'package:diccon_evo/screens/components/quote_box/bloc/quote_bloc.dart';
-import 'package:diccon_evo/screens/home/ui/home.dart';
+import 'package:diccon_evo/screens/home_control/ui/home_control.dart';
 import 'package:diccon_evo/screens/word_history/cubit/word_history_list_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -32,6 +32,9 @@ void main() async {
         Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
     WindowManager.instance
         .setMinimumSize(const Size(Properties.minWidth, Properties.minHeight));
+    WindowManager.instance.setTitle(Properties.diccon);
+    WindowManager.instance
+        .setMaximumSize(const Size(Properties.minWidth+100, 10000));
     WindowManager.instance.setTitle(Properties.diccon);
   }
 
@@ -73,7 +76,7 @@ class ProgramRoot extends StatelessWidget {
         title: Properties.diccon,
         debugShowCheckedModeBanner: false,
         home: I18n(
-          child: const HomeView(),
+          child: const HomeControlView(),
         ),
       ),
     );

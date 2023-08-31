@@ -5,10 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/word.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/models/user_info.dart';
+import 'package:diccon_evo/screens/home/ui/home.dart';
 
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
-enum AppViews { dictionaryView, settingsView }
+enum AppViews {essentialView, settingsView }
 
 class Level {
   static String beginner = "beginner",
@@ -37,7 +38,7 @@ class Properties {
   // Windows size
   static bool isLargeWindows = false;
 
-  static List<Widget> pages = const [DictionaryView(), SettingsView()];
+  static List<Widget> pages = const [HomeView(), SettingsView()];
 
   /// Manually change this version base on commit count
   static String version = "v126";

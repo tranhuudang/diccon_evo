@@ -4,6 +4,7 @@ import 'package:diccon_evo/screens/components/header.dart';
 import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../components/circle_button.dart';
 import '../bloc/chat_list_bloc.dart';
 import '../../../helpers/image_handler.dart';
 import '../../../config/properties.dart';
@@ -118,180 +119,183 @@ class _DictionaryViewState extends State<DictionaryView>
   Widget build(BuildContext context) {
     super.build(context);
     var chatListBloc = context.read<ChatListBloc>();
-    return Scaffold(
-      appBar: Header(
-        title: "Dictionary".i18n,
-        actions: [
-          IconButton(
-              onPressed: () {
-                // Remove focus out of TextField in DictionaryView
-                Properties.textFieldFocusNode.unfocus();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HistoryView(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.history))
-        ],
-      ),
-      body: BlocBuilder<ChatListBloc, ChatListState>(
-        builder: (context, state) {
-          {
-            if (state is ImageAdded) {
-              hasImages = false;
-              scrollToBottom();
-            }
-            if (state is SynonymsAdded) {
-              hasSynonyms = false;
-              scrollToBottom();
-            }
-            if (state is AntonymsAdded) {
-              hasAntonyms = false;
-              scrollToBottom();
-            }
-            return Column(
-              children: [
-                /// List of all bubble messages on a conversation
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: state.chatList.length,
-                    controller: _chatListController,
-                    itemBuilder: (BuildContext context, int index) {
-                      return state.chatList[index];
-                    },
-                  ),
-                ),
-
-                /// Suggestion bar with different suggestive button
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+    return SafeArea(
+      child: Scaffold(
+        body: BlocBuilder<ChatListBloc, ChatListState>(
+          builder: (context, state) {
+            {
+              if (state is ImageAdded) {
+                hasImages = false;
+                scrollToBottom();
+              }
+              if (state is SynonymsAdded) {
+                hasSynonyms = false;
+                scrollToBottom();
+              }
+              if (state is AntonymsAdded) {
+                hasAntonyms = false;
+                scrollToBottom();
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Header
+                  Container(
+                    padding: const EdgeInsets.only(top: 16, left: 16, bottom : 8, right: 16),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        hasSuggestionWords
-                            ? Row(
-                                children: suggestionWords.map((String word) {
-                                  return SuggestedItem(
-                                    title: word,
-                                    backgroundColor: Colors.blue,
-                                    onPressed: (String clickedWord) {
-                                      _handleSubmitted(
-                                          clickedWord, context, state);
-                                    },
-                                  );
-                                }).toList(),
-                              )
-                            : const SizedBox.shrink(),
-                        hasSynonyms
-                            ? SuggestedItem(
-                                onPressed: (String a) {
-                                  chatListBloc.add(AddSynonyms(
-                                    providedWord: currentSearchWord,
-                                    itemOnPressed: (clickedWord) {
-                                      _handleSubmitted(
-                                          clickedWord, context, state);
-                                    },
-                                  ));
-                                },
-                                title: 'Synonyms'.i18n,
-                              )
-                            : const SizedBox.shrink(),
-                        hasAntonyms
-                            ? SuggestedItem(
-                                onPressed: (String a) {
-                                  chatListBloc.add(AddAntonyms(
-                                    providedWord: currentSearchWord,
-                                    itemOnPressed: (clickedWord) {
-                                      _handleSubmitted(
-                                          clickedWord, context, state);
-                                    },
-                                  ));
-                                },
-                                title: 'Antonyms'.i18n,
-                              )
-                            : const SizedBox.shrink(),
-                        hasImages
-                            ? SuggestedItem(
-                                title: 'Images'.i18n,
-                                onPressed: (String a) {
-                                  chatListBloc
-                                      .add(AddImage(imageUrl: imageUrl));
-                                },
-                              )
-                            : const SizedBox.shrink(),
+                        CircleButton(
+                            iconData: Icons.arrow_back,
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
+                        const SizedBox(width: 16,),
+                        Text("Dictionary".i18n, style: const TextStyle(fontSize: 28))
                       ],
                     ),
                   ),
-                ),
+                  /// List of all bubble messages on a conversation
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.chatList.length,
+                      controller: _chatListController,
+                      itemBuilder: (BuildContext context, int index) {
+                        return state.chatList[index];
+                      },
+                    ),
+                  ),
 
-                /// TextField for user to enter their words
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: TextField(
-                            focusNode: Properties.textFieldFocusNode,
-                            onSubmitted: (providedWord) {
-                              _handleSubmitted(providedWord, context, state);
-                            },
-                            onChanged: (word) {
-                              Set<String> listStartWith = {};
-                              Set<String> listContains = {};
-                              const int suggestionLimit = 5;
-                              if (word.length > 1) {
-                                for (final element
-                                    in Properties.suggestionListWord) {
-                                  if (element.startsWith(word)) {
-                                    listStartWith.add(element);
-                                    if (listStartWith.length >=
-                                        suggestionLimit) {
-                                      break;
+                  /// Suggestion bar with different suggestive button
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          hasSuggestionWords
+                              ? Row(
+                                  children: suggestionWords.map((String word) {
+                                    return SuggestedItem(
+                                      title: word,
+                                      backgroundColor: Colors.blue,
+                                      onPressed: (String clickedWord) {
+                                        _handleSubmitted(
+                                            clickedWord, context, state);
+                                      },
+                                    );
+                                  }).toList(),
+                                )
+                              : const SizedBox.shrink(),
+                          hasSynonyms
+                              ? SuggestedItem(
+                                  onPressed: (String a) {
+                                    chatListBloc.add(AddSynonyms(
+                                      providedWord: currentSearchWord,
+                                      itemOnPressed: (clickedWord) {
+                                        _handleSubmitted(
+                                            clickedWord, context, state);
+                                      },
+                                    ));
+                                  },
+                                  title: 'Synonyms'.i18n,
+                                )
+                              : const SizedBox.shrink(),
+                          hasAntonyms
+                              ? SuggestedItem(
+                                  onPressed: (String a) {
+                                    chatListBloc.add(AddAntonyms(
+                                      providedWord: currentSearchWord,
+                                      itemOnPressed: (clickedWord) {
+                                        _handleSubmitted(
+                                            clickedWord, context, state);
+                                      },
+                                    ));
+                                  },
+                                  title: 'Antonyms'.i18n,
+                                )
+                              : const SizedBox.shrink(),
+                          hasImages
+                              ? SuggestedItem(
+                                  title: 'Images'.i18n,
+                                  onPressed: (String a) {
+                                    chatListBloc
+                                        .add(AddImage(imageUrl: imageUrl));
+                                  },
+                                )
+                              : const SizedBox.shrink(),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  /// TextField for user to enter their words
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: TextField(
+                              focusNode: Properties.textFieldFocusNode,
+                              onSubmitted: (providedWord) {
+                                _handleSubmitted(providedWord, context, state);
+                              },
+                              onChanged: (word) {
+                                Set<String> listStartWith = {};
+                                Set<String> listContains = {};
+                                const int suggestionLimit = 5;
+                                if (word.length > 1) {
+                                  for (final element
+                                      in Properties.suggestionListWord) {
+                                    if (element.startsWith(word)) {
+                                      listStartWith.add(element);
+                                      if (listStartWith.length >=
+                                          suggestionLimit) {
+                                        break;
+                                      }
+                                    } else if (element.contains(word) &&
+                                        listContains.length < suggestionLimit) {
+                                      listContains.add(element);
                                     }
-                                  } else if (element.contains(word) &&
-                                      listContains.length < suggestionLimit) {
-                                    listContains.add(element);
                                   }
-                                }
 
-                                suggestionWords = [
-                                  ...listStartWith,
-                                  ...listContains
-                                ].toList();
-                                suggestionWords.reversed;
-                              }
-                              setState(() {
-                                hasSuggestionWords = true;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintText: "Send a message".i18n,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16.0),
+                                  suggestionWords = [
+                                    ...listStartWith,
+                                    ...listContains
+                                  ].toList();
+                                  suggestionWords.reversed;
+                                }
+                                setState(() {
+                                  hasSuggestionWords = true;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Send a message".i18n,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
                               ),
+                              controller: _textController,
                             ),
-                            controller: _textController,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            );
-          }
-        },
+                  SizedBox(height: 16),
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }

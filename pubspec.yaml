@@ -76,11 +76,14 @@ dev_dependencies:
   google_fonts: ^4.0.4
 
   # custom icon
+  font_awesome_flutter: ^10.5.0
   unicons: ^2.1.1
 
   # localization
   i18n_extension: ^9.0.2
   flutter_localization: ^0.1.13
+  #dotted style
+  dotted_border: ^2.0.0+3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -100,6 +103,7 @@ flutter:
     - assets/thesaurus/english_synonyms.json
     - assets/thesaurus/english_antonyms.json
     - assets/badges/
+    - assets/3000/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -12,6 +12,7 @@ class SuggestedItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
+        borderRadius: BorderRadius.circular(32),
         onTap:  () {
           onPressed!(title);
         },
@@ -19,7 +20,7 @@ class SuggestedItem extends StatelessWidget {
          // height: 35,
           decoration: BoxDecoration(
             color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(32),
             border: Border.all(
               color: Theme.of(context).primaryColor
             )

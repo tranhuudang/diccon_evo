@@ -16,7 +16,7 @@ part 'chat_list_state.dart';
 part 'chat_list_event.dart';
 
 class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
-  ChatListBloc() : super(ChatListInitial(chatList: [const WelcomeBox()])) {
+  ChatListBloc() : super(ChatListInitial(chatList: [/*const WelcomeBox()*/])) {
     on<AddLocalTranslation>(_addLocalTranslation);
     on<AddUserMessage>(_addUserMessage);
     on<AddSorryMessage>(_addSorryMessage);
