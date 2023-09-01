@@ -7854,5 +7854,3135 @@
       "phonetic": "θʌm",
       "vietnamese": "ngón tay cái"
     }
+  ],
+  "Education": [
+    {
+      "id": 1,
+      "english": "boarding school",
+      "phonetic": "/ˈbɔːrdɪŋ skuːl/",
+      "vietnamese": "trường nội trú"
+    },
+    {
+      "id": 2,
+      "english": "state school",
+      "phonetic": "/steɪt skuːl/",
+      "vietnamese": "trường nhà nước, trường công lập"
+    },
+    {
+      "id": 3,
+      "english": "secondary school",
+      "phonetic": "/ˈsekəndəri skuːl/",
+      "vietnamese": "trường cấp hai, trung học cơ sở"
+    },
+    {
+      "id": 4,
+      "english": "primary",
+      "phonetic": "/ˈpraɪməri/",
+      "vietnamese": "(giáo dục) tiểu học, cấp một"
+    },
+    {
+      "id": 5,
+      "english": "nursery school",
+      "phonetic": "/ˈnɜːrsəri skuːl/",
+      "vietnamese": "(trường) mẫu giáo"
+    },
+    {
+      "id": 6,
+      "english": "school",
+      "phonetic": "/skuːl/",
+      "vietnamese": "ngôi trường, trường học"
+    },
+    {
+      "id": 7,
+      "english": "college",
+      "phonetic": "/ˈkɒlɪdʒ/",
+      "vietnamese": "(trường) đại học, cao đẳng"
+    },
+    {
+      "id": 8,
+      "english": "university",
+      "phonetic": "/ˌjuːnɪˈvɜːsəti/",
+      "vietnamese": "(trường) đại học"
+    },
+    {
+      "id": 9,
+      "english": "professor",
+      "phonetic": "/prəˈfɛsər/",
+      "vietnamese": "giáo sư"
+    },
+    {
+      "id": 10,
+      "english": "lecturer",
+      "phonetic": "/ˈlɛktʃərər/",
+      "vietnamese": "giảng viên (đại học)"
+    },
+    {
+      "id": 11,
+      "english": "researcher",
+      "phonetic": "/rɪˈsɜːrtʃər/",
+      "vietnamese": "nghiên cứu viên, nhà nghiên cứu"
+    },
+    {
+      "id": 12,
+      "english": "graduate",
+      "phonetic": "/ˈɡrædʒuət/",
+      "vietnamese": "sinh viên tốt nghiệp, cử nhân"
+    },
+    {
+      "id": 13,
+      "english": "degree",
+      "phonetic": "/dɪˈɡriː/",
+      "vietnamese": "học vị, bằng cấp"
+    },
+    {
+      "id": 14,
+      "english": "thesis",
+      "phonetic": "/ˈθiːsɪs/",
+      "vietnamese": "luận văn, luận án"
+    },
+    {
+      "id": 15,
+      "english": "lecture",
+      "phonetic": "/ˈlɛkʧər/",
+      "vietnamese": "bài giảng"
+    },
+    {
+      "id": 16,
+      "english": "debate",
+      "phonetic": "/dɪˈbeɪt/",
+      "vietnamese": "cuộc thảo luận, tranh luận"
+    },
+    {
+      "id": 17,
+      "english": "higher education",
+      "phonetic": "/ˈhaɪər ˌɛdʒʊˈkeɪʃən/",
+      "vietnamese": "(giáo dục) đại học"
+    },
+    {
+      "id": 18,
+      "english": "semester",
+      "phonetic": "/sɪˈmɛstər/",
+      "vietnamese": "học kỳ"
+    },
+    {
+      "id": 19,
+      "english": "student",
+      "phonetic": "/ˈstuːdənt/",
+      "vietnamese": "sinh viên"
+    },
+    {
+      "id": 20,
+      "english": "student union",
+      "phonetic": "/ˈstuːdənt ˈjuːniən/",
+      "vietnamese": "hội sinh viên"
+    },
+    {
+      "id": 21,
+      "english": "tuition",
+      "phonetic": "/tuˈɪʃən/",
+      "vietnamese": "học phí, tiền học"
+    },
+    {
+      "id": 22,
+      "english": "exam",
+      "phonetic": "/ɪɡˈzæm/",
+      "vietnamese": "bài thi, kì thi"
+    },
+    {
+      "id": 23,
+      "english": "fail",
+      "phonetic": "/feɪl/",
+      "vietnamese": "sự thi trượt, điểm hỏng"
+    },
+    {
+      "id": 24,
+      "english": "pass",
+      "phonetic": "/pæs/",
+      "vietnamese": "đậu, đỗ"
+    },
+    {
+      "id": 25,
+      "english": "study",
+      "phonetic": "/ˈstʌdi/",
+      "vietnamese": "học"
+    },
+    {
+      "id": 26,
+      "english": "learn",
+      "phonetic": "/lɜrn/",
+      "vietnamese": "học"
+    },
+    {
+      "id": 27,
+      "english": "curriculum",
+      "phonetic": "/kəˈrɪkjələm/",
+      "vietnamese": "chương trình giảng dạy"
+    },
+    {
+      "id": 28,
+      "english": "course",
+      "phonetic": "/kɔːrs/",
+      "vietnamese": "khóa học"
+    },
+    {
+      "id": 29,
+      "english": "subject",
+      "phonetic": "/ˈsʌbdʒɪkt/",
+      "vietnamese": "môn học"
+    },
+    {
+      "id": 30,
+      "english": "grade",
+      "phonetic": "/ɡreɪd/",
+      "vietnamese": "điểm số"
+    },
+    {
+      "id": 31,
+      "english": "mark",
+      "phonetic": "/mɑrk/",
+      "vietnamese": "điểm, điểm số"
+    },
+    {
+      "id": 32,
+      "english": "qualification",
+      "phonetic": "/ˌkwɒlɪfɪˈkeɪʃən/",
+      "vietnamese": "năng lực, chuyên môn"
+    },
+    {
+      "id": 33,
+      "english": "attendance",
+      "phonetic": "/əˈtɛndəns/",
+      "vietnamese": "sự có mặt"
+    },
+    {
+      "id": 34,
+      "english": "projector",
+      "phonetic": "/prəˈdʒɛktər/",
+      "vietnamese": "máy chiếu"
+    },
+    {
+      "id": 35,
+      "english": "textbook",
+      "phonetic": "/ˈtɛkstbʊk/",
+      "vietnamese": "sách giáo khoa"
+    },
+    {
+      "id": 36,
+      "english": "question",
+      "phonetic": "/ˈkwɛsʧən/",
+      "vietnamese": "câu hỏi"
+    },
+    {
+      "id": 37,
+      "english": "answer",
+      "phonetic": "/ˈænsər/",
+      "vietnamese": "trả lời, đáp lại"
+    },
+    {
+      "id": 38,
+      "english": "mistake",
+      "phonetic": "/mɪˈsteɪk/",
+      "vietnamese": "sai lầm, nhầm lẫn"
+    },
+    {
+      "id": 39,
+      "english": "right",
+      "phonetic": "/raɪt/",
+      "vietnamese": "đúng, chính xác"
+    },
+    {
+      "id": 40,
+      "english": "wrong",
+      "phonetic": "/rɒŋ/",
+      "vietnamese": "sai, nhầm lẫn"
+    },
+    {
+      "id": 41,
+      "english": "register",
+      "phonetic": "/ˈrɛdʒɪstər/",
+      "vietnamese": "sổ, sổ sách"
+    },
+    {
+      "id": 42,
+      "english": "assembly",
+      "phonetic": "/əˈsɛmbli/",
+      "vietnamese": "(sự) hội họp, tập trung"
+    },
+    {
+      "id": 43,
+      "english": "holiday",
+      "phonetic": "/ˈhɒlɪdeɪ/",
+      "vietnamese": "kỳ nghỉ"
+    },
+    {
+      "id": 44,
+      "english": "teacher",
+      "phonetic": "/ˈtiːʧər/",
+      "vietnamese": "giáo viên"
+    },
+    {
+      "id": 45,
+      "english": "pupil",
+      "phonetic": "/ˈpjuːpl/",
+      "vietnamese": "học trò, học sinh"
+    },
+    {
+      "id": 46,
+      "english": "playground",
+      "phonetic": "/ˈpleɪɡraʊnd/",
+      "vietnamese": "sân chơi"
+    },
+    {
+      "id": 47,
+      "english": "library",
+      "phonetic": "/ˈlaɪbrəri/",
+      "vietnamese": "thư viện"
+    },
+    {
+      "id": 48,
+      "english": "hall",
+      "phonetic": "/hɔːl/",
+      "vietnamese": "hội trường"
+    },
+    {
+      "id": 49,
+      "english": "hall of residence",
+      "phonetic": "/hɔːl əv ˈrɛzɪdəns/",
+      "vietnamese": "ký túc xá"
+    },
+    {
+      "id": 50,
+      "english": "locker",
+      "phonetic": "/ˈlɒkər/",
+      "vietnamese": "tủ có khoá, két có khoá"
+    },
+    {
+      "id": 51,
+      "english": "classroom",
+      "phonetic": "/ˈklæsruːm/",
+      "vietnamese": "phòng học, lớp học"
+    },
+    {
+      "id": 52,
+      "english": "chalk",
+      "phonetic": "/ʧɔːk/",
+      "vietnamese": "phấn, viên phấn"
+    },
+    {
+      "id": 53,
+      "english": "lesson",
+      "phonetic": "/ˈlɛsn/",
+      "vietnamese": "khóa học, lớp"
+    },
+    {
+      "id": 54,
+      "english": "homework",
+      "phonetic": "/ˈhoʊmwɜːrk/",
+      "vietnamese": "bài tập về nhà"
+    },
+    {
+      "id": 55,
+      "english": "test",
+      "phonetic": "/tɛst/",
+      "vietnamese": "kiểm tra"
+    }
+  ],
+  "Family": [
+    {
+      "id": 1,
+      "english": "husband",
+      "phonetic": "/ˈhʌzbənd/",
+      "vietnamese": "chồng"
+    },
+    {
+      "id": 2,
+      "english": "grandson",
+      "phonetic": "/ˈɡrændsʌn/",
+      "vietnamese": "cháu trai (của ông bà)"
+    },
+    {
+      "id": 3,
+      "english": "uncle",
+      "phonetic": "/ˈʌŋkl/",
+      "vietnamese": "chú, bác, cậu, dượng"
+    },
+    {
+      "id": 4,
+      "english": "aunt",
+      "phonetic": "/ɑːnt/",
+      "vietnamese": "cô, dì, thím, mợ, bác gái"
+    },
+    {
+      "id": 5,
+      "english": "niece",
+      "phonetic": "/niːs/",
+      "vietnamese": "cháu gái (của cô, dì, chú, bác)"
+    },
+    {
+      "id": 6,
+      "english": "nephew",
+      "phonetic": "/ˈnɛfjuː/",
+      "vietnamese": "cháu trai (của cô, dì, chú, bác)"
+    },
+    {
+      "id": 7,
+      "english": "son-in-law",
+      "phonetic": "/ˈsʌn ɪn ˌlɔː/",
+      "vietnamese": "con rể"
+    },
+    {
+      "id": 8,
+      "english": "daughter-in-law",
+      "phonetic": "/ˈdɔːtər ɪn ˌlɔː/",
+      "vietnamese": "con dâu"
+    },
+    {
+      "id": 9,
+      "english": "granddaughter",
+      "phonetic": "/ˈɡrændˌdɔːtər/",
+      "vietnamese": "cháu gái (của ông bà)"
+    },
+    {
+      "id": 10,
+      "english": "grandfather",
+      "phonetic": "/ˈɡrændˌfɑːðər/",
+      "vietnamese": "ông nội, ông ngoại"
+    },
+    {
+      "id": 11,
+      "english": "wife",
+      "phonetic": "/waɪf/",
+      "vietnamese": "vợ"
+    },
+    {
+      "id": 12,
+      "english": "father",
+      "phonetic": "/ˈfɑːðər/",
+      "vietnamese": "cha, bố, ba"
+    },
+    {
+      "id": 13,
+      "english": "mother",
+      "phonetic": "/ˈmʌðər/",
+      "vietnamese": "mẹ, má"
+    },
+    {
+      "id": 14,
+      "english": "daughter",
+      "phonetic": "/ˈdɔːtər/",
+      "vietnamese": "con gái"
+    },
+    {
+      "id": 15,
+      "english": "son",
+      "phonetic": "/sʌn/",
+      "vietnamese": "con trai"
+    },
+    {
+      "id": 16,
+      "english": "sister",
+      "phonetic": "/ˈsɪs.tər/",
+      "vietnamese": "chị gái, em gái"
+    },
+    {
+      "id": 17,
+      "english": "brother",
+      "phonetic": "/ˈbrʌðər/",
+      "vietnamese": "anh trai, em trai"
+    },
+    {
+      "id": 18,
+      "english": "grandmother",
+      "phonetic": "/ˈɡrændˌmʌðər/",
+      "vietnamese": "bà nội, bà ngoại"
+    },
+    {
+      "id": 19,
+      "english": "brother-in-law",
+      "phonetic": "/ˈbrʌðər ɪn ˌlɔː/",
+      "vietnamese": "anh/em rể, anh/em chồng, anh/em vợ"
+    },
+    {
+      "id": 20,
+      "english": "cousin",
+      "phonetic": "/ˈkʌz.ən/",
+      "vietnamese": "anh họ, em họ"
+    },
+    {
+      "id": 21,
+      "english": "parent",
+      "phonetic": "/ˈpeərənt/",
+      "vietnamese": "bố, mẹ"
+    },
+    {
+      "id": 22,
+      "english": "relative",
+      "phonetic": "/ˈrel.ə.tɪv/",
+      "vietnamese": "họ hàng, bà con, người thân"
+    },
+    {
+      "id": 23,
+      "english": "mother-in-law",
+      "phonetic": "/ˈmʌðər ɪn ˌlɔː/",
+      "vietnamese": "mẹ chồng, mẹ vợ"
+    },
+    {
+      "id": 24,
+      "english": "father-in-law",
+      "phonetic": "/ˈfɑːðər ɪn ˌlɔː/",
+      "vietnamese": "bố chồng, bố vợ"
+    },
+    {
+      "id": 25,
+      "english": "sister-in-law",
+      "phonetic": "/ˈsɪs.tər ɪn ˌlɔː/",
+      "vietnamese": "chị/em dâu, chị/em chồng, chị/em vợ"
+    },
+    {
+      "id": 26,
+      "english": "adopt",
+      "phonetic": "/əˈdɒpt/",
+      "vietnamese": "nhận con nuôi"
+    },
+    {
+      "id": 27,
+      "english": "children",
+      "phonetic": "/ˈʧɪldrən/",
+      "vietnamese": "con cái"
+    },
+    {
+      "id": 28,
+      "english": "take care of",
+      "phonetic": "/teɪk keər ʌv/",
+      "vietnamese": "chăm sóc, quan tâm"
+    },
+    {
+      "id": 29,
+      "english": "family tree",
+      "phonetic": "/ˈfæm.əl.i triː/",
+      "vietnamese": "sơ đồ phả hệ, gia phả"
+    },
+    {
+      "id": 30,
+      "english": "anniversary",
+      "phonetic": "/ˌæn.ɪˈvɜː.sər.i/",
+      "vietnamese": "ngày kỷ niệm"
+    },
+    {
+      "id": 31,
+      "english": "close-knit",
+      "phonetic": "/kloʊs nɪt/",
+      "vietnamese": "(quan hệ) khăng khít, gắn bó"
+    },
+    {
+      "id": 32,
+      "english": "stepchild",
+      "phonetic": "/stɛp.tʃaɪld/",
+      "vietnamese": "con riêng"
+    },
+    {
+      "id": 33,
+      "english": "half-brother",
+      "phonetic": "/hæf ˈbrʌðər/",
+      "vietnamese": "anh trai, em trai (cùng cha/mẹ khác mẹ/cha)"
+    },
+    {
+      "id": 34,
+      "english": "half-sister",
+      "phonetic": "/hæf ˈsɪs.tər/",
+      "vietnamese": "chị gái, em gái (cùng cha/mẹ khác mẹ/cha)"
+    },
+    {
+      "id": 35,
+      "english": "godfather",
+      "phonetic": "/ˈɡɑːdˌfɑː.ðər/",
+      "vietnamese": "cha đỡ đầu"
+    },
+    {
+      "id": 36,
+      "english": "hereditary",
+      "phonetic": "/həˈrɛdəˌtɛri/",
+      "vietnamese": "(được) kế thừa, di truyền"
+    },
+    {
+      "id": 37,
+      "english": "stepmother",
+      "phonetic": "/stɛpˈmʌðər/",
+      "vietnamese": "mẹ kế"
+    },
+    {
+      "id": 38,
+      "english": "stepfather",
+      "phonetic": "/stɛpˈfɑː.ðər/",
+      "vietnamese": "cha dượng"
+    },
+    {
+      "id": 39,
+      "english": "orphan",
+      "phonetic": "/ˈɔːr.fən/",
+      "vietnamese": "trẻ mồ côi, cô nhi"
+    },
+    {
+      "id": 40,
+      "english": "generation",
+      "phonetic": "/ˌdʒen.əˈreɪ.ʃən/",
+      "vietnamese": "(trong gia tộc) đời, thế hệ"
+    }
+  ],
+  "Fruits": [
+    {
+      "id": 1,
+      "english": "orange",
+      "phonetic": "/ˈɔrɪndʒ/",
+      "vietnamese": "quả cam"
+    },
+    {
+      "id": 2,
+      "english": "lemon",
+      "phonetic": "/ˈlɛmən/",
+      "vietnamese": "quả chanh vàng"
+    },
+    {
+      "id": 3,
+      "english": "mango",
+      "phonetic": "/ˈmæŋɡoʊ/",
+      "vietnamese": "(quả) xoài"
+    },
+    {
+      "id": 4,
+      "english": "apple",
+      "phonetic": "/ˈæpl/",
+      "vietnamese": "quả táo"
+    },
+    {
+      "id": 5,
+      "english": "tangerine",
+      "phonetic": "/ˌtændʒəˈriːn/",
+      "vietnamese": "quả quýt"
+    },
+    {
+      "id": 6,
+      "english": "grape",
+      "phonetic": "/ɡreɪp/",
+      "vietnamese": "quả nho"
+    },
+    {
+      "id": 7,
+      "english": "strawberry",
+      "phonetic": "/ˈstrɔːbəri/",
+      "vietnamese": "quả dâu tây"
+    },
+    {
+      "id": 8,
+      "english": "melon",
+      "phonetic": "/ˈmɛlən/",
+      "vietnamese": "quả dưa lưới"
+    },
+    {
+      "id": 9,
+      "english": "passion fruit",
+      "phonetic": "/ˈpæʃən fruːt/",
+      "vietnamese": "quả chanh dây"
+    },
+    {
+      "id": 10,
+      "english": "grapefruit",
+      "phonetic": "/ˈɡreɪpˌfruːt/",
+      "vietnamese": "quả bưởi chùm, bưởi bồ đào"
+    },
+    {
+      "id": 11,
+      "english": "watermelon",
+      "phonetic": "/ˈwɔːtərmɛlən/",
+      "vietnamese": "quả dưa hấu"
+    },
+    {
+      "id": 12,
+      "english": "peach",
+      "phonetic": "/piːʧ/",
+      "vietnamese": "quả đào"
+    },
+    {
+      "id": 13,
+      "english": "pear",
+      "phonetic": "/pɛr/",
+      "vietnamese": "quả lê"
+    },
+    {
+      "id": 14,
+      "english": "banana",
+      "phonetic": "/bəˈnænə/",
+      "vietnamese": "quả chuối"
+    },
+    {
+      "id": 15,
+      "english": "plum",
+      "phonetic": "/plʌm/",
+      "vietnamese": "quả mận"
+    },
+    {
+      "id": 16,
+      "english": "papaya",
+      "phonetic": "/pəˈpaɪə/",
+      "vietnamese": "(quả) đu đủ"
+    },
+    {
+      "id": 17,
+      "english": "avocado",
+      "phonetic": "/ˌævəˈkɑːdoʊ/",
+      "vietnamese": "(quả) bơ"
+    },
+    {
+      "id": 18,
+      "english": "starfruit",
+      "phonetic": "/ˈstɑːrfruːt/",
+      "vietnamese": "quả khế"
+    },
+    {
+      "id": 19,
+      "english": "pineapple",
+      "phonetic": "/ˈpaɪnˌæpl/",
+      "vietnamese": "quả dứa, quả thơm"
+    },
+    {
+      "id": 20,
+      "english": "coconut",
+      "phonetic": "/ˈkoʊkəˌnʌt/",
+      "vietnamese": "quả dừa"
+    },
+    {
+      "id": 21,
+      "english": "raspberry",
+      "phonetic": "/ˈræzˌbɛri/",
+      "vietnamese": "quả mâm xôi"
+    },
+    {
+      "id": 22,
+      "english": "nectarine",
+      "phonetic": "/ˈnɛktəˌriːn/",
+      "vietnamese": "quả xuân đào"
+    },
+    {
+      "id": 23,
+      "english": "mulberry",
+      "phonetic": "/ˈmʌlbəri/",
+      "vietnamese": "quả dâu tằm"
+    },
+    {
+      "id": 24,
+      "english": "raisin",
+      "phonetic": "/ˈreɪzən/",
+      "vietnamese": "nho khô"
+    },
+    {
+      "id": 25,
+      "english": "jackfruit",
+      "phonetic": "/ˈdʒækˌfruːt/",
+      "vietnamese": "quả mít"
+    },
+    {
+      "id": 26,
+      "english": "persimmon",
+      "phonetic": "/pərˈsɪmən/",
+      "vietnamese": "quả hồng"
+    },
+    {
+      "id": 27,
+      "english": "dragon fruit",
+      "phonetic": "/ˈdræɡən fruːt/",
+      "vietnamese": "quả thanh long"
+    },
+    {
+      "id": 28,
+      "english": "custard apple",
+      "phonetic": "/ˈkʌstərd ˌæpəl/",
+      "vietnamese": "(quả) na, mãng cầu"
+    },
+    {
+      "id": 29,
+      "english": "quince",
+      "phonetic": "/kwɪns/",
+      "vietnamese": "quả mộc qua"
+    },
+    {
+      "id": 30,
+      "english": "cherry",
+      "phonetic": "/ˈʧɛri/",
+      "vietnamese": "quả anh đào"
+    },
+    {
+      "id": 31,
+      "english": "kiwi",
+      "phonetic": "/ˈkiwi/",
+      "vietnamese": "quả kiwi"
+    },
+    {
+      "id": 32,
+      "english": "pomegranate",
+      "phonetic": "/ˈpɑːmˌɡrænət/",
+      "vietnamese": "quả lựu"
+    },
+    {
+      "id": 33,
+      "english": "guava",
+      "phonetic": "/ˈɡwɑːvə/",
+      "vietnamese": "quả ổi"
+    },
+    {
+      "id": 34,
+      "english": "apricot",
+      "phonetic": "/ˈeɪprɪˌkɑːt/",
+      "vietnamese": "quả mơ"
+    },
+    {
+      "id": 35,
+      "english": "blueberry",
+      "phonetic": "/ˈbluːˌbɛri/",
+      "vietnamese": "quả việt quất"
+    },
+    {
+      "id": 36,
+      "english": "durian",
+      "phonetic": "/ˈdʊriən/",
+      "vietnamese": "quả sầu riêng"
+    },
+    {
+      "id": 37,
+      "english": "lychee",
+      "phonetic": "/ˈliːʧi/",
+      "vietnamese": "quả vải"
+    },
+    {
+      "id": 38,
+      "english": "tamarind",
+      "phonetic": "/ˈtæmərɪnd/",
+      "vietnamese": "quả me"
+    },
+    {
+      "id": 39,
+      "english": "kumquat",
+      "phonetic": "/ˈkʌmkwɒt/",
+      "vietnamese": "quả quất vàng"
+    }
+  ],
+  "Animal": [
+    {
+      "id": 1,
+      "english": "piglet",
+      "phonetic": "/ˈpɪɡ.lɪt/",
+      "vietnamese": "lợn con, heo con"
+    },
+    {
+      "id": 2,
+      "english": "sow",
+      "phonetic": "/soʊ/",
+      "vietnamese": "heo nái, lợn cái"
+    },
+    {
+      "id": 3,
+      "english": "pig",
+      "phonetic": "/pɪɡ/",
+      "vietnamese": "(loài) lợn"
+    },
+    {
+      "id": 4,
+      "english": "duck",
+      "phonetic": "/dʌk/",
+      "vietnamese": "vịt cái"
+    },
+    {
+      "id": 5,
+      "english": "animal",
+      "phonetic": "/ˈæn.ɪ.məl/",
+      "vietnamese": "động vật"
+    },
+    {
+      "id": 6,
+      "english": "goat",
+      "phonetic": "/ɡoʊt/",
+      "vietnamese": "(loài) dê"
+    },
+    {
+      "id": 7,
+      "english": "horse",
+      "phonetic": "/hɔːrs/",
+      "vietnamese": "(loài) ngựa"
+    },
+    {
+      "id": 8,
+      "english": "goose",
+      "phonetic": "/ɡuːs/",
+      "vietnamese": "(loài) ngỗng"
+    },
+    {
+      "id": 9,
+      "english": "donkey",
+      "phonetic": "/ˈdɑːŋ.ki/",
+      "vietnamese": "(loài) lừa"
+    },
+    {
+      "id": 10,
+      "english": "sheep",
+      "phonetic": "/ʃiːp/",
+      "vietnamese": "(loài) cừu"
+    },
+    {
+      "id": 11,
+      "english": "ox",
+      "phonetic": "/ɑːks/",
+      "vietnamese": "bò đực thiến"
+    },
+    {
+      "id": 12,
+      "english": "dog",
+      "phonetic": "/dɔːɡ/",
+      "vietnamese": "(loài) chó"
+    },
+    {
+      "id": 13,
+      "english": "cat",
+      "phonetic": "/kæt/",
+      "vietnamese": "(loài) mèo"
+    },
+    {
+      "id": 14,
+      "english": "chicken",
+      "phonetic": "/ˈʧɪk.ɪn/",
+      "vietnamese": "thịt gà"
+    },
+    {
+      "id": 15,
+      "english": "rooster",
+      "phonetic": "/ˈruː.stər/",
+      "vietnamese": "gà trống"
+    },
+    {
+      "id": 16,
+      "english": "hen",
+      "phonetic": "/hɛn/",
+      "vietnamese": "gà mái"
+    },
+    {
+      "id": 17,
+      "english": "cow",
+      "phonetic": "/kaʊ/",
+      "vietnamese": "(loài) bò, bò cái"
+    },
+    {
+      "id": 18,
+      "english": "bull",
+      "phonetic": "/bʊl/",
+      "vietnamese": "bò đực"
+    },
+    {
+      "id": 19,
+      "english": "calf",
+      "phonetic": "/kæf/",
+      "vietnamese": "bê, bò con"
+    },
+    {
+      "id": 20,
+      "english": "rabbit",
+      "phonetic": "/ˈræb.ɪt/",
+      "vietnamese": "(loài) thỏ"
+    },
+    {
+      "id": 21,
+      "english": "owl",
+      "phonetic": "/aʊl/",
+      "vietnamese": "(loài) cú"
+    },
+    {
+      "id": 22,
+      "english": "deer",
+      "phonetic": "/dɪr/",
+      "vietnamese": "(loài) hươu, nai"
+    },
+    {
+      "id": 23,
+      "english": "bat",
+      "phonetic": "/bæt/",
+      "vietnamese": "(loài) dơi"
+    },
+    {
+      "id": 24,
+      "english": "mink",
+      "phonetic": "/mɪŋk/",
+      "vietnamese": "(loài) chồn nâu"
+    },
+    {
+      "id": 25,
+      "english": "monkey",
+      "phonetic": "/ˈmʌŋ.ki/",
+      "vietnamese": "(loài) khỉ"
+    },
+    {
+      "id": 26,
+      "english": "snake",
+      "phonetic": "/sneɪk/",
+      "vietnamese": "(loài) rắn"
+    },
+    {
+      "id": 27,
+      "english": "lizard",
+      "phonetic": "/ˈlɪzərd/",
+      "vietnamese": "(loài) thằn lằn"
+    },
+    {
+      "id": 28,
+      "english": "giraffe",
+      "phonetic": "/dʒɪˈræf/",
+      "vietnamese": "(loài) hươu cao cổ"
+    },
+    {
+      "id": 29,
+      "english": "bear",
+      "phonetic": "/ber/",
+      "vietnamese": "(loài) gấu"
+    },
+    {
+      "id": 30,
+      "english": "rhino",
+      "phonetic": "/ˈraɪnoʊ/",
+      "vietnamese": "(loài) tê giác"
+    },
+    {
+      "id": 31,
+      "english": "elephant",
+      "phonetic": "/ˈɛl.ɪ.fənt/",
+      "vietnamese": "(loài) voi"
+    },
+    {
+      "id": 32,
+      "english": "panther",
+      "phonetic": "/ˈpæn.θər/",
+      "vietnamese": "(loài) báo đen"
+    },
+    {
+      "id": 33,
+      "english": "tiger",
+      "phonetic": "/ˈtaɪ.ɡər/",
+      "vietnamese": "(loài) hổ, cọp"
+    },
+    {
+      "id": 34,
+      "english": "lion",
+      "phonetic": "/ˈlaɪ.ən/",
+      "vietnamese": "(loài) sư tử"
+    },
+    {
+      "id": 35,
+      "english": "fox",
+      "phonetic": "/fɑːks/",
+      "vietnamese": "(loài) cáo"
+    },
+    {
+      "id": 36,
+      "english": "dinosaur",
+      "phonetic": "/ˈdaɪ.nə.sɔːr/",
+      "vietnamese": "(loài) khủng long"
+    },
+    {
+      "id": 37,
+      "english": "turtle",
+      "phonetic": "/ˈtɜːrtl/",
+      "vietnamese": "(loài) rùa biển"
+    },
+    {
+      "id": 38,
+      "english": "snail",
+      "phonetic": "/sneɪl/",
+      "vietnamese": "(loài) ốc sên"
+    },
+    {
+      "id": 39,
+      "english": "crow",
+      "phonetic": "/kroʊ/",
+      "vietnamese": "(loài) quạ"
+    },
+    {
+      "id": 40,
+      "english": "parrot",
+      "phonetic": "/ˈpærət/",
+      "vietnamese": "con vẹt"
+    }
+  ],
+  "Insect": [
+    {
+      "id": 1,
+      "english": "caterpillar",
+      "phonetic": "/ˌkæt.əˈpɪl.ɚ/",
+      "vietnamese": "sâu bướm"
+    },
+    {
+      "id": 2,
+      "english": "cocoon",
+      "phonetic": "/kəˈkuːn/",
+      "vietnamese": "cái kén (tằm)"
+    },
+    {
+      "id": 3,
+      "english": "butterfly",
+      "phonetic": "/ˈbʌt.ər.flaɪ/",
+      "vietnamese": "(loài) bướm"
+    },
+    {
+      "id": 4,
+      "english": "dragonfly",
+      "phonetic": "/ˈdræɡ.ən.flaɪ/",
+      "vietnamese": "(loài) chuồn chuồn"
+    },
+    {
+      "id": 5,
+      "english": "cricket",
+      "phonetic": "/ˈkrɪk.ɪt/",
+      "vietnamese": "(loài) dế"
+    },
+    {
+      "id": 6,
+      "english": "grasshopper",
+      "phonetic": "/ˈɡræsˌhɑː.pɚ/",
+      "vietnamese": "(loài) châu chấu"
+    },
+    {
+      "id": 7,
+      "english": "cockroach",
+      "phonetic": "/ˈkɑːk.roʊtʃ/",
+      "vietnamese": "(loài) gián"
+    },
+    {
+      "id": 8,
+      "english": "beetle",
+      "phonetic": "/ˈbiː.t̬əl/",
+      "vietnamese": "(loài) bọ cánh cứng"
+    },
+    {
+      "id": 9,
+      "english": "termite",
+      "phonetic": "/ˈtɜːr.maɪt/",
+      "vietnamese": "(loài) mối, mọt"
+    },
+    {
+      "id": 10,
+      "english": "ant",
+      "phonetic": "/ænt/",
+      "vietnamese": "(loài) kiến"
+    },
+    {
+      "id": 11,
+      "english": "mosquito",
+      "phonetic": "/məˈskɪtoʊ/",
+      "vietnamese": "(loài) muỗi"
+    },
+    {
+      "id": 12,
+      "english": "ladybug",
+      "phonetic": "/ˈleɪ.di.bʌɡ/",
+      "vietnamese": "(loài) bọ rùa"
+    },
+    {
+      "id": 13,
+      "english": "spider",
+      "phonetic": "/ˈspaɪ.dɚ/",
+      "vietnamese": "(loài) nhện"
+    },
+    {
+      "id": 14,
+      "english": "firefly",
+      "phonetic": "/ˈfaɪr.flaɪ/",
+      "vietnamese": "(loài) đom đóm"
+    },
+    {
+      "id": 15,
+      "english": "fly",
+      "phonetic": "/flaɪ/",
+      "vietnamese": "(loài) ruồi"
+    },
+    {
+      "id": 16,
+      "english": "bee",
+      "phonetic": "/biː/",
+      "vietnamese": "(loài) ong"
+    },
+    {
+      "id": 17,
+      "english": "wasp",
+      "phonetic": "/wɑːsp/",
+      "vietnamese": "(loài) ong bắp cày"
+    },
+    {
+      "id": 18,
+      "english": "centipede",
+      "phonetic": "/ˈsɛn.tə.piːd/",
+      "vietnamese": "(loài) rết"
+    }
+  ],
+  "Study": [
+    {
+      "id": 1,
+      "english": "class",
+      "phonetic": "/klæs/",
+      "vietnamese": "lớp học"
+    },
+    {
+      "id": 2,
+      "english": "classroom",
+      "phonetic": "/ˈklæs.ruːm/",
+      "vietnamese": "phòng học, lớp học"
+    },
+    {
+      "id": 3,
+      "english": "textbook",
+      "phonetic": "/ˈtɛkstˌbʊk/",
+      "vietnamese": "sách giáo khoa"
+    },
+    {
+      "id": 4,
+      "english": "exercise book",
+      "phonetic": "/ˈɛksərˌsaɪz bʊk/",
+      "vietnamese": "sách bài tập"
+    },
+    {
+      "id": 5,
+      "english": "reference book",
+      "phonetic": "/ˈrɛfrəns bʊk/",
+      "vietnamese": "sách tham khảo"
+    },
+    {
+      "id": 6,
+      "english": "notebook",
+      "phonetic": "/ˈnoʊtˌbʊk/",
+      "vietnamese": "sổ ghi chép"
+    },
+    {
+      "id": 7,
+      "english": "notepad",
+      "phonetic": "/ˈnoʊtˌpæd/",
+      "vietnamese": "sổ tay, sổ ghi chép"
+    },
+    {
+      "id": 8,
+      "english": "marker",
+      "phonetic": "/ˈmɑrkər/",
+      "vietnamese": "dấu hiệu"
+    },
+    {
+      "id": 9,
+      "english": "pencil",
+      "phonetic": "/ˈpɛnsəl/",
+      "vietnamese": "bút chì"
+    },
+    {
+      "id": 10,
+      "english": "crayon",
+      "phonetic": "/ˈkreɪˌɑn/",
+      "vietnamese": "bút màu sáp"
+    },
+    {
+      "id": 11,
+      "english": "pencil sharpener",
+      "phonetic": "/ˈpɛnsəl ˈʃɑrpənər/",
+      "vietnamese": "đồ chuốt, đồ gọt bút chì"
+    },
+    {
+      "id": 12,
+      "english": "eraser",
+      "phonetic": "/ɪˈreɪsər/",
+      "vietnamese": "cục tẩy, cục gôm"
+    },
+    {
+      "id": 13,
+      "english": "pen",
+      "phonetic": "/pɛn/",
+      "vietnamese": "bút mực"
+    },
+    {
+      "id": 14,
+      "english": "ballpoint pen",
+      "phonetic": "/ˈbɔlˌpɔɪnt pɛn/",
+      "vietnamese": "bút bi"
+    },
+    {
+      "id": 15,
+      "english": "paper",
+      "phonetic": "/ˈpeɪpər/",
+      "vietnamese": "giấy"
+    },
+    {
+      "id": 16,
+      "english": "desk",
+      "phonetic": "/dɛsk/",
+      "vietnamese": "bàn học, bàn làm việc"
+    },
+    {
+      "id": 17,
+      "english": "map",
+      "phonetic": "/mæp/",
+      "vietnamese": "bản đồ"
+    },
+    {
+      "id": 18,
+      "english": "glue",
+      "phonetic": "/ɡluː/",
+      "vietnamese": "keo, hồ dán"
+    },
+    {
+      "id": 19,
+      "english": "scissors",
+      "phonetic": "/ˈsɪzərz/",
+      "vietnamese": "cái kéo"
+    },
+    {
+      "id": 20,
+      "english": "ruler",
+      "phonetic": "/ˈruː.lɚ/",
+      "vietnamese": "cây thước"
+    },
+    {
+      "id": 21,
+      "english": "protractor",
+      "phonetic": "/prəˈtræk.tɚ/",
+      "vietnamese": "thước đo độ"
+    },
+    {
+      "id": 22,
+      "english": "ink",
+      "phonetic": "/ɪŋk/",
+      "vietnamese": "mực (viết, vẽ)"
+    },
+    {
+      "id": 23,
+      "english": "chalk",
+      "phonetic": "/ʧɔːk/",
+      "vietnamese": "phấn, viên phấn"
+    },
+    {
+      "id": 24,
+      "english": "folder",
+      "phonetic": "/ˈfoʊldər/",
+      "vietnamese": "(tin học) thư mục"
+    }
+  ],
+  "Plants": [
+    {
+      "id": 1,
+      "english": "tree",
+      "phonetic": "/triː/",
+      "vietnamese": "cây, cây cối"
+    },
+    {
+      "id": 2,
+      "english": "beech",
+      "phonetic": "/biːʧ/",
+      "vietnamese": "gỗ dẻ gai"
+    },
+    {
+      "id": 3,
+      "english": "pine",
+      "phonetic": "/paɪn/",
+      "vietnamese": "cây thông"
+    },
+    {
+      "id": 4,
+      "english": "cedar",
+      "phonetic": "/ˈsiː.dɚ/",
+      "vietnamese": "gỗ tuyết tùng"
+    },
+    {
+      "id": 5,
+      "english": "oak",
+      "phonetic": "/oʊk/",
+      "vietnamese": "cây sồi"
+    },
+    {
+      "id": 6,
+      "english": "ivy",
+      "phonetic": "/ˈaɪvi/",
+      "vietnamese": "dây thường xuân"
+    },
+    {
+      "id": 7,
+      "english": "moss",
+      "phonetic": "/mɑːs/",
+      "vietnamese": "rong, rêu"
+    },
+    {
+      "id": 8,
+      "english": "mushroom",
+      "phonetic": "/ˈmʌʃ.ruːm/",
+      "vietnamese": "nấm"
+    },
+    {
+      "id": 9,
+      "english": "wheat",
+      "phonetic": "/wiːt/",
+      "vietnamese": "(cây) lúa mì"
+    },
+    {
+      "id": 10,
+      "english": "corn",
+      "phonetic": "/kɔːrn/",
+      "vietnamese": "bắp, ngô"
+    },
+    {
+      "id": 11,
+      "english": "flower",
+      "phonetic": "/ˈflaʊ.ər/",
+      "vietnamese": "hoa, cây hoa"
+    },
+    {
+      "id": 12,
+      "english": "grass",
+      "phonetic": "/ɡræs/",
+      "vietnamese": "cây cỏ, cỏ"
+    },
+    {
+      "id": 13,
+      "english": "herb",
+      "phonetic": "/hɜːrb/",
+      "vietnamese": "thảo mộc, rau thơm"
+    },
+    {
+      "id": 14,
+      "english": "bush",
+      "phonetic": "/bʊʃ/",
+      "vietnamese": "bụi cây, bụi rậm"
+    },
+    {
+      "id": 15,
+      "english": "coconut tree",
+      "phonetic": "/ˈkoʊ.kəˌnʌt triː/",
+      "vietnamese": "(cây) dừa"
+    },
+    {
+      "id": 16,
+      "english": "apple tree",
+      "phonetic": "/ˈæpəl triː/",
+      "vietnamese": "cây táo"
+    },
+    {
+      "id": 17,
+      "english": "shrubland",
+      "phonetic": "/ˈʃrʌblænd/",
+      "vietnamese": "vùng cây bụi"
+    }
+  ],
+  "Country": [
+    {
+      "id": 1,
+      "english": "Denmark",
+      "phonetic": "/ˈdɛn.mɑrk/",
+      "vietnamese": "(nước) Đan Mạch"
+    },
+    {
+      "id": 2,
+      "english": "England",
+      "phonetic": "/ˈɪŋ.ɡlənd/",
+      "vietnamese": "(nước) Anh"
+    },
+    {
+      "id": 3,
+      "english": "Sweden",
+      "phonetic": "/ˈswiː.dən/",
+      "vietnamese": "(nước) Thụy Điển"
+    },
+    {
+      "id": 4,
+      "english": "Austria",
+      "phonetic": "/ˈɑː.stri.ə/",
+      "vietnamese": "(nước) Áo"
+    },
+    {
+      "id": 5,
+      "english": "France",
+      "phonetic": "/fræns/",
+      "vietnamese": "(nước) Pháp"
+    },
+    {
+      "id": 6,
+      "english": "Germany",
+      "phonetic": "/ˈdʒɝː.mə.ni/",
+      "vietnamese": "(nước) Đức"
+    },
+    {
+      "id": 7,
+      "english": "Switzerland",
+      "phonetic": "/ˈswɪt.sər.lænd/",
+      "vietnamese": "(nước) Thụy Sĩ"
+    },
+    {
+      "id": 8,
+      "english": "Greece",
+      "phonetic": "/ɡriːs/",
+      "vietnamese": "(thuộc) Hy Lạp"
+    },
+    {
+      "id": 9,
+      "english": "Italy",
+      "phonetic": "/ˈɪtə.li/",
+      "vietnamese": "(nước) Ý"
+    },
+    {
+      "id": 10,
+      "english": "Spain",
+      "phonetic": "/speɪn/",
+      "vietnamese": "(nước) Tây Ban Nha"
+    },
+    {
+      "id": 11,
+      "english": "Russia",
+      "phonetic": "/ˈrʌʃə/",
+      "vietnamese": "(nước) Nga"
+    },
+    {
+      "id": 12,
+      "english": "Canada",
+      "phonetic": "/ˈkænədə/",
+      "vietnamese": "(nước) Canada"
+    },
+    {
+      "id": 13,
+      "english": "Mexico",
+      "phonetic": "/ˈmɛk.sɪ.koʊ/",
+      "vietnamese": "(nước) Mêxicô"
+    },
+    {
+      "id": 14,
+      "english": "America",
+      "phonetic": "/əˈmɛr.ɪ.kə/",
+      "vietnamese": "(nước) Mỹ, Hoa Kỳ"
+    },
+    {
+      "id": 15,
+      "english": "Brazil",
+      "phonetic": "/brəˈzɪl/",
+      "vietnamese": "(nước) Braxin"
+    }
+  ],
+  "Seafood": [
+    {
+      "id": 1,
+      "english": "herring",
+      "phonetic": "/ˈhɛrɪŋ/",
+      "vietnamese": "cá trích"
+    },
+    {
+      "id": 2,
+      "english": "skate",
+      "phonetic": "/skeɪt/",
+      "vietnamese": "(loài) cá đuối"
+    },
+    {
+      "id": 3,
+      "english": "salmon",
+      "phonetic": "/ˈsæmən/",
+      "vietnamese": "(loài) cá hồi"
+    },
+    {
+      "id": 4,
+      "english": "prawn",
+      "phonetic": "/prɔːn/",
+      "vietnamese": "(loài) tôm"
+    },
+    {
+      "id": 5,
+      "english": "cuttlefish",
+      "phonetic": "/ˈkʌtəlˌfɪʃ/",
+      "vietnamese": "(loài) mực nang"
+    },
+    {
+      "id": 6,
+      "english": "lobster",
+      "phonetic": "/ˈlɑːbstər/",
+      "vietnamese": "(thịt) tôm hùm"
+    },
+    {
+      "id": 7,
+      "english": "squid",
+      "phonetic": "/skwɪd/",
+      "vietnamese": "(loài) mực ống"
+    },
+    {
+      "id": 8,
+      "english": "shrimp",
+      "phonetic": "/ʃrɪmp/",
+      "vietnamese": "(loài) tôm"
+    },
+    {
+      "id": 9,
+      "english": "oyster",
+      "phonetic": "/ˈɔɪstər/",
+      "vietnamese": "(loài) hàu"
+    },
+    {
+      "id": 10,
+      "english": "crab",
+      "phonetic": "/kræb/",
+      "vietnamese": "(loài) cua"
+    },
+    {
+      "id": 11,
+      "english": "cockle",
+      "phonetic": "/ˈkɒkl/",
+      "vietnamese": "(loài) sò huyết"
+    },
+    {
+      "id": 12,
+      "english": "scallop",
+      "phonetic": "/ˈskæləp/",
+      "vietnamese": "(loài) sò điệp"
+    },
+    {
+      "id": 13,
+      "english": "octopus",
+      "phonetic": "/ˈɒktəpəs/",
+      "vietnamese": "(loài) bạch tuộc"
+    },
+    {
+      "id": 14,
+      "english": "fish",
+      "phonetic": "/fɪʃ/",
+      "vietnamese": "(thức ăn) cá"
+    },
+    {
+      "id": 15,
+      "english": "eel",
+      "phonetic": "/iːl/",
+      "vietnamese": "con lươn; thịt lươn"
+    },
+    {
+      "id": 16,
+      "english": "mussel",
+      "phonetic": "/ˈmʌsəl/",
+      "vietnamese": "(loài) vẹm, chem chép"
+    },
+    {
+      "id": 17,
+      "english": "clam",
+      "phonetic": "/klæm/",
+      "vietnamese": "(loài) nghêu, ngao"
+    }
+  ],
+  "Energy": [
+    {
+      "id": 1,
+      "english": "charcoal",
+      "phonetic": "/ˈʧɑrˌkoʊl/",
+      "vietnamese": "than củi"
+    },
+    {
+      "id": 2,
+      "english": "battery",
+      "phonetic": "/ˈbætəri/",
+      "vietnamese": "pin"
+    },
+    {
+      "id": 3,
+      "english": "gasoline",
+      "phonetic": "/ˈɡæsəliːn/",
+      "vietnamese": "xăng"
+    },
+    {
+      "id": 4,
+      "english": "turbine",
+      "phonetic": "/ˈtɜrbaɪn/",
+      "vietnamese": "tua-bin, động cơ"
+    },
+    {
+      "id": 5,
+      "english": "sun",
+      "phonetic": "/sʌn/",
+      "vietnamese": "mặt trời"
+    },
+    {
+      "id": 6,
+      "english": "wind",
+      "phonetic": "/wɪnd/",
+      "vietnamese": "gió"
+    },
+    {
+      "id": 7,
+      "english": "geyser",
+      "phonetic": "/ˈɡaɪzər/",
+      "vietnamese": "mạch nước phun"
+    },
+    {
+      "id": 8,
+      "english": "waterfall",
+      "phonetic": "/ˈwɔtərˌfɔl/",
+      "vietnamese": "thác nước"
+    },
+    {
+      "id": 9,
+      "english": "refinery",
+      "phonetic": "/rɪˈfaɪnəri/",
+      "vietnamese": "nhà máy lọc"
+    },
+    {
+      "id": 10,
+      "english": "nuclear reactor",
+      "phonetic": "/ˈnukliər riˈæktər/",
+      "vietnamese": "lò phản ứng hạt nhân"
+    },
+    {
+      "id": 11,
+      "english": "dam",
+      "phonetic": "/dæm/",
+      "vietnamese": "đập (nước/thủy điện)"
+    },
+    {
+      "id": 12,
+      "english": "power plant",
+      "phonetic": "/ˈpaʊər plænt/",
+      "vietnamese": "nhà máy điện"
+    },
+    {
+      "id": 13,
+      "english": "transformer",
+      "phonetic": "/trænsˈfɔrmər/",
+      "vietnamese": "máy biến áp"
+    },
+    {
+      "id": 14,
+      "english": "heat",
+      "phonetic": "/hiːt/",
+      "vietnamese": "sưởi ấm, làm nóng; nóng/ấm lên"
+    },
+    {
+      "id": 15,
+      "english": "natural gas",
+      "phonetic": "/ˈnætʃərəl ɡæs/",
+      "vietnamese": "khí tự nhiên"
+    },
+    {
+      "id": 16,
+      "english": "diesel",
+      "phonetic": "/ˈdiːzəl/",
+      "vietnamese": "dầu đi-ê-zen"
+    },
+    {
+      "id": 17,
+      "english": "solar power",
+      "phonetic": "/ˈsoʊlər paʊər/",
+      "vietnamese": "năng lượng mặt trời"
+    }
+  ],
+  "Jobs":[
+    {
+      "id": 1,
+      "english": "dancer",
+      "phonetic": "/ˈdænsər/",
+      "vietnamese": "vũ công"
+    },
+    {
+      "id": 2,
+      "english": "designer",
+      "phonetic": "/dɪˈzaɪnər/",
+      "vietnamese": "nhà thiết kế"
+    },
+    {
+      "id": 3,
+      "english": "magician",
+      "phonetic": "/məˈdʒɪʃən/",
+      "vietnamese": "ảo thuật gia"
+    },
+    {
+      "id": 4,
+      "english": "teller",
+      "phonetic": "/ˈtɛlər/",
+      "vietnamese": "nhân viên ngân hàng"
+    },
+    {
+      "id": 5,
+      "english": "tour guide",
+      "phonetic": "/tʊr ɡaɪd/",
+      "vietnamese": "hướng dẫn viên du lịch"
+    },
+    {
+      "id": 6,
+      "english": "sailor",
+      "phonetic": "/ˈseɪlər/",
+      "vietnamese": "thủy thủ"
+    },
+    {
+      "id": 7,
+      "english": "commentator",
+      "phonetic": "/ˈkɒmənteɪtər/",
+      "vietnamese": "bình luận viên"
+    },
+    {
+      "id": 8,
+      "english": "dentist",
+      "phonetic": "/ˈdɛntɪst/",
+      "vietnamese": "nha sĩ"
+    },
+    {
+      "id": 9,
+      "english": "postman",
+      "phonetic": "/ˈpoʊstmən/",
+      "vietnamese": "người đưa thư"
+    },
+    {
+      "id": 10,
+      "english": "writer",
+      "phonetic": "/ˈraɪtər/",
+      "vietnamese": "nhà văn, tác giả, biên kịch"
+    },
+    {
+      "id": 11,
+      "english": "pilot",
+      "phonetic": "/ˈpaɪlət/",
+      "vietnamese": "phi công"
+    },
+    {
+      "id": 12,
+      "english": "plumber",
+      "phonetic": "/ˈplʌmər/",
+      "vietnamese": "thợ sửa ống nước"
+    },
+    {
+      "id": 13,
+      "english": "tailor",
+      "phonetic": "/ˈteɪlər/",
+      "vietnamese": "thợ may"
+    },
+    {
+      "id": 14,
+      "english": "copywriter",
+      "phonetic": "/ˈkɒpɪˌraɪtər/",
+      "vietnamese": "người viết bài, biên tập viên (quảng cáo)"
+    },
+    {
+      "id": 15,
+      "english": "journalist",
+      "phonetic": "/ˈdʒɜrnəlɪst/",
+      "vietnamese": "nhà báo"
+    },
+    {
+      "id": 16,
+      "english": "grocer",
+      "phonetic": "/ˈɡroʊsər/",
+      "vietnamese": "người bán tạp hóa"
+    },
+    {
+      "id": 17,
+      "english": "clerk",
+      "phonetic": "/klɜrk/",
+      "vietnamese": "viên thư ký, nhân viên trực"
+    },
+    {
+      "id": 18,
+      "english": "assistant",
+      "phonetic": "/əˈsɪstənt/",
+      "vietnamese": "trợ lý"
+    },
+    {
+      "id": 19,
+      "english": "model",
+      "phonetic": "/ˈmɒdəl/",
+      "vietnamese": "người mẫu thời trang"
+    },
+    {
+      "id": 20,
+      "english": "freelance",
+      "phonetic": "/ˈfriːlæns/",
+      "vietnamese": "người làm việc tự do, người lao động độc lập"
+    },
+    {
+      "id": 21,
+      "english": "consultant",
+      "phonetic": "/kənˈsʌltənt/",
+      "vietnamese": "cố vấn, chuyên viên tư vấn"
+    },
+    {
+      "id": 22,
+      "english": "self-employed",
+      "phonetic": "/sɛlf ɪmˈplɔɪd/",
+      "vietnamese": "tự làm chủ, làm việc tự do"
+    },
+    {
+      "id": 23,
+      "english": "supervisor",
+      "phonetic": "/ˈsuːpərˌvaɪzər/",
+      "vietnamese": "người giám sát"
+    },
+    {
+      "id": 24,
+      "english": "sales manager",
+      "phonetic": "/seɪlz ˈmænɪdʒər/",
+      "vietnamese": "trưởng phòng kinh doanh, giám đốc kinh doanh"
+    },
+    {
+      "id": 25,
+      "english": "production manager",
+      "phonetic": "/prəˈdʌkʃən ˈmænɪdʒər/",
+      "vietnamese": "trưởng phòng sản xuất"
+    },
+    {
+      "id": 26,
+      "english": "mechanic",
+      "phonetic": "/məˈkænɪk/",
+      "vietnamese": "thợ cơ khí"
+    },
+    {
+      "id": 27,
+      "english": "managing director",
+      "phonetic": "/ˈmænɪdʒɪŋ dəˈrɛktər/",
+      "vietnamese": "giám đốc điều hành"
+    },
+    {
+      "id": 28,
+      "english": "personal assistant",
+      "phonetic": "/ˈpɜːrsənl əˈsɪstənt/",
+      "vietnamese": "trợ lý cá nhân, trợ lý riêng"
+    },
+    {
+      "id": 29,
+      "english": "hairdresser",
+      "phonetic": "/ˈhɛrˌdrɛsər/",
+      "vietnamese": "thợ cắt tóc, thợ làm tóc"
+    },
+    {
+      "id": 30,
+      "english": "architect",
+      "phonetic": "/ˈɑːrkɪtɛkt/",
+      "vietnamese": "kiến trúc sư"
+    },
+    {
+      "id": 31,
+      "english": "marketing executive",
+      "phonetic": "/ˈmɑːrkɪtɪŋ ɪɡˈzɛkjətɪv/",
+      "vietnamese": "nhân viên truyền thông"
+    },
+    {
+      "id": 32,
+      "english": "engineer",
+      "phonetic": "/ˌɛnʤɪˈnɪr/",
+      "vietnamese": "kỹ sư"
+    },
+    {
+      "id": 33,
+      "english": "vet",
+      "phonetic": "/vɛt/",
+      "vietnamese": "bác sĩ thú y"
+    },
+    {
+      "id": 34,
+      "english": "shoemaker",
+      "phonetic": "/ˈʃuːˌmeɪkər/",
+      "vietnamese": "thợ đóng giày"
+    },
+    {
+      "id": 35,
+      "english": "translator",
+      "phonetic": "/ˈtrænzˌleɪtər/",
+      "vietnamese": "biên dịch viên, dịch giả"
+    },
+    {
+      "id": 36,
+      "english": "interpreter",
+      "phonetic": "/ɪnˈtɜːrprətər/",
+      "vietnamese": "phiên dịch viên, thông dịch viên"
+    },
+    {
+      "id": 37,
+      "english": "sanitation worker",
+      "phonetic": "/ˌsænɪˈteɪʃən ˈwɜːrkər/",
+      "vietnamese": "lao công, nhân viên vệ sinh"
+    },
+    {
+      "id": 38,
+      "english": "business manager",
+      "phonetic": "/ˈbɪznɪs ˈmænɪdʒər/",
+      "vietnamese": "giám đốc kinh doanh"
+    },
+    {
+      "id": 39,
+      "english": "police officer",
+      "phonetic": "/pəˈliːs ˈɔːfɪsər/",
+      "vietnamese": "viên cảnh sát"
+    },
+    {
+      "id": 40,
+      "english": "personnel manager",
+      "phonetic": "/ˌpɜːrsəˈnɛl ˈmænɪdʒər/",
+      "vietnamese": "trưởng phòng nhân sự, giám đốc nhân sự"
+    }
+  ],
+  "Diet": [
+    {
+      "id": 1,
+      "english": "keep-fit",
+      "phonetic": "/ˈkiːp fɪt/",
+      "vietnamese": "(bài tập) thể dục"
+    },
+    {
+      "id": 2,
+      "english": "regular",
+      "phonetic": "/ˈrɛɡjələr/",
+      "vietnamese": "(xảy ra) thường xuyên"
+    },
+    {
+      "id": 3,
+      "english": "diabetes",
+      "phonetic": "/ˌdaɪəˈbiːtiːz/",
+      "vietnamese": "(bệnh) tiểu đường"
+    },
+    {
+      "id": 4,
+      "english": "dietitian",
+      "phonetic": "/daɪəˈtɪʃən/",
+      "vietnamese": "chuyên gia dinh dưỡng"
+    },
+    {
+      "id": 5,
+      "english": "goiter",
+      "phonetic": "/ˈɡɔɪtər/",
+      "vietnamese": "(bệnh) bướu cổ"
+    },
+    {
+      "id": 6,
+      "english": "body",
+      "phonetic": "/ˈbɒdi/",
+      "vietnamese": "cơ thể"
+    },
+    {
+      "id": 7,
+      "english": "thin",
+      "phonetic": "/θɪn/",
+      "vietnamese": "gầy, ốm"
+    },
+    {
+      "id": 8,
+      "english": "dietary",
+      "phonetic": "/ˈdaɪəˌteri/",
+      "vietnamese": "(thuộc) chế độ ăn uống"
+    },
+    {
+      "id": 9,
+      "english": "fat",
+      "phonetic": "/fæt/",
+      "vietnamese": "béo, nặng cân"
+    },
+    {
+      "id": 10,
+      "english": "overweight",
+      "phonetic": "/ˌoʊvərˈweɪt/",
+      "vietnamese": "béo, thừa cân"
+    },
+    {
+      "id": 11,
+      "english": "eating disorder",
+      "phonetic": "/ˈiːtɪŋ dɪsˈɔrdər/",
+      "vietnamese": "(chứng) rối loạn ăn uống"
+    },
+    {
+      "id": 12,
+      "english": "nutrient",
+      "phonetic": "/ˈnuːtriənt/",
+      "vietnamese": "chất dinh dưỡng"
+    },
+    {
+      "id": 13,
+      "english": "ingredient",
+      "phonetic": "/ɪnˈɡriːdiənt/",
+      "vietnamese": "thành phần, nguyên liệu"
+    },
+    {
+      "id": 14,
+      "english": "allergy",
+      "phonetic": "/ˈælərdʒi/",
+      "vietnamese": "(bệnh) dị ứng"
+    },
+    {
+      "id": 15,
+      "english": "vitamin",
+      "phonetic": "/ˈvaɪtəmɪn/",
+      "vietnamese": "vi-ta-min"
+    },
+    {
+      "id": 16,
+      "english": "overeat",
+      "phonetic": "/ˌoʊvərˈiːt/",
+      "vietnamese": "ăn quá nhiều, ăn quá mức"
+    },
+    {
+      "id": 17,
+      "english": "nutritious",
+      "phonetic": "/nuːˈtrɪʃəs/",
+      "vietnamese": "bổ dưỡng"
+    },
+    {
+      "id": 18,
+      "english": "vegetarian",
+      "phonetic": "/ˌvɛdʒɪˈtɛriən/",
+      "vietnamese": "người ăn chay"
+    },
+    {
+      "id": 19,
+      "english": "mineral",
+      "phonetic": "/ˈmɪnərəl/",
+      "vietnamese": "khoáng chất, khoáng sản"
+    }
+  ],
+  "Natural disaster":[
+    {
+      "id": 1,
+      "english": "earthquake",
+      "phonetic": "/ˈɜrθˌkweɪk/",
+      "vietnamese": "(trận) động đất"
+    },
+    {
+      "id": 2,
+      "english": "aftershock",
+      "phonetic": "/ˈæftərˌʃɑk/",
+      "vietnamese": "(cơn) dư chấn"
+    },
+    {
+      "id": 3,
+      "english": "flood",
+      "phonetic": "/flʌd/",
+      "vietnamese": "làm ngập lụt, nhấn chìm"
+    },
+    {
+      "id": 4,
+      "english": "drought",
+      "phonetic": "/draʊt/",
+      "vietnamese": "hạn hán"
+    },
+    {
+      "id": 5,
+      "english": "famine",
+      "phonetic": "/ˈfæmɪn/",
+      "vietnamese": "nạn đói"
+    },
+    {
+      "id": 6,
+      "english": "avalanche",
+      "phonetic": "/ˈævəˌlæntʃ/",
+      "vietnamese": "(trận) tuyết lở"
+    },
+    {
+      "id": 7,
+      "english": "blizzard",
+      "phonetic": "/ˈblɪzərd/",
+      "vietnamese": "bão tuyết"
+    },
+    {
+      "id": 8,
+      "english": "tornado",
+      "phonetic": "/tɔrˈneɪdoʊ/",
+      "vietnamese": "lốc xoáy"
+    },
+    {
+      "id": 9,
+      "english": "forest fire",
+      "phonetic": "/ˈfɔrɪst ˈfaɪr/",
+      "vietnamese": "(vụ) cháy rừng"
+    },
+    {
+      "id": 10,
+      "english": "hurricane",
+      "phonetic": "/ˈhɜrəˌkeɪn/",
+      "vietnamese": "(cơn) bão"
+    },
+    {
+      "id": 11,
+      "english": "evacuation",
+      "phonetic": "/ɪˌvækjuˈeɪʃən/",
+      "vietnamese": "(sự) di tản, sơ tán"
+    },
+    {
+      "id": 12,
+      "english": "evacuate",
+      "phonetic": "/ɪˈvækjuˌeɪt/",
+      "vietnamese": "di tản, sơ tán"
+    },
+    {
+      "id": 13,
+      "english": "catastrophic",
+      "phonetic": "/ˌkætəˈstrɒfɪk/",
+      "vietnamese": "thảm khốc, thê thảm"
+    },
+    {
+      "id": 14,
+      "english": "nationwide",
+      "phonetic": "/ˈneɪʃənˌwaɪd/",
+      "vietnamese": "toàn quốc, khắp cả nước"
+    },
+    {
+      "id": 15,
+      "english": "precaution",
+      "phonetic": "/prɪˈkɔʃən/",
+      "vietnamese": "sự phòng ngừa, sự đề phòng"
+    }
+  ],
+  "Asking the way": [
+    {
+      "id": 1,
+      "english": "avenue",
+      "phonetic": "/ˈæv.ə.nuː/",
+      "vietnamese": "đại lộ"
+    },
+    {
+      "id": 2,
+      "english": "between",
+      "phonetic": "/bɪˈtwiːn/",
+      "vietnamese": "ở giữa"
+    },
+    {
+      "id": 3,
+      "english": "beside",
+      "phonetic": "/bɪˈsaɪd/",
+      "vietnamese": "bên, bên cạnh"
+    },
+    {
+      "id": 4,
+      "english": "behind",
+      "phonetic": "/bɪˈhaɪnd/",
+      "vietnamese": "ở phía sau, ở đằng sau"
+    },
+    {
+      "id": 5,
+      "english": "bench",
+      "phonetic": "/bɛnʧ/",
+      "vietnamese": "ghế dài"
+    },
+    {
+      "id": 6,
+      "english": "curve",
+      "phonetic": "/kɜrv/",
+      "vietnamese": "cua, uốn cong, bẻ cong"
+    },
+    {
+      "id": 7,
+      "english": "go past",
+      "phonetic": "/ɡoʊ pæst/",
+      "vietnamese": "đi qua, vượt qua"
+    },
+    {
+      "id": 8,
+      "english": "go down",
+      "phonetic": "/ɡoʊ daʊn/",
+      "vietnamese": "đi xuống đâu, đi tới đâu"
+    },
+    {
+      "id": 9,
+      "english": "in front of",
+      "phonetic": "/ɪn frʌnt ʌv/",
+      "vietnamese": "ở phía trước, ở đằng trước"
+    },
+    {
+      "id": 10,
+      "english": "opposite",
+      "phonetic": "/ˈɑːpəzɪt/",
+      "vietnamese": "trước mặt, đối diện"
+    },
+    {
+      "id": 11,
+      "english": "near",
+      "phonetic": "/nɪr/",
+      "vietnamese": "gần"
+    },
+    {
+      "id": 12,
+      "english": "turn right",
+      "phonetic": "/tɜrn raɪt/",
+      "vietnamese": "rẽ phải"
+    },
+    {
+      "id": 13,
+      "english": "turn left",
+      "phonetic": "/tɜrn lɛft/",
+      "vietnamese": "rẽ trái"
+    },
+    {
+      "id": 14,
+      "english": "junction",
+      "phonetic": "/ˈdʒʌŋkʃən/",
+      "vietnamese": "giao lộ"
+    },
+    {
+      "id": 15,
+      "english": "turning",
+      "phonetic": "/ˈtɜrnɪŋ/",
+      "vietnamese": "ngã rẽ"
+    },
+    {
+      "id": 16,
+      "english": "roundabout",
+      "phonetic": "/ˈraʊndəˌbaʊt/",
+      "vietnamese": "bùng binh"
+    },
+    {
+      "id": 17,
+      "english": "pavement",
+      "phonetic": "/ˈpeɪvmənt/",
+      "vietnamese": "vỉa hè"
+    }
+  ],
+  "A hotel room":  [
+    {
+      "id": 1,
+      "english": "bar",
+      "phonetic": "/bɑr/",
+      "vietnamese": "quán rượu"
+    },
+    {
+      "id": 2,
+      "english": "chef",
+      "phonetic": "/ʃef/",
+      "vietnamese": "đầu bếp, bếp trưởng"
+    },
+    {
+      "id": 3,
+      "english": "waiter",
+      "phonetic": "/ˈweɪtər/",
+      "vietnamese": "bồi bàn, nam phục vụ"
+    },
+    {
+      "id": 4,
+      "english": "waitress",
+      "phonetic": "/ˈweɪtrɪs/",
+      "vietnamese": "nữ phục vụ, cô hầu bàn"
+    },
+    {
+      "id": 5,
+      "english": "bill",
+      "phonetic": "/bɪl/",
+      "vietnamese": "hóa đơn"
+    },
+    {
+      "id": 6,
+      "english": "service",
+      "phonetic": "/ˈsɜrvɪs/",
+      "vietnamese": "dịch vụ, sự phục vụ"
+    },
+    {
+      "id": 7,
+      "english": "tip",
+      "phonetic": "/tɪp/",
+      "vietnamese": "tiền boa"
+    },
+    {
+      "id": 8,
+      "english": "knife",
+      "phonetic": "/naɪf/",
+      "vietnamese": "con dao"
+    },
+    {
+      "id": 9,
+      "english": "bowl",
+      "phonetic": "/boʊl/",
+      "vietnamese": "(đo lường) bát, chén"
+    },
+    {
+      "id": 10,
+      "english": "teapot",
+      "phonetic": "/ˈtiːˌpɑt/",
+      "vietnamese": "bình trà, ấm pha trà"
+    },
+    {
+      "id": 11,
+      "english": "glass",
+      "phonetic": "/ɡlæs/",
+      "vietnamese": "(đo lường) ly, cốc"
+    },
+    {
+      "id": 12,
+      "english": "breakfast",
+      "phonetic": "/ˈbrekˌfəst/",
+      "vietnamese": "bữa ăn sáng"
+    },
+    {
+      "id": 13,
+      "english": "dinner",
+      "phonetic": "/ˈdɪnər/",
+      "vietnamese": "bữa ăn tối"
+    },
+    {
+      "id": 14,
+      "english": "lunch",
+      "phonetic": "/lʌntʃ/",
+      "vietnamese": "bữa ăn trưa"
+    },
+    {
+      "id": 15,
+      "english": "booking office",
+      "phonetic": "/ˈbʊkɪŋ ˈɔfɪs/",
+      "vietnamese": "phòng bán vé"
+    },
+    {
+      "id": 16,
+      "english": "menu",
+      "phonetic": "/ˈmɛnjuː/",
+      "vietnamese": "thực đơn"
+    },
+    {
+      "id": 17,
+      "english": "starter",
+      "phonetic": "/ˈstɑrtər/",
+      "vietnamese": "món khai vị"
+    },
+    {
+      "id": 18,
+      "english": "main course",
+      "phonetic": "/meɪn kɔrs/",
+      "vietnamese": "món chính"
+    },
+    {
+      "id": 19,
+      "english": "dessert",
+      "phonetic": "/dɪˈzɜrt/",
+      "vietnamese": "món tráng miệng"
+    }
+  ],
+  "At the post office":  [
+    {
+      "id": 1,
+      "english": "advanced",
+      "phonetic": "/ədˈvænst/",
+      "vietnamese": "tiên tiến"
+    },
+    {
+      "id": 2,
+      "english": "equip",
+      "phonetic": "/ɪˈkwɪp/",
+      "vietnamese": "trang bị"
+    },
+    {
+      "id": 3,
+      "english": "express mail",
+      "phonetic": "/ɪkˈsprɛs meɪl/",
+      "vietnamese": "chuyển phát nhanh"
+    },
+    {
+      "id": 4,
+      "english": "facsimile",
+      "phonetic": "/ˈfæksɪˌmaɪl/",
+      "vietnamese": "hệ thống chuyển fax, dịch vụ chuyển fax"
+    },
+    {
+      "id": 5,
+      "english": "graphic",
+      "phonetic": "/ˈɡræfɪk/",
+      "vietnamese": "hình ảnh, hình đồ họa"
+    },
+    {
+      "id": 6,
+      "english": "Messenger Call Service",
+      "phonetic": "/ˈmɛsɪndʒər kɔl ˈsɜrvɪs/",
+      "vietnamese": "Dịch vụ Điện thoại"
+    },
+    {
+      "id": 7,
+      "english": "notify",
+      "phonetic": "/ˈnoʊtɪˌfaɪ/",
+      "vietnamese": "thông báo"
+    },
+    {
+      "id": 8,
+      "english": "parcel",
+      "phonetic": "/ˈpɑrsəl/",
+      "vietnamese": "bưu kiện, bưu phẩm"
+    },
+    {
+      "id": 9,
+      "english": "press",
+      "phonetic": "/prɛs/",
+      "vietnamese": "báo chí"
+    },
+    {
+      "id": 10,
+      "english": "receive",
+      "phonetic": "/rɪˈsiv/",
+      "vietnamese": "nhận"
+    },
+    {
+      "id": 11,
+      "english": "recipient",
+      "phonetic": "/rɪˈsɪpɪənt/",
+      "vietnamese": "người nhận"
+    },
+    {
+      "id": 12,
+      "english": "secure",
+      "phonetic": "/sɪˈkjʊr/",
+      "vietnamese": "(cảm giác) yên tâm, an toàn"
+    },
+    {
+      "id": 13,
+      "english": "service",
+      "phonetic": "/ˈsɜrvɪs/",
+      "vietnamese": "(ngành) dịch vụ"
+    },
+    {
+      "id": 14,
+      "english": "spacious",
+      "phonetic": "/ˈspeɪʃəs/",
+      "vietnamese": "rộng rãi"
+    },
+    {
+      "id": 15,
+      "english": "speedy",
+      "phonetic": "/ˈspiːdi/",
+      "vietnamese": "nhanh chóng"
+    },
+    {
+      "id": 16,
+      "english": "staff",
+      "phonetic": "/stæf/",
+      "vietnamese": "nhân viên"
+    },
+    {
+      "id": 17,
+      "english": "subscribe",
+      "phonetic": "/səbˈskraɪb/",
+      "vietnamese": "đặt mua báo"
+    },
+    {
+      "id": 18,
+      "english": "surface mail",
+      "phonetic": "/ˈsɜrfəs meɪl/",
+      "vietnamese": "thư gửi bằng đường bộ"
+    },
+    {
+      "id": 19,
+      "english": "technology",
+      "phonetic": "/tɛkˈnɑlədʒi/",
+      "vietnamese": "công nghệ"
+    },
+    {
+      "id": 20,
+      "english": "thoughtful",
+      "phonetic": "/ˈθɔtfl/",
+      "vietnamese": "ân cần, chu đáo"
+    },
+    {
+      "id": 21,
+      "english": "transfer",
+      "phonetic": "/ˈtrænsfər/",
+      "vietnamese": "dời, chuyển; di chuyển"
+    },
+    {
+      "id": 22,
+      "english": "transmit",
+      "phonetic": "/trænsˈmɪt/",
+      "vietnamese": "truyền thanh, phát sóng"
+    },
+    {
+      "id": 23,
+      "english": "well-trained",
+      "phonetic": "/wɛl treɪnd/",
+      "vietnamese": "(được) đào tạo bài bản, thuần thục"
+    },
+    {
+      "id": 24,
+      "english": "clerk",
+      "phonetic": "/klɜrk/",
+      "vietnamese": "viên thư ký, nhân viên trực"
+    }
+  ],
+  "At the bank": [
+    {
+      "id": 1,
+      "english": "Staff movements",
+      "phonetic": "/stæf ˈmuːvmənts/",
+      "vietnamese": "luân chuyển nhân sự, nhân viên"
+    },
+    {
+      "id": 2,
+      "english": "Retire",
+      "phonetic": "/rɪˈtaɪər/",
+      "vietnamese": "nghỉ hưu"
+    },
+    {
+      "id": 3,
+      "english": "Dismiss",
+      "phonetic": "/dɪsˈmɪs/",
+      "vietnamese": "sa thải, đuổi việc"
+    },
+    {
+      "id": 4,
+      "english": "Division",
+      "phonetic": "/dɪˈvɪʒən/",
+      "vietnamese": "phòng ban"
+    },
+    {
+      "id": 5,
+      "english": "finance",
+      "phonetic": "/faɪˈnæns/",
+      "vietnamese": "tài trợ"
+    },
+    {
+      "id": 6,
+      "english": "appointment",
+      "phonetic": "/əˈpɔɪntmənt/",
+      "vietnamese": "sự bổ nhiệm"
+    },
+    {
+      "id": 7,
+      "english": "Multinational",
+      "phonetic": "/ˌmʌltɪˈnæʃənl/",
+      "vietnamese": "đa quốc gia"
+    },
+    {
+      "id": 8,
+      "english": "Investor",
+      "phonetic": "/ɪnˈvɛstər/",
+      "vietnamese": "nhà đầu tư"
+    },
+    {
+      "id": 9,
+      "english": "stake",
+      "phonetic": "/steɪk/",
+      "vietnamese": "tiền đầu tư, cổ phần"
+    },
+    {
+      "id": 10,
+      "english": "inherit",
+      "phonetic": "/ɪnˈhɛrɪt/",
+      "vietnamese": "thừa kế"
+    },
+    {
+      "id": 11,
+      "english": "accountant",
+      "phonetic": "/əˈkaʊntənt/",
+      "vietnamese": "nhân viên kế toán"
+    },
+    {
+      "id": 12,
+      "english": "Lend",
+      "phonetic": "/lɛnd/",
+      "vietnamese": "cho vay"
+    },
+    {
+      "id": 13,
+      "english": "Borrow",
+      "phonetic": "/ˈbɑroʊ/",
+      "vietnamese": "cho mượn"
+    },
+    {
+      "id": 14,
+      "english": "Rent",
+      "phonetic": "/rɛnt/",
+      "vietnamese": "thuê"
+    },
+    {
+      "id": 15,
+      "english": "acquire",
+      "phonetic": "/əˈkwaɪr/",
+      "vietnamese": "mua, thôn tỉnh"
+    },
+    {
+      "id": 16,
+      "english": "Distribution",
+      "phonetic": "/ˌdɪstrɪˈbjuʃən/",
+      "vietnamese": "phân phối, phân phát"
+    },
+    {
+      "id": 17,
+      "english": "Co-ordinate",
+      "phonetic": "/koʊˈɔrdəneɪt/",
+      "vietnamese": "phối hợp, sắp xếp"
+    },
+    {
+      "id": 18,
+      "english": "Purchase",
+      "phonetic": "/ˈpɜrtʃəs/",
+      "vietnamese": "mua, giành được"
+    },
+    {
+      "id": 19,
+      "english": "Stock exchange",
+      "phonetic": "/stɑk ɪksˈʧeɪndʒ/",
+      "vietnamese": "sàn giao dịch chứng khoán"
+    },
+    {
+      "id": 20,
+      "english": "Stock market",
+      "phonetic": "/stɑk ˈmɑrkɪt/",
+      "vietnamese": "thị trường chứng khoán"
+    },
+    {
+      "id": 21,
+      "english": "Graduate",
+      "phonetic": "/ˈɡrædʒuət/",
+      "vietnamese": "tốt nghiệp, hoàn thành 1 khóa học"
+    },
+    {
+      "id": 22,
+      "english": "opportunity",
+      "phonetic": "/ˌɑpərˈtuːnəti/",
+      "vietnamese": "cơ hội"
+    },
+    {
+      "id": 23,
+      "english": "Challenge",
+      "phonetic": "/ˈʧæləndʒ/",
+      "vietnamese": "thử thách"
+    },
+    {
+      "id": 24,
+      "english": "Career",
+      "phonetic": "/kəˈrɪr/",
+      "vietnamese": "nghề nghiệp, sự nghiệp"
+    },
+    {
+      "id": 25,
+      "english": "Intensive course",
+      "phonetic": "/ɪnˈtɛnsɪv kɔrs/",
+      "vietnamese": "khóa học liên tục, cấp tốc"
+    },
+    {
+      "id": 26,
+      "english": "Commerce",
+      "phonetic": "/ˈkɑmɜrs/",
+      "vietnamese": "thương mại"
+    },
+    {
+      "id": 27,
+      "english": "Costly",
+      "phonetic": "/ˈkɔstli/",
+      "vietnamese": "tốn kém"
+    },
+    {
+      "id": 28,
+      "english": "respond to sb/ sth",
+      "phonetic": "/rɪˈspɒnd tu ˌsʌmbədi/ sth",
+      "vietnamese": "phản ứng, trả lời trước ai, cái gì"
+    },
+    {
+      "id": 29,
+      "english": "to be responsible for sb/st",
+      "phonetic": "/tu bɪ rɪˈspɒnsəbl fɔr ˌsʌmbədi/sth",
+      "vietnamese": "chịu trách nhiệm trước ai/ cái gì"
+    },
+    {
+      "id": 30,
+      "english": "Communicate with sb",
+      "phonetic": "/kəˈmjuːnɪˌkeɪt wɪð ˌsʌmbədi/",
+      "vietnamese": "giao tiếp với ai"
+    },
+    {
+      "id": 31,
+      "english": "Pioneer",
+      "phonetic": "/ˌpaɪəˈnɪr/",
+      "vietnamese": "người đi tiên phong"
+    },
+    {
+      "id": 32,
+      "english": "Abroad",
+      "phonetic": "/əˈbrɔd/",
+      "vietnamese": "Ở nước ngoài, hải ngoại"
+    },
+    {
+      "id": 33,
+      "english": "inheritance",
+      "phonetic": "/ɪnˈhɛrɪtəns/",
+      "vietnamese": "quyền thừa kế"
+    },
+    {
+      "id": 34,
+      "english": "Fortune",
+      "phonetic": "/ˈfɔrtʃən/",
+      "vietnamese": "tài sân, vận may"
+    },
+    {
+      "id": 35,
+      "english": "property",
+      "phonetic": "/ˈprɑpərti/",
+      "vietnamese": "tài sản, của cải"
+    },
+    {
+      "id": 36,
+      "english": "Cash machine/ cash point/ cash dispenser",
+      "phonetic": "/kæʃ məˈʃin/ kæʃ pɔɪnt/ kæʃ dɪˈspɛnsər/",
+      "vietnamese": "Máy rút tiền"
+    },
+    {
+      "id": 37,
+      "english": "Online account",
+      "phonetic": "/ˈɔnˌlaɪn əˈkaʊnt/",
+      "vietnamese": "tài khoản trực tuyến"
+    },
+    {
+      "id": 38,
+      "english": "Insurance policy",
+      "phonetic": "/ɪnˈʃʊrəns ˈpɑləsi/",
+      "vietnamese": "hợp đồng bảo hiểm"
+    },
+    {
+      "id": 39,
+      "english": "Credit card",
+      "phonetic": "/ˈkrɛdɪt kɑrd/",
+      "vietnamese": "thẻ tín dụng"
+    },
+    {
+      "id": 40,
+      "english": "Debit card",
+      "phonetic": "/ˈdɛbɪt kɑrd/",
+      "vietnamese": "thẻ ghi nợ"
+    },
+    {
+      "id": 41,
+      "english": "Rental contract",
+      "phonetic": "/ˈrɛntəl ˈkɒnˌtrækt/",
+      "vietnamese": "hợp đồng cho thuê"
+    },
+    {
+      "id": 42,
+      "english": "Discount",
+      "phonetic": "/ˈdɪskaʊnt/",
+      "vietnamese": "giảm giá, chiết khấu, xem nhẹ"
+    },
+    {
+      "id": 43,
+      "english": "Credit limit",
+      "phonetic": "/ˈkrɛdɪt ˈlɪmɪt/",
+      "vietnamese": "hạn mức tín dụng"
+    },
+    {
+      "id": 44,
+      "english": "Survey",
+      "phonetic": "/ˈsɜrveɪ/",
+      "vietnamese": "khảo sát ,nghiên cứu, một cái nhìn tổng quát"
+    },
+    {
+      "id": 45,
+      "english": "Possession",
+      "phonetic": "/pəˈzɛʃən/",
+      "vietnamese": "sự sở hữu, trạng thái sở hữu"
+    },
+    {
+      "id": 46,
+      "english": "Equality",
+      "phonetic": "/ɪˈkwɑləti/",
+      "vietnamese": "sự ngang bằng nhau"
+    },
+    {
+      "id": 47,
+      "english": "Poverty",
+      "phonetic": "/ˈpɑvərti/",
+      "vietnamese": "sự nghèo, kém chất lượng"
+    },
+    {
+      "id": 48,
+      "english": "Charge",
+      "phonetic": "/ʧɑrdʒ/",
+      "vietnamese": "phí, tiền phải trả, giá tiền, bổn phận, trách nhiệm"
+    },
+    {
+      "id": 49,
+      "english": "Emo",
+      "phonetic": "/ˈiːmoʊ/",
+      "vietnamese": "Bản ghi nhớ"
+    },
+    {
+      "id": 50,
+      "english": "Outsource",
+      "phonetic": "/ˈaʊtˌsɔrs/",
+      "vietnamese": "Thuê ngoài"
+    },
+    {
+      "id": 51,
+      "english": "Grant",
+      "phonetic": "/ɡrænt/",
+      "vietnamese": "Trợ cấp, công nhận, tài trợ"
+    },
+    {
+      "id": 52,
+      "english": "Warehouse",
+      "phonetic": "/ˈwerˌhaʊs/",
+      "vietnamese": "Kho chứa đồ"
+    },
+    {
+      "id": 53,
+      "english": "Lease",
+      "phonetic": "/liːs/",
+      "vietnamese": "Cho thuê"
+    },
+    {
+      "id": 54,
+      "english": "In-house",
+      "phonetic": "/ɪn-haʊs/",
+      "vietnamese": "Tiến hành trong một nhóm, một tổ chức"
+    },
+    {
+      "id": 55,
+      "english": "Diversity",
+      "phonetic": "/daɪˈvɜrsəti/",
+      "vietnamese": "Tính đa dạng"
+    },
+    {
+      "id": 56,
+      "english": "Potential",
+      "phonetic": "/pəˈtɛnʃəl/",
+      "vietnamese": "Khả năng, tiềm lực , tiềm tàng"
+    },
+    {
+      "id": 57,
+      "english": "Back-office",
+      "phonetic": "/bæk-ˈɔfɪs/",
+      "vietnamese": "Bộ phận không làm việc trực tiếp với khách hàng"
+    },
+    {
+      "id": 58,
+      "english": "Campaign",
+      "phonetic": "/kæmˈpeɪn/",
+      "vietnamese": "Chiến dịch, cuộc vận động,tham gia chiến dịch"
+    },
+    {
+      "id": 59,
+      "english": "Insecurity",
+      "phonetic": "/ˌɪnsɪˈkjʊrəti/",
+      "vietnamese": "Tính ko an toàn, tình trạng bấp bênh"
+    },
+    {
+      "id": 60,
+      "english": "Insurance provider",
+      "phonetic": "/ɪnˈʃʊrəns prəˈvaɪdər/",
+      "vietnamese": "nhà cung cấp bảo hiểm"
+    },
+    {
+      "id": 61,
+      "english": "Compensation",
+      "phonetic": "/ˌkɑmpənˈseɪʃən/",
+      "vietnamese": "sự đền bù, bồi thường"
+    },
+    {
+      "id": 62,
+      "english": "Formal",
+      "phonetic": "/ˈfɔrməl/",
+      "vietnamese": "sang trọng"
+    },
+    {
+      "id": 63,
+      "english": "Overcharge",
+      "phonetic": "/ˌoʊvərˈʧɑrdʒ/",
+      "vietnamese": "tỉnh quá số tiền"
+    },
+    {
+      "id": 64,
+      "english": "Demonstrate",
+      "phonetic": "/ˈdɛmənˌstreɪt/",
+      "vietnamese": "khuếch trương"
+    },
+    {
+      "id": 65,
+      "english": "Commit",
+      "phonetic": "/kəˈmɪt/",
+      "vietnamese": "Cam kết"
+    },
+    {
+      "id": 66,
+      "english": "Short term cost",
+      "phonetic": "/ʃɔrt tɜrm kost/",
+      "vietnamese": "chi phí ngắn hạn"
+    },
+    {
+      "id": 67,
+      "english": "Long term gain",
+      "phonetic": "/lɔŋ tɜrm ɡeɪn/",
+      "vietnamese": "thành quả lâu dài"
+    },
+    {
+      "id": 68,
+      "english": "Expense",
+      "phonetic": "/ɪkˈspɛns/",
+      "vietnamese": "sự tiêu, phí tổn"
+    },
+    {
+      "id": 69,
+      "english": "Reservation",
+      "phonetic": "/ˌrɛzərˈveɪʃən/",
+      "vietnamese": "sự đặt chỗ trước"
+    },
+    {
+      "id": 70,
+      "english": "Invoice",
+      "phonetic": "/ˈɪnˌvɔɪs/",
+      "vietnamese": "hóa đơn, lập hóa đơn"
+    },
+    {
+      "id": 71,
+      "english": "Bribery",
+      "phonetic": "/ˈbraɪbəri/",
+      "vietnamese": "sự đút lót, sự hối lộ"
+    },
+    {
+      "id": 72,
+      "english": "Corrupt",
+      "phonetic": "/kəˈrʌpt/",
+      "vietnamese": "tham nhũng"
+    },
+    {
+      "id": 73,
+      "english": "Balance of payment",
+      "phonetic": "/ˈbæləns ʌv ˈpeɪmənt/",
+      "vietnamese": "cán cân thanh toán"
+    },
+    {
+      "id": 74,
+      "english": "Balance of trade",
+      "phonetic": "/ˈbæləns ʌv treɪd/",
+      "vietnamese": "cán cân thương mại"
+    },
+    {
+      "id": 75,
+      "english": "Budget",
+      "phonetic": "/ˈbʌdʒɪt/",
+      "vietnamese": "Ngân sách"
+    },
+    {
+      "id": 76,
+      "english": "Cost of borrowing",
+      "phonetic": "/kɔst ʌv ˈbɑroʊɪŋ/",
+      "vietnamese": "chi phí vay"
+    },
+    {
+      "id": 77,
+      "english": "consumer price index",
+      "phonetic": "/kənˈsuːmər praɪs ˈɪndɛks/",
+      "vietnamese": "Chỉ số giá tiêu dùng"
+    },
+    {
+      "id": 78,
+      "english": "Acquire",
+      "phonetic": "/əˈkwaɪr/",
+      "vietnamese": "mua, thôn tỉnh"
+    },
+    {
+      "id": 79,
+      "english": "Acquisition",
+      "phonetic": "/ˌækwɪˈzɪʃən/",
+      "vietnamese": "việc mua lại, việc thôn tỉnh"
+    },
+    {
+      "id": 80,
+      "english": "Assembly line",
+      "phonetic": "/əˈsɛmbli laɪn/",
+      "vietnamese": "Dây chuyền sản xuất"
+    },
+    {
+      "id": 81,
+      "english": "Float",
+      "phonetic": "/floʊt/",
+      "vietnamese": "trôi nổi, thả nổi, niêm yết cổ phiếu; phao bơi"
+    },
+    {
+      "id": 82,
+      "english": "Giant",
+      "phonetic": "/ˈdʒaɪənt/",
+      "vietnamese": "Công ty khổng lồ"
+    },
+    {
+      "id": 83,
+      "english": "sales agent",
+      "phonetic": "/seɪlz ˈeɪdʒənt/",
+      "vietnamese": "đại lý bán hàng"
+    },
+    {
+      "id": 84,
+      "english": "sales department",
+      "phonetic": "/seɪlz dɪˈpɑrtmənt/",
+      "vietnamese": "bộ phận bán hàng, sales manager: giám đốc bán hàng"
+    },
+    {
+      "id": 85,
+      "english": "sales call",
+      "phonetic": "/seɪlz kɔl/",
+      "vietnamese": "cuộc viếng thăm để chào hàng"
+    },
+    {
+      "id": 86,
+      "english": "sales conference",
+      "phonetic": "/seɪlz ˈkɑnfərəns/",
+      "vietnamese": "hội nghị những người bán hàng"
+    },
+    {
+      "id": 87,
+      "english": "sales drive",
+      "phonetic": "/seɪlz draɪv/",
+      "vietnamese": "cuộc chạy đưa bản hàng"
+    },
+    {
+      "id": 88,
+      "english": "sales figures",
+      "phonetic": "/seɪlz ˈfɪɡjərz/",
+      "vietnamese": "số liệu bán hàng"
+    },
+    {
+      "id": 89,
+      "english": "sales forecast",
+      "phonetic": "/seɪlz ˈfɔrˌkæst/",
+      "vietnamese": "dự đoán bán hàng"
+    },
+    {
+      "id": 90,
+      "english": "sales outlet",
+      "phonetic": "/seɪlz ˈaʊtlɪt/",
+      "vietnamese": "đại lý bán hàng"
+    },
+    {
+      "id": 91,
+      "english": "sales promotion",
+      "phonetic": "/seɪlz prəˈmoʊʃən/",
+      "vietnamese": "khuyến mãi giảm giá"
+    },
+    {
+      "id": 92,
+      "english": "sales representative",
+      "phonetic": "/seɪlz ˌrɛprɪˈzɛntətɪv/",
+      "vietnamese": "đại diện bán hàng"
+    },
+    {
+      "id": 93,
+      "english": "sales talk",
+      "phonetic": "/seɪlz tɔk/",
+      "vietnamese": "thương lượng kinh doanh"
+    },
+    {
+      "id": 94,
+      "english": "Retail bank",
+      "phonetic": "/ˈriːteɪl bæŋk/",
+      "vietnamese": "Ngân hàng mua bán lẻ"
+    },
+    {
+      "id": 95,
+      "english": "Commercial bank",
+      "phonetic": "/kəˈmɜrʃəl bæŋk/",
+      "vietnamese": "Ngân hàng thương mại"
+    },
+    {
+      "id": 96,
+      "english": "Central bank",
+      "phonetic": "/ˈsɛntrəl bæŋk/",
+      "vietnamese": "Ngân hàng trung ương"
+    },
+    {
+      "id": 97,
+      "english": "Federal Reserve",
+      "phonetic": "/ˈfɛdərəl rɪˈzɜrv/",
+      "vietnamese": "Cục dự trữ liên bang"
+    },
+    {
+      "id": 98,
+      "english": "Treasuries",
+      "phonetic": "/ˈtrɛʒəriz/",
+      "vietnamese": "Kho bạc"
+    },
+    {
+      "id": 99,
+      "english": "Investment bank",
+      "phonetic": "/ɪnˈvɛstmənt bæŋk/",
+      "vietnamese": "Ngân hàng đầu tư"
+    },
+    {
+      "id": 100,
+      "english": "Building society",
+      "phonetic": "/ˈbɪldɪŋ səˈsaɪəti/",
+      "vietnamese": "Hiệp hội xây dựng"
+    }
   ]
 }

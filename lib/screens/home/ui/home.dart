@@ -4,6 +4,8 @@ import 'package:diccon_evo/screens/setting/ui/settings.dart';
 import 'package:flutter/foundation.dart';
 import '../../components/head_sentence.dart';
 import 'to_dictionary_view_button.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'to_essential_word_view_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -79,45 +81,60 @@ class HomeView extends StatelessWidget {
                   /// Encourage user to use
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 8,
                           ),
-                          child: Column(
-                            children: [
-                              Text(
-                                "fdmmmmmmmmm"
-                                "mmmmmmmmmmmmm"
-                                "mmmmmmmmmmmmmmmmmmmmmmmm"
-                                "mmmmmmmmmmmmmmmmmmmm"
-                                "mmmmmmmmmmmmmmmmmmmmmmmm"
-                                "mmmmmmmmmmmmmmmmmmmmmmm"
-                                "mmmmmmmmmmmmmmmmmmmmmmm"
-                                "mmmmmmmmmmmmmmmmmmmmmf",
-                                softWrap: true,
-                                maxLines: 200,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                          const Text(
+                            "We recognize that application quality is crucial for customer satisfaction. "
+                            "Despite being new with some room for improvement, "
+                            "our development team commits to bi-weekly updates to enhance the user experience. "
+                            "Your feedback is greatly appreciated and drives ongoing improvements for our valued customers.",
+                            softWrap: true,
+                            maxLines: 200,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-
-                        /// Close button
-                        Positioned(
-                            top: 10,
-                            right: 10,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.close,
-                                color: Colors.white,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: InkWell(
+                              onTap: () async {
+                                if (defaultTargetPlatform.isMobile()) {
+                                  final Uri url = Uri.parse(
+                                      'https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo');
+                                  if (!await launchUrl(url,
+                                      mode: LaunchMode.externalApplication)) {
+                                    throw Exception('Could not launch $url');
+                                  }
+                                } else {
+                                  final Uri url = Uri.parse(
+                                      'https://apps.microsoft.com/store/detail/diccon-evo/9NPF4HBMNG5D');
+                                  if (!await launchUrl(url,
+                                      mode: LaunchMode.externalApplication)) {
+                                    throw Exception('Could not launch $url');
+                                  }
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(32),
+                                    color: Colors.orange),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text("Give feedbacks"),
+                                ),
                               ),
-                              onPressed: () {},
-                            )),
-                      ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   //const ListHomeItem(title: 'Practice', icon: Icon(Icons.accessible_sharp)),

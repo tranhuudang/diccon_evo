@@ -30,7 +30,7 @@ class _LearningViewState extends State<LearningView> {
 
   loadData(String topic) async {
     final jsonString =
-        await rootBundle.loadString('assets/3000/school-supplies.json');
+        await rootBundle.loadString('assets/3000/3000_essential_words.json');
     final jsonData = json.decode(jsonString);
     List<EssentialWord> essentialWords = [];
 
