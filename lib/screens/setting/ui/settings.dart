@@ -151,48 +151,64 @@ class _SettingsViewState extends State<SettingsView> {
                         const SizedBox(
                           width: 16,
                         ),
-                        SizedBox(
-                          width: 50,
-                          child: DropdownButton<int>(
-                              isExpanded: true,
-                              borderRadius: BorderRadius.circular(16),
-                              focusColor: Colors.white,
-                              value: state.numberOfSynonyms,
-                              hint: Text('Select a number'.i18n),
-                              onChanged: (int? newValue) {
-                                settingCubit.setNumberOfSynonyms(newValue!);
-                              },
-                              items: [5, 10, 20, 30]
-                                  .map((value) => DropdownMenuItem<int>(
-                                        value: value,
-                                        child: Text(value.toString()),
-                                      ))
-                                  .toList()),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          width: 60,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<int>(
+                                isExpanded: true,
+                                borderRadius: BorderRadius.circular(16),
+                                focusColor: Colors.white,
+                                value: state.numberOfSynonyms,
+                                hint: Text('Select a number'.i18n),
+                                onChanged: (int? newValue) {
+                                  settingCubit.setNumberOfSynonyms(newValue!);
+                                },
+                                items: [5, 10, 20, 30]
+                                    .map((value) => DropdownMenuItem<int>(
+                                  alignment: Alignment.center,
+                                          value: value,
+                                          child: Text(value.toString()),
+                                        ))
+                                    .toList()),
+                          ),
                         ),
                       ]),
+                      SizedBox(height: 4,),
                       Row(
                         children: [
                           Text("Number of antonyms".i18n),
                           const SizedBox(
                             width: 16,
                           ),
-                          SizedBox(
-                            width: 50,
-                            child: DropdownButton<int>(
-                                borderRadius: BorderRadius.circular(16),
-                                isExpanded: true,
-                                focusColor: Colors.white,
-                                value: state.numberOfAntonyms,
-                                hint: Text('Select a number'.i18n),
-                                onChanged: (int? newValue) {
-                                  settingCubit.setNumberOfAntonyms(newValue!);
-                                },
-                                items: [5, 10, 20, 30]
-                                    .map((value) => DropdownMenuItem<int>(
-                                          value: value,
-                                          child: Text(value.toString()),
-                                        ))
-                                    .toList()),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).highlightColor,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            width: 60,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<int>(
+                                alignment: Alignment.center,
+                                  borderRadius: BorderRadius.circular(16),
+                                  isExpanded: true,
+                                  focusColor: Colors.white,
+                                  value: state.numberOfAntonyms,
+                                  hint: Text('Select a number'.i18n),
+                                  onChanged: (int? newValue) {
+                                    settingCubit.setNumberOfAntonyms(newValue!);
+                                  },
+                                  items: [5, 10, 20, 30]
+                                      .map((value) => DropdownMenuItem<int>(
+                                    alignment: Alignment.center,
+                                            value: value,
+                                            child: Text(value.toString()),
+                                          ))
+                                      .toList()),
+                            ),
                           ),
                         ],
                       )

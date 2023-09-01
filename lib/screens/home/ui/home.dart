@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
                 : const SizedBox.shrink(),
             Container(
               padding: EdgeInsets.all(16),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Head welcome to essential tab
@@ -74,6 +74,51 @@ class HomeView extends StatelessWidget {
                   ListHomeItem(
                     title: "History",
                     icon: Icon(Icons.history), /*trailing: "2000",*/
+                  ),
+
+                  /// Encourage user to use
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                "fdmmmmmmmmm"
+                                "mmmmmmmmmmmmm"
+                                "mmmmmmmmmmmmmmmmmmmmmmmm"
+                                "mmmmmmmmmmmmmmmmmmmm"
+                                "mmmmmmmmmmmmmmmmmmmmmmmm"
+                                "mmmmmmmmmmmmmmmmmmmmmmm"
+                                "mmmmmmmmmmmmmmmmmmmmmmm"
+                                "mmmmmmmmmmmmmmmmmmmmmf",
+                                softWrap: true,
+                                maxLines: 200,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        /// Close button
+                        Positioned(
+                            top: 10,
+                            right: 10,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.close,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {},
+                            )),
+                      ],
+                    ),
                   ),
                   //const ListHomeItem(title: 'Practice', icon: Icon(Icons.accessible_sharp)),
                   //const ListHomeItem(title: 'Community', icon: Icon(Icons.accessible_sharp)),

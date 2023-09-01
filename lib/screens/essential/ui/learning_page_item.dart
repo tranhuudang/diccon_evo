@@ -7,26 +7,23 @@ class LearningPageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(32),
-              color: Theme.of(context).primaryColor),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  word,
-                  style: TextStyle(fontSize: 30),
-                ),
-                Text(phonetic),
-                Text(vietnamese),
-              ],
-            ),
-          )),
-    );
+    return Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32),
+            color: Theme.of(context).primaryColor),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                word,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              Text(phonetic),
+              Text(vietnamese),
+            ],
+          ),
+        ));
   }
 }
