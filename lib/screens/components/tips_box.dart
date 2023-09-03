@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class GuidanceBox extends StatelessWidget {
+class TipsBox extends StatelessWidget {
   final List<Widget> children;
   final String? title;
-  const GuidanceBox({
+  const TipsBox({
     super.key,
     required this.children,
     this.title,

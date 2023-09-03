@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../dictionary/ui/dictionary.dart';
+import '../../../dictionary/ui/dictionary.dart';
 class ToDictionaryViewButton extends StatelessWidget {
   const ToDictionaryViewButton({
     super.key,

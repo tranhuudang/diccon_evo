@@ -3,13 +3,13 @@ import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/screens/setting/ui/settings.dart';
 import 'package:flutter/foundation.dart';
 import '../../components/head_sentence.dart';
-import 'to_dictionary_view_button.dart';
+import 'components/to_dictionary_view_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'to_essential_word_view_button.dart';
+import 'components/to_essential_word_view_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'list_home_item.dart';
+import 'components/list_home_item.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -94,8 +94,6 @@ class HomeView extends StatelessWidget {
                           ),
                           const Text(
                             "We recognize that application quality is crucial for customer satisfaction. "
-                            "Despite being new with some room for improvement, "
-                            "our development team commits to bi-weekly updates to enhance the user experience. "
                             "Your feedback is greatly appreciated and drives ongoing improvements for our valued customers.",
                             softWrap: true,
                             maxLines: 200,

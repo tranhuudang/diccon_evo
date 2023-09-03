@@ -11,10 +11,13 @@ class EssentialWord{
     phonetic = json['phonetic'].toString();
     vietnamese = json['vietnamese'].toString();
   }
-}
 
-// Word.fromJson(Map<String, dynamic> json) {
-// word = json['word'].toString().trim();
-// pronunciation = json["pronunciation"].toString().trim();
-// meaning = json['meaning'].toString().trim();
-// }
+  Map<String, dynamic> toJson(){
+    return {
+      'id' : id,
+      'english' : english,
+      'phonetic' : phonetic,
+      'vietnamese' : vietnamese
+    };
+  }
+}

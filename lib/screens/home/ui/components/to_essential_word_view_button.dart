@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../essential/ui/essential.dart';
+import '../../../essential/ui/essential.dart';
 
 class ToEssentialWordView extends StatelessWidget {
   const ToEssentialWordView({
@@ -32,7 +32,7 @@ class ToEssentialWordView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "2423",
+                      "1848",
                       style:
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
@@ -41,7 +41,7 @@ class ToEssentialWordView extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      "3000 Essential English Words",
+                      "1848 Essential English Words",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],

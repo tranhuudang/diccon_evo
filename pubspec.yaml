@@ -103,7 +103,7 @@ flutter:
     - assets/thesaurus/english_synonyms.json
     - assets/thesaurus/english_antonyms.json
     - assets/badges/
-    - assets/3000/
+    - assets/essential/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

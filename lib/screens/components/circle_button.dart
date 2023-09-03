@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+class CircleButtonBar extends StatelessWidget {
+  final List<Widget> children;
+  const CircleButtonBar({
+    super.key,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: children,
+      ),
+    );
+  }
+}
+
+
+
 class CircleButton extends StatefulWidget {
   final IconData iconData;
   final Color? backgroundColor;

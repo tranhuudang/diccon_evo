@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../word_history/ui/word_history.dart';
+import '../../../word_history/ui/word_history.dart';
 class ListHomeItem extends StatelessWidget {
   final String title;
   final Icon? icon;
