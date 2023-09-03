@@ -11,16 +11,15 @@ import '../../components/circle_button.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'components/learning_page_item.dart';
 
-class LearningView extends StatefulWidget {
-  final String topic;
+class FavouriteReviewView extends StatefulWidget {
   final List<EssentialWord> listEssentialWord;
-  const LearningView({super.key, required this.listEssentialWord, required this.topic});
+  const FavouriteReviewView({super.key, required this.listEssentialWord});
 
   @override
-  State<LearningView> createState() => _LearningViewState();
+  State<FavouriteReviewView> createState() => _FavouriteReviewViewState();
 }
 
-class _LearningViewState extends State<LearningView> {
+class _FavouriteReviewViewState extends State<FavouriteReviewView> {
   @override
   void initState() {
     // TODO: implement initState
@@ -49,10 +48,10 @@ class _LearningViewState extends State<LearningView> {
                 ),
 
                 /// Topic
-                 HeadSentence(listText: [
-                  "You're studying",
-                  "the subject of",
-                  (widget.topic)
+                const HeadSentence(listText: [
+                  "Reinforce",
+                  "your",
+                  "knowledge"
                 ]),
                 /// List page word
                 Padding(
@@ -123,12 +122,12 @@ class _LearningViewState extends State<LearningView> {
                     //       child: const Center(child: Text("Mark as done"))),
                     // ),
                     /// Heart button
-                    CircleButton(
-                      iconData: FontAwesomeIcons.heart,
-                      onTap: () {
-                        EssentialManager.saveEssentialWordToFavourite(widget.listEssentialWord[_currentIndex]);
-                      },
-                    ),
+                    // CircleButton(
+                    //   iconData: FontAwesomeIcons.heart,
+                    //   onTap: () {
+                    //     EssentialManager.saveEssentialWordToFavourite(widget.listEssentialWord[_currentIndex]);
+                    //   },
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 16,),
@@ -136,12 +135,12 @@ class _LearningViewState extends State<LearningView> {
                   title: "Tips",
                   children:
                   ["Read whenever possible.","Write down new words.","Vocally practice new words.","Visually remember words.","Play word games online."].map((text){
-                  return Row(
-                    children: [
-                      const Text("- "),
-                      Text(text, style: TextStyle(),),
-                    ],
-                  );
+                    return Row(
+                      children: [
+                        const Text("- "),
+                        Text(text, style: TextStyle(),),
+                      ],
+                    );
                   }).toList(),
                 )
               ],

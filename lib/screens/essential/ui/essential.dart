@@ -1,15 +1,21 @@
 import 'dart:convert';
 import 'dart:math';
-
+import 'dart:io';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../helpers/essential_manager.dart';
+import '../../../helpers/file_handler.dart';
+import '../../../helpers/notify.dart';
 import '../../../models/essential_word.dart';
 import '../../components/circle_button.dart';
 import '../../components/tips_box.dart';
 import '../../components/head_sentence.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'favourite_review.dart';
 
 class EssentialView extends StatefulWidget {
   const EssentialView({super.key});
@@ -88,17 +94,7 @@ class _EssentialViewState extends State<EssentialView> {
     super.initState();
   }
 
-  Future<List<EssentialWord>> loadEssentialData(String topic) async {
-    final jsonString = await rootBundle
-        .loadString('assets/essential/3000_essential_words.json');
-    final jsonData = json.decode(jsonString);
-    List<EssentialWord> essentialWords = [];
 
-    for (var essentialData in jsonData[topic]!) {
-      essentialWords.add(EssentialWord.fromJson(essentialData));
-    }
-    return essentialWords;
-  }
 
   late String _selectedTopic;
 
@@ -151,7 +147,7 @@ class _EssentialViewState extends State<EssentialView> {
                         iconData: FontAwesomeIcons.play,
                         onTap: () async {
                           if (_selectedTopic != null) {
-                            await loadEssentialData(_selectedTopic).then(
+                            await EssentialManager.loadEssentialData(_selectedTopic).then(
                               (listEssential) => {
                                 Navigator.push(
                                   context,
@@ -171,19 +167,29 @@ class _EssentialViewState extends State<EssentialView> {
                       const SizedBox(
                         width: 8,
                       ),
-                      CircleButton(
-                        iconData: Icons.repeat,
-                        onTap: () {
-                          print("button clicked");
-                        },
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
+                      /// Favourite button
                       CircleButton(
                         iconData: FontAwesomeIcons.heart,
-                        onTap: () {
-                          print("button clicked");
+                        onTap: () async {
+                            await EssentialManager.readFavouriteEssential().then(
+                                  (listFavourite) =>
+                                  {
+                                    if (listFavourite.isNotEmpty){
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              FavouriteReviewView(
+                                                listEssentialWord: listFavourite,
+                                              ),
+                                        ),
+                                      )
+                                    } else {
+                                      Notify.showAlertDialog(context, "Favourite Chamber is empty", "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
+                                    },
+                                  }
+                            );
+
                         },
                       ),
                     ],
@@ -230,23 +236,24 @@ class _EssentialViewState extends State<EssentialView> {
 
               /// Guidance box
               const TipsBox(
+                title: "Guild" ,
                 children: [
-                  Row(
-                    children: [
-                      Icon(Icons.play_arrow),
-                      Text("Start to learn:"),
-                    ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      children: [
+                        Icon(FontAwesomeIcons.play, size: 16),
+                        SizedBox(width: 8),
+                        Text("Start your journey exploring new words."),
+                      ],
+                    ),
                   ),
+
                   Row(
                     children: [
-                      Icon(Icons.play_arrow),
-                      Text("Review:"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.play_arrow),
-                      Text("Strengthen:"),
+                      Icon(FontAwesomeIcons.heart, size: 16),
+                      SizedBox(width: 8),
+                      Text("Revise the words you enjoy."),
                     ],
                   ),
                 ],

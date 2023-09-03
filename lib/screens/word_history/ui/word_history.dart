@@ -1,4 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/target_platform.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../../../models/word.dart';
@@ -8,8 +10,8 @@ import 'history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class HistoryView extends StatelessWidget {
-  const HistoryView({super.key});
+class WordHistoryView extends StatelessWidget {
+  const WordHistoryView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +88,12 @@ class HistoryHeader extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          defaultTargetPlatform.isMobile() ?
           CircleButton(
               iconData: Icons.arrow_back,
               onTap: () {
                 Navigator.pop(context);
-              }),
+              }): const SizedBox.shrink(),
           const SizedBox(width: 16,),
           Text("History".i18n, style: const TextStyle(fontSize: 28)),
           Spacer(),

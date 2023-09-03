@@ -7,7 +7,7 @@ import '../extensions/target_platform.dart';
 class DarkColors {
   static const primaryColor = Colors.blue;
   static const splashColor = Color(0x14B7DCFB);
-  static const cardColor = Color(0xFF202020);
+  static const cardColor = Color(0xFF272727);
   static const scaffoldBackgroundColorMobile = Color(0xFF0F1314);
   static const scaffoldBackgroundColorDesktop = Color(0x50302D2B);
   static const labelMedium = Color(0xFFECEDED);

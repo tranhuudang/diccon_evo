@@ -15,7 +15,7 @@ class ListHomeItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(32),
       onTap: (){
         Navigator.push(
-            context, MaterialPageRoute(builder:(context) => HistoryView(),)
+            context, MaterialPageRoute(builder:(context) => WordHistoryView(),)
         );
       },
       child: Column(

@@ -2,10 +2,53 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:diccon_evo/models/essential_word.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import 'file_handler.dart';
 
 class EssentialManager {
+
+
+
+
+  static Future<List<EssentialWord>> loadEssentialData(String topic) async {
+    final jsonString = await rootBundle
+        .loadString('assets/essential/3000_essential_words.json');
+    final jsonData = json.decode(jsonString);
+    List<EssentialWord> essentialWords = [];
+
+    for (var essentialData in jsonData[topic]!) {
+      essentialWords.add(EssentialWord.fromJson(essentialData));
+    }
+    return essentialWords;
+  }
+
+  static Future<List<EssentialWord>> readFavouriteEssential() async {
+    final filePath = await FileHandler("essential_favourite.json").getLocalFilePath();
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<EssentialWord> words =
+          json.map((e) => EssentialWord.fromJson(e)).toList().cast<EssentialWord>();
+          return words;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't read history.json. Error detail: $e");
+      }
+      return [];
+    }
+  }
+
+
   static Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
     final filePath = await FileHandler("essential_favourite.json")
         .getLocalFilePath();
@@ -44,7 +87,7 @@ class EssentialManager {
     }
   }
 
-  void removeAWordOutOfFavourite(String wordEnglishName) async {
+  static removeAWordOutOfFavourite(String wordEnglishName) async {
     final filePath = await FileHandler("essential_favourite.json")
         .getLocalFilePath();
     try {

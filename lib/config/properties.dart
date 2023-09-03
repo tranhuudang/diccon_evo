@@ -7,9 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:diccon_evo/models/user_info.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
 
+import '../screens/essential/ui/essential.dart';
+import '../screens/word_history/ui/word_history.dart';
+
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
-enum AppViews {essentialView, settingsView }
+enum AppViews {homeView, settingsView }
 
 class Level {
   static String beginner = "beginner",

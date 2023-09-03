@@ -11,6 +11,8 @@ import '../../components/side_navigation_bar.dart';
 import '../../../config/properties.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:unicons/unicons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../essential/ui/essential.dart';
 
 class HomeControlView extends StatefulWidget {
   const HomeControlView({Key? key}) : super(key: key);
@@ -142,23 +144,14 @@ class _HomeControlViewState extends State<HomeControlView> with WindowListener {
                         const Divider(),
 
                         NavigationItem(
-                          title: "Essential".i18n,
+                          title: "Home".i18n,
                           isExpanded: isExpanded,
                           icon: UniconsLine.estate,
                           onPressed: () {
                             _jumpToSelectedPage(
-                                AppViews.essentialView.index, false);
+                                AppViews.homeView.index, false);
                           },
                         ),
-                        // const Divider(),
-                        // NavigationItem(
-                        //   title: "History".i18n,
-                        //   isExpanded: isExpanded,
-                        //   icon: Icons.history,
-                        //   onPressed: () {
-                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryView()));
-                        //   },
-                        // ),
 
                         const Spacer(),
                         const Divider(),
