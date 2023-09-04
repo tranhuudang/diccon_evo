@@ -60,6 +60,10 @@ class CustomTheme {
       primaryColor: LightColors.primaryColor,
       scaffoldBackgroundColor: LightColors.scaffoldBackgroundColor,
       primaryTextTheme: TextTheme(
+        labelLarge: const TextStyle(
+          color: Colors.red,
+          fontSize: 40
+        ),
           labelMedium: const TextStyle(
             color: LightColors.labelMedium,
           ),

@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:diccon_evo/screens/article/cubits/article_history_list_cubit.dart';
+import 'package:diccon_evo/screens/article/cubits/article_list_cubit.dart';
 import 'package:diccon_evo/screens/components/clickable_word/cubit/clickable_word_cubit.dart';
 import 'package:diccon_evo/screens/components/quote_box/bloc/quote_bloc.dart';
 import 'package:diccon_evo/screens/home_control/ui/home_control.dart';
@@ -34,7 +36,7 @@ void main() async {
         .setMinimumSize(const Size(Properties.minWidth, Properties.minHeight));
     WindowManager.instance.setTitle(Properties.diccon);
     WindowManager.instance
-        .setMaximumSize(const Size(Properties.minWidth+100, 10000));
+        .setMaximumSize(const Size(Properties.minWidth + 100, 10000));
     WindowManager.instance.setTitle(Properties.diccon);
   }
 
@@ -50,6 +52,12 @@ class ProgramRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<ArticleListCubit>(
+          create: (context) => ArticleListCubit(),
+        ),
+        BlocProvider<ArticleHistoryListCubit>(
+          create: (context) => ArticleHistoryListCubit(),
+        ),
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
         BlocProvider<HistoryListCubit>(create: (context) => HistoryListCubit()),
         BlocProvider<SettingCubit>(

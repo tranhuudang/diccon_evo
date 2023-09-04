@@ -7,6 +7,7 @@ class FileHandler {
   final String fileName;
   FileHandler(this.fileName);
 
+
   /// Download provided [fileName] from a [url] and save it to default Application Document Directory in the platform
   ///
   /// Returns a [Boolean] value as true if the process is completed without error.

@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/setting/ui/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/article.dart';
 import '../models/word.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/models/user_info.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
-
-import '../screens/essential/ui/essential.dart';
-import '../screens/word_history/ui/word_history.dart';
 
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
@@ -22,6 +19,9 @@ class Level {
 }
 
 class Properties {
+  /// Manually change this version base on commit count
+  static String version = "v134";
+
   static UserInfo userInfo = UserInfo("", "", "", "");
 
   static List<Word> wordList = [];
@@ -43,8 +43,7 @@ class Properties {
 
   static List<Widget> pages = const [HomeView(), SettingsView()];
 
-  /// Manually change this version base on commit count
-  static String version = "v133";
+
   static PageController pageController = PageController();
 
   static const double minWidth = 400;
@@ -60,11 +59,20 @@ class Properties {
   static const String wordHistoryFileName = 'history.json';
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
+  static const String articleHistoryFileName = 'article_history.json';
+  static List<Article> defaultArticleList = [];
+  // All view in application
+  static double defaultReadingFontSizeSliderValue = 0.2;
+  static double defaultReadingFontSize = 16;
 
-  static void saveSettings(
+  static void saveSettings(double? newReadingFontSize,
+      double? newReadingFontSizeSliderValue,
       int? newNumberOfSynonyms,
       int? newNumberOfAntonyms) async {
     var prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble(
+        'readingFontSize', newReadingFontSize ?? defaultReadingFontSize);
+    await prefs.setDouble('readingFontSizeSliderValue',   newReadingFontSizeSliderValue ?? defaultReadingFontSizeSliderValue);
     await prefs.setInt(
         'numberOfSynonyms', newNumberOfSynonyms ?? defaultNumberOfSynonyms);
     await prefs.setInt(
@@ -77,6 +85,11 @@ class Properties {
     Completer complete = Completer();
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
+    defaultReadingFontSize =
+        prefs.getDouble('readingFontSize') ?? defaultReadingFontSize;
+    defaultReadingFontSizeSliderValue =
+        prefs.getDouble('readingFontSizeSliderValue') ??
+            defaultReadingFontSizeSliderValue;
     defaultNumberOfSynonyms =
         prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
     defaultNumberOfAntonyms =

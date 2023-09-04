@@ -28,7 +28,7 @@ class LearningPageItem extends StatelessWidget {
                 Text(
                   word,
                   style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
+                      fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 Text(phonetic),
                 Text(vietnamese),

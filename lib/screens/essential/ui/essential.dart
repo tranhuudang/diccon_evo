@@ -1,15 +1,9 @@
-import 'dart:convert';
 import 'dart:math';
-import 'dart:io';
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../helpers/essential_manager.dart';
-import '../../../helpers/file_handler.dart';
 import '../../../helpers/notify.dart';
-import '../../../models/essential_word.dart';
 import '../../components/circle_button.dart';
 import '../../components/tips_box.dart';
 import '../../components/head_sentence.dart';
@@ -124,19 +118,19 @@ class _EssentialViewState extends State<EssentialView> {
               ),
 
               /// Head sentence
-              const HeadSentence(
-                listText: ["Nothing", "Worth Doing", "Ever", "Came Easy"],
+               HeadSentence(
+                listText: ["Nothing".i18n, "Worth Doing".i18n, "Ever".i18n, "Came Easy".i18n],
               ),
 
               /// Sub sentence
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
-                child: const Text(
+                child:  Text(
                     "Mastering 1848 core English words fosters clear communication. "
                     "Enhanced vocabulary aids reading, writing, speaking, and understanding. "
                     "It facilitates meaningful interactions, empowers expression, "
-                    "and broadens access to information and opportunities."),
+                    "and broadens access to information and opportunities.".i18n),
               ),
               Row(
                 children: [
@@ -185,7 +179,7 @@ class _EssentialViewState extends State<EssentialView> {
                                         ),
                                       )
                                     } else {
-                                      Notify.showAlertDialog(context, "Favourite Chamber is empty", "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
+                                      Notify.showAlertDialog(context, "Favourite Chamber is empty".i18n, "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
                                     },
                                   }
                             );
@@ -215,7 +209,7 @@ class _EssentialViewState extends State<EssentialView> {
                           items: _listTopic.map((topic) {
                             return DropdownMenuItem(
                               value: topic,
-                              child: Text(topic),
+                              child: Text(topic, style: Theme.of(context).textTheme.labelLarge,),
                             );
                           }).toList(),
                           onChanged: (topic) {
@@ -235,25 +229,25 @@ class _EssentialViewState extends State<EssentialView> {
               ),
 
               /// Guidance box
-              const TipsBox(
-                title: "Guild" ,
+               TipsBox(
+                title: "Guid".i18n ,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Row(
                       children: [
-                        Icon(FontAwesomeIcons.play, size: 16),
-                        SizedBox(width: 8),
-                        Text("Start your journey exploring new words."),
+                        const Icon(FontAwesomeIcons.play, size: 16),
+                        const SizedBox(width: 8),
+                        Text("Start your journey exploring new words.".i18n),
                       ],
                     ),
                   ),
 
                   Row(
                     children: [
-                      Icon(FontAwesomeIcons.heart, size: 16),
-                      SizedBox(width: 8),
-                      Text("Revise the words you enjoy."),
+                      const Icon(FontAwesomeIcons.heart, size: 16),
+                      const SizedBox(width: 8),
+                      Text("Revise the words you enjoy.".i18n),
                     ],
                   ),
                 ],

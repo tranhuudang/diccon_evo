@@ -48,10 +48,10 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                 ),
 
                 /// Topic
-                const HeadSentence(listText: [
-                  "Reinforce",
-                  "your",
-                  "knowledge"
+                 HeadSentence(listText: [
+                  "Reinforce".i18n,
+                  "your".i18n,
+                  "knowledge".i18n
                 ]),
                 /// List page word
                 Padding(
@@ -132,9 +132,9 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                 ),
                 const SizedBox(height: 16,),
                 TipsBox(
-                  title: "Tips",
+                  title: "Tips".i18n,
                   children:
-                  ["Read whenever possible.","Write down new words.","Vocally practice new words.","Visually remember words.","Play word games online."].map((text){
+                  ["Read whenever possible.".i18n,"Write down new words.".i18n,"Vocally practice new words.".i18n,"Visually remember words.".i18n,"Play word games online.".i18n].map((text){
                     return Row(
                       children: [
                         const Text("- "),

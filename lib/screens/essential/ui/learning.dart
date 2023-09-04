@@ -35,7 +35,7 @@ class _LearningViewState extends State<LearningView> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,8 +50,8 @@ class _LearningViewState extends State<LearningView> {
 
                 /// Topic
                  HeadSentence(listText: [
-                  "You're studying",
-                  "the subject of",
+                  "You're studying".i18n,
+                  "the subject of".i18n,
                   (widget.topic)
                 ]),
                 /// List page word
@@ -90,7 +90,7 @@ class _LearningViewState extends State<LearningView> {
                           iconData: FontAwesomeIcons.chevronLeft,
                           onTap: () {
                             _pageViewController.previousPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
                           },
@@ -102,7 +102,7 @@ class _LearningViewState extends State<LearningView> {
                           iconData: FontAwesomeIcons.chevronRight,
                           onTap: () {
                             _pageViewController.nextPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
                           },
@@ -133,9 +133,9 @@ class _LearningViewState extends State<LearningView> {
                 ),
                 const SizedBox(height: 16,),
                 TipsBox(
-                  title: "Tips",
+                  title: "Tips".i18n,
                   children:
-                  ["Read whenever possible.","Write down new words.","Vocally practice new words.","Visually remember words.","Play word games online."].map((text){
+                  ["Read whenever possible.".i18n,"Write down new words.".i18n,"Vocally practice new words.".i18n,"Visually remember words.".i18n,"Play word games online.".i18n].map((text){
                   return Row(
                     children: [
                       const Text("- "),

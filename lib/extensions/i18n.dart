@@ -18,6 +18,132 @@ extension Localization on String {
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
 
   static const _t = Translations.from("en_us", {
+    "Reinforce": {
+      "en_us": "Reinforce",
+      "vi_vi": "Củng cố",
+    },
+    "your": {
+      "en_us": "your",
+      "vi_vi": "vốn kiến thức",
+    },
+    "knowledge": {
+      "en_us": "knowledge",
+      "vi_vi": "của bạn",
+    },
+    "Guid": {
+      "en_us": "Guid",
+      "vi_vi": "Chỉ dẫn",
+    },
+    "We recognize that application quality is crucial for customer satisfaction. Your feedback is greatly appreciated and drives ongoing improvements for our valued customers.":
+        {
+      "en_us":
+          "We recognize that application quality is crucial for customer satisfaction. Your feedback is greatly appreciated and drives ongoing improvements for our valued customers.",
+      "vi_vi":
+          "Chúng tôi nhận thấy rằng chất lượng ứng dụng rất quan trọng để đảm bảo sự hài lòng của khách hàng. Những phản hồi của bạn là nhân tố quan trọng và là động lực để chúng tôi liên tục cải thiện sản phẩm và dịch vụ của mình.",
+    },
+    "Give feedbacks": {
+      "en_us": "Give feedbacks",
+      "vi_vi": "Gửi phản hồi",
+    },
+    "You're studying": {
+      "en_us": "You're studying",
+      "vi_vi": "Bạn đang học",
+    },
+    "the subject of": {
+      "en_us": "the subject of",
+      "vi_vi": "về chủ đề",
+    },
+    "Tips": {
+      "en_us": "Tips",
+      "vi_vi": "Mẹo nhỏ",
+    },
+    "Read whenever possible.": {
+      "en_us": "Read whenever possible.",
+      "vi_vi": "Đọc mọi lúc mọi nơi.",
+    },
+    "Write down new words.": {
+      "en_us": "Write down new words.",
+      "vi_vi": "Viết từ mới ra giấy.",
+    },
+    "Vocally practice new words.": {
+      "en_us": "Vocally practice new words.",
+      "vi_vi": "Đọc thành tiếng về từ đó.",
+    },
+    "Visually remember words.": {
+      "en_us": "Visually remember words.",
+      "vi_vi": "Liên tưởng tới hình ảnh về một từ.",
+    },
+    "Play word games online.": {
+      "en_us": "Play word games online.",
+      "vi_vi": "Chơi trò chơi đố chữ luyện từ.",
+    },
+    "Empower": {
+      "en_us": "Empower",
+      "vi_vi": "Cải thiện nhanh",
+    },
+    "Your English": {
+      "en_us": "Your English",
+      "vi_vi": "trình độ",
+    },
+    "Proficiency": {
+      "en_us": "Proficiency",
+      "vi_vi": "Tiếng Anh",
+    },
+    "Nothing": {
+      "en_us": "Nothing",
+      "vi_vi": "Không có điều gì",
+    },
+    "Worth Doing": {
+      "en_us": "Worth Doing",
+      "vi_vi": "đáng làm",
+    },
+    "Ever": {
+      "en_us": "Ever",
+      "vi_vi": "mà lại",
+    },
+    "Came Easy": {
+      "en_us": "Came Easy",
+      "vi_vi": "dễ dàng cả",
+    },
+    "Mastering 1848 core English words fosters clear communication. Enhanced vocabulary aids reading, writing, speaking, and understanding. It facilitates meaningful interactions, empowers expression, and broadens access to information and opportunities.":
+        {
+      "en_us":
+          "Mastering 1848 core English words fosters clear communication. Enhanced vocabulary aids reading, writing, speaking, and understanding. It facilitates meaningful interactions, empowers expression, and broadens access to information and opportunities.",
+      "vi_vi":
+          "Nắm vững 1848 từ tiếng Anh cốt lõi sẽ thúc đẩy sự giao tiếp rõ ràng. Tăng vốn từ vựng giúp người học cải thiện khả năng đọc, viết, nói và hiểu. Việc này tạo điều kiện cho các cuộc trò chuyện mang nhiều màu sắc, tăng cường khả năng diễn đạt của người nói trong nhiều hoàn cảnh khác nhau.",
+    },
+    "1848 Essential English Words": {
+      "en_us": "1848 Essential English Words",
+      "vi_vi": "1848 Từ Tiếng Anh Thông Dụng",
+    },
+    "Reading Chamber": {
+      "en_us": "Reading Chamber",
+      "vi_vi": "Phòng đọc",
+    },
+    "Dictionary History": {
+      "en_us": "Dictionary History",
+      "vi_vi": "Lịch sử tra cứu",
+    },
+    "Reading History": {
+      "en_us": "Reading History",
+      "vi_vi": "Lịch sử phòng đọc",
+    },
+    "Start your journey exploring new words.": {
+      "en_us": "Start your journey exploring new words.",
+      "vi_vi": "Bắt đầu cuộc hành trình khám phá từ mới.",
+    },
+    "Revise the words you enjoy.": {
+      "en_us": "Revise the words you enjoy.",
+      "vi_vi": "Hồi tưởng lại những gì bạn yêu thích.",
+    },
+    "Other tools": {
+      "en_us": "Other tools",
+      "vi_vi": "Khác",
+    },
+    "words to learn": {
+      "en_us": "words to learn",
+      "vi_vi": "từ để học",
+    },
     "Dictionary": {
       "en_us": "Dictionary",
       "vi_vi": "Từ điển",

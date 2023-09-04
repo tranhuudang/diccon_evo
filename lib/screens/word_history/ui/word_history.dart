@@ -1,14 +1,11 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/extensions/target_platform.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../../../models/word.dart';
-import '../../components/circle_button.dart';
 import '../cubit/word_history_list_cubit.dart';
+import 'components/history_header.dart';
 import 'history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class WordHistoryView extends StatelessWidget {
   const WordHistoryView({super.key});
@@ -22,7 +19,7 @@ class WordHistoryView extends StatelessWidget {
           builder: (context, state) {
             if (state.isEmpty) {
               historyListCubit.loadHistory();
-              return   Column(
+              return Column(
                 children: [
                   /// Header
                   HistoryHeader(historyListCubit: historyListCubit),
@@ -30,20 +27,20 @@ class WordHistoryView extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
-                        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                          const Icon(
-                            Icons.broken_image,
-                            color: Colors.black45,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            "History is empty".i18n,
-                            style: TextStyle(color: Colors.black45, fontSize: 18),
-                          )
-                        ]),
+                        Icon(
+                          Icons.broken_image,
+                          color: Theme.of(context).cardColor,
+                          size: 100,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "History is empty".i18n,
+                          style: TextStyle(
+                              color: Theme.of(context).highlightColor,
+                              fontSize: 18),
+                        ),
                       ],
                     ),
                   ),
@@ -72,54 +69,3 @@ class WordHistoryView extends StatelessWidget {
     );
   }
 }
-
-class HistoryHeader extends StatelessWidget {
-  const HistoryHeader({
-    super.key,
-    required this.historyListCubit,
-  });
-
-  final HistoryListCubit historyListCubit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 16, left: 16, bottom : 16, right: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          defaultTargetPlatform.isMobile() ?
-          CircleButton(
-              iconData: Icons.arrow_back,
-              onTap: () {
-                Navigator.pop(context);
-              }): const SizedBox.shrink(),
-          const SizedBox(width: 16,),
-          Text("History".i18n, style: const TextStyle(fontSize: 28)),
-          Spacer(),
-          IconButton(
-              onPressed: () => historyListCubit.sortAlphabet(),
-              icon: const Icon(Icons.sort_by_alpha)),
-          PopupMenuButton(
-            //splashRadius: 10.0,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Theme.of(context).dividerColor),
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child:  Text("Reverse List".i18n),
-                onTap: () => historyListCubit.sortReverse(),
-              ),
-              PopupMenuItem(
-                child:  Text("Clear all".i18n),
-                onTap: () => historyListCubit.clearHistory(),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-

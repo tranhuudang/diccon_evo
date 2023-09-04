@@ -2,99 +2,200 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/screens/setting/ui/settings.dart';
 import 'package:flutter/foundation.dart';
+import '../../article/ui/article_history.dart';
+import '../../article/ui/article_list.dart';
 import '../../components/head_sentence.dart';
-import 'components/to_dictionary_view_button.dart';
+import '../../dictionary/ui/dictionary.dart';
+import '../../essential/ui/essential.dart';
+import '../../word_history/ui/word_history.dart';
+import 'components/feature_button.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'components/to_essential_word_view_button.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'components/list_home_item.dart';
+import 'package:unicons/unicons.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = GoogleFonts.oxygen(
-        textStyle: const TextStyle(letterSpacing: .5, fontSize: 36));
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: [
             /// Menu button
-            defaultTargetPlatform.isMobile()
-                ? Positioned(
-                    right: 16,
-                    top: 16,
-                    child: PopupMenuButton(
-                      icon: const Icon(Icons.menu),
-                      //splashRadius: 10.0,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Theme.of(context).dividerColor),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                            child: Text("Settings".i18n),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SettingsView()));
-                            }),
-                      ],
+            Positioned(
+              right: 16,
+              top: 16,
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Theme.of(context).cardColor,
+                ),
+                child: PopupMenuButton(
+                  icon: const Icon(Icons.menu),
+                  //splashRadius: 10.0,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Theme.of(context).dividerColor),
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text("Settings".i18n),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SettingsView()));
+                      },
                     ),
-                  )
-                : const SizedBox.shrink(),
+                  ],
+                ),
+              ),
+            ),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Head welcome to essential tab
-                  HeadSentence(
-                      listText: ["Empower", "Your English", "Proficiency"]),
+                   HeadSentence(
+                      listText: ["Empower".i18n, "Your English".i18n, "Proficiency".i18n]),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
-                    //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ///  phrasal verb
-                      ToDictionaryViewButton(),
-                      SizedBox(
+                      FeatureButton(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DictionaryView(),
+                            ),
+                          );
+                        },
+                        child:  Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Diccon chat-based",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            Text(
+                              "Dictionary".i18n,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
                         width: 8,
                       ),
-                      ToEssentialWordView(),
+                      FeatureButton(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const EssentialView()));
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "1848",
+                              style: TextStyle(
+                                  fontSize: 32, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "words to learn".i18n,
+                            ),
+                            Spacer(),
+                            Text(
+                              "1848 Essential English Words".i18n,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
 
-                  /// History
+                  ///
                   ListHomeItem(
-                    title: "History",
-                    icon: Icon(Icons.history), /*trailing: "2000",*/
+                    title: "Reading Chamber".i18n,
+                    icon: const Icon(UniconsLine.books),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArticleListView(),
+                          ));
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  HeadSentence(listText: ["Other tools".i18n]),
+                  const SizedBox(
+                    height: 16,
+                  ),
+
+                  /// Word History
+                  ListHomeItem(
+                    title: "Dictionary History".i18n,
+                    icon: const Icon(Icons.history),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WordHistoryView(),
+                          ));
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+
+                  /// Story History
+                  ListHomeItem(
+                    title: "Reading History".i18n,
+                    icon: const Icon(Icons.history),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const ArticleListHistoryView(),
+                          ));
+                    },
                   ),
 
                   /// Encourage user to use
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.orange,
                         borderRadius: BorderRadius.circular(32),
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
-                          const Text(
+                           Text(
                             "We recognize that application quality is crucial for customer satisfaction. "
-                            "Your feedback is greatly appreciated and drives ongoing improvements for our valued customers.",
+                            "Your feedback is greatly appreciated and drives ongoing improvements for our valued customers.".i18n,
                             softWrap: true,
                             maxLines: 200,
                             overflow: TextOverflow.ellipsis,
@@ -121,12 +222,12 @@ class HomeView extends StatelessWidget {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.white),
+                                    border: Border.all(color: Colors.black),
                                     borderRadius: BorderRadius.circular(32),
                                     color: Colors.orange),
-                                child: Padding(
+                                child:  Padding(
                                   padding: const EdgeInsets.all(16.0),
-                                  child: Text("Give feedbacks"),
+                                  child: Text("Give feedbacks".i18n),
                                 ),
                               ),
                             ),
@@ -135,8 +236,6 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //const ListHomeItem(title: 'Practice', icon: Icon(Icons.accessible_sharp)),
-                  //const ListHomeItem(title: 'Community', icon: Icon(Icons.accessible_sharp)),
                 ],
               ),
             ),

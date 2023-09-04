@@ -35,16 +35,14 @@ class _SettingsViewState extends State<SettingsView> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      defaultTargetPlatform.isMobile()
-                          ? Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: CircleButton(
-                                iconData: Icons.arrow_back,
-                                onTap: () {
-                                  Navigator.pop(context);
-                                }),
-                          )
-                          : const SizedBox.shrink(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: CircleButton(
+                            iconData: Icons.arrow_back,
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
+                      ),
                       Text("Settings".i18n,
                           style: const TextStyle(fontSize: 28))
                     ],
@@ -169,7 +167,7 @@ class _SettingsViewState extends State<SettingsView> {
                                 },
                                 items: [5, 10, 20, 30]
                                     .map((value) => DropdownMenuItem<int>(
-                                  alignment: Alignment.center,
+                                          alignment: Alignment.center,
                                           value: value,
                                           child: Text(value.toString()),
                                         ))
@@ -177,7 +175,9 @@ class _SettingsViewState extends State<SettingsView> {
                           ),
                         ),
                       ]),
-                      SizedBox(height: 4,),
+                      SizedBox(
+                        height: 4,
+                      ),
                       Row(
                         children: [
                           Text("Number of antonyms".i18n),
@@ -192,7 +192,7 @@ class _SettingsViewState extends State<SettingsView> {
                             width: 60,
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<int>(
-                                alignment: Alignment.center,
+                                  alignment: Alignment.center,
                                   borderRadius: BorderRadius.circular(16),
                                   isExpanded: true,
                                   focusColor: Colors.white,
@@ -203,7 +203,7 @@ class _SettingsViewState extends State<SettingsView> {
                                   },
                                   items: [5, 10, 20, 30]
                                       .map((value) => DropdownMenuItem<int>(
-                                    alignment: Alignment.center,
+                                            alignment: Alignment.center,
                                             value: value,
                                             child: Text(value.toString()),
                                           ))
@@ -211,6 +211,27 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                           ),
                         ],
+                      )
+                    ],
+                  ),
+                  SettingSection(
+                    title: 'Reading Section'.i18n,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.text_increase),
+                          Slider(
+                              min: 0.1,
+                              value: state.readingFontSize! / 70,
+                              onChanged: (newValue) {
+                                settingCubit.setReadingFontSize(newValue * 70);
+                              }),
+                        ],
+                      ),
+                      Text(
+                        "Sample text that will be displayed on Reading.".i18n,
+                        style: TextStyle(fontSize: state.readingFontSize),
                       )
                     ],
                   ),
