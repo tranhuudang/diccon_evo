@@ -84,6 +84,8 @@ dev_dependencies:
   flutter_localization: ^0.1.13
   #dotted style
   dotted_border: ^2.0.0+3
+  # custom shape
+  morphable_shape: ^1.6.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

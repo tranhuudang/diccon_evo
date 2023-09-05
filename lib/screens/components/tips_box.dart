@@ -14,7 +14,7 @@ class TipsBox extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 16,top: 16,right: 16, bottom: 20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(32),
         color: Theme.of(context).cardColor,
       ),
       child: Column(

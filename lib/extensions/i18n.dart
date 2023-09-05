@@ -18,17 +18,21 @@ extension Localization on String {
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
 
   static const _t = Translations.from("en_us", {
+    "From the universe": {
+      "en_us": "From the universe",
+      "vi_vi": "Dành riêng cho bạn",
+    },
     "Reinforce": {
       "en_us": "Reinforce",
-      "vi_vi": "Củng cố",
+      "vi_vi": "Reinforce",
     },
     "your": {
       "en_us": "your",
-      "vi_vi": "vốn kiến thức",
+      "vi_vi": "your",
     },
     "knowledge": {
       "en_us": "knowledge",
-      "vi_vi": "của bạn",
+      "vi_vi": "knowledge",
     },
     "Guid": {
       "en_us": "Guid",
@@ -47,11 +51,11 @@ extension Localization on String {
     },
     "You're studying": {
       "en_us": "You're studying",
-      "vi_vi": "Bạn đang học",
+      "vi_vi": "You're studying",
     },
     "the subject of": {
       "en_us": "the subject of",
-      "vi_vi": "về chủ đề",
+      "vi_vi": "the subject of",
     },
     "Tips": {
       "en_us": "Tips",
@@ -79,31 +83,31 @@ extension Localization on String {
     },
     "Empower": {
       "en_us": "Empower",
-      "vi_vi": "Cải thiện nhanh",
+      "vi_vi": "Empower",
     },
     "Your English": {
       "en_us": "Your English",
-      "vi_vi": "trình độ",
+      "vi_vi": "Your English",
     },
     "Proficiency": {
       "en_us": "Proficiency",
-      "vi_vi": "Tiếng Anh",
+      "vi_vi": "Proficiency",
     },
     "Nothing": {
       "en_us": "Nothing",
-      "vi_vi": "Không có điều gì",
+      "vi_vi": "Nothing",
     },
     "Worth Doing": {
       "en_us": "Worth Doing",
-      "vi_vi": "đáng làm",
+      "vi_vi": "Worth Doing",
     },
     "Ever": {
       "en_us": "Ever",
-      "vi_vi": "mà lại",
+      "vi_vi": "Ever",
     },
     "Came Easy": {
       "en_us": "Came Easy",
-      "vi_vi": "dễ dàng cả",
+      "vi_vi": "Came Easy",
     },
     "Mastering 1848 core English words fosters clear communication. Enhanced vocabulary aids reading, writing, speaking, and understanding. It facilitates meaningful interactions, empowers expression, and broadens access to information and opportunities.":
         {

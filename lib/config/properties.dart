@@ -48,6 +48,7 @@ class Properties {
 
   static const double minWidth = 400;
   static const double minHeight = 600;
+  static const double overflowHeight= 730;
   static double defaultWindowHeight = 700;
   static double defaultWindowWidth = 600;
   static double titleTileFontSize = 14.0;

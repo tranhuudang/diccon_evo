@@ -57,7 +57,6 @@ class _DictionaryViewState extends State<DictionaryView>
 
   void _handleSubmitted(
       String searchWord, BuildContext context, ChatListState state) async {
-    searchWord = searchWord.removeSpecialCharacters();
     currentSearchWord = searchWord;
     var chatListBloc = context.read<ChatListBloc>();
     _textController.clear();

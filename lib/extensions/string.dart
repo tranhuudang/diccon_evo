@@ -1,7 +1,10 @@
 extension StringExtenstion on String {
   String removeSpecialCharacters() {
-    RegExp regExp = RegExp(r"[^\p{L}\p{N}]+", unicode: true);
-    return replaceAll(regExp, "");
+    RegExp regExp = RegExp(r"[^\p{L}\p{N}']+", unicode: true);
+    var output = replaceAll('\'', '');
+    output = output.replaceAll(regExp, "");
+    print("remove special charactor 2");
+    return output;
   }
 
   String upperCaseFirstLetter() {

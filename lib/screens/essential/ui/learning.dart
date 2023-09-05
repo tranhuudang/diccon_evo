@@ -14,7 +14,8 @@ import 'components/learning_page_item.dart';
 class LearningView extends StatefulWidget {
   final String topic;
   final List<EssentialWord> listEssentialWord;
-  const LearningView({super.key, required this.listEssentialWord, required this.topic});
+  const LearningView(
+      {super.key, required this.listEssentialWord, required this.topic});
 
   @override
   State<LearningView> createState() => _LearningViewState();
@@ -28,7 +29,7 @@ class _LearningViewState extends State<LearningView> {
   }
 
   final _pageViewController = PageController();
-  int _currentIndex =0;
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,18 +50,21 @@ class _LearningViewState extends State<LearningView> {
                 ),
 
                 /// Topic
-                 HeadSentence(listText: [
+                HeadSentence(listText: [
                   "You're studying".i18n,
                   "the subject of".i18n,
-                  (widget.topic)
+
                 ]),
+Text(widget.topic, style: TextStyle(
+  fontSize: 38, fontWeight: FontWeight.bold,
+)),
                 /// List page word
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: SizedBox(
                     height: 250,
                     child: PageView.builder(
-                      onPageChanged: (index){
+                      onPageChanged: (index) {
                         _currentIndex = index;
                       },
                       controller: _pageViewController,
@@ -69,11 +73,14 @@ class _LearningViewState extends State<LearningView> {
                         return Padding(
                           padding: const EdgeInsets.all(1),
                           child: LearningPageItem(
-                            currentIndex: index+1,
+                            currentIndex: index + 1,
                             totalIndex: widget.listEssentialWord.length,
-                            word: widget.listEssentialWord[index].english.upperCaseFirstLetter(),
+                            word: widget.listEssentialWord[index].english
+                                .upperCaseFirstLetter(),
                             phonetic: widget.listEssentialWord[index].phonetic,
-                            vietnamese: widget.listEssentialWord[index].vietnamese.upperCaseFirstLetter(),
+                            vietnamese: widget
+                                .listEssentialWord[index].vietnamese
+                                .upperCaseFirstLetter(),
                           ),
                         );
                       },
@@ -110,6 +117,7 @@ class _LearningViewState extends State<LearningView> {
                       ],
                     ),
                     const Spacer(),
+
                     /// Mark as done button
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -126,22 +134,33 @@ class _LearningViewState extends State<LearningView> {
                     CircleButton(
                       iconData: FontAwesomeIcons.heart,
                       onTap: () {
-                        EssentialManager.saveEssentialWordToFavourite(widget.listEssentialWord[_currentIndex]);
+                        EssentialManager.saveEssentialWordToFavourite(
+                            widget.listEssentialWord[_currentIndex]);
                       },
                     ),
                   ],
                 ),
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
                 TipsBox(
                   title: "Tips".i18n,
-                  children:
-                  ["Read whenever possible.".i18n,"Write down new words.".i18n,"Vocally practice new words.".i18n,"Visually remember words.".i18n,"Play word games online.".i18n].map((text){
-                  return Row(
-                    children: [
-                      const Text("- "),
-                      Text(text, style: TextStyle(),),
-                    ],
-                  );
+                  children: [
+                    "Read whenever possible.".i18n,
+                    "Write down new words.".i18n,
+                    "Vocally practice new words.".i18n,
+                    "Visually remember words.".i18n,
+                    "Play word games online.".i18n
+                  ].map((text) {
+                    return Row(
+                      children: [
+                        const Text("- "),
+                        Text(
+                          text,
+                          style: TextStyle(),
+                        ),
+                      ],
+                    );
                   }).toList(),
                 )
               ],

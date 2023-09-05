@@ -1,9 +1,10 @@
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/components/quote_box/bloc/quote_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WelcomeBox extends StatelessWidget {
-  const WelcomeBox({super.key});
+class QuoteBox extends StatelessWidget {
+  const QuoteBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,10 @@ class WelcomeBox extends StatelessWidget {
             final successfulState = state as QuoteLoadedState;
             return QuoteContent(text: successfulState.quote);
           case QuoteErrorState:
-            return const QuoteContent(text: "Nourish your mind, even offline: Where words illuminate without the web.",);
+            return const QuoteContent(
+              text:
+                  "Nourish your mind, even offline: Where words illuminate without the web.",
+            );
           default:
             return const QuoteContent();
         }
@@ -38,47 +42,34 @@ class QuoteContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 28, left: 16, bottom: 16, right: 16),
-      child: Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          constraints: const BoxConstraints(
-            minHeight: 120,
-            maxWidth: 600,
-          ),
-          decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.5),
-                    blurRadius: 0.5,
-                    blurStyle: BlurStyle.outer,
-                    offset: const Offset(6, 6)),
-                BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.8),
-                    blurRadius: 0.5,
-                    blurStyle: BlurStyle.outer,
-                    offset: const Offset(-2, -6)),
-                BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.3),
-                    blurRadius: 0.5,
-                    blurStyle: BlurStyle.outer,
-                    offset: const Offset(-6, 1)),
-
-                //BoxShadow(color: Theme.of(context).scaffoldBackgroundColor,),
+    return Container(
+      padding: const EdgeInsets.only(left: 16,right: 16, top: 16, bottom: 32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 2),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(16)),
+                        child:  Text("From the universe".i18n))),
+                Container(
+                  //width: 200,
+                  child: Text(text ??
+                      "Unlock the Doors to Words: Explore, Discover, and Learn"),
+                ),
               ],
-              border: Border.all(
-                color: Theme.of(context).primaryColor,
-                width: 2.0,
-              ),
-              //color: Colors.amberAccent,
-              borderRadius: const BorderRadius.all(Radius.circular(16))),
-          child: Center(
-            child: Text(text ?? "Unlock the Doors to Words: Explore, Discover, and Learn"),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
-

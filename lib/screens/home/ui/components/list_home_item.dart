@@ -6,8 +6,9 @@ class ListHomeItem extends StatelessWidget {
   final String title;
   final Icon? icon;
   final String? trailing;
+  final double? height;
   const ListHomeItem({
-    super.key, required this.title,  this.icon, this.trailing, required this.onTap,
+    super.key, required this.title,  this.icon, this.trailing, required this.onTap, this.height,
   });
 
   @override
@@ -15,30 +16,26 @@ class ListHomeItem extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(32),
       onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            height: 100,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(32),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        height: height?? 200,
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(32),
 
-            ),
-            child:
-            Row(
-              children: [
-                icon != null ? icon! : const SizedBox.shrink(),
-                const SizedBox(width: 16,),
-                Text(title,style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                const Spacer(),
-                trailing != null ?
-                Text(trailing!, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),) : const SizedBox.shrink(),
-              ],
-            )
-            ,)
-        ],
-      ),
+        ),
+        child:
+        Row(
+          children: [
+            icon != null ? icon! : const SizedBox.shrink(),
+            const SizedBox(width: 16,),
+            Text(title,style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            const Spacer(),
+            trailing != null ?
+            Text(trailing!, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),) : const SizedBox.shrink(),
+          ],
+        )
+        ,),
     );
   }
 }

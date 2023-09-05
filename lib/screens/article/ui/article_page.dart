@@ -42,9 +42,75 @@ class _ArticlePageViewState extends State<ArticlePageView> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
+          padding: const EdgeInsets.all(16),
+          child: Stack(
             children: [
+              Column(
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              CachedNetworkImage(
+                                height: 380,
+                                placeholder: (context, url) =>
+                                    const LinearProgressIndicator(
+                                  backgroundColor: Colors.black45,
+                                  color: Colors.black54,
+                                ),
+                                imageUrl: widget.article.imageUrl ?? "",
+                                fit: BoxFit.cover,
+                                errorWidget: (context, String exception,
+                                    dynamic stackTrace) {
+                                  return const SizedBox.shrink();
+                                },
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: widget.article.content
+                                    .split('\n')
+                                    .map((paragraph) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      paragraph.isNotEmpty
+                                          ? ClickableWords(
+                                              text: paragraph,
+                                              fontSize: Properties
+                                                  .defaultReadingFontSize,
+                                              textColor: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .labelMedium
+                                                  ?.color,
+                                              onWordTap: (String value) {
+                                                _showModalBottomSheet(
+                                                    context,
+                                                    value
+                                                        .removeSpecialCharacters());
+                                              })
+                                          : Container(),
+                                      const SizedBox(
+                                        height: 5,
+                                      )
+                                    ],
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              /// Close button
               Align(
                 alignment: Alignment.topRight,
                 child: CircleButton(
@@ -52,89 +118,6 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                     onTap: () {
                       Navigator.pop(context);
                     }),
-              ),
-              SizedBox(height: 16),
-              Expanded(
-                child: Stack(
-                  children: [
-                    /// Image for the article
-                    Padding(
-                      padding: EdgeInsets.only(
-                          bottom: 50,
-                          left: Properties.isLargeWindows ? 100 : 0,
-                          right: Properties.isLargeWindows ? 100 : 0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            CachedNetworkImage(
-                                height: 380,
-                                placeholder: (context, url) =>
-                                    const LinearProgressIndicator(
-                                      backgroundColor: Colors.black45,
-                                      color: Colors.black54,
-                                    ),
-                                imageUrl: widget.article.imageUrl ?? "",
-                                fit: BoxFit.cover,
-                                errorWidget: (context, String exception,
-                                    dynamic stackTrace) {
-                                  return Container(
-                                    width: 100.0,
-                                    height: 100.0,
-                                    color: Colors
-                                        .grey, // Display a placeholder color or image
-                                    child: Center(
-                                      child: Text('No Image'.i18n),
-                                    ),
-                                  );
-                                }),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: widget.article.content
-                                  .split('\n')
-                                  .map((paragraph) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    paragraph.isNotEmpty
-                                        ? ClickableWords(
-                                            text: paragraph,
-                                            fontSize:
-                                                Properties.defaultReadingFontSize,
-                                            textColor: Theme.of(context)
-                                                .primaryTextTheme
-                                                .labelMedium
-                                                ?.color,
-                                            onWordTap: (value) {
-                                              _showModalBottomSheet(
-                                                  context, value);
-                                            })
-                                        : Container(),
-                                    const SizedBox(
-                                      height: 5,
-                                    )
-                                  ],
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    /// Bottom box for translation
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: BottomOnlineTranslationBox(
-                        isTranslating: isTranslating,
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
@@ -146,22 +129,11 @@ class _ArticlePageViewState extends State<ArticlePageView> {
   Future<void> _showModalBottomSheet(
       BuildContext context, String searchWord) async {
     Word? wordResult;
-    searchWord = searchWord.removeSpecialCharacters();
 
     /// This line is the skeleton of finding word in dictionary
     wordResult = Searching.getDefinition(searchWord);
 
-    if (wordResult == null) {
-      setState(() {
-        isTranslating = true;
-      });
-      Translation result = await translate(searchWord);
-      setState(() {
-        isTranslating = false;
-      });
-
-      wordResult =
-          Word(word: searchWord, pronunciation: "", meaning: result.text);
+    if (wordResult != null) {
       showModalBottomSheet(
           context: context,
           builder: (BuildContext context) {
@@ -175,6 +147,16 @@ class _ArticlePageViewState extends State<ArticlePageView> {
             );
           });
     } else {
+      setState(() {
+        isTranslating = true;
+      });
+      Translation result = await translate(searchWord);
+      setState(() {
+        isTranslating = false;
+      });
+
+      wordResult =
+          Word(word: searchWord, pronunciation: "", meaning: result.text);
       showModalBottomSheet(
           context: context,
           builder: (BuildContext context) {
