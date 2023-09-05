@@ -53,11 +53,13 @@ class _LearningViewState extends State<LearningView> {
                 HeadSentence(listText: [
                   "You're studying".i18n,
                   "the subject of".i18n,
-
                 ]),
-Text(widget.topic, style: TextStyle(
-  fontSize: 38, fontWeight: FontWeight.bold,
-)),
+                Text(widget.topic,
+                    style: const TextStyle(
+                      fontSize: 38,
+                      fontWeight: FontWeight.bold,
+                    )),
+
                 /// List page word
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
