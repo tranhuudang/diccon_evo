@@ -6,9 +6,9 @@ import '../../../config/properties.dart';
 import '../../../helpers/searching.dart';
 import '../../../models/article.dart';
 import '../../../models/word.dart';
-import '../../components/bottom_sheet_translate.dart';
-import '../../components/circle_button.dart';
-import '../../components/clickable_word/ui/clickable_words.dart';
+import '../../commons/bottom_sheet_translate.dart';
+import '../../commons/circle_button.dart';
+import '../../commons/clickable_word/ui/clickable_words.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class ArticlePageView extends StatefulWidget {

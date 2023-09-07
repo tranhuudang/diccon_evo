@@ -4,9 +4,9 @@ import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import '../../../config/properties.dart';
+import 'config/properties.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../home/ui/home.dart';
+import 'screens/home/ui/home.dart';
 
 class HomeControlView extends StatefulWidget {
   const HomeControlView({Key? key}) : super(key: key);

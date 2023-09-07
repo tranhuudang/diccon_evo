@@ -4,9 +4,9 @@ import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
 import '../../../helpers/essential_manager.dart';
 import '../../../helpers/notify.dart';
-import '../../components/circle_button.dart';
-import '../../components/tips_box.dart';
-import '../../components/head_sentence.dart';
+import '../../commons/circle_button.dart';
+import '../../commons/head_sentence.dart';
+import '../../commons/tips_box.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'favourite_review.dart';
@@ -118,8 +118,8 @@ class _EssentialViewState extends State<EssentialView> {
               ),
 
               /// Head sentence
-               HeadSentence(
-                listText: ["Nothing".i18n, "Worth Doing".i18n, "Ever".i18n, "Came Easy".i18n],
+               const HeadSentence(
+                listText: ["Nothing", "Worth Doing", "Ever", "Came Easy"],
               ),
 
               /// Sub sentence

@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../../../models/word.dart';
 import '../cubit/word_history_list_cubit.dart';
 import 'components/history_header.dart';
-import 'history_tile.dart';
+import 'components/history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WordHistoryView extends StatelessWidget {

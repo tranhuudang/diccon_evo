@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../config/properties.dart';
 import '../../../../helpers/article_handler.dart';
 import '../../../../models/article.dart';
-import '../../../components/level_icon.dart';
+import '../../../commons/level_icon.dart';
 import '../article_page.dart';
 
 class ReadingTile extends StatelessWidget {

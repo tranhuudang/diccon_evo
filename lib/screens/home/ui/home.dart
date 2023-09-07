@@ -1,8 +1,8 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/screens/components/quote_box/ui/quote_box.dart';
 import '../../../config/properties.dart';
 import '../../article/ui/article_list.dart';
-import '../../components/head_sentence.dart';
+import '../../commons/head_sentence.dart';
+import '../../commons/quote_box/ui/quote_box.dart';
 import 'package:flutter/material.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_home_item.dart';
@@ -59,10 +59,10 @@ class HomeMain extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Head welcome to essential tab
-                  HeadSentence(listText: [
-                    "Empower".i18n,
-                    "Your English".i18n,
-                    "Proficiency".i18n
+                  const HeadSentence(listText: [
+                    "Empower",
+                    "Your English",
+                    "Proficiency"
                   ]),
 
                   const SizedBox(

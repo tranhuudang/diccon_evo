@@ -1,16 +1,16 @@
-import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
-import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../components/circle_button.dart';
+import '../../commons/circle_button.dart';
+import '../../commons/suggested_item.dart';
 import '../bloc/chat_list_bloc.dart';
 import '../../../helpers/image_handler.dart';
 import '../../../config/properties.dart';
 import '../../../extensions/target_platform.dart';
-import '../../components/suggested_item.dart';
 import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'word_history.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});

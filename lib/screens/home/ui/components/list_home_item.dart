@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../word_history/ui/word_history.dart';
 class ListHomeItem extends StatelessWidget {
   final VoidCallback onTap;
   final String title;

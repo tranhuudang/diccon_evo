@@ -1,9 +1,8 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
-
-
-import '../../../components/circle_button.dart';
-import '../../cubit/word_history_list_cubit.dart';class HistoryHeader extends StatelessWidget {
+import '../../../commons/circle_button.dart';
+import '../../cubit/word_history_list_cubit.dart';
+class HistoryHeader extends StatelessWidget {
   const HistoryHeader({
     super.key,
     required this.historyListCubit,
@@ -25,7 +24,7 @@ import '../../cubit/word_history_list_cubit.dart';class HistoryHeader extends St
               }),
           const SizedBox(width: 16,),
           Text("History".i18n, style: const TextStyle(fontSize: 28)),
-          Spacer(),
+          const Spacer(),
           IconButton(
               onPressed: () => historyListCubit.sortAlphabet(),
               icon: const Icon(Icons.sort_by_alpha)),

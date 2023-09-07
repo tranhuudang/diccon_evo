@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/helpers/essential_manager.dart';
-import 'package:diccon_evo/screens/components/head_sentence.dart';
-import 'package:diccon_evo/screens/components/tips_box.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../models/essential_word.dart';
-import '../../components/circle_button.dart';
+import '../../commons/circle_button.dart';
+import '../../commons/head_sentence.dart';
+import '../../commons/tips_box.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'components/learning_page_item.dart';
 

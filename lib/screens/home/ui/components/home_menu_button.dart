@@ -1,7 +1,7 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 
-import '../../../setting/ui/settings.dart';
+import '../../../settings/ui/settings.dart';
 class HomeMenuButton extends StatelessWidget {
   const HomeMenuButton({
     super.key,

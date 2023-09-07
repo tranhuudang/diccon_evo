@@ -1,10 +1,10 @@
 
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/screens/components/circle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/article.dart';
+import '../../commons/circle_button.dart';
 import '../cubits/article_history_list_cubit.dart';
 import 'components/reading_tile.dart';
 

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:diccon_evo/screens/setting/ui/settings.dart';
+import 'package:diccon_evo/screens/settings/ui/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/article.dart';
 import '../models/word.dart';

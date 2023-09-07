@@ -3,8 +3,8 @@ import 'package:diccon_evo/screens/article/ui/article_history.dart';
 import 'package:flutter/material.dart';
 import '../../../models/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../components/circle_button.dart';
-import '../../components/head_sentence.dart';
+import '../../commons/circle_button.dart';
+import '../../commons/head_sentence.dart';
 import '../cubits/article_list_cubit.dart';
 import 'components/reading_tile.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,7 +22,7 @@ class ArticleListView extends StatelessWidget {
             if (state.isEmpty) {
               articleListCubit.loadUp();
               return  Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
                       ArticleListHeader(articleListCubit: articleListCubit),
@@ -39,14 +39,13 @@ class ArticleListView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                             /// Head sentence
-                            HeadSentence(
-                              //Library of Infinite Adventures
-                              listText: ["Library of".i18n, "Infinite Adventures".i18n],
+                            const HeadSentence(
+                              listText: ["Library of", "Infinite Adventures"],
                             ),
 
                             /// Sub sentence
@@ -89,9 +88,8 @@ class ArticleListView extends StatelessWidget {
                               }
 
                               return GridView.builder(
-
                                 shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemCount: state.length,
                                 gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
@@ -134,7 +132,7 @@ class ArticleListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -146,10 +144,6 @@ class ArticleListHeader extends StatelessWidget {
           const SizedBox(
             width: 16,
           ),
-          // Text(
-          //   "Reading Chamber".i18n,
-          //   style: const TextStyle(fontSize: 28),
-          // ),
           const Spacer(),
           PopupMenuButton(
             //splashRadius: 10.0,

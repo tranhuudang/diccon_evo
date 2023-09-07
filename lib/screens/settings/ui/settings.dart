@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../components/circle_button.dart';
+import '../../commons/circle_button.dart';
 import '../cubit/setting_cubit.dart';
 import '../../../config/properties.dart';
 import '../../../models/setting.dart';

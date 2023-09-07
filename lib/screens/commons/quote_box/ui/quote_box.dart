@@ -1,7 +1,8 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/screens/components/quote_box/bloc/quote_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/quote_bloc.dart';
 
 class QuoteBox extends StatelessWidget {
   const QuoteBox({super.key});
