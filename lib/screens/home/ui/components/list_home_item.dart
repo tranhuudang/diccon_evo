@@ -17,7 +17,7 @@ class ListHomeItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(32),
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         height: height?? 200,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -28,7 +28,7 @@ class ListHomeItem extends StatelessWidget {
         Row(
           children: [
             icon != null ? icon! : const SizedBox.shrink(),
-            const SizedBox(width: 16,),
+            const SizedBox(width: 8,),
             Text(title,style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
             const Spacer(),
             trailing != null ?

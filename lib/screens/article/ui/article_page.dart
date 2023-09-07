@@ -52,7 +52,18 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                       children: [
                         SingleChildScrollView(
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 65, bottom: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget.article.title, style: const TextStyle(fontSize: 20),),
+                                    Text(widget.article.source!, style:  const TextStyle(fontSize: 12),),
+                                  ],
+                                ),
+                              ),
                               CachedNetworkImage(
                                 height: 380,
                                 placeholder: (context, url) =>

@@ -36,6 +36,7 @@ class HomeView extends StatelessWidget {
 }
 
 class HomeMain extends StatelessWidget {
+
   final bool? spacerEnable;
   const HomeMain({
     super.key,
