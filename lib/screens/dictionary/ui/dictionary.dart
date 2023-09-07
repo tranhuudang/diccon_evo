@@ -1,5 +1,6 @@
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
+import 'package:diccon_evo/screens/word_history/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../components/circle_button.dart';
@@ -148,7 +149,11 @@ class _DictionaryViewState extends State<DictionaryView>
                               Navigator.pop(context);
                             }),
                         const SizedBox(width: 16,),
-                        Text("Dictionary".i18n, style: const TextStyle(fontSize: 28))
+                        Text("Dictionary".i18n, style: const TextStyle(fontSize: 28),),
+                        const Spacer(),
+                        CircleButton(iconData: Icons.history, onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const WordHistoryView()));
+                        }),
                       ],
                     ),
                   ),

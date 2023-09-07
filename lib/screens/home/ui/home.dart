@@ -8,6 +8,7 @@ import 'components/home_menu_button.dart';
 import 'components/list_home_item.dart';
 import 'package:unicons/unicons.dart';
 
+import 'components/plan_button.dart';
 import 'components/to_dictionary_button.dart';
 import 'components/to_essential_word_button.dart';
 
@@ -21,12 +22,12 @@ class HomeView extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxHeight < Properties.overflowHeight) {
             // Handle overflow error here
-            return SingleChildScrollView(
+            return const SingleChildScrollView(
               child: HomeMain(),
             );
           } else {
             // Render your content normally
-            return HomeMain(spacerEnable: true,);
+            return const HomeMain(spacerEnable: true,);
           }
         },
       ),
@@ -45,6 +46,8 @@ class HomeMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        /// Plan Button
+        const PlanButton(),
         /// Menu button
         const HomeMenuButton(),
         Column(
@@ -64,6 +67,7 @@ class HomeMain extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
+                  /// Two big brother button
                   const Row(
                     children: [
                       ToDictionaryButton(),
@@ -74,7 +78,7 @@ class HomeMain extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-
+                  /// Other functions
                   ListHomeItem(
                     height: 150,
                     title: "Reading Chamber".i18n,
@@ -93,11 +97,14 @@ class HomeMain extends StatelessWidget {
                 ],
               ),
             ),
+            /// On SingleChildListView, Spacer() cause Overflow error,
+            /// so when changing parent to SingleChildListView, we remove Spacer()
             spacerEnable != null
                 ? spacerEnable!
                     ? const Spacer()
                     : const SizedBox.shrink()
                 : const SizedBox.shrink(),
+            /// From the universe
             Container(
               color: Theme.of(context).highlightColor,
               child: const QuoteBox(),
@@ -108,3 +115,4 @@ class HomeMain extends StatelessWidget {
     );
   }
 }
+

@@ -48,9 +48,9 @@ class Properties {
 
   static const double minWidth = 400;
   static const double minHeight = 600;
-  static const double overflowHeight= 730;
+  static const double overflowHeight= 710;
   static double defaultWindowHeight = 700;
-  static double defaultWindowWidth = 600;
+  static double defaultWindowWidth = 400;
   static double titleTileFontSize = 14.0;
   static bool isDarkMode = false;
   static const String diccon = "Diccon";

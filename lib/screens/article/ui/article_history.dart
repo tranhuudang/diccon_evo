@@ -73,12 +73,11 @@ class ArticleListHistoryView extends StatelessWidget {
                           } else {
                             crossAxisCount = 1;
                           }
-
                           return GridView.builder(
                             itemCount: state.length,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: crossAxisCount,
-                              mainAxisExtent: 150,
+                              mainAxisExtent: 120,
                               childAspectRatio:
                                   7 / 3, // Adjust the aspect ratio as needed
                             ),

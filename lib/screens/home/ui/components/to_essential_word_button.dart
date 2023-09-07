@@ -46,6 +46,22 @@ class ToEssentialWordButton extends StatelessWidget {
                 ],
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:[1,2,3,4].map((index) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 12, left: 8, right: 8, bottom: 8),
+                  child: Container(
+                    height: 10,
+                    width: 10,
+                    decoration:  BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Theme.of(context).highlightColor,
+                    )
+                  ),
+                );
+              }).toList(),
+            ),
           ],
         ),
       ),
