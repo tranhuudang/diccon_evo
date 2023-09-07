@@ -158,9 +158,9 @@ class _EssentialViewState extends State<EssentialView> {
                         },
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
-                      const SizedBox(
-                        width: 8,
-                      ),
+                      // const SizedBox(
+                      //   width: 8,
+                      // ),
                       /// Favourite button
                       CircleButton(
                         iconData: FontAwesomeIcons.heart,

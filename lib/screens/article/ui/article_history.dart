@@ -21,7 +21,7 @@ class ArticleListHistoryView extends StatelessWidget {
             if (state.isEmpty) {
               articleHistoryListCubit.loadArticleHistory();
               return  Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     ArticleHistoryHeader(articleHistoryListCubit: articleHistoryListCubit),
@@ -50,7 +50,7 @@ class ArticleListHistoryView extends StatelessWidget {
               );
             } else {
               return Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     ArticleHistoryHeader(articleHistoryListCubit: articleHistoryListCubit),
@@ -76,6 +76,8 @@ class ArticleListHistoryView extends StatelessWidget {
                           return GridView.builder(
                             itemCount: state.length,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
                               crossAxisCount: crossAxisCount,
                               mainAxisExtent: 120,
                               childAspectRatio:

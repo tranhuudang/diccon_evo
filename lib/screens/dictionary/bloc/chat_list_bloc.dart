@@ -1,15 +1,15 @@
 import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
-import 'package:diccon_evo/screens/dictionary/ui/dictionary_buble.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
 import 'package:diccon_evo/helpers/searching.dart';
 import 'package:translator/translator.dart';
 import 'package:diccon_evo/config/properties.dart';
 import '../../../helpers/file_handler.dart';
 import '../../../models/word.dart';
 import '../../../repositories/thesaurus_repository.dart';
-import '../ui/brick_wall_buttons.dart';
-import '../ui/image_buble.dart';
+import '../ui/components/brick_wall_buttons.dart';
+import '../ui/components/image_buble.dart';
 import '../../components/quote_box/ui/quote_box.dart';
 
 part 'chat_list_state.dart';

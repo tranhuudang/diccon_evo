@@ -50,7 +50,7 @@ class ToEssentialWordButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children:[1,2,3,4].map((index) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 12, left: 8, right: 8, bottom: 8),
+                  padding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8),
                   child: Container(
                     height: 10,
                     width: 10,

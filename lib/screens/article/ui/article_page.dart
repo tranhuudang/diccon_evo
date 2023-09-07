@@ -41,97 +41,97 @@ class _ArticlePageViewState extends State<ArticlePageView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.all(16),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 65, bottom: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(widget.article.title, style: const TextStyle(fontSize: 20),),
-                                    Text(widget.article.source!, style:  const TextStyle(fontSize: 12),),
-                                  ],
-                                ),
-                              ),
-                              CachedNetworkImage(
-                                height: 380,
-                                placeholder: (context, url) =>
-                                    const LinearProgressIndicator(
-                                  backgroundColor: Colors.black45,
-                                  color: Colors.black54,
-                                ),
-                                imageUrl: widget.article.imageUrl ?? "",
-                                fit: BoxFit.cover,
-                                errorWidget: (context, String exception,
-                                    dynamic stackTrace) {
-                                  return const SizedBox.shrink();
-                                },
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: widget.article.content
-                                    .split('\n')
-                                    .map((paragraph) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      paragraph.isNotEmpty
-                                          ? ClickableWords(
-                                              text: paragraph,
-                                              fontSize: Properties
-                                                  .defaultReadingFontSize,
-                                              textColor: Theme.of(context)
-                                                  .primaryTextTheme
-                                                  .labelMedium
-                                                  ?.color,
-                                              onWordTap: (String value) {
-                                                _showModalBottomSheet(
-                                                    context,
-                                                    value
-                                                        .removeSpecialCharacters());
-                                              })
-                                          : Container(),
-                                      const SizedBox(
-                                        height: 5,
-                                      )
-                                    ],
-                                  );
-                                }).toList(),
-                              ),
-                            ],
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Header
+                    Padding(
+                      padding: const EdgeInsets.only(right: 65, bottom: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.article.title,
+                            style: const TextStyle(fontSize: 20),
                           ),
-                        ),
-                      ],
+                          Text(
+                            widget.article.source!,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+
+                    /// Image
+                    Center(
+                      child: CachedNetworkImage(
+                        //height: 380,
+                        placeholder: (context, url) =>
+                            const LinearProgressIndicator(
+                          backgroundColor: Colors.black45,
+                          color: Colors.black54,
+                        ),
+                        imageUrl: widget.article.imageUrl ?? "",
+                        fit: BoxFit.cover,
+                        errorWidget:
+                            (context, String exception, dynamic stackTrace) {
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+
+                    /// Content
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          widget.article.content.split('\n').map((paragraph) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            paragraph.isNotEmpty
+                                ? ClickableWords(
+                                    text: paragraph,
+                                    fontSize: Properties.defaultReadingFontSize,
+                                    textColor: Theme.of(context)
+                                        .primaryTextTheme
+                                        .labelMedium
+                                        ?.color,
+                                    onWordTap: (String value) {
+                                      _showModalBottomSheet(context,
+                                          value.removeSpecialCharacters());
+                                    })
+                                : Container(),
+                            const SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
               ),
-              /// Close button
-              Align(
-                alignment: Alignment.topRight,
-                child: CircleButton(
-                    iconData: Icons.close,
-                    onTap: () {
-                      Navigator.pop(context);
-                    }),
-              ),
-            ],
-          ),
+            ),
+
+            /// Close button
+            Positioned(
+              right: 16,
+              top: 16,
+              child: CircleButton(
+                  iconData: Icons.close,
+                  onTap: () {
+                    Navigator.pop(context);
+                  }),
+            ),
+          ],
         ),
       ),
     );

@@ -151,7 +151,9 @@ class _DictionaryViewState extends State<DictionaryView>
                         const SizedBox(width: 16,),
                         Text("Dictionary".i18n, style: const TextStyle(fontSize: 28),),
                         const Spacer(),
-                        CircleButton(iconData: Icons.history, onTap: (){
+                        CircleButton(
+                          backgroundColor: Colors.transparent,
+                            iconData: Icons.history, onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const WordHistoryView()));
                         }),
                       ],

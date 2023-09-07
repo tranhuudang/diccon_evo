@@ -104,9 +104,6 @@ class _LearningViewState extends State<LearningView> {
                             );
                           },
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
                         CircleButton(
                           iconData: FontAwesomeIcons.chevronRight,
                           onTap: () {

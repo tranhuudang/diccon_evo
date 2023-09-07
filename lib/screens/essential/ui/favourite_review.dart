@@ -94,9 +94,9 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                             );
                           },
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
+                        // const SizedBox(
+                        //   width: 8,
+                        // ),
                         CircleButton(
                           iconData: FontAwesomeIcons.chevronRight,
                           onTap: () {

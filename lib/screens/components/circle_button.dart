@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CircleButtonBar extends StatelessWidget {
-  final List<Widget> children;
+  final List<CircleButton> children;
   const CircleButtonBar({
     super.key,
     required this.children,
@@ -15,8 +15,9 @@ class CircleButtonBar extends StatelessWidget {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(50),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Wrap(
+        spacing: 8,
+        //mainAxisSize: MainAxisSize.min,
         children: children,
       ),
     );
