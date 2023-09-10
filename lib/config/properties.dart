@@ -61,6 +61,7 @@ class Properties {
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
   static const String articleHistoryFileName = 'article_history.json';
+  static const String articleBookmarkFileName = 'article_bookmark.json';
   static List<Article> defaultArticleList = [];
   // All view in application
   static double defaultReadingFontSizeSliderValue = 0.2;

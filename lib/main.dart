@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:diccon_evo/screens/article/cubits/article_bookmark_list_cubit.dart';
 import 'package:diccon_evo/screens/article/cubits/article_history_list_cubit.dart';
 import 'package:diccon_evo/screens/article/cubits/article_list_cubit.dart';
 import 'package:diccon_evo/screens/commons/clickable_word/cubit/clickable_word_cubit.dart';
@@ -58,6 +59,10 @@ class ProgramRoot extends StatelessWidget {
         BlocProvider<ArticleHistoryListCubit>(
           create: (context) => ArticleHistoryListCubit(),
         ),
+        BlocProvider<ArticleBookmarkListCubit>(
+          create: (context) => ArticleBookmarkListCubit(),
+        ),
+
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
         BlocProvider<HistoryListCubit>(create: (context) => HistoryListCubit()),
         BlocProvider<SettingCubit>(

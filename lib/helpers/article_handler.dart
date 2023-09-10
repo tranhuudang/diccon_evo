@@ -66,6 +66,40 @@ class ArticleHandler {
     }
   }
 
+  static Future<bool> saveReadArticleToBookmark(Article article) async {
+    final filePath = await getLocalFilePath(Properties.articleBookmarkFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        // Check is a article is already exists in the history
+        bool isArticleExist = json
+            .any((articleInJson) => articleInJson['title'] == article.title);
+        if (!isArticleExist) {
+          if (json is List<dynamic>) {
+            json.add(article.toJson());
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+          } else {
+            final List<dynamic> list = [json, article.toJson()];
+            final encoded = jsonEncode(list);
+            await file.writeAsString(encoded);
+          }
+        }
+      } else {
+        final encoded = jsonEncode([article.toJson()]);
+        await file.writeAsString(encoded);
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't save to article history.json. Error detail: $e");
+      }
+      return false;
+    }
+  }
+
 
   /// Delete a provided file name in local document file path
   ///
@@ -98,6 +132,31 @@ class ArticleHandler {
         if (json is List<dynamic>) {
           final List<Article> articles =
               json.map((e) => Article.fromJson(e)).toList().cast<Article>();
+          return articles;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't read article history.json. Error detail: $e");
+      }
+      return [];
+    }
+  }
+
+  static Future<List<Article>> readArticleBookmark() async {
+    final filePath = await getLocalFilePath(Properties.articleBookmarkFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<Article> articles =
+          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
           return articles;
         } else {
           return [];

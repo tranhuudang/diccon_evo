@@ -1,5 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
+import 'package:diccon_evo/helpers/article_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
@@ -10,6 +11,7 @@ import '../../commons/bottom_sheet_translate.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/clickable_word/ui/clickable_words.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ArticlePageView extends StatefulWidget {
   final Article article;
@@ -51,7 +53,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                   children: [
                     /// Header
                     Padding(
-                      padding: const EdgeInsets.only(right: 65, bottom: 16),
+                      padding: const EdgeInsets.only(bottom: 16, top: 56),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -120,16 +122,25 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                 ),
               ),
             ),
-
-            /// Close button
-            Positioned(
-              right: 16,
-              top: 16,
-              child: CircleButton(
-                  iconData: Icons.close,
-                  onTap: () {
-                    Navigator.pop(context);
-                  }),
+            Padding(
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+              child: Row(
+                children: [
+                  /// CLose button
+                  CircleButton(
+                      iconData: Icons.close,
+                      onTap: () {
+                        Navigator.pop(context);
+                      }),
+                  const Spacer(),
+                  /// Favourite button
+                  CircleButton(
+                      iconData: Icons.bookmark_border,
+                      onTap: () {
+                        ArticleHandler.saveReadArticleToBookmark(widget.article);
+                      }),
+                ],
+              ),
             ),
           ],
         ),
