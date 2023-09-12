@@ -1,8 +1,10 @@
+import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 
 import '../../../essential/ui/essential.dart';
 import 'feature_button.dart';
+
 class ToEssentialWordButton extends StatelessWidget {
   const ToEssentialWordButton({
     super.key,
@@ -29,36 +31,35 @@ class ToEssentialWordButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "1848",
-                    style: TextStyle(
+                  Text(
+                    Properties.defaultEssentialLeft.toString(),
+                    style: const TextStyle(
                         fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "words to learn".i18n,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     "1848 Essential English Words".i18n,
-                    style:
-                    const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:[1,2,3,4].map((index) {
+              children: [1, 2, 3, 4].map((index) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 8, right: 8, bottom: 8),
                   child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration:  BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Theme.of(context).highlightColor,
-                    )
-                  ),
+                      height: 10,
+                      width: 10,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Theme.of(context).highlightColor,
+                      )),
                 );
               }).toList(),
             ),

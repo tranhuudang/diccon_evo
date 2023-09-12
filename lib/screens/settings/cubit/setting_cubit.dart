@@ -25,12 +25,19 @@ class SettingCubit extends Cubit<Setting> {
     emit(Setting(readingFontSize: num));
   }
 
+  void setEssentialLeftMinusOne(int num) {
+    Properties.defaultEssentialLeft -= 1;
+    saveSettings();
+    emit(Setting(numberOfEssentialLeft: num));
+  }
+
 
   void saveSettings(){
     Properties.saveSettings(
         Properties.defaultReadingFontSize,
         Properties.defaultReadingFontSizeSliderValue,
         Properties.defaultNumberOfSynonyms,
-        Properties.defaultNumberOfAntonyms);
+        Properties.defaultNumberOfAntonyms
+    );
   }
 }

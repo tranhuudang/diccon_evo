@@ -49,6 +49,7 @@ class Properties {
   static const double minWidth = 400;
   static const double minHeight = 600;
   static const double overflowHeight= 710;
+  static int defaultEssentialLeft = 1848;
   static double defaultWindowHeight = 700;
   static double defaultWindowWidth = 400;
   static double titleTileFontSize = 14.0;
@@ -78,8 +79,11 @@ class Properties {
     await prefs.setDouble('readingFontSizeSliderValue',   newReadingFontSizeSliderValue ?? defaultReadingFontSizeSliderValue);
     await prefs.setInt(
         'numberOfSynonyms', newNumberOfSynonyms ?? defaultNumberOfSynonyms);
+
     await prefs.setInt(
         'numberOfAntonyms', newNumberOfAntonyms ?? defaultNumberOfAntonyms);
+    await prefs.setInt(
+        'essentialLeft', defaultEssentialLeft);
     await prefs.setDouble('widthOfWindowSize', defaultWindowWidth);
     await prefs.setDouble('heightOfWindowSize', defaultWindowHeight);
   }
@@ -97,6 +101,8 @@ class Properties {
         prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
     defaultNumberOfAntonyms =
         prefs.getInt('numberOfAntonyms') ?? defaultNumberOfAntonyms;
+    defaultEssentialLeft =
+        prefs.getInt('essentialLeft') ?? defaultEssentialLeft;
     defaultWindowWidth =
         prefs.getDouble("widthOfWindowSize") ?? defaultWindowWidth;
     defaultWindowHeight =

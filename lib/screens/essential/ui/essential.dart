@@ -83,27 +83,25 @@ class _EssentialViewState extends State<EssentialView> {
     "At the bank"
   ];
 
-  late List<String> _listTopicHistory =[];
+  late List<String> _listTopicHistory = [];
 
   @override
   initState() {
     loadTopicHistory();
-    _selectedTopic =_listTopic[createRandomValue()];
+    _selectedTopic = _listTopic[createRandomValue()];
     super.initState();
   }
 
   loadTopicHistory() async {
-    await HistoryManager.readTopicHistory().then((value)
-    {
+    await HistoryManager.readTopicHistory().then((value) {
       print("topic history");
       setState(() {
         _listTopicHistory = value;
-print("list history");
-print(_listTopicHistory);
+        print("list history");
+        print(_listTopicHistory);
       });
     });
   }
-
 
   late String _selectedTopic;
 
@@ -114,7 +112,6 @@ print(_listTopicHistory);
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
           body: SingleChildScrollView(
@@ -133,7 +130,7 @@ print(_listTopicHistory);
               ),
 
               /// Head sentence
-               const HeadSentence(
+              const HeadSentence(
                 listText: ["Nothing", "Worth Doing", "Ever", "Came Easy"],
               ),
 
@@ -141,11 +138,11 @@ print(_listTopicHistory);
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
-                child:  Text(
-                    "Mastering 1848 core English words fosters clear communication. "
-                    "Enhanced vocabulary aids reading, writing, speaking, and understanding. "
-                    "It facilitates meaningful interactions, empowers expression, "
-                    "and broadens access to information and opportunities.".i18n),
+                child: Text("Mastering 1848 core English words fosters clear communication. "
+                        "Enhanced vocabulary aids reading, writing, speaking, and understanding. "
+                        "It facilitates meaningful interactions, empowers expression, "
+                        "and broadens access to information and opportunities."
+                    .i18n),
               ),
               Row(
                 children: [
@@ -158,8 +155,11 @@ print(_listTopicHistory);
                           if (_selectedTopic != null) {
                             /// Add topic to history
                             HistoryManager.saveTopicToHistory(_selectedTopic);
+
                             /// Load essential word based on provided topic
-                            await EssentialManager.loadEssentialData(_selectedTopic).then(
+                            await EssentialManager.loadEssentialData(
+                                    _selectedTopic)
+                                .then(
                               (listEssential) => {
                                 Navigator.push(
                                   context,
@@ -183,25 +183,28 @@ print(_listTopicHistory);
                       CircleButton(
                         iconData: FontAwesomeIcons.heart,
                         onTap: () async {
-                            await EssentialManager.readFavouriteEssential().then(
-                                  (listFavourite) =>
-                                  {
-                                    if (listFavourite.isNotEmpty){
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              FavouriteReviewView(
-                                                listEssentialWord: listFavourite,
-                                              ),
-                                        ),
-                                      )
-                                    } else {
-                                      Notify.showAlertDialog(context, "Favourite Chamber is empty".i18n, "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
-                                    },
-                                  }
-                            );
-
+                          await EssentialManager.readFavouriteEssential()
+                              .then((listFavourite) => {
+                                    if (listFavourite.isNotEmpty)
+                                      {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                FavouriteReviewView(
+                                              listEssentialWord: listFavourite,
+                                            ),
+                                          ),
+                                        )
+                                      }
+                                    else
+                                      {
+                                        Notify.showAlertDialog(
+                                            context,
+                                            "Favourite Chamber is empty".i18n,
+                                            "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
+                                      },
+                                  });
                         },
                       ),
                     ],
@@ -219,7 +222,7 @@ print(_listTopicHistory);
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
                           style: const TextStyle(fontSize: 18),
-                          value: _selectedTopic ,
+                          value: _selectedTopic,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 8),
                           underline: null,
@@ -227,7 +230,10 @@ print(_listTopicHistory);
                           items: _listTopic.map((topic) {
                             return DropdownMenuItem(
                               value: topic,
-                              child: Text(topic, style: Theme.of(context).textTheme.labelLarge,),
+                              child: Text(
+                                topic,
+                                style: Theme.of(context).textTheme.labelLarge,
+                              ),
                             );
                           }).toList(),
                           onChanged: (topic) {
@@ -247,8 +253,8 @@ print(_listTopicHistory);
               ),
 
               /// Guidance box
-               TipsBox(
-                title: "Guid".i18n ,
+              TipsBox(
+                title: "Guid".i18n,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -260,7 +266,6 @@ print(_listTopicHistory);
                       ],
                     ),
                   ),
-
                   Row(
                     children: [
                       const Icon(FontAwesomeIcons.heart, size: 16),
@@ -270,48 +275,63 @@ print(_listTopicHistory);
                   ),
                 ],
               ),
-              /// Recent History Topic
-              SizedBox(height: 16,),
-              _listTopicHistory.isNotEmpty ?
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Text("Recent topics".i18n),
-                  const SizedBox(height: 8,),
 
-                  Wrap(children: _listTopicHistory.map((topic) =>
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: InkWell(
-                          onTap: () async {
-                            print(topic);
-                            /// Load essential word based on provided topic
-                            await EssentialManager.loadEssentialData(topic).then(
-                                  (listEssential) => {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LearningView(
-                                      topic: topic,
-                                      listEssentialWord: listEssential,
-                                    ),
-                                  ),
-                                ),
-                              },
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(32),
-                              color: Theme.of(context).primaryColor,
-                            ),
-                              child: Text(topic)),
+              /// Recent History Topic
+              SizedBox(
+                height: 16,
+              ),
+              _listTopicHistory.isNotEmpty
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Recent topics".i18n),
+                        const SizedBox(
+                          height: 8,
                         ),
-                      )).toList(),),
-                ],
-              ) :
-                  const SizedBox.shrink(),
+                        Wrap(
+                          children: _listTopicHistory
+                              .map((topic) => Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        print(topic);
+
+                                        /// Load essential word based on provided topic
+                                        await EssentialManager
+                                                .loadEssentialData(topic)
+                                            .then(
+                                          (listEssential) => {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LearningView(
+                                                  topic: topic,
+                                                  listEssentialWord:
+                                                      listEssential,
+                                                ),
+                                              ),
+                                            ),
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8, vertical: 4),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(32),
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          child: Text(topic)),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
             ],
           ),
         ),
