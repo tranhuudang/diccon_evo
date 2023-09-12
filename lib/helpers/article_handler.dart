@@ -26,7 +26,7 @@ class ArticleHandler {
 
   /// Get default Application Document Directory in the platform
   static Future<String> getLocalFilePath(String fileName) async {
-    await createDicconDirectoryIfNotExists();
+    await _createDicconDirectoryIfNotExists();
     var directory = await getApplicationDocumentsDirectory();
     var filePath = '${directory.path}/Diccon/$fileName';
     return filePath;
@@ -173,11 +173,11 @@ class ArticleHandler {
   }
 
   /// Read default stories data
-  static Future<String> getAssetFile(String filePath) async {
+  static Future<String> _getAssetFile(String filePath) async {
     return await rootBundle.loadString(filePath);
   }
 
-  static Future<dynamic> getJsonFromUrl(String url) async {
+  static Future<dynamic> _getJsonFromUrl(String url) async {
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -189,7 +189,7 @@ class ArticleHandler {
     }
   }
 
-  static Future<void> createDicconDirectoryIfNotExists() async {
+  static Future<void> _createDicconDirectoryIfNotExists() async {
     // Get the document directory
     Directory appDocDir = await getApplicationDocumentsDirectory();
 

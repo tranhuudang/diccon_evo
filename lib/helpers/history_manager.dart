@@ -70,4 +70,63 @@ class HistoryManager {
     }
   }
 
+  static Future<bool> saveTopicToHistory(String topic) async {
+    final filePath = await FileHandler(Properties.topicHistoryFileName).getLocalFilePath();
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        // Check is a word is already exists in the history
+        bool isWordExists =
+        json.any((topicInList) => topicInList == topic);
+        if (!isWordExists) {
+          if (json is List<dynamic>) {
+            json.add(topic);
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+          } else {
+            final List<dynamic> list = [json, topic];
+            final encoded = jsonEncode(list);
+            await file.writeAsString(encoded);
+          }
+        }
+      } else {
+        final encoded = jsonEncode([topic]);
+        await file.writeAsString(encoded);
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't save ${topic} to history.json. Error detail: $e");
+      }
+      return false;
+    }
+  }
+
+  static Future<List<String>> readTopicHistory() async {
+    final filePath = await FileHandler(Properties.topicHistoryFileName).getLocalFilePath();
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<String> topics =
+          json.cast<String>();
+          return topics;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't read history.json. Error detail: $e");
+      }
+      return [];
+    }
+  }
+
 }

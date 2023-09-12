@@ -23,7 +23,7 @@ class TipsBox extends StatelessWidget {
           title != null ? Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(16)

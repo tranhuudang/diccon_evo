@@ -18,10 +18,19 @@ extension Localization on String {
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
 
   static const _t = Translations.from("en_us", {
+    "Recent topics": {
+      "en_us": "Recent topics",
+      "vi_vi": "Chủ đề gần đây",
+    },
+    "Bookmarks is empty": {
+      "en_us": "Bookmarks is empty",
+      "vi_vi": "Bookmarks trống",
+    },
     "From the universe": {
       "en_us": "From the universe",
       "vi_vi": "Dành riêng cho bạn",
     },
+
     "Reinforce": {
       "en_us": "Reinforce",
       "vi_vi": "Reinforce",
@@ -229,8 +238,8 @@ extension Localization on String {
       "vi_vi": "Chọn một số",
     },
     "Send a message": {
-      "en_us": "Enter for lookup",
-      "vi_vi": "Nhập để tra cứu",
+      "en_us": "  Enter for lookup",
+      "vi_vi": "  Nhập để tra cứu",
     },
     "Reading time": {
       "en_us": "Reading time",

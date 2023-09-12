@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
 import '../../../helpers/essential_manager.dart';
@@ -82,12 +83,26 @@ class _EssentialViewState extends State<EssentialView> {
     "At the bank"
   ];
 
+  late List<String> _listTopicHistory =[];
+
   @override
   initState() {
+    loadTopicHistory();
     _selectedTopic =_listTopic[createRandomValue()];
     super.initState();
   }
 
+  loadTopicHistory() async {
+    await HistoryManager.readTopicHistory().then((value)
+    {
+      print("topic history");
+      setState(() {
+        _listTopicHistory = value;
+print("list history");
+print(_listTopicHistory);
+      });
+    });
+  }
 
 
   late String _selectedTopic;
@@ -141,6 +156,9 @@ class _EssentialViewState extends State<EssentialView> {
                         iconData: FontAwesomeIcons.play,
                         onTap: () async {
                           if (_selectedTopic != null) {
+                            /// Add topic to history
+                            HistoryManager.saveTopicToHistory(_selectedTopic);
+                            /// Load essential word based on provided topic
                             await EssentialManager.loadEssentialData(_selectedTopic).then(
                               (listEssential) => {
                                 Navigator.push(
@@ -251,7 +269,49 @@ class _EssentialViewState extends State<EssentialView> {
                     ],
                   ),
                 ],
-              )
+              ),
+              /// Recent History Topic
+              SizedBox(height: 16,),
+              _listTopicHistory.isNotEmpty ?
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                   Text("Recent topics".i18n),
+                  const SizedBox(height: 8,),
+
+                  Wrap(children: _listTopicHistory.map((topic) =>
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: InkWell(
+                          onTap: () async {
+                            print(topic);
+                            /// Load essential word based on provided topic
+                            await EssentialManager.loadEssentialData(topic).then(
+                                  (listEssential) => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LearningView(
+                                      topic: topic,
+                                      listEssentialWord: listEssential,
+                                    ),
+                                  ),
+                                ),
+                              },
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(32),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                              child: Text(topic)),
+                        ),
+                      )).toList(),),
+                ],
+              ) :
+                  const SizedBox.shrink(),
             ],
           ),
         ),
