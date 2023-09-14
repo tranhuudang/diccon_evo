@@ -1,3 +1,4 @@
+import 'package:diccon_evo/config/local_traditions.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/helpers/article_handler.dart';
@@ -126,18 +127,21 @@ class _ArticlePageViewState extends State<ArticlePageView> {
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Row(
                 children: [
-                  /// CLose button
-                  CircleButton(
-                      iconData: Icons.close,
-                      onTap: () {
-                        Navigator.pop(context);
-                      }),
                   const Spacer(),
+
+
                   /// Favourite button
                   CircleButton(
                       iconData: Icons.bookmark_border,
                       onTap: () {
                         ArticleHandler.saveReadArticleToBookmark(widget.article);
+                      }),
+                  const WidthSpaceLT(),
+                  /// CLose button
+                  CircleButton(
+                      iconData: Icons.close,
+                      onTap: () {
+                        Navigator.pop(context);
                       }),
                 ],
               ),
