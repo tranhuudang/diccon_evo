@@ -33,8 +33,8 @@ class HomeMenuButton extends StatelessWidget {
             PopupMenuItem(
               child: Row(
                 children: [
-                  Icon(Icons.settings,),
-                  SizedBox(width: 8,),
+                  const Icon(Icons.settings,),
+                  const SizedBox(width: 8,),
                   Text("Settings".i18n),
                 ],
               ),
@@ -53,8 +53,8 @@ class HomeMenuButton extends StatelessWidget {
             PopupMenuItem(
               child: Row(
                 children: [
-                  Icon(Icons.feedback_outlined),
-                  SizedBox(width: 8,),
+                  const Icon(Icons.feedback_outlined),
+                  const SizedBox(width: 8,),
                   Text("Feedbacks".i18n),
                 ],
               ),
