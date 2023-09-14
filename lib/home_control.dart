@@ -36,7 +36,7 @@ class _HomeControlViewState extends State<HomeControlView> with WindowListener {
     Size windowsSize = await WindowManager.instance.getSize();
     Properties.defaultWindowWidth = windowsSize.width;
     Properties.defaultWindowHeight = windowsSize.height;
-    Properties.saveSettings(null, null, null, null);
+    Properties.saveSettings(null, null, null, null, null);
     if (windowsSize.width > 800) {
       setState(() {
         isExpanded = true;

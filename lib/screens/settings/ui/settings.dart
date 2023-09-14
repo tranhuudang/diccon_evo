@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../config/local_traditions.dart';
+import '../../../helpers/notify.dart';
 import '../../commons/circle_button.dart';
 import '../cubit/setting_cubit.dart';
 import '../../../config/properties.dart';
@@ -141,14 +143,48 @@ class _SettingsViewState extends State<SettingsView> {
                   //               ),
                   //       ])
                   //     : Container(),
+                  SettingSection(title: "Common Section".i18n, children: [
+                    Row(
+                      children: [
+                        Text("Language".i18n),
+                        const WidthSpaceLT(),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          width: 120,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                                isExpanded: true,
+                                borderRadius: BorderRadius.circular(16),
+                                focusColor: Colors.white,
+                                value: state.language,
+                                hint: Text('Select a language'.i18n),
+                                onChanged: (String? newValue) {
+                                  settingCubit.setLanguage(newValue!);
+                                  Notify.showAlertDialog(context, "Language Updated".i18n, "Diccon will update new language setting in the next time you open.".i18n);
+                                },
+                                items: ["English", "Tiếng Việt"]
+                                    .map(
+                                      (value) => DropdownMenuItem<String>(
+                                    alignment: Alignment.center,
+                                    value: value,
+                                    child: Text(value.toString()),
+                                  ),
+                                )
+                                    .toList()),
+                          ),
+                        ),
+                      ],
+                    )
+                  ]),
                   SettingSection(
                     title: 'Dictionary Section'.i18n,
                     children: [
                       Row(children: [
                         Text("Number of synonyms".i18n),
-                        const SizedBox(
-                          width: 16,
-                        ),
+                        const WidthSpaceLT(),
                         Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context).highlightColor,
@@ -166,24 +202,24 @@ class _SettingsViewState extends State<SettingsView> {
                                   settingCubit.setNumberOfSynonyms(newValue!);
                                 },
                                 items: [5, 10, 20, 30]
-                                    .map((value) => DropdownMenuItem<int>(
-                                          alignment: Alignment.center,
-                                          value: value,
-                                          child: Text(value.toString()),
-                                        ))
+                                    .map(
+                                      (value) => DropdownMenuItem<int>(
+                                        alignment: Alignment.center,
+                                        value: value,
+                                        child: Text(value.toString()),
+                                      ),
+                                    )
                                     .toList()),
                           ),
                         ),
                       ]),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Row(
                         children: [
                           Text("Number of antonyms".i18n),
-                          const SizedBox(
-                            width: 16,
-                          ),
+                          const WidthSpaceLT(),
                           Container(
                             decoration: BoxDecoration(
                               color: Theme.of(context).highlightColor,

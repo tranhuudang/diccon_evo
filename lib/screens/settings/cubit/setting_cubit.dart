@@ -18,6 +18,12 @@ class SettingCubit extends Cubit<Setting> {
     emit(
         Setting(numberOfAntonyms: num));
   }
+  void setLanguage(String language) {
+    Properties.defaultLanguage  = language;
+    saveSettings();
+    emit(
+        Setting(language: language));
+  }
 
   void setReadingFontSize(double num) {
     Properties.defaultReadingFontSize = num;
@@ -37,7 +43,8 @@ class SettingCubit extends Cubit<Setting> {
         Properties.defaultReadingFontSize,
         Properties.defaultReadingFontSizeSliderValue,
         Properties.defaultNumberOfSynonyms,
-        Properties.defaultNumberOfAntonyms
+        Properties.defaultNumberOfAntonyms,
+      Properties.defaultLanguage
     );
   }
 }

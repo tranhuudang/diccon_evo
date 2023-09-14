@@ -83,6 +83,7 @@ class ProgramRoot extends StatelessWidget {
           Locale('en', "US"),
           Locale('vi', "VI"),
         ],
+        locale: Properties.defaultLanguage == "English" ? const Locale('en', "US") : const Locale('vi', "VI"),
         themeMode: ThemeMode.system,
         theme: CustomTheme.getLight(context),
         darkTheme: CustomTheme.getDark(context),

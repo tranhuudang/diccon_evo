@@ -13,7 +13,7 @@ class Notify{
                 // Close the alert dialog
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );

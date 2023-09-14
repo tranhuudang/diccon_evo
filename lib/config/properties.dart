@@ -49,6 +49,7 @@ class Properties {
   static const double minWidth = 400;
   static const double minHeight = 600;
   static const double overflowHeight= 710;
+  static String defaultLanguage = "English";
   static int defaultEssentialLeft = 1848;
   static double defaultWindowHeight = 700;
   static double defaultWindowWidth = 400;
@@ -72,7 +73,8 @@ class Properties {
   static void saveSettings(double? newReadingFontSize,
       double? newReadingFontSizeSliderValue,
       int? newNumberOfSynonyms,
-      int? newNumberOfAntonyms) async {
+      int? newNumberOfAntonyms,
+      String? newLanguage) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble(
         'readingFontSize', newReadingFontSize ?? defaultReadingFontSize);
@@ -82,6 +84,8 @@ class Properties {
 
     await prefs.setInt(
         'numberOfAntonyms', newNumberOfAntonyms ?? defaultNumberOfAntonyms);
+    await prefs.setString(
+        'language', newLanguage ?? defaultLanguage);
     await prefs.setInt(
         'essentialLeft', defaultEssentialLeft);
     await prefs.setDouble('widthOfWindowSize', defaultWindowWidth);
@@ -101,6 +105,8 @@ class Properties {
         prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
     defaultNumberOfAntonyms =
         prefs.getInt('numberOfAntonyms') ?? defaultNumberOfAntonyms;
+    defaultLanguage =
+        prefs.getString('language') ?? defaultLanguage;
     defaultEssentialLeft =
         prefs.getInt('essentialLeft') ?? defaultEssentialLeft;
     defaultWindowWidth =

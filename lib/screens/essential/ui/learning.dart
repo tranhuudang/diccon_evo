@@ -70,7 +70,7 @@ class _LearningViewState extends State<LearningView> {
                     child: PageView.builder(
                       onPageChanged: (index) {
                         Properties.defaultEssentialLeft -= 1;
-                        Properties.saveSettings(null, null, null, null);
+                        Properties.saveSettings(null, null, null, null, null);
                         print(Properties.defaultEssentialLeft);
                         _currentIndex = index;
                       },
