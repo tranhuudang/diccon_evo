@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/helpers/history_manager.dart';
+import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
 import '../../../helpers/essential_manager.dart';
@@ -149,25 +150,25 @@ class _EssentialViewState extends State<EssentialView> {
                       CircleButton(
                         iconData: FontAwesomeIcons.play,
                         onTap: () async {
-                            /// Add topic to history
-                            HistoryManager.saveTopicToHistory(_selectedTopic);
+                          /// Add topic to history
+                          HistoryManager.saveTopicToHistory(_selectedTopic);
 
-                            /// Load essential word based on provided topic
-                            await EssentialManager.loadEssentialData(
-                                    _selectedTopic)
-                                .then(
-                              (listEssential) => {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LearningView(
-                                      topic: _selectedTopic,
-                                      listEssentialWord: listEssential,
-                                    ),
+                          /// Load essential word based on provided topic
+                          await EssentialManager.loadEssentialData(
+                                  _selectedTopic)
+                              .then(
+                            (listEssential) => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LearningView(
+                                    topic: _selectedTopic,
+                                    listEssentialWord: listEssential,
                                   ),
-                                )
-                              },
-                            );
+                                ),
+                              )
+                            },
+                          );
                         },
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
@@ -284,43 +285,28 @@ class _EssentialViewState extends State<EssentialView> {
                           height: 8,
                         ),
                         Wrap(
-                          children: _listTopicHistory
-                              .map((topic) => Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        /// Load essential word based on provided topic
-                                        await EssentialManager
-                                                .loadEssentialData(topic)
-                                            .then(
-                                          (listEssential) => {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LearningView(
-                                                  topic: topic,
-                                                  listEssentialWord:
-                                                      listEssential,
-                                                ),
-                                              ),
-                                            ),
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 4),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(32),
-                                            color:
-                                                Theme.of(context).primaryColor,
+                          children: _listTopicHistory.map((topic) {
+                            return PillButton(
+                                onTap: () async {
+                                  /// Load essential word based on provided topic
+                                  await EssentialManager.loadEssentialData(
+                                          topic)
+                                      .then(
+                                    (listEssential) => {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LearningView(
+                                            topic: topic,
+                                            listEssentialWord: listEssential,
                                           ),
-                                          child: Text(topic)),
-                                    ),
-                                  ))
-                              .toList(),
+                                        ),
+                                      ),
+                                    },
+                                  );
+                                },
+                                title: topic);
+                          }).toList(),
                         ),
                       ],
                     )
