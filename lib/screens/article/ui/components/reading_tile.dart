@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/properties.dart';
 import '../../../../helpers/article_handler.dart';
 import '../../../../models/article.dart';
 import '../../../commons/level_icon.dart';
+import '../../cubits/article_bookmark_list_cubit.dart';
+import '../../cubits/article_history_list_cubit.dart';
 import '../article_page.dart';
 
 class ReadingTile extends StatelessWidget {
@@ -16,14 +19,14 @@ class ReadingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final articleHistoryListCubit = context.read<ArticleHistoryListCubit>();
     TextTheme textTheme = Theme.of(context).primaryTextTheme;
     return GridTile(
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         onTap: () {
-          // Handle tap on article
-          // For example, navigate to article details page
-          ArticleHandler.saveReadArticleToHistory(article);
+          articleHistoryListCubit.addHistory(article);
+          //ArticleHandler.saveReadArticleToHistory(article);
           Navigator.push(
             context,
             MaterialPageRoute(

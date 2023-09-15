@@ -11,6 +11,12 @@ class ArticleHistoryListCubit extends Cubit<List<Article>> {
 
   List<Article> articles = [];
 
+  void addHistory(Article article){
+    ArticleHandler.saveReadArticleToHistory(article);
+    articles.add(article);
+    emit(articles);
+  }
+
   void loadArticleHistory() async {
     articles = await ArticleHandler.readArticleHistory();
     emit(articles);
