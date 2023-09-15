@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-class Notify{
-  static void showAlertDialog(BuildContext context, String title, String content ) {
+
+class Notify {
+  static void showAlertDialog(
+      BuildContext context, String title, String content) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -20,4 +22,15 @@ class Notify{
       },
     );
   }
+
+  static void showSnackBar(BuildContext context, String content) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: Text(
+            content,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        ),
+      );
 }

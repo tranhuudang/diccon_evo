@@ -11,6 +11,12 @@ class ArticleBookmarkListCubit extends Cubit<List<Article>> {
 
   List<Article> articles = [];
 
+  void addBookmark(Article article){
+    ArticleHandler.saveReadArticleToBookmark(article);
+    articles.add(article);
+    emit(articles);
+  }
+
   void loadArticleBookmark() async {
     articles = await ArticleHandler.readArticleBookmark();
     emit(articles);
