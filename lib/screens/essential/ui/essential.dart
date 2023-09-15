@@ -84,21 +84,13 @@ class _EssentialViewState extends State<EssentialView> {
     "At the bank"
   ];
 
-  late List<String> _listTopicHistory = [];
+  late Future<List<String>> _listTopicHistory;
 
   @override
   initState() {
-    loadTopicHistory();
+    _listTopicHistory = HistoryManager.readTopicHistory();
     _selectedTopic = _listTopic[createRandomValue()];
     super.initState();
-  }
-
-  loadTopicHistory() async {
-    await HistoryManager.readTopicHistory().then((value) {
-      setState(() {
-        _listTopicHistory = value;
-      });
-    });
   }
 
   late String _selectedTopic;
@@ -276,41 +268,47 @@ class _EssentialViewState extends State<EssentialView> {
               const SizedBox(
                 height: 16,
               ),
-              _listTopicHistory.isNotEmpty
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Recent topics".i18n),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Wrap(
-                          children: _listTopicHistory.map((topic) {
-                            return PillButton(
-                                onTap: () async {
-                                  /// Load essential word based on provided topic
-                                  await EssentialManager.loadEssentialData(
-                                          topic)
-                                      .then(
-                                    (listEssential) => {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => LearningView(
-                                            topic: topic,
-                                            listEssentialWord: listEssential,
+              FutureBuilder(
+                  future: _listTopicHistory,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Recent topics".i18n),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Wrap(
+                            children: snapshot.data!.map((topic) {
+                              return PillButton(
+                                  onTap: () async {
+                                    /// Load essential word based on provided topic
+                                    await EssentialManager.loadEssentialData(
+                                            topic)
+                                        .then(
+                                      (listEssential) => {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => LearningView(
+                                              topic: topic,
+                                              listEssentialWord: listEssential,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    },
-                                  );
-                                },
-                                title: topic);
-                          }).toList(),
-                        ),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
+                                      },
+                                    );
+                                  },
+                                  title: topic);
+                            }).toList(),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  }),
             ],
           ),
         ),
