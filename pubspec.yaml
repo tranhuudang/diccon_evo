@@ -70,8 +70,8 @@ dev_dependencies:
   url_launcher: ^6.1.12
 
   google_sign_in: ^6.1.4
-  # firebase_auth: ^4.7.1
-  # firebase_core: ^2.15.0
+  firebase_auth: ^4.7.1
+  firebase_core: ^2.15.0
 
   google_fonts: ^4.0.4
 

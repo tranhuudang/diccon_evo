@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../settings/ui/settings.dart';
+import '../../../settings/ui/user_settings.dart';
 class HomeMenuButton extends StatelessWidget {
   const HomeMenuButton({
     super.key,
@@ -30,6 +31,21 @@ class HomeMenuButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
           ),
           itemBuilder: (context) => [
+            PopupMenuItem(
+              child: Row(
+                children: [
+                  const Icon(Icons.account_circle_outlined,),
+                  const SizedBox(width: 8,),
+                  Text("Account".i18n),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UserSettingsView()));
+              },
+            ),
             PopupMenuItem(
               child: Row(
                 children: [

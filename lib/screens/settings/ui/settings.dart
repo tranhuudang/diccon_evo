@@ -1,17 +1,14 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/extensions/target_platform.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../config/local_traditions.dart';
 import '../../../helpers/notify.dart';
 import '../../commons/circle_button.dart';
 import '../cubit/setting_cubit.dart';
 import '../../../config/properties.dart';
 import '../../../models/setting.dart';
-import 'setting_section.dart';
+import 'components/setting_section.dart';
+import 'components/store_badge.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -33,6 +30,7 @@ class _SettingsViewState extends State<SettingsView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
                   /// Header
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,105 +50,16 @@ class _SettingsViewState extends State<SettingsView> {
                   const SizedBox(
                     height: 16,
                   ),
-
-                  /// Login form and user infomations
-                  // Platform.isAndroid
-                  //     ? SettingSection(title: "User", children: [
-                  //         Column(
-                  //           mainAxisAlignment: MainAxisAlignment.center,
-                  //           children: [
-                  //             ClipRRect(
-                  //               borderRadius: Global.userInfo.avatarUrl != ""
-                  //                   ? BorderRadius.circular(50.0)
-                  //                   : BorderRadius.circular(0),
-                  //               child: Global.userInfo.avatarUrl != ""
-                  //                   ? Image(
-                  //                       height: 70,
-                  //                       width: 70,
-                  //                       image: NetworkImage(
-                  //                           Global.userInfo.avatarUrl),
-                  //                       fit: BoxFit
-                  //                           .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
-                  //                     )
-                  //                   : const Align(
-                  //                       alignment: Alignment.center,
-                  //                       child: Text(
-                  //                         "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices",
-                  //                         style: TextStyle(fontSize: 16),
-                  //                         textAlign: TextAlign.center,
-                  //                       ),
-                  //                     ),
-                  //             ),
-                  //             Global.userInfo.name != ""
-                  //                 ? Padding(
-                  //                     padding: const EdgeInsets.all(8.0),
-                  //                     child: Text(
-                  //                       Global.userInfo.name,
-                  //                       style: const TextStyle(
-                  //                         fontWeight: FontWeight.bold,
-                  //                       ),
-                  //                     ),
-                  //                   )
-                  //                 : Container(),
-                  //           ],
-                  //         ),
-                  //         Row(
-                  //           mainAxisAlignment: MainAxisAlignment.center,
-                  //           children: [
-                  //             Text(
-                  //               Global.userInfo.email,
-                  //               style: const TextStyle(color: Colors.black26),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //         Global.userInfo.id != ""
-                  //             ? Row(
-                  //                 mainAxisAlignment: MainAxisAlignment.center,
-                  //                 children: [
-                  //                   ElevatedButton(
-                  //                     onPressed: () {},
-                  //                     child: const Text("Sync your data"),
-                  //                   ),
-                  //                   const SizedBox(
-                  //                     width: 8,
-                  //                   ),
-                  //                   ElevatedButton(
-                  //                     onPressed: () {
-                  //                       AuthService authService = AuthService();
-                  //                       authService.googleSignOut();
-                  //                       setState(() {
-                  //                         Global.userInfo =
-                  //                             UserInfo("", "", "", "");
-                  //                       });
-                  //                     },
-                  //                     child: const Text("Log out"),
-                  //                   ),
-                  //                 ],
-                  //               )
-                  //             : GoogleSignInButton(
-                  //                 onPressed: () async {
-                  //                   AuthService authService = AuthService();
-                  //                   GoogleSignInAccount? user =
-                  //                       await authService.googleSignIn();
-                  //                   setState(() {
-                  //                     Global.userInfo = UserInfo(
-                  //                         user!.id,
-                  //                         user.displayName ?? "",
-                  //                         user.photoUrl ?? "",
-                  //                         user.email);
-                  //                   });
-                  //                 },
-                  //               ),
-                  //       ])
-                  //     : Container(),
                   SettingSection(title: "Common Section".i18n, children: [
                     Row(
                       children: [
                         Text("Language".i18n),
-                        const WidthSpaceLT(),
+                        Tradition.widthSpacer,
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).highlightColor,
+                            color: Theme
+                                .of(context)
+                                .highlightColor,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           width: 120,
@@ -163,15 +72,19 @@ class _SettingsViewState extends State<SettingsView> {
                                 hint: Text('Select a language'.i18n),
                                 onChanged: (String? newValue) {
                                   settingCubit.setLanguage(newValue!);
-                                  Notify.showAlertDialog(context, "Language Updated".i18n, "Diccon will update new language setting in the next time you open.".i18n);
+                                  Notify.showAlertDialog(
+                                      context, "Language Updated".i18n,
+                                      "Diccon will update new language setting in the next time you open."
+                                          .i18n);
                                 },
                                 items: ["English", "Tiếng Việt"]
                                     .map(
-                                      (value) => DropdownMenuItem<String>(
-                                    alignment: Alignment.center,
-                                    value: value,
-                                    child: Text(value.toString()),
-                                  ),
+                                      (value) =>
+                                      DropdownMenuItem<String>(
+                                        alignment: Alignment.center,
+                                        value: value,
+                                        child: Text(value.toString()),
+                                      ),
                                 )
                                     .toList()),
                           ),
@@ -184,10 +97,12 @@ class _SettingsViewState extends State<SettingsView> {
                     children: [
                       Row(children: [
                         Text("Number of synonyms".i18n),
-                        const WidthSpaceLT(),
+                        Tradition.widthSpacer,
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).highlightColor,
+                            color: Theme
+                                .of(context)
+                                .highlightColor,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           width: 60,
@@ -203,12 +118,13 @@ class _SettingsViewState extends State<SettingsView> {
                                 },
                                 items: [5, 10, 20, 30]
                                     .map(
-                                      (value) => DropdownMenuItem<int>(
+                                      (value) =>
+                                      DropdownMenuItem<int>(
                                         alignment: Alignment.center,
                                         value: value,
                                         child: Text(value.toString()),
                                       ),
-                                    )
+                                )
                                     .toList()),
                           ),
                         ),
@@ -219,10 +135,12 @@ class _SettingsViewState extends State<SettingsView> {
                       Row(
                         children: [
                           Text("Number of antonyms".i18n),
-                          const WidthSpaceLT(),
+                          Tradition.widthSpacer,
                           Container(
                             decoration: BoxDecoration(
-                              color: Theme.of(context).highlightColor,
+                              color: Theme
+                                  .of(context)
+                                  .highlightColor,
                               borderRadius: BorderRadius.circular(16),
                             ),
                             width: 60,
@@ -238,11 +156,12 @@ class _SettingsViewState extends State<SettingsView> {
                                     settingCubit.setNumberOfAntonyms(newValue!);
                                   },
                                   items: [5, 10, 20, 30]
-                                      .map((value) => DropdownMenuItem<int>(
-                                            alignment: Alignment.center,
-                                            value: value,
-                                            child: Text(value.toString()),
-                                          ))
+                                      .map((value) =>
+                                      DropdownMenuItem<int>(
+                                        alignment: Alignment.center,
+                                        value: value,
+                                        child: Text(value.toString()),
+                                      ))
                                       .toList()),
                             ),
                           ),
@@ -335,88 +254,5 @@ class _SettingsViewState extends State<SettingsView> {
         }),
       ),
     );
-  }
-
-  Widget playStoreBadge() {
-    return InkWell(
-      onTap: () async {
-        final Uri url = Uri.parse(
-            'https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo');
-        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-          throw Exception('Could not launch $url');
-        }
-      }, // Replace with your image path
-
-      child: Image.asset(
-        "assets/badges/en_badge_web_generic.png",
-      ),
-    );
-  }
-
-  Widget amazonStoreBadge() {
-    return InkWell(
-      onTap: () async {
-        final Uri url =
-            Uri.parse('https://www.amazon.com/dp/B0CBP3XSQJ/ref=apps_sf_sta');
-        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-          throw Exception('Could not launch $url');
-        }
-      }, // Replace with your image path
-
-      child: Image.asset(
-        "assets/badges/amazon-appstore-badge-english-white.png",
-      ),
-    );
-  }
-
-  Widget microsoftStoreBadge() {
-    return InkWell(
-      onTap: () async {
-        final Uri url = Uri.parse(
-            'https://apps.microsoft.com/store/detail/diccon-evo/9NPF4HBMNG5D');
-        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-          throw Exception('Could not launch $url');
-        }
-      }, // Replace with your image path
-
-      child: SvgPicture.asset(
-        "assets/badges/ms-en-US-dark.svg",
-      ),
-    );
-  }
-}
-
-class GoogleSignInButton extends StatelessWidget {
-  final Function()? onPressed;
-  const GoogleSignInButton({
-    super.key,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: onPressed,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(50.0),
-              child: Container(
-                padding: const EdgeInsets.all(3),
-                color: Colors.white,
-                child: const Image(
-                  height: 20,
-                  image: AssetImage("assets/google.svg"),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text("Continue with Google"),
-          ],
-        ));
   }
 }

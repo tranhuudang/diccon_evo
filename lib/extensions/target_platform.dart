@@ -7,4 +7,7 @@ extension PlatformExtension on TargetPlatform {
         this == TargetPlatform.android ||
         this == TargetPlatform.fuchsia;
   }
+  bool isAndroid(){
+    return this == TargetPlatform.android;
+  }
 }

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class WidthSpaceLT extends StatelessWidget {
-  const WidthSpaceLT({
-    super.key,
-  });
+class Tradition {
+  static EdgeInsets buttonEdgeInsets =
+      const EdgeInsets.symmetric(horizontal: 16, vertical: 12);
+  static SizedBox widthSpacer = const SizedBox(
+    width: 8,
+  );
 
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      width: 8,
-    );
-  }
+  static SizedBox heightSpacer = const SizedBox(
+    height: 8,
+  );
 }

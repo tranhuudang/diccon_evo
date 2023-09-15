@@ -136,7 +136,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                       onTap: () {
                         ArticleHandler.saveReadArticleToBookmark(widget.article);
                       }),
-                  const WidthSpaceLT(),
+                  Tradition.widthSpacer,
                   /// CLose button
                   CircleButton(
                       iconData: Icons.close,

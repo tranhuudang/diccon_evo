@@ -18,7 +18,30 @@ extension Localization on String {
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
 
   static const _t = Translations.from("en_us", {
-
+    "Sync your data": {
+      "en_us": "Sync your data",
+      "vi_vi": "Đồng bộ dữ liệu",
+    },
+    "Log out": {
+      "en_us": "Log out",
+      "vi_vi": "Đăng xuất",
+    },
+    "Account": {
+      "en_us": "Account",
+      "vi_vi": "Tài khoản",
+    },
+    "User": {
+      "en_us": "User",
+      "vi_vi": "Người dùng",
+    },
+    "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices": {
+      "en_us": "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices",
+      "vi_vi": "Đăng nhập để đồng bộ dữ liệu giữa các thiết bị của bạn",
+    },
+    "Continue with Google": {
+      "en_us": "Continue with Google",
+      "vi_vi": "Tiếp tục với Google",
+    },
     "Feedbacks": {
       "en_us": "Feedbacks",
       "vi_vi": "Góp ý",
