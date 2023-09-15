@@ -16,7 +16,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'config/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
-import 'firebase_options.dart';
+import 'package:diccon_evo/firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

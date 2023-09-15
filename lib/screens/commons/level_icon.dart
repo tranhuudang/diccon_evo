@@ -1,3 +1,4 @@
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class LevelIcon extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: Theme.of(context).primaryColor),
       child: Text(
-        level.upperCaseFirstLetter(),
+        level.upperCaseFirstLetter().i18n,
       ),
     );
   }

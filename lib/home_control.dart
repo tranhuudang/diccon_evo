@@ -7,7 +7,6 @@ import 'package:window_manager/window_manager.dart';
 import 'config/properties.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'screens/home/ui/home.dart';
-
 class HomeControlView extends StatefulWidget {
   const HomeControlView({Key? key}) : super(key: key);
 
@@ -16,7 +15,6 @@ class HomeControlView extends StatefulWidget {
 }
 
 class _HomeControlViewState extends State<HomeControlView> with WindowListener {
-  int _selectedPageIndex = 0;
   bool isExpanded = false;
   // Instance of Repository implementations
   DictionaryRepository dataRepository = DictionaryRepository();

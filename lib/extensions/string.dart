@@ -3,7 +3,6 @@ extension StringExtenstion on String {
     RegExp regExp = RegExp(r"[^\p{L}\p{N}']+", unicode: true);
     var output = replaceAll('\'', '');
     output = output.replaceAll(regExp, "");
-    print("remove special charactor 2");
     return output;
   }
 

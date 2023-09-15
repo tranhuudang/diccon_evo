@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-
-import '../helpers/file_handler.dart';
 import '../models/article.dart';
 
 class ArticleRepository{

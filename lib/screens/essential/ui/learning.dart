@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'dart:ffi';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/helpers/essential_manager.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/properties.dart';
@@ -10,7 +9,6 @@ import '../../../models/essential_word.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/tips_box.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'components/learning_page_item.dart';
 
 class LearningView extends StatefulWidget {
@@ -71,7 +69,9 @@ class _LearningViewState extends State<LearningView> {
                       onPageChanged: (index) {
                         Properties.defaultEssentialLeft -= 1;
                         Properties.saveSettings(null, null, null, null, null);
-                        print(Properties.defaultEssentialLeft);
+                        if (kDebugMode) {
+                          print(Properties.defaultEssentialLeft);
+                        }
                         _currentIndex = index;
                       },
                       controller: _pageViewController,
@@ -159,10 +159,7 @@ class _LearningViewState extends State<LearningView> {
                     return Row(
                       children: [
                         const Text("- "),
-                        Text(
-                          text,
-                          style: TextStyle(),
-                        ),
+                        Text(text),
                       ],
                     );
                   }).toList(),

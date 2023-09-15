@@ -72,10 +72,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (wordResult != null) {
       /// Right bubble represent machine reply
       state.chatList.add(DictionaryBubble(
-          isMachine: true, message: wordResult!, onWordTap: event.onWordTap));
+          isMachine: true, message: wordResult, onWordTap: event.onWordTap));
       emit(ChatListUpdated(chatList: state.chatList));
       /// Add found word to history file
-      await HistoryManager.saveWordToHistory(wordResult!);
+      await HistoryManager.saveWordToHistory(wordResult);
     } else {
       await translate(event.providedWord).then((translatedWord) {
         state.chatList.add(DictionaryBubble(

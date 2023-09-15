@@ -1,5 +1,4 @@
 import 'package:diccon_evo/config/local_traditions.dart';
-import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/helpers/article_handler.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import '../../commons/bottom_sheet_translate.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/clickable_word/ui/clickable_words.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ArticlePageView extends StatefulWidget {
   final Article article;

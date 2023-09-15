@@ -94,11 +94,8 @@ class _EssentialViewState extends State<EssentialView> {
 
   loadTopicHistory() async {
     await HistoryManager.readTopicHistory().then((value) {
-      print("topic history");
       setState(() {
         _listTopicHistory = value;
-        print("list history");
-        print(_listTopicHistory);
       });
     });
   }
@@ -152,7 +149,6 @@ class _EssentialViewState extends State<EssentialView> {
                       CircleButton(
                         iconData: FontAwesomeIcons.play,
                         onTap: () async {
-                          if (_selectedTopic != null) {
                             /// Add topic to history
                             HistoryManager.saveTopicToHistory(_selectedTopic);
 
@@ -172,7 +168,6 @@ class _EssentialViewState extends State<EssentialView> {
                                 )
                               },
                             );
-                          }
                         },
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
@@ -277,7 +272,7 @@ class _EssentialViewState extends State<EssentialView> {
               ),
 
               /// Recent History Topic
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               _listTopicHistory.isNotEmpty
@@ -294,8 +289,6 @@ class _EssentialViewState extends State<EssentialView> {
                                     padding: const EdgeInsets.all(4.0),
                                     child: InkWell(
                                       onTap: () async {
-                                        print(topic);
-
                                         /// Load essential word based on provided topic
                                         await EssentialManager
                                                 .loadEssentialData(topic)

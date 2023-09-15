@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import '../../../models/essential_word.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/tips_box.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'components/learning_page_item.dart';
 
 class FavouriteReviewView extends StatefulWidget {
@@ -33,7 +31,7 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -88,7 +86,7 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                           iconData: FontAwesomeIcons.chevronLeft,
                           onTap: () {
                             _pageViewController.previousPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
                           },
@@ -100,7 +98,7 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                           iconData: FontAwesomeIcons.chevronRight,
                           onTap: () {
                             _pageViewController.nextPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
                           },
@@ -137,7 +135,7 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                     return Row(
                       children: [
                         const Text("- "),
-                        Text(text, style: TextStyle(),),
+                        Text(text),
                       ],
                     );
                   }).toList(),

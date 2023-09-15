@@ -44,7 +44,7 @@ class QuoteContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 16,right: 16, top: 16, bottom: 32),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
       child: Row(
         children: [
           Expanded(
@@ -60,12 +60,9 @@ class QuoteContent extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             borderRadius: BorderRadius.circular(16)),
-                        child:  Text("From the universe".i18n))),
-                Container(
-                  //width: 200,
-                  child: Text(text ??
-                      "Unlock the Doors to Words: Explore, Discover, and Learn"),
-                ),
+                        child: Text("From the universe".i18n))),
+                Text(text ??
+                    "Unlock the Doors to Words: Explore, Discover, and Learn"),
               ],
             ),
           ),

@@ -65,12 +65,16 @@ class EssentialManager {
             json.add(word.toJson());
             final encoded = jsonEncode(json);
             await file.writeAsString(encoded);
-            print("favourite added");
+            if (kDebugMode) {
+              print("favourite added");
+            }
           } else {
             final List<dynamic> list = [json, word.toJson()];
             final encoded = jsonEncode(list);
             await file.writeAsString(encoded);
-            print("favourite added");
+            if (kDebugMode) {
+              print("favourite added");
+            }
           }
         }
       } else {
@@ -106,7 +110,9 @@ class EssentialManager {
         String updatedJsonData = json.encode(jsonList);
         await file.writeAsString(updatedJsonData);
         // Print the updated JSON string
-        print(updatedJsonData);
+        if (kDebugMode) {
+          print(updatedJsonData);
+        }
       }
     } catch (e) {
       if (kDebugMode) {

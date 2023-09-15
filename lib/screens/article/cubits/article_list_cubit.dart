@@ -8,7 +8,7 @@ import '../../../repositories/article_repository.dart';
 class ArticleListCubit extends Cubit<List<Article>> {
   ArticleListCubit() : super([]);
 
-  Future<void> loadUp() async {
+  Future<void> loadAll() async {
     Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
     //emit(Global.defaultArticleList);
 
@@ -22,6 +22,14 @@ class ArticleListCubit extends Cubit<List<Article>> {
     Properties.defaultArticleList.shuffle();
     emit(Properties.defaultArticleList);
   }
+
+  Future<void> loadLocal() async {
+    Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
+
+    Properties.defaultArticleList.shuffle();
+    emit(Properties.defaultArticleList);
+  }
+
 
   void sortElementary() {
     var elementaryOnly = Properties.defaultArticleList

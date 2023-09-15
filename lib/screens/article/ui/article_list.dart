@@ -1,6 +1,8 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/article/ui/article_history.dart';
+import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
+import '../../../config/local_traditions.dart';
 import '../../../models/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/circle_button.dart';
@@ -8,7 +10,6 @@ import '../../commons/head_sentence.dart';
 import '../cubits/article_list_cubit.dart';
 import 'article_bookmark.dart';
 import 'components/reading_tile.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ArticleListView extends StatelessWidget {
   const ArticleListView({super.key});
@@ -21,12 +22,82 @@ class ArticleListView extends StatelessWidget {
         body: BlocBuilder<ArticleListCubit, List<Article>>(
           builder: (context, state) {
             if (state.isEmpty) {
-              articleListCubit.loadUp();
+              articleListCubit.loadAll();
               return Column(
                 children: [
                   ArticleListHeader(articleListCubit: articleListCubit),
-                  const Expanded(
-                      child: Center(child: CircularProgressIndicator())),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                /// Head sentence
+                                const HeadSentence(
+                                  listText: [
+                                    "Library of",
+                                    "Infinite Adventures"
+                                  ],
+                                ),
+
+                                /// Sub sentence
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 32, vertical: 26),
+                                  child: const Text(
+                                      "Within these walls, let the magic of words transport you to realms uncharted and dreams unbound."),
+                                ),
+
+                                /// Function button
+                                CircleButtonBar(
+                                  children: [
+                                    CircleButton(
+                                        iconData: Icons.bookmark_border,
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ArticleListBookmarkView()));
+                                        }),
+                                    CircleButton(
+                                        iconData: Icons.history,
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ArticleListHistoryView()));
+                                        }),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 60,
+                          ),
+                          Column(
+                            children: [
+                              const Center(child: CircularProgressIndicator()),
+                              Tradition.heightSpacer,
+                              Text("Getting new stories..".i18n),
+                              Tradition.heightSpacer,
+                              const Text("It'll take no more than 15 seconds"),
+                              Tradition.heightSpacer,
+                              PillButton(onTap: (){
+                                articleListCubit.loadLocal();
+                              }, title: "Cancel".i18n),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               );
             } else {

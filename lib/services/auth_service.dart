@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -32,7 +33,9 @@ class AuthService{
       final GoogleSignIn googleSignIn = GoogleSignIn();
       await googleSignIn.signOut();
     } catch (error) {
-      print("Error during sign out: $error");
+      if (kDebugMode) {
+        print("Error during sign out: $error");
+      }
     }
   }
 }
