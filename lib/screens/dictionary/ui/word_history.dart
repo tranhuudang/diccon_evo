@@ -16,8 +16,9 @@ class WordHistoryView extends StatelessWidget {
       child: Scaffold(
         body: BlocBuilder<HistoryListCubit, List<Word>>(
           builder: (context, state) {
+            historyListCubit.loadHistory();
+
             if (state.isEmpty) {
-              historyListCubit.loadHistory();
               return Column(
                 children: [
                   /// Header

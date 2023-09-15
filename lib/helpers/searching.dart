@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 
 import '../config/properties.dart';
 import '../models/word.dart';
+import 'history_manager.dart';
 
 class Searching {
   static Word? getDefinition(String searchWord) {
@@ -13,15 +14,21 @@ class Searching {
     for (int i = 0; i < Properties.wordList.length; i++) {
       String word = Properties.wordList[i].word;
       if (word.startsWith("$refineWord${Properties.blankSpace}")) {
+        /// Add found word to history file
+        HistoryManager.saveWordToHistory(Properties.wordList[i]);
         return Properties.wordList[i];
       }
-      if (word.startsWith(refineWord.substring(0, refineWord.length - 1)) && (refineWord.lastIndexOf('s') == (refineWord.length - 1))) {
+      if (word.startsWith(refineWord.substring(0, refineWord.length - 1)) &&
+          (refineWord.lastIndexOf('s') == (refineWord.length - 1))) {
+        /// Add found word to history file
+        HistoryManager.saveWordToHistory(Properties.wordList[i]);
         return Properties.wordList[i];
       }
       if (word.startsWith(refineWord)) {
+        /// Add found word to history file
+        HistoryManager.saveWordToHistory(Properties.wordList[i]);
         return Properties.wordList[i];
       }
-
     }
     return null;
   }

@@ -9,7 +9,7 @@ class HistoryListCubit extends Cubit<List<Word>> {
   HistoryListCubit() : super([]);
 
   List<Word> words = [];
-
+  
   void loadHistory() async {
     words = await HistoryManager.readWordHistory();
     emit(words);
