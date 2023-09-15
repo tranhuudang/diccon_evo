@@ -1,7 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/repositories/dictionary_repository.dart';
 import 'package:diccon_evo/repositories/thesaurus_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'config/properties.dart';

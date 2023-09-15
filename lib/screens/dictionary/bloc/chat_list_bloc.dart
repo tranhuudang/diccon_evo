@@ -1,8 +1,8 @@
 import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
 import 'package:diccon_evo/helpers/searching.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator/translator.dart';
 import '../../../models/word.dart';
 import '../../../repositories/thesaurus_repository.dart';

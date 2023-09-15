@@ -1,5 +1,5 @@
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/properties.dart';
 import '../../../models/article.dart';

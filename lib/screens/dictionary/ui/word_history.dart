@@ -1,6 +1,5 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import '../../../models/word.dart';
 import '../cubit/word_history_list_cubit.dart';
 import 'components/history_header.dart';

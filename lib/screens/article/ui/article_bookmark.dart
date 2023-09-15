@@ -126,7 +126,7 @@ class ArticleHistoryHeader extends StatelessWidget {
         const SizedBox(
           width: 16,
         ),
-        Text("Bookmarks", style: const TextStyle(fontSize: 28)),
+        const Text("Bookmarks", style: TextStyle(fontSize: 28)),
         const Spacer(),
         IconButton(
             onPressed: () => articleBookmarkListCubit.sortAlphabet(),

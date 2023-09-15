@@ -98,7 +98,7 @@ class HistoryManager {
       return true;
     } catch (e) {
       if (kDebugMode) {
-        print("Can't save ${topic} to history.json. Error detail: $e");
+        print("Can't save $topic to history.json. Error detail: $e");
       }
       return false;
     }
