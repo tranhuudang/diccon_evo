@@ -1,6 +1,6 @@
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:async/async.dart';
 import '../../../config/properties.dart';
 import '../../../models/article.dart';
 import '../../../repositories/article_repository.dart';
@@ -8,26 +8,27 @@ import '../../../repositories/article_repository.dart';
 class ArticleListCubit extends Cubit<List<Article>> {
   ArticleListCubit() : super([]);
 
-  Future<void> loadAll() async {
-    Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
-    //emit(Global.defaultArticleList);
+  CancelableOperation? _cancelableOperation;
 
-    var onlineStories = await ArticleRepository.getOnlineStoryList();
-
-    for (var story in onlineStories) {
-      if (story.title != "") {
-        Properties.defaultArticleList.add(story);
-      }
-    }
-    Properties.defaultArticleList.shuffle();
+  void cancelLoading() async {
+    await _cancelableOperation?.cancel();
     emit(Properties.defaultArticleList);
   }
 
-  Future<void> loadLocal() async {
-    Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
-
-    Properties.defaultArticleList.shuffle();
-    emit(Properties.defaultArticleList);
+  void getAllArticle() async {
+    _cancelableOperation = CancelableOperation.fromFuture(
+        // The process will automaticly cancel after 5 seconds if it not complete
+        _loadAll().timeout(
+          const Duration(seconds: 5),
+          // Calling cancel
+          onTimeout: () {
+            cancelLoading();
+          },
+        ), onCancel: () {
+      if (kDebugMode) {
+        print("Loading article is canceled");
+      }
+    });
   }
 
 
@@ -55,5 +56,18 @@ class ArticleListCubit extends Cubit<List<Article>> {
   void getAll() {
     var all = Properties.defaultArticleList;
     emit(all);
+  }
+
+  Future<void> _loadAll() async {
+    Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
+    var onlineStories = await ArticleRepository.getOnlineStoryList();
+
+    for (var story in onlineStories) {
+      if (story.title != "") {
+        Properties.defaultArticleList.add(story);
+      }
+    }
+    Properties.defaultArticleList.shuffle();
+    emit(Properties.defaultArticleList);
   }
 }

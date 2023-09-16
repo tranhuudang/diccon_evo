@@ -10,7 +10,6 @@ import '../../commons/head_sentence.dart';
 import '../cubits/article_list_cubit.dart';
 import 'article_bookmark.dart';
 import 'components/reading_tile.dart';
-
 class ArticleListView extends StatelessWidget {
   const ArticleListView({super.key});
 
@@ -22,7 +21,7 @@ class ArticleListView extends StatelessWidget {
         body: BlocBuilder<ArticleListCubit, List<Article>>(
           builder: (context, state) {
             if (state.isEmpty) {
-              articleListCubit.loadAll();
+              articleListCubit.getAllArticle();
               return Column(
                 children: [
                   ArticleListHeader(articleListCubit: articleListCubit),
@@ -87,10 +86,8 @@ class ArticleListView extends StatelessWidget {
                               Tradition.heightSpacer,
                               Text("Getting new stories..".i18n),
                               Tradition.heightSpacer,
-                              const Text("It'll take no more than 15 seconds"),
-                              Tradition.heightSpacer,
                               PillButton(onTap: (){
-                                articleListCubit.loadLocal();
+                                articleListCubit.cancelLoading();
                               }, title: "Cancel".i18n),
                             ],
                           ),
