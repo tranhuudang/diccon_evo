@@ -59,12 +59,14 @@ class Properties {
   static const String evDataPath = 'assets/dictionary/diccon_ev.txt';
   static const String veDataPath = 'assets/dictionary/diccon_ve.txt';
   static const String blankSpace = ' ';
-  static const String wordHistoryFileName = 'history.json';
-  static const String topicHistoryFileName = 'topic_history.json';
+
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
+  static const String wordHistoryFileName = 'history.json';
+  static const String topicHistoryFileName = 'topic_history.json';
   static const String articleHistoryFileName = 'article_history.json';
   static const String articleBookmarkFileName = 'article_bookmark.json';
+  static const String essentialFavouriteFileName = 'essential_favourite.json';
   static List<Article> defaultArticleList = [];
   // All view in application
   static double defaultReadingFontSizeSliderValue = 0.2;

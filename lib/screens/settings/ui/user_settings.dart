@@ -1,16 +1,16 @@
-import 'package:diccon_evo/screens/settings/ui/components/store_badge.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/extensions/target_platform.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:unicons/unicons.dart';
 import '../../../config/local_traditions.dart';
-import '../../../models/user_info.dart';
-import '../../../services/auth_service.dart';
-import '../../commons/circle_button.dart';
 import '../../../config/properties.dart';
+import '../../../helpers/notify.dart';
 import '../../commons/pill_button.dart';
+import 'components/available_box.dart';
 import 'components/setting_section.dart';
+import 'components/user_view_header.dart';
 
 class UserSettingsView extends StatefulWidget {
   const UserSettingsView({super.key});
@@ -20,191 +20,194 @@ class UserSettingsView extends StatefulWidget {
 }
 
 class _UserSettingsViewState extends State<UserSettingsView> {
+
   @override
   Widget build(BuildContext context) {
+    var userBloc = context.read<UserBloc>();
+    if(Properties.userInfo.id.isNotEmpty)
+    {
+      userBloc.add(UserLoginEvent());
+    }
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                /// Header
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: CircleButton(
-                          iconData: Icons.arrow_back,
-                          onTap: () {
-                            Navigator.pop(context);
-                          }),
-                    ),
-                    Text("Account".i18n, style: const TextStyle(fontSize: 28))
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
+            child: BlocConsumer<UserBloc, UserState>(
+              listenWhen: (previous, current) => current is UserActionState,
+              buildWhen: (previous, current) => current is! UserActionState,
+              listener: (context, state) {
+                if (state is UserLoggingoutState) {
+                  Notify.showLoadingAlertDialog(context, "Logging out".i18n,
+                      "Your data will be cleared during the process.".i18n);
+                } else if (state is UserLogoutCompletedState) {
+                  Navigator.pop(context);
+                  Notify.showSnackBar(context, "You are logged out");
+                }
+                if (state is UserSyncCompleted) {
+                  Notify.showSnackBar(context, "Your data is synced");
+                }
+              },
+              builder: (context, state) {
+                late var userLoginState = null;
+                switch (state.runtimeType) {
+                  case UserUninitialized:
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        /// Header
+                        const UserViewHeader(),
+                        Tradition.heightSpacer,
 
-                /// Login form and user infomations
-                defaultTargetPlatform.isAndroid()
-                    ? SettingSection(title: "User".i18n, children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: Properties.userInfo.avatarUrl != ""
-                                  ? BorderRadius.circular(50.0)
-                                  : BorderRadius.circular(0),
-                              child: Properties.userInfo.avatarUrl != ""
-                                  ? Image(
-                                      height: 70,
-                                      width: 70,
-                                      image: NetworkImage(
-                                          Properties.userInfo.avatarUrl),
-                                      fit: BoxFit
-                                          .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
-                                    )
-                                  : Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices"
-                                            .i18n,
-                                        style: const TextStyle(fontSize: 16),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                            ),
-                            Properties.userInfo.name != ""
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      Properties.userInfo.name,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        /// Login form and user infomations
+                        SettingSection(
+                          title: "User".i18n,
                           children: [
                             Text(
-                              Properties.userInfo.email,
+                              "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices"
+                                  .i18n,
+                              style: const TextStyle(fontSize: 16),
+                              textAlign: TextAlign.center,
                             ),
+                            Tradition.heightSpacer,
+                            PillButton(
+                                icon: FontAwesomeIcons.google,
+                                onTap: () async =>
+                                    userBloc.add(UserLoginEvent()),
+                                title: "Continue with Google"),
                           ],
                         ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const AvailableBox(),
+                      ],
+                    );
+                  case UserLoginState:
+                    userLoginState = state as UserLoginState;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        /// Header
+                        const UserViewHeader(),
                         Tradition.heightSpacer,
-                        Properties.userInfo.id != ""
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  PillButton(onTap: (){}, title: "Sync your data"),
-                                  Tradition.widthSpacer,
-                                  PillButton(
-                                    onTap: () {
-                                      AuthService authService = AuthService();
-                                      authService.googleSignOut();
-                                      setState(() {
-                                        Properties.userInfo =
-                                            UserInfo("", "", "", "");
-                                      });
-                                    },
-                                    title: "Log out",
+
+                        /// Login form and user infomations
+                        SettingSection(
+                          title: "User".i18n,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                userLoginState.userInfo.avatarUrl.isNotEmpty
+                                    ? ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        child: Image(
+                                          height: 70,
+                                          width: 70,
+                                          image: NetworkImage(userLoginState
+                                              .userInfo.avatarUrl),
+                                          fit: BoxFit
+                                              .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
+                                        ),
+                                      )
+                                    : const SizedBox.shrink(),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    userLoginState.userInfo.name,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ],
-                              )
-                            : GoogleSignInButton(
-                                onPressed: () async {
-                                  AuthService authService = AuthService();
-                                  GoogleSignInAccount? user =
-                                      await authService.googleSignIn();
-                                  setState(() {
-                                    Properties.userInfo = UserInfo(
-                                        user!.id,
-                                        user.displayName ?? "",
-                                        user.photoUrl ?? "",
-                                        user.email);
-                                  });
-                                },
+                                ),
+                              ],
+                            ),
+                            Text(
+                              userLoginState.userInfo.email,
+                            ),
+                            Tradition.heightSpacer,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                PillButton(
+                                  icon: Icons.sync,
+                                    isDisabled: userLoginState.isSyncing,
+                                    onTap: () => userBloc.add(UserSyncEvent(
+                                        userInfo: userLoginState.userInfo)),
+                                    title: "Sync your data"),
+                                Tradition.widthSpacer,
+                                PillButton(
+                                  onTap: () => userBloc.add(UserLogoutEvent()),
+                                  title: "Log out",
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: Colors.red,
+                                ),
                               ),
-                      ])
-                    : Container(),
-                const SizedBox(
-                  height: 30,
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "Available at".i18n,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      height: 200,
-                      width: 370,
-                      child: GridView.count(
-                        crossAxisCount: 3,
-                        childAspectRatio: 3,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 5,
-                        children: [
-                          microsoftStoreBadge(),
-                          amazonStoreBadge(),
-                          playStoreBadge(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Delete all your data on cloud.".i18n,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Tradition.heightSpacer,
+
+                                  Text(
+                                      "(This process once fired will never be undone. Please take it serious.)"
+                                          .i18n),
+                                  Tradition.heightSpacer,
+                                  PillButton(
+                                      icon: UniconsLine.trash,
+                                      backgroundColor: Colors.red,
+                                      onTap: () {
+                                        userBloc.add(UserDeleteDateEvent());
+                                      },
+                                      title: "Erase all"),
+                                ],
+                              ),
+                            ),
+
+                            /// Loading Indicator for syncing process
+                            userLoginState.isSyncing
+                                ? Column(
+                                    children: [
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 8),
+                                        child: LinearProgressIndicator(),
+                                      ),
+                                      Text("Your data is syncing..".i18n),
+                                      Tradition.heightSpacer,
+                                    ],
+                                  )
+                                : const SizedBox.shrink(),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const AvailableBox(),
+                      ],
+                    );
+                  default:
+                    return const SizedBox.shrink();
+                }
+              },
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class GoogleSignInButton extends StatelessWidget {
-  final Function()? onPressed;
-  const GoogleSignInButton({
-    super.key,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50.0),
-            child: Container(
-              padding: const EdgeInsets.all(3),
-              color: Colors.white,
-              child: const Image(
-                height: 20,
-                image: AssetImage("assets/google.svg"),
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text("Continue with Google".i18n),
-        ],
       ),
     );
   }
