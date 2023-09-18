@@ -11,27 +11,16 @@ import '../../commons/head_sentence.dart';
 import '../../commons/tips_box.dart';
 import 'components/learning_page_item.dart';
 
-class LearningView extends StatefulWidget {
+class LearningView extends StatelessWidget {
   final String topic;
   final List<EssentialWord> listEssentialWord;
   const LearningView(
       {super.key, required this.listEssentialWord, required this.topic});
 
   @override
-  State<LearningView> createState() => _LearningViewState();
-}
-
-class _LearningViewState extends State<LearningView> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  final _pageViewController = PageController();
-  int _currentIndex = 0;
-  @override
   Widget build(BuildContext context) {
+    final pageViewController = PageController();
+    int currentIndex = 0;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -54,7 +43,7 @@ class _LearningViewState extends State<LearningView> {
                   "You're studying".i18n,
                   "the subject of".i18n,
                 ]),
-                Text(widget.topic,
+                Text(topic,
                     style: const TextStyle(
                       fontSize: 38,
                       fontWeight: FontWeight.bold,
@@ -72,21 +61,20 @@ class _LearningViewState extends State<LearningView> {
                         if (kDebugMode) {
                           print(Properties.defaultEssentialLeft);
                         }
-                        _currentIndex = index;
+                        currentIndex = index;
                       },
-                      controller: _pageViewController,
-                      itemCount: widget.listEssentialWord.length,
+                      controller: pageViewController,
+                      itemCount: listEssentialWord.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(1),
                           child: LearningPageItem(
                             currentIndex: index + 1,
-                            totalIndex: widget.listEssentialWord.length,
-                            word: widget.listEssentialWord[index].english
+                            totalIndex: listEssentialWord.length,
+                            word: listEssentialWord[index].english
                                 .upperCaseFirstLetter(),
-                            phonetic: widget.listEssentialWord[index].phonetic,
-                            vietnamese: widget
-                                .listEssentialWord[index].vietnamese
+                            phonetic: listEssentialWord[index].phonetic,
+                            vietnamese: listEssentialWord[index].vietnamese
                                 .upperCaseFirstLetter(),
                           ),
                         );
@@ -103,7 +91,7 @@ class _LearningViewState extends State<LearningView> {
                         CircleButton(
                           iconData: FontAwesomeIcons.chevronLeft,
                           onTap: () {
-                            _pageViewController.previousPage(
+                            pageViewController.previousPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
@@ -112,7 +100,7 @@ class _LearningViewState extends State<LearningView> {
                         CircleButton(
                           iconData: FontAwesomeIcons.chevronRight,
                           onTap: () {
-                            _pageViewController.nextPage(
+                            pageViewController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
@@ -139,7 +127,7 @@ class _LearningViewState extends State<LearningView> {
                       iconData: FontAwesomeIcons.heart,
                       onTap: () {
                         EssentialManager.saveEssentialWordToFavourite(
-                            widget.listEssentialWord[_currentIndex]);
+                            listEssentialWord[currentIndex]);
                       },
                     ),
                   ],
