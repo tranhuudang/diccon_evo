@@ -17,8 +17,8 @@ class ArticleListBookmarkView extends StatelessWidget {
       child: Scaffold(
         body: BlocBuilder<ArticleBookmarkListCubit, List<Article>>(
           builder: (context, state) {
+            articleBookmarkListCubit.loadArticleBookmark();
             if (state.isEmpty) {
-              articleBookmarkListCubit.loadArticleBookmark();
               return Container(
                 padding: const EdgeInsets.all(16),
                 child: Column(

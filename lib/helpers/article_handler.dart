@@ -78,14 +78,17 @@ class ArticleHandler {
             .any((articleInJson) => articleInJson['title'] == article.title);
         if (!isArticleExist) {
           if (json is List<dynamic>) {
+            print("list<dynamic>");
             json.add(article.toJson());
             final encoded = jsonEncode(json);
             await file.writeAsString(encoded);
-          } else {
-            final List<dynamic> list = [json, article.toJson()];
-            final encoded = jsonEncode(list);
-            await file.writeAsString(encoded);
           }
+          // } else {
+          //   print("not");
+          //   final List<dynamic> list = [json, article.toJson()];
+          //   final encoded = jsonEncode(list);
+          //   await file.writeAsString(encoded);
+          // }
         }
       } else {
         final encoded = jsonEncode([article.toJson()]);

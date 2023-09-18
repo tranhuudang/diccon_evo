@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/models/essential_word.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -50,7 +51,7 @@ class EssentialManager {
 
 
   static Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
-    final filePath = await FileHandler("essential_favourite.json")
+    final filePath = await FileHandler(Properties.essentialFavouriteFileName)
         .getLocalFilePath();
     try {
       final file = File(filePath);
