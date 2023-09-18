@@ -1,3 +1,4 @@
+import 'package:diccon_evo/config/local_traditions.dart';
 import 'package:flutter/material.dart';
 
 class Notify {
@@ -18,6 +19,26 @@ class Notify {
               child: const Text('OK'),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  static void showLoadingAlertDialog(
+      BuildContext context, String title, String content) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              Tradition.heightSpacer,
+              Text(content),
+            ],
+          ),
         );
       },
     );
