@@ -6,6 +6,7 @@ import 'package:diccon_evo/screens/commons/clickable_word/cubit/clickable_word_c
 import 'package:diccon_evo/screens/commons/quote_box/bloc/quote_bloc.dart';
 import 'package:diccon_evo/screens/dictionary/cubit/word_history_list_cubit.dart';
 import 'package:diccon_evo/home_control.dart';
+import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:diccon_evo/screens/settings/cubit/setting_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -17,7 +18,7 @@ import 'config/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/firebase_options.dart';
-
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,11 @@ void main() async {
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await FirebaseAppCheck.instance.activate(
+      webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+
+      androidProvider: AndroidProvider.debug,
     );
   }
   if (Platform.isWindows) {
@@ -57,6 +63,9 @@ class ProgramRoot extends StatelessWidget {
       providers: [
         BlocProvider<ArticleListCubit>(
           create: (context) => ArticleListCubit(),
+        ),
+        BlocProvider<UserBloc>(
+          create: (context) => UserBloc(),
         ),
         BlocProvider<ArticleHistoryListCubit>(
           create: (context) => ArticleHistoryListCubit(),
