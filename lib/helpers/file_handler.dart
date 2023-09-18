@@ -91,7 +91,7 @@ class FileHandler {
       /// Syncing article history and bookmark
       if (ref.name == Properties.articleHistoryFileName ||
           ref.name == Properties.articleBookmarkFileName) {
-        cloudJsonFile.forEach((article) async {
+        for(var article in cloudJsonFile) {
           bool isArticleExist = localJsonFile.any(
                   (articleInLocal) =>
               articleInLocal['title'] == article["title"]);
@@ -102,11 +102,11 @@ class FileHandler {
               await file.writeAsString(encoded);
             }
           }
-        });
+        }
 
         /// Syncing word history in dictionary
         if (ref.name == Properties.wordHistoryFileName) {
-          cloudJsonFile.forEach((word) async {
+          for (var word in cloudJsonFile){
             bool isWordExist = localJsonFile.any(
                     (articleInLocal) => articleInLocal['word'] == word["word"]);
             if (!isWordExist) {
@@ -116,11 +116,11 @@ class FileHandler {
                 await file.writeAsString(encoded);
               }
             }
-          });
+          }
         }
         /// Syncing topic history in 1848 essential
         if (ref.name == Properties.topicHistoryFileName) {
-          cloudJsonFile.forEach((topic) async {
+          for(var topic in cloudJsonFile) {
             bool isTopicExist = localJsonFile.any(
                     (topicInLocal) => topicInLocal == topic);
             if (!isTopicExist) {
@@ -130,11 +130,11 @@ class FileHandler {
                 await file.writeAsString(encoded);
               }
             }
-          });
+          }
         }
         /// Syncing word history in dictionary
         if (ref.name == Properties.essentialFavouriteFileName) {
-          cloudJsonFile.forEach((word) async {
+          for (var word in cloudJsonFile) {
             bool isWordExist = localJsonFile.any(
                     (articleInLocal) => articleInLocal['english'] == word["english"]);
             if (!isWordExist) {
@@ -144,7 +144,7 @@ class FileHandler {
                 await file.writeAsString(encoded);
               }
             }
-          });
+          }
         }
         file.writeAsStringSync(json.encode(localJsonFile));
 

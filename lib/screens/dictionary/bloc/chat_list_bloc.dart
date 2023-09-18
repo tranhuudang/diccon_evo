@@ -1,4 +1,3 @@
-import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
 import 'package:diccon_evo/helpers/searching.dart';

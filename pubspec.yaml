@@ -58,9 +58,9 @@ dependencies:
   # Open link
   url_launcher: ^6.1.12
 
+  firebase_core: ^2.10.0
   google_sign_in: ^6.1.4
   firebase_auth: ^4.7.1
-  firebase_core: ^2.15.1
   firebase_storage: ^11.2.6
   firebase_app_check: ^0.1.5+2
 

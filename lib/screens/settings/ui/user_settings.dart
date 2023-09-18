@@ -144,11 +144,11 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
                             Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
@@ -160,7 +160,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                   Text(
                                     "Delete all your data on cloud.".i18n,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Tradition.heightSpacer,
 
