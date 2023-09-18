@@ -8,25 +8,14 @@ import '../../commons/head_sentence.dart';
 import '../../commons/tips_box.dart';
 import 'components/learning_page_item.dart';
 
-class FavouriteReviewView extends StatefulWidget {
+class FavouriteReviewView extends StatelessWidget {
   final List<EssentialWord> listEssentialWord;
   const FavouriteReviewView({super.key, required this.listEssentialWord});
 
   @override
-  State<FavouriteReviewView> createState() => _FavouriteReviewViewState();
-}
-
-class _FavouriteReviewViewState extends State<FavouriteReviewView> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  final _pageViewController = PageController();
-  int _currentIndex =0;
-  @override
   Widget build(BuildContext context) {
+    final pageViewController = PageController();
+    var currentIndex = 0;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -57,19 +46,19 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                     height: 250,
                     child: PageView.builder(
                       onPageChanged: (index){
-                        _currentIndex = index;
+                        currentIndex = index;
                       },
-                      controller: _pageViewController,
-                      itemCount: widget.listEssentialWord.length,
+                      controller: pageViewController,
+                      itemCount: listEssentialWord.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(1),
                           child: LearningPageItem(
                             currentIndex: index+1,
-                            totalIndex: widget.listEssentialWord.length,
-                            word: widget.listEssentialWord[index].english.upperCaseFirstLetter(),
-                            phonetic: widget.listEssentialWord[index].phonetic,
-                            vietnamese: widget.listEssentialWord[index].vietnamese.upperCaseFirstLetter(),
+                            totalIndex: listEssentialWord.length,
+                            word: listEssentialWord[index].english.upperCaseFirstLetter(),
+                            phonetic: listEssentialWord[index].phonetic,
+                            vietnamese: listEssentialWord[index].vietnamese.upperCaseFirstLetter(),
                           ),
                         );
                       },
@@ -85,7 +74,7 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                         CircleButton(
                           iconData: FontAwesomeIcons.chevronLeft,
                           onTap: () {
-                            _pageViewController.previousPage(
+                            pageViewController.previousPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
@@ -97,7 +86,7 @@ class _FavouriteReviewViewState extends State<FavouriteReviewView> {
                         CircleButton(
                           iconData: FontAwesomeIcons.chevronRight,
                           onTap: () {
-                            _pageViewController.nextPage(
+                            pageViewController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
