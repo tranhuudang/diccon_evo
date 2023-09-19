@@ -18,6 +18,246 @@ extension Localization on String {
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
 
   static const _t = Translations.from("en_us", {
+    "School-supplies": {
+      "en_us": "School-supplies",
+      "vi_vi": "Vật dụng học tập",
+    },
+    "Actions": {
+      "en_us": "Actions",
+      "vi_vi": "Hành động",
+    },
+    "Everyday activities": {
+      "en_us": "Everyday activities",
+      "vi_vi": "Hoạt động hàng ngày",
+    },
+    "Sea": {
+      "en_us": "Sea",
+      "vi_vi": "Biển",
+    },
+    "The number": {
+      "en_us": "The number",
+      "vi_vi": "Số",
+    },
+    "Shopping": {
+      "en_us": "Shopping",
+      "vi_vi": "Mua sắm",
+    },
+    "Bedroom": {
+      "en_us": "Bedroom",
+      "vi_vi": "Phòng ngủ",
+    },
+    "Friendship": {
+      "en_us": "Friendship",
+      "vi_vi": "Tình bạn",
+    },
+    "Kitchen": {
+      "en_us": "Kitchen",
+      "vi_vi": "Nhà bếp",
+    },
+    "Jewelry": {
+      "en_us": "Jewelry",
+      "vi_vi": "Trang sức",
+    },
+    "Environment": {
+      "en_us": "Environment",
+      "vi_vi": "Môi trường",
+    },
+    "Living room": {
+      "en_us": "Living room",
+      "vi_vi": "Phòng khách",
+    },
+    "Hospital": {
+      "en_us": "Hospital",
+      "vi_vi": "Bệnh viện",
+    },
+    "Computer": {
+      "en_us": "Computer",
+      "vi_vi": "Máy tính",
+    },
+    "Housework": {
+      "en_us": "Housework",
+      "vi_vi": "Việc nhà",
+    },
+    "The shops": {
+      "en_us": "The shops",
+      "vi_vi": "Cửa hàng",
+    },
+    "Entertainment": {
+      "en_us": "Entertainment",
+      "vi_vi": "Giải trí",
+    },
+    "Traveling": {
+      "en_us": "Traveling",
+      "vi_vi": "Du lịch",
+    },
+    "Hometown": {
+      "en_us": "Hometown",
+      "vi_vi": "Quê hương",
+    },
+    "Mid-autumn": {
+      "en_us": "Mid-autumn",
+      "vi_vi": "Tết Trung thu",
+    },
+    "Wedding": {
+      "en_us": "Wedding",
+      "vi_vi": "Đám cưới",
+    },
+    "Airport": {
+      "en_us": "Airport",
+      "vi_vi": "Sân bay",
+    },
+    "Health": {
+      "en_us": "Health",
+      "vi_vi": "Sức khỏe",
+    },
+    "Vegetable": {
+      "en_us": "Vegetable",
+      "vi_vi": "Rau cải",
+    },
+    "Transport": {
+      "en_us": "Transport",
+      "vi_vi": "Giao thông",
+    },
+    "Time": {
+      "en_us": "Time",
+      "vi_vi": "Thời gian",
+    },
+    "Emotions": {
+      "en_us": "Emotions",
+      "vi_vi": "Tình cảm",
+    },
+    "Character": {
+      "en_us": "Character",
+      "vi_vi": "Tính cách",
+    },
+    "Drinks": {
+      "en_us": "Drinks",
+      "vi_vi": "Đồ uống",
+    },
+    "Flowers": {
+      "en_us": "Flowers",
+      "vi_vi": "Hoa",
+    },
+    "Movies": {
+      "en_us": "Movies",
+      "vi_vi": "Phim ảnh",
+    },
+    "Soccer": {
+      "en_us": "Soccer",
+      "vi_vi": "Bóng đá",
+    },
+    "Christmas": {
+      "en_us": "Christmas",
+      "vi_vi": "Giáng sinh",
+    },
+    "Foods": {
+      "en_us": "Foods",
+      "vi_vi": "Thực phẩm",
+    },
+    "Sport": {
+      "en_us": "Sport",
+      "vi_vi": "Thể thao",
+    },
+    "Music": {
+      "en_us": "Music",
+      "vi_vi": "Âm nhạc",
+    },
+    "Love": {
+      "en_us": "Love",
+      "vi_vi": "Tình yêu",
+    },
+    "Restaurant-Hotel": {
+      "en_us": "Restaurant-Hotel",
+      "vi_vi": "Nhà hàng-Khách sạn",
+    },
+    "School": {
+      "en_us": "School",
+      "vi_vi": "Trường học",
+    },
+    "Colors": {
+      "en_us": "Colors",
+      "vi_vi": "Màu sắc",
+    },
+    "Weather": {
+      "en_us": "Weather",
+      "vi_vi": "Thời tiết",
+    },
+    "Clothes": {
+      "en_us": "Clothes",
+      "vi_vi": "Quần áo",
+    },
+    "Body parts": {
+      "en_us": "Body parts",
+      "vi_vi": "Bộ phận cơ thể",
+    },
+    "Education": {
+      "en_us": "Education",
+      "vi_vi": "Giáo dục",
+    },
+    "Family": {
+      "en_us": "Family",
+      "vi_vi": "Gia đình",
+    },
+    "Fruits": {
+      "en_us": "Fruits",
+      "vi_vi": "Trái cây",
+    },
+    "Animal": {
+      "en_us": "Animal",
+      "vi_vi": "Động vật",
+    },
+    "Insect": {
+      "en_us": "Insect",
+      "vi_vi": "Côn trùng",
+    },
+    "Study": {
+      "en_us": "Study",
+      "vi_vi": "Học tập",
+    },
+    "Plants": {
+      "en_us": "Plants",
+      "vi_vi": "Cây cỏ",
+    },
+    "Country": {
+      "en_us": "Country",
+      "vi_vi": "Quốc gia",
+    },
+    "Seafood": {
+      "en_us": "Seafood",
+      "vi_vi": "Hải sản",
+    },
+    "Energy": {
+      "en_us": "Energy",
+      "vi_vi": "Năng lượng",
+    },
+    "Jobs": {
+      "en_us": "Jobs",
+      "vi_vi": "Công việc",
+    },
+    "Diet": {
+      "en_us": "Diet",
+      "vi_vi": "Chế độ ăn uống",
+    },
+    "Natural disaster": {
+      "en_us": "Natural disaster",
+      "vi_vi": "Thảm họa tự nhiên",
+    },
+    "Asking the way": {
+      "en_us": "Asking the way",
+      "vi_vi": "Hỏi đường",
+    },
+    "A hotel room": {
+      "en_us": "A hotel room",
+      "vi_vi": "Một phòng khách sạn",
+    },
+    "At the post office": {
+      "en_us": "At the post office",
+      "vi_vi": "Tại bưu điện",
+    },
+    "At the bank": {
+      "en_us": "At the bank",
+      "vi_vi": "Tại ngân hàng",
+    },
     "Getting new stories..": {
       "en_us": "Getting new stories..",
       "vi_vi": "Đang tải truyện mới..",

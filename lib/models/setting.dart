@@ -1,5 +1,3 @@
-import '../../config/properties.dart';
-
 class Setting {
   final int numberOfSynonyms;
   final int numberOfAntonyms;

@@ -104,21 +104,15 @@ class _EssentialViewState extends State<EssentialView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
+          body: Container(
+            padding: const EdgeInsets.all(16),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+        child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: CircleButton(
-                    iconData: Icons.arrow_back,
-                    onTap: () {
-                      Navigator.pop(context);
-                    }),
-              ),
-
+              const SizedBox(height: 64,),
               /// Head sentence
               const HeadSentence(
                 listText: ["Nothing", "Worth Doing", "Ever", "Came Easy"],
@@ -164,9 +158,6 @@ class _EssentialViewState extends State<EssentialView> {
                         },
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
-                      // const SizedBox(
-                      //   width: 8,
-                      // ),
                       /// Favourite button
                       CircleButton(
                         iconData: FontAwesomeIcons.heart,
@@ -219,7 +210,7 @@ class _EssentialViewState extends State<EssentialView> {
                             return DropdownMenuItem(
                               value: topic,
                               child: Text(
-                                topic,
+                                topic.i18n,
                                 style: Theme.of(context).textTheme.labelLarge,
                               ),
                             );
@@ -280,6 +271,8 @@ class _EssentialViewState extends State<EssentialView> {
                             height: 8,
                           ),
                           Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
                             children: snapshot.data!.map((topic) {
                               return PillButton(
                                   onTap: () async {
@@ -310,9 +303,19 @@ class _EssentialViewState extends State<EssentialView> {
                     }
                   }),
             ],
-          ),
         ),
-      )),
+      ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: CircleButton(
+                      iconData: Icons.arrow_back,
+                      onTap: () {
+                        Navigator.pop(context);
+                      }),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

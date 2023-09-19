@@ -104,7 +104,8 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                             paragraph.isNotEmpty
                                 ? ClickableWords(
                                     text: paragraph,
-                                    fontSize: Properties.defaultSetting.readingFontSize,
+                                    fontSize: Properties
+                                        .defaultSetting.readingFontSize,
                                     textColor: Theme.of(context)
                                         .primaryTextTheme
                                         .labelMedium
@@ -131,15 +132,15 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                 children: [
                   const Spacer(),
 
-
                   /// Favourite button
                   CircleButton(
                       iconData: Icons.bookmark_border,
                       onTap: () {
                         articleBookmarkCubit.addBookmark(widget.article);
                         Notify.showSnackBar(context, "Bookmark added".i18n);
-                         }),
+                      }),
                   Tradition.widthSpacer,
+
                   /// CLose button
                   CircleButton(
                       iconData: Icons.close,
@@ -155,26 +156,33 @@ class _ArticlePageViewState extends State<ArticlePageView> {
     );
   }
 
+
+
+
   Future<void> _showModalBottomSheet(
       BuildContext context, String searchWord) async {
     Word? wordResult;
 
-    /// This line is the skeleton of finding word in dictionary
+    // Capture the context before entering the async function
+    final currentContext = context;
+
+    /// This line is the skeleton of finding the word in the dictionary
     wordResult = Searching.getDefinition(searchWord);
 
     if (wordResult != null) {
       showModalBottomSheet(
-          context: context,
-          builder: (BuildContext context) {
-            return SizedBox(
-              height: 300,
-              child: SingleChildScrollView(
-                child: BottomSheetTranslation(
-                  message: wordResult!,
-                ),
+        context: currentContext, // Use the captured context here
+        builder: (BuildContext context) {
+          return SizedBox(
+            height: 300,
+            child: SingleChildScrollView(
+              child: BottomSheetTranslation(
+                message: wordResult!,
               ),
-            );
-          });
+            ),
+          );
+        },
+      );
     } else {
       setState(() {
         isTranslating = true;
@@ -187,59 +195,19 @@ class _ArticlePageViewState extends State<ArticlePageView> {
       wordResult =
           Word(word: searchWord, pronunciation: "", meaning: result.text);
       showModalBottomSheet(
-          context: context,
-          builder: (BuildContext context) {
-            return SizedBox(
-              height: 300,
-              child: SingleChildScrollView(
-                child: BottomSheetTranslation(
-                  message: wordResult!,
-                ),
+        context: currentContext, // Use the captured context here
+        builder: (BuildContext context) {
+          return SizedBox(
+            height: 300,
+            child: SingleChildScrollView(
+              child: BottomSheetTranslation(
+                message: wordResult!,
               ),
-            );
-          });
+            ),
+          );
+        },
+      );
     }
   }
-}
 
-class BottomOnlineTranslationBox extends StatelessWidget {
-  const BottomOnlineTranslationBox({
-    super.key,
-    required this.isTranslating,
-  });
-
-  final bool isTranslating;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Theme.of(context).navigationBarTheme.backgroundColor,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              width: 8,
-            ),
-            const Icon(
-              Icons.translate,
-              size: 18,
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            isTranslating
-                ? const SizedBox(
-                    height: 8, width: 40, child: LinearProgressIndicator())
-                : Container()
-          ],
-        ),
-      ),
-    );
-  }
 }

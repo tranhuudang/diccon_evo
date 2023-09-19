@@ -15,7 +15,6 @@ class FavouriteReviewView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pageViewController = PageController();
-    var currentIndex = 0;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -45,9 +44,6 @@ class FavouriteReviewView extends StatelessWidget {
                   child: SizedBox(
                     height: 250,
                     child: PageView.builder(
-                      onPageChanged: (index){
-                        currentIndex = index;
-                      },
                       controller: pageViewController,
                       itemCount: listEssentialWord.length,
                       itemBuilder: (context, index) {

@@ -1,32 +1,30 @@
 class Word {
-  late final String word;
-  late final String? pronunciation;
-  late final String? meaning;
-
+  final String word;
+  final String? pronunciation;
+  final String? meaning;
   Word({
     required this.word,
     this.pronunciation,
     this.meaning,
   });
 
-  Word.fromJson(Map<String, dynamic> json) {
-    word = json['word'].toString().trim();
-    pronunciation = json["pronunciation"].toString().trim();
-    meaning = json['meaning'].toString().trim();
+  factory Word.fromJson(Map<String, dynamic> json) {
+    final word = json['word'].toString().trim();
+    final pronunciation = json['pronunciation'].toString().trim();
+    final meaning = json['meaning'].toString().trim();
+    return Word(
+      word: word,
+      pronunciation: pronunciation,
+      meaning: meaning,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    String? truncatedMeaning = '';
-    if (meaning != null) {
-      truncatedMeaning =
-          meaning!.length > 60 ? meaning!.substring(0, 60) : meaning;
-    }
+    final truncatedMeaning = meaning?.substring(0, 60);
     return {
       'word': word,
       'pronunciation': pronunciation,
       'meaning': truncatedMeaning,
     };
   }
-
-
 }

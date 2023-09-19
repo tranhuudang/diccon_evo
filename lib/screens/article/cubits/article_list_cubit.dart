@@ -19,7 +19,7 @@ class ArticleListCubit extends Cubit<List<Article>> {
     _cancelableOperation = CancelableOperation.fromFuture(
         // The process will automaticly cancel after 5 seconds if it not complete
         _loadAll().timeout(
-          const Duration(seconds: 5),
+          const Duration(seconds: 10),
           // Calling cancel
           onTimeout: () {
             cancelLoading();

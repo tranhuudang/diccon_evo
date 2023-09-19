@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 import '../config/properties.dart';
 import '../models/article.dart';
@@ -168,22 +167,6 @@ class ArticleHandler {
     }
   }
 
-  /// Read default stories data
-  static Future<String> _getAssetFile(String filePath) async {
-    return await rootBundle.loadString(filePath);
-  }
-
-  static Future<dynamic> _getJsonFromUrl(String url) async {
-    final response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      // If the request is successful, parse the JSON
-      return json.decode(response.body);
-    } else {
-      // If the request fails, throw an exception or handle the error accordingly
-      throw Exception('Failed to fetch JSON from URL');
-    }
-  }
 
   static Future<void> _createDicconDirectoryIfNotExists() async {
     // Get the document directory

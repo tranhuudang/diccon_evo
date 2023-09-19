@@ -110,35 +110,27 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                           const SizedBox(
                             height: 30,
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: Colors.red,
+                          Divider(),
+                          Column(
+                            children: [
+                              Text(
+                                "Delete all your data on cloud.".i18n,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Delete all your data on cloud.".i18n,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Tradition.heightSpacer,
-                                Text(
-                                    "(This process once fired will never be undone. Please take it serious.)"
-                                        .i18n),
-                                Tradition.heightSpacer,
-                                PillButton(
-                                    icon: UniconsLine.trash,
-                                    backgroundColor: Colors.red,
-                                    onTap: () {
-                                      userBloc.add(UserDeleteDateEvent());
-                                    },
-                                    title: "Erase all"),
-                              ],
-                            ),
+                              Tradition.heightSpacer,
+                              Text(
+                                  "(This process once fired will never be undone. Please take it serious.)"
+                                      .i18n),
+                              Tradition.heightSpacer,
+                              PillButton(
+                                  icon: UniconsLine.trash,
+                                  backgroundColor: Colors.red,
+                                  onTap: () {
+                                    userBloc.add(UserDeleteDateEvent());
+                                  },
+                                  title: "Erase all"),
+                            ],
                           ),
 
                           /// Loading Indicator for syncing process
