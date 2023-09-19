@@ -1,9 +1,6 @@
 import 'package:diccon_evo/config/local_traditions.dart';
 import 'package:flutter/material.dart';
 
-import '../models/word.dart';
-import '../screens/commons/bottom_sheet_translate.dart';
-
 class Notify {
   static void showAlertDialog(
       BuildContext context, String title, String content) {
