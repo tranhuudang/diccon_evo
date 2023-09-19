@@ -6,6 +6,7 @@ import 'package:window_manager/window_manager.dart';
 import 'config/properties.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'screens/home/ui/home.dart';
+
 class HomeControlView extends StatefulWidget {
   const HomeControlView({Key? key}) : super(key: key);
 
@@ -31,9 +32,10 @@ class _HomeControlViewState extends State<HomeControlView> with WindowListener {
   @override
   void onWindowResize() async {
     Size windowsSize = await WindowManager.instance.getSize();
-    Properties.defaultWindowWidth = windowsSize.width;
-    Properties.defaultWindowHeight = windowsSize.height;
-    Properties.saveSettings(null, null, null, null, null);
+    /// Save windows size to setting
+    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+        windowsWidth: windowsSize.width, windowsHeight: windowsSize.height);
+    Properties.saveSettings(Properties.defaultSetting);
     if (windowsSize.width > 800) {
       setState(() {
         isExpanded = true;
@@ -58,7 +60,6 @@ class _HomeControlViewState extends State<HomeControlView> with WindowListener {
     Properties.suggestionListWord =
         await DictionaryRepository().getSuggestionWordList();
   }
-
 
   /// Need this globalKey to open drawer by custom button
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

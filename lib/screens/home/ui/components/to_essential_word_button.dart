@@ -32,7 +32,7 @@ class ToEssentialWordButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    Properties.defaultEssentialLeft.toString(),
+                    Properties.defaultSetting.numberOfEssentialLeft.toString(),
                     style: const TextStyle(
                         fontSize: 32, fontWeight: FontWeight.bold),
                   ),

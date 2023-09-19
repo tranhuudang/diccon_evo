@@ -1,4 +1,3 @@
-import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 
 class PlanButton extends StatelessWidget {
@@ -17,7 +16,7 @@ class PlanButton extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(16)
         ),
-        child: Text("Freemium".i18n),
+        child: const Text("Freemium"),
       ),
     );
   }

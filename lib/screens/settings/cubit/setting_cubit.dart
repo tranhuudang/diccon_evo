@@ -1,50 +1,56 @@
+import 'package:flutter/foundation.dart';
+
 import '../../../config/properties.dart';
 import '../../../models/setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingCubit extends Cubit<Setting> {
-  SettingCubit() : super(Setting());
+  SettingCubit() : super(Properties.defaultSetting);
 
   void setNumberOfSynonyms(int num) {
-    Properties.defaultNumberOfSynonyms = num;
-    saveSettings();
-    emit(
-        Setting(numberOfSynonyms: num));
+    Properties.defaultSetting =
+        Properties.defaultSetting.copyWith(numberOfSynonyms: num);
+    emit(Properties.defaultSetting);
   }
 
   void setNumberOfAntonyms(int num) {
-    Properties.defaultNumberOfAntonyms = num;
-    saveSettings();
-    emit(
-        Setting(numberOfAntonyms: num));
+    Properties.defaultSetting =
+        Properties.defaultSetting.copyWith(numberOfAntonyms: num);
+    emit(Properties.defaultSetting);
   }
+
   void setLanguage(String language) {
-    Properties.defaultLanguage  = language;
-    saveSettings();
-    emit(
-        Setting(language: language));
+    Properties.defaultSetting =
+        Properties.defaultSetting.copyWith(language: language);
+    emit(Properties.defaultSetting);
   }
 
   void setReadingFontSize(double num) {
-    Properties.defaultReadingFontSize = num;
-    saveSettings();
-    emit(Setting(readingFontSize: num));
+    Properties.defaultSetting =
+        Properties.defaultSetting.copyWith(readingFontSize: num);
+    emit(Properties.defaultSetting);
   }
 
   void setEssentialLeftMinusOne(int num) {
-    Properties.defaultEssentialLeft -= 1;
-    saveSettings();
-    emit(Setting(numberOfEssentialLeft: num));
+    Properties.defaultSetting =
+        Properties.defaultSetting.copyWith(numberOfEssentialLeft: num - 1);
+    emit(Properties.defaultSetting);
   }
 
-
-  void saveSettings(){
-    Properties.saveSettings(
-        Properties.defaultReadingFontSize,
-        Properties.defaultReadingFontSizeSliderValue,
-        Properties.defaultNumberOfSynonyms,
-        Properties.defaultNumberOfAntonyms,
-      Properties.defaultLanguage
-    );
+  void saveSettings() {
+    Properties.saveSettings(Properties.defaultSetting);
+    if (kDebugMode) {
+      print("New setting is saved with these bellow customs:");
+      print("numberOfSynonyms: ${Properties.defaultSetting.numberOfSynonyms}");
+      print("numberOfAntonyms: ${Properties.defaultSetting.numberOfAntonyms}");
+      print(
+          "numberOfEssentialLeft: ${Properties.defaultSetting.numberOfEssentialLeft}");
+      print("readingFontSize: ${Properties.defaultSetting.readingFontSize}");
+      print(
+          "readingFontSizeSliderValue: ${Properties.defaultSetting.readingFontSizeSliderValue}");
+      print("language: ${Properties.defaultSetting.language}");
+      print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
+      print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");
+    }
   }
 }

@@ -31,7 +31,6 @@ void main() async {
     );
     await FirebaseAppCheck.instance.activate(
       webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-
       androidProvider: AndroidProvider.debug,
     );
   }
@@ -40,7 +39,7 @@ void main() async {
 
     /// register player first
     WindowManager.instance.setSize(
-        Size(Properties.defaultWindowWidth, Properties.defaultWindowHeight));
+        Size(Properties.defaultSetting.windowsWidth, Properties.defaultSetting.windowsHeight));
     WindowManager.instance
         .setMinimumSize(const Size(Properties.minWidth, Properties.minHeight));
     WindowManager.instance.setTitle(Properties.diccon);
@@ -73,7 +72,6 @@ class ProgramRoot extends StatelessWidget {
         BlocProvider<ArticleBookmarkListCubit>(
           create: (context) => ArticleBookmarkListCubit(),
         ),
-
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
         BlocProvider<HistoryListCubit>(create: (context) => HistoryListCubit()),
         BlocProvider<SettingCubit>(
@@ -94,7 +92,9 @@ class ProgramRoot extends StatelessWidget {
           Locale('en', "US"),
           Locale('vi', "VI"),
         ],
-        locale: Properties.defaultLanguage == "English" ? const Locale('en', "US") : const Locale('vi', "VI"),
+        locale: Properties.defaultSetting.language == "English"
+            ? const Locale('en', "US")
+            : const Locale('vi', "VI"),
         themeMode: ThemeMode.system,
         theme: CustomTheme.getLight(context),
         darkTheme: CustomTheme.getDark(context),

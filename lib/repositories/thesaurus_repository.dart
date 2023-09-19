@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import '../config/properties.dart';
 
 class ThesaurusRepository {
-
-
   Future<void> loadThesaurus() async {
     Properties.synonymsData = await loadSynonymsData();
     Properties.antonymsData = await loadAntonymsData();
@@ -14,13 +12,13 @@ class ThesaurusRepository {
   /// Return a list of String synonyms for provided word and return [] if nothing found
   List<String> getSynonyms(String word) {
     List<String> synonyms = Properties.synonymsData[word] ?? [];
-    return synonyms.take(Properties.defaultNumberOfSynonyms).toList();
+    return synonyms.take(Properties.defaultSetting.numberOfSynonyms).toList();
   }
 
   /// Return a list of String synonyms for provided word and return [] if nothing found
   List<String> getAntonyms(String word) {
     List<String> synonyms = Properties.antonymsData[word] ?? [];
-    return synonyms.take(Properties.defaultNumberOfAntonyms).toList();
+    return synonyms.take(Properties.defaultSetting.numberOfAntonyms).toList();
   }
 
   Future<Map<String, List<String>>> loadSynonymsData() async {

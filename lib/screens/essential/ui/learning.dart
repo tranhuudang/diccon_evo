@@ -1,6 +1,7 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/helpers/essential_manager.dart';
+import 'package:diccon_evo/screens/settings/cubit/setting_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -56,10 +57,14 @@ class LearningView extends StatelessWidget {
                     height: 250,
                     child: PageView.builder(
                       onPageChanged: (index) {
-                        Properties.defaultEssentialLeft -= 1;
-                        Properties.saveSettings(null, null, null, null, null);
+                        Properties.saveSettings(Properties.defaultSetting
+                            .copyWith(
+                                numberOfEssentialLeft: Properties
+                                        .defaultSetting.numberOfEssentialLeft -
+                                    1));
                         if (kDebugMode) {
-                          print(Properties.defaultEssentialLeft);
+                          print(
+                              Properties.defaultSetting.numberOfEssentialLeft);
                         }
                         currentIndex = index;
                       },
@@ -71,10 +76,12 @@ class LearningView extends StatelessWidget {
                           child: LearningPageItem(
                             currentIndex: index + 1,
                             totalIndex: listEssentialWord.length,
-                            word: listEssentialWord[index].english
+                            word: listEssentialWord[index]
+                                .english
                                 .upperCaseFirstLetter(),
                             phonetic: listEssentialWord[index].phonetic,
-                            vietnamese: listEssentialWord[index].vietnamese
+                            vietnamese: listEssentialWord[index]
+                                .vietnamese
                                 .upperCaseFirstLetter(),
                           ),
                         );

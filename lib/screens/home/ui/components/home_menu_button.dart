@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../settings/ui/settings.dart';
 import '../../../settings/ui/user_settings.dart';
+
 class HomeMenuButton extends StatelessWidget {
   const HomeMenuButton({
     super.key,
@@ -31,26 +32,40 @@ class HomeMenuButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
           ),
           itemBuilder: (context) => [
+            defaultTargetPlatform.isMobile()
+                ? PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.account_circle_outlined,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text("Account".i18n),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const UserSettingsView()));
+                    },
+                  )
+                : const PopupMenuItem(
+                    enabled: false,
+                    height: 0,
+                    child: SizedBox.shrink(),
+                  ),
             PopupMenuItem(
               child: Row(
                 children: [
-                  const Icon(Icons.account_circle_outlined,),
-                  const SizedBox(width: 8,),
-                  Text("Account".i18n),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UserSettingsView()));
-              },
-            ),
-            PopupMenuItem(
-              child: Row(
-                children: [
-                  const Icon(Icons.settings,),
-                  const SizedBox(width: 8,),
+                  const Icon(
+                    Icons.settings,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
                   Text("Settings".i18n),
                 ],
               ),
@@ -70,7 +85,9 @@ class HomeMenuButton extends StatelessWidget {
               child: Row(
                 children: [
                   const Icon(Icons.feedback_outlined),
-                  const SizedBox(width: 8,),
+                  const SizedBox(
+                    width: 8,
+                  ),
                   Text("Feedbacks".i18n),
                 ],
               ),
@@ -79,16 +96,16 @@ class HomeMenuButton extends StatelessWidget {
                   final Uri url = Uri.parse(
                       'https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo');
                   if (!await launchUrl(url,
-                  mode: LaunchMode.externalApplication)) {
-                throw Exception('Could not launch $url');
-                }
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
                 } else {
-                final Uri url = Uri.parse(
-                'https://apps.microsoft.com/store/detail/diccon-evo/9NPF4HBMNG5D');
-                if (!await launchUrl(url,
-                mode: LaunchMode.externalApplication)) {
-                throw Exception('Could not launch $url');
-                }
+                  final Uri url = Uri.parse(
+                      'https://apps.microsoft.com/store/detail/diccon-evo/9NPF4HBMNG5D');
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
                 }
               },
             ),

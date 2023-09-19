@@ -20,12 +20,10 @@ class UserSettingsView extends StatefulWidget {
 }
 
 class _UserSettingsViewState extends State<UserSettingsView> {
-
   @override
   Widget build(BuildContext context) {
     var userBloc = context.read<UserBloc>();
-    if(Properties.userInfo.id.isNotEmpty)
-    {
+    if (Properties.userInfo.id.isNotEmpty) {
       userBloc.add(UserLoginEvent());
     }
     return SafeArea(
@@ -49,166 +47,173 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                 }
               },
               builder: (context, state) {
-                late var userLoginState = null;
-                switch (state.runtimeType) {
-                  case UserUninitialized:
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        /// Header
-                        const UserViewHeader(),
-                        Tradition.heightSpacer,
+                if (state is UserLoginState) {
+                  var userLoginState = state;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      /// Header
+                      const UserViewHeader(),
+                      Tradition.heightSpacer,
 
-                        /// Login form and user infomations
-                        SettingSection(
-                          title: "User".i18n,
-                          children: [
-                            Text(
-                              "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices"
-                                  .i18n,
-                              style: const TextStyle(fontSize: 16),
-                              textAlign: TextAlign.center,
-                            ),
-                            Tradition.heightSpacer,
-                            PillButton(
-                                icon: FontAwesomeIcons.google,
-                                onTap: () async =>
-                                    userBloc.add(UserLoginEvent()),
-                                title: "Continue with Google"),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        const AvailableBox(),
-                      ],
-                    );
-                  case UserLoginState:
-                    userLoginState = state as UserLoginState;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        /// Header
-                        const UserViewHeader(),
-                        Tradition.heightSpacer,
-
-                        /// Login form and user infomations
-                        SettingSection(
-                          title: "User".i18n,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                userLoginState.userInfo.avatarUrl.isNotEmpty
-                                    ? ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                        child: Image(
-                                          height: 70,
-                                          width: 70,
-                                          image: NetworkImage(userLoginState
-                                              .userInfo.avatarUrl),
-                                          fit: BoxFit
-                                              .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
-                                        ),
-                                      )
-                                    : const SizedBox.shrink(),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    userLoginState.userInfo.name,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              userLoginState.userInfo.email,
-                            ),
-                            Tradition.heightSpacer,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                PillButton(
-                                  icon: Icons.sync,
-                                    isDisabled: userLoginState.isSyncing,
-                                    onTap: () => userBloc.add(UserSyncEvent(
-                                        userInfo: userLoginState.userInfo)),
-                                    title: "Sync your data"),
-                                Tradition.widthSpacer,
-                                PillButton(
-                                  onTap: () => userBloc.add(UserLogoutEvent()),
-                                  title: "Log out",
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: Colors.red,
-                                ),
-                              ),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Delete all your data on cloud.".i18n,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Tradition.heightSpacer,
-
-                                  Text(
-                                      "(This process once fired will never be undone. Please take it serious.)"
-                                          .i18n),
-                                  Tradition.heightSpacer,
-                                  PillButton(
-                                      icon: UniconsLine.trash,
-                                      backgroundColor: Colors.red,
-                                      onTap: () {
-                                        userBloc.add(UserDeleteDateEvent());
-                                      },
-                                      title: "Erase all"),
-                                ],
-                              ),
-                            ),
-
-                            /// Loading Indicator for syncing process
-                            userLoginState.isSyncing
-                                ? Column(
-                                    children: [
-                                      const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 8),
-                                        child: LinearProgressIndicator(),
+                      /// Login form and user infomations
+                      SettingSection(
+                        title: "User".i18n,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              userLoginState.userInfo.avatarUrl.isNotEmpty
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      child: Image(
+                                        height: 70,
+                                        width: 70,
+                                        image: NetworkImage(
+                                            userLoginState.userInfo.avatarUrl),
+                                        fit: BoxFit
+                                            .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
                                       ),
-                                      Text("Your data is syncing..".i18n),
-                                      Tradition.heightSpacer,
-                                    ],
-                                  )
-                                : const SizedBox.shrink(),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        const AvailableBox(),
-                      ],
-                    );
-                  default:
-                    return const SizedBox.shrink();
+                                    )
+                                  : const SizedBox.shrink(),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  userLoginState.userInfo.name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            userLoginState.userInfo.email,
+                          ),
+                          Tradition.heightSpacer,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              PillButton(
+                                  icon: Icons.sync,
+                                  isDisabled: userLoginState.isSyncing,
+                                  onTap: () => userBloc.add(UserSyncEvent(
+                                      userInfo: userLoginState.userInfo)),
+                                  title: "Sync your data"),
+                              Tradition.widthSpacer,
+                              PillButton(
+                                onTap: () => userBloc.add(UserLogoutEvent()),
+                                title: "Log out",
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.red,
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Delete all your data on cloud.".i18n,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Tradition.heightSpacer,
+                                Text(
+                                    "(This process once fired will never be undone. Please take it serious.)"
+                                        .i18n),
+                                Tradition.heightSpacer,
+                                PillButton(
+                                    icon: UniconsLine.trash,
+                                    backgroundColor: Colors.red,
+                                    onTap: () {
+                                      userBloc.add(UserDeleteDateEvent());
+                                    },
+                                    title: "Erase all"),
+                              ],
+                            ),
+                          ),
+
+                          /// Loading Indicator for syncing process
+                          userLoginState.isSyncing
+                              ? Column(
+                                  children: [
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 8),
+                                      child: LinearProgressIndicator(),
+                                    ),
+                                    Text("Your data is syncing..".i18n),
+                                    Tradition.heightSpacer,
+                                  ],
+                                )
+                              : const SizedBox.shrink(),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const AvailableBox(),
+                    ],
+                  );
+                } else {
+                  return UninitializedView(userBloc: userBloc);
                 }
               },
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class UninitializedView extends StatelessWidget {
+  const UninitializedView({
+    super.key,
+    required this.userBloc,
+  });
+
+  final UserBloc userBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        /// Header
+        const UserViewHeader(),
+        Tradition.heightSpacer,
+
+        /// Login form and user infomations
+        SettingSection(
+          title: "User".i18n,
+          children: [
+            Text(
+              "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices"
+                  .i18n,
+              style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            Tradition.heightSpacer,
+            PillButton(
+                icon: FontAwesomeIcons.google,
+                onTap: () async => userBloc.add(UserLoginEvent()),
+                title: "Continue with Google"),
+          ],
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        const AvailableBox(),
+      ],
     );
   }
 }

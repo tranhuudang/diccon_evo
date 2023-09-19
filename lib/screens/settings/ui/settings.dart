@@ -72,6 +72,7 @@ class _SettingsViewState extends State<SettingsView> {
                                 hint: Text('Select a language'.i18n),
                                 onChanged: (String? newValue) {
                                   settingCubit.setLanguage(newValue!);
+                                  settingCubit.saveSettings();
                                   Notify.showAlertDialog(
                                       context, "Language Updated".i18n,
                                       "Diccon will update new language setting in the next time you open."
@@ -115,6 +116,7 @@ class _SettingsViewState extends State<SettingsView> {
                                 hint: Text('Select a number'.i18n),
                                 onChanged: (int? newValue) {
                                   settingCubit.setNumberOfSynonyms(newValue!);
+                                  settingCubit.saveSettings();
                                 },
                                 items: [5, 10, 20, 30]
                                     .map(
@@ -154,6 +156,7 @@ class _SettingsViewState extends State<SettingsView> {
                                   hint: Text('Select a number'.i18n),
                                   onChanged: (int? newValue) {
                                     settingCubit.setNumberOfAntonyms(newValue!);
+                                    settingCubit.saveSettings();
                                   },
                                   items: [5, 10, 20, 30]
                                       .map((value) =>
@@ -178,7 +181,10 @@ class _SettingsViewState extends State<SettingsView> {
                           const Icon(Icons.text_increase),
                           Slider(
                               min: 0.1,
-                              value: state.readingFontSize! / 70,
+                              value: state.readingFontSize / 70,
+                              onChangeEnd: (newValue){
+                                settingCubit.saveSettings();
+                              },
                               onChanged: (newValue) {
                                 settingCubit.setReadingFontSize(newValue * 70);
                               }),

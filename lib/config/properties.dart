@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:diccon_evo/screens/settings/ui/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/article.dart';
+import '../models/setting.dart';
 import '../models/word.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/models/user_info.dart';
@@ -9,7 +10,7 @@ import 'package:diccon_evo/screens/home/ui/home.dart';
 
 /// This enum should always be matched with Global.pages in the order of values
 /// As in this app, the order/index is used to detect what view to open.
-enum AppViews {homeView, settingsView }
+enum AppViews { homeView, settingsView }
 
 class Level {
   static String beginner = "beginner",
@@ -30,8 +31,6 @@ class Properties {
   // Thesaurus
   static Map<String, List<String>> synonymsData = {};
   static Map<String, List<String>> antonymsData = {};
-  static int defaultNumberOfSynonyms = 10;
-  static int defaultNumberOfAntonyms = 10;
 
   // Focus of this textField cause a lot of trouble as the keyboard keep open up
   // when focus still in the textField, so we move it here to make it static to
@@ -43,16 +42,11 @@ class Properties {
 
   static List<Widget> pages = const [HomeView(), SettingsView()];
 
-
   static PageController pageController = PageController();
 
   static const double minWidth = 400;
   static const double minHeight = 600;
-  static const double overflowHeight= 710;
-  static String defaultLanguage = "English";
-  static int defaultEssentialLeft = 1848;
-  static double defaultWindowHeight = 700;
-  static double defaultWindowWidth = 400;
+  static const double overflowHeight = 710;
   static double titleTileFontSize = 14.0;
   static bool isDarkMode = false;
   static const String diccon = "Diccon";
@@ -69,52 +63,50 @@ class Properties {
   static const String essentialFavouriteFileName = 'essential_favourite.json';
   static List<Article> defaultArticleList = [];
   // All view in application
-  static double defaultReadingFontSizeSliderValue = 0.2;
-  static double defaultReadingFontSize = 16;
+  static Setting defaultSetting = Setting(
+      numberOfSynonyms: 10,
+      numberOfAntonyms: 10,
+      readingFontSize: 16,
+      numberOfEssentialLeft: 1848,
+      language: 'English',
+      readingFontSizeSliderValue: 0.2,
+      windowsWidth: 400,
+      windowsHeight: 700);
 
-  static void saveSettings(double? newReadingFontSize,
-      double? newReadingFontSizeSliderValue,
-      int? newNumberOfSynonyms,
-      int? newNumberOfAntonyms,
-      String? newLanguage) async {
+  static void saveSettings(Setting newSetting) async {
     var prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('readingFontSize', newSetting.readingFontSize);
     await prefs.setDouble(
-        'readingFontSize', newReadingFontSize ?? defaultReadingFontSize);
-    await prefs.setDouble('readingFontSizeSliderValue',   newReadingFontSizeSliderValue ?? defaultReadingFontSizeSliderValue);
-    await prefs.setInt(
-        'numberOfSynonyms', newNumberOfSynonyms ?? defaultNumberOfSynonyms);
-
-    await prefs.setInt(
-        'numberOfAntonyms', newNumberOfAntonyms ?? defaultNumberOfAntonyms);
-    await prefs.setString(
-        'language', newLanguage ?? defaultLanguage);
-    await prefs.setInt(
-        'essentialLeft', defaultEssentialLeft);
-    await prefs.setDouble('widthOfWindowSize', defaultWindowWidth);
-    await prefs.setDouble('heightOfWindowSize', defaultWindowHeight);
+        'readingFontSizeSliderValue', newSetting.readingFontSizeSliderValue);
+    await prefs.setInt('numberOfSynonyms', newSetting.numberOfSynonyms);
+    await prefs.setInt('numberOfAntonyms', newSetting.numberOfAntonyms);
+    await prefs.setString('language', newSetting.language);
+    await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
+    await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
+    await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
   }
 
   static Future<bool> getSettings() async {
     Completer complete = Completer();
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
-    defaultReadingFontSize =
-        prefs.getDouble('readingFontSize') ?? defaultReadingFontSize;
-    defaultReadingFontSizeSliderValue =
-        prefs.getDouble('readingFontSizeSliderValue') ??
-            defaultReadingFontSizeSliderValue;
-    defaultNumberOfSynonyms =
-        prefs.getInt('numberOfSynonyms') ?? defaultNumberOfSynonyms;
-    defaultNumberOfAntonyms =
-        prefs.getInt('numberOfAntonyms') ?? defaultNumberOfAntonyms;
-    defaultLanguage =
-        prefs.getString('language') ?? defaultLanguage;
-    defaultEssentialLeft =
-        prefs.getInt('essentialLeft') ?? defaultEssentialLeft;
-    defaultWindowWidth =
-        prefs.getDouble("widthOfWindowSize") ?? defaultWindowWidth;
-    defaultWindowHeight =
-        prefs.getDouble("heightOfWindowSize") ?? defaultWindowHeight;
+    defaultSetting = defaultSetting.copyWith(
+        readingFontSize: prefs.getDouble('readingFontSize') ??
+            defaultSetting.readingFontSize,
+        readingFontSizeSliderValue:
+            prefs.getDouble('readingFontSizeSliderValue') ??
+                defaultSetting.readingFontSizeSliderValue,
+        numberOfSynonyms:
+            prefs.getInt('numberOfSynonyms') ?? defaultSetting.numberOfSynonyms,
+        numberOfAntonyms:
+            prefs.getInt('numberOfAntonyms') ?? defaultSetting.numberOfAntonyms,
+        language: prefs.getString('language') ?? defaultSetting.language,
+        numberOfEssentialLeft: prefs.getInt('essentialLeft') ??
+            defaultSetting.numberOfEssentialLeft,
+        windowsWidth:
+            prefs.getDouble("widthOfWindowSize") ?? defaultSetting.windowsWidth,
+        windowsHeight: prefs.getDouble("heightOfWindowSize") ??
+            defaultSetting.windowsHeight);
     return true;
   }
 }
