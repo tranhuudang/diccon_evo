@@ -39,7 +39,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                 },
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.light
                           ? Colors.blue
@@ -73,7 +73,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                 },
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
                         ? Colors.blue
@@ -103,7 +103,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                 },
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.system
                           ? Colors.blue
