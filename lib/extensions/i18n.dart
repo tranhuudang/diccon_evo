@@ -18,6 +18,22 @@ extension Localization on String {
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
 
   static const _t = Translations.from("en_us", {
+    "Light mode": {
+      "en_us": "Light mode",
+      "vi_vi": "Chế độ sáng",
+    },
+    "Dark mode": {
+      "en_us": "Dark mode",
+      "vi_vi": "Chế độ tối",
+    },
+    "System default": {
+      "en_us": "System default",
+      "vi_vi": "Mặc định",
+    },
+    "Theme": {
+      "en_us": "Theme",
+      "vi_vi": "Giao diện",
+    },
     "School-supplies": {
       "en_us": "School-supplies",
       "vi_vi": "Vật dụng học tập",
@@ -294,13 +310,9 @@ extension Localization on String {
       "en_us": "Feedbacks",
       "vi_vi": "Góp ý",
     },
-    "Language Updated": {
-      "en_us": "Language Updated",
-      "vi_vi": "Cập nhật ngôn ngữ",
-    },
-    "Diccon will update new language setting in the next time you open.": {
-      "en_us": "Diccon will update new language setting in the next time you open.",
-      "vi_vi": "Thay đổi cài đặt ngôn ngữ sẽ có hiệu lực trong lần khởi động ứng dụng tiếp theo.",
+    "* The changes will become effective the next time you open the app.": {
+      "en_us": "* The changes will become effective the next time you open the app.",
+      "vi_vi": "* Những thay đổi sẽ có hiệu lực vào lần tiếp theo bạn mở ứng dụng.",
     },
     "Common Section": {
       "en_us": "Common Section",

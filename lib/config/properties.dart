@@ -71,7 +71,8 @@ class Properties {
       language: 'English',
       readingFontSizeSliderValue: 0.2,
       windowsWidth: 400,
-      windowsHeight: 700);
+      windowsHeight: 700,
+      themeMode: 'ThemeMode.system');
 
   static void saveSettings(Setting newSetting) async {
     var prefs = await SharedPreferences.getInstance();
@@ -84,6 +85,7 @@ class Properties {
     await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
     await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
     await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
+    await prefs.setString('themeMode', newSetting.themeMode);
   }
 
   static Future<bool> getSettings() async {
@@ -106,7 +108,8 @@ class Properties {
         windowsWidth:
             prefs.getDouble("widthOfWindowSize") ?? defaultSetting.windowsWidth,
         windowsHeight: prefs.getDouble("heightOfWindowSize") ??
-            defaultSetting.windowsHeight);
+            defaultSetting.windowsHeight,
+        themeMode: prefs.getString("themeMode") ?? defaultSetting.themeMode);
     return true;
   }
 }

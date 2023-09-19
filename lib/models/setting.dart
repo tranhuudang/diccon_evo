@@ -1,4 +1,5 @@
 class Setting {
+  final String themeMode;
   final int numberOfSynonyms;
   final int numberOfAntonyms;
   final double readingFontSize;
@@ -9,6 +10,7 @@ class Setting {
   final double windowsHeight;
   Setting(
       {required this.readingFontSizeSliderValue,
+      required this.themeMode,
       required this.numberOfSynonyms,
       required this.numberOfAntonyms,
       required this.readingFontSize,
@@ -18,7 +20,9 @@ class Setting {
       required this.windowsHeight});
 
   Setting copyWith(
-      {int? numberOfSynonyms,
+      {
+        String? themeMode,
+        int? numberOfSynonyms,
       int? numberOfAntonyms,
       double? readingFontSize,
       int? numberOfEssentialLeft,
@@ -36,6 +40,8 @@ class Setting {
             numberOfEssentialLeft ?? this.numberOfEssentialLeft,
         language: language ?? this.language,
         windowsWidth: windowsWidth ?? this.windowsWidth,
-        windowsHeight: windowsHeight ?? this.windowsHeight);
+        windowsHeight: windowsHeight ?? this.windowsHeight,
+        themeMode: themeMode ?? this.themeMode
+    );
   }
 }

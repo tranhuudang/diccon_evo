@@ -110,7 +110,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                           const SizedBox(
                             height: 30,
                           ),
-                          Divider(),
+                          const Divider(),
                           Column(
                             children: [
                               Text(

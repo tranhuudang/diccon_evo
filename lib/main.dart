@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:diccon_evo/extensions/theme_mode.dart';
 import 'package:diccon_evo/screens/article/cubits/article_bookmark_list_cubit.dart';
 import 'package:diccon_evo/screens/article/cubits/article_history_list_cubit.dart';
 import 'package:diccon_evo/screens/article/cubits/article_list_cubit.dart';
@@ -95,7 +96,7 @@ class ProgramRoot extends StatelessWidget {
         locale: Properties.defaultSetting.language == "English"
             ? const Locale('en', "US")
             : const Locale('vi', "VI"),
-        themeMode: ThemeMode.system,
+        themeMode: Properties.defaultSetting.themeMode.toThemeMode(),
         theme: CustomTheme.getLight(context),
         darkTheme: CustomTheme.getDark(context),
         title: Properties.diccon,

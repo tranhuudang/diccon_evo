@@ -25,6 +25,12 @@ class SettingCubit extends Cubit<Setting> {
     emit(Properties.defaultSetting);
   }
 
+  void setThemeMode(String themeMode) {
+    Properties.defaultSetting =
+        Properties.defaultSetting.copyWith(themeMode: themeMode);
+    emit(Properties.defaultSetting);
+  }
+
   void setReadingFontSize(double num) {
     Properties.defaultSetting =
         Properties.defaultSetting.copyWith(readingFontSize: num);
@@ -51,6 +57,7 @@ class SettingCubit extends Cubit<Setting> {
       print("language: ${Properties.defaultSetting.language}");
       print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
       print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");
+      print("themeMode: ${Properties.defaultSetting.themeMode}");
     }
   }
 }

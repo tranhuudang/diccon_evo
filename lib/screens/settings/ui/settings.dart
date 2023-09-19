@@ -2,13 +2,13 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/local_traditions.dart';
-import '../../../helpers/notify.dart';
 import '../../commons/circle_button.dart';
 import '../cubit/setting_cubit.dart';
 import '../../../config/properties.dart';
 import '../../../models/setting.dart';
 import 'components/setting_section.dart';
 import 'components/store_badge.dart';
+import 'components/theme_mode_switcher.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -30,7 +30,6 @@ class _SettingsViewState extends State<SettingsView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
                   /// Header
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,15 +50,14 @@ class _SettingsViewState extends State<SettingsView> {
                     height: 16,
                   ),
                   SettingSection(title: "Common Section".i18n, children: [
+                    /// Language switcher
                     Row(
                       children: [
                         Text("Language".i18n),
                         Tradition.widthSpacer,
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme
-                                .of(context)
-                                .highlightColor,
+                            color: Theme.of(context).highlightColor,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           width: 120,
@@ -73,25 +71,31 @@ class _SettingsViewState extends State<SettingsView> {
                                 onChanged: (String? newValue) {
                                   settingCubit.setLanguage(newValue!);
                                   settingCubit.saveSettings();
-                                  Notify.showAlertDialog(
-                                      context, "Language Updated".i18n,
-                                      "Diccon will update new language setting in the next time you open."
-                                          .i18n);
                                 },
                                 items: ["English", "Tiếng Việt"]
                                     .map(
-                                      (value) =>
-                                      DropdownMenuItem<String>(
+                                      (value) => DropdownMenuItem<String>(
                                         alignment: Alignment.center,
                                         value: value,
                                         child: Text(value.toString()),
                                       ),
-                                )
+                                    )
                                     .toList()),
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    Tradition.heightSpacer,
+
+                    /// Theme switcher
+                     Row(
+                       children: [
+                         Text("Theme".i18n),
+                         ThemeSwitcher(settingCubit: settingCubit,),
+                       ],
+                     ),
+                    const Divider(),
+                    Text("* The changes will become effective the next time you open the app.".i18n, style: const TextStyle(fontStyle: FontStyle.italic),)
                   ]),
                   SettingSection(
                     title: 'Dictionary Section'.i18n,
@@ -101,9 +105,7 @@ class _SettingsViewState extends State<SettingsView> {
                         Tradition.widthSpacer,
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme
-                                .of(context)
-                                .highlightColor,
+                            color: Theme.of(context).highlightColor,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           width: 60,
@@ -120,13 +122,12 @@ class _SettingsViewState extends State<SettingsView> {
                                 },
                                 items: [5, 10, 20, 30]
                                     .map(
-                                      (value) =>
-                                      DropdownMenuItem<int>(
+                                      (value) => DropdownMenuItem<int>(
                                         alignment: Alignment.center,
                                         value: value,
                                         child: Text(value.toString()),
                                       ),
-                                )
+                                    )
                                     .toList()),
                           ),
                         ),
@@ -140,9 +141,7 @@ class _SettingsViewState extends State<SettingsView> {
                           Tradition.widthSpacer,
                           Container(
                             decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .highlightColor,
+                              color: Theme.of(context).highlightColor,
                               borderRadius: BorderRadius.circular(16),
                             ),
                             width: 60,
@@ -159,12 +158,11 @@ class _SettingsViewState extends State<SettingsView> {
                                     settingCubit.saveSettings();
                                   },
                                   items: [5, 10, 20, 30]
-                                      .map((value) =>
-                                      DropdownMenuItem<int>(
-                                        alignment: Alignment.center,
-                                        value: value,
-                                        child: Text(value.toString()),
-                                      ))
+                                      .map((value) => DropdownMenuItem<int>(
+                                            alignment: Alignment.center,
+                                            value: value,
+                                            child: Text(value.toString()),
+                                          ))
                                       .toList()),
                             ),
                           ),
@@ -182,7 +180,7 @@ class _SettingsViewState extends State<SettingsView> {
                           Slider(
                               min: 0.1,
                               value: state.readingFontSize / 70,
-                              onChangeEnd: (newValue){
+                              onChangeEnd: (newValue) {
                                 settingCubit.saveSettings();
                               },
                               onChanged: (newValue) {
@@ -262,3 +260,4 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 }
+
