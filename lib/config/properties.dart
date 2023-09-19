@@ -21,7 +21,7 @@ class Level {
 
 class Properties {
   /// Manually change this version base on commit count
-  static String version = "v143";
+  static String version = "v179";
 
   static UserInfo userInfo = UserInfo("", "", "", "");
 
