@@ -34,21 +34,23 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
   # This lib to set windows size on Windows.
-  window_manager: ^0.3.5
+  window_manager: ^0.3.6
   # Provide ability to speak a provided word.
   flutter_tts: ^3.8.3
-  http: ^0.13.6
+  http: ^1.1.0
   # A Flutter plugin for finding commonly used locations on the filesystem
-  path_provider: ^2.0.14
+  path_provider: ^2.1.1
   audioplayers: ^5.1.0
   # Package for Packaging Windows App
-  msix: ^3.16.1
-  translator: ^0.1.7
+  msix: ^3.16.2
+  #translator: ^0.1.7
+  translator:
+    git: https://github.com/tranhuudang/google-translator
   cached_network_image: ^3.2.3
   # Save settings
-  shared_preferences: ^2.1.1
+  shared_preferences: ^2.2.1
   # This package help us create a notification in the bottom app
   fluttertoast: ^8.2.2
   # State management
@@ -56,15 +58,15 @@ dependencies:
   # Help us loaf svg image
   flutter_svg: ^2.0.7
   # Open link
-  url_launcher: ^6.1.12
+  url_launcher: ^6.1.14
 
-  firebase_core: ^2.10.0
-  google_sign_in: ^6.1.4
-  firebase_auth: ^4.7.1
-  firebase_storage: ^11.2.6
-  firebase_app_check: ^0.1.5+2
+  firebase_core: ^2.16.0
+  google_sign_in: ^6.1.5
+  firebase_auth: ^4.10.0
+  firebase_storage: ^11.2.7
+  firebase_app_check: ^0.2.0
 
-  google_fonts: ^4.0.4
+  google_fonts: ^6.0.0
 
   # custom icon
   font_awesome_flutter: ^10.5.0
@@ -72,7 +74,7 @@ dependencies:
 
   # localization
   i18n_extension: ^9.0.2
-  flutter_localization: ^0.1.13
+  flutter_localization: ^0.1.14
 
 dev_dependencies:
   flutter_test:
@@ -83,7 +85,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.3
 
 
 # For information on the generic Dart part of this file, see the
