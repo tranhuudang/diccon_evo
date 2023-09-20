@@ -1,16 +1,14 @@
-import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/screens/home/ui/components/to_conversational_phrases.dart';
 import '../../../config/properties.dart';
-import '../../article/ui/article_list.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/quote_box/ui/quote_box.dart';
 import 'package:flutter/material.dart';
 import 'components/home_menu_button.dart';
-import 'components/list_home_item.dart';
-import 'package:unicons/unicons.dart';
-
+import 'components/list_subfunction_box.dart';
 import 'components/plan_button.dart';
 import 'components/to_dictionary_button.dart';
-import 'components/to_essential_word_button.dart';
+import 'components/to_essential_3000.dart';
+import 'components/to_reading_chamber.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -27,7 +25,9 @@ class HomeView extends StatelessWidget {
             );
           } else {
             // Render your content normally
-            return const HomeMain(spacerEnable: true,);
+            return const HomeMain(
+              spacerEnable: true,
+            );
           }
         },
       ),
@@ -36,7 +36,6 @@ class HomeView extends StatelessWidget {
 }
 
 class HomeMain extends StatelessWidget {
-
   final bool? spacerEnable;
   const HomeMain({
     super.key,
@@ -45,10 +44,19 @@ class HomeMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> listPrimaryFunction = const [
+      ToDictionaryButton(),
+      ToReadingChamberButton(),
+    ];
+    List<Widget> listSubFunction = const [
+      ToEssentialWordButton(),
+      ToConversationalPhrasesButton(),
+    ];
     return Stack(
       children: [
         /// Plan Button
         const PlanButton(),
+
         /// Menu button
         const HomeMenuButton(),
         Column(
@@ -59,45 +67,38 @@ class HomeMain extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Head welcome to essential tab
-                  const HeadSentence(listText: [
-                    "Empower",
-                    "Your English",
-                    "Proficiency"
-                  ]),
-
+                  const HeadSentence(
+                      listText: ["Empower", "Your English", "Proficiency"]),
                   const SizedBox(
-                    height: 20,
+                    height: 50,
                   ),
+
                   /// Two big brother button
-                  const Row(
-                    children: [
-                      ToDictionaryButton(),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      ToEssentialWordButton(),
-                    ],
-                  ),
+                  GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: listPrimaryFunction.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisExtent: 180,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                              crossAxisCount: 2),
+                      itemBuilder: (context, index) {
+                        return listPrimaryFunction[index];
+                      }),
                   const SizedBox(height: 16),
+
                   /// Other functions
-                  ListHomeItem(
-                    height: 150,
-                    title: "Reading Chamber".i18n,
-                    icon: const Icon(UniconsLine.books),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ArticleListView(),
-                          ));
-                    },
-                  ),
+                  SubFunctionBox(
+                      height: 180,
+                      listSubFunction: listSubFunction),
                   const SizedBox(
                     height: 16,
                   ),
                 ],
               ),
             ),
+
             /// On SingleChildListView, Spacer() cause Overflow error,
             /// so when changing parent to SingleChildListView, we remove Spacer()
             spacerEnable != null
@@ -105,6 +106,7 @@ class HomeMain extends StatelessWidget {
                     ? const Spacer()
                     : const SizedBox.shrink()
                 : const SizedBox.shrink(),
+
             /// From the universe
             Container(
               color: Theme.of(context).highlightColor,
@@ -116,4 +118,3 @@ class HomeMain extends StatelessWidget {
     );
   }
 }
-

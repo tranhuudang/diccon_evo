@@ -15,20 +15,16 @@ class FeatureButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height ?? 150,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(32),
-        onTap: onTap,
-        child: Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-          height: height ?? 150,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(32),
-              color: backgroundColor ?? Theme.of(context).cardColor),
-          child: child,
-        ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(32),
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32),
+            color: backgroundColor ?? Theme.of(context).cardColor),
+        child: child,
       ),
     );
   }

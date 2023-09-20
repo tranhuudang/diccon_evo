@@ -10,50 +10,38 @@ class ToDictionaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        height: 220,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FeatureButton(
-              height: 180,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DictionaryView(),
-                  ),
-                );
-              },
-              child:  Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      padding: const EdgeInsets.all(5),
-                      child: const Icon(Icons.search)),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "Diccon chat-based",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    "Dictionary".i18n,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                ],
+    return FeatureButton(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DictionaryView(),
+          ),
+        );
+      },
+      child:  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(50),
               ),
-            ),
-          ],
-        ),
+              padding: const EdgeInsets.all(5),
+              child: const Icon(Icons.search)),
+          const SizedBox(height: 8),
+          const Text(
+            "Diccon chat-based",
+            style: TextStyle(fontSize: 12),
+          ),
+          Text(
+            "Dictionary".i18n,
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }
