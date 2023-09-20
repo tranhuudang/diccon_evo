@@ -35,11 +35,10 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   streamController.sink.add(ThemeMode.light);
                   widget.settingCubit.setThemeMode(ThemeMode.light.toString());
                   widget.settingCubit.saveSettings();
-
                 },
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.light
                           ? Colors.blue
@@ -50,9 +49,14 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   child: Row(
                     children: [
                       const Icon(Icons.light_mode),
-                      Tradition.widthSpacer,
                       snapshot.data == ThemeMode.light
-                          ?  Text("Light mode".i18n, style: const TextStyle(fontSize: 16),)
+                          ? Tradition.widthSpacer
+                          : const SizedBox.shrink(),
+                      snapshot.data == ThemeMode.light
+                          ? Text(
+                              "Light mode".i18n,
+                              style: const TextStyle(fontSize: 16),
+                            )
                           : const SizedBox.shrink()
                     ],
                   ),
@@ -68,12 +72,10 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   streamController.sink.add(ThemeMode.dark);
                   widget.settingCubit.setThemeMode(ThemeMode.dark.toString());
                   widget.settingCubit.saveSettings();
-
-
                 },
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
                         ? Colors.blue
@@ -82,9 +84,14 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   child: Row(
                     children: [
                       const Icon(Icons.dark_mode),
-                      Tradition.widthSpacer,
                       snapshot.data == ThemeMode.dark
-                          ?  Text("Dark mode".i18n, style: const TextStyle(fontSize: 16),)
+                          ? Tradition.widthSpacer
+                          : const SizedBox.shrink(),
+                      snapshot.data == ThemeMode.dark
+                          ? Text(
+                              "Dark mode".i18n,
+                              style: const TextStyle(fontSize: 16),
+                            )
                           : const SizedBox.shrink()
                     ],
                   ),
@@ -103,7 +110,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                 },
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.system
                           ? Colors.blue
@@ -115,9 +122,14 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   child: Row(
                     children: [
                       const Icon(Icons.auto_awesome),
-                      Tradition.widthSpacer,
                       snapshot.data == ThemeMode.system
-                          ?  Text("System default".i18n, style: const TextStyle(fontSize: 16),)
+                          ? Tradition.widthSpacer
+                          : const SizedBox.shrink(),
+                      snapshot.data == ThemeMode.system
+                          ? Text(
+                              "System default".i18n,
+                              style: const TextStyle(fontSize: 16),
+                            )
                           : const SizedBox.shrink()
                     ],
                   ),

@@ -50,7 +50,7 @@ class HomeMain extends StatelessWidget {
     ];
     List<Widget> listSubFunction = const [
       ToEssentialWordButton(),
-      ToConversationalPhrasesButton(),
+      //ToConversationalPhrasesButton(),
     ];
     return Stack(
       children: [

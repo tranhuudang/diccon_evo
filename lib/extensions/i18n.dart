@@ -18,6 +18,24 @@ extension Localization on String {
   /// 4: import this localization file to the target .dart file and use .i18n after the text that you want to translate.
 
   static const _t = Translations.from("en_us", {
+    "essential sentences to master": {
+      "en_us": "essential sentences to master",
+      "vi_vi": "câu thoại thường dùng",
+    },
+    "stories to read": {
+      "en_us": "stories to read",
+      "vi_vi": "truyện ngắn",
+    },
+    "For all levels and audiences": {
+      "en_us": "For all levels and audiences",
+      "vi_vi": "Dành cho mọi trình độ và lứa tuổi",
+    },
+    "Boost your English communication skills with 939 invaluable phrases": {
+      "en_us":
+          "Boost your English communication skills with 939 invaluable phrases",
+      "vi_vi":
+          "Cải thiện kĩ năng giao tiếp với 939 câu thoại hay trong Tiếng Anh",
+    },
     "Light mode": {
       "en_us": "Light mode",
       "vi_vi": "Chế độ sáng",
@@ -298,8 +316,10 @@ extension Localization on String {
       "en_us": "User",
       "vi_vi": "Người dùng",
     },
-    "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices": {
-      "en_us": "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices",
+    "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices":
+        {
+      "en_us":
+          "Log in to get the most out of Diccon Evo and enjoy data synchronous across your devices",
       "vi_vi": "Đăng nhập để đồng bộ dữ liệu giữa các thiết bị của bạn",
     },
     "Continue with Google": {
@@ -311,8 +331,10 @@ extension Localization on String {
       "vi_vi": "Góp ý",
     },
     "* The changes will become effective the next time you open the app.": {
-      "en_us": "* The changes will become effective the next time you open the app.",
-      "vi_vi": "* Những thay đổi sẽ có hiệu lực vào lần tiếp theo bạn mở ứng dụng.",
+      "en_us":
+          "* The changes will become effective the next time you open the app.",
+      "vi_vi":
+          "* Những thay đổi sẽ có hiệu lực vào lần tiếp theo bạn mở ứng dụng.",
     },
     "Common Section": {
       "en_us": "Common Section",
@@ -330,7 +352,6 @@ extension Localization on String {
       "en_us": "Recent topics",
       "vi_vi": "Chủ đề gần đây",
     },
-
     "Bookmarks is empty": {
       "en_us": "Bookmarks is empty",
       "vi_vi": "Bookmarks trống",
@@ -339,7 +360,6 @@ extension Localization on String {
       "en_us": "From the universe",
       "vi_vi": "Dành riêng cho bạn",
     },
-
     "Reinforce": {
       "en_us": "Reinforce",
       "vi_vi": "Reinforce",

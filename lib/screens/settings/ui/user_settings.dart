@@ -23,9 +23,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
   @override
   Widget build(BuildContext context) {
     var userBloc = context.read<UserBloc>();
-    if (Properties.userInfo.id.isNotEmpty) {
-      userBloc.add(UserLoginEvent());
-    }
+    userBloc.add(UserLoginEvent());
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
