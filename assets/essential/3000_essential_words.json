@@ -2426,1345 +2426,1345 @@
   "Hospital" :  [
     {
       "id": 1,
-      "term": "radiologist",
-      "pronunciation": "/ˌreɪ.diˈɒl.ə.dʒɪst/",
-      "definition": "bác sĩ chụp X-quang"
+      "english": "radiologist",
+      "phonetic": "/ˌreɪ.diˈɒl.ə.dʒɪst/",
+      "vietnamese": "bác sĩ chụp X-quang"
     },
     {
       "id": 2,
-      "term": "emergency room",
-      "pronunciation": "/ɪˈmɜː.dʒən.si ˌruːm/",
-      "definition": "phòng cấp cứu"
+      "english": "emergency room",
+      "phonetic": "/ɪˈmɜː.dʒən.si ˌruːm/",
+      "vietnamese": "phòng cấp cứu"
     },
     {
       "id": 3,
-      "term": "obstetrician",
-      "pronunciation": "/ˌɒb.stəˈtrɪʃ.ən/",
-      "definition": "bác sĩ sản khoa"
+      "english": "obstetrician",
+      "phonetic": "/ˌɒb.stəˈtrɪʃ.ən/",
+      "vietnamese": "bác sĩ sản khoa"
     },
     {
       "id": 4,
-      "term": "operating room",
-      "pronunciation": "/ˈɒp.ər.eɪ.tɪŋ ˌruːm/",
-      "definition": "phòng phẫu thuật"
+      "english": "operating room",
+      "phonetic": "/ˈɒp.ər.eɪ.tɪŋ ˌruːm/",
+      "vietnamese": "phòng phẫu thuật"
     },
     {
       "id": 5,
-      "term": "needle",
-      "pronunciation": "/ˈniː.dəl/",
-      "definition": "kim tiêm"
+      "english": "needle",
+      "phonetic": "/ˈniː.dəl/",
+      "vietnamese": "kim tiêm"
     },
     {
       "id": 6,
-      "term": "laboratory",
-      "pronunciation": "/ləˈbɒr.ə.tər.i/",
-      "definition": "phòng thí nghiệm"
+      "english": "laboratory",
+      "phonetic": "/ləˈbɒr.ə.tər.i/",
+      "vietnamese": "phòng thí nghiệm"
     },
     {
       "id": 7,
-      "term": "pharmacy",
-      "pronunciation": "/ˈfɑː.mə.si/",
-      "definition": "hiệu thuốc, nhà thuốc"
+      "english": "pharmacy",
+      "phonetic": "/ˈfɑː.mə.si/",
+      "vietnamese": "hiệu thuốc, nhà thuốc"
     },
     {
       "id": 8,
-      "term": "hospital bed",
-      "pronunciation": "/ˈhɒs.pɪ.təl bed/",
-      "definition": "giường bệnh"
+      "english": "hospital bed",
+      "phonetic": "/ˈhɒs.pɪ.təl bed/",
+      "vietnamese": "giường bệnh"
     },
     {
       "id": 9,
-      "term": "call button",
-      "pronunciation": "/kɔːl ˈbʌt.ən/",
-      "definition": "chuông gọi (y tá)"
+      "english": "call button",
+      "phonetic": "/kɔːl ˈbʌt.ən/",
+      "vietnamese": "chuông gọi (y tá)"
     },
     {
       "id": 10,
-      "term": "doctor",
-      "pronunciation": "/ˈdɒk.tər/",
-      "definition": "bác sĩ"
+      "english": "doctor",
+      "phonetic": "/ˈdɒk.tər/",
+      "vietnamese": "bác sĩ"
     },
     {
       "id": 11,
-      "term": "nurse",
-      "pronunciation": "/nɜːs/",
-      "definition": "y tá"
+      "english": "nurse",
+      "phonetic": "/nɜːs/",
+      "vietnamese": "y tá"
     },
     {
       "id": 12,
-      "term": "gurney",
-      "pronunciation": "/ˈɡɜː.ni/",
-      "definition": "xe cáng, giường cấp cứu"
+      "english": "gurney",
+      "phonetic": "/ˈɡɜː.ni/",
+      "vietnamese": "xe cáng, giường cấp cứu"
     },
     {
       "id": 13,
-      "term": "waiting room",
-      "pronunciation": "/ˈweɪ.tɪŋ ˌruːm/",
-      "definition": "phòng chờ, khu vực ngồi chờ"
+      "english": "waiting room",
+      "phonetic": "/ˈweɪ.tɪŋ ˌruːm/",
+      "vietnamese": "phòng chờ, khu vực ngồi chờ"
     },
     {
       "id": 14,
-      "term": "surgeon",
-      "pronunciation": "/ˈsɜː.dʒən/",
-      "definition": "bác sĩ phẫu thuật"
+      "english": "surgeon",
+      "phonetic": "/ˈsɜː.dʒən/",
+      "vietnamese": "bác sĩ phẫu thuật"
     },
     {
       "id": 15,
-      "term": "midwife",
-      "pronunciation": "/ˈmɪd.waɪf/",
-      "definition": "hộ sinh, bà đỡ"
+      "english": "midwife",
+      "phonetic": "/ˈmɪd.waɪf/",
+      "vietnamese": "hộ sinh, bà đỡ"
     },
     {
       "id": 16,
-      "term": "injection",
-      "pronunciation": "/ɪnˈdʒek.ʃən/",
-      "definition": "(việc) tiêm thuốc"
+      "english": "injection",
+      "phonetic": "/ɪnˈdʒek.ʃən/",
+      "vietnamese": "(việc) tiêm thuốc"
     },
     {
       "id": 17,
-      "term": "calcium",
-      "pronunciation": "/ˈkæl.si.əm/",
-      "definition": "(nguyên tố) canxi"
+      "english": "calcium",
+      "phonetic": "/ˈkæl.si.əm/",
+      "vietnamese": "(nguyên tố) canxi"
     },
     {
       "id": 18,
-      "term": "hospital",
-      "pronunciation": "/ˈhɒs.pɪ.təl/",
-      "definition": "bệnh viện, nhà thương"
+      "english": "hospital",
+      "phonetic": "/ˈhɒs.pɪ.təl/",
+      "vietnamese": "bệnh viện, nhà thương"
     },
     {
       "id": 19,
-      "term": "crutch",
-      "pronunciation": "/krʌtʃ/",
-      "definition": "cái nạng"
+      "english": "crutch",
+      "phonetic": "/krʌtʃ/",
+      "vietnamese": "cái nạng"
     },
     {
       "id": 20,
-      "term": "wheelchair",
-      "pronunciation": "/ˈwiːl.tʃeər/",
-      "definition": "xe lăn"
+      "english": "wheelchair",
+      "phonetic": "/ˈwiːl.tʃeər/",
+      "vietnamese": "xe lăn"
     },
     {
       "id": 21,
-      "term": "paramedic",
-      "pronunciation": "/ˌpær.əˈmed.ɪk/",
-      "definition": "nhân viên y tế, hộ lý"
+      "english": "paramedic",
+      "phonetic": "/ˌpær.əˈmed.ɪk/",
+      "vietnamese": "nhân viên y tế, hộ lý"
     },
     {
       "id": 22,
-      "term": "stretcher",
-      "pronunciation": "/ˈstretʃ.ər/",
-      "definition": "cáng cứu thương"
+      "english": "stretcher",
+      "phonetic": "/ˈstretʃ.ər/",
+      "vietnamese": "cáng cứu thương"
     },
     {
       "id": 23,
-      "term": "rush",
-      "pronunciation": "/rʌʃ/",
-      "definition": "đưa đi, chuyển đi (nhanh)"
+      "english": "rush",
+      "phonetic": "/rʌʃ/",
+      "vietnamese": "đưa đi, chuyển đi (nhanh)"
     },
     {
       "id": 24,
-      "term": "treat",
-      "pronunciation": "/triːt/",
-      "definition": "điều trị, chữa trị"
+      "english": "treat",
+      "phonetic": "/triːt/",
+      "vietnamese": "điều trị, chữa trị"
     },
     {
       "id": 25,
-      "term": "condition",
-      "pronunciation": "/kənˈdɪʃ.ən/",
-      "definition": "trạng thái, tình trạng"
+      "english": "condition",
+      "phonetic": "/kənˈdɪʃ.ən/",
+      "vietnamese": "trạng thái, tình trạng"
     },
     {
       "id": 26,
-      "term": "recovery",
-      "pronunciation": "/rɪˈkʌv.ər.i/",
-      "definition": "sự bình phục, phục hồi"
+      "english": "recovery",
+      "phonetic": "/rɪˈkʌv.ər.i/",
+      "vietnamese": "sự bình phục, phục hồi"
     },
     {
       "id": 27,
-      "term": "suffer",
-      "pronunciation": "/ˈsʌf.ər/",
-      "definition": "bị, chịu"
+      "english": "suffer",
+      "phonetic": "/ˈsʌf.ər/",
+      "vietnamese": "bị, chịu"
     },
     {
       "id": 28,
-      "term": "deteriorate",
-      "pronunciation": "/dɪˈtɪə.ri.ə.reɪt/",
-      "definition": "xấu đi, tệ hơn"
+      "english": "deteriorate",
+      "phonetic": "/dɪˈtɪə.ri.ə.reɪt/",
+      "vietnamese": "xấu đi, tệ hơn"
     },
     {
       "id": 29,
-      "term": "coma",
-      "pronunciation": "/ˈkəʊ.mə/",
-      "definition": "(tình trạng) hôn mê"
+      "english": "coma",
+      "phonetic": "/ˈkəʊ.mə/",
+      "vietnamese": "(tình trạng) hôn mê"
     },
     {
       "id": 30,
-      "term": "common cold",
-      "pronunciation": "/ˌkɒm.ən ˈkəʊld/",
-      "definition": "(bệnh) cảm lạnh thông thường"
+      "english": "common cold",
+      "phonetic": "/ˌkɒm.ən ˈkəʊld/",
+      "vietnamese": "(bệnh) cảm lạnh thông thường"
     }
   ],
   "Computer" :  [
     {
       "id": 1,
-      "term": "monitor",
-      "pronunciation": "/ˈmɒn.ɪ.tər/",
-      "definition": "(máy tính) màn hình"
+      "english": "monitor",
+      "phonetic": "/ˈmɒn.ɪ.tər/",
+      "vietnamese": "(máy tính) màn hình"
     },
     {
       "id": 2,
-      "term": "mouse pad",
-      "pronunciation": "/ˈmaʊs ˌpæd/",
-      "definition": "tấm lót chuột"
+      "english": "mouse pad",
+      "phonetic": "/ˈmaʊs ˌpæd/",
+      "vietnamese": "tấm lót chuột"
     },
     {
       "id": 3,
-      "term": "printer",
-      "pronunciation": "/ˈprɪn.tər/",
-      "definition": "máy in"
+      "english": "printer",
+      "phonetic": "/ˈprɪn.tər/",
+      "vietnamese": "máy in"
     },
     {
       "id": 4,
-      "term": "scanner",
-      "pronunciation": "/ˈskæn.ər/",
-      "definition": "máy quét"
+      "english": "scanner",
+      "phonetic": "/ˈskæn.ər/",
+      "vietnamese": "máy quét"
     },
     {
       "id": 5,
-      "term": "open",
-      "pronunciation": "/ˈəʊ.pən/",
-      "definition": "(tin học) khởi động, mở"
+      "english": "open",
+      "phonetic": "/ˈəʊ.pən/",
+      "vietnamese": "(tin học) khởi động, mở"
     },
     {
       "id": 6,
-      "term": "close",
-      "pronunciation": "/kləʊz/",
-      "definition": "(tin học) đóng, tắt"
+      "english": "close",
+      "phonetic": "/kləʊz/",
+      "vietnamese": "(tin học) đóng, tắt"
     },
     {
       "id": 7,
-      "term": "delete",
-      "pronunciation": "/dɪˈliːt/",
-      "definition": "xóa, loại bỏ"
+      "english": "delete",
+      "phonetic": "/dɪˈliːt/",
+      "vietnamese": "xóa, loại bỏ"
     },
     {
       "id": 8,
-      "term": "insert",
-      "pronunciation": "/ɪnˈsɜːt/",
-      "definition": "cho vào, nhét vào"
+      "english": "insert",
+      "phonetic": "/ɪnˈsɜːt/",
+      "vietnamese": "cho vào, nhét vào"
     },
     {
       "id": 9,
-      "term": "merge",
-      "pronunciation": "/mɜːdʒ/",
-      "definition": "sát nhập, hợp nhất"
+      "english": "merge",
+      "phonetic": "/mɜːdʒ/",
+      "vietnamese": "sát nhập, hợp nhất"
     },
     {
       "id": 10,
-      "term": "helpline",
-      "pronunciation": "/ˈhelp.laɪn/",
-      "definition": "đường dây trợ giúp"
+      "english": "helpline",
+      "phonetic": "/ˈhelp.laɪn/",
+      "vietnamese": "đường dây trợ giúp"
     },
     {
       "id": 11,
-      "term": "hard disk",
-      "pronunciation": "/ˈhɑːd ˌdɪsk/",
-      "definition": "(tin học) ổ cứng"
+      "english": "hard disk",
+      "phonetic": "/ˈhɑːd ˌdɪsk/",
+      "vietnamese": "(tin học) ổ cứng"
     },
     {
       "id": 12,
-      "term": "software",
-      "pronunciation": "/ˈsɒft.weər/",
-      "definition": "(tin học) phần mềm"
+      "english": "software",
+      "phonetic": "/ˈsɒft.weər/",
+      "vietnamese": "(tin học) phần mềm"
     },
     {
       "id": 13,
-      "term": "CD-ROM",
-      "pronunciation": "/ˌsiː.diːˈrɒm/",
-      "definition": "(tin học) đĩa CD dữ liệu"
+      "english": "CD-ROM",
+      "phonetic": "/ˌsiː.diːˈrɒm/",
+      "vietnamese": "(tin học) đĩa CD dữ liệu"
     },
     {
       "id": 14,
-      "term": "toolbar",
-      "pronunciation": "/ˈtuːl.bɑːr/",
-      "definition": "(tin học) thanh công cụ"
+      "english": "toolbar",
+      "phonetic": "/ˈtuːl.bɑːr/",
+      "vietnamese": "(tin học) thanh công cụ"
     },
     {
       "id": 15,
-      "term": "database",
-      "pronunciation": "/ˈdeɪ.tə.beɪs/",
-      "definition": "(tin học) cơ sở dữ liệu"
+      "english": "database",
+      "phonetic": "/ˈdeɪ.tə.beɪs/",
+      "vietnamese": "(tin học) cơ sở dữ liệu"
     },
     {
       "id": 16,
-      "term": "hacker",
-      "pronunciation": "/ˈhæk.ər/",
-      "definition": "tin tặc"
+      "english": "hacker",
+      "phonetic": "/ˈhæk.ər/",
+      "vietnamese": "tin tặc"
     },
     {
       "id": 17,
-      "term": "save as",
-      "pronunciation": "/seɪv æz/",
-      "definition": "(tin học) lưu với định dạng"
+      "english": "save as",
+      "phonetic": "/seɪv æz/",
+      "vietnamese": "(tin học) lưu với định dạng"
     },
     {
       "id": 18,
-      "term": "select",
-      "pronunciation": "/sɪˈlekt/",
-      "definition": "(tin học) chọn, nhấn chọn"
+      "english": "select",
+      "phonetic": "/sɪˈlekt/",
+      "vietnamese": "(tin học) chọn, nhấn chọn"
     },
     {
       "id": 19,
-      "term": "copy",
-      "pronunciation": "/ˈkɒp.i/",
-      "definition": "(tin học) sao chép"
+      "english": "copy",
+      "phonetic": "/ˈkɒp.i/",
+      "vietnamese": "(tin học) sao chép"
     },
     {
       "id": 20,
-      "term": "computer",
-      "pronunciation": "/kəmˈpjuː.tər/",
-      "definition": "máy vi tính"
+      "english": "computer",
+      "phonetic": "/kəmˈpjuː.tər/",
+      "vietnamese": "máy vi tính"
     },
     {
       "id": 21,
-      "term": "laptop",
-      "pronunciation": "/ˈlæp.tɒp/",
-      "definition": "máy tính xách tay"
+      "english": "laptop",
+      "phonetic": "/ˈlæp.tɒp/",
+      "vietnamese": "máy tính xách tay"
     },
     {
       "id": 22,
-      "term": "speaker",
-      "pronunciation": "/ˈspiː.kər/",
-      "definition": "loa"
+      "english": "speaker",
+      "phonetic": "/ˈspiː.kər/",
+      "vietnamese": "loa"
     },
     {
       "id": 23,
-      "term": "file",
-      "pronunciation": "/faɪl/",
-      "definition": "(tin học) tệp, tập tin"
+      "english": "file",
+      "phonetic": "/faɪl/",
+      "vietnamese": "(tin học) tệp, tập tin"
     },
     {
       "id": 24,
-      "term": "disk drive",
-      "pronunciation": "/ˈdɪsk ˌdraɪv/",
-      "definition": "(tin học) ổ đĩa"
+      "english": "disk drive",
+      "phonetic": "/ˈdɪsk ˌdraɪv/",
+      "vietnamese": "(tin học) ổ đĩa"
     },
     {
       "id": 25,
-      "term": "battery",
-      "pronunciation": "/ˈbæt.ər.i/",
-      "definition": "pin"
+      "english": "battery",
+      "phonetic": "/ˈbæt.ər.i/",
+      "vietnamese": "pin"
     },
     {
       "id": 26,
-      "term": "click",
-      "pronunciation": "/klɪk/",
-      "definition": "(tin học) nhấp chuột"
+      "english": "click",
+      "phonetic": "/klɪk/",
+      "vietnamese": "(tin học) nhấp chuột"
     },
     {
       "id": 27,
-      "term": "type",
-      "pronunciation": "/taɪp/",
-      "definition": "đánh chữ, gõ chữ"
+      "english": "type",
+      "phonetic": "/taɪp/",
+      "vietnamese": "đánh chữ, gõ chữ"
     },
     {
       "id": 28,
-      "term": "mouse",
-      "pronunciation": "/maʊs/",
-      "definition": "(máy tính) con chuột"
+      "english": "mouse",
+      "phonetic": "/maʊs/",
+      "vietnamese": "(máy tính) con chuột"
     },
     {
       "id": 29,
-      "term": "keyboard",
-      "pronunciation": "/ˈkiː.bɔːd/",
-      "definition": "(máy tính) bàn phím"
+      "english": "keyboard",
+      "phonetic": "/ˈkiː.bɔːd/",
+      "vietnamese": "(máy tính) bàn phím"
     },
     {
       "id": 30,
-      "term": "mouse mat",
-      "pronunciation": "/ˈmaʊs ˌmæt/",
-      "definition": "miếng lót chuột"
+      "english": "mouse mat",
+      "phonetic": "/ˈmaʊs ˌmæt/",
+      "vietnamese": "miếng lót chuột"
     },
     {
       "id": 31,
-      "term": "key",
-      "pronunciation": "/kiː/",
-      "definition": "(tin học) phím"
+      "english": "key",
+      "phonetic": "/kiː/",
+      "vietnamese": "(tin học) phím"
     },
     {
       "id": 32,
-      "term": "shut down",
-      "pronunciation": "/ʃʌt daʊn/",
-      "definition": "đóng cửa; tắt máy"
+      "english": "shut down",
+      "phonetic": "/ʃʌt daʊn/",
+      "vietnamese": "đóng cửa; tắt máy"
     },
     {
       "id": 33,
-      "term": "folder",
-      "pronunciation": "/ˈfəʊl.dər/",
-      "definition": "(tin học) thư mục"
+      "english": "folder",
+      "phonetic": "/ˈfəʊl.dər/",
+      "vietnamese": "(tin học) thư mục"
     },
     {
       "id": 34,
-      "term": "print",
-      "pronunciation": "/prɪnt/",
-      "definition": "in (trên giấy)"
+      "english": "print",
+      "phonetic": "/prɪnt/",
+      "vietnamese": "in (trên giấy)"
     },
     {
       "id": 35,
-      "term": "program",
-      "pronunciation": "/ˈprəʊ.ɡræm/",
-      "definition": "(tin học) chương trình"
+      "english": "program",
+      "phonetic": "/ˈprəʊ.ɡræm/",
+      "vietnamese": "(tin học) chương trình"
     },
     {
       "id": 36,
-      "term": "search",
-      "pronunciation": "/sɜːtʃ/",
-      "definition": "(tin học) tìm kiếm thông tin"
+      "english": "search",
+      "phonetic": "/sɜːtʃ/",
+      "vietnamese": "(tin học) tìm kiếm thông tin"
     },
     {
       "id": 37,
-      "term": "screen",
-      "pronunciation": "/skriːn/",
-      "definition": "màn hình (TV, máy tính)"
+      "english": "screen",
+      "phonetic": "/skriːn/",
+      "vietnamese": "màn hình (TV, máy tính)"
     }
   ],
   "Housework" :  [
     {
       "id": 1,
-      "term": "dusting",
-      "pronunciation": "/ˈdʌs.tɪŋ/",
-      "definition": "(việc) quét bụi"
+      "english": "dusting",
+      "phonetic": "/ˈdʌs.tɪŋ/",
+      "vietnamese": "(việc) quét bụi"
     },
     {
       "id": 2,
-      "term": "cooking",
-      "pronunciation": "/ˈkʊk.ɪŋ/",
-      "definition": "(việc) nấu ăn"
+      "english": "cooking",
+      "phonetic": "/ˈkʊk.ɪŋ/",
+      "vietnamese": "(việc) nấu ăn"
     },
     {
       "id": 3,
-      "term": "ironing",
-      "pronunciation": "/ˈaɪə.nɪŋ/",
-      "definition": "(việc) ủi đồ, là đồ"
+      "english": "ironing",
+      "phonetic": "/ˈaɪə.nɪŋ/",
+      "vietnamese": "(việc) ủi đồ, là đồ"
     },
     {
       "id": 4,
-      "term": "sweep",
-      "pronunciation": "/swiːp/",
-      "definition": "quét dọn (phòng)"
+      "english": "sweep",
+      "phonetic": "/swiːp/",
+      "vietnamese": "quét dọn (phòng)"
     },
     {
       "id": 5,
-      "term": "wipe",
-      "pronunciation": "/waɪp/",
-      "definition": "chùi, lau sạch"
+      "english": "wipe",
+      "phonetic": "/waɪp/",
+      "vietnamese": "chùi, lau sạch"
     },
     {
       "id": 6,
-      "term": "throw out",
-      "pronunciation": "/θrəʊ aʊt/",
-      "definition": "vứt, bỏ đi"
+      "english": "throw out",
+      "phonetic": "/θrəʊ aʊt/",
+      "vietnamese": "vứt, bỏ đi"
     },
     {
       "id": 7,
-      "term": "vacuum",
-      "pronunciation": "/ˈvæk.juːm/",
-      "definition": "hút bụi"
+      "english": "vacuum",
+      "phonetic": "/ˈvæk.juːm/",
+      "vietnamese": "hút bụi"
     },
     {
       "id": 8,
-      "term": "cleaning",
-      "pronunciation": "/ˈkliː.nɪŋ/",
-      "definition": "(việc) dọn dẹp"
+      "english": "cleaning",
+      "phonetic": "/ˈkliː.nɪŋ/",
+      "vietnamese": "(việc) dọn dẹp"
     },
     {
       "id": 9,
-      "term": "polish",
-      "pronunciation": "/ˈpɒl.ɪʃ/",
-      "definition": "đánh bóng"
+      "english": "polish",
+      "phonetic": "/ˈpɒl.ɪʃ/",
+      "vietnamese": "đánh bóng"
     },
     {
       "id": 10,
-      "term": "fold",
-      "pronunciation": "/fəʊld/",
-      "definition": "gấp gọn, gập lại"
+      "english": "fold",
+      "phonetic": "/fəʊld/",
+      "vietnamese": "gấp gọn, gập lại"
     },
     {
       "id": 11,
-      "term": "scrub",
-      "pronunciation": "/skrʌb/",
-      "definition": "chà, cọ rửa"
+      "english": "scrub",
+      "phonetic": "/skrʌb/",
+      "vietnamese": "chà, cọ rửa"
     },
     {
       "id": 12,
-      "term": "tighten",
-      "pronunciation": "/ˈtaɪ.tən/",
-      "definition": "thắt, vặn (chặt)"
+      "english": "tighten",
+      "phonetic": "/ˈtaɪ.tən/",
+      "vietnamese": "thắt, vặn (chặt)"
     },
     {
       "id": 13,
-      "term": "hang out",
-      "pronunciation": "/hæŋ aʊt/",
-      "definition": "phơi đồ (ngoài trời)"
+      "english": "hang out",
+      "phonetic": "/hæŋ aʊt/",
+      "vietnamese": "phơi đồ (ngoài trời)"
     },
     {
       "id": 14,
-      "term": "make the bed",
-      "pronunciation": "/meɪk ðiː bed/",
-      "definition": "dọn giường, gấp chăn mền"
+      "english": "make the bed",
+      "phonetic": "/meɪk ðiː bed/",
+      "vietnamese": "dọn giường, gấp chăn mền"
     },
     {
       "id": 15,
-      "term": "set the table",
-      "pronunciation": "/set ðiːˈteɪ.bəl/",
-      "definition": "bày chén bát (bàn ăn)"
+      "english": "set the table",
+      "phonetic": "/set ðiːˈteɪ.bəl/",
+      "vietnamese": "bày chén bát (bàn ăn)"
     },
     {
       "id": 16,
-      "term": "clear the table",
-      "pronunciation": "/klɪər ðiːˈteɪ.bəl/",
-      "definition": "dọn dẹp chén bát (trên bàn)"
+      "english": "clear the table",
+      "phonetic": "/klɪər ðiːˈteɪ.bəl/",
+      "vietnamese": "dọn dẹp chén bát (trên bàn)"
     },
     {
       "id": 17,
-      "term": "mow the lawn",
-      "pronunciation": "/məʊ ðiː lɔːn/",
-      "definition": "cắt cỏ"
+      "english": "mow the lawn",
+      "phonetic": "/məʊ ðiː lɔːn/",
+      "vietnamese": "cắt cỏ"
     },
     {
       "id": 18,
-      "term": "dishwashing",
-      "pronunciation": "/dɪʃˈwɒʃ.ɪŋ/",
-      "definition": "(việc) rửa chén, rửa bát"
+      "english": "dishwashing",
+      "phonetic": "/dɪʃˈwɒʃ.ɪŋ/",
+      "vietnamese": "(việc) rửa chén, rửa bát"
     },
     {
       "id": 19,
-      "term": "water the plants",
-      "pronunciation": "/ˈwɔː.tər ðiːˈplɑːnt/",
-      "definition": "tưới cây"
+      "english": "water the plants",
+      "phonetic": "/ˈwɔː.tər ðiːˈplɑːnt/",
+      "vietnamese": "tưới cây"
     },
     {
       "id": 20,
-      "term": "clean the kitchen",
-      "pronunciation": "/kliːn ðiː kɪtʃ.ən/",
-      "definition": "lau dọn bếp"
+      "english": "clean the kitchen",
+      "phonetic": "/kliːn ðiː kɪtʃ.ən/",
+      "vietnamese": "lau dọn bếp"
     }
   ],
   "The shops" :  [
     {
       "id": 1,
-      "term": "bakery",
-      "pronunciation": "/ˈbeɪ.kər.i/",
-      "definition": "tiệm bánh"
+      "english": "bakery",
+      "phonetic": "/ˈbeɪ.kər.i/",
+      "vietnamese": "tiệm bánh"
     },
     {
       "id": 2,
-      "term": "bookshop",
-      "pronunciation": "/ˈbʊk.ʃɒp/",
-      "definition": "tiệm sách, nhà sách"
+      "english": "bookshop",
+      "phonetic": "/ˈbʊk.ʃɒp/",
+      "vietnamese": "tiệm sách, nhà sách"
     },
     {
       "id": 3,
-      "term": "butcher's",
-      "pronunciation": "/ˈbʊtʃ.ər/",
-      "definition": "cửa hàng thịt"
+      "english": "butcher's",
+      "phonetic": "/ˈbʊtʃ.ər/",
+      "vietnamese": "cửa hàng thịt"
     },
     {
       "id": 4,
-      "term": "candy store",
-      "pronunciation": "/ˈkæn.di ˌstɔːr/",
-      "definition": "cửa hàng bánh kẹo"
+      "english": "candy store",
+      "phonetic": "/ˈkæn.di ˌstɔːr/",
+      "vietnamese": "cửa hàng bánh kẹo"
     },
     {
       "id": 5,
-      "term": "convenience store",
-      "pronunciation": "/kənˈviː.ni.əns ˌstɔːr/",
-      "definition": "cửa hàng tiện lợi"
+      "english": "convenience store",
+      "phonetic": "/kənˈviː.ni.əns ˌstɔːr/",
+      "vietnamese": "cửa hàng tiện lợi"
     },
     {
       "id": 6,
-      "term": "greengrocer",
-      "pronunciation": "/ˈɡriːŋ.ɡrəʊ.sər/",
-      "definition": "cửa hàng bán rau quả"
+      "english": "greengrocer",
+      "phonetic": "/ˈɡriːŋ.ɡrəʊ.sər/",
+      "vietnamese": "cửa hàng bán rau quả"
     },
     {
       "id": 7,
-      "term": "flower shop",
-      "pronunciation": "/flaʊər ʃɒp/",
-      "definition": "cửa hàng hoa"
+      "english": "flower shop",
+      "phonetic": "/flaʊər ʃɒp/",
+      "vietnamese": "cửa hàng hoa"
     },
     {
       "id": 8,
-      "term": "store",
-      "pronunciation": "/ˌstɔːr/",
-      "definition": "cửa hàng, cửa tiệm"
+      "english": "store",
+      "phonetic": "/ˌstɔːr/",
+      "vietnamese": "cửa hàng, cửa tiệm"
     },
     {
       "id": 9,
-      "term": "gift shop",
-      "pronunciation": "/ˈɡɪft ˌʃɒp/",
-      "definition": "cửa hàng đồ lưu niệm"
+      "english": "gift shop",
+      "phonetic": "/ˈɡɪft ˌʃɒp/",
+      "vietnamese": "cửa hàng đồ lưu niệm"
     },
     {
       "id": 10,
-      "term": "shop",
-      "pronunciation": "/ˌʃɒp/",
-      "definition": "cửa hàng"
+      "english": "shop",
+      "phonetic": "/ˌʃɒp/",
+      "vietnamese": "cửa hàng"
     },
     {
       "id": 11,
-      "term": "foodstall",
-      "pronunciation": "/fuːd stɔːl/",
-      "definition": "Tiệm ăn, quán ăn"
+      "english": "foodstall",
+      "phonetic": "/fuːd stɔːl/",
+      "vietnamese": "Tiệm ăn, quán ăn"
     },
     {
       "id": 12,
-      "term": "fast food restaurant",
-      "pronunciation": "/ˌfɑːst ˈfuːd ˌres.trɒnt/",
-      "definition": "cửa hàng thức ăn nhanh"
+      "english": "fast food restaurant",
+      "phonetic": "/ˌfɑːst ˈfuːd ˌres.trɒnt/",
+      "vietnamese": "cửa hàng thức ăn nhanh"
     },
     {
       "id": 13,
-      "term": "dry-cleaner's",
-      "pronunciation": "/ˌdraɪˈkliː.nəz/",
-      "definition": "tiệm giặt ủi"
+      "english": "dry-cleaner's",
+      "phonetic": "/ˌdraɪˈkliː.nəz/",
+      "vietnamese": "tiệm giặt ủi"
     },
     {
       "id": 14,
-      "term": "shoe store",
-      "pronunciation": "/ʃuːˌstɔːr/",
-      "definition": "Tiệm giày, cửa hàng giày dép"
+      "english": "shoe store",
+      "phonetic": "/ʃuːˌstɔːr/",
+      "vietnamese": "Tiệm giày, cửa hàng giày dép"
     },
     {
       "id": 15,
-      "term": "barbershop",
-      "pronunciation": "/ˈbɑː.bə.ʃɒp/",
-      "definition": "tiệm cắt tóc nam"
+      "english": "barbershop",
+      "phonetic": "/ˈbɑː.bə.ʃɒp/",
+      "vietnamese": "tiệm cắt tóc nam"
     },
     {
       "id": 16,
-      "term": "newspaper kiosk",
-      "pronunciation": "/ˈnjuːzˌpeɪ.pər ˈkiː.ɒsk/",
-      "definition": "sạp báo"
+      "english": "newspaper kiosk",
+      "phonetic": "/ˈnjuːzˌpeɪ.pər ˈkiː.ɒsk/",
+      "vietnamese": "sạp báo"
     },
     {
       "id": 17,
-      "term": "bookstall",
-      "pronunciation": "/ˈbʊk.stɔːl/",
-      "definition": "quầy bán sách"
+      "english": "bookstall",
+      "phonetic": "/ˈbʊk.stɔːl/",
+      "vietnamese": "quầy bán sách"
     },
     {
       "id": 18,
-      "term": "sports center",
-      "pronunciation": "/ˈspɔːrts ˌsen.t̬ɚ/",
-      "definition": "trung tâm thể thao"
+      "english": "sports center",
+      "phonetic": "/ˈspɔːrts ˌsen.t̬ɚ/",
+      "vietnamese": "trung tâm thể thao"
     }
   ],
   "Entertaiment" :  [
     {
       "id": 1,
-      "term": "play",
-      "pronunciation": "/pleɪ/",
-      "definition": "vở kịch"
+      "english": "play",
+      "phonetic": "/pleɪ/",
+      "vietnamese": "vở kịch"
     },
     {
       "id": 2,
-      "term": "circus",
-      "pronunciation": "/ˈsɜː.kəs/",
-      "definition": "rạp xiếc, vở xiếc"
+      "english": "circus",
+      "phonetic": "/ˈsɜː.kəs/",
+      "vietnamese": "rạp xiếc, vở xiếc"
     },
     {
       "id": 3,
-      "term": "stadium",
-      "pronunciation": "/ˈsteɪ.di.əm/",
-      "definition": "sân vận động"
+      "english": "stadium",
+      "phonetic": "/ˈsteɪ.di.əm/",
+      "vietnamese": "sân vận động"
     },
     {
       "id": 4,
-      "term": "orchestra",
-      "pronunciation": "/ˈɔː.kɪ.strə/",
-      "definition": "ban nhạc, dàn nhạc"
+      "english": "orchestra",
+      "phonetic": "/ˈɔː.kɪ.strə/",
+      "vietnamese": "ban nhạc, dàn nhạc"
     },
     {
       "id": 5,
-      "term": "scene",
-      "pronunciation": "/siːn/",
-      "definition": "cảnh, phân cảnh"
+      "english": "scene",
+      "phonetic": "/siːn/",
+      "vietnamese": "cảnh, phân cảnh"
     },
     {
       "id": 6,
-      "term": "opera",
-      "pronunciation": "/ˈɒp.ər.ə/",
-      "definition": "nhạc kịch, ô-pê-ra"
+      "english": "opera",
+      "phonetic": "/ˈɒp.ər.ə/",
+      "vietnamese": "nhạc kịch, ô-pê-ra"
     },
     {
       "id": 7,
-      "term": "theater",
-      "pronunciation": "/ˈθɪə.tər/",
-      "definition": "rạp hát, nhà hát"
+      "english": "theater",
+      "phonetic": "/ˈθɪə.tər/",
+      "vietnamese": "rạp hát, nhà hát"
     },
     {
       "id": 8,
-      "term": "applaud",
-      "pronunciation": "/əˈplɔːd/",
-      "definition": "vỗ tay (tán thưởng)"
+      "english": "applaud",
+      "phonetic": "/əˈplɔːd/",
+      "vietnamese": "vỗ tay (tán thưởng)"
     },
     {
       "id": 9,
-      "term": "perform",
-      "pronunciation": "/pəˈfɔːm/",
-      "definition": "trình diễn, biểu diễn"
+      "english": "perform",
+      "phonetic": "/pəˈfɔːm/",
+      "vietnamese": "trình diễn, biểu diễn"
     },
     {
       "id": 10,
-      "term": "exhibit",
-      "pronunciation": "/ɪɡˈzɪb.ɪt/",
-      "definition": "vật triển lãm, bộ sưu tập"
+      "english": "exhibit",
+      "phonetic": "/ɪɡˈzɪb.ɪt/",
+      "vietnamese": "vật triển lãm, bộ sưu tập"
     },
     {
       "id": 11,
-      "term": "art gallery",
-      "pronunciation": "/ˈɑːt ˌɡæl.ər.i/",
-      "definition": "phòng tranh, khu triển lãm"
+      "english": "art gallery",
+      "phonetic": "/ˈɑːt ˌɡæl.ər.i/",
+      "vietnamese": "phòng tranh, khu triển lãm"
     },
     {
       "id": 12,
-      "term": "comedy",
-      "pronunciation": "/ˈkɒm.ə.di/",
-      "definition": "(thể loại) hài kịch"
+      "english": "comedy",
+      "phonetic": "/ˈkɒm.ə.di/",
+      "vietnamese": "(thể loại) hài kịch"
     },
     {
       "id": 13,
-      "term": "chamber music",
-      "pronunciation": "/ˈtʃeɪm.bə ˌmjuː.zɪk/",
-      "definition": "nhạc thính phòng"
+      "english": "chamber music",
+      "phonetic": "/ˈtʃeɪm.bə ˌmjuː.zɪk/",
+      "vietnamese": "nhạc thính phòng"
     },
     {
       "id": 14,
-      "term": "casino",
-      "pronunciation": "/kəˈsiː.nəʊ/",
-      "definition": "sòng bạc"
+      "english": "casino",
+      "phonetic": "/kəˈsiː.nəʊ/",
+      "vietnamese": "sòng bạc"
     },
     {
       "id": 15,
-      "term": "pub",
-      "pronunciation": "/pʌb/",
-      "definition": "quán rượu"
+      "english": "pub",
+      "phonetic": "/pʌb/",
+      "vietnamese": "quán rượu"
     },
     {
       "id": 16,
-      "term": "concert hall",
-      "pronunciation": "/ˈkɒn.sət ˌhɔːl/",
-      "definition": "nhà hát"
+      "english": "concert hall",
+      "phonetic": "/ˈkɒn.sət ˌhɔːl/",
+      "vietnamese": "nhà hát"
     },
     {
       "id": 17,
-      "term": "venue",
-      "pronunciation": "/ˈven.juː/",
-      "definition": "địa điểm (tổ chức)"
+      "english": "venue",
+      "phonetic": "/ˈven.juː/",
+      "vietnamese": "địa điểm (tổ chức)"
     }
   ],
   "Traveling" : [
     {
       "id": 1,
-      "term": "travel",
-      "pronunciation": "/ˈtræv.əl/",
-      "definition": "đi, du lịch"
+      "english": "travel",
+      "phonetic": "/ˈtræv.əl/",
+      "vietnamese": "đi, du lịch"
     },
     {
       "id": 2,
-      "term": "travel agent",
-      "pronunciation": "/ˈtræv.əl ˌeɪ.dʒənt/",
-      "definition": "đại lý du lịch"
+      "english": "travel agent",
+      "phonetic": "/ˈtræv.əl ˌeɪ.dʒənt/",
+      "vietnamese": "đại lý du lịch"
     },
     {
       "id": 3,
-      "term": "vacation",
-      "pronunciation": "/veɪˈkeɪ.ʃən/",
-      "definition": "kỳ nghỉ"
+      "english": "vacation",
+      "phonetic": "/veɪˈkeɪ.ʃən/",
+      "vietnamese": "kỳ nghỉ"
     },
     {
       "id": 4,
-      "term": "flight",
-      "pronunciation": "/flaɪt/",
-      "definition": "chuyến bay"
+      "english": "flight",
+      "phonetic": "/flaɪt/",
+      "vietnamese": "chuyến bay"
     },
     {
       "id": 5,
-      "term": "voyage",
-      "pronunciation": "/ˈvɔɪ.ɪdʒ/",
-      "definition": "chuyến đi, chuyến hải hành"
+      "english": "voyage",
+      "phonetic": "/ˈvɔɪ.ɪdʒ/",
+      "vietnamese": "chuyến đi, chuyến hải hành"
     },
     {
       "id": 6,
-      "term": "relax",
-      "pronunciation": "/rɪˈlæks/",
-      "definition": "thư giãn, nghỉ xả hơi"
+      "english": "relax",
+      "phonetic": "/rɪˈlæks/",
+      "vietnamese": "thư giãn, nghỉ xả hơi"
     },
     {
       "id": 7,
-      "term": "cancel",
-      "pronunciation": "/ˈkæn.səl/",
-      "definition": "hủy bỏ (kế hoạch)"
+      "english": "cancel",
+      "phonetic": "/ˈkæn.səl/",
+      "vietnamese": "hủy bỏ (kế hoạch)"
     },
     {
       "id": 8,
-      "term": "homestay",
-      "pronunciation": "/ˈhəʊm.steɪ/",
-      "definition": "(dịch vụ) lưu trú tại nhà dân bản địa"
+      "english": "homestay",
+      "phonetic": "/ˈhəʊm.steɪ/",
+      "vietnamese": "(dịch vụ) lưu trú tại nhà dân bản địa"
     },
     {
       "id": 9,
-      "term": "souvenir",
-      "pronunciation": "/ˌsuː.vənˈɪər/",
-      "definition": "quà lưu niệm"
+      "english": "souvenir",
+      "phonetic": "/ˌsuː.vənˈɪər/",
+      "vietnamese": "quà lưu niệm"
     },
     {
       "id": 10,
-      "term": "travel sickness",
-      "pronunciation": "/ˈtræv.əl ˌsɪk.nəs/",
-      "definition": "(chứng) say tàu xe"
+      "english": "travel sickness",
+      "phonetic": "/ˈtræv.əl ˌsɪk.nəs/",
+      "vietnamese": "(chứng) say tàu xe"
     },
     {
       "id": 11,
-      "term": "journey",
-      "pronunciation": "/ˈdʒɜː.ni/",
-      "definition": "hành trình, chuyến đi"
+      "english": "journey",
+      "phonetic": "/ˈdʒɜː.ni/",
+      "vietnamese": "hành trình, chuyến đi"
     },
     {
       "id": 12,
-      "term": "peak season",
-      "pronunciation": "/piːk ˈsiː.zən/",
-      "definition": "(du lịch) mùa cao điểm"
+      "english": "peak season",
+      "phonetic": "/piːk ˈsiː.zən/",
+      "vietnamese": "(du lịch) mùa cao điểm"
     },
     {
       "id": 13,
-      "term": "route",
-      "pronunciation": "/ruːt/",
-      "definition": "lộ trình, tuyến đường"
+      "english": "route",
+      "phonetic": "/ruːt/",
+      "vietnamese": "lộ trình, tuyến đường"
     },
     {
       "id": 14,
-      "term": "trip",
-      "pronunciation": "/trɪp/",
-      "definition": "chuyến đi (ngắn ngày)"
+      "english": "trip",
+      "phonetic": "/trɪp/",
+      "vietnamese": "chuyến đi (ngắn ngày)"
     },
     {
       "id": 15,
-      "term": "excursion",
-      "pronunciation": "/ɪkˈskɜː.ʃən/",
-      "definition": "chuyến đi, chuyến tham quan"
+      "english": "excursion",
+      "phonetic": "/ɪkˈskɜː.ʃən/",
+      "vietnamese": "chuyến đi, chuyến tham quan"
     },
     {
       "id": 16,
-      "term": "luggage",
-      "pronunciation": "/ˈlʌɡ.ɪdʒ/",
-      "definition": "hành lý"
+      "english": "luggage",
+      "phonetic": "/ˈlʌɡ.ɪdʒ/",
+      "vietnamese": "hành lý"
     },
     {
       "id": 17,
-      "term": "tourist",
-      "pronunciation": "/ˈtʊə.rɪst/",
-      "definition": "du khách"
+      "english": "tourist",
+      "phonetic": "/ˈtʊə.rɪst/",
+      "vietnamese": "du khách"
     },
     {
       "id": 18,
-      "term": "ticket",
-      "pronunciation": "/ˈtɪk.ɪt/",
-      "definition": "vé"
+      "english": "ticket",
+      "phonetic": "/ˈtɪk.ɪt/",
+      "vietnamese": "vé"
     },
     {
       "id": 19,
-      "term": "eager",
-      "pronunciation": "/ˈiː.ɡər/",
-      "definition": "háo hức, hăm hở"
+      "english": "eager",
+      "phonetic": "/ˈiː.ɡər/",
+      "vietnamese": "háo hức, hăm hở"
     },
     {
       "id": 20,
-      "term": "sunglasses",
-      "pronunciation": "/ˈsʌŋˌɡlɑː.sɪz/",
-      "definition": "kính mát, kính râm"
+      "english": "sunglasses",
+      "phonetic": "/ˈsʌŋˌɡlɑː.sɪz/",
+      "vietnamese": "kính mát, kính râm"
     },
     {
       "id": 21,
-      "term": "safari",
-      "pronunciation": "/səˈfɑː.ri/",
-      "definition": "chuyến thám hiểm thiên nhiên"
+      "english": "safari",
+      "phonetic": "/səˈfɑː.ri/",
+      "vietnamese": "chuyến thám hiểm thiên nhiên"
     }
   ],
   "Hometown" :  [
     {
       "id": 1,
-      "term": "village",
-      "pronunciation": "/ˈvɪl.ɪdʒ/",
-      "definition": "ngôi làng"
+      "english": "village",
+      "phonetic": "/ˈvɪl.ɪdʒ/",
+      "vietnamese": "ngôi làng"
     },
     {
       "id": 2,
-      "term": "countryside",
-      "pronunciation": "/ˈkʌn.tri.saɪd/",
-      "definition": "nông thôn, miền quê"
+      "english": "countryside",
+      "phonetic": "/ˈkʌn.tri.saɪd/",
+      "vietnamese": "nông thôn, miền quê"
     },
     {
       "id": 3,
-      "term": "isolated",
-      "pronunciation": "/ˈaɪ.sə.leɪ.tɪd/",
-      "definition": "riêng, duy nhất"
+      "english": "isolated",
+      "phonetic": "/ˈaɪ.sə.leɪ.tɪd/",
+      "vietnamese": "riêng, duy nhất"
     },
     {
       "id": 4,
-      "term": "cottage",
-      "pronunciation": "/ˈkɒt.ɪdʒ/",
-      "definition": "nhà tranh, nhà ở vùng quê"
+      "english": "cottage",
+      "phonetic": "/ˈkɒt.ɪdʒ/",
+      "vietnamese": "nhà tranh, nhà ở vùng quê"
     },
     {
       "id": 5,
-      "term": "winding",
-      "pronunciation": "/ˈwaɪn.dɪŋ/",
-      "definition": "quanh co, uốn khúc, khúc khuỷu"
+      "english": "winding",
+      "phonetic": "/ˈwaɪn.dɪŋ/",
+      "vietnamese": "quanh co, uốn khúc, khúc khuỷu"
     },
     {
       "id": 6,
-      "term": "well",
-      "pronunciation": "/wel/",
-      "definition": "cái giếng"
+      "english": "well",
+      "phonetic": "/wel/",
+      "vietnamese": "cái giếng"
     },
     {
       "id": 7,
-      "term": "buffalo",
-      "pronunciation": "/ˈbʌf.ə.ləʊ/",
-      "definition": "con trâu"
+      "english": "buffalo",
+      "phonetic": "/ˈbʌf.ə.ləʊ/",
+      "vietnamese": "con trâu"
     },
     {
       "id": 8,
-      "term": "field",
-      "pronunciation": "/fiːld/",
-      "definition": "cánh đồng"
+      "english": "field",
+      "phonetic": "/fiːld/",
+      "vietnamese": "cánh đồng"
     },
     {
       "id": 9,
-      "term": "canal",
-      "pronunciation": "/kəˈnæl/",
-      "definition": "kênh, rạch"
+      "english": "canal",
+      "phonetic": "/kəˈnæl/",
+      "vietnamese": "kênh, rạch"
     },
     {
       "id": 10,
-      "term": "river",
-      "pronunciation": "/ˈrɪv.ər/",
-      "definition": "sông"
+      "english": "river",
+      "phonetic": "/ˈrɪv.ər/",
+      "vietnamese": "sông"
     },
     {
       "id": 11,
-      "term": "pond",
-      "pronunciation": "/pɒnd/",
-      "definition": "cái ao"
+      "english": "pond",
+      "phonetic": "/pɒnd/",
+      "vietnamese": "cái ao"
     },
     {
       "id": 12,
-      "term": "folk music",
-      "pronunciation": "/ˈfoʊk ˌmju·zɪk/",
-      "definition": "nhạc dân gian"
+      "english": "folk music",
+      "phonetic": "/ˈfoʊk ˌmju·zɪk/",
+      "vietnamese": "nhạc dân gian"
     },
     {
       "id": 13,
-      "term": "farm",
-      "pronunciation": "/fɑːm/",
-      "definition": "trang trại"
+      "english": "farm",
+      "phonetic": "/fɑːm/",
+      "vietnamese": "trang trại"
     },
     {
       "id": 14,
-      "term": "plow",
-      "pronunciation": "/plaʊ/",
-      "definition": "cày, xới"
+      "english": "plow",
+      "phonetic": "/plaʊ/",
+      "vietnamese": "cày, xới"
     },
     {
       "id": 15,
-      "term": "agriculture",
-      "pronunciation": "/ˈæɡ.rɪ.kʌl.tʃər/",
-      "definition": "nông nghiệp"
+      "english": "agriculture",
+      "phonetic": "/ˈæɡ.rɪ.kʌl.tʃər/",
+      "vietnamese": "nông nghiệp"
     },
     {
       "id": 16,
-      "term": "boat",
-      "pronunciation": "/bəʊt/",
-      "definition": "thuyền, tàu"
+      "english": "boat",
+      "phonetic": "/bəʊt/",
+      "vietnamese": "thuyền, tàu"
     },
     {
       "id": 17,
-      "term": "peaceful",
-      "pronunciation": "/ˈpiːs.fəl/",
-      "definition": "yên bình"
+      "english": "peaceful",
+      "phonetic": "/ˈpiːs.fəl/",
+      "vietnamese": "yên bình"
     },
     {
       "id": 18,
-      "term": "bay",
-      "pronunciation": "/beɪ/",
-      "definition": "vịnh"
+      "english": "bay",
+      "phonetic": "/beɪ/",
+      "vietnamese": "vịnh"
     },
     {
       "id": 19,
-      "term": "hill",
-      "pronunciation": "/hɪl/",
-      "definition": "ngọn đồi"
+      "english": "hill",
+      "phonetic": "/hɪl/",
+      "vietnamese": "ngọn đồi"
     },
     {
       "id": 20,
-      "term": "forest",
-      "pronunciation": "/ˈfɒr.ɪst/",
-      "definition": "rừng, khu rừng"
+      "english": "forest",
+      "phonetic": "/ˈfɒr.ɪst/",
+      "vietnamese": "rừng, khu rừng"
     },
     {
       "id": 21,
-      "term": "mountain",
-      "pronunciation": "/ˈmaʊn.tɪn/",
-      "definition": "núi"
+      "english": "mountain",
+      "phonetic": "/ˈmaʊn.tɪn/",
+      "vietnamese": "núi"
     },
     {
       "id": 22,
-      "term": "port",
-      "pronunciation": "/pɔːt/",
-      "definition": "bến cảng"
+      "english": "port",
+      "phonetic": "/pɔːt/",
+      "vietnamese": "bến cảng"
     },
     {
       "id": 23,
-      "term": "lake",
-      "pronunciation": "/leɪk/",
-      "definition": "hồ"
+      "english": "lake",
+      "phonetic": "/leɪk/",
+      "vietnamese": "hồ"
     },
     {
       "id": 24,
-      "term": "sea",
-      "pronunciation": "/siː/",
-      "definition": "biển"
+      "english": "sea",
+      "phonetic": "/siː/",
+      "vietnamese": "biển"
     },
     {
       "id": 25,
-      "term": "sand",
-      "pronunciation": "/sænd/",
-      "definition": "cát, hạt cát"
+      "english": "sand",
+      "phonetic": "/sænd/",
+      "vietnamese": "cát, hạt cát"
     },
     {
       "id": 26,
-      "term": "valley",
-      "pronunciation": "/ˈvæl.i/",
-      "definition": "thung lũng"
+      "english": "valley",
+      "phonetic": "/ˈvæl.i/",
+      "vietnamese": "thung lũng"
     },
     {
       "id": 27,
-      "term": "waterfall",
-      "pronunciation": "/ˈwɔː.tə.fɔːl/",
-      "definition": "thác nước"
+      "english": "waterfall",
+      "phonetic": "/ˈwɔː.tə.fɔːl/",
+      "vietnamese": "thác nước"
     },
     {
       "id": 28,
-      "term": "barn",
-      "pronunciation": "/bɑːn/",
-      "definition": "kho thóc"
+      "english": "barn",
+      "phonetic": "/bɑːn/",
+      "vietnamese": "kho thóc"
     },
     {
       "id": 29,
-      "term": "harvest",
-      "pronunciation": "/ˈhɑː.vɪst/",
-      "definition": "mùa màng, sản lượng thu hoạch"
+      "english": "harvest",
+      "phonetic": "/ˈhɑː.vɪst/",
+      "vietnamese": "mùa màng, sản lượng thu hoạch"
     },
     {
       "id": 30,
-      "term": "cattle",
-      "pronunciation": "/ˈkæt.əl/",
-      "definition": "gia súc"
+      "english": "cattle",
+      "phonetic": "/ˈkæt.əl/",
+      "vietnamese": "gia súc"
     },
     {
       "id": 31,
-      "term": "rural",
-      "pronunciation": "/ˈrʊə.rəl/",
-      "definition": "(thuộc) nông thôn, thôn dã"
+      "english": "rural",
+      "phonetic": "/ˈrʊə.rəl/",
+      "vietnamese": "(thuộc) nông thôn, thôn dã"
     },
     {
       "id": 32,
-      "term": "cliff",
-      "pronunciation": "/klɪf/",
-      "definition": "vách đá (nhô ra biển)"
+      "english": "cliff",
+      "phonetic": "/klɪf/",
+      "vietnamese": "vách đá (nhô ra biển)"
     },
     {
       "id": 33,
-      "term": "landscape",
-      "pronunciation": "/ˈlænd.skeɪp/",
-      "definition": "phong cảnh, khung cảnh"
+      "english": "landscape",
+      "phonetic": "/ˈlænd.skeɪp/",
+      "vietnamese": "phong cảnh, khung cảnh"
     },
     {
       "id": 34,
-      "term": "terraced house",
-      "pronunciation": "/ˈrəʊˌhaʊs/",
-      "definition": "nhà phố, nhà liên kế"
+      "english": "terraced house",
+      "phonetic": "/ˈrəʊˌhaʊs/",
+      "vietnamese": "nhà phố, nhà liên kế"
     },
     {
       "id": 35,
-      "term": "view",
-      "pronunciation": "/vjuː/",
-      "definition": "khung cảnh, quang cảnh"
+      "english": "view",
+      "phonetic": "/vjuː/",
+      "vietnamese": "khung cảnh, quang cảnh"
     }
   ],
   "Mid-autumn" :  [
     {
       "id": 1,
-      "term": "Mid-Autumn Festival",
-      "pronunciation": "/mɪd ˈɔː.təm ˈfes.tɪ.vəl/",
-      "definition": "Tết Trung thu"
+      "english": "Mid-Autumn Festival",
+      "phonetic": "/mɪd ˈɔː.təm ˈfes.tɪ.vəl/",
+      "vietnamese": "Tết Trung thu"
     },
     {
       "id": 2,
-      "term": "moon",
-      "pronunciation": "/muːn/",
-      "definition": "trăng, vầng trăng"
+      "english": "moon",
+      "phonetic": "/muːn/",
+      "vietnamese": "trăng, vầng trăng"
     },
     {
       "id": 3,
-      "term": "cake",
-      "pronunciation": "/keɪk/",
-      "definition": "bánh ngọt, bánh nướng"
+      "english": "cake",
+      "phonetic": "/keɪk/",
+      "vietnamese": "bánh ngọt, bánh nướng"
     },
     {
       "id": 4,
-      "term": "toy",
-      "pronunciation": "/tɔɪ/",
-      "definition": "món đồ chơi"
+      "english": "toy",
+      "phonetic": "/tɔɪ/",
+      "vietnamese": "món đồ chơi"
     },
     {
       "id": 5,
-      "term": "mask",
-      "pronunciation": "/mɑːsk/",
-      "definition": "mặt nạ"
+      "english": "mask",
+      "phonetic": "/mɑːsk/",
+      "vietnamese": "mặt nạ"
     },
     {
       "id": 6,
-      "term": "banyan",
-      "pronunciation": "/ˈbæn.jæn/",
-      "definition": "cây đa"
+      "english": "banyan",
+      "phonetic": "/ˈbæn.jæn/",
+      "vietnamese": "cây đa"
     },
     {
       "id": 7,
-      "term": "lantern",
-      "pronunciation": "/ˈlæn.tən/",
-      "definition": "lồng đèn"
+      "english": "lantern",
+      "phonetic": "/ˈlæn.tən/",
+      "vietnamese": "lồng đèn"
     },
     {
       "id": 8,
-      "term": "bamboo",
-      "pronunciation": "/bæmˈbuː/",
-      "definition": "(cây) tre"
+      "english": "bamboo",
+      "phonetic": "/bæmˈbuː/",
+      "vietnamese": "(cây) tre"
     },
     {
       "id": 9,
-      "term": "perform",
-      "pronunciation": "/pəˈfɔːm/",
-      "definition": "trình diễn, biểu diễn"
+      "english": "perform",
+      "phonetic": "/pəˈfɔːm/",
+      "vietnamese": "trình diễn, biểu diễn"
     },
     {
       "id": 10,
-      "term": "celebrate",
-      "pronunciation": "/ˈsel.ə.breɪt/",
-      "definition": "làm lễ ăn mừng, kỷ niệm"
+      "english": "celebrate",
+      "phonetic": "/ˈsel.ə.breɪt/",
+      "vietnamese": "làm lễ ăn mừng, kỷ niệm"
     },
     {
       "id": 11,
-      "term": "family reunion",
-      "pronunciation": "/ˈfæm.əl.i ˌriːˈjuː.njən/",
-      "definition": "họp mặt gia đình"
+      "english": "family reunion",
+      "phonetic": "/ˈfæm.əl.i ˌriːˈjuː.njən/",
+      "vietnamese": "họp mặt gia đình"
     },
     {
       "id": 12,
-      "term": "rabbit",
-      "pronunciation": "/ˈræb.ɪt/",
-      "definition": "(loài) thỏ"
+      "english": "rabbit",
+      "phonetic": "/ˈræb.ɪt/",
+      "vietnamese": "(loài) thỏ"
     }
   ],
   "Wedding" :  [
     {
       "id": 1,
-      "term": "bride",
-      "pronunciation": "/braɪd/",
-      "definition": "cô dâu"
+      "english": "bride",
+      "phonetic": "/braɪd/",
+      "vietnamese": "cô dâu"
     },
     {
       "id": 2,
-      "term": "vow",
-      "pronunciation": "/vaʊ/",
-      "definition": "lời thề, lời đính ước"
+      "english": "vow",
+      "phonetic": "/vaʊ/",
+      "vietnamese": "lời thề, lời đính ước"
     },
     {
       "id": 3,
-      "term": "best man",
-      "pronunciation": "/ˌbest ˈmæn/",
-      "definition": "phù rể, rể phụ"
+      "english": "best man",
+      "phonetic": "/ˌbest ˈmæn/",
+      "vietnamese": "phù rể, rể phụ"
     },
     {
       "id": 4,
-      "term": "groom",
-      "pronunciation": "/ɡruːm/",
-      "definition": "chú rể"
+      "english": "groom",
+      "phonetic": "/ɡruːm/",
+      "vietnamese": "chú rể"
     },
     {
       "id": 5,
-      "term": "tuxedo",
-      "pronunciation": "/tʌkˈsiː.dəʊ/",
-      "definition": "áo xmốc-king"
+      "english": "tuxedo",
+      "phonetic": "/tʌkˈsiː.dəʊ/",
+      "vietnamese": "áo xmốc-king"
     },
     {
       "id": 6,
-      "term": "party",
-      "pronunciation": "/ˈpɑː.ti/",
-      "definition": "tiệc, bữa tiệc"
+      "english": "party",
+      "phonetic": "/ˈpɑː.ti/",
+      "vietnamese": "tiệc, bữa tiệc"
     },
     {
       "id": 7,
-      "term": "wedding",
-      "pronunciation": "/ˈwed.ɪŋ/",
-      "definition": "lễ cưới, đám cưới"
+      "english": "wedding",
+      "phonetic": "/ˈwed.ɪŋ/",
+      "vietnamese": "lễ cưới, đám cưới"
     },
     {
       "id": 8,
-      "term": "wedding card",
-      "pronunciation": "/ˈwed.ɪŋ kɑːd/",
-      "definition": "thiệp mời đám cưới"
+      "english": "wedding card",
+      "phonetic": "/ˈwed.ɪŋ kɑːd/",
+      "vietnamese": "thiệp mời đám cưới"
     },
     {
       "id": 9,
-      "term": "reception",
-      "pronunciation": "/rɪˈsep.ʃən/",
-      "definition": "tiệc chiêu đãi"
+      "english": "reception",
+      "phonetic": "/rɪˈsep.ʃən/",
+      "vietnamese": "tiệc chiêu đãi"
     },
     {
       "id": 10,
-      "term": "champagne",
-      "pronunciation": "/ʃæmˈpeɪn/",
-      "definition": "(rượu) sâm panh"
+      "english": "champagne",
+      "phonetic": "/ʃæmˈpeɪn/",
+      "vietnamese": "(rượu) sâm panh"
     },
     {
       "id": 11,
-      "term": "bouquet",
-      "pronunciation": "/buːˈkeɪ/",
-      "definition": "bó hoa"
+      "english": "bouquet",
+      "phonetic": "/buːˈkeɪ/",
+      "vietnamese": "bó hoa"
     },
     {
       "id": 12,
-      "term": "married",
-      "pronunciation": "/ˈmær.id/",
-      "definition": "đã kết hôn"
+      "english": "married",
+      "phonetic": "/ˈmær.id/",
+      "vietnamese": "đã kết hôn"
     },
     {
       "id": 13,
-      "term": "newlywed",
-      "pronunciation": "/ˈnjuː.li.wed/",
-      "definition": "(vợ chồng) mới cưới"
+      "english": "newlywed",
+      "phonetic": "/ˈnjuː.li.wed/",
+      "vietnamese": "(vợ chồng) mới cưới"
     },
     {
       "id": 14,
-      "term": "cake",
-      "pronunciation": "/keɪk/",
-      "definition": "bánh ngọt, bánh nướng"
+      "english": "cake",
+      "phonetic": "/keɪk/",
+      "vietnamese": "bánh ngọt, bánh nướng"
     },
     {
       "id": 15,
-      "term": "ring",
-      "pronunciation": "/rɪŋ/",
-      "definition": "nhẫn"
+      "english": "ring",
+      "phonetic": "/rɪŋ/",
+      "vietnamese": "nhẫn"
     },
     {
       "id": 16,
-      "term": "emblem",
-      "pronunciation": "/ˈem.bləm/",
-      "definition": "biểu tượng"
+      "english": "emblem",
+      "phonetic": "/ˈem.bləm/",
+      "vietnamese": "biểu tượng"
     },
     {
       "id": 17,
-      "term": "band",
-      "pronunciation": "/bænd/",
-      "definition": "ban nhạc"
+      "english": "band",
+      "phonetic": "/bænd/",
+      "vietnamese": "ban nhạc"
     },
     {
       "id": 18,
-      "term": "congratulation",
-      "pronunciation": "/kənˌɡrætʃ.əˈleɪ.ʃən/",
-      "definition": "lời chúc mừng"
+      "english": "congratulation",
+      "phonetic": "/kənˌɡrætʃ.əˈleɪ.ʃən/",
+      "vietnamese": "lời chúc mừng"
     },
     {
       "id": 19,
-      "term": "jewelry",
-      "pronunciation": "/ˈdʒuː.əl.ri/",
-      "definition": "nữ trang, trang sức"
+      "english": "jewelry",
+      "phonetic": "/ˈdʒuː.əl.ri/",
+      "vietnamese": "nữ trang, trang sức"
     },
     {
       "id": 20,
-      "term": "wine",
-      "pronunciation": "/waɪn/",
-      "definition": "rượu vang"
+      "english": "wine",
+      "phonetic": "/waɪn/",
+      "vietnamese": "rượu vang"
     },
     {
       "id": 21,
-      "term": "dowry",
-      "pronunciation": "/ˈdaʊ.ri/",
-      "definition": "của hồi môn"
+      "english": "dowry",
+      "phonetic": "/ˈdaʊ.ri/",
+      "vietnamese": "của hồi môn"
     },
     {
       "id": 22,
-      "term": "honeymoon",
-      "pronunciation": "/ˈhʌn.i.muːn/",
-      "definition": "tuần trăng mật"
+      "english": "honeymoon",
+      "phonetic": "/ˈhʌn.i.muːn/",
+      "vietnamese": "tuần trăng mật"
     },
     {
       "id": 23,
-      "term": "anniversary",
-      "pronunciation": "/ˌæn.ɪˈvɜː.sər.i/",
-      "definition": "ngày kỷ niệm"
+      "english": "anniversary",
+      "phonetic": "/ˌæn.ɪˈvɜː.sər.i/",
+      "vietnamese": "ngày kỷ niệm"
     },
     {
       "id": 24,
-      "term": "brother-in-law",
-      "pronunciation": "/ˈbrʌð.ə.rɪn.lɔː/",
-      "definition": "anh/em rể, anh/em chồng, anh/em vợ"
+      "english": "brother-in-law",
+      "phonetic": "/ˈbrʌð.ə.rɪn.lɔː/",
+      "vietnamese": "anh/em rể, anh/em chồng, anh/em vợ"
     },
     {
       "id": 25,
-      "term": "sister-in-law",
-      "pronunciation": "/ˈsɪs.tə.rɪn.lɔː/",
-      "definition": "chị/em dâu, chị/em chồng, chị/em vợ"
+      "english": "sister-in-law",
+      "phonetic": "/ˈsɪs.tə.rɪn.lɔː/",
+      "vietnamese": "chị/em dâu, chị/em chồng, chị/em vợ"
     },
     {
       "id": 26,
-      "term": "engaged",
-      "pronunciation": "/ɪnˈɡeɪdʒd/",
-      "definition": "đã đính ước, hứa hôn"
+      "english": "engaged",
+      "phonetic": "/ɪnˈɡeɪdʒd/",
+      "vietnamese": "đã đính ước, hứa hôn"
     },
     {
       "id": 27,
-      "term": "couple",
-      "pronunciation": "/ˈkʌp.əl/",
-      "definition": "cặp đôi, đôi vợ chồng"
+      "english": "couple",
+      "phonetic": "/ˈkʌp.əl/",
+      "vietnamese": "cặp đôi, đôi vợ chồng"
     },
     {
       "id": 28,
-      "term": "husband",
-      "pronunciation": "/ˈhʌz.bənd/",
-      "definition": "chồng"
+      "english": "husband",
+      "phonetic": "/ˈhʌz.bənd/",
+      "vietnamese": "chồng"
     },
     {
       "id": 29,
-      "term": "wife",
-      "pronunciation": "/waɪf/",
-      "definition": "vợ"
+      "english": "wife",
+      "phonetic": "/waɪf/",
+      "vietnamese": "vợ"
     },
     {
       "id": 30,
-      "term": "ceremony",
-      "pronunciation": "/ˈser.ɪ.mə.ni/",
-      "definition": "nghi lễ, nghi thức"
+      "english": "ceremony",
+      "phonetic": "/ˈser.ɪ.mə.ni/",
+      "vietnamese": "nghi lễ, nghi thức"
     },
     {
       "id": 31,
-      "term": "betroth",
-      "pronunciation": "/bɪˈtrəʊð/",
-      "definition": "hứa hôn, đính hôn"
+      "english": "betroth",
+      "phonetic": "/bɪˈtrəʊð/",
+      "vietnamese": "hứa hôn, đính hôn"
     }
   ],
   "Airport" :  [
