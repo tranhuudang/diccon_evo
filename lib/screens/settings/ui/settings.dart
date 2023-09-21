@@ -1,4 +1,5 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/screens/dictionary/cubit/word_history_list_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/local_traditions.dart';
@@ -86,7 +87,6 @@ class _SettingsViewState extends State<SettingsView> {
                       ],
                     ),
                     Tradition.heightSpacer,
-
                     /// Theme switcher
                      Row(
                        children: [

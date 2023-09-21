@@ -18,7 +18,7 @@ class FileHandler {
 
   /// Get default Application Document Directory in the platform
   Future<String> getLocalFilePath() async => await _getLocalFilePath();
-  Future<String> getLocalDocumentPath() async => await getLocalDocumentPath();
+  Future<String> getLocalDocumentPath() async => await _getLocalDocumentPath();
 
   /// Delete a provided file name in local document file path
   ///

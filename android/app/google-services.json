@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "867146042969-dljr3iq5q2udfklrfoucv63oimin9jbd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeroboy.diccon_evo",
+            "certificate_hash": "e170558ae2e51bd32442f641dc84735f56f7b5f8"
+          }
+        },
+        {
           "client_id": "867146042969-o0i0hfjmqtceqa9oqnjedirp429ic3n6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

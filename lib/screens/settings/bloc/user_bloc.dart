@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:diccon_evo/models/user_info.dart';
+import 'package:diccon_evo/screens/dictionary/cubit/word_history_list_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../config/properties.dart';

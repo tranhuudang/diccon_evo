@@ -10,6 +10,7 @@ import '../../commons/head_sentence.dart';
 import '../cubits/article_list_cubit.dart';
 import 'article_bookmark.dart';
 import 'components/reading_tile.dart';
+
 class ArticleListView extends StatelessWidget {
   const ArticleListView({super.key});
 
@@ -18,146 +19,97 @@ class ArticleListView extends StatelessWidget {
     final articleListCubit = context.read<ArticleListCubit>();
     return SafeArea(
       child: Scaffold(
-        body: BlocBuilder<ArticleListCubit, List<Article>>(
-          builder: (context, state) {
-            if (state.isEmpty) {
-              articleListCubit.getAllArticle();
-              return Column(
-                children: [
-                  ArticleListHeader(articleListCubit: articleListCubit),
-                  Expanded(
-                    child: SingleChildScrollView(
+        body: Column(
+          children: [
+            /// Header
+            ArticleListHeader(articleListCubit: articleListCubit),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          /// Head sentence
+                          const HeadSentence(
+                            listText: ["Library of", "Infinite Adventures"],
+                          ),
+
+                          /// Sub sentence
                           Container(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                /// Head sentence
-                                const HeadSentence(
-                                  listText: [
-                                    "Library of",
-                                    "Infinite Adventures"
-                                  ],
-                                ),
-
-                                /// Sub sentence
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 32, vertical: 26),
-                                  child: const Text(
-                                      "Within these walls, let the magic of words transport you to realms uncharted and dreams unbound."),
-                                ),
-
-                                /// Function button
-                                CircleButtonBar(
-                                  children: [
-                                    CircleButton(
-                                        iconData: Icons.bookmark_border,
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ArticleListBookmarkView()));
-                                        }),
-                                    CircleButton(
-                                        iconData: Icons.history,
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ArticleListHistoryView()));
-                                        }),
-                                  ],
-                                ),
-                              ],
-                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 32, vertical: 26),
+                            child: Text(
+                                "Let the magic of words transport you to realms uncharted and dreams unbound."
+                                    .i18n),
                           ),
-                          const SizedBox(
-                            height: 60,
-                          ),
-                          Column(
+
+                          /// Function button
+                          Row(
                             children: [
-                              const Center(child: CircularProgressIndicator()),
-                              Tradition.heightSpacer,
-                              Text("Getting new stories..".i18n),
-                              Tradition.heightSpacer,
-                              PillButton(onTap: (){
-                                articleListCubit.cancelLoading();
-                              }, title: "Cancel".i18n),
+                              CircleButtonBar(
+                                children: [
+                                  CircleButton(
+                                      iconData: Icons.bookmark_border,
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ArticleListBookmarkView()));
+                                      }),
+                                  CircleButton(
+                                      iconData: Icons.history,
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ArticleListHistoryView()));
+                                      }),
+                                ],
+                              ),
+                              const Spacer(),
+                              /// Reload button to reload list article
+                              CircleButton(
+                                  iconData: Icons.autorenew,
+                                  onTap: () => articleListCubit.reGetAllArticle()
+                              ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              );
-            } else {
-              return Column(
-                children: [
-                  /// Header
-                  ArticleListHeader(articleListCubit: articleListCubit),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
+
+                    /// List article
+                    BlocBuilder<ArticleListCubit, List<Article>>(
+                      builder: (context, state) {
+                        if (state.isEmpty) {
+                          articleListCubit.getAllArticle();
+                          return Container(
+                            color: Colors.red,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                /// Head sentence
-                                const HeadSentence(
-                                  listText: [
-                                    "Library of",
-                                    "Infinite Adventures"
-                                  ],
-                                ),
 
-                                /// Sub sentence
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 32, vertical: 26),
-                                  child: Text(
-                                      "Within these walls, let the magic of words transport you to realms uncharted and dreams unbound."
-                                          .i18n),
-                                ),
-
-                                /// Function button
-                                CircleButtonBar(
-                                  children: [
-                                    CircleButton(
-                                        iconData: Icons.bookmark_border,
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ArticleListBookmarkView()));
-                                        }),
-                                    CircleButton(
-                                        iconData: Icons.history,
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ArticleListHistoryView()));
-                                        }),
-                                  ],
-                                ),
+                                const CircularProgressIndicator(),
+                                Tradition.heightSpacer,
+                                Text("Getting new stories..".i18n),
+                                Tradition.heightSpacer,
+                                PillButton(
+                                    onTap: () {
+                                      articleListCubit.cancelLoading();
+                                    },
+                                    title: "Cancel".i18n),
                               ],
                             ),
-                          ),
-
-                          /// List article
-                          Container(
+                          );
+                        } else {
+                          return Container(
                             padding: const EdgeInsets.all(16),
                             child: LayoutBuilder(
                               builder: (context, constraints) {
@@ -195,15 +147,15 @@ class ArticleListView extends StatelessWidget {
                                 );
                               },
                             ),
-                          ),
-                        ],
-                      ),
+                          );
+                        }
+                      },
                     ),
-                  ),
-                ],
-              );
-            }
-          },
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

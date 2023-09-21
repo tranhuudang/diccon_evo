@@ -46,7 +46,7 @@ class Properties {
 
   static const double minWidth = 400;
   static const double minHeight = 600;
-  static const double overflowHeight = 710;
+  static const double overflowHeight = 745;
   static double titleTileFontSize = 14.0;
   static bool isDarkMode = false;
   static const String diccon = "Diccon";
@@ -61,6 +61,7 @@ class Properties {
   static const String articleHistoryFileName = 'article_history.json';
   static const String articleBookmarkFileName = 'article_bookmark.json';
   static const String essentialFavouriteFileName = 'essential_favourite.json';
+  static const String extendStoryFileName ='extend-story.json';
   static List<Article> defaultArticleList = [];
   // All view in application
   static Setting defaultSetting = Setting(

@@ -1,3 +1,4 @@
+import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:async/async.dart';
@@ -17,8 +18,24 @@ class ArticleListCubit extends Cubit<List<Article>> {
 
   void getAllArticle() async {
     _cancelableOperation = CancelableOperation.fromFuture(
-        // The process will automaticly cancel after 5 seconds if it not complete
+        // The process will automaticly cancel after 10 seconds if it not complete
         _loadAll().timeout(
+          const Duration(seconds: 10),
+          // Calling cancel
+          onTimeout: () {
+            cancelLoading();
+          },
+        ), onCancel: () {
+      if (kDebugMode) {
+        print("Loading article is canceled");
+      }
+    });
+  }
+
+  void reGetAllArticle() async {
+    _cancelableOperation = CancelableOperation.fromFuture(
+      // The process will automaticly cancel after 10 seconds if it not complete
+        _reLoadAll().timeout(
           const Duration(seconds: 10),
           // Calling cancel
           onTimeout: () {
@@ -59,6 +76,21 @@ class ArticleListCubit extends Cubit<List<Article>> {
   }
 
   Future<void> _loadAll() async {
+    Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
+    var onlineStories = await ArticleRepository.getOnlineStoryList();
+
+    for (var story in onlineStories) {
+      if (story.title != "") {
+        Properties.defaultArticleList.add(story);
+      }
+    }
+    Properties.defaultArticleList.shuffle();
+    emit(Properties.defaultArticleList);
+  }
+
+  Future<void> _reLoadAll() async {
+    /// Remove downloaded extend-story.json
+    await FileHandler(Properties.extendStoryFileName).deleteFile();
     Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
     var onlineStories = await ArticleRepository.getOnlineStoryList();
 

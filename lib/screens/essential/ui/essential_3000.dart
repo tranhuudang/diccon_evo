@@ -38,7 +38,7 @@ class _EssentialViewState extends State<EssentialView> {
     "Computer",
     "Housework",
     "The shops",
-    "Entertaiment",
+    "Entertainment",
     "Traveling",
     "Hometown",
     "Mid-autumn",
