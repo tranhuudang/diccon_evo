@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'properties.dart';
 import '../extensions/target_platform.dart';
 
 
@@ -73,9 +71,9 @@ class CustomTheme {
             fontSize: 14.0,
             color: LightColors.bodySmall,
           ),
-          titleMedium: TextStyle(
+          titleMedium: const TextStyle(
               color: LightColors.titleMedium,
-              fontSize: Properties.titleTileFontSize,
+              fontSize: 14,
               fontWeight: FontWeight.bold)),
       appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
@@ -114,9 +112,9 @@ class CustomTheme {
             fontSize: 14.0,
             color: DarkColors.bodySmall,
           ),
-          titleMedium: TextStyle(
+          titleMedium: const TextStyle(
               color: DarkColors.titleMedium,
-              fontSize: Properties.titleTileFontSize,
+              fontSize: 14,
               fontWeight: FontWeight.bold)),
       appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(

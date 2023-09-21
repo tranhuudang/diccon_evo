@@ -1,6 +1,5 @@
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
-
 import '../config/properties.dart';
 import '../models/word.dart';
 import 'history_manager.dart';

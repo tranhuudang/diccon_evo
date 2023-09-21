@@ -4,16 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:async/async.dart';
 import '../../../config/properties.dart';
 import '../../../models/article.dart';
+import '../../../models/level.dart';
 import '../../../repositories/article_repository.dart';
 
 class ArticleListCubit extends Cubit<List<Article>> {
   ArticleListCubit() : super([]);
 
+  List<Article> defaultArticleList = [];
   CancelableOperation? _cancelableOperation;
 
   void cancelLoading() async {
     await _cancelableOperation?.cancel();
-    emit(Properties.defaultArticleList);
+    emit(defaultArticleList);
   }
 
   void getAllArticle() async {
@@ -50,56 +52,56 @@ class ArticleListCubit extends Cubit<List<Article>> {
 
 
   void sortElementary() {
-    var elementaryOnly = Properties.defaultArticleList
-        .where((element) => element.level == Level.elementary)
+    var elementaryOnly = defaultArticleList
+        .where((element) => element.level == Level.elementary.toLevelNameString())
         .toList();
     emit(elementaryOnly);
   }
 
   void sortIntermediate() {
-    var intermediateOnly = Properties.defaultArticleList
-        .where((element) => element.level == Level.intermediate)
+    var intermediateOnly = defaultArticleList
+        .where((element) => element.level == Level.intermediate.toLevelNameString())
         .toList();
     emit(intermediateOnly);
   }
 
   void sortAdvanced() {
-    var advancedOnly = Properties.defaultArticleList
-        .where((element) => element.level == Level.advanced)
+    var advancedOnly = defaultArticleList
+        .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(advancedOnly);
   }
 
   void getAll() {
-    var all = Properties.defaultArticleList;
+    var all = defaultArticleList;
     emit(all);
   }
 
   Future<void> _loadAll() async {
-    Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
+    defaultArticleList = await ArticleRepository.getDefaultStories();
     var onlineStories = await ArticleRepository.getOnlineStoryList();
 
     for (var story in onlineStories) {
       if (story.title != "") {
-        Properties.defaultArticleList.add(story);
+        defaultArticleList.add(story);
       }
     }
-    Properties.defaultArticleList.shuffle();
-    emit(Properties.defaultArticleList);
+    defaultArticleList.shuffle();
+    emit(defaultArticleList);
   }
 
   Future<void> _reLoadAll() async {
     /// Remove downloaded extend-story.json
     await FileHandler(Properties.extendStoryFileName).deleteFile();
-    Properties.defaultArticleList = await ArticleRepository.getDefaultStories();
+    defaultArticleList = await ArticleRepository.getDefaultStories();
     var onlineStories = await ArticleRepository.getOnlineStoryList();
 
     for (var story in onlineStories) {
       if (story.title != "") {
-        Properties.defaultArticleList.add(story);
+        defaultArticleList.add(story);
       }
     }
-    Properties.defaultArticleList.shuffle();
-    emit(Properties.defaultArticleList);
+    defaultArticleList.shuffle();
+    emit(defaultArticleList);
   }
 }

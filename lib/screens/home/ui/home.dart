@@ -82,7 +82,8 @@ class HomeMain extends StatelessWidget {
                               mainAxisExtent: 180,
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 8,
-                              crossAxisCount: 2),
+                              crossAxisCount: 2,
+                          ),
                       itemBuilder: (context, index) {
                         return listPrimaryFunction[index];
                       }),

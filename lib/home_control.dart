@@ -15,7 +15,6 @@ class HomeControlView extends StatefulWidget {
 }
 
 class _HomeControlViewState extends State<HomeControlView> with WindowListener {
-  bool isExpanded = false;
   // Instance of Repository implementations
   DictionaryRepository dataRepository = DictionaryRepository();
   ThesaurusRepository thesaurusRepository = ThesaurusRepository();
@@ -32,43 +31,26 @@ class _HomeControlViewState extends State<HomeControlView> with WindowListener {
   @override
   void onWindowResize() async {
     Size windowsSize = await WindowManager.instance.getSize();
+
     /// Save windows size to setting
     Properties.defaultSetting = Properties.defaultSetting.copyWith(
         windowsWidth: windowsSize.width, windowsHeight: windowsSize.height);
     Properties.saveSettings(Properties.defaultSetting);
-    if (windowsSize.width > 800) {
-      setState(() {
-        isExpanded = true;
-        Properties.isLargeWindows = true;
-      });
-    } else {
-      setState(() {
-        isExpanded = false;
-        Properties.isLargeWindows = false;
-      });
-    }
   }
 
   loadUpData() async {
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
     Properties.wordList = await DictionaryRepository().getWordList();
-
     // Load up thesaurus dictionary
     ThesaurusRepository().loadThesaurus();
-
     // Load up suggestion list word
     Properties.suggestionListWord =
         await DictionaryRepository().getSuggestionWordList();
   }
 
-  /// Need this globalKey to open drawer by custom button
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   DateTime backPressedTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    Properties.isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(backPressedTime);
@@ -82,10 +64,9 @@ class _HomeControlViewState extends State<HomeControlView> with WindowListener {
           return true;
         }
       },
-      child: SafeArea(
+      child: const SafeArea(
         child: Scaffold(
-          key: _scaffoldKey,
-          body: const HomeView(),
+          body: HomeView(),
         ),
       ),
     );

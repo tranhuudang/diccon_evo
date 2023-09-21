@@ -1,23 +1,9 @@
 import 'dart:async';
-import 'package:diccon_evo/screens/settings/ui/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/article.dart';
 import '../models/setting.dart';
 import '../models/word.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/models/user_info.dart';
-import 'package:diccon_evo/screens/home/ui/home.dart';
-
-/// This enum should always be matched with Global.pages in the order of values
-/// As in this app, the order/index is used to detect what view to open.
-enum AppViews { homeView, settingsView }
-
-class Level {
-  static String beginner = "beginner",
-      elementary = "elementary",
-      intermediate = "intermediate",
-      advanced = "advanced";
-}
 
 class Properties {
   /// Manually change this version base on commit count
@@ -37,32 +23,24 @@ class Properties {
   // control focus
   static FocusNode textFieldFocusNode = FocusNode();
 
-  // Windows size
-  static bool isLargeWindows = false;
-
-  static List<Widget> pages = const [HomeView(), SettingsView()];
-
-  static PageController pageController = PageController();
-
-  static const double minWidth = 400;
-  static const double minHeight = 600;
+  static const Size minWindowsSize = Size(400, 600);
+  static const Size maxWindowsSize = Size(5000, 10000);
   static const double overflowHeight = 745;
-  static double titleTileFontSize = 14.0;
-  static bool isDarkMode = false;
   static const String diccon = "Diccon";
-  static const String evDataPath = 'assets/dictionary/diccon_ev.txt';
-  static const String veDataPath = 'assets/dictionary/diccon_ve.txt';
   static const String blankSpace = ' ';
 
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
+  static const String evDataPath = 'assets/dictionary/diccon_ev.txt';
+  static const String veDataPath = 'assets/dictionary/diccon_ve.txt';
+
   static const String wordHistoryFileName = 'history.json';
   static const String topicHistoryFileName = 'topic_history.json';
   static const String articleHistoryFileName = 'article_history.json';
   static const String articleBookmarkFileName = 'article_bookmark.json';
   static const String essentialFavouriteFileName = 'essential_favourite.json';
-  static const String extendStoryFileName ='extend-story.json';
-  static List<Article> defaultArticleList = [];
+  static const String extendStoryFileName = 'extend-story.json';
+
   // All view in application
   static Setting defaultSetting = Setting(
       numberOfSynonyms: 10,

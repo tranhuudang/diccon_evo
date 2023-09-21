@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/properties.dart';
 import '../../../helpers/article_handler.dart';
 import '../../../models/article.dart';
+import '../../../models/level.dart';
 
 
 class ArticleBookmarkListCubit extends Cubit<List<Article>> {
@@ -41,20 +42,20 @@ class ArticleBookmarkListCubit extends Cubit<List<Article>> {
 
   void sortElementary() {
     var elementaryOnly =
-        articles.where((element) => element.level == Level.elementary).toList();
+        articles.where((element) => element.level == Level.elementary.toLevelNameString()).toList();
     emit(elementaryOnly);
   }
 
   void sortIntermediate() {
     var intermediateOnly = articles
-        .where((element) => element.level == Level.intermediate)
+        .where((element) => element.level == Level.intermediate.toLevelNameString())
         .toList();
     emit(intermediateOnly);
   }
 
   void sortAdvanced() {
     var advancedOnly =
-        articles.where((element) => element.level == Level.advanced).toList();
+        articles.where((element) => element.level == Level.advanced.toLevelNameString()).toList();
     emit(advancedOnly);
   }
 

@@ -28,7 +28,7 @@ void main() async {
   /// Initial Firebase
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
+      options: DefaultFirebaseOptions.android,
     );
     await FirebaseAppCheck.instance.activate(
       androidProvider: AndroidProvider.debug,
@@ -38,13 +38,10 @@ void main() async {
     await windowManager.ensureInitialized();
 
     /// register player first
-    WindowManager.instance.setSize(
-        Size(Properties.defaultSetting.windowsWidth, Properties.defaultSetting.windowsHeight));
-    WindowManager.instance
-        .setMinimumSize(const Size(Properties.minWidth, Properties.minHeight));
-    WindowManager.instance.setTitle(Properties.diccon);
-    WindowManager.instance
-        .setMaximumSize(const Size(Properties.minWidth + 100, 10000));
+    WindowManager.instance.setSize(Size(Properties.defaultSetting.windowsWidth,
+        Properties.defaultSetting.windowsHeight));
+    WindowManager.instance.setMinimumSize(Properties.minWindowsSize);
+    WindowManager.instance.setMaximumSize(Properties.maxWindowsSize);
     WindowManager.instance.setTitle(Properties.diccon);
   }
 

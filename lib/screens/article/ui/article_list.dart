@@ -83,29 +83,31 @@ class ArticleListView extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     /// List article
                     BlocBuilder<ArticleListCubit, List<Article>>(
                       builder: (context, state) {
                         if (state.isEmpty) {
                           articleListCubit.getAllArticle();
-                          return Container(
-                            color: Colors.red,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 50),
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
 
-                                const CircularProgressIndicator(),
-                                Tradition.heightSpacer,
-                                Text("Getting new stories..".i18n),
-                                Tradition.heightSpacer,
-                                PillButton(
-                                    onTap: () {
-                                      articleListCubit.cancelLoading();
-                                    },
-                                    title: "Cancel".i18n),
-                              ],
+                                  const CircularProgressIndicator(),
+                                  Tradition.heightSpacer,
+                                  Text("Getting new stories..".i18n),
+                                  Tradition.heightSpacer,
+                                  PillButton(
+                                      onTap: () {
+                                        articleListCubit.cancelLoading();
+                                      },
+                                      title: "Cancel".i18n),
+                                ],
+                              ),
                             ),
                           );
                         } else {

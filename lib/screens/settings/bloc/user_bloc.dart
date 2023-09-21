@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:diccon_evo/models/user_info.dart';
-import 'package:diccon_evo/screens/dictionary/cubit/word_history_list_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../config/properties.dart';
 import '../../../helpers/file_handler.dart';
+import '../../../helpers/user_handler.dart';
 import '../../../services/auth_service.dart';
 
 /// User Events
@@ -56,7 +56,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _deleteAllData(
       UserDeleteDateEvent deleteAll, Emitter<UserState> emit) async {
     /// Remove online file
-    await FileHandler("ass").deleteUserDataFile();
+    await UserHandler().deleteUserDataFile();
 
     /// Remove local file
     await FileHandler(Properties.wordHistoryFileName).deleteFile();
@@ -70,12 +70,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _userSyncData(
       UserSyncEvent sync, Emitter<UserState> emit) async {
     emit(UserLoginState(isSyncing: true, userInfo: sync.userInfo));
-    await FileHandler("asd").downloadUserDataFile();
-    await FileHandler(Properties.wordHistoryFileName).uploadUserDataFile();
-    await FileHandler(Properties.articleHistoryFileName).uploadUserDataFile();
-    await FileHandler(Properties.articleBookmarkFileName).uploadUserDataFile();
-    await FileHandler(Properties.topicHistoryFileName).uploadUserDataFile();
-    await FileHandler(Properties.essentialFavouriteFileName).uploadUserDataFile();
+    await UserHandler().downloadUserDataFile();
+    await UserHandler().uploadUserDataFile(Properties.wordHistoryFileName);
+    await UserHandler().uploadUserDataFile(Properties.articleHistoryFileName);
+    await UserHandler().uploadUserDataFile(Properties.articleBookmarkFileName);
+    await UserHandler().uploadUserDataFile(Properties.topicHistoryFileName);
+    await UserHandler().uploadUserDataFile(Properties.essentialFavouriteFileName);
     emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
     emit(UserSyncCompleted());
   }

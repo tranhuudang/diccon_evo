@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:flutter/foundation.dart';

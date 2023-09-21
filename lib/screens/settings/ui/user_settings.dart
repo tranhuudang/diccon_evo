@@ -5,7 +5,6 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import '../../../config/local_traditions.dart';
-import '../../../config/properties.dart';
 import '../../../helpers/notify.dart';
 import '../../commons/pill_button.dart';
 import 'components/available_box.dart';
