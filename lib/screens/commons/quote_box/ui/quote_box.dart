@@ -44,7 +44,7 @@ class QuoteContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 68),
       child: Row(
         children: [
           Expanded(

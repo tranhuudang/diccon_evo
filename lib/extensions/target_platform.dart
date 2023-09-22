@@ -10,4 +10,9 @@ extension PlatformExtension on TargetPlatform {
   bool isAndroid(){
     return this == TargetPlatform.android;
   }
+  bool isDesktop(){
+    return this == TargetPlatform.linux ||
+    this == TargetPlatform.macOS ||
+    this == TargetPlatform.windows;
+  }
 }

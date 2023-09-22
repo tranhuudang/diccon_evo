@@ -23,7 +23,7 @@ class Properties {
   // control focus
   static FocusNode textFieldFocusNode = FocusNode();
 
-  static const Size minWindowsSize = Size(400, 600);
+  static const Size minWindowsSize = Size(400, 400);
   static const Size maxWindowsSize = Size(5000, 10000);
   static const double overflowHeight = 745;
   static const String diccon = "Diccon";

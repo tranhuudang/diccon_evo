@@ -1,19 +1,19 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../commons/circle_button.dart';
 import '../../cubit/word_history_list_cubit.dart';
+
 class HistoryHeader extends StatelessWidget {
   const HistoryHeader({
     super.key,
-    required this.historyListCubit,
   });
-
-  final HistoryListCubit historyListCubit;
 
   @override
   Widget build(BuildContext context) {
+    var historyListCubit = context.read<HistoryListCubit>();
     return Container(
-      padding: const EdgeInsets.only(top: 16, left: 16, bottom : 16, right: 16),
+      padding: const EdgeInsets.only(top: 16, left: 16, bottom: 16, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -22,7 +22,9 @@ class HistoryHeader extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
               }),
-          const SizedBox(width: 16,),
+          const SizedBox(
+            width: 16,
+          ),
           Text("History".i18n, style: const TextStyle(fontSize: 28)),
           const Spacer(),
           IconButton(
@@ -36,11 +38,11 @@ class HistoryHeader extends StatelessWidget {
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child:  Text("Reverse List".i18n),
+                child: Text("Reverse List".i18n),
                 onTap: () => historyListCubit.sortReverse(),
               ),
               PopupMenuItem(
-                child:  Text("Clear all".i18n),
+                child: Text("Clear all".i18n),
                 onTap: () => historyListCubit.clearHistory(),
               ),
             ],
