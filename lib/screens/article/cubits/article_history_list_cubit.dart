@@ -14,7 +14,9 @@ class ArticleHistoryListCubit extends Cubit<List<Article>> {
 
   void addHistory(Article article){
     ArticleHandler.saveReadArticleToHistory(article);
-    articles.add(article);
+    if (!articles.contains(article)) {
+      articles.add(article);
+    }
     emit(articles);
   }
 

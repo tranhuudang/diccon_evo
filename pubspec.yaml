@@ -49,6 +49,7 @@ dependencies:
   translator:
     git: https://github.com/tranhuudang/google-translator
   cached_network_image: ^3.2.3
+  flutter_cache_manager: ^3.3.1
   # Save settings
   shared_preferences: ^2.2.1
   # This package help us create a notification in the bottom app

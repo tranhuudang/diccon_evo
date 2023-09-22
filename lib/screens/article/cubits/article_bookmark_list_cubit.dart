@@ -14,7 +14,9 @@ class ArticleBookmarkListCubit extends Cubit<List<Article>> {
 
   void addBookmark(Article article){
     ArticleHandler.saveReadArticleToBookmark(article);
-    articles.add(article);
+    if (!articles.contains(article)) {
+      articles.add(article);
+    }
     emit(articles);
   }
 

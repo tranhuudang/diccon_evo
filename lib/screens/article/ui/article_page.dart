@@ -74,19 +74,22 @@ class _ArticlePageViewState extends State<ArticlePageView> {
 
                     /// Image
                     Center(
-                      child: CachedNetworkImage(
-                        //height: 380,
-                        placeholder: (context, url) =>
-                            const LinearProgressIndicator(
-                          backgroundColor: Colors.black45,
-                          color: Colors.black54,
+                      child: Hero(
+                        tag: widget.article.imageUrl!,
+                        child: CachedNetworkImage(
+                          //height: 380,
+                          placeholder: (context, url) =>
+                              const LinearProgressIndicator(
+                            backgroundColor: Colors.black45,
+                            color: Colors.black54,
+                          ),
+                          imageUrl: widget.article.imageUrl ?? "",
+                          fit: BoxFit.cover,
+                          errorWidget:
+                              (context, String exception, dynamic stackTrace) {
+                            return const SizedBox.shrink();
+                          },
                         ),
-                        imageUrl: widget.article.imageUrl ?? "",
-                        fit: BoxFit.cover,
-                        errorWidget:
-                            (context, String exception, dynamic stackTrace) {
-                          return const SizedBox.shrink();
-                        },
                       ),
                     ),
                     const SizedBox(

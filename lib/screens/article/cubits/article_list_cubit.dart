@@ -86,7 +86,6 @@ class ArticleListCubit extends Cubit<List<Article>> {
         defaultArticleList.add(story);
       }
     }
-    defaultArticleList.shuffle();
     emit(defaultArticleList);
   }
 
@@ -101,7 +100,6 @@ class ArticleListCubit extends Cubit<List<Article>> {
         defaultArticleList.add(story);
       }
     }
-    defaultArticleList.shuffle();
     emit(defaultArticleList);
   }
 }

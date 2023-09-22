@@ -11,11 +11,22 @@ import '../cubits/article_list_cubit.dart';
 import 'article_bookmark.dart';
 import 'components/reading_tile.dart';
 
-class ArticleListView extends StatelessWidget {
+class ArticleListView extends StatefulWidget {
   const ArticleListView({super.key});
+
+
+  @override
+  State<ArticleListView> createState() => _ArticleListViewState();
+}
+
+class _ArticleListViewState extends State<ArticleListView> with AutomaticKeepAliveClientMixin{
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final articleListCubit = context.read<ArticleListCubit>();
     return SafeArea(
       child: Scaffold(
@@ -162,6 +173,8 @@ class ArticleListView extends StatelessWidget {
       ),
     );
   }
+
+
 }
 
 class ArticleListHeader extends StatelessWidget {
