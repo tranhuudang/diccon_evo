@@ -2,12 +2,10 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/local_traditions.dart';
-import '../../commons/circle_button.dart';
+import '../../commons/header.dart';
 import '../cubit/setting_cubit.dart';
-import '../../../config/properties.dart';
 import '../../../models/setting.dart';
 import 'components/setting_section.dart';
-import 'components/store_badge.dart';
 import 'components/theme_mode_switcher.dart';
 
 class SettingsView extends StatefulWidget {
@@ -24,38 +22,20 @@ class _SettingsViewState extends State<SettingsView> {
       child: Scaffold(
         body: BlocBuilder<SettingCubit, Setting>(builder: (context, state) {
           SettingCubit settingCubit = context.read<SettingCubit>();
-          return Column(
-            children: [
-              /// Header
-              Container(
-                padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: CircleButton(
-                          iconData: Icons.arrow_back,
-                          onTap: () {
-                            Navigator.pop(context);
-                          }),
-                    ),
-                    Text("Settings".i18n,
-                        style: const TextStyle(fontSize: 28))
-                  ],
+          return Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                /// Header
+                Header(title: "Settings".i18n),
+                const SizedBox(
+                  height: 16,
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-
                         SettingSection(title: "Common Section".i18n, children: [
                           /// Language switcher
                           Row(
@@ -93,15 +73,23 @@ class _SettingsViewState extends State<SettingsView> {
                             ],
                           ),
                           Tradition.heightSpacer,
+
                           /// Theme switcher
-                           Row(
-                             children: [
-                               Text("Theme".i18n),
-                               ThemeSwitcher(settingCubit: settingCubit,),
-                             ],
-                           ),
+                          Row(
+                            children: [
+                              Text("Theme".i18n),
+                              ThemeSwitcher(
+                                settingCubit: settingCubit,
+                              ),
+                            ],
+                          ),
+                          Tradition.heightSpacer,
                           const Divider(),
-                          Text("* The changes will become effective the next time you open the app.".i18n, style: const TextStyle(fontStyle: FontStyle.italic),)
+                          Text(
+                            "* The changes will become effective the next time you open the app."
+                                .i18n,
+                            style: const TextStyle(fontStyle: FontStyle.italic),
+                          )
                         ]),
                         SettingSection(
                           title: 'Dictionary Section'.i18n,
@@ -123,7 +111,8 @@ class _SettingsViewState extends State<SettingsView> {
                                       value: state.numberOfSynonyms,
                                       hint: Text('Select a number'.i18n),
                                       onChanged: (int? newValue) {
-                                        settingCubit.setNumberOfSynonyms(newValue!);
+                                        settingCubit
+                                            .setNumberOfSynonyms(newValue!);
                                         settingCubit.saveSettings();
                                       },
                                       items: [5, 10, 20, 30]
@@ -160,11 +149,13 @@ class _SettingsViewState extends State<SettingsView> {
                                         value: state.numberOfAntonyms,
                                         hint: Text('Select a number'.i18n),
                                         onChanged: (int? newValue) {
-                                          settingCubit.setNumberOfAntonyms(newValue!);
+                                          settingCubit
+                                              .setNumberOfAntonyms(newValue!);
                                           settingCubit.saveSettings();
                                         },
                                         items: [5, 10, 20, 30]
-                                            .map((value) => DropdownMenuItem<int>(
+                                            .map((value) =>
+                                                DropdownMenuItem<int>(
                                                   alignment: Alignment.center,
                                                   value: value,
                                                   child: Text(value.toString()),
@@ -190,12 +181,14 @@ class _SettingsViewState extends State<SettingsView> {
                                       settingCubit.saveSettings();
                                     },
                                     onChanged: (newValue) {
-                                      settingCubit.setReadingFontSize(newValue * 70);
+                                      settingCubit
+                                          .setReadingFontSize(newValue * 70);
                                     }),
                               ],
                             ),
                             Text(
-                              "Sample text that will be displayed on Reading.".i18n,
+                              "Sample text that will be displayed on Reading."
+                                  .i18n,
                               style: TextStyle(fontSize: state.readingFontSize),
                             )
                           ],
@@ -204,12 +197,11 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         }),
       ),
     );
   }
 }
-

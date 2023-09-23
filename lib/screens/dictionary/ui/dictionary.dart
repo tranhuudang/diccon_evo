@@ -2,6 +2,7 @@ import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../commons/circle_button.dart';
+import '../../commons/header.dart';
 import '../../commons/suggested_item.dart';
 import '../bloc/chat_list_bloc.dart';
 import '../../../helpers/image_handler.dart';
@@ -137,22 +138,13 @@ class _DictionaryViewState extends State<DictionaryView>
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// Header
                   Container(
-                    padding: const EdgeInsets.only(top: 16, left: 16, bottom : 8, right: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                    padding: const EdgeInsets.all(16),
+                    child: Header(
+                      title: "Dictionary".i18n,
+                      actions: [
                         CircleButton(
-                            iconData: Icons.arrow_back,
-                            onTap: () {
-                              Navigator.pop(context);
-                            }),
-                        const SizedBox(width: 16,),
-                        Text("Dictionary".i18n, style: const TextStyle(fontSize: 28),),
-                        const Spacer(),
-                        CircleButton(
-                          backgroundColor: Colors.transparent,
+                            backgroundColor: Colors.transparent,
                             iconData: Icons.history, onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const WordHistoryView()));
                         }),

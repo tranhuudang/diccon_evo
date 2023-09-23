@@ -1,9 +1,8 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../models/article.dart';
-import '../../commons/circle_button.dart';
 import '../cubits/article_bookmark_list_cubit.dart';
 import 'components/reading_tile.dart';
 
@@ -23,8 +22,58 @@ class ArticleListBookmarkView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    ArticleHistoryHeader(
-                        articleBookmarkListCubit: articleBookmarkListCubit),
+                    Header(
+                      title: "Bookmarks".i18n,
+                      actions: [
+                        IconButton(
+                            onPressed: () => articleBookmarkListCubit.sortAlphabet(),
+                            icon: const Icon(Icons.sort_by_alpha)),
+                        PopupMenuButton(
+                          //splashRadius: 10.0,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Theme.of(context).dividerColor),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text("Elementary".i18n),
+                              onTap: () => articleBookmarkListCubit.sortElementary(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Intermediate".i18n),
+                              onTap: () => articleBookmarkListCubit.sortIntermediate(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Advanced".i18n),
+                              onTap: () => articleBookmarkListCubit.sortAdvanced(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("All".i18n),
+                              onTap: () => articleBookmarkListCubit.getAll(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Reverse List".i18n),
+                              onTap: () => articleBookmarkListCubit.sortReverse(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Clear all".i18n),
+                              onTap: () => articleBookmarkListCubit.clearBookmark(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -54,8 +103,57 @@ class ArticleListBookmarkView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    ArticleHistoryHeader(
-                        articleBookmarkListCubit: articleBookmarkListCubit),
+                    Header(
+                      title: "Bookmarks".i18n,
+                      actions: [
+                        IconButton(
+                            onPressed: () => articleBookmarkListCubit.sortAlphabet(),
+                            icon: const Icon(Icons.sort_by_alpha)),
+                        PopupMenuButton(
+                          //splashRadius: 10.0,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Theme.of(context).dividerColor),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text("Elementary".i18n),
+                              onTap: () => articleBookmarkListCubit.sortElementary(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Intermediate".i18n),
+                              onTap: () => articleBookmarkListCubit.sortIntermediate(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Advanced".i18n),
+                              onTap: () => articleBookmarkListCubit.sortAdvanced(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("All".i18n),
+                              onTap: () => articleBookmarkListCubit.getAll(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Reverse List".i18n),
+                              onTap: () => articleBookmarkListCubit.sortReverse(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Clear all".i18n),
+                              onTap: () => articleBookmarkListCubit.clearBookmark(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -105,76 +203,3 @@ class ArticleListBookmarkView extends StatelessWidget {
   }
 }
 
-class ArticleHistoryHeader extends StatelessWidget {
-  const ArticleHistoryHeader({
-    super.key,
-    required this.articleBookmarkListCubit,
-  });
-
-  final ArticleBookmarkListCubit articleBookmarkListCubit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleButton(
-          iconData: Icons.arrow_back,
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        const Text("Bookmarks", style: TextStyle(fontSize: 28)),
-        const Spacer(),
-        IconButton(
-            onPressed: () => articleBookmarkListCubit.sortAlphabet(),
-            icon: const Icon(Icons.sort_by_alpha)),
-        PopupMenuButton(
-          //splashRadius: 10.0,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Theme.of(context).dividerColor),
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child: Text("Elementary".i18n),
-              onTap: () => articleBookmarkListCubit.sortElementary(),
-            ),
-            PopupMenuItem(
-              child: Text("Intermediate".i18n),
-              onTap: () => articleBookmarkListCubit.sortIntermediate(),
-            ),
-            PopupMenuItem(
-              child: Text("Advanced".i18n),
-              onTap: () => articleBookmarkListCubit.sortAdvanced(),
-            ),
-            const PopupMenuItem(
-              enabled: false,
-              height: 0,
-              child: Divider(),
-            ),
-            PopupMenuItem(
-              child: Text("All".i18n),
-              onTap: () => articleBookmarkListCubit.getAll(),
-            ),
-            const PopupMenuItem(
-              enabled: false,
-              height: 0,
-              child: Divider(),
-            ),
-            PopupMenuItem(
-              child: Text("Reverse List".i18n),
-              onTap: () => articleBookmarkListCubit.sortReverse(),
-            ),
-            PopupMenuItem(
-              child: Text("Clear all".i18n),
-              onTap: () => articleBookmarkListCubit.clearBookmark(),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}

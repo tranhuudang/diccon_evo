@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import '../../../config/local_traditions.dart';
 import '../../../helpers/notify.dart';
+import '../../commons/header.dart';
 import '../../commons/pill_button.dart';
 import 'components/available_box.dart';
 import 'components/setting_section.dart';
-import 'components/user_view_header.dart';
 
 class UserSettingsView extends StatefulWidget {
   const UserSettingsView({super.key});
@@ -50,7 +50,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       /// Header
-                      const UserViewHeader(),
+                      Header(title: "Account".i18n),
                       Tradition.heightSpacer,
 
                       /// Login form and user infomations
@@ -174,7 +174,7 @@ class UninitializedView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         /// Header
-        const UserViewHeader(),
+        Header(title: "Account".i18n),
         Tradition.heightSpacer,
 
         /// Login form and user infomations

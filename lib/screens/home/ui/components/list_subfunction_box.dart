@@ -32,7 +32,17 @@ class SubFunctionBox extends StatelessWidget {
                   itemCount: listSubFunction.length,
                   onPageChanged: (index) => streamController.sink.add(index),
                   itemBuilder: (context, index) {
-                    return listSubFunction[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(1.0),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                            )
+                          ),
+                          child: listSubFunction[index]),
+                    );
                   }),
             ),
             defaultTargetPlatform.isDesktop()
@@ -56,7 +66,8 @@ class SubFunctionBox extends StatelessWidget {
                                 text: (index + 1).toString(),
                                 onTap: () {
                                   pageController.animateToPage(index,
-                                      duration: const Duration(microseconds: 500),
+                                      duration:
+                                          const Duration(microseconds: 500),
                                       curve: Curves.easeIn);
                                 },
                               ),
@@ -76,7 +87,7 @@ class SubFunctionBox extends StatelessWidget {
                           index++)
                         Padding(
                           padding:
-                              const EdgeInsets.only(top: 8, left: 8, right: 8),
+                              const EdgeInsets.only(top: 8, left: 4, right: 4),
                           child: Container(
                             height: 10,
                             width: 10,

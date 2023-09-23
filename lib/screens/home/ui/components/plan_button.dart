@@ -16,7 +16,7 @@ class PlanButton extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(16)
         ),
-        child: const Text("Freemium"),
+        child: const Text("BETA"),
       ),
     );
   }

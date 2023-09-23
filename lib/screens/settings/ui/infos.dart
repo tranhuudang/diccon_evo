@@ -1,7 +1,7 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
 import '../../../config/properties.dart';
-import '../../commons/circle_button.dart';
 import 'components/setting_section.dart';
 import 'components/store_badge.dart';
 
@@ -17,34 +17,17 @@ class _InfosViewState extends State<InfosView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-            children: [
-              /// Header
-              Container(
-                padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: CircleButton(
-                          iconData: Icons.arrow_back,
-                          onTap: () {
-                            Navigator.pop(context);
-                          }),
-                    ),
-                    Text("About".i18n,
-                        style: const TextStyle(fontSize: 28))
-                  ],
+        body: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+              children: [
+                /// Header
+                Header(title: "About".i18n,),
+                const SizedBox(
+                  height: 16,
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -109,9 +92,9 @@ class _InfosViewState extends State<InfosView> {
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+        ),
       ),
     );
   }

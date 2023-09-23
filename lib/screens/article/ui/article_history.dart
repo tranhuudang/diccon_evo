@@ -1,10 +1,8 @@
-
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../models/article.dart';
-import '../../commons/circle_button.dart';
+import '../../commons/header.dart';
 import '../cubits/article_history_list_cubit.dart';
 import 'components/reading_tile.dart';
 
@@ -20,28 +18,86 @@ class ArticleListHistoryView extends StatelessWidget {
           builder: (context, state) {
             if (state.isEmpty) {
               articleHistoryListCubit.loadArticleHistory();
-              return  Container(
+              return Container(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    ArticleHistoryHeader(articleHistoryListCubit: articleHistoryListCubit),
+                    Header(
+                      title: "History".i18n,
+                      actions: [
+                        IconButton(
+                            onPressed: () =>
+                                articleHistoryListCubit.sortAlphabet(),
+                            icon: const Icon(Icons.sort_by_alpha)),
+                        PopupMenuButton(
+                          //splashRadius: 10.0,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Theme.of(context).dividerColor),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text("Elementary".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortElementary(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Intermediate".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortIntermediate(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Advanced".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortAdvanced(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("All".i18n),
+                              onTap: () => articleHistoryListCubit.getAll(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Reverse List".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortReverse(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Clear all".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.clearHistory(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           Icon(
-                           Icons.broken_image,
-                           color: Theme.of(context).cardColor,
+                            Icons.broken_image,
+                            color: Theme.of(context).cardColor,
                             size: 100,
-                            ),
-                            const SizedBox(
-                           height: 8,
-                            ),
-                            Text(
-                           "History is empty".i18n,
-                           style:  TextStyle(color: Theme.of(context).highlightColor, fontSize: 18),
-                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "History is empty".i18n,
+                            style: TextStyle(
+                                color: Theme.of(context).highlightColor,
+                                fontSize: 18),
+                          ),
                         ],
                       ),
                     ),
@@ -53,9 +109,67 @@ class ArticleListHistoryView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    ArticleHistoryHeader(articleHistoryListCubit: articleHistoryListCubit),
-                    const SizedBox(height: 16,),
-
+                    Header(
+                      title: "History".i18n,
+                      actions: [
+                        IconButton(
+                            onPressed: () =>
+                                articleHistoryListCubit.sortAlphabet(),
+                            icon: const Icon(Icons.sort_by_alpha)),
+                        PopupMenuButton(
+                          //splashRadius: 10.0,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Theme.of(context).dividerColor),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text("Elementary".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortElementary(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Intermediate".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortIntermediate(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Advanced".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortAdvanced(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("All".i18n),
+                              onTap: () => articleHistoryListCubit.getAll(),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Reverse List".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.sortReverse(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Clear all".i18n),
+                              onTap: () =>
+                                  articleHistoryListCubit.clearHistory(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     Expanded(
                       child: LayoutBuilder(
                         builder: (context, constraints) {
@@ -75,7 +189,8 @@ class ArticleListHistoryView extends StatelessWidget {
                           }
                           return GridView.builder(
                             itemCount: state.length,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 8,
                               crossAxisCount: crossAxisCount,
@@ -97,75 +212,6 @@ class ArticleListHistoryView extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-}
-
-class ArticleHistoryHeader extends StatelessWidget {
-  const ArticleHistoryHeader({
-    super.key,
-    required this.articleHistoryListCubit,
-  });
-
-  final ArticleHistoryListCubit articleHistoryListCubit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleButton(iconData: Icons.arrow_back, onTap: (){
-          Navigator.pop(context);
-        },),
-        const SizedBox(width: 16,),
-        Text("History".i18n, style: const TextStyle(fontSize: 28)),
-        const Spacer(),
-        IconButton(
-            onPressed: () => articleHistoryListCubit.sortAlphabet(),
-            icon: const Icon(Icons.sort_by_alpha)),
-        PopupMenuButton(
-          //splashRadius: 10.0,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Theme.of(context).dividerColor),
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child:  Text("Elementary".i18n),
-              onTap: () => articleHistoryListCubit.sortElementary(),
-            ),
-            PopupMenuItem(
-              child:  Text("Intermediate".i18n),
-              onTap: () => articleHistoryListCubit.sortIntermediate(),
-            ),
-            PopupMenuItem(
-              child:  Text("Advanced".i18n),
-              onTap: () => articleHistoryListCubit.sortAdvanced(),
-            ),
-            const PopupMenuItem(
-              enabled: false,
-              height: 0,
-              child: Divider(),
-            ),
-            PopupMenuItem(
-              child:  Text("All".i18n),
-              onTap: () => articleHistoryListCubit.getAll(),
-            ),
-            const PopupMenuItem(
-              enabled: false,
-              height: 0,
-              child: Divider(),
-            ),
-            PopupMenuItem(
-              child:  Text("Reverse List".i18n),
-              onTap: () => articleHistoryListCubit.sortReverse(),
-            ),
-            PopupMenuItem(
-              child:  Text("Clear all".i18n),
-              onTap: () => articleHistoryListCubit.clearHistory(),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

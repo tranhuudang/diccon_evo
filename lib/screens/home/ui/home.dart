@@ -2,6 +2,7 @@ import 'package:diccon_evo/screens/home/ui/components/to_conversational_phrases.
 import '../../commons/head_sentence.dart';
 import '../../commons/quote_box/ui/quote_box.dart';
 import 'package:flutter/material.dart';
+import '../../settings/ui/components/available_box.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_subfunction_box.dart';
 import 'components/plan_button.dart';
@@ -23,8 +24,8 @@ class HomeView extends StatelessWidget {
     ];
     List<Widget> listSubFunction = const [
       ToEssentialWordButton(),
-      ToConversationalPhrasesButton(),
-      ToConversationalPhrasesButton(),
+      //ToConversationalPhrasesButton(),
+      AvailableBox(),
     ];
     return Scaffold(
       body: SingleChildScrollView(
@@ -41,6 +42,7 @@ class HomeView extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       /// Head welcome to essential tab
