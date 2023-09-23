@@ -6,7 +6,7 @@ import 'history_manager.dart';
 
 class Searching {
   static Word? getDefinition(String searchWord) {
-    var refineWord = searchWord.removeSpecialCharacters().trim();
+    var refineWord = searchWord.removeSpecialCharacters().trim().toLowerCase();
 
     if (kDebugMode) {
       print("refined word:[$refineWord]");

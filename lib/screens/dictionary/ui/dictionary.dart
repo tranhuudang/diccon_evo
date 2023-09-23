@@ -250,20 +250,21 @@ class _DictionaryViewState extends State<DictionaryView>
                             onSubmitted: (providedWord) {
                               _handleSubmitted(providedWord, context, state);
                             },
-                            onChanged: (word) {
+                            onChanged: (String word) {
                               Set<String> listStartWith = {};
                               Set<String> listContains = {};
+                              var refinedWord = word.toLowerCase();
                               const int suggestionLimit = 5;
-                              if (word.length > 1) {
+                              if (refinedWord.length > 1) {
                                 for (final element
                                     in Properties.suggestionListWord) {
-                                  if (element.startsWith(word)) {
+                                  if (element.startsWith(refinedWord)) {
                                     listStartWith.add(element);
                                     if (listStartWith.length >=
                                         suggestionLimit) {
                                       break;
                                     }
-                                  } else if (element.contains(word) &&
+                                  } else if (element.contains(refinedWord) &&
                                       listContains.length < suggestionLimit) {
                                     listContains.add(element);
                                   }
