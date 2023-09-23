@@ -1,5 +1,4 @@
 import 'package:diccon_evo/screens/home/ui/components/to_conversational_phrases.dart';
-import '../../../config/properties.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/quote_box/ui/quote_box.dart';
 import 'package:flutter/material.dart';

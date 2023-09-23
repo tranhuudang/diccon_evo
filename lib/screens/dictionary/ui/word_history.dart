@@ -22,7 +22,7 @@ class WordHistoryView extends StatelessWidget {
               return Column(
                 children: [
                   /// Header
-                  HistoryHeader(),
+                  const HistoryHeader(),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +50,7 @@ class WordHistoryView extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  HistoryHeader(),
+                  const HistoryHeader(),
                   Expanded(
                     child: ListView.builder(
                       itemCount: state.length,
