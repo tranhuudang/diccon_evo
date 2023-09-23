@@ -146,10 +146,6 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                               : const SizedBox.shrink(),
                         ],
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const AvailableBox(),
                     ],
                   );
                 } else {

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../settings/ui/infos.dart';
 import '../../../settings/ui/settings.dart';
 import '../../../settings/ui/user_settings.dart';
 
@@ -80,6 +81,20 @@ class HomeMenuButton extends StatelessWidget {
               enabled: false,
               height: 0,
               child: Divider(),
+            ),
+            PopupMenuItem(
+              child: Row(
+                children: [
+                  const Icon(Icons.info_outline),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text("About".i18n),
+                ],
+              ),
+              onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const InfosView()));
+                },
             ),
             PopupMenuItem(
               child: Row(

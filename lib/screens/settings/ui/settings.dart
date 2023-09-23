@@ -200,63 +200,6 @@ class _SettingsViewState extends State<SettingsView> {
                             )
                           ],
                         ),
-                        SettingSection(
-                          title: "About".i18n,
-                          children: [
-                            const Row(
-                              children: [
-                                Text("Diccon", style: TextStyle()),
-                                Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    const Text("© 2023 Zeroboy."),
-                                    const SizedBox(width: 5),
-                                    Text("All rights reserved.".i18n),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Text(Properties.version),
-                              ],
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              "Available at".i18n,
-                              style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              height: 200,
-                              width: 370,
-                              child: GridView.count(
-                                crossAxisCount: 3,
-                                childAspectRatio: 3,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5,
-                                children: [
-                                  microsoftStoreBadge(),
-                                  amazonStoreBadge(),
-                                  playStoreBadge(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),

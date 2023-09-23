@@ -51,7 +51,7 @@ class SubFunctionBox extends StatelessWidget {
                                 index++)
                               CircleTextButton(
                                 backgroundColor: snapshot.data == index
-                                    ? Colors.blue
+                                    ? Theme.of(context).primaryColor
                                     : Theme.of(context).highlightColor,
                                 text: (index + 1).toString(),
                                 onTap: () {
