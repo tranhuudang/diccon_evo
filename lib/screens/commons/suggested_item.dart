@@ -16,11 +16,11 @@ class SuggestedItem extends StatelessWidget {
           onPressed!(title);
         },
         child: Container(
-         // height: 35,
           decoration: BoxDecoration(
             color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(32),
             border: Border.all(
+              width: 2,
               color: Theme.of(context).primaryColor
             )
           ),
