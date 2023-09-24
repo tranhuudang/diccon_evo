@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../models/article.dart';
-import '../../../../models/level.dart';
+import '../../../../data/models/article.dart';
+import '../../../../data/models/level.dart';
 import '../../../commons/level_icon.dart';
 import '../../cubits/article_history_list_cubit.dart';
 import '../article_page.dart';

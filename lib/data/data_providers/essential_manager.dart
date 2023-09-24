@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:diccon_evo/config/properties.dart';
-import 'package:diccon_evo/models/essential_word.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-
+import '../models/essential_word.dart';
 import 'file_handler.dart';
 
 class EssentialManager {

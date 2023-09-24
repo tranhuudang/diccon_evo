@@ -2,7 +2,7 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../models/essential_word.dart';
+import '../../../data/models/essential_word.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/tips_box.dart';

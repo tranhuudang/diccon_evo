@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import '../config/properties.dart';
+import '../../config/properties.dart';
+import '../data_providers/file_handler.dart';
 import '../models/article.dart';
 
 class ArticleRepository {

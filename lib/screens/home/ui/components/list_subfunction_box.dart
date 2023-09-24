@@ -35,12 +35,7 @@ class SubFunctionBox extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.all(1.0),
                       child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                            )
-                          ),
+
                           child: listSubFunction[index]),
                     );
                   }),

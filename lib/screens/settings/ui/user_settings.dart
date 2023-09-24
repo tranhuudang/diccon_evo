@@ -1,11 +1,11 @@
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
-import '../../../config/local_traditions.dart';
-import '../../../helpers/notify.dart';
+import '../../../data/data_providers/notify.dart';
 import '../../commons/header.dart';
 import '../../commons/pill_button.dart';
 import 'components/available_box.dart';
@@ -51,7 +51,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                     children: [
                       /// Header
                       Header(title: "Account".i18n),
-                      Tradition.heightSpacer,
+                      const SizedBox().mediumHeight(),
 
                       /// Login form and user infomations
                       SettingSection(
@@ -87,7 +87,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                           Text(
                             userLoginState.userInfo.email,
                           ),
-                          Tradition.heightSpacer,
+                          const SizedBox().mediumHeight(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -97,7 +97,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                   onTap: () => userBloc.add(UserSyncEvent(
                                       userInfo: userLoginState.userInfo)),
                                   title: "Sync your data"),
-                              Tradition.widthSpacer,
+                              const SizedBox().mediumWidth(),
                               PillButton(
                                 onTap: () => userBloc.add(UserLogoutEvent()),
                                 title: "Log out",
@@ -115,11 +115,11 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
                               ),
-                              Tradition.heightSpacer,
+                              const SizedBox().mediumHeight(),
                               Text(
                                   "(This process once fired will never be undone. Please take it serious.)"
                                       .i18n),
-                              Tradition.heightSpacer,
+                              const SizedBox().mediumHeight(),
                               PillButton(
                                   icon: UniconsLine.trash,
                                   backgroundColor: Colors.red,
@@ -140,7 +140,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                       child: LinearProgressIndicator(),
                                     ),
                                     Text("Your data is syncing..".i18n),
-                                    Tradition.heightSpacer,
+                                    const SizedBox().mediumHeight(),
                                   ],
                                 )
                               : const SizedBox.shrink(),
@@ -175,7 +175,7 @@ class UninitializedView extends StatelessWidget {
       children: [
         /// Header
         Header(title: "Account".i18n),
-        Tradition.heightSpacer,
+        const SizedBox().mediumHeight(),
 
         /// Login form and user infomations
         SettingSection(
@@ -187,7 +187,7 @@ class UninitializedView extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
-            Tradition.heightSpacer,
+            const SizedBox().mediumHeight(),
             PillButton(
                 icon: FontAwesomeIcons.google,
                 onTap: () async => userBloc.add(UserLoginEvent()),

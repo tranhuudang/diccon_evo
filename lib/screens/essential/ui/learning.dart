@@ -1,11 +1,11 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/helpers/essential_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/properties.dart';
-import '../../../models/essential_word.dart';
+import '../../../data/data_providers/essential_manager.dart';
+import '../../../data/models/essential_word.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/tips_box.dart';

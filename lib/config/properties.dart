@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/setting.dart';
-import '../models/word.dart';
+import '../data/models/setting.dart';
+import '../data/models/user_info.dart';
+import '../data/models/word.dart';
 import 'package:flutter/material.dart';
-import 'package:diccon_evo/models/user_info.dart';
 
 class Properties {
   /// Manually change this version base on commit count

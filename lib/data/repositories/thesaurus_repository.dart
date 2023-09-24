@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-
-import '../config/properties.dart';
+import '../../config/properties.dart';
 
 class ThesaurusRepository {
   Future<void> loadThesaurus() async {

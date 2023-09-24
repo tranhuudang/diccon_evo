@@ -1,9 +1,8 @@
-import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../config/properties.dart';
-import '../../../../helpers/file_handler.dart';
-import '../../../../models/word.dart';
+import '../../../data/data_providers/file_handler.dart';
+import '../../../data/data_providers/history_manager.dart';
+import '../../../data/models/word.dart';
 
 class HistoryListCubit extends Cubit<List<Word>> {
   HistoryListCubit() : super([]);

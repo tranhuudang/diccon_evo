@@ -1,4 +1,4 @@
-import 'package:diccon_evo/config/local_traditions.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 
 class Notify {
@@ -35,7 +35,7 @@ class Notify {
             mainAxisSize: MainAxisSize.min,
             children: [
               const CircularProgressIndicator(),
-              Tradition.heightSpacer,
+              const SizedBox().mediumHeight(),
               Text(content),
             ],
           ),

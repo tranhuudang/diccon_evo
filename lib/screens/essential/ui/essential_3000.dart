@@ -1,11 +1,11 @@
 import 'dart:math';
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/helpers/history_manager.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
-import '../../../helpers/essential_manager.dart';
-import '../../../helpers/notify.dart';
+import '../../../data/data_providers/essential_manager.dart';
+import '../../../data/data_providers/history_manager.dart';
+import '../../../data/data_providers/notify.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/header.dart';

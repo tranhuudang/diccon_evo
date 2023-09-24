@@ -1,15 +1,15 @@
-import 'package:diccon_evo/config/local_traditions.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/article/cubits/article_bookmark_list_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
-import '../../../helpers/notify.dart';
-import '../../../helpers/searching.dart';
-import '../../../models/article.dart';
-import '../../../models/word.dart';
+import '../../../data/data_providers/notify.dart';
+import '../../../data/data_providers/searching.dart';
+import '../../../data/models/article.dart';
+import '../../../data/models/word.dart';
 import '../../commons/bottom_sheet_translate.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/clickable_word/ui/clickable_words.dart';
@@ -142,7 +142,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                         articleBookmarkCubit.addBookmark(widget.article);
                         Notify.showSnackBar(context, "Bookmark added".i18n);
                       }),
-                  Tradition.widthSpacer,
+                  const SizedBox().mediumWidth(),
 
                   /// CLose button
                   CircleButton(

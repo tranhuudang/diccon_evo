@@ -6,7 +6,7 @@ import 'package:diccon_evo/screens/article/cubits/article_list_cubit.dart';
 import 'package:diccon_evo/screens/commons/clickable_word/cubit/clickable_word_cubit.dart';
 import 'package:diccon_evo/screens/commons/quote_box/bloc/quote_bloc.dart';
 import 'package:diccon_evo/screens/dictionary/cubit/word_history_list_cubit.dart';
-import 'package:diccon_evo/home_control.dart';
+import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:diccon_evo/screens/settings/cubit/setting_cubit.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +98,7 @@ class ProgramRoot extends StatelessWidget {
         title: Properties.diccon,
         debugShowCheckedModeBanner: false,
         home: I18n(
-          child: const HomeControlView(),
+          child: const HomeView(),
         ),
       ),
     );

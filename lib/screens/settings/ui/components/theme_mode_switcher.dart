@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/theme_mode.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../config/local_traditions.dart';
 import '../../../../config/properties.dart';
 import '../../cubit/setting_cubit.dart';
 
@@ -27,7 +25,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
         builder: (context, snapshot) {
           return Row(
             children: [
-              Tradition.widthSpacer,
+              const SizedBox().mediumWidth(),
 
               /// Light Mode
               InkWell(
@@ -50,7 +48,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                     children: [
                       const Icon(Icons.light_mode),
                       snapshot.data == ThemeMode.light
-                          ? Tradition.widthSpacer
+                          ? const SizedBox().mediumWidth()
                           : const SizedBox.shrink(),
                       snapshot.data == ThemeMode.light
                           ? Text(
@@ -85,7 +83,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                     children: [
                       const Icon(Icons.dark_mode),
                       snapshot.data == ThemeMode.dark
-                          ? Tradition.widthSpacer
+                          ? const SizedBox().mediumWidth()
                           : const SizedBox.shrink(),
                       snapshot.data == ThemeMode.dark
                           ? Text(
@@ -123,7 +121,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                     children: [
                       const Icon(Icons.auto_awesome),
                       snapshot.data == ThemeMode.system
-                          ? Tradition.widthSpacer
+                          ? const SizedBox().mediumWidth()
                           : const SizedBox.shrink(),
                       snapshot.data == ThemeMode.system
                           ? Text(

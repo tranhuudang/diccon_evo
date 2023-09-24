@@ -1,11 +1,8 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../config/properties.dart';
-import '../../../helpers/article_handler.dart';
-import '../../../models/article.dart';
-import '../../../models/level.dart';
-
+import '../../../data/data_providers/article_handler.dart';
+import '../../../data/models/article.dart';
+import '../../../data/models/level.dart';
 
 class ArticleHistoryListCubit extends Cubit<List<Article>> {
   ArticleHistoryListCubit() : super([]);

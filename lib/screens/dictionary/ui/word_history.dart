@@ -1,8 +1,8 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
-import '../../../config/local_traditions.dart';
-import '../../../models/word.dart';
+import '../../../data/models/word.dart';
 import '../cubit/word_history_list_cubit.dart';
 import 'components/history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,7 +104,7 @@ class WordHistoryView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Tradition.heightSpacer,
+                    const SizedBox().mediumHeight(),
                     Expanded(
                       child: ListView.builder(
                         itemCount: state.length,

@@ -1,10 +1,10 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../config/local_traditions.dart';
+import '../../../data/models/setting.dart';
 import '../../commons/header.dart';
 import '../cubit/setting_cubit.dart';
-import '../../../models/setting.dart';
 import 'components/setting_section.dart';
 import 'components/theme_mode_switcher.dart';
 
@@ -41,7 +41,7 @@ class _SettingsViewState extends State<SettingsView> {
                           Row(
                             children: [
                               Text("Language".i18n),
-                              Tradition.widthSpacer,
+                              const SizedBox().mediumWidth(),
                               Container(
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).highlightColor,
@@ -72,7 +72,7 @@ class _SettingsViewState extends State<SettingsView> {
                               ),
                             ],
                           ),
-                          Tradition.heightSpacer,
+                          const SizedBox().mediumHeight(),
 
                           /// Theme switcher
                           Row(
@@ -83,7 +83,7 @@ class _SettingsViewState extends State<SettingsView> {
                               ),
                             ],
                           ),
-                          Tradition.heightSpacer,
+                          const SizedBox().mediumHeight(),
                           const Divider(),
                           Text(
                             "* The changes will become effective the next time you open the app."
@@ -96,7 +96,7 @@ class _SettingsViewState extends State<SettingsView> {
                           children: [
                             Row(children: [
                               Text("Number of synonyms".i18n),
-                              Tradition.widthSpacer,
+                              const SizedBox().mediumWidth(),
                               Container(
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).highlightColor,
@@ -133,7 +133,7 @@ class _SettingsViewState extends State<SettingsView> {
                             Row(
                               children: [
                                 Text("Number of antonyms".i18n),
-                                Tradition.widthSpacer,
+                                const SizedBox().mediumWidth(),
                                 Container(
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).highlightColor,

@@ -1,11 +1,11 @@
-import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:async/async.dart';
 import '../../../config/properties.dart';
-import '../../../models/article.dart';
-import '../../../models/level.dart';
-import '../../../repositories/article_repository.dart';
+import '../../../data/data_providers/file_handler.dart';
+import '../../../data/models/article.dart';
+import '../../../data/models/level.dart';
+import '../../../data/repositories/article_repository.dart';
 
 class ArticleListCubit extends Cubit<List<Article>> {
   ArticleListCubit() : super([]);

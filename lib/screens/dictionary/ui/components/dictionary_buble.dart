@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import '../../../../models/word.dart';
+import '../../../../data/models/word.dart';
 import '../../../commons/expand_bubble_button.dart';
 import '../../../commons/word_meaning.dart';
 import '../../../commons/word_playback_button.dart';

@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:diccon_evo/models/user_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../config/properties.dart';
-import '../../../helpers/file_handler.dart';
-import '../../../helpers/user_handler.dart';
-import '../../../services/auth_service.dart';
+import '../../../data/data_providers/file_handler.dart';
+import '../../../data/data_providers/user_handler.dart';
+import '../../../data/models/user_info.dart';
+import '../../../data/services/auth_service.dart';
 
 /// User Events
 abstract class UserEvent {}

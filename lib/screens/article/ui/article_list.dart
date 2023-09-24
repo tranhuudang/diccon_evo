@@ -1,10 +1,10 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/article/ui/article_history.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
-import '../../../config/local_traditions.dart';
-import '../../../models/article.dart';
+import '../../../data/models/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
@@ -142,9 +142,9 @@ class _ArticleListViewState extends State<ArticleListView> with AutomaticKeepAli
                                   children: [
 
                                     const CircularProgressIndicator(),
-                                    Tradition.heightSpacer,
+                                    const SizedBox().mediumHeight(),
                                     Text("Getting new stories..".i18n),
-                                    Tradition.heightSpacer,
+                                    const SizedBox().mediumHeight(),
                                     PillButton(
                                         onTap: () {
                                           articleListCubit.cancelLoading();

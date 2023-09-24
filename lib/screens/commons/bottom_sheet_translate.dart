@@ -4,7 +4,7 @@ import 'package:diccon_evo/screens/commons/word_playback_button.dart';
 import 'package:diccon_evo/screens/commons/word_pronunciation.dart';
 import 'package:diccon_evo/screens/commons/word_title.dart';
 import 'package:flutter/material.dart';
-import '../../models/word.dart';
+import '../../data/models/word.dart';
 
 class BottomSheetTranslation extends StatelessWidget {
   final Word message;

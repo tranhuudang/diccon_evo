@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
-import 'package:diccon_evo/helpers/searching.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator/translator.dart';
-import '../../../models/word.dart';
-import '../../../repositories/thesaurus_repository.dart';
+import '../../../data/data_providers/searching.dart';
+import '../../../data/models/word.dart';
+import '../../../data/repositories/thesaurus_repository.dart';
 import '../ui/components/brick_wall_buttons.dart';
 import '../ui/components/image_buble.dart';
 

@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import '../../config/properties.dart';
 import 'file_handler.dart';
-import '../config/properties.dart';
 
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {

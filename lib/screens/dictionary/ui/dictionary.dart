@@ -1,11 +1,11 @@
-import 'package:diccon_evo/repositories/thesaurus_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../../data/data_providers/image_handler.dart';
+import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/header.dart';
 import '../../commons/suggested_item.dart';
 import '../bloc/chat_list_bloc.dart';
-import '../../../helpers/image_handler.dart';
 import '../../../config/properties.dart';
 import '../../../extensions/target_platform.dart';
 import '../../../extensions/i18n.dart';

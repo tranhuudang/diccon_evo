@@ -1,5 +1,5 @@
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
-import '../../config/local_traditions.dart';
 import 'circle_button.dart';
 
 class Header extends StatelessWidget {
@@ -22,7 +22,7 @@ class Header extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             }),
-        Tradition.widthSpacer,
+        const SizedBox().mediumWidth(),
         title != null
             ? Text(
                 title!,

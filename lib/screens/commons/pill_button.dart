@@ -1,6 +1,7 @@
+import 'package:diccon_evo/extensions/edge_insets.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
-import '../../config/local_traditions.dart';
 
 class PillButton extends StatelessWidget {
   final IconData? icon;
@@ -16,7 +17,7 @@ class PillButton extends StatelessWidget {
     return InkWell(
       onTap: isDisabled! ? null : onTap,
       child: Container(
-          padding: Tradition.buttonEdgeInsets,
+          padding: EdgeInsets.zero.buttonEdgeInsets(),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
               color: isDisabled! ? Theme.of(context).highlightColor: backgroundColor ?? Theme.of(context).primaryColor),
@@ -25,7 +26,7 @@ class PillButton extends StatelessWidget {
             children: [
               icon!= null ?
               Icon(icon, size: 18,) : const SizedBox.shrink(),
-              icon!= null ? Tradition.widthSpacer : const SizedBox.shrink(),
+              icon!= null ? const SizedBox().mediumWidth() : const SizedBox.shrink(),
               Text(title.i18n),
             ],
           )),

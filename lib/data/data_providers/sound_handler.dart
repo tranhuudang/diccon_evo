@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/helpers/file_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:audioplayers/audioplayers.dart';
+
+import 'file_handler.dart';
 
 class SoundHandler {
   final String providedWordToPlay;
