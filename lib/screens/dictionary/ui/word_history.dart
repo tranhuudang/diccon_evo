@@ -19,9 +19,8 @@ class WordHistoryView extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: BlocBuilder<HistoryListCubit, List<Word>>(
             builder: (context, state) {
-              historyListCubit.loadHistory();
-
               if (state.isEmpty) {
+                historyListCubit.loadHistory();
                 return Column(
                   children: [
                     /// Header
