@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import '../../config/properties.dart';
-import 'file_handler.dart';
+import '../handlers/directory_handler.dart';
 
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {
     final onlinePath = "${Properties.userInfo.id}/$fileName";
-    final localFilePath = await FileHandler(fileName).getLocalFilePath();
+    final localFilePath = await DirectoryHandler.getLocalFilePath(fileName);
     final fileToUpload = File(localFilePath);
     if (fileToUpload.existsSync()) {
       if (kDebugMode) {
@@ -40,7 +40,7 @@ class UserHandler {
     if (kDebugMode) {
       print("Working on ${ref.name}-------------------");
     }
-    final filePath = await FileHandler(ref.name).getLocalFilePath();
+    final filePath = await DirectoryHandler.getLocalFilePath(ref.name);
     final file = File(filePath);
     if (!file.existsSync()) {
       await ref.writeToFile(file);
@@ -48,7 +48,7 @@ class UserHandler {
         print("Downloaded: ${file.path}");
       }
     } else {
-      final tempCloudFilePath = await FileHandler(ref.name).getLocalFilePath();
+      final tempCloudFilePath = await DirectoryHandler.getLocalFilePath(ref.name);
       final tempCloudfile = File(tempCloudFilePath);
       await ref.writeToFile(tempCloudfile);
       List<dynamic> cloudJsonFile =

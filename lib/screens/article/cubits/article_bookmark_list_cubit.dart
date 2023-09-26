@@ -1,17 +1,17 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../config/properties.dart';
-import '../../../data/data_providers/article_handler.dart';
 import '../../../data/models/article.dart';
 import '../../../data/models/level.dart';
+import '../../../data/repositories/article_repository.dart';
 
 class ArticleBookmarkListCubit extends Cubit<List<Article>> {
   ArticleBookmarkListCubit() : super([]);
 
+  final articleRepository = ArticleRepository();
   List<Article> articles = [];
 
   void addBookmark(Article article){
-    ArticleHandler.saveReadArticleToBookmark(article);
+    articleRepository.saveReadArticleToBookmark(article);
     if (!articles.contains(article)) {
       articles.add(article);
     }
@@ -19,7 +19,7 @@ class ArticleBookmarkListCubit extends Cubit<List<Article>> {
   }
 
   void loadArticleBookmark() async {
-    articles = await ArticleHandler.readArticleBookmark();
+    articles = await articleRepository.readArticleBookmark();
     emit(articles);
   }
 
@@ -35,7 +35,7 @@ class ArticleBookmarkListCubit extends Cubit<List<Article>> {
   }
 
   void clearBookmark() {
-    ArticleHandler.deleteFile(Properties.articleBookmarkFileName);
+    articleRepository.deleteAllArticleBookmark();
     articles = List.empty();
     emit(articles);
   }

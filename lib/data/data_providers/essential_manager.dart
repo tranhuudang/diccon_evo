@@ -3,13 +3,10 @@ import 'dart:io';
 import 'package:diccon_evo/config/properties.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import '../handlers/directory_handler.dart';
 import '../models/essential_word.dart';
-import 'file_handler.dart';
 
 class EssentialManager {
-
-
-
 
   static Future<List<EssentialWord>> loadEssentialData(String topic) async {
     final jsonString = await rootBundle
@@ -24,7 +21,7 @@ class EssentialManager {
   }
 
   static Future<List<EssentialWord>> readFavouriteEssential() async {
-    final filePath = await FileHandler("essential_favourite.json").getLocalFilePath();
+    final filePath = await DirectoryHandler.getLocalFilePath("essential_favourite.json");
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -50,8 +47,8 @@ class EssentialManager {
 
 
   static Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
-    final filePath = await FileHandler(Properties.essentialFavouriteFileName)
-        .getLocalFilePath();
+    final filePath = await DirectoryHandler
+        .getLocalFilePath(Properties.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -92,8 +89,8 @@ class EssentialManager {
   }
 
   static removeAWordOutOfFavourite(String wordEnglishName) async {
-    final filePath = await FileHandler("essential_favourite.json")
-        .getLocalFilePath();
+    final filePath = await DirectoryHandler
+        .getLocalFilePath("essential_favourite.json");
     try {
       final file = File(filePath);
       if (await file.exists()

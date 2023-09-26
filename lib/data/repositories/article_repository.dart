@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:diccon_evo/data/handlers/file_handler.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../../config/properties.dart';
-import '../data_providers/file_handler.dart';
+import '../handlers/directory_handler.dart';
+import '../helpers/file_helper.dart';
 import '../models/article.dart';
 
 class ArticleRepository {
-  static Future<List<Article>> getDefaultStories() async {
-    String contents = await _getAssetFile('assets/stories/story-default.json');
+   Future<List<Article>> getDefaultStories() async {
+    String contents = await FileHelper.getAssetFile('assets/stories/story-default.json');
     final json = jsonDecode(contents);
     if (json is List<dynamic>) {
       final List<Article> articles =
@@ -20,10 +21,10 @@ class ArticleRepository {
     }
   }
 
-  static Future<List<Article>> getOnlineStoryList() async {
+   Future<List<Article>> getOnlineStoryList() async {
     try {
       String filePath =
-          await FileHandler(Properties.extendStoryFileName).getLocalFilePath();
+          await DirectoryHandler.getLocalFilePath(Properties.extendStoryFileName);
       File file = File(filePath);
       if (!file.existsSync()) {
         if (kDebugMode) {
@@ -36,7 +37,7 @@ class ArticleRepository {
         if (response.statusCode == 200) {
           await file.writeAsString(response.body);
           json.decode(response.body);
-          var jsonData = await _getJsonFromUrl(
+          var jsonData = await FileHelper.getJsonFromUrl(
               'https://github.com/tranhuudang/diccon_assets/raw/main/stories/extends.json');
 
           if (jsonData is List<dynamic>) {
@@ -83,20 +84,125 @@ class ArticleRepository {
     }
   }
 
-  static Future<dynamic> _getJsonFromUrl(String url) async {
-    final response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      // If the request is successful, parse the JSON
-      return json.decode(response.body);
-    } else {
-      // If the request fails, throw an exception or handle the error accordingly
-      throw Exception('Failed to fetch JSON from URL');
+   Future<List<Article>> readArticleHistory() async {
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleHistoryFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<Article> articles =
+          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
+          return articles;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't read article history.json. Error detail: $e");
+      }
+      return [];
     }
   }
 
-  /// Read default stories data
-  static Future<String> _getAssetFile(String filePath) async {
-    return await rootBundle.loadString(filePath);
+   Future<List<Article>> readArticleBookmark() async {
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleBookmarkFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        if (json is List<dynamic>) {
+          final List<Article> articles =
+          json.map((e) => Article.fromJson(e)).toList().cast<Article>();
+          return articles;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't read article history.json. Error detail: $e");
+      }
+      return [];
+    }
   }
+
+   Future<bool> saveReadArticleToHistory(Article article) async {
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleHistoryFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        // Check is a article is already exists in the history
+        bool isArticleExist = json
+            .any((articleInJson) => articleInJson['title'] == article.title);
+        if (!isArticleExist) {
+          if (json is List<dynamic>) {
+            json.add(article.toJson());
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+          } else {
+            final List<dynamic> list = [json, article.toJson()];
+            final encoded = jsonEncode(list);
+            await file.writeAsString(encoded);
+          }
+        }
+      } else {
+        final encoded = jsonEncode([article.toJson()]);
+        await file.writeAsString(encoded);
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't save to article history.json. Error detail: $e");
+      }
+      return false;
+    }
+  }
+
+   Future<bool> saveReadArticleToBookmark(Article article) async {
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleBookmarkFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        // Check is a article is already exists in the history
+        bool isArticleExist = json
+            .any((articleInJson) => articleInJson['title'] == article.title);
+        if (!isArticleExist) {
+          if (json is List<dynamic>) {
+            json.add(article.toJson());
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+          }
+        }
+      } else {
+        final encoded = jsonEncode([article.toJson()]);
+        await file.writeAsString(encoded);
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't save to article history.json. Error detail: $e");
+      }
+      return false;
+    }
+  }
+
+  Future<bool> deleteAllArticleHistory() async{
+   return await FileHandler(Properties.articleHistoryFileName).delete();
+  }
+   Future<bool> deleteAllArticleBookmark() async{
+     return await FileHandler(Properties.articleBookmarkFileName).delete();
+   }
+
 }

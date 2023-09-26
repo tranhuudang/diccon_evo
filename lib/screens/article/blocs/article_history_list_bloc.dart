@@ -2,10 +2,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
-import '../../../config/properties.dart';
-import '../../../data/data_providers/article_handler.dart';
 import '../../../data/models/article.dart';
 import '../../../data/models/level.dart';
+import '../../../data/repositories/article_repository.dart';
 
 /// States
 abstract class ArticleHistoryState {}
@@ -77,13 +76,13 @@ class ArticleHistoryBloc
     on<ArticleHistoryAdd>(_add);
     on<ArticleHistoryClear>(_clear);
   }
-
+  final articleRepository = ArticleRepository();
   var loadedArticleHistoryList = List<Article>.empty();
 
   FutureOr<void> _loadHistoryList(
       ArticleHistoryLoad event, Emitter<ArticleHistoryState> emit) async {
     try {
-      loadedArticleHistoryList = await ArticleHandler.readArticleHistory();
+      loadedArticleHistoryList = await articleRepository.readArticleHistory();
       if (loadedArticleHistoryList.isEmpty) {
         emit(ArticleHistoryEmptyState());
       } else {
@@ -150,13 +149,13 @@ class ArticleHistoryBloc
 
   FutureOr<void> _clear(
       ArticleHistoryClear event, Emitter<ArticleHistoryState> emit) {
-    ArticleHandler.deleteFile(Properties.articleHistoryFileName);
+    articleRepository.deleteAllArticleHistory();
     emit(ArticleHistoryEmptyState());
   }
 
   FutureOr<void> _add(
       ArticleHistoryAdd event, Emitter<ArticleHistoryState> emit) async {
-    await ArticleHandler.saveReadArticleToHistory(event.article);
+    await articleRepository.saveReadArticleToHistory(event.article);
     if (kDebugMode) {
       print("${event.article.title} is added to history file.");
     }

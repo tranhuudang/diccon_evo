@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/properties.dart';
-import '../../../data/data_providers/file_handler.dart';
+import '../../../data/handlers/file_handler.dart';
 import '../../../data/data_providers/history_manager.dart';
 import '../../../data/models/word.dart';
 
@@ -26,7 +26,7 @@ class HistoryListCubit extends Cubit<List<Word>> {
   }
 
   void clearHistory() {
-    FileHandler(Properties.wordHistoryFileName).deleteFile();
+    FileHandler(Properties.wordHistoryFileName).delete();
     words = List.empty();
     emit(words);
   }

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../config/properties.dart';
-import '../../../data/data_providers/file_handler.dart';
+import '../../../data/handlers/file_handler.dart';
 import '../../../data/data_providers/user_handler.dart';
 import '../../../data/models/user_info.dart';
 import '../../../data/services/auth_service.dart';
@@ -59,11 +59,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await UserHandler().deleteUserDataFile();
 
     /// Remove local file
-    await FileHandler(Properties.wordHistoryFileName).deleteFile();
-    await FileHandler(Properties.articleHistoryFileName).deleteFile();
-    await FileHandler(Properties.articleBookmarkFileName).deleteFile();
-    await FileHandler(Properties.topicHistoryFileName).deleteFile();
-    await FileHandler(Properties.essentialFavouriteFileName).deleteFile();
+    await FileHandler(Properties.wordHistoryFileName).delete();
+    await FileHandler(Properties.articleHistoryFileName).delete();
+    await FileHandler(Properties.articleBookmarkFileName).delete();
+    await FileHandler(Properties.topicHistoryFileName).delete();
+    await FileHandler(Properties.essentialFavouriteFileName).delete();
     await Future.delayed(const Duration(seconds: 2));
   }
 
@@ -98,11 +98,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     authService.googleSignOut();
 
     /// Remove local file
-    await FileHandler(Properties.wordHistoryFileName).deleteFile();
-    await FileHandler(Properties.articleHistoryFileName).deleteFile();
-    await FileHandler(Properties.articleBookmarkFileName).deleteFile();
-    await FileHandler(Properties.topicHistoryFileName).deleteFile();
-    await FileHandler(Properties.essentialFavouriteFileName).deleteFile();
+    await FileHandler(Properties.wordHistoryFileName).delete();
+    await FileHandler(Properties.articleHistoryFileName).delete();
+    await FileHandler(Properties.articleBookmarkFileName).delete();
+    await FileHandler(Properties.topicHistoryFileName).delete();
+    await FileHandler(Properties.essentialFavouriteFileName).delete();
     /// Reset properties
     Properties.userInfo = UserInfo("", "", "", "");
     await Future.delayed(const Duration(seconds: 2));

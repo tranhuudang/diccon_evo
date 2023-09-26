@@ -3,7 +3,7 @@ import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:audioplayers/audioplayers.dart';
-
+import 'directory_handler.dart';
 import 'file_handler.dart';
 
 class SoundHandler {
@@ -41,13 +41,13 @@ class SoundHandler {
       print("playing word: $refinedWord");
     }
     String fileName = "$refinedWord.mp3";
-    File file = File(await FileHandler(fileName).getLocalFilePath());
+    File file = File(await DirectoryHandler.getLocalFilePath(fileName));
 
     // Check if the file is already downloaded before and play it
     if (await file.exists()) {
       _playLocal(fileName);
       return;
-    } else if (await FileHandler(fileName).downloadFile(url)) {
+    } else if (await FileHandler(fileName).download(url)) {
       // Try to download if it available on Online Resources
       _playLocal(fileName);
     }
@@ -55,7 +55,7 @@ class SoundHandler {
 
   void _playLocal(String fileName) async {
     try {
-      var filePath = await FileHandler(fileName).getLocalFilePath();
+      var filePath = await DirectoryHandler.getLocalFilePath(fileName);
       AudioPlayer audioPlayer = AudioPlayer();
       await audioPlayer.play(UrlSource(filePath));
     } catch (e) {

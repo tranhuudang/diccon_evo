@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:async/async.dart';
 import '../../../config/properties.dart';
-import '../../../data/data_providers/file_handler.dart';
+import '../../../data/handlers/file_handler.dart';
 import '../../../data/models/article.dart';
 import '../../../data/models/level.dart';
 import '../../../data/repositories/article_repository.dart';
@@ -10,6 +10,7 @@ import '../../../data/repositories/article_repository.dart';
 class ArticleListCubit extends Cubit<List<Article>> {
   ArticleListCubit() : super([]);
 
+  final articleRepository = ArticleRepository();
   List<Article> defaultArticleList = [];
   CancelableOperation? _cancelableOperation;
 
@@ -78,8 +79,8 @@ class ArticleListCubit extends Cubit<List<Article>> {
   }
 
   Future<void> _loadAll() async {
-    defaultArticleList = await ArticleRepository.getDefaultStories();
-    var onlineStories = await ArticleRepository.getOnlineStoryList();
+    defaultArticleList = await articleRepository.getDefaultStories();
+    var onlineStories = await articleRepository.getOnlineStoryList();
 
     for (var story in onlineStories) {
       if (story.title != "") {
@@ -91,9 +92,9 @@ class ArticleListCubit extends Cubit<List<Article>> {
 
   Future<void> _reLoadAll() async {
     /// Remove downloaded extend-story.json
-    await FileHandler(Properties.extendStoryFileName).deleteFile();
-    defaultArticleList = await ArticleRepository.getDefaultStories();
-    var onlineStories = await ArticleRepository.getOnlineStoryList();
+    await FileHandler(Properties.extendStoryFileName).delete();
+    defaultArticleList = await articleRepository.getDefaultStories();
+    var onlineStories = await articleRepository.getOnlineStoryList();
 
     for (var story in onlineStories) {
       if (story.title != "") {

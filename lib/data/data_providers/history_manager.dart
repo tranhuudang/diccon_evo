@@ -2,15 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import '../../config/properties.dart';
+import '../handlers/directory_handler.dart';
 import '../models/word.dart';
-import 'file_handler.dart';
 
 class HistoryManager {
   /// Convert a [Word] object to Json format before save it to history.json
   ///
   /// Returns a [Boolean] value as true if the process is completed without error.
   static Future<bool> saveWordToHistory(Word word) async {
-    final filePath = await FileHandler(Properties.wordHistoryFileName).getLocalFilePath();
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -44,7 +44,7 @@ class HistoryManager {
   }
 
   static Future<List<Word>> readWordHistory() async {
-    final filePath = await FileHandler(Properties.wordHistoryFileName).getLocalFilePath();
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -69,7 +69,7 @@ class HistoryManager {
   }
 
   static Future<bool> saveTopicToHistory(String topic) async {
-    final filePath = await FileHandler(Properties.topicHistoryFileName).getLocalFilePath();
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.topicHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -103,7 +103,7 @@ class HistoryManager {
   }
 
   static Future<List<String>> readTopicHistory() async {
-    final filePath = await FileHandler(Properties.topicHistoryFileName).getLocalFilePath();
+    final filePath = await DirectoryHandler.getLocalFilePath(Properties.topicHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {

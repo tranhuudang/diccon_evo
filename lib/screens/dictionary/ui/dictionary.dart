@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../../data/data_providers/image_handler.dart';
+import '../../../data/handlers/image_handler.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/header.dart';
