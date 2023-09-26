@@ -41,42 +41,38 @@ class ReadingTile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Hero(
-                tag: article.imageUrl!,
-
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2.0,
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(22),
-                    child: CachedNetworkImage(
-                      // placeholder: (context, url) =>
-                      //     const LinearProgressIndicator(
-                      //   backgroundColor: Colors.black45,
-                      //   color: Colors.black54,
-                      // ),
-                      imageUrl: article.imageUrl ?? '',
-                      height: 100.0,
-                      width: 100.0,
-                      fit: BoxFit.cover,
-                      errorWidget:
-                          (context, String exception, dynamic stackTrace) {
-                        return Container(
-                          width: 100.0,
-                          height: 100.0,
-                          color: Colors
-                              .grey, // Display a placeholder color or image
-                          child: const Center(
-                            child: Text('No Image'),
-                          ),
-                        );
-                      },
-                    ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(22),
+                  child: CachedNetworkImage(
+                    // placeholder: (context, url) =>
+                    //     const LinearProgressIndicator(
+                    //   backgroundColor: Colors.black45,
+                    //   color: Colors.black54,
+                    // ),
+                    imageUrl: article.imageUrl ?? '',
+                    height: 100.0,
+                    width: 100.0,
+                    fit: BoxFit.cover,
+                    errorWidget:
+                        (context, String exception, dynamic stackTrace) {
+                      return Container(
+                        width: 100.0,
+                        height: 100.0,
+                        color: Colors
+                            .grey, // Display a placeholder color or image
+                        child: const Center(
+                          child: Text('No Image'),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

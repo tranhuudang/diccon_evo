@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:diccon_evo/extensions/theme_mode.dart';
-import 'package:diccon_evo/screens/article/cubits/article_bookmark_list_cubit.dart';
-import 'package:diccon_evo/screens/article/cubits/article_list_cubit.dart';
+import 'package:diccon_evo/screens/article/blocs/article_list_bloc.dart';
 import 'package:diccon_evo/screens/commons/clickable_word/cubit/clickable_word_cubit.dart';
 import 'package:diccon_evo/screens/commons/quote_box/bloc/quote_bloc.dart';
-import 'package:diccon_evo/screens/dictionary/cubit/word_history_list_cubit.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:diccon_evo/screens/settings/cubit/setting_cubit.dart';
@@ -56,17 +54,10 @@ class ProgramRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ArticleListCubit>(
-          create: (context) => ArticleListCubit(),
-        ),
         BlocProvider<UserBloc>(
           create: (context) => UserBloc(),
         ),
-        BlocProvider<ArticleBookmarkListCubit>(
-          create: (context) => ArticleBookmarkListCubit(),
-        ),
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
-        BlocProvider<HistoryListCubit>(create: (context) => HistoryListCubit()),
         BlocProvider<SettingCubit>(
           create: (context) => SettingCubit(),
         ),
@@ -74,6 +65,7 @@ class ProgramRoot extends StatelessWidget {
           create: (context) => ClickableWordCubit(),
         ),
         BlocProvider<QuoteBloc>(create: (context) => QuoteBloc()),
+        BlocProvider<ArticleListBloc>(create: (context) => ArticleListBloc()),
       ],
       child: MaterialApp(
         localizationsDelegates: const [

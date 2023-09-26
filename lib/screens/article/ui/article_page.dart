@@ -1,9 +1,8 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/screens/article/cubits/article_bookmark_list_cubit.dart';
+import 'package:diccon_evo/screens/article/blocs/article_bookmark_list_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
 import '../../../data/data_providers/notify.dart';
@@ -30,6 +29,7 @@ class ArticlePageView extends StatefulWidget {
 class _ArticlePageViewState extends State<ArticlePageView> {
   late List<bool> isWordSelected;
   final translator = GoogleTranslator();
+  final articleBookmarkBloc = ArticleBookmarkBloc();
   bool isTranslating = false;
 
   @override
@@ -41,9 +41,10 @@ class _ArticlePageViewState extends State<ArticlePageView> {
     return await translator.translate(word, from: 'auto', to: 'vi');
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    final articleBookmarkCubit = context.read<ArticleBookmarkListCubit>();
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -74,22 +75,19 @@ class _ArticlePageViewState extends State<ArticlePageView> {
 
                     /// Image
                     Center(
-                      child: Hero(
-                        tag: widget.article.imageUrl!,
-                        child: CachedNetworkImage(
-                          //height: 380,
-                          placeholder: (context, url) =>
-                              const LinearProgressIndicator(
-                            backgroundColor: Colors.black45,
-                            color: Colors.black54,
-                          ),
-                          imageUrl: widget.article.imageUrl ?? "",
-                          fit: BoxFit.cover,
-                          errorWidget:
-                              (context, String exception, dynamic stackTrace) {
-                            return const SizedBox.shrink();
-                          },
+                      child: CachedNetworkImage(
+                        //height: 380,
+                        placeholder: (context, url) =>
+                            const LinearProgressIndicator(
+                          backgroundColor: Colors.black45,
+                          color: Colors.black54,
                         ),
+                        imageUrl: widget.article.imageUrl ?? "",
+                        fit: BoxFit.cover,
+                        errorWidget:
+                            (context, String exception, dynamic stackTrace) {
+                          return const SizedBox.shrink();
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -139,7 +137,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                   CircleButton(
                       iconData: Icons.bookmark_border,
                       onTap: () {
-                        articleBookmarkCubit.addBookmark(widget.article);
+                        articleBookmarkBloc.add(ArticleBookmarkAdd(article: widget.article));
                         Notify.showSnackBar(context, "Bookmark added".i18n);
                       }),
                   const SizedBox().mediumWidth(),

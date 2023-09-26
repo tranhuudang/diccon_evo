@@ -4,31 +4,31 @@ import 'package:diccon_evo/screens/article/ui/article_history.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
-import '../../../data/models/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
-import '../cubits/article_list_cubit.dart';
+import '../blocs/article_list_bloc.dart';
 import 'article_bookmark.dart';
 import 'components/reading_tile.dart';
 
 class ArticleListView extends StatefulWidget {
   const ArticleListView({super.key});
 
-
   @override
   State<ArticleListView> createState() => _ArticleListViewState();
 }
 
-class _ArticleListViewState extends State<ArticleListView> with AutomaticKeepAliveClientMixin{
+class _ArticleListViewState extends State<ArticleListView>
+    with AutomaticKeepAliveClientMixin {
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+
   @override
   Widget build(BuildContext context) {
+    final articleListBloc = context.read<ArticleListBloc>();
     super.build(context);
-    final articleListCubit = context.read<ArticleListCubit>();
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -46,15 +46,18 @@ class _ArticleListViewState extends State<ArticleListView> with AutomaticKeepAli
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         child: Text("Elementary".i18n),
-                        onTap: () => articleListCubit.sortElementary(),
+                        onTap: () =>
+                            articleListBloc.add(ArticleListSortElementary()),
                       ),
                       PopupMenuItem(
                         child: Text("Intermediate".i18n),
-                        onTap: () => articleListCubit.sortIntermediate(),
+                        onTap: () =>
+                            articleListBloc.add(ArticleListSortIntermediate()),
                       ),
                       PopupMenuItem(
                         child: Text("Advanced".i18n),
-                        onTap: () => articleListCubit.sortAdvanced(),
+                        onTap: () =>
+                            articleListBloc.add(ArticleListSortAdvanced()),
                       ),
                       const PopupMenuItem(
                         enabled: false,
@@ -63,13 +66,15 @@ class _ArticleListViewState extends State<ArticleListView> with AutomaticKeepAli
                       ),
                       PopupMenuItem(
                         child: Text("All".i18n),
-                        onTap: () => articleListCubit.getAll(),
+                        onTap: () => articleListBloc.add(ArticleListSortAll()),
                       ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 16,),
+              const SizedBox(
+                height: 16,
+              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -118,82 +123,91 @@ class _ArticleListViewState extends State<ArticleListView> with AutomaticKeepAli
                                 ],
                               ),
                               const Spacer(),
+
                               /// Reload button to reload list article
                               CircleButton(
                                   iconData: Icons.autorenew,
-                                  onTap: () => articleListCubit.reGetAllArticle()
-                              ),
+                                  onTap: () =>
+                                      articleListBloc.add(ArticleListReload())),
                             ],
                           ),
                         ],
                       ),
+
                       /// List article
-                      BlocBuilder<ArticleListCubit, List<Article>>(
+                      BlocBuilder<ArticleListBloc, ArticleListState>(
+                        bloc: articleListBloc,
                         builder: (context, state) {
-                          if (state.isEmpty) {
-                            articleListCubit.getAllArticle();
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 50),
-                              child: Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
+                          switch (state.runtimeType) {
+                            case ArticleListInitializedState:
+                              var data = state as ArticleListInitializedState;
+                              return Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    final maxWidth = constraints.maxWidth;
+                                    int crossAxisCount;
+                                    // Adjust the number of columns based on the available width
+                                    if (maxWidth >= 1600) {
+                                      crossAxisCount = 5;
+                                    } else if (maxWidth >= 1300) {
+                                      crossAxisCount = 4;
+                                    } else if (maxWidth >= 1000) {
+                                      crossAxisCount = 3;
+                                    } else if (maxWidth >= 700) {
+                                      crossAxisCount = 2;
+                                    } else {
+                                      crossAxisCount = 1;
+                                    }
 
-                                    const CircularProgressIndicator(),
-                                    const SizedBox().mediumHeight(),
-                                    Text("Getting new stories..".i18n),
-                                    const SizedBox().mediumHeight(),
-                                    PillButton(
-                                        onTap: () {
-                                          articleListCubit.cancelLoading();
-                                        },
-                                        title: "Cancel".i18n),
-                                  ],
+                                    return GridView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: data.articleList.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        mainAxisSpacing: 8,
+                                        crossAxisSpacing: 8,
+                                        crossAxisCount: crossAxisCount,
+                                        mainAxisExtent: 125,
+                                        childAspectRatio: 7 /
+                                            3, // Adjust the aspect ratio as needed
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return ReadingTile(
+                                            article: data.articleList[index]);
+                                      },
+                                    );
+                                  },
                                 ),
-                              ),
-                            );
-                          } else {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: LayoutBuilder(
-                                builder: (context, constraints) {
-                                  final maxWidth = constraints.maxWidth;
-                                  int crossAxisCount;
-                                  // Adjust the number of columns based on the available width
-                                  if (maxWidth >= 1600) {
-                                    crossAxisCount = 5;
-                                  } else if (maxWidth >= 1300) {
-                                    crossAxisCount = 4;
-                                  } else if (maxWidth >= 1000) {
-                                    crossAxisCount = 3;
-                                  } else if (maxWidth >= 700) {
-                                    crossAxisCount = 2;
-                                  } else {
-                                    crossAxisCount = 1;
-                                  }
-
-                                  return GridView.builder(
-                                    shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemCount: state.length,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      mainAxisSpacing: 8,
-                                      crossAxisSpacing: 8,
-                                      crossAxisCount: crossAxisCount,
-                                      mainAxisExtent: 125,
-                                      childAspectRatio: 7 /
-                                          3, // Adjust the aspect ratio as needed
-                                    ),
-                                    itemBuilder: (context, index) {
-                                      return ReadingTile(article: state[index]);
-                                    },
-                                  );
-                                },
-                              ),
-                            );
+                              );
+                            default:
+                              articleListBloc.add(ArticleListInitial());
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 50),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const CircularProgressIndicator(),
+                                      const SizedBox().mediumHeight(),
+                                      Text("Getting new stories..".i18n),
+                                      const SizedBox().mediumHeight(),
+                                      PillButton(
+                                          onTap: () {
+                                            articleListBloc
+                                                .add(ArticleListCancelLoad());
+                                          },
+                                          title: "Cancel".i18n),
+                                    ],
+                                  ),
+                                ),
+                              );
                           }
                         },
                       ),
@@ -207,6 +221,4 @@ class _ArticleListViewState extends State<ArticleListView> with AutomaticKeepAli
       ),
     );
   }
-
-
 }
