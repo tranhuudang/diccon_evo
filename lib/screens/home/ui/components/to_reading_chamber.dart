@@ -23,7 +23,7 @@ class ToReadingChamberButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "200",
+            "199",
             style: TextStyle(
                 fontSize: 32, fontWeight: FontWeight.bold),
           ),
