@@ -2,7 +2,7 @@ import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/head_sentence.dart';
-import '../../commons/quote_box/ui/quote_box.dart';
+import '../../commons/quote_box.dart';
 import 'package:flutter/material.dart';
 import '../../settings/ui/components/available_box.dart';
 import 'components/home_menu_button.dart';

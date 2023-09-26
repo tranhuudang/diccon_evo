@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../extensions/target_platform.dart';
+import '../../extensions/target_platform.dart';
 
 class ClickableWords extends StatefulWidget {
   final String text;

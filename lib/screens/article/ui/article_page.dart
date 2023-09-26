@@ -11,7 +11,7 @@ import '../../../data/models/article.dart';
 import '../../../data/models/word.dart';
 import '../../commons/bottom_sheet_translate.dart';
 import '../../commons/circle_button.dart';
-import '../../commons/clickable_word/ui/clickable_words.dart';
+import '../../commons/clickable_words.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class ArticlePageView extends StatefulWidget {

@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:diccon_evo/extensions/theme_mode.dart';
 import 'package:diccon_evo/screens/article/blocs/article_list_bloc.dart';
-import 'package:diccon_evo/screens/commons/clickable_word/cubit/clickable_word_cubit.dart';
-import 'package:diccon_evo/screens/commons/quote_box/bloc/quote_bloc.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:diccon_evo/screens/settings/cubit/setting_cubit.dart';
@@ -61,10 +59,6 @@ class ProgramRoot extends StatelessWidget {
         BlocProvider<SettingCubit>(
           create: (context) => SettingCubit(),
         ),
-        BlocProvider<ClickableWordCubit>(
-          create: (context) => ClickableWordCubit(),
-        ),
-        BlocProvider<QuoteBloc>(create: (context) => QuoteBloc()),
         BlocProvider<ArticleListBloc>(create: (context) => ArticleListBloc()),
       ],
       child: MaterialApp(
