@@ -33,7 +33,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   List<Widget> listSubFunction = const [
     ToEssentialWordButton(),
     //ToConversationalPhrasesButton(),
-    AvailableBox(),
   ];
 
   @override
