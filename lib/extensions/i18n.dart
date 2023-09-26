@@ -39,7 +39,7 @@ extension Localization on String {
     },
     "For all levels and audiences": {
       "en_us": "For all levels and audiences",
-      "vi_vi": "Dành cho mọi trình độ và lứa tuổi",
+      "vi_vi": "Cho mọi trình độ và lứa tuổi",
     },
     "Boost your English communication skills with 939 invaluable phrases": {
       "en_us":
