@@ -18,17 +18,12 @@ class ArticleListView extends StatefulWidget {
   State<ArticleListView> createState() => _ArticleListViewState();
 }
 
-class _ArticleListViewState extends State<ArticleListView>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
+class _ArticleListViewState extends State<ArticleListView>{
 
 
   @override
   Widget build(BuildContext context) {
     final articleListBloc = context.read<ArticleListBloc>();
-    super.build(context);
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -177,6 +172,7 @@ class _ArticleListViewState extends State<ArticleListView>
                                       ),
                                       itemBuilder: (context, index) {
                                         return ReadingTile(
+                                            tag: "fromArticleListToPage${data.articleList[index].title}Tag",
                                             article: data.articleList[index]);
                                       },
                                     );
