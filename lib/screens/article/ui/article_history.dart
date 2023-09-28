@@ -5,7 +5,6 @@ import '../../commons/header.dart';
 import '../blocs/article_history_list_bloc.dart';
 import 'components/reading_tile.dart';
 
-
 class ArticleListHistoryView extends StatefulWidget {
   const ArticleListHistoryView({super.key});
 
@@ -14,7 +13,6 @@ class ArticleListHistoryView extends StatefulWidget {
 }
 
 class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
-
   final articleHistoryBloc = ArticleHistoryBloc();
 
   @override
@@ -34,7 +32,6 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                 var data = state as ArticleHistoryUpdated;
                 return Stack(
                   children: [
-
                     LayoutBuilder(
                       builder: (context, constraints) {
                         final maxWidth = constraints.maxWidth;
@@ -52,7 +49,7 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                           crossAxisCount = 1;
                         }
                         return GridView.builder(
-                          padding: EdgeInsets.fromLTRB(16, 90, 16, 16),
+                          padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
                           itemCount: data.articles.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -69,67 +66,67 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                         );
                       },
                     ),
-                        Header(
-                          title: "History".i18n,
-                          actions: [
-                            IconButton(
-                                onPressed: () => articleHistoryBloc.add(
-                                    ArticleHistorySortAlphabet(
-                                        articles: data.articles)),
-                                icon: const Icon(Icons.sort_by_alpha)),
-                            PopupMenuButton(
-                              //splashRadius: 10.0,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: Theme.of(context).dividerColor),
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  child: Text("Elementary".i18n),
-                                  onTap: () => articleHistoryBloc
-                                      .add(ArticleHistorySortElementary()),
-                                ),
-                                PopupMenuItem(
-                                  child: Text("Intermediate".i18n),
-                                  onTap: () => articleHistoryBloc
-                                      .add(ArticleHistorySortIntermediate()),
-                                ),
-                                PopupMenuItem(
-                                  child: Text("Advanced".i18n),
-                                  onTap: () => articleHistoryBloc
-                                      .add(ArticleHistorySortAdvanced()),
-                                ),
-                                const PopupMenuItem(
-                                  enabled: false,
-                                  height: 0,
-                                  child: Divider(),
-                                ),
-                                PopupMenuItem(
-                                  child: Text("All".i18n),
-                                  onTap: () => articleHistoryBloc
-                                      .add(ArticleHistoryGetAll()),
-                                ),
-                                const PopupMenuItem(
-                                  enabled: false,
-                                  height: 0,
-                                  child: Divider(),
-                                ),
-                                PopupMenuItem(
-                                  child: Text("Reverse List".i18n),
-                                  onTap: () => articleHistoryBloc.add(
-                                      ArticleHistorySortReverse(
-                                          articles: data.articles)),
-                                ),
-                                PopupMenuItem(
-                                  child: Text("Clear all".i18n),
-                                  onTap: () => articleHistoryBloc
-                                      .add(ArticleHistoryClear()),
-                                ),
-                              ],
+                    Header(
+                      title: "History".i18n,
+                      actions: [
+                        IconButton(
+                            onPressed: () => articleHistoryBloc.add(
+                                ArticleHistorySortAlphabet(
+                                    articles: data.articles)),
+                            icon: const Icon(Icons.sort_by_alpha)),
+                        PopupMenuButton(
+                          //splashRadius: 10.0,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Theme.of(context).dividerColor),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text("Elementary".i18n),
+                              onTap: () => articleHistoryBloc
+                                  .add(ArticleHistorySortElementary()),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Intermediate".i18n),
+                              onTap: () => articleHistoryBloc
+                                  .add(ArticleHistorySortIntermediate()),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Advanced".i18n),
+                              onTap: () => articleHistoryBloc
+                                  .add(ArticleHistorySortAdvanced()),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("All".i18n),
+                              onTap: () => articleHistoryBloc
+                                  .add(ArticleHistoryGetAll()),
+                            ),
+                            const PopupMenuItem(
+                              enabled: false,
+                              height: 0,
+                              child: Divider(),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Reverse List".i18n),
+                              onTap: () => articleHistoryBloc.add(
+                                  ArticleHistorySortReverse(
+                                      articles: data.articles)),
+                            ),
+                            PopupMenuItem(
+                              child: Text("Clear all".i18n),
+                              onTap: () =>
+                                  articleHistoryBloc.add(ArticleHistoryClear()),
                             ),
                           ],
                         ),
+                      ],
+                    ),
                   ],
                 );
               case ArticleHistoryEmptyState:
@@ -156,9 +153,9 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                         ],
                       ),
                     ),
-                        Header(
-                          title: "History".i18n,
-                        ),
+                    Header(
+                      title: "History".i18n,
+                    ),
                   ],
                 );
               case ArticleHistoryErrorState:
@@ -168,7 +165,7 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.broken_image,
                             color: Colors.orange,
                             size: 100,
@@ -185,9 +182,9 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                         ],
                       ),
                     ),
-                        Header(
-                          title: "History".i18n,
-                        ),
+                    Header(
+                      title: "History".i18n,
+                    ),
                   ],
                 );
               default:

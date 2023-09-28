@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
@@ -40,7 +42,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     WindowManager.instance.addListener(this);
     // Other loading steps
     loadUpData();
-    print("Data is loaded");
+    if (kDebugMode) {
+      print("Data is loaded");
+    }
   }
 
   /// Detect when windows is changing size

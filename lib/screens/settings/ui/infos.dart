@@ -17,86 +17,81 @@ class _InfosViewState extends State<InfosView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-              children: [
-                /// Header
-                Header(title: "About".i18n,),
-                const SizedBox(
-                  height: 16,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SettingSection(
-                          title: "About".i18n,
-                          children: [
-                            const Row(
-                              children: [
-                                Text("Diccon", style: TextStyle()),
-                                Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    const Text("© 2023 Zeroboy."),
-                                    const SizedBox(width: 5),
-                                    Text("All rights reserved.".i18n),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Text(Properties.version),
-                              ],
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              "Available at".i18n,
-                              style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              height: 200,
-                              width: 370,
-                              child: GridView.count(
-                                crossAxisCount: 3,
-                                childAspectRatio: 3,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5,
-                                children: [
-                                  microsoftStoreBadge(),
-                                  amazonStoreBadge(),
-                                  playStoreBadge(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SettingSection(
+                    title: "About".i18n,
+                    children: [
+                      const Row(
+                        children: [
+                          Text("Diccon", style: TextStyle()),
+                          Spacer(),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              const Text("© 2023 Zeroboy."),
+                              const SizedBox(width: 5),
+                              Text("All rights reserved.".i18n),
+                            ],
+                          ),
+                          const Spacer(),
+                          Text(Properties.version),
+                        ],
+                      )
+                    ],
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "Available at".i18n,
+                        style: const TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        height: 200,
+                        width: 370,
+                        child: GridView.count(
+                          crossAxisCount: 3,
+                          childAspectRatio: 3,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 5,
+                          children: [
+                            microsoftStoreBadge(),
+                            amazonStoreBadge(),
+                            playStoreBadge(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
+
+            /// Header
+            Header(
+              title: "About".i18n,
+            ),
+          ],
         ),
       ),
     );
   }
 }
-

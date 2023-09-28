@@ -4,7 +4,6 @@ import 'package:diccon_evo/screens/article/blocs/article_list_bloc.dart';
 import 'package:diccon_evo/screens/dictionary/cubit/word_history_list_cubit.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
-import 'package:diccon_evo/screens/settings/cubit/setting_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,9 +56,6 @@ class ProgramRoot extends StatelessWidget {
           create: (context) => UserBloc(),
         ),
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
-        BlocProvider<SettingCubit>(
-          create: (context) => SettingCubit(),
-        ),
         BlocProvider<ArticleListBloc>(create: (context) => ArticleListBloc()),
         BlocProvider<HistoryListCubit>(create: (context) => HistoryListCubit()),
       ],

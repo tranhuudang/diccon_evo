@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../data/handlers/image_handler.dart';
@@ -11,6 +10,7 @@ import '../../../config/properties.dart';
 import '../../../extensions/target_platform.dart';
 import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'components/dictionary_menu_button.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -185,19 +185,19 @@ class _DictionaryViewState extends State<DictionaryView>
             ),
             Column(
               children: [
+                /// Dictionary header
                 Expanded(
                   child: Header(
                     title: "Dictionary".i18n,
-                    actions: [
-                      PillButton(
-                          icon: Icons.auto_awesome,
-                          onTap: () {},
-                          title: "Default Bot")
+                    actions: const [
+                      DictionaryMenuButton(),
                     ],
                   ),
                 ),
+
+                /// Suggestion bar with different suggestive button
                 ClipRect(
-                  child: Container(
+                  child: SizedBox(
                     height: 130,
                     child: Stack(
                       children: [
@@ -232,7 +232,6 @@ class _DictionaryViewState extends State<DictionaryView>
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            /// Suggestion bar with different suggestive button
                             Align(
                               alignment: Alignment.centerLeft,
                               child: SingleChildScrollView(

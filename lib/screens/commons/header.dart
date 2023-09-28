@@ -8,7 +8,8 @@ class Header extends StatelessWidget {
   const Header({
     super.key,
     this.actions,
-    this.title,  this.childOfStack = true,
+    this.title,
+    this.childOfStack = true,
   });
 
   final List<Widget>? actions;
@@ -17,12 +18,14 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return childOfStack! ? Column(
-      children: [
-        HeaderWithBlurEffect(title: title, actions: actions),
-        Spacer(),
-      ],
-    ) : HeaderWithBlurEffect(title: title, actions: actions);
+    return childOfStack!
+        ? Column(
+            children: [
+              HeaderWithBlurEffect(title: title, actions: actions),
+              const Spacer(),
+            ],
+          )
+        : HeaderWithBlurEffect(title: title, actions: actions);
   }
 }
 
@@ -42,32 +45,38 @@ class HeaderWithBlurEffect extends StatelessWidget {
       child: Stack(
         children: [
           // Blur layers
-          BackdropFilter(filter: ImageFilter.blur(
-            sigmaX: 4.0, sigmaY: 4.0,
-          ),
-          child: Container(),
+          BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 4.0,
+              sigmaY: 4.0,
+            ),
+            child: Container(),
           ),
           // Gradient layers
-  Container(
-    height: 81,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Theme.of(context).appBarTheme.backgroundColor!,
-            Theme.of(context).appBarTheme.backgroundColor!,
-            Theme.of(context).appBarTheme.backgroundColor!,
-            Theme.of(context).appBarTheme.backgroundColor!.withOpacity(0.9),
-            Theme.of(context).appBarTheme.backgroundColor!.withOpacity(0.5),
-          ]
-        )
-      ),
-  ),
+          Container(
+            height: 81,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                  Theme.of(context).appBarTheme.backgroundColor!,
+                  Theme.of(context).appBarTheme.backgroundColor!,
+                  Theme.of(context).appBarTheme.backgroundColor!,
+                  Theme.of(context)
+                      .appBarTheme
+                      .backgroundColor!
+                      .withOpacity(0.9),
+                  Theme.of(context)
+                      .appBarTheme
+                      .backgroundColor!
+                      .withOpacity(0.5),
+                ])),
+          ),
           // Child layers
           Container(
             color: Colors.transparent,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

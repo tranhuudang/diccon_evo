@@ -16,23 +16,18 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
+  final settingCubit = SettingCubit();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocBuilder<SettingCubit, Setting>(builder: (context, state) {
-          SettingCubit settingCubit = context.read<SettingCubit>();
-          return Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                /// Header
-                Header(title: "Settings".i18n),
-                const SizedBox(
-                  height: 16,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
+        body: BlocBuilder<SettingCubit, Setting>(
+            bloc: settingCubit,
+            builder: (context, state) {
+              return Stack(
+                children: [
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -196,11 +191,12 @@ class _SettingsViewState extends State<SettingsView> {
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        }),
+
+                  /// Header
+                  Header(title: "Settings".i18n),
+                ],
+              );
+            }),
       ),
     );
   }

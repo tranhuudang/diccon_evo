@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

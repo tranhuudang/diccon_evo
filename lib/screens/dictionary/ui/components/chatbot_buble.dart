@@ -4,7 +4,6 @@ import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/screens/commons/word_playback_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ChatbotBubble extends StatefulWidget {
   const ChatbotBubble({
@@ -65,12 +64,14 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
       final stream = await widget.chatGptRepository.chatGpt
           .createChatCompletionStream(request);
       _chatStreamSubscription = stream?.listen(
-            (event) => setState(
-              () {
+        (event) => setState(
+          () {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
             } else {
-              return widget.chatGptRepository.questionAnswers[widget.answerIndex].answer.write(
+              return widget
+                  .chatGptRepository.questionAnswers[widget.answerIndex].answer
+                  .write(
                 event.choices?.first.delta?.content,
               );
             }
@@ -87,6 +88,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
       }
     }
   }
+
   @override
   void initState() {
     super.initState();
@@ -132,16 +134,20 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  Row(children: [
-                    WordPlaybackButton(message: "message"),
-                    Spacer(),
-                    IconButton(onPressed: (){
-                      setState(() {
-                        answer ="";
-                      });
-                      _chatStreamResponseReload(widget.questionRequest);
-                    }, icon: Icon(Icons.cached_rounded)),
-                  ],),
+                  Row(
+                    children: [
+                      const WordPlaybackButton(message: "message"),
+                      const Spacer(),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              answer = "";
+                            });
+                            _chatStreamResponseReload(widget.questionRequest);
+                          },
+                          icon: const Icon(Icons.cached_rounded)),
+                    ],
+                  ),
                   Text(answer),
                 ],
               ),
