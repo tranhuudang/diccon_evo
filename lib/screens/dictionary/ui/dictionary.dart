@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:ui';
-import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:unicons/unicons.dart';
 import '../../../data/handlers/image_handler.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/header.dart';
@@ -14,8 +11,6 @@ import '../../../config/properties.dart';
 import '../../../extensions/target_platform.dart';
 import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'word_history.dart';
-import 'package:shimmer/shimmer.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -140,29 +135,23 @@ class _DictionaryViewState extends State<DictionaryView>
                         scrollToBottom();
                         setState(() {
                           _hasImages = false;
-
                         });
                       }
                       if (state is SynonymsAdded) {
-
                         scrollToBottom();
                         setState(() {
                           _hasSynonyms = false;
-
                         });
                       }
                       if (state is AntonymsAdded) {
-
                         scrollToBottom();
                         setState(() {
                           _hasAntonyms = false;
-
                         });
                       }
                     },
                     builder: (context, state) {
                       {
-
                         switch (state.runtimeType) {
                           case ChatListInitial:
                             final data = state as ChatListInitial;
@@ -265,7 +254,6 @@ class _DictionaryViewState extends State<DictionaryView>
                                                     (String clickedWord) {
                                                   _handleSubmitted(
                                                       clickedWord, context);
-
                                                 },
                                               );
                                             }).toList(),

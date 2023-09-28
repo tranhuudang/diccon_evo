@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../data/handlers/sound_handler.dart';
-import '../../data/models/word.dart';
 
 class WordPlaybackButton extends StatelessWidget {
   const WordPlaybackButton({
