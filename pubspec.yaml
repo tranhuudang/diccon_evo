@@ -76,6 +76,8 @@ dependencies:
   # localization
   i18n_extension: ^9.0.2
   flutter_localization: ^0.1.14
+  # gpt
+  chat_gpt_flutter: ^1.0.15
 
 dev_dependencies:
   flutter_test:

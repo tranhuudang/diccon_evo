@@ -28,6 +28,7 @@ class Properties {
   static const double overflowHeight = 745;
   static const String diccon = "Diccon";
   static const String blankSpace = ' ';
+  static bool chatbotEnable = true;
 
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';

@@ -4,7 +4,6 @@ import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/quote_box.dart';
 import 'package:flutter/material.dart';
-import '../../settings/ui/components/available_box.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_subfunction_box.dart';
 import 'components/plan_button.dart';
@@ -41,6 +40,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     WindowManager.instance.addListener(this);
     // Other loading steps
     loadUpData();
+    print("Data is loaded");
   }
 
   /// Detect when windows is changing size

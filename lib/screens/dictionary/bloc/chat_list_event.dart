@@ -35,3 +35,4 @@ class AddImage extends ChatListEvent{
 class AddSorryMessage extends ChatListEvent{
   AddSorryMessage();
 }
+
