@@ -14,19 +14,13 @@ class ChatListUpdated extends ChatListState {
   ChatListUpdated({required this.chatList});
 }
 
-class SynonymsAdded extends ChatListState {
-  List<Widget> chatList;
-  SynonymsAdded({required this.chatList});
+class SynonymsAdded extends ChatListActionState {
 }
 
-class AntonymsAdded extends ChatListState {
-  List<Widget> chatList;
-  AntonymsAdded({required this.chatList});
+class AntonymsAdded extends ChatListActionState {
 }
 
-class ImageAdded extends ChatListState {
-  List<Widget> chatList;
-  ImageAdded({required this.chatList});
+class ImageAdded extends ChatListActionState {
 }
 
 class ChatbotMessageAdded extends ChatListState{

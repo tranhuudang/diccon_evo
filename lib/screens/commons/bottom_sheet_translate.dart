@@ -32,7 +32,7 @@ class BottomSheetTranslation extends StatelessWidget {
                       width: 8.0,
                     ),
                     WordPronunciation(message: message),
-                    WordPlaybackButton(message: message),
+                    WordPlaybackButton(message: message.word),
                   ],
                 ),
                 Row(

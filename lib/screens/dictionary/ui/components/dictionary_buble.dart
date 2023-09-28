@@ -92,7 +92,7 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                                   width: 8.0,
                                 ),
                                 WordPronunciation(message: widget.message),
-                                WordPlaybackButton(message: widget.message),
+                                WordPlaybackButton(message: widget.message.word),
                               ],
                             ),
                             Row(

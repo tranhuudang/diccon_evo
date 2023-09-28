@@ -8,7 +8,7 @@ class WordPlaybackButton extends StatelessWidget {
     required this.message,
   });
 
-  final Word message;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class WordPlaybackButton extends StatelessWidget {
         Icons.volume_up_sharp,
       ),
       onPressed: () {
-        SoundHandler(message.word).playAnyway();
+        SoundHandler(message).playAnyway();
       },
       iconSize: 20,
       splashRadius: 15,

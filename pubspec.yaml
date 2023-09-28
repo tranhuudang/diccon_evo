@@ -78,6 +78,8 @@ dependencies:
   flutter_localization: ^0.1.14
   # gpt
   chat_gpt_flutter: ^1.0.15
+  #create shimmer effect
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
