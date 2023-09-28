@@ -196,16 +196,17 @@ class _DictionaryViewState extends State<DictionaryView>
             ),
             Column(
               children: [
-                Header(
-                  title: "Dictionary".i18n,
-                  actions: [
-                    PillButton(
-                        icon: Icons.auto_awesome,
-                        onTap: () {},
-                        title: "Default Bot")
-                  ],
+                Expanded(
+                  child: Header(
+                    title: "Dictionary".i18n,
+                    actions: [
+                      PillButton(
+                          icon: Icons.auto_awesome,
+                          onTap: () {},
+                          title: "Default Bot")
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 ClipRect(
                   child: Container(
                     height: 130,

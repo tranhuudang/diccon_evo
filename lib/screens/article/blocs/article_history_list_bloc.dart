@@ -20,15 +20,11 @@ class ArticleHistoryEmptyState extends ArticleHistoryState {}
 
 class ArticleHistoryErrorState extends ArticleHistoryState {}
 
-class ArticleHistoryInitializedState extends ArticleHistoryState {
+class ArticleHistoryUpdated extends ArticleHistoryState {
   final List<Article> articles;
-  ArticleHistoryInitializedState({required this.articles});
+  ArticleHistoryUpdated({required this.articles});
 }
 
-class ArticleHistorySortedState extends ArticleHistoryState {
-  final List<Article> articles;
-  ArticleHistorySortedState({required this.articles});
-}
 
 /// Events
 abstract class ArticleHistoryEvent {}
@@ -87,7 +83,7 @@ class ArticleHistoryBloc
         emit(ArticleHistoryEmptyState());
       } else {
         emit(
-            ArticleHistoryInitializedState(articles: loadedArticleHistoryList));
+            ArticleHistoryUpdated(articles: loadedArticleHistoryList));
       }
     } catch (e) {
       if (kDebugMode) {
@@ -107,13 +103,13 @@ class ArticleHistoryBloc
     if (listsAreEqual) {
       sorted = sorted.reversed.toList();
     }
-    emit(ArticleHistorySortedState(articles: sorted));
+    emit(ArticleHistoryUpdated(articles: sorted));
   }
 
   FutureOr<void> _sortReverse(
       ArticleHistorySortReverse event, Emitter<ArticleHistoryState> emit) {
     var sorted = event.articles.reversed.toList();
-    emit(ArticleHistorySortedState(articles: sorted));
+    emit(ArticleHistoryUpdated(articles: sorted));
   }
 
   FutureOr<void> _sortElementary(
@@ -122,7 +118,7 @@ class ArticleHistoryBloc
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
         .toList();
-    emit(ArticleHistorySortedState(articles: elementaryOnly));
+    emit(ArticleHistoryUpdated(articles: elementaryOnly));
   }
 
   FutureOr<void> _sortIntermediate(
@@ -131,7 +127,7 @@ class ArticleHistoryBloc
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
         .toList();
-    emit(ArticleHistorySortedState(articles: intermediateOnly));
+    emit(ArticleHistoryUpdated(articles: intermediateOnly));
   }
 
   FutureOr<void> _sortAdvanced(
@@ -139,12 +135,12 @@ class ArticleHistoryBloc
     var advancedOnly = loadedArticleHistoryList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
-    emit(ArticleHistorySortedState(articles: advancedOnly));
+    emit(ArticleHistoryUpdated(articles: advancedOnly));
   }
 
   FutureOr<void> _all(
       ArticleHistoryGetAll event, Emitter<ArticleHistoryState> emit) async {
-    emit(ArticleHistorySortedState(articles: loadedArticleHistoryList));
+    emit(ArticleHistoryUpdated(articles: loadedArticleHistoryList));
   }
 
   FutureOr<void> _clear(

@@ -20,15 +20,11 @@ class ArticleBookmarkEmptyState extends ArticleBookmarkState {}
 
 class ArticleBookmarkErrorState extends ArticleBookmarkState {}
 
-class ArticleBookmarkInitializedState extends ArticleBookmarkState {
+class ArticleBookmarkUpdated extends ArticleBookmarkState {
   final List<Article> articles;
-  ArticleBookmarkInitializedState({required this.articles});
+  ArticleBookmarkUpdated({required this.articles});
 }
 
-class ArticleBookmarkSortedState extends ArticleBookmarkState {
-  final List<Article> articles;
-  ArticleBookmarkSortedState({required this.articles});
-}
 
 /// Events
 abstract class ArticleBookmarkEvent {}
@@ -87,7 +83,7 @@ class ArticleBookmarkBloc
         emit(ArticleBookmarkEmptyState());
       } else {
         emit(
-            ArticleBookmarkInitializedState(articles: loadedArticleBookmarkList));
+            ArticleBookmarkUpdated(articles: loadedArticleBookmarkList));
       }
     } catch (e) {
       if (kDebugMode) {
@@ -107,13 +103,13 @@ class ArticleBookmarkBloc
     if (listsAreEqual) {
       sorted = sorted.reversed.toList();
     }
-    emit(ArticleBookmarkSortedState(articles: sorted));
+    emit(ArticleBookmarkUpdated(articles: sorted));
   }
 
   FutureOr<void> _sortReverse(
       ArticleBookmarkSortReverse event, Emitter<ArticleBookmarkState> emit) {
     var sorted = event.articles.reversed.toList();
-    emit(ArticleBookmarkSortedState(articles: sorted));
+    emit(ArticleBookmarkUpdated(articles: sorted));
   }
 
   FutureOr<void> _sortElementary(
@@ -122,7 +118,7 @@ class ArticleBookmarkBloc
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
         .toList();
-    emit(ArticleBookmarkSortedState(articles: elementaryOnly));
+    emit(ArticleBookmarkUpdated(articles: elementaryOnly));
   }
 
   FutureOr<void> _sortIntermediate(
@@ -131,7 +127,7 @@ class ArticleBookmarkBloc
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
         .toList();
-    emit(ArticleBookmarkSortedState(articles: intermediateOnly));
+    emit(ArticleBookmarkUpdated(articles: intermediateOnly));
   }
 
   FutureOr<void> _sortAdvanced(
@@ -139,12 +135,12 @@ class ArticleBookmarkBloc
     var advancedOnly = loadedArticleBookmarkList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
-    emit(ArticleBookmarkSortedState(articles: advancedOnly));
+    emit(ArticleBookmarkUpdated(articles: advancedOnly));
   }
 
   FutureOr<void> _all(
       ArticleBookmarkGetAll event, Emitter<ArticleBookmarkState> emit) async {
-    emit(ArticleBookmarkSortedState(articles: loadedArticleBookmarkList));
+    emit(ArticleBookmarkUpdated(articles: loadedArticleBookmarkList));
   }
 
   FutureOr<void> _clear(

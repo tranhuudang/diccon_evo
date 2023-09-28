@@ -105,222 +105,217 @@ class _EssentialViewState extends State<EssentialView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Column(
-            children: [
-              Container(
-                  padding: const EdgeInsets.all(16),
-                  child: const Header()),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// Head sentence
-                        const HeadSentence(
-                          listText: ["Nothing", "Worth Doing", "Ever", "Came Easy"],
-                        ),
-
-                        /// Sub sentence
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 26),
-                          child: Text("Mastering 1848 core English words fosters clear communication. "
-                                  "Enhanced vocabulary aids reading, writing, speaking, and understanding. "
-                                  "It facilitates meaningful interactions, empowers expression, "
-                                  "and broadens access to information and opportunities."
-                              .i18n),
-                        ),
-                        Row(
-                          children: [
-                            /// Function bar
-                            CircleButtonBar(
-                              children: [
-                                CircleButton(
-                                  iconData: FontAwesomeIcons.play,
-                                  onTap: () async {
-                                    /// Add topic to history
-                                    HistoryManager.saveTopicToHistory(_selectedTopic);
-
-                                    /// Load essential word based on provided topic
-                                    await EssentialManager.loadEssentialData(
-                                            _selectedTopic)
-                                        .then(
-                                      (listEssential) => {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => LearningView(
-                                              topic: _selectedTopic,
-                                              listEssentialWord: listEssential,
-                                            ),
-                                          ),
-                                        )
-                                      },
-                                    );
-                                  },
-                                  backgroundColor: Theme.of(context).primaryColor,
-                                ),
-
-                                /// Favourite button
-                                CircleButton(
-                                  iconData: FontAwesomeIcons.heart,
-                                  onTap: () async {
-                                    await EssentialManager.readFavouriteEssential()
-                                        .then((listFavourite) => {
-                                              if (listFavourite.isNotEmpty)
-                                                {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          FavouriteReviewView(
-                                                        listEssentialWord:
-                                                            listFavourite,
-                                                      ),
-                                                    ),
-                                                  )
-                                                }
-                                              else
-                                                {
-                                                  Notify.showAlertDialog(
-                                                      context,
-                                                      "Favourite Chamber is empty"
-                                                          .i18n,
-                                                      "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
-                                                },
-                                            });
-                                  },
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-
-                            /// Topic selector
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).cardColor,
-                                    borderRadius: BorderRadius.circular(16)),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-                                    style: const TextStyle(fontSize: 18),
-                                    value: _selectedTopic,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 8),
-                                    underline: null,
-                                    borderRadius: BorderRadius.circular(16),
-                                    items: _listTopic.map((topic) {
-                                      return DropdownMenuItem(
-                                        value: topic,
-                                        child: Text(
-                                          topic.i18n,
-                                          style:
-                                              Theme.of(context).textTheme.labelLarge,
-                                        ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (topic) {
-                                      setState(() {
-                                        _selectedTopic = topic!;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(
-                          height: 32,
-                        ),
-
-                        /// Guidance box
-                        TipsBox(
-                          title: "Guid".i18n,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Row(
-                                children: [
-                                  const Icon(FontAwesomeIcons.play, size: 16),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                      "Start your journey exploring new words.".i18n),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                const Icon(FontAwesomeIcons.heart, size: 16),
-                                const SizedBox(width: 8),
-                                Text("Revise the words you enjoy.".i18n),
-                              ],
-                            ),
-                          ],
-                        ),
-
-                        /// Recent History Topic
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        FutureBuilder(
-                            future: _listTopicHistory,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Recent topics".i18n),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    Wrap(
-                                      spacing: 8,
-                                      runSpacing: 8,
-                                      children: snapshot.data!.map((topic) {
-                                        return PillButton(
-                                            onTap: () async {
-                                              /// Load essential word based on provided topic
-                                              await EssentialManager
-                                                      .loadEssentialData(topic)
-                                                  .then(
-                                                (listEssential) => {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          LearningView(
-                                                        topic: topic,
-                                                        listEssentialWord:
-                                                            listEssential,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                },
-                                              );
-                                            },
-                                            title: topic);
-                                      }).toList(),
-                                    ),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
-                            }),
-                      ],
-                    ),
+          body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Head sentence
+                  const HeadSentence(
+                    listText: ["Nothing", "Worth Doing", "Ever", "Came Easy"],
                   ),
-                ),
-              ),
 
-            ],
-          )),
+                  /// Sub sentence
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 26),
+                    child: Text("Mastering 1848 core English words fosters clear communication. "
+                            "Enhanced vocabulary aids reading, writing, speaking, and understanding. "
+                            "It facilitates meaningful interactions, empowers expression, "
+                            "and broadens access to information and opportunities."
+                        .i18n),
+                  ),
+                  Row(
+                    children: [
+                      /// Function bar
+                      CircleButtonBar(
+                        children: [
+                          CircleButton(
+                            iconData: FontAwesomeIcons.play,
+                            onTap: () async {
+                              /// Add topic to history
+                              HistoryManager.saveTopicToHistory(_selectedTopic);
+
+                              /// Load essential word based on provided topic
+                              await EssentialManager.loadEssentialData(
+                                      _selectedTopic)
+                                  .then(
+                                (listEssential) => {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LearningView(
+                                        topic: _selectedTopic,
+                                        listEssentialWord: listEssential,
+                                      ),
+                                    ),
+                                  )
+                                },
+                              );
+                            },
+                            backgroundColor: Theme.of(context).primaryColor,
+                          ),
+
+                          /// Favourite button
+                          CircleButton(
+                            iconData: FontAwesomeIcons.heart,
+                            onTap: () async {
+                              await EssentialManager.readFavouriteEssential()
+                                  .then((listFavourite) => {
+                                        if (listFavourite.isNotEmpty)
+                                          {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FavouriteReviewView(
+                                                  listEssentialWord:
+                                                      listFavourite,
+                                                ),
+                                              ),
+                                            )
+                                          }
+                                        else
+                                          {
+                                            Notify.showAlertDialog(
+                                                context,
+                                                "Favourite Chamber is empty"
+                                                    .i18n,
+                                                "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
+                                          },
+                                      });
+                            },
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+
+                      /// Topic selector
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
+                              borderRadius: BorderRadius.circular(16)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              style: const TextStyle(fontSize: 18),
+                              value: _selectedTopic,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 8),
+                              underline: null,
+                              borderRadius: BorderRadius.circular(16),
+                              items: _listTopic.map((topic) {
+                                return DropdownMenuItem(
+                                  value: topic,
+                                  child: Text(
+                                    topic.i18n,
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge,
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (topic) {
+                                setState(() {
+                                  _selectedTopic = topic!;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 32,
+                  ),
+
+                  /// Guidance box
+                  TipsBox(
+                    title: "Guid".i18n,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          children: [
+                            const Icon(FontAwesomeIcons.play, size: 16),
+                            const SizedBox(width: 8),
+                            Text(
+                                "Start your journey exploring new words.".i18n),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(FontAwesomeIcons.heart, size: 16),
+                          const SizedBox(width: 8),
+                          Text("Revise the words you enjoy.".i18n),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  /// Recent History Topic
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  FutureBuilder(
+                      future: _listTopicHistory,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Recent topics".i18n),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: snapshot.data!.map((topic) {
+                                  return PillButton(
+                                      onTap: () async {
+                                        /// Load essential word based on provided topic
+                                        await EssentialManager
+                                                .loadEssentialData(topic)
+                                            .then(
+                                          (listEssential) => {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LearningView(
+                                                  topic: topic,
+                                                  listEssentialWord:
+                                                      listEssential,
+                                                ),
+                                              ),
+                                            ),
+                                          },
+                                        );
+                                      },
+                                      title: topic);
+                                }).toList(),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      }),
+                ],
+              ),
+            ),
+          ),
+          const Header(),
+        ],
+      )),
     );
   }
 }
