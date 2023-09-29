@@ -20,7 +20,8 @@ class ChatGptRepository {
     final request = ChatCompletionRequest(
       stream: true,
       maxTokens: 4000,
-      messages: [Message(role: Role.user.name, content: question)],
+      //messages: [Message(role: Role.user.name, content: question)],
+      messages: questionAnswers.map((e) => Message(role: Role.user.name, content: e.question)).toList(),
       model: ChatGptModel.gpt35Turbo,
     );
     return request;
