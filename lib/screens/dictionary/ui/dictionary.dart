@@ -13,7 +13,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'components/dictionary_menu_button.dart';
 
 class DictionaryView extends StatefulWidget {
-  const DictionaryView({super.key});
+  final String? word;
+  final BuildContext? buildContext;
+  const DictionaryView({super.key, this.word = "", this.buildContext});
+
 
   @override
   State<DictionaryView> createState() => _DictionaryViewState();
@@ -111,6 +114,15 @@ class _DictionaryViewState extends State<DictionaryView>
       });
     }
   }
+
+  @override
+  void initState(){
+    super.initState();
+    if (widget.word != ""){
+      _handleSubmitted(widget.word!, widget.buildContext!);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

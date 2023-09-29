@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
-import 'package:diccon_evo/screens/commons/word_playback_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class ChatbotBubble extends StatefulWidget {
-  const ChatbotBubble({
+class ConversationMachineBubble extends StatefulWidget {
+  const ConversationMachineBubble({
     Key? key,
     required this.questionRequest,
     this.onWordTap,
@@ -20,10 +19,10 @@ class ChatbotBubble extends StatefulWidget {
   final int answerIndex;
 
   @override
-  State<ChatbotBubble> createState() => _ChatbotBubbleState();
+  State<ConversationMachineBubble> createState() => _ConversationMachineBubbleState();
 }
 
-class _ChatbotBubbleState extends State<ChatbotBubble>
+class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
     with AutomaticKeepAliveClientMixin {
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
@@ -136,7 +135,6 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                 children: [
                   Row(
                     children: [
-                      const WordPlaybackButton(message: "message"),
                       const Spacer(),
                       IconButton(
                           onPressed: () {

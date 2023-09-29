@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../commons/header.dart';
 import '../bloc/conversation_bloc.dart';
-import '../../../config/properties.dart';
-import '../../../extensions/target_platform.dart';
 import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,25 +38,14 @@ class _ConversationViewState extends State<ConversationView>
     _textController.clear();
 
     /// Add left bubble as user message
-    conversationBloc.add(AddUserMessage(providedWord: searchWord));
+    conversationBloc.add(AskAQuestion(providedWord: searchWord));
 
-    /// Right bubble represent machine reply
-    conversationBloc.add(AddBotReply(
-      providedWord: searchWord,
-      onWordTap: (clickedWord) {
-        _handleSubmitted(clickedWord, context);
-      },
-    ));
-
-    if (defaultTargetPlatform.isMobile()) {
-      // Remove focus out of TextField in ConversationView
-      Properties.textFieldFocusNode.unfocus();
-    } else {
-      // On desktop we request focus, not on mobile
-      Properties.textFieldFocusNode.requestFocus();
+    // Dismiss keyboard
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
     }
 
-    /// Unnecessary task that do not required to be display on screen will be run after all
     /// Delay the scroll animation until after the list has been updated
     scrollToBottom();
   }
@@ -73,7 +60,6 @@ class _ConversationViewState extends State<ConversationView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    var conversationBloc = context.read<ConversationBloc>();
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -181,7 +167,7 @@ class _ConversationViewState extends State<ConversationView>
                                 children: <Widget>[
                                   Expanded(
                                     child: TextField(
-                                      //focusNode: Properties.textFieldFocusNode,
+                                      controller: _textController,
                                       onSubmitted: (providedWord) {
                                         _handleSubmitted(providedWord, context);
                                       },

@@ -1,5 +1,7 @@
+import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
@@ -25,8 +27,10 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> with WindowListener {
   // Instance of Repository implementations
-  DictionaryRepository dataRepository = DictionaryRepository();
-  ThesaurusRepository thesaurusRepository = ThesaurusRepository();
+  final dataRepository = DictionaryRepository();
+  final thesaurusRepository = ThesaurusRepository();
+  final _searchTextController = TextEditingController();
+  bool _enableTinyCloseButton = false;
   List<Widget> listPrimaryFunction = const [
     ToDictionaryButton(),
     ToReadingChamberButton(),
@@ -115,26 +119,88 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
                           /// TextField for user to enter their words
                           Container(
-                            padding: const EdgeInsets.only(
-                               top: 2, bottom: 26),
+                            padding: const EdgeInsets.only(top: 2, bottom: 26),
                             //margin: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Row(
                               children: <Widget>[
                                 Expanded(
-                                  child: TextField(
-                                    focusNode: Properties.textFieldFocusNode,
-                                    decoration: InputDecoration(
-                                      hintText: "Send a message".i18n,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(32.0),
+                                  child: Stack(
+                                    children: [
+                                      TextField(
+                                        controller: _searchTextController,
+                                        onTap: (){
+                                          setState(() {
+                                            _enableTinyCloseButton = true;
+
+                                          });
+                                        },
+                                        onSubmitted: (String value) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DictionaryView(
+                                                          word: value,
+                                                          buildContext: context)));
+                                        },
+                                        //focusNode: Properties.textFieldFocusNode,
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.symmetric(horizontal: 16),
+                                          hintText: "Search in dictionary".i18n,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(32.0),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      _enableTinyCloseButton?
+                                      Container(
+                                        height: 48,
+                                        //color: Colors.black54,
+                                        child: Row(
+                                          children: [
+                                          Spacer(),
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 8),
+                                            child: Center(child: TinyCloseButton(
+                                              onTap: (){
+                                                _searchTextController.clear();
+                                                // Dismiss keyboard
+                                                FocusScopeNode currentFocus = FocusScope.of(context);
+
+                                                if (!currentFocus.hasPrimaryFocus) {
+                                                  currentFocus.unfocus();
+                                                }
+                                                // Erase tiny button
+                                                setState(() {
+                                                  _enableTinyCloseButton = false;
+                                                });
+                                              }
+                                            )),
+                                          )
+                                        ],),
+                                      ) : SizedBox.shrink()
+                                    ],
                                   ),
+                                ),
+                                SizedBox().mediumWidth(),
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> DictionaryView()));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).cardColor,
+                                       borderRadius: BorderRadius.circular(32,)
+                                      ),
+                                      child: Icon(Icons.auto_awesome, ),),
                                 ),
                               ],
                             ),
                           ),
+
                           /// Two big brother button
                           GridView.builder(
                               shrinkWrap: true,
@@ -173,6 +239,27 @@ class _HomeViewState extends State<HomeView> with WindowListener {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TinyCloseButton extends StatelessWidget {
+  final VoidCallback onTap;
+  const TinyCloseButton({
+    super.key, required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(32),
+          ),
+          child: Icon(Icons.close)),
     );
   }
 }

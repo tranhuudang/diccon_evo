@@ -28,15 +28,15 @@ class ToDictionaryButton extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(50),
               ),
-              padding: const EdgeInsets.all(5),
-              child: const Icon(Icons.search)),
+              padding: const EdgeInsets.all(8),
+              child: const Icon(Icons.chat)),
           const SizedBox(height: 8),
           const Text(
             "Diccon chat-based",
             style: TextStyle(fontSize: 12),
           ),
           Text(
-            "Dictionary".i18n,
+            "Conversation".i18n,
             style: const TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold),
           ),
