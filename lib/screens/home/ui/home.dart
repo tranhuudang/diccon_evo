@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_subfunction_box.dart';
 import 'components/plan_button.dart';
-import 'components/to_dictionary_button.dart';
+import 'components/to_conversation_button.dart';
 import 'components/to_essential_3000.dart';
 import 'components/to_reading_chamber.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
@@ -89,8 +89,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
           body: SingleChildScrollView(
             child: Stack(
               children: [
-                /// Plan Button
-                const PlanButton(),
+                /// Search dictionary box
 
                 /// Menu button
                 const HomeMenuButton(),
@@ -111,9 +110,31 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                             "Proficiency"
                           ]),
                           const SizedBox(
-                            height: 50,
+                            height: 20,
                           ),
 
+                          /// TextField for user to enter their words
+                          Container(
+                            padding: const EdgeInsets.only(
+                               top: 2, bottom: 26),
+                            //margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: TextField(
+                                    focusNode: Properties.textFieldFocusNode,
+                                    decoration: InputDecoration(
+                                      hintText: "Send a message".i18n,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(32.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           /// Two big brother button
                           GridView.builder(
                               shrinkWrap: true,
@@ -141,10 +162,10 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                     ),
 
                     /// From the universe
-                    Container(
-                      color: Theme.of(context).highlightColor,
-                      child: const QuoteBox(),
-                    ),
+                    // Container(
+                    //   color: Theme.of(context).highlightColor,
+                    //   child: const QuoteBox(),
+                    // ),
                   ],
                 ),
               ],

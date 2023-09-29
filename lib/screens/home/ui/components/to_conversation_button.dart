@@ -1,7 +1,7 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 
-import '../../../dictionary/ui/dictionary.dart';
+import '../../../conversation/ui/conversation.dart';
 import 'feature_button.dart';
 class ToDictionaryButton extends StatelessWidget {
   const ToDictionaryButton({
@@ -15,7 +15,7 @@ class ToDictionaryButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DictionaryView(),
+            builder: (context) => const ConversationView(),
           ),
         );
       },
