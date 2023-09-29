@@ -60,9 +60,6 @@ class HeaderWithBlurEffect extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                  Theme.of(context).appBarTheme.backgroundColor!,
-                  Theme.of(context).appBarTheme.backgroundColor!,
-                  Theme.of(context).appBarTheme.backgroundColor!,
                   Theme.of(context)
                       .appBarTheme
                       .backgroundColor!

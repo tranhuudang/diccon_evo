@@ -145,6 +145,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                         },
                                         //focusNode: Properties.textFieldFocusNode,
                                         decoration: InputDecoration(
+                                          prefixIcon: Icon(Icons.search),
                                           contentPadding:
                                               EdgeInsets.symmetric(horizontal: 16),
                                           hintText: "Search in dictionary".i18n,
