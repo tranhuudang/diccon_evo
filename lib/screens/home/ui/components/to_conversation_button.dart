@@ -32,11 +32,16 @@ class ToDictionaryButton extends StatelessWidget {
               child: const Icon(Icons.chat)),
           const SizedBox(height: 8),
           const Text(
-            "Diccon chat-based",
+            "Talk with our bot in",
             style: TextStyle(fontSize: 12),
           ),
           Text(
             "Conversation".i18n,
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            "Space".i18n,
             style: const TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold),
           ),
