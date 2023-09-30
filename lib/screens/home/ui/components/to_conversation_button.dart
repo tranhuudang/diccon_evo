@@ -40,9 +40,9 @@ class ToDictionaryButton extends StatelessWidget {
             style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          Text(
-            "Space".i18n,
-            style: const TextStyle(
+          const Text(
+            "Space",
+            style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
