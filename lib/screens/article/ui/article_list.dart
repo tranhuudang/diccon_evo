@@ -44,9 +44,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 32, vertical: 26),
-                          child: Text(
-                              "Let the magic of words transport you to realms uncharted and dreams unbound."
-                                  .i18n),
+                          child: Text("SubSentenceInArticleList".i18n),
                         ),
 
                         /// Function button
@@ -167,44 +165,43 @@ class _ArticleListViewState extends State<ArticleListView> {
                 ),
               ),
             ),
-                Header(
-                  actions: [
-                    PopupMenuButton(
-                      //splashRadius: 10.0,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Theme.of(context).dividerColor),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          child: Text("Elementary".i18n),
-                          onTap: () =>
-                              articleListBloc.add(ArticleListSortElementary()),
-                        ),
-                        PopupMenuItem(
-                          child: Text("Intermediate".i18n),
-                          onTap: () => articleListBloc
-                              .add(ArticleListSortIntermediate()),
-                        ),
-                        PopupMenuItem(
-                          child: Text("Advanced".i18n),
-                          onTap: () =>
-                              articleListBloc.add(ArticleListSortAdvanced()),
-                        ),
-                        const PopupMenuItem(
-                          enabled: false,
-                          height: 0,
-                          child: Divider(),
-                        ),
-                        PopupMenuItem(
-                          child: Text("All".i18n),
-                          onTap: () =>
-                              articleListBloc.add(ArticleListSortAll()),
-                        ),
-                      ],
+            Header(
+              actions: [
+                PopupMenuButton(
+                  //splashRadius: 10.0,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Theme.of(context).dividerColor),
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text("Elementary".i18n),
+                      onTap: () =>
+                          articleListBloc.add(ArticleListSortElementary()),
+                    ),
+                    PopupMenuItem(
+                      child: Text("Intermediate".i18n),
+                      onTap: () =>
+                          articleListBloc.add(ArticleListSortIntermediate()),
+                    ),
+                    PopupMenuItem(
+                      child: Text("Advanced".i18n),
+                      onTap: () =>
+                          articleListBloc.add(ArticleListSortAdvanced()),
+                    ),
+                    const PopupMenuItem(
+                      enabled: false,
+                      height: 0,
+                      child: Divider(),
+                    ),
+                    PopupMenuItem(
+                      child: Text("All".i18n),
+                      onTap: () => articleListBloc.add(ArticleListSortAll()),
                     ),
                   ],
                 ),
+              ],
+            ),
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../commons/header.dart';
 import '../bloc/conversation_bloc.dart';
@@ -173,7 +172,7 @@ class _ConversationViewState extends State<ConversationView>
                                       },
                                       decoration: InputDecoration(
                                         hintText:
-                                            "Send a message to practice".i18n,
+                                            "Send a message for practice".i18n,
                                         border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(32.0),

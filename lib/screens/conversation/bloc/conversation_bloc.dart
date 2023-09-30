@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
+import 'package:diccon_evo/screens/conversation/ui/components/conversation_welcome_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../ui/components/conversation_machine_bubble.dart';
@@ -32,11 +33,11 @@ class ConversationUpdated extends ConversationState {
 /// Bloc
 class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   ConversationBloc()
-      : super(ConversationInitial(conversation: [/*const WelcomeBox()*/])) {
+      : super(ConversationInitial(conversation: [const ConversationWelcome()])) {
     on<AskAQuestion>(_addUserMessage);
   }
   final chatGptRepository = ChatGptRepository();
-  List<Widget> conversation = [];
+  List<Widget> conversation = [const ConversationWelcome()];
 
   Future<void> _addUserMessage(
       AskAQuestion event, Emitter<ConversationState> emit) async {

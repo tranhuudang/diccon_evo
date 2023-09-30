@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ part 'chat_list_state.dart';
 part 'chat_list_event.dart';
 
 class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
-  ChatListBloc() : super(ChatListInitial(chatList: [/*const WelcomeBox()*/])) {
+  ChatListBloc() : super(ChatListUpdated(chatList: [const DictionaryWelcome()])) {
     on<AddLocalTranslation>(_addLocalTranslation);
     on<AddUserMessage>(_addUserMessage);
     on<AddSorryMessage>(_addSorryMessage);
@@ -26,14 +27,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
   final translator = GoogleTranslator();
   final chatGptRepository = ChatGptRepository();
-  List<Widget> chatList = [];
+  List<Widget> chatList = [const DictionaryWelcome()];
 
   Future<Translation> translate(String word) async {
     return await translator.translate(word, from: 'auto', to: 'vi');
   }
 
   /// Implement Events and Callbacks
-
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
     chatList.add(ImageBubble(imageUrl: event.imageUrl));
     emit(ChatListUpdated(chatList: chatList));

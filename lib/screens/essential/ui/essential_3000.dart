@@ -122,11 +122,7 @@ class _EssentialViewState extends State<EssentialView> {
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32, vertical: 26),
-                    child: Text("Mastering 1848 core English words fosters clear communication. "
-                            "Enhanced vocabulary aids reading, writing, speaking, and understanding. "
-                            "It facilitates meaningful interactions, empowers expression, "
-                            "and broadens access to information and opportunities."
-                        .i18n),
+                    child: Text("SubSentenceInEssentialWord".i18n),
                   ),
                   Row(
                     children: [

@@ -1,4 +1,5 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/header.dart';
@@ -137,19 +138,31 @@ class _ArticleListBookmarkViewState extends State<ArticleListBookmarkView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.broken_image,
-                            color: Theme.of(context).cardColor,
-                            size: 100,
+                          const Image(
+                            image: AssetImage('assets/stickers/bookmark.png'),
+                            width: 200,
                           ),
                           const SizedBox(
                             height: 8,
                           ),
                           Text(
-                            "Bookmark is empty".i18n,
-                            style: TextStyle(
-                                color: Theme.of(context).highlightColor,
-                                fontSize: 18),
+                            "TitleBookmarkEmptyBox".i18n,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          const SizedBox().mediumHeight(),
+                          Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              width: 300,
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "SubSentenceInBookmarkEmptyList".i18n,
+                                style: const TextStyle(
+                                    fontSize: 18),
+                              ),
+                            ),
                           ),
                         ],
                       ),

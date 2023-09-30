@@ -1,16 +1,13 @@
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:flutter/foundation.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/head_sentence.dart';
-import '../../commons/quote_box.dart';
 import 'package:flutter/material.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_subfunction_box.dart';
-import 'components/plan_button.dart';
 import 'components/to_conversation_button.dart';
 import 'components/to_essential_3000.dart';
 import 'components/to_reading_chamber.dart';
@@ -128,10 +125,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                     children: [
                                       TextField(
                                         controller: _searchTextController,
-                                        onTap: (){
+                                        onTap: () {
                                           setState(() {
                                             _enableTinyCloseButton = true;
-
                                           });
                                         },
                                         onSubmitted: (String value) {
@@ -141,13 +137,15 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                                   builder: (context) =>
                                                       DictionaryView(
                                                           word: value,
-                                                          buildContext: context)));
+                                                          buildContext:
+                                                              context)));
                                         },
                                         //focusNode: Properties.textFieldFocusNode,
                                         decoration: InputDecoration(
-                                          prefixIcon: Icon(Icons.search),
+                                          prefixIcon: const Icon(Icons.search),
                                           contentPadding:
-                                              EdgeInsets.symmetric(horizontal: 16),
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 16),
                                           hintText: "Search in dictionary".i18n,
                                           border: OutlineInputBorder(
                                             borderRadius:
@@ -155,48 +153,66 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                                           ),
                                         ),
                                       ),
-                                      _enableTinyCloseButton?
-                                      Container(
-                                        height: 48,
-                                        //color: Colors.black54,
-                                        child: Row(
-                                          children: [
-                                          Spacer(),
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 8),
-                                            child: Center(child: TinyCloseButton(
-                                              onTap: (){
-                                                _searchTextController.clear();
-                                                // Dismiss keyboard
-                                                FocusScopeNode currentFocus = FocusScope.of(context);
+                                      _enableTinyCloseButton
+                                          ? SizedBox(
+                                              height: 48,
+                                              //color: Colors.black54,
+                                              child: Row(
+                                                children: [
+                                                  const Spacer(),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 8),
+                                                    child: Center(child:
+                                                        TinyCloseButton(
+                                                            onTap: () {
+                                                      _searchTextController
+                                                          .clear();
+                                                      // Dismiss keyboard
+                                                      FocusScopeNode
+                                                          currentFocus =
+                                                          FocusScope.of(
+                                                              context);
 
-                                                if (!currentFocus.hasPrimaryFocus) {
-                                                  currentFocus.unfocus();
-                                                }
-                                                // Erase tiny button
-                                                setState(() {
-                                                  _enableTinyCloseButton = false;
-                                                });
-                                              }
-                                            )),
-                                          )
-                                        ],),
-                                      ) : SizedBox.shrink()
+                                                      if (!currentFocus
+                                                          .hasPrimaryFocus) {
+                                                        currentFocus.unfocus();
+                                                      }
+                                                      // Erase tiny button
+                                                      setState(() {
+                                                        _enableTinyCloseButton =
+                                                            false;
+                                                      });
+                                                    })),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          : const SizedBox.shrink()
                                     ],
                                   ),
                                 ),
-                                SizedBox().mediumWidth(),
+                                const SizedBox().mediumWidth(),
                                 InkWell(
-                                  onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> DictionaryView()));
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DictionaryView()));
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
                                         color: Theme.of(context).cardColor,
-                                       borderRadius: BorderRadius.circular(32,)
-                                      ),
-                                      child: Icon(Icons.auto_awesome, ),),
+                                        borderRadius: BorderRadius.circular(
+                                          32,
+                                        )),
+                                    child: const Icon(
+                                      Icons.auto_awesome,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -247,7 +263,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 class TinyCloseButton extends StatelessWidget {
   final VoidCallback onTap;
   const TinyCloseButton({
-    super.key, required this.onTap,
+    super.key,
+    required this.onTap,
   });
 
   @override
@@ -255,12 +272,12 @@ class TinyCloseButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(6),
+          padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(32),
           ),
-          child: Icon(Icons.close)),
+          child: const Icon(Icons.close)),
     );
   }
 }

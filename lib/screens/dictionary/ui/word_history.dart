@@ -1,4 +1,5 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/word.dart';
@@ -29,19 +30,27 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.broken_image,
-                          color: Theme.of(context).cardColor,
-                          size: 100,
+                        const Image(
+                          image: AssetImage('assets/stickers/history.png'),
+                          width: 200,
                         ),
                         const SizedBox(
                           height: 8,
                         ),
                         Text(
                           "History is empty".i18n,
-                          style: TextStyle(
-                              color: Theme.of(context).highlightColor,
-                              fontSize: 18),
+                          style: const TextStyle(
+fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        const SizedBox().mediumHeight(),
+                        Opacity(
+                          opacity: 0.5,
+                          child: Text(
+                            "SubSentenceInWordHistory".i18n,
+                            style: const TextStyle(
+                                fontSize: 18),
+                          ),
                         ),
                       ],
                     ),
