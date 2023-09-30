@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/word.dart';
 import '../../../commons/expand_bubble_button.dart';
 import '../../../commons/word_meaning.dart';
 import '../../../commons/word_playback_button.dart';
 import '../../../commons/word_pronunciation.dart';
 import '../../../commons/word_title.dart';
+import '../../bloc/chat_list_bloc.dart';
 
 class DictionaryBubble extends StatefulWidget {
   const DictionaryBubble({
@@ -49,6 +51,7 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
 
   @override
   Widget build(BuildContext context) {
+    final chatListBloc = context.read<ChatListBloc>();
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16.0,
@@ -99,7 +102,10 @@ class _DictionaryBubbleState extends State<DictionaryBubble> {
                               children: [
                                 WordMeaning(
                                   message: widget.message,
-                                  onWordTap: widget.onWordTap,
+                                  onWordTap: (String currentWord){
+                                    chatListBloc.add(AddUserMessage(providedWord: currentWord));
+                                    chatListBloc.add(AddLocalTranslation(providedWord: currentWord));
+                                  },
                                   highlightColor: Colors.white,
                                   subColor: Colors.white70,
                                 ),

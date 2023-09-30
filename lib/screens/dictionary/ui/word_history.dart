@@ -2,7 +2,6 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
-import '../../../data/models/word.dart';
 import '../cubit/word_history_list_cubit.dart';
 import 'components/history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,16 +12,21 @@ class WordHistoryView extends StatefulWidget {
   @override
   State<WordHistoryView> createState() => _WordHistoryViewState();
 }
-
 class _WordHistoryViewState extends State<WordHistoryView> {
   final historyListCubit = HistoryListCubit();
+
+  @override
+  void initState(){
+    historyListCubit.loadHistory();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
-            BlocBuilder<HistoryListCubit, List<Word>>(
+            BlocBuilder<HistoryListCubit, List<String>>(
               bloc: historyListCubit,
               builder: (context, state) {
                 if (state.isEmpty) {
@@ -55,6 +59,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                   );
                 } else {
                   return ListView.builder(
+                    padding: const EdgeInsets.only(left: 16, top: 90, right: 16, bottom: 16),
                     itemCount: state.length,
                     itemBuilder: (context, index) {
                       final word = state[index];

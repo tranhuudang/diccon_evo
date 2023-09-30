@@ -10,8 +10,7 @@ class AddUserMessage extends ChatListEvent{
 
 class AddLocalTranslation extends ChatListEvent{
   final String providedWord;
-  final Function(String)? onWordTap;
-  AddLocalTranslation({required this.onWordTap, required this.providedWord});
+  AddLocalTranslation({required this.providedWord});
 }
 
 

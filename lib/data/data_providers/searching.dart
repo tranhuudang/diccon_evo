@@ -20,7 +20,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(Properties.wordList[i]);
+        HistoryManager.saveWordToHistory(refineWord);
         return Properties.wordList[i];
       } else
 
@@ -31,7 +31,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(Properties.wordList[i]);
+        HistoryManager.saveWordToHistory(refineWord);
         return Properties.wordList[i];
       }
     }
@@ -46,20 +46,19 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(Properties.wordList[i]);
+        HistoryManager.saveWordToHistory(refineWord);
         return Properties.wordList[i];
       } else
       // Remove d in verb in the past Ex: play (chơi) → played (đã chơi)
       if (word.startsWith(refineWord.substring(0, refineWord.length - 1)) &&
-          (refineWord.lastIndexOf('d') == (refineWord.length - 1))
-      ) {
+          (refineWord.lastIndexOf('d') == (refineWord.length - 1))) {
         if (kDebugMode) {
           print(
-            "Remove d in verb in the past Ex: play (chơi) → played (đã chơi)");
+              "Remove d in verb in the past Ex: play (chơi) → played (đã chơi)");
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(Properties.wordList[i]);
+        HistoryManager.saveWordToHistory(refineWord);
         return Properties.wordList[i];
       } else
       // Remove ied in verb in the past Ex: study (học) → studied (đã học)
@@ -68,11 +67,11 @@ class Searching {
           (refineWord.lastIndexOf('ied') == (refineWord.length - 3))) {
         if (kDebugMode) {
           print(
-            "Remove ied in verb in the past Ex: study (học) → studied (đã học)");
+              "Remove ied in verb in the past Ex: study (học) → studied (đã học)");
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(Properties.wordList[i]);
+        HistoryManager.saveWordToHistory(refineWord);
         return Properties.wordList[i];
       } else if (word.startsWith(refineWord)) {
         if (kDebugMode) {
@@ -80,7 +79,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(Properties.wordList[i]);
+        HistoryManager.saveWordToHistory(refineWord);
         return Properties.wordList[i];
       }
     }
@@ -93,11 +92,11 @@ class Searching {
               refineWord.substring(0, refineWord.length - 2))) {
         if (kDebugMode) {
           print(
-            "Remove ed in verb in the past Ex: dance (nhảy múa) → danced (đã nhảy múa)");
+              "Remove ed in verb in the past Ex: dance (nhảy múa) → danced (đã nhảy múa)");
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(Properties.wordList[i]);
+        HistoryManager.saveWordToHistory(refineWord);
         return Properties.wordList[i];
       }
     }

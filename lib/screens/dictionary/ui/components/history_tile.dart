@@ -1,6 +1,6 @@
+import 'package:diccon_evo/screens/dictionary/bloc/chat_list_bloc.dart';
 import 'package:flutter/material.dart';
-import '../../../../data/models/word.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HistoryTile extends StatelessWidget {
   const HistoryTile({
@@ -8,11 +8,12 @@ class HistoryTile extends StatelessWidget {
     required this.word,
   });
 
-  final Word word;
+  final String word;
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).primaryTextTheme;
+    final chatListBloc = context.read<ChatListBloc>();
 
     return Container(
       decoration: const BoxDecoration(
@@ -24,16 +25,14 @@ class HistoryTile extends StatelessWidget {
         ),
       ),
       child: ListTile(
+        onTap: (){
+          chatListBloc.add(AddUserMessage(providedWord: word));
+          chatListBloc.add(AddLocalTranslation(providedWord: word));
+          Navigator.pop(context);
+        },
         title: Text(
-          word.word,
+          word,
           style: textTheme.titleMedium
-        ),
-        subtitle: Text(
-          word.meaning!,
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Colors.grey[700],
-          ),
         ),
         // trailing: Icon(
         //   Icons.chevron_right_rounded,

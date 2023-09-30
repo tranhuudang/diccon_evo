@@ -17,7 +17,8 @@ part 'chat_list_state.dart';
 part 'chat_list_event.dart';
 
 class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
-  ChatListBloc() : super(ChatListUpdated(chatList: [const DictionaryWelcome()])) {
+  ChatListBloc()
+      : super(ChatListUpdated(chatList: [const DictionaryWelcome()])) {
     on<AddLocalTranslation>(_addLocalTranslation);
     on<AddUserMessage>(_addUserMessage);
     on<AddSorryMessage>(_addSorryMessage);
@@ -27,6 +28,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
   final translator = GoogleTranslator();
   final chatGptRepository = ChatGptRepository();
+  final ScrollController chatListController = ScrollController();
   List<Widget> chatList = [const DictionaryWelcome()];
 
   Future<Translation> translate(String word) async {
@@ -37,6 +39,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
     chatList.add(ImageBubble(imageUrl: event.imageUrl));
     emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
+
     emit(ImageAdded());
   }
 
@@ -45,6 +49,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     chatList.add(BrickWallButtons(
         stringList: listSynonyms, itemOnPressed: event.itemOnPressed));
     emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
+
     emit(SynonymsAdded());
   }
 
@@ -56,6 +62,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         stringList: listAntonyms,
         itemOnPressed: event.itemOnPressed));
     emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
+
     emit(AntonymsAdded());
   }
 
@@ -65,12 +73,14 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       children: [Text("Sorry, we couldn't find this word at this time.")],
     ));
     emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
     var word = Word(word: event.providedWord);
     chatList.add(DictionaryBubble(isMachine: false, message: word));
     emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
   }
 
   Future<void> _addLocalTranslation(
@@ -79,26 +89,45 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       final question =
           'Hãy cho tôi biết phiên âm của từ "${event.providedWord}", sau đó giải thích nghĩa của từ "${event.providedWord}". Sau đó cho tôi ví dụ khi sử dụng từ "${event.providedWord}"';
       var request = await chatGptRepository.createQuestionRequest(question);
-      var answerIndex = chatGptRepository.questionAnswers.length -1;
-      chatList.add(ChatbotBubble(questionRequest: request, chatGptRepository: chatGptRepository, answerIndex: answerIndex,));
+      var answerIndex = chatGptRepository.questionAnswers.length - 1;
+      chatList.add(ChatbotBubble(
+        questionRequest: request,
+        chatGptRepository: chatGptRepository,
+        answerIndex: answerIndex,
+      ));
       emit(ChatListUpdated(chatList: chatList));
+      _scrollChatListToBottom();
     } else {
       Word? wordResult = Searching.getDefinition(event.providedWord);
       if (wordResult != null) {
         /// Right bubble represent machine reply
-        chatList.add(DictionaryBubble(
-            isMachine: true, message: wordResult, onWordTap: event.onWordTap));
+        chatList.add(DictionaryBubble(isMachine: true, message: wordResult));
         emit(ChatListUpdated(chatList: chatList));
+        _scrollChatListToBottom();
       } else {
         await translate(event.providedWord).then((translatedWord) {
-          chatList.add(DictionaryBubble(
+          chatList.add(
+            DictionaryBubble(
               isMachine: true,
               message:
                   Word(word: event.providedWord, meaning: translatedWord.text),
-              onWordTap: event.onWordTap));
+            ),
+          );
           emit(ChatListUpdated(chatList: chatList));
+          _scrollChatListToBottom();
         });
       }
     }
+  }
+
+  void _scrollChatListToBottom() {
+    /// Delay the scroll animation until after the list has been updated
+    Future.delayed(const Duration(milliseconds: 300), () {
+      chatListController.animateTo(
+        chatListController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 }

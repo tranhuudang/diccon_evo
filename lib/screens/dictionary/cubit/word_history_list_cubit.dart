@@ -2,12 +2,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/properties.dart';
 import '../../../data/handlers/file_handler.dart';
 import '../../../data/data_providers/history_manager.dart';
-import '../../../data/models/word.dart';
 
-class HistoryListCubit extends Cubit<List<Word>> {
+class HistoryListCubit extends Cubit<List<String>> {
   HistoryListCubit() : super([]);
 
-  List<Word> words = [];
+  List<String> words = [];
 
   void loadHistory() async {
     words = await HistoryManager.readWordHistory();
@@ -16,7 +15,7 @@ class HistoryListCubit extends Cubit<List<Word>> {
 
   void sortAlphabet() {
     var sorted = words;
-    sorted.sort((a, b) => a.word.compareTo(b.word));
+    sorted.sort((a, b) => a.compareTo(b));
     emit(sorted);
   }
 

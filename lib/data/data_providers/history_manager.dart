@@ -9,7 +9,7 @@ class HistoryManager {
   /// Convert a [Word] object to Json format before save it to history.json
   ///
   /// Returns a [Boolean] value as true if the process is completed without error.
-  static Future<bool> saveWordToHistory(Word word) async {
+  static Future<bool> saveWordToHistory(String word) async {
     final filePath = await DirectoryHandler.getLocalFilePath(Properties.wordHistoryFileName);
     try {
       final file = File(filePath);
@@ -18,32 +18,32 @@ class HistoryManager {
         final json = jsonDecode(contents);
         // Check is a word is already exists in the history
         bool isWordExists =
-        json.any((wordInList) => wordInList['word'] == word.word);
+        json.any((topicInList) => topicInList == word);
         if (!isWordExists) {
           if (json is List<dynamic>) {
-            json.add(word.toJson());
+            json.add(word);
             final encoded = jsonEncode(json);
             await file.writeAsString(encoded);
           } else {
-            final List<dynamic> list = [json, word.toJson()];
+            final List<dynamic> list = [json, word];
             final encoded = jsonEncode(list);
             await file.writeAsString(encoded);
           }
         }
       } else {
-        final encoded = jsonEncode([word.toJson()]);
+        final encoded = jsonEncode([word]);
         await file.writeAsString(encoded);
       }
       return true;
     } catch (e) {
       if (kDebugMode) {
-        print("Can't save ${word.word} to history.json. Error detail: $e");
+        print("Can't save $word to history.json. Error detail: $e");
       }
       return false;
     }
   }
 
-  static Future<List<Word>> readWordHistory() async {
+  static Future<List<String>> readWordHistory() async {
     final filePath = await DirectoryHandler.getLocalFilePath(Properties.wordHistoryFileName);
     try {
       final file = File(filePath);
@@ -51,9 +51,9 @@ class HistoryManager {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
         if (json is List<dynamic>) {
-          final List<Word> words =
-          json.map((e) => Word.fromJson(e)).toList().cast<Word>();
-          return words;
+          final List<String> topics =
+          json.cast<String>();
+          return topics;
         } else {
           return [];
         }
@@ -67,7 +67,6 @@ class HistoryManager {
       return [];
     }
   }
-
   static Future<bool> saveTopicToHistory(String topic) async {
     final filePath = await DirectoryHandler.getLocalFilePath(Properties.topicHistoryFileName);
     try {

@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'package:diccon_evo/screens/dictionary/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../data/handlers/image_handler.dart';
@@ -17,7 +17,6 @@ class DictionaryView extends StatefulWidget {
   final BuildContext? buildContext;
   const DictionaryView({super.key, this.word = "", this.buildContext});
 
-
   @override
   State<DictionaryView> createState() => _DictionaryViewState();
 }
@@ -25,7 +24,6 @@ class DictionaryView extends StatefulWidget {
 class _DictionaryViewState extends State<DictionaryView>
     with AutomaticKeepAliveClientMixin {
   final TextEditingController _textController = TextEditingController();
-  final ScrollController _chatListController = ScrollController();
   final ImageHandler _imageProvider = ImageHandler();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
@@ -48,17 +46,6 @@ class _DictionaryViewState extends State<DictionaryView>
     });
   }
 
-  void scrollToBottom() {
-    /// Delay the scroll animation until after the list has been updated
-    Future.delayed(const Duration(milliseconds: 300), () {
-      _chatListController.animateTo(
-        _chatListController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
-  }
-
   void _handleSubmitted(String searchWord, BuildContext context) async {
     _currentSearchWord = searchWord;
     var chatListBloc = context.read<ChatListBloc>();
@@ -69,12 +56,11 @@ class _DictionaryViewState extends State<DictionaryView>
     chatListBloc.add(AddUserMessage(providedWord: searchWord));
     try {
       /// Right bubble represent machine reply
-      chatListBloc.add(AddLocalTranslation(
-        providedWord: searchWord,
-        onWordTap: (clickedWord) {
-          _handleSubmitted(clickedWord, context);
-        },
-      ));
+      chatListBloc.add(
+        AddLocalTranslation(
+          providedWord: searchWord,
+        ),
+      );
 
       /// Get and add list synonyms to message box
       var listSynonyms = ThesaurusRepository().getSynonyms(searchWord);
@@ -102,10 +88,6 @@ class _DictionaryViewState extends State<DictionaryView>
       Properties.textFieldFocusNode.requestFocus();
     }
 
-    /// Unnecessary task that do not required to be display on screen will be run after all
-    /// Delay the scroll animation until after the list has been updated
-    scrollToBottom();
-
     /// Find image to show
     _imageUrl = await _imageProvider.getImageFromPixabay(searchWord);
     if (_imageUrl.isNotEmpty) {
@@ -116,13 +98,12 @@ class _DictionaryViewState extends State<DictionaryView>
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    if (widget.word != ""){
+    if (widget.word != "") {
       _handleSubmitted(widget.word!, widget.buildContext!);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,19 +125,16 @@ class _DictionaryViewState extends State<DictionaryView>
                         current is ChatListActionState,
                     listener: (BuildContext context, ChatListState state) {
                       if (state is ImageAdded) {
-                        scrollToBottom();
                         setState(() {
                           _hasImages = false;
                         });
                       }
                       if (state is SynonymsAdded) {
-                        scrollToBottom();
                         setState(() {
                           _hasSynonyms = false;
                         });
                       }
                       if (state is AntonymsAdded) {
-                        scrollToBottom();
                         setState(() {
                           _hasAntonyms = false;
                         });
@@ -169,7 +147,7 @@ class _DictionaryViewState extends State<DictionaryView>
                             final data = state as ChatListInitial;
                             return ListView.builder(
                               itemCount: data.chatList.length,
-                              controller: _chatListController,
+                              controller: chatListBloc.chatListController,
                               itemBuilder: (BuildContext context, int index) {
                                 return state.chatList[index];
                               },
@@ -180,7 +158,7 @@ class _DictionaryViewState extends State<DictionaryView>
                               padding:
                                   const EdgeInsets.only(top: 80, bottom: 120),
                               itemCount: data.chatList.length,
-                              controller: _chatListController,
+                              controller: chatListBloc.chatListController,
                               itemBuilder: (BuildContext context, int index) {
                                 return state.chatList[index];
                               },
@@ -201,8 +179,18 @@ class _DictionaryViewState extends State<DictionaryView>
                 Expanded(
                   child: Header(
                     title: "Dictionary".i18n,
-                    actions: const [
-                      DictionaryMenuButton(),
+                    actions: [
+                      const DictionaryMenuButton(),
+                      IconButton(
+                        icon: const Icon(Icons.history),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const WordHistoryView()));
+                        },
+                      )
                     ],
                   ),
                 ),
