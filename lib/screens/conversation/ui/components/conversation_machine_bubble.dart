@@ -77,6 +77,7 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
           },
         ),
       );
+
     } catch (error) {
       setState(() {
         widget.chatGptRepository.questionAnswers.last.answer.write(
