@@ -31,13 +31,13 @@ class ToDictionaryButton extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: const Icon(Icons.chat)),
           const SizedBox(height: 8),
-          const Text(
-            "Talk with our bot in",
-            style: TextStyle(fontSize: 12),
+           Text(
+            "Talk with our bot in".i18n,
+            style: const TextStyle(fontSize: 12),
           ),
-          Text(
-            "Conversation".i18n,
-            style: const TextStyle(
+          const Text(
+            "Conversation",
+            style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold),
           ),
           Text(
