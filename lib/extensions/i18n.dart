@@ -212,7 +212,7 @@ extension Localization on String {
     },
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
-      "vi_vi": "Tra cứu với nhiều tùy chọn khác nhau",
+      "vi_vi": "Tra cứu với những tùy chọn của riêng bạn",
     },
 
     /// Conversation
