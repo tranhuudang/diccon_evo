@@ -46,8 +46,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) {
     var listSynonyms = ThesaurusRepository().getSynonyms(event.providedWord);
-    chatList.add(BrickWallButtons(
-        stringList: listSynonyms, itemOnPressed: event.itemOnPressed));
+    chatList.add(BrickWallButtons(stringList: listSynonyms));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
 
@@ -59,8 +58,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     chatList.add(BrickWallButtons(
         textColor: Colors.orange,
         borderColor: Colors.orangeAccent,
-        stringList: listAntonyms,
-        itemOnPressed: event.itemOnPressed));
+        stringList: listAntonyms));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
 
@@ -88,9 +86,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (Properties.chatbotEnable) {
       final question =
           'Hãy cho tôi biết phiên âm của từ "${event.providedWord}", sau đó giải thích nghĩa của từ "${event.providedWord}". Sau đó cho tôi ví dụ khi sử dụng từ "${event.providedWord}"';
-      var request = await chatGptRepository.createQuestionRequest(question);
+      var request = await chatGptRepository.createSingleQuestionRequest(question);
       var answerIndex = chatGptRepository.questionAnswers.length - 1;
       chatList.add(ChatbotBubble(
+        word : event.providedWord,
         questionRequest: request,
         chatGptRepository: chatGptRepository,
         answerIndex: answerIndex,

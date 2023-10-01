@@ -1,19 +1,20 @@
+import 'package:diccon_evo/screens/dictionary/bloc/chat_list_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BrickWallButtons extends StatelessWidget {
   final List<String> stringList;
-  final Function(String) itemOnPressed;
   final Color borderColor;
   final Color textColor;
   const BrickWallButtons(
       {super.key,
       required this.stringList,
-      required this.itemOnPressed,
       this.borderColor = Colors.blue,
       this.textColor = Colors.blue});
 
   @override
   Widget build(BuildContext context) {
+    final chatListBloc = context.read<ChatListBloc>();
     return Align(
       alignment: Alignment.centerRight,
       child: ConstrainedBox(
@@ -36,7 +37,8 @@ class BrickWallButtons extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      itemOnPressed(item);
+                      chatListBloc.add(AddUserMessage(providedWord: item));
+                      chatListBloc.add(AddLocalTranslation(providedWord: item));
                     },
                     child: Text(
                       item,

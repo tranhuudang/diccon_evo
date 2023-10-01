@@ -27,4 +27,22 @@ class ChatGptRepository {
     return request;
   }
 
+  Future<ChatCompletionRequest> createSingleQuestionRequest(
+      String userQuestion) async {
+    questionAnswers.add(
+      QuestionAnswer(
+        question: userQuestion,
+        answer: StringBuffer(),
+      ),
+    );
+    final request = ChatCompletionRequest(
+      stream: true,
+      maxTokens: 2000,
+      messages: [Message(role: Role.user.name, content: userQuestion)],
+      model: ChatGptModel.gpt35Turbo,
+      temperature: 0.3,
+    );
+    return request;
+  }
+
 }

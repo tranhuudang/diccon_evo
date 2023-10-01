@@ -11,13 +11,14 @@ class ChatbotBubble extends StatefulWidget {
     required this.questionRequest,
     this.onWordTap,
     required this.chatGptRepository,
-    required this.answerIndex,
+    required this.answerIndex, required this.word,
   }) : super(key: key);
 
   final ChatCompletionRequest questionRequest;
   final Function(String)? onWordTap;
   final ChatGptRepository chatGptRepository;
   final int answerIndex;
+  final String word;
 
   @override
   State<ChatbotBubble> createState() => _ChatbotBubbleState();
@@ -93,6 +94,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   void initState() {
     super.initState();
     if (widget
+        .chatGptRepository.questionAnswers.isEmpty || widget
         .chatGptRepository.questionAnswers[widget.answerIndex].answer.isEmpty) {
       _chatStreamResponse(widget.questionRequest);
     }
@@ -136,7 +138,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                 children: [
                   Row(
                     children: [
-                      const WordPlaybackButton(message: "message"),
+                       WordPlaybackButton(message: widget.word),
                       const Spacer(),
                       IconButton(
                           onPressed: () {
@@ -148,7 +150,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                           icon: const Icon(Icons.cached_rounded)),
                     ],
                   ),
-                  Text(answer),
+                  SelectableText(answer),
                 ],
               ),
             ),
