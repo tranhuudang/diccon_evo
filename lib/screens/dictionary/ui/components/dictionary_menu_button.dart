@@ -26,13 +26,10 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
-      initialData: true,
+      initialData: Properties.chatbotEnable,
       stream: streamController.stream,
       builder: (context, snapshot) {
         return PopupMenuButton(
-          icon: snapshot.data!
-              ? const Icon(Icons.auto_awesome)
-              : const Icon(UniconsLine.books),
           //splashRadius: 10.0,
           shape: RoundedRectangleBorder(
             side: BorderSide(color: Theme.of(context).dividerColor),

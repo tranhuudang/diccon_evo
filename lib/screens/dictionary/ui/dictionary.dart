@@ -180,7 +180,6 @@ class _DictionaryViewState extends State<DictionaryView>
                   child: Header(
                     title: "Dictionary".i18n,
                     actions: [
-                      const DictionaryMenuButton(),
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
@@ -190,7 +189,9 @@ class _DictionaryViewState extends State<DictionaryView>
                                   builder: (context) =>
                                       const WordHistoryView()));
                         },
-                      )
+                      ),
+                      const DictionaryMenuButton(),
+
                     ],
                   ),
                 ),
