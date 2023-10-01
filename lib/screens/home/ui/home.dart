@@ -1,4 +1,3 @@
-import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:flutter/foundation.dart';
 import '../../../config/properties.dart';
@@ -26,10 +25,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   // Instance of Repository implementations
   final dataRepository = DictionaryRepository();
   final thesaurusRepository = ThesaurusRepository();
-  final _searchTextController = TextEditingController();
-  bool _enableTinyCloseButton = false;
   List<Widget> listPrimaryFunction = const [
-    ToDictionaryButton(),
+    ToConversationButton(),
     ToReadingChamberButton(),
   ];
   List<Widget> listSubFunction = const [
@@ -115,108 +112,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                           ),
 
                           /// TextField for user to enter their words
-                          Container(
-                            padding: const EdgeInsets.only(top: 2, bottom: 26),
-                            //margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Stack(
-                                    children: [
-                                      TextField(
-                                        controller: _searchTextController,
-                                        onTap: () {
-                                          setState(() {
-                                            _enableTinyCloseButton = true;
-                                          });
-                                        },
-                                        onSubmitted: (String value) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DictionaryView(
-                                                          word: value,
-                                                          buildContext:
-                                                              context)));
-                                        },
-                                        //focusNode: Properties.textFieldFocusNode,
-                                        decoration: InputDecoration(
-                                          prefixIcon: const Icon(Icons.search),
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 16),
-                                          hintText: "Search in dictionary".i18n,
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(32.0),
-                                          ),
-                                        ),
-                                      ),
-                                      _enableTinyCloseButton
-                                          ? SizedBox(
-                                              height: 48,
-                                              //color: Colors.black54,
-                                              child: Row(
-                                                children: [
-                                                  const Spacer(),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 8),
-                                                    child: Center(child:
-                                                        TinyCloseButton(
-                                                            onTap: () {
-                                                      _searchTextController
-                                                          .clear();
-                                                      // Dismiss keyboard
-                                                      FocusScopeNode
-                                                          currentFocus =
-                                                          FocusScope.of(
-                                                              context);
-
-                                                      if (!currentFocus
-                                                          .hasPrimaryFocus) {
-                                                        currentFocus.unfocus();
-                                                      }
-                                                      // Erase tiny button
-                                                      setState(() {
-                                                        _enableTinyCloseButton =
-                                                            false;
-                                                      });
-                                                    })),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          : const SizedBox.shrink()
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox().mediumWidth(),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const DictionaryView()));
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).cardColor,
-                                        borderRadius: BorderRadius.circular(
-                                          32,
-                                        )),
-                                    child: const Icon(
-                                      Icons.auto_awesome,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          const DictionarySearchBoxInHome(),
 
                           /// Two big brother button
                           GridView.builder(
@@ -259,6 +155,145 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     );
   }
 }
+
+class DictionarySearchBoxInHome extends StatefulWidget {
+  const DictionarySearchBoxInHome({super.key});
+
+  @override
+  State<DictionarySearchBoxInHome> createState() => _DictionarySearchBoxInHomeState();
+}
+
+class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
+  final _searchTextController = TextEditingController();
+  bool _enableTinyCloseButton = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 2, bottom: 26),
+      child: Row(
+        children: <Widget>[
+          /// Search dictionay textfield
+          Expanded(
+            child: Stack(
+              children: [
+                TextField(
+                  controller: _searchTextController,
+                  onTap: () {
+                    setState(() {
+                      _enableTinyCloseButton = true;
+                    });
+                  },
+                  onSubmitted: (String value) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DictionaryView(
+                                    word: value,
+                                    buildContext:
+                                    context)));
+                  },
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    contentPadding:
+                        const EdgeInsets.symmetric(
+                            horizontal: 16),
+                    hintText: "Search in dictionary".i18n,
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(32),
+                        bottomLeft: Radius.circular(32),
+
+                      ),
+                    ),
+                  ),
+                ),
+                _enableTinyCloseButton
+                    ? SizedBox(
+                  height: 48,
+                  //color: Colors.black54,
+                  child: Row(
+                    children: [
+                      const Spacer(),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(
+                            right: 8),
+                        child: Center(child:
+                        TinyCloseButton(
+                            onTap: () {
+                              _searchTextController
+                                  .clear();
+                              // Dismiss keyboard
+                              FocusScopeNode
+                              currentFocus =
+                              FocusScope.of(
+                                  context);
+
+                              if (!currentFocus
+                                  .hasPrimaryFocus) {
+                                currentFocus.unfocus();
+                              }
+                              // Erase tiny button
+                              setState(() {
+                                _enableTinyCloseButton =
+                                false;
+                              });
+                            })),
+                      )
+                    ],
+                  ),
+                )
+                    : const SizedBox.shrink()
+              ],
+            ),
+          ),
+          /// Navigate to dictionary view
+          InkWell(
+            onTap: () {
+              if (_searchTextController.text.trim().isEmpty) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const DictionaryView()));
+              }
+              else {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DictionaryView(
+                                word: _searchTextController.text,
+                                buildContext:
+                                context)));
+              }
+            },
+            child: Container(
+              height: 48,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor.withOpacity(0.7),
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(32,),
+                    bottomRight: Radius.circular(32,)
+                ),
+              ),
+              child: Row(
+                children: [
+                  Text("Dictionary".i18n),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
 
 class TinyCloseButton extends StatelessWidget {
   final VoidCallback onTap;

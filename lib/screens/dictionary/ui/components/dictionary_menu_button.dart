@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:diccon_evo/config/properties.dart';
-import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +43,9 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                           color: Colors.blue,
                         ),
                         const SizedBox().mediumWidth(),
-                        Text(
-                          "AI Dictionary".i18n,
-                          style: const TextStyle(
+                        const Text(
+                          "AI Dictionary",
+                          style: TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -58,8 +56,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                           Icons.auto_awesome,
                         ),
                         const SizedBox().mediumWidth(),
-                        Text(
-                          "AI Dictionary".i18n,
+                        const Text(
+                          "AI Dictionary",
                         ),
                       ],
                     ),
@@ -77,7 +75,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       children: [
                         const Icon(UniconsLine.books),
                         const SizedBox().mediumWidth(),
-                        Text("Classic Dictionary".i18n),
+                        const Text("Classic Dictionary"),
                       ],
                     )
                   : Row(
@@ -87,8 +85,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                           color: Colors.blue,
                         ),
                         const SizedBox().mediumWidth(),
-                        Text("Classic Dictionary".i18n,
-                            style: const TextStyle(
+                        const Text("Classic Dictionary",
+                            style: TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold)),
                       ],

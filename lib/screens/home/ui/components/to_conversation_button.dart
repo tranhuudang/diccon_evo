@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../conversation/ui/conversation.dart';
 import 'feature_button.dart';
-class ToDictionaryButton extends StatelessWidget {
-  const ToDictionaryButton({
+class ToConversationButton extends StatelessWidget {
+  const ToConversationButton({
     super.key,
   });
 
