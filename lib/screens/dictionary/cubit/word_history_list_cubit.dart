@@ -25,7 +25,7 @@ class HistoryListCubit extends Cubit<List<String>> {
   }
 
   void clearHistory() {
-    FileHandler(Properties.wordHistoryFileName).delete();
+    FileHandler(Properties.wordHistoryFileName).deleteOnUserData();
     words = List.empty();
     emit(words);
   }

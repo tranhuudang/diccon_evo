@@ -8,7 +8,7 @@ import '../handlers/directory_handler.dart';
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {
     final onlinePath = "${Properties.userInfo.id}/$fileName";
-    final localFilePath = await DirectoryHandler.getLocalFilePath(fileName);
+    final localFilePath = await DirectoryHandler.getLocalUserDataFilePath(fileName);
     final fileToUpload = File(localFilePath);
     if (fileToUpload.existsSync()) {
       if (kDebugMode) {
@@ -40,7 +40,7 @@ class UserHandler {
     if (kDebugMode) {
       print("Working on ${ref.name}-------------------");
     }
-    final filePath = await DirectoryHandler.getLocalFilePath(ref.name);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(ref.name);
     final file = File(filePath);
     if (!file.existsSync()) {
       await ref.writeToFile(file);
@@ -48,7 +48,7 @@ class UserHandler {
         print("Downloaded: ${file.path}");
       }
     } else {
-      final tempCloudFilePath = await DirectoryHandler.getLocalFilePath(ref.name);
+      final tempCloudFilePath = await DirectoryHandler.getLocalUserDataFilePath(ref.name);
       final tempCloudfile = File(tempCloudFilePath);
       await ref.writeToFile(tempCloudfile);
       List<dynamic> cloudJsonFile =

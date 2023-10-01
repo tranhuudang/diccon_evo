@@ -125,7 +125,7 @@ class ArticleListBloc extends Bloc<ArticleListEvent, ArticleListState> {
 
   Future<void> _reLoadAll() async {
     /// Remove downloaded extend-story.json
-    await FileHandler(Properties.extendStoryFileName).delete();
+    await FileHandler(Properties.extendStoryFileName).deleteOnUserData();
     defaultArticleList = await articleRepository.getDefaultStories();
     var onlineStories = await articleRepository.getOnlineStoryList();
 

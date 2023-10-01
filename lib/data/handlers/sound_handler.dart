@@ -41,13 +41,13 @@ class SoundHandler {
       print("playing word: $refinedWord");
     }
     String fileName = "$refinedWord.mp3";
-    File file = File(await DirectoryHandler.getLocalFilePath(fileName));
+    File file = File(await DirectoryHandler.getLocalResourceFilePath(fileName));
 
     // Check if the file is already downloaded before and play it
     if (await file.exists()) {
       _playLocal(fileName);
       return;
-    } else if (await FileHandler(fileName).download(url)) {
+    } else if (await FileHandler(fileName).downloadToResource(url)) {
       // Try to download if it available on Online Resources
       _playLocal(fileName);
     }
@@ -55,7 +55,7 @@ class SoundHandler {
 
   void _playLocal(String fileName) async {
     try {
-      var filePath = await DirectoryHandler.getLocalFilePath(fileName);
+      var filePath = await DirectoryHandler.getLocalResourceFilePath(fileName);
       AudioPlayer audioPlayer = AudioPlayer();
       await audioPlayer.play(UrlSource(filePath));
     } catch (e) {

@@ -24,7 +24,7 @@ class ArticleRepository {
    Future<List<Article>> getOnlineStoryList() async {
     try {
       String filePath =
-          await DirectoryHandler.getLocalFilePath(Properties.extendStoryFileName);
+          await DirectoryHandler.getLocalUserDataFilePath(Properties.extendStoryFileName);
       File file = File(filePath);
       if (!file.existsSync()) {
         if (kDebugMode) {
@@ -85,7 +85,7 @@ class ArticleRepository {
   }
 
    Future<List<Article>> readArticleHistory() async {
-    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.articleHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -110,7 +110,7 @@ class ArticleRepository {
   }
 
    Future<List<Article>> readArticleBookmark() async {
-    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleBookmarkFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.articleBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -135,7 +135,7 @@ class ArticleRepository {
   }
 
    Future<bool> saveReadArticleToHistory(Article article) async {
-    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.articleHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -169,7 +169,7 @@ class ArticleRepository {
   }
 
    Future<bool> saveReadArticleToBookmark(Article article) async {
-    final filePath = await DirectoryHandler.getLocalFilePath(Properties.articleBookmarkFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.articleBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -199,10 +199,10 @@ class ArticleRepository {
   }
 
   Future<bool> deleteAllArticleHistory() async{
-   return await FileHandler(Properties.articleHistoryFileName).delete();
+   return await FileHandler(Properties.articleHistoryFileName).deleteOnUserData();
   }
    Future<bool> deleteAllArticleBookmark() async{
-     return await FileHandler(Properties.articleBookmarkFileName).delete();
+     return await FileHandler(Properties.articleBookmarkFileName).deleteOnUserData();
    }
 
 }

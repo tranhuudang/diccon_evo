@@ -21,7 +21,7 @@ class EssentialManager {
   }
 
   static Future<List<EssentialWord>> readFavouriteEssential() async {
-    final filePath = await DirectoryHandler.getLocalFilePath("essential_favourite.json");
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -48,7 +48,7 @@ class EssentialManager {
 
   static Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
     final filePath = await DirectoryHandler
-        .getLocalFilePath(Properties.essentialFavouriteFileName);
+        .getLocalUserDataFilePath(Properties.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -90,7 +90,7 @@ class EssentialManager {
 
   static removeAWordOutOfFavourite(String wordEnglishName) async {
     final filePath = await DirectoryHandler
-        .getLocalFilePath("essential_favourite.json");
+        .getLocalUserDataFilePath(Properties.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()

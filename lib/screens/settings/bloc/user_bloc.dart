@@ -59,11 +59,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await UserHandler().deleteUserDataFile();
 
     /// Remove local file
-    await FileHandler(Properties.wordHistoryFileName).delete();
-    await FileHandler(Properties.articleHistoryFileName).delete();
-    await FileHandler(Properties.articleBookmarkFileName).delete();
-    await FileHandler(Properties.topicHistoryFileName).delete();
-    await FileHandler(Properties.essentialFavouriteFileName).delete();
+    await FileHandler(Properties.wordHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.articleHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.articleBookmarkFileName).deleteOnUserData();
+    await FileHandler(Properties.topicHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.essentialFavouriteFileName).deleteOnUserData();
     await Future.delayed(const Duration(seconds: 2));
   }
 
@@ -98,11 +98,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     authService.googleSignOut();
 
     /// Remove local file
-    await FileHandler(Properties.wordHistoryFileName).delete();
-    await FileHandler(Properties.articleHistoryFileName).delete();
-    await FileHandler(Properties.articleBookmarkFileName).delete();
-    await FileHandler(Properties.topicHistoryFileName).delete();
-    await FileHandler(Properties.essentialFavouriteFileName).delete();
+    await FileHandler(Properties.wordHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.articleHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.articleBookmarkFileName).deleteOnUserData();
+    await FileHandler(Properties.topicHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.essentialFavouriteFileName).deleteOnUserData();
     /// Reset properties
     Properties.userInfo = UserInfo("", "", "", "");
     await Future.delayed(const Duration(seconds: 2));
