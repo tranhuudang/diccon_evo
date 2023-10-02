@@ -42,7 +42,7 @@ class SubFunctionBox extends StatelessWidget {
                     );
                   }),
             ),
-            SizedBox().largeHeight(),
+            const SizedBox().largeHeight(),
 
             SmoothPageIndicator(
               controller: pageController,
