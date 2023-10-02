@@ -32,7 +32,7 @@ class StoryReadingView extends StatefulWidget {
 class _StoryReadingViewState extends State<StoryReadingView> {
   final _translator = GoogleTranslator();
   final _storyBookmarkBloc = StoryBookmarkBloc();
-  bool _isTranslating = false;
+  bool isTranslating = false;
   final _storyRepository = StoryRepository();
   List<Story> _listStories = [];
   final _streamIsBookmarkController = StreamController<bool>();
@@ -219,11 +219,11 @@ class _StoryReadingViewState extends State<StoryReadingView> {
       );
     } else {
       setState(() {
-        _isTranslating = true;
+        isTranslating = true;
       });
       Translation result = await translate(searchWord);
       setState(() {
-        _isTranslating = false;
+        isTranslating = false;
       });
 
       wordResult =

@@ -1,5 +1,4 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

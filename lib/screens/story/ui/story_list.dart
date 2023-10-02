@@ -12,14 +12,9 @@ import '../blocs/story_list_bloc.dart';
 import 'story_bookmark.dart';
 import 'components/reading_tile.dart';
 
-class StoryListView extends StatefulWidget {
+class StoryListView extends StatelessWidget {
   const StoryListView({super.key});
 
-  @override
-  State<StoryListView> createState() => _StoryListViewState();
-}
-
-class _StoryListViewState extends State<StoryListView> {
   @override
   Widget build(BuildContext context) {
     final storyListBloc = context.read<StoryListBloc>();
@@ -90,8 +85,8 @@ class _StoryListViewState extends State<StoryListView> {
                       bloc: storyListBloc,
                       builder: (context, state) {
                         switch (state.runtimeType) {
-                          case StoryListInitializedState:
-                            var data = state as StoryListInitializedState;
+                          case StoryListUpdatedState:
+                            var data = state as StoryListUpdatedState;
                             return Container(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               child: LayoutBuilder(
@@ -145,6 +140,40 @@ class _StoryListViewState extends State<StoryListView> {
                                     },
                                   );
                                 },
+                              ),
+                            );
+                          case StoryListErrorState:
+                            return Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox().mediumHeight(),
+                                  const Image(
+                                    image: AssetImage('assets/stickers/error.png'),
+                                    width: 200,
+                                  ),
+                                  const SizedBox().mediumHeight(),
+                                  Text(
+                                    "I'm tired. I guess I'm getting old.".i18n,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold, fontSize: 20),
+                                  ),
+                                  const SizedBox().mediumHeight(),
+                                  Opacity(
+                                    opacity: 0.5,
+                                    child: SizedBox(
+                                      width: 300,
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        "Don't worry, this sometimes happens to prove the theory that nothing is perfect. We are on the way to fixing it. So, keep calm and keep kicking.".i18n,
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox().mediumHeight(),
+                                ],
                               ),
                             );
                           default:

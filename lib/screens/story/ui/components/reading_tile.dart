@@ -4,7 +4,6 @@ import '../../../../data/models/story.dart';
 import '../../../../data/models/level.dart';
 import '../../../commons/level_icon.dart';
 import '../../blocs/story_history_list_bloc.dart';
-import '../story_reading.dart';
 
 class ReadingTile extends StatelessWidget {
   final String? tag;

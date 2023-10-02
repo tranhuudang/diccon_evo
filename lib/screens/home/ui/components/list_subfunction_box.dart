@@ -1,9 +1,5 @@
 import 'dart:async';
-
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/extensions/target_platform.dart';
-import 'package:diccon_evo/screens/commons/circle_button.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

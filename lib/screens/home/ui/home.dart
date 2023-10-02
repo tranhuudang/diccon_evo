@@ -118,6 +118,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
                           /// Two big brother button
                           GridView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: listPrimaryFunction.length,
                               gridDelegate:

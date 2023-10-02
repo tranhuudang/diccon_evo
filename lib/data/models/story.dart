@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class Story extends Equatable {
-  late final String title;
-  late final String? source;
-  late final String? imageUrl;
-  late final DateTime? createdDate;
-  late final String content;
-  late final String shortDescription;
-  late final String? level;
-  Story(
+  final String title;
+  final String? source;
+  final String? imageUrl;
+  final DateTime? createdDate;
+  final String content;
+  final String shortDescription;
+  final String? level;
+  const Story(
       {required this.title,
       required this.shortDescription,
       required this.content,

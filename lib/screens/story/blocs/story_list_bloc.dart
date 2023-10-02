@@ -28,21 +28,20 @@ class StoryListSortAll extends StoryListEvent {}
 /// States
 abstract class StoryListState {}
 
-class StoryListUninitialized extends StoryListState {
-  List<Story> defaultStoryList = [];
-  StoryListUninitialized(this.defaultStoryList);
+class StoryListUninitialized extends StoryListState {}
+
+class StoryListUpdatedState extends StoryListState {
+  List<Story> articleList = [];
+  StoryListUpdatedState({required this.articleList});
 }
 
-class StoryListInitializedState extends StoryListState {
-  List<Story> articleList = [];
-  StoryListInitializedState({required this.articleList});
-}
+class StoryListErrorState extends StoryListState{}
 
 /// Bloc
 class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
-  StoryListBloc() : super(StoryListUninitialized([])) {
-    on<StoryListInitial>(_getAllStory);
-    on<StoryListReload>(_reGetAllStory);
+  StoryListBloc() : super(StoryListUninitialized()) {
+    on<StoryListInitial>(_storyListInitial);
+    on<StoryListReload>(_storyListReload);
     on<StoryListCancelLoad>(_cancelLoading);
     on<StoryListSortElementary>(_sortElementary);
     on<StoryListSortIntermediate>(_sortIntermediate);
@@ -53,24 +52,32 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
   final articleRepository = StoryRepository();
   List<Story> defaultStoryList = [];
 
-  FutureOr<void> _getAllStory(
+  FutureOr<void> _storyListInitial(
       StoryListInitial event, Emitter<StoryListState> emit) async {
-    await _loadAll().timeout(const Duration(seconds: 10), onTimeout: (){
+    try {
+      await _loadAll().timeout(const Duration(seconds: 10), onTimeout: () {
+        if (kDebugMode) {
+          print("Load all article reach timeout 10 seconds limit.");
+        }
+      });
+      emit(StoryListUpdatedState(articleList: defaultStoryList));
+    } catch(e)
+    {
       if (kDebugMode) {
-        print("Load all article reach timeout 10 seconds limit.");
+        print("This error happened in StoryListInitial: $e");
       }
-    });
-    emit(StoryListInitializedState(articleList: defaultStoryList));
+      emit(StoryListErrorState());
+    }
   }
 
-  FutureOr<void> _reGetAllStory(
+  FutureOr<void> _storyListReload(
       StoryListReload event, Emitter<StoryListState> emit) async {
     await _reLoadAll().timeout(const Duration(seconds: 10), onTimeout: (){
       if (kDebugMode) {
         print("Reload all article reach timeout 10 seconds limit.");
       }
     });
-    emit(StoryListInitializedState(articleList: defaultStoryList));
+    emit(StoryListUpdatedState(articleList: defaultStoryList));
   }
 
   FutureOr<void> _cancelLoading(
@@ -87,7 +94,7 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
         .toList();
-    emit(StoryListInitializedState(articleList: elementaryOnly));
+    emit(StoryListUpdatedState(articleList: elementaryOnly));
   }
 
   void _sortIntermediate(
@@ -96,7 +103,7 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
         .toList();
-    emit(StoryListInitializedState(articleList: intermediateOnly));
+    emit(StoryListUpdatedState(articleList: intermediateOnly));
   }
 
   void _sortAdvanced(
@@ -104,12 +111,12 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
     var advancedOnly = defaultStoryList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
-    emit(StoryListInitializedState(articleList: advancedOnly));
+    emit(StoryListUpdatedState(articleList: advancedOnly));
   }
 
   void _sortAll(StoryListSortAll event, Emitter<StoryListState> emit) {
     var all = defaultStoryList;
-    emit(StoryListInitializedState(articleList: all));
+    emit(StoryListUpdatedState(articleList: all));
   }
 
   Future<void> _loadAll() async {
