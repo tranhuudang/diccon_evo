@@ -111,10 +111,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                           ]),
                           const SizedBox().mediumHeight(),
                           const PlanButton(),
-                          const SizedBox().mediumHeight(),
+                          const SizedBox().largeHeight(),
 
                           /// TextField for user to enter their words
                           const DictionarySearchBoxInHome(),
+                          const SizedBox().largeHeight(),
 
                           /// Two big brother button
                           GridView.builder(
@@ -173,111 +174,108 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 2, bottom: 26),
-      child: Row(
-        children: <Widget>[
-          /// Search dictionay textfield
-          Expanded(
-            child: Stack(
-              children: [
-                TextField(
-                  controller: _searchTextController,
-                  onTap: () {
-                    setState(() {
-                      _enableTinyCloseButton = true;
-                    });
-                  },
-                  onSubmitted: (String value) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DictionaryView(
-                                word: value, buildContext: context)));
-                  },
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    hintText: "Search in dictionary".i18n,
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(32),
-                        bottomLeft: Radius.circular(32),
-                      ),
+    return Row(
+      children: <Widget>[
+        /// Search dictionay textfield
+        Expanded(
+          child: Stack(
+            children: [
+              TextField(
+                controller: _searchTextController,
+                onTap: () {
+                  setState(() {
+                    _enableTinyCloseButton = true;
+                  });
+                },
+                onSubmitted: (String value) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DictionaryView(
+                              word: value, buildContext: context)));
+                },
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  hintText: "Search in dictionary".i18n,
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(32),
+                      bottomLeft: Radius.circular(32),
                     ),
                   ),
                 ),
-                _enableTinyCloseButton
-                    ? SizedBox(
-                        height: 48,
-                        //color: Colors.black54,
-                        child: Row(
-                          children: [
-                            const Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: Center(child: TinyCloseButton(onTap: () {
-                                _searchTextController.clear();
-                                // Dismiss keyboard
-                                FocusScopeNode currentFocus =
-                                    FocusScope.of(context);
+              ),
+              _enableTinyCloseButton
+                  ? SizedBox(
+                      height: 48,
+                      //color: Colors.black54,
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Center(child: TinyCloseButton(onTap: () {
+                              _searchTextController.clear();
+                              // Dismiss keyboard
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
 
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
-                                }
-                                // Erase tiny button
-                                setState(() {
-                                  _enableTinyCloseButton = false;
-                                });
-                              })),
-                            )
-                          ],
-                        ),
-                      )
-                    : const SizedBox.shrink()
+                              if (!currentFocus.hasPrimaryFocus) {
+                                currentFocus.unfocus();
+                              }
+                              // Erase tiny button
+                              setState(() {
+                                _enableTinyCloseButton = false;
+                              });
+                            })),
+                          )
+                        ],
+                      ),
+                    )
+                  : const SizedBox.shrink()
+            ],
+          ),
+        ),
+
+        /// Navigate to dictionary view
+        InkWell(
+          onTap: () {
+            if (_searchTextController.text.trim().isEmpty) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DictionaryView()));
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DictionaryView(
+                          word: _searchTextController.text,
+                          buildContext: context)));
+            }
+          },
+          child: Container(
+            height: 48,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor.withOpacity(0.7),
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(
+                    32,
+                  ),
+                  bottomRight: Radius.circular(
+                    32,
+                  )),
+            ),
+            child: Row(
+              children: [
+                Text("Dictionary".i18n),
               ],
             ),
           ),
-
-          /// Navigate to dictionary view
-          InkWell(
-            onTap: () {
-              if (_searchTextController.text.trim().isEmpty) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DictionaryView()));
-              } else {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DictionaryView(
-                            word: _searchTextController.text,
-                            buildContext: context)));
-              }
-            },
-            child: Container(
-              height: 48,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.7),
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(
-                      32,
-                    ),
-                    bottomRight: Radius.circular(
-                      32,
-                    )),
-              ),
-              child: Row(
-                children: [
-                  Text("Dictionary".i18n),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }
