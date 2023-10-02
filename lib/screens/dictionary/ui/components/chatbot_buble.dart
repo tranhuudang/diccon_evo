@@ -36,6 +36,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
+    isLoadingStreamController.sink.add(true);
     try {
       final stream = await widget.chatGptRepository.chatGpt
           .createChatCompletionStream(request);
@@ -47,38 +48,6 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               isLoadingStreamController.sink.add(false);
             } else {
               return widget.chatGptRepository.questionAnswers.last.answer.write(
-                event.choices?.first.delta?.content,
-              );
-            }
-          },
-        ),
-      );
-    } catch (error) {
-      setState(() {
-        widget.chatGptRepository.questionAnswers.last.answer.write(
-            "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
-      });
-      if (kDebugMode) {
-        print("Error occurred: $error");
-      }
-    }
-  }
-
-  _chatStreamResponseReload(ChatCompletionRequest request) async {
-    _chatStreamSubscription?.cancel();
-    try {
-      final stream = await widget.chatGptRepository.chatGpt
-          .createChatCompletionStream(request);
-      _chatStreamSubscription = stream?.listen(
-        (event) => setState(
-          () {
-            if (event.streamMessageEnd) {
-              _chatStreamSubscription?.cancel();
-              isLoadingStreamController.sink.add(false);
-            } else {
-              return widget
-                  .chatGptRepository.questionAnswers[widget.answerIndex].answer
-                  .write(
                 event.choices?.first.delta?.content,
               );
             }
@@ -146,7 +115,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   StreamBuilder<bool>(
-                      initialData: true,
+                      initialData: false,
                       stream: isLoadingStreamController.stream,
                       builder: (context, snapshot) {
                         return Row(
@@ -181,7 +150,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                                           .questionAnswers[widget.answerIndex]
                                           .answer
                                           .clear();
-                                      _chatStreamResponseReload(
+                                      _chatStreamResponse(
                                           widget.questionRequest);
                                     },
                                     icon: const Icon(Icons.cached_rounded)),
