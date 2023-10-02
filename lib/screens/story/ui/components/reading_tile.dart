@@ -4,14 +4,15 @@ import '../../../../data/models/story.dart';
 import '../../../../data/models/level.dart';
 import '../../../commons/level_icon.dart';
 import '../../blocs/story_history_list_bloc.dart';
-import '../story_page.dart';
+import '../story_reading.dart';
 
 class ReadingTile extends StatelessWidget {
   final String? tag;
   final Story story;
+  final VoidCallback onTap;
   const ReadingTile({
     super.key,
-    required this.story, this.tag,
+    required this.story, this.tag, required this.onTap,
 
   });
 
@@ -22,16 +23,9 @@ class ReadingTile extends StatelessWidget {
     return GridTile(
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
-        onTap: () {
+        onTap: (){
           storyHistoryBloc.add(StoryHistoryAdd(story: story));
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StoryPageView(
-                story: story ,
-              ),
-            ),
-          );
+          onTap();
         },
         child: Container(
           padding: const EdgeInsets.all(8),

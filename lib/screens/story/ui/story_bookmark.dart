@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/story/ui/story_reading.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/header.dart';
@@ -10,8 +14,7 @@ class StoryListBookmarkView extends StatefulWidget {
   const StoryListBookmarkView({super.key});
 
   @override
-  State<StoryListBookmarkView> createState() =>
-      _StoryListBookmarkViewState();
+  State<StoryListBookmarkView> createState() => _StoryListBookmarkViewState();
 }
 
 class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
@@ -63,7 +66,33 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                                 7 / 3, // Adjust the aspect ratio as needed
                           ),
                           itemBuilder: (context, index) {
-                            return ReadingTile(story: data.stories[index]);
+                            return ReadingTile(
+                              story: data.stories[index],
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => StoryReadingView(
+                                      story: data.stories[index],
+                                    ),
+                                  ),
+                                ).then(
+                                    (FutureOr<dynamic> isListStoriesChanged) {
+                                  // Get result value from Navigator.pop
+                                  // to see if the listStoriesPage is changed and therefore trigger reload.
+                                  if (isListStoriesChanged != null) {
+                                    if ((isListStoriesChanged is bool) &&
+                                        (isListStoriesChanged == true)) {
+                                      storyBookmarkBloc
+                                          .add(StoryBookmarkLoad());
+                                      if (kDebugMode) {
+                                        print("List Bookmark is reloaded");
+                                      }
+                                    }
+                                  }
+                                });
+                              },
+                            );
                           },
                         );
                       },
@@ -106,8 +135,8 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             ),
                             PopupMenuItem(
                               child: Text("All".i18n),
-                              onTap: () => storyBookmarkBloc
-                                  .add(StoryBookmarkGetAll()),
+                              onTap: () =>
+                                  storyBookmarkBloc.add(StoryBookmarkGetAll()),
                             ),
                             const PopupMenuItem(
                               enabled: false,
@@ -122,8 +151,8 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             ),
                             PopupMenuItem(
                               child: Text("Clear all".i18n),
-                              onTap: () => storyBookmarkBloc
-                                  .add(StoryBookmarkClear()),
+                              onTap: () =>
+                                  storyBookmarkBloc.add(StoryBookmarkClear()),
                             ),
                           ],
                         ),
@@ -148,8 +177,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                           Text(
                             "TitleBookmarkEmptyBox".i18n,
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           const SizedBox().mediumHeight(),
                           Opacity(
@@ -159,8 +187,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                               child: Text(
                                 textAlign: TextAlign.center,
                                 "SubSentenceInBookmarkEmptyList".i18n,
-                                style: const TextStyle(
-                                    fontSize: 18),
+                                style: const TextStyle(fontSize: 18),
                               ),
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/story/ui/story_reading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/header.dart';
@@ -23,10 +24,8 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
         body: BlocConsumer<StoryHistoryBloc, StoryHistoryState>(
           bloc: storyHistoryBloc,
           listener: (BuildContext context, StoryHistoryState state) {},
-          buildWhen: (previous, current) =>
-              current is! StoryHistoryActionState,
-          listenWhen: (previous, current) =>
-              current is StoryHistoryActionState,
+          buildWhen: (previous, current) => current is! StoryHistoryActionState,
+          listenWhen: (previous, current) => current is StoryHistoryActionState,
           builder: (context, state) {
             switch (state.runtimeType) {
               case StoryHistoryUpdated:
@@ -62,7 +61,19 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                                 7 / 3, // Adjust the aspect ratio as needed
                           ),
                           itemBuilder: (context, index) {
-                            return ReadingTile(story: data.stories[index]);
+                            return ReadingTile(
+                              story: data.stories[index],
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => StoryReadingView(
+                                      story: data.stories[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
                           },
                         );
                       },
@@ -105,8 +116,8 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                             ),
                             PopupMenuItem(
                               child: Text("All".i18n),
-                              onTap: () => storyHistoryBloc
-                                  .add(StoryHistoryGetAll()),
+                              onTap: () =>
+                                  storyHistoryBloc.add(StoryHistoryGetAll()),
                             ),
                             const PopupMenuItem(
                               enabled: false,
@@ -147,16 +158,14 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                           Text(
                             "History is empty".i18n,
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           const SizedBox().mediumHeight(),
                           Opacity(
                             opacity: 0.5,
                             child: Text(
                               "SubSentenceInStoryHistory".i18n,
-                              style: const TextStyle(
-                                  fontSize: 18),
+                              style: const TextStyle(fontSize: 18),
                             ),
                           ),
                         ],

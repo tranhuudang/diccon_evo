@@ -1,5 +1,6 @@
+import 'package:equatable/equatable.dart';
 
-class Story {
+class Story extends Equatable {
   late final String title;
   late final String? source;
   late final String? imageUrl;
@@ -40,4 +41,8 @@ class Story {
       "level": level,
     };
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [title];
 }

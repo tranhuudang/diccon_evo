@@ -9,8 +9,9 @@ import '../helpers/file_helper.dart';
 import '../models/story.dart';
 
 class StoryRepository {
-   Future<List<Story>> getDefaultStories() async {
-    String contents = await FileHelper.getAssetFile('assets/stories/story-default.json');
+  Future<List<Story>> getDefaultStories() async {
+    String contents =
+        await FileHelper.getAssetFile('assets/stories/story-default.json');
     final json = jsonDecode(contents);
     if (json is List<dynamic>) {
       final List<Story> stories =
@@ -21,10 +22,10 @@ class StoryRepository {
     }
   }
 
-   Future<List<Story>> getOnlineStoryList() async {
+  Future<List<Story>> getOnlineStoryList() async {
     try {
-      String filePath =
-          await DirectoryHandler.getLocalUserDataFilePath(Properties.extendStoryFileName);
+      String filePath = await DirectoryHandler.getLocalUserDataFilePath(
+          Properties.extendStoryFileName);
       File file = File(filePath);
       if (!file.existsSync()) {
         if (kDebugMode) {
@@ -41,10 +42,8 @@ class StoryRepository {
               'https://github.com/tranhuudang/diccon_assets/raw/main/stories/extends.json');
 
           if (jsonData is List<dynamic>) {
-            final List<Story> stories = jsonData
-                .map((e) => Story.fromJson(e))
-                .toList()
-                .cast<Story>();
+            final List<Story> stories =
+                jsonData.map((e) => Story.fromJson(e)).toList().cast<Story>();
 
             return stories;
           } else {
@@ -84,8 +83,9 @@ class StoryRepository {
     }
   }
 
-   Future<List<Story>> readStoryHistory() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.storyHistoryFileName);
+  Future<List<Story>> readStoryHistory() async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        Properties.storyHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -93,7 +93,7 @@ class StoryRepository {
         final json = jsonDecode(contents);
         if (json is List<dynamic>) {
           final List<Story> stories =
-          json.map((e) => Story.fromJson(e)).toList().cast<Story>();
+              json.map((e) => Story.fromJson(e)).toList().cast<Story>();
           return stories;
         } else {
           return [];
@@ -109,8 +109,9 @@ class StoryRepository {
     }
   }
 
-   Future<List<Story>> readStoryBookmark() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.storyBookmarkFileName);
+  Future<List<Story>> readStoryBookmark() async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        Properties.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -118,7 +119,7 @@ class StoryRepository {
         final json = jsonDecode(contents);
         if (json is List<dynamic>) {
           final List<Story> stories =
-          json.map((e) => Story.fromJson(e)).toList().cast<Story>();
+              json.map((e) => Story.fromJson(e)).toList().cast<Story>();
           return stories;
         } else {
           return [];
@@ -134,16 +135,17 @@ class StoryRepository {
     }
   }
 
-   Future<bool> saveReadStoryToHistory(Story story) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.storyHistoryFileName);
+  Future<bool> saveReadStoryToHistory(Story story) async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        Properties.storyHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
         // Check is a story is already exists in the history
-        bool isStoryExist = json
-            .any((storyInJson) => storyInJson['title'] == story.title);
+        bool isStoryExist =
+            json.any((storyInJson) => storyInJson['title'] == story.title);
         if (!isStoryExist) {
           if (json is List<dynamic>) {
             json.add(story.toJson());
@@ -168,16 +170,17 @@ class StoryRepository {
     }
   }
 
-   Future<bool> saveReadStoryToBookmark(Story story) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.storyBookmarkFileName);
+  Future<bool> saveReadStoryToBookmark(Story story) async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        Properties.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
         // Check is a story is already exists in the history
-        bool isStoryExist = json
-            .any((storyInJson) => storyInJson['title'] == story.title);
+        bool isStoryExist =
+            json.any((storyInJson) => storyInJson['title'] == story.title);
         if (!isStoryExist) {
           if (json is List<dynamic>) {
             json.add(story.toJson());
@@ -198,11 +201,45 @@ class StoryRepository {
     }
   }
 
-  Future<bool> deleteAllStoryHistory() async{
-   return await FileHandler(Properties.storyHistoryFileName).deleteOnUserData();
-  }
-   Future<bool> deleteAllStoryBookmark() async{
-     return await FileHandler(Properties.storyBookmarkFileName).deleteOnUserData();
-   }
+  Future<bool> removeAStoryInBookmark(Story story) async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        Properties.storyBookmarkFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        List<dynamic> json = jsonDecode(contents).toList();
+        // Check is a story is already exists in the bookmark
+        bool isStoryExist =
+            json.any((storyInJson) => storyInJson['title'] == story.title);
+        if (isStoryExist) {
 
+          json.removeWhere((storyInJson) => storyInJson['title'] == story.title);
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+            if (kDebugMode) {
+              print("Remove a story out of ${Properties.storyBookmarkFileName}");
+            }
+        }
+      }
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(
+            "Can't remove to story ${Properties.storyBookmarkFileName}. Error detail: $e");
+      }
+      return false;
+    }
+  }
+
+  Future<bool> deleteAllStoryHistory() async {
+    return await FileHandler(Properties.storyHistoryFileName)
+        .deleteOnUserData();
+  }
+
+  Future<bool> deleteAllStoryBookmark() async {
+    return await FileHandler(Properties.storyBookmarkFileName)
+        .deleteOnUserData();
+  }
 }

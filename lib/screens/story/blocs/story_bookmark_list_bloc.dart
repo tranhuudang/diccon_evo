@@ -49,6 +49,10 @@ class StoryBookmarkSortAdvanced extends StoryBookmarkEvent {}
 
 class StoryBookmarkGetAll extends StoryBookmarkEvent {}
 
+class StoryBookmarkRemove extends StoryBookmarkEvent {
+  Story story;
+  StoryBookmarkRemove({required this.story});
+}
 class StoryBookmarkClear extends StoryBookmarkEvent {}
 
 class StoryBookmarkAdd extends StoryBookmarkEvent {
@@ -71,6 +75,7 @@ class StoryBookmarkBloc
     on<StoryBookmarkGetAll>(_all);
     on<StoryBookmarkAdd>(_add);
     on<StoryBookmarkClear>(_clear);
+    on<StoryBookmarkRemove>(_removeAStory);
   }
   final storyRepository = StoryRepository();
   var loadedStoryBookmarkList = List<Story>.empty();
@@ -136,6 +141,13 @@ class StoryBookmarkBloc
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(StoryBookmarkUpdated(stories: advancedOnly));
+  }
+
+  FutureOr<void> _removeAStory(
+      StoryBookmarkRemove event, Emitter<StoryBookmarkState> emit) async {
+    storyRepository.removeAStoryInBookmark(event.story);
+    //loadedStoryBookmarkList.remove(event.story);
+    emit(StoryBookmarkUpdated(stories: loadedStoryBookmarkList));
   }
 
   FutureOr<void> _all(

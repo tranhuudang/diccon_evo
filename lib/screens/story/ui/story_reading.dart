@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:diccon_evo/data/repositories/story_repository.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
@@ -14,37 +17,54 @@ import '../../commons/circle_button.dart';
 import '../../commons/clickable_words.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class StoryPageView extends StatefulWidget {
+class StoryReadingView extends StatefulWidget {
   final Story story;
 
-  const StoryPageView({
+  const StoryReadingView({
     Key? key,
     required this.story,
   }) : super(key: key);
 
   @override
-  State<StoryPageView> createState() => _StoryPageViewState();
+  State<StoryReadingView> createState() => _StoryReadingViewState();
 }
 
-class _StoryPageViewState extends State<StoryPageView> {
-  late List<bool> isWordSelected;
-  final translator = GoogleTranslator();
-  final storyBookmarkBloc = StoryBookmarkBloc();
-  bool isTranslating = false;
-
+class _StoryReadingViewState extends State<StoryReadingView> {
+  final _translator = GoogleTranslator();
+  final _storyBookmarkBloc = StoryBookmarkBloc();
+  bool _isTranslating = false;
+  final _storyRepository = StoryRepository();
+  List<Story> _listStories =[];
+  final _streamIsBookmarkController = StreamController<bool>();
+  bool _isListStoriesChanged = false;
   @override
   void initState() {
     super.initState();
+    getListStoryBookmark();
+  }
+
+  Future<void> getListStoryBookmark()async {
+    _listStories = await _storyRepository.readStoryBookmark();
+    if (_listStories.contains(widget.story))
+    {
+      print("contain");
+      _streamIsBookmarkController.sink.add(true);
+    }
+    else {
+      print(" not contain");
+
+    }
   }
 
   Future<Translation> translate(String word) async {
-    return await translator.translate(word, from: 'auto', to: 'vi');
+    return await _translator.translate(word, from: 'auto', to: 'vi');
   }
 
 
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -132,26 +152,44 @@ class _StoryPageViewState extends State<StoryPageView> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: Row(
-                children: [
-                  const Spacer(),
+              child: StreamBuilder<bool>(
+                initialData: false,
+                stream: _streamIsBookmarkController.stream,
+                builder: (context, snapshot) {
+                  return Row(
+                    children: [
+                      const Spacer(),
 
-                  /// Favourite button
-                  CircleButton(
-                      iconData: Icons.bookmark_border,
-                      onTap: () {
-                        storyBookmarkBloc.add(StoryBookmarkAdd(stories: widget.story));
-                        Notify.showSnackBar(context, "Bookmark added".i18n);
-                      }),
-                  const SizedBox().mediumWidth(),
+                      /// Bookmark button
+                      snapshot.data! ?
+                      CircleButton(
+                        backgroundColor: Theme.of(context).primaryColor,
+                          iconData: Icons.bookmark_border,
+                          onTap: () {
+                            _isListStoriesChanged = true;
+                            _streamIsBookmarkController.sink.add(false);
+                            _storyBookmarkBloc.add(StoryBookmarkRemove(story: widget.story));
+                            Notify.showSnackBar(context, "Bookmark removed".i18n);
+                          }):
+                      CircleButton(
+                          iconData: Icons.bookmark_border,
+                          onTap: () {
+                            _isListStoriesChanged = true;
 
-                  /// CLose button
-                  CircleButton(
-                      iconData: Icons.close,
-                      onTap: () {
-                        Navigator.pop(context);
-                      }),
-                ],
+                            _streamIsBookmarkController.sink.add(true);
+                            _storyBookmarkBloc.add(StoryBookmarkAdd(stories: widget.story));
+                            Notify.showSnackBar(context, "Bookmark added".i18n);
+                          }),
+                      const SizedBox().mediumWidth(),
+                      /// CLose button
+                      CircleButton(
+                          iconData: Icons.close,
+                          onTap: () {
+                            Navigator.pop(context, _isListStoriesChanged);
+                          }),
+                    ],
+                  );
+                }
               ),
             ),
           ],
@@ -189,11 +227,11 @@ class _StoryPageViewState extends State<StoryPageView> {
       );
     } else {
       setState(() {
-        isTranslating = true;
+        _isTranslating = true;
       });
       Translation result = await translate(searchWord);
       setState(() {
-        isTranslating = false;
+        _isTranslating = false;
       });
 
       wordResult =

@@ -3,6 +3,7 @@ import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/story/ui/story_history.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
+import 'package:diccon_evo/screens/story/ui/story_reading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/circle_button.dart';
@@ -126,9 +127,21 @@ class _StoryListViewState extends State<StoryListView> {
                                     ),
                                     itemBuilder: (context, index) {
                                       return ReadingTile(
-                                          tag:
-                                              "fromStoryListToPage${data.articleList[index].title}Tag",
-                                          story: data.articleList[index]);
+                                        tag:
+                                            "fromStoryListToPage${data.articleList[index].title}Tag",
+                                        story: data.articleList[index],
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  StoryReadingView(
+                                                story: data.articleList[index],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                   );
                                 },
@@ -176,8 +189,7 @@ class _StoryListViewState extends State<StoryListView> {
                   itemBuilder: (context) => [
                     PopupMenuItem(
                       child: Text("Elementary".i18n),
-                      onTap: () =>
-                          storyListBloc.add(StoryListSortElementary()),
+                      onTap: () => storyListBloc.add(StoryListSortElementary()),
                     ),
                     PopupMenuItem(
                       child: Text("Intermediate".i18n),
@@ -186,8 +198,7 @@ class _StoryListViewState extends State<StoryListView> {
                     ),
                     PopupMenuItem(
                       child: Text("Advanced".i18n),
-                      onTap: () =>
-                          storyListBloc.add(StoryListSortAdvanced()),
+                      onTap: () => storyListBloc.add(StoryListSortAdvanced()),
                     ),
                     const PopupMenuItem(
                       enabled: false,
