@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
+import 'package:diccon_evo/screens/commons/clickable_words.dart';
 import 'package:diccon_evo/screens/commons/word_playback_button.dart';
+import 'package:diccon_evo/screens/dictionary/bloc/chat_list_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatbotBubble extends StatefulWidget {
   const ChatbotBubble({
@@ -11,7 +14,8 @@ class ChatbotBubble extends StatefulWidget {
     required this.questionRequest,
     this.onWordTap,
     required this.chatGptRepository,
-    required this.answerIndex, required this.word,
+    required this.answerIndex,
+    required this.word,
   }) : super(key: key);
 
   final ChatCompletionRequest questionRequest;
@@ -28,7 +32,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     with AutomaticKeepAliveClientMixin {
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
-  /// End implement Chat Gpt
+  final isLoadingStreamController = StreamController<bool>();
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
@@ -40,6 +44,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
           () {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
+              isLoadingStreamController.sink.add(false);
             } else {
               return widget.chatGptRepository.questionAnswers.last.answer.write(
                 event.choices?.first.delta?.content,
@@ -69,6 +74,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
           () {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
+              isLoadingStreamController.sink.add(false);
             } else {
               return widget
                   .chatGptRepository.questionAnswers[widget.answerIndex].answer
@@ -93,9 +99,9 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   @override
   void initState() {
     super.initState();
-    if (widget
-        .chatGptRepository.questionAnswers.isEmpty || widget
-        .chatGptRepository.questionAnswers[widget.answerIndex].answer.isEmpty) {
+    if (widget.chatGptRepository.questionAnswers.isEmpty ||
+        widget.chatGptRepository.questionAnswers[widget.answerIndex].answer
+            .isEmpty) {
       _chatStreamResponse(widget.questionRequest);
     }
   }
@@ -103,6 +109,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   @override
   void dispose() {
     _chatStreamSubscription?.cancel();
+    isLoadingStreamController.close();
     super.dispose();
   }
 
@@ -112,6 +119,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     final questionAnswer =
         widget.chatGptRepository.questionAnswers[widget.answerIndex];
     var answer = questionAnswer.answer.toString().trim();
+    final chatListBloc = context.read<ChatListBloc>();
     return Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16.0,
@@ -135,22 +143,60 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                       WordPlaybackButton(message: widget.word),
-                      const Spacer(),
-                      IconButton(
-                          onPressed: () {
-                            setState(() {
-                              answer = "";
-                            });
-                            _chatStreamResponseReload(widget.questionRequest);
-                          },
-                          icon: const Icon(Icons.cached_rounded)),
-                    ],
-                  ),
-                  SelectableText(answer),
+                  StreamBuilder<bool>(
+                      initialData: true,
+                      stream: isLoadingStreamController.stream,
+                      builder: (context, snapshot) {
+                        return Row(
+                          children: [
+                            WordPlaybackButton(message: widget.word),
+                            const Spacer(),
+                            snapshot.data!
+                                ? IconButton(
+                                    onPressed: () {
+                                      _chatStreamSubscription?.cancel();
+                                      isLoadingStreamController.sink.add(false);
+                                    },
+                                    icon:
+                                        const Icon(Icons.stop_circle_outlined))
+                                : const SizedBox.shrink(),
+                            snapshot.data!
+                                ? const Padding(
+                                    padding: EdgeInsets.only(right: 12),
+                                    child: SizedBox(
+                                      height: 15,
+                                      width: 15,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                : IconButton(
+                                    onPressed: () {
+                                      isLoadingStreamController.sink.add(true);
+                                      widget
+                                          .chatGptRepository
+                                          .questionAnswers[widget.answerIndex]
+                                          .answer
+                                          .clear();
+                                      _chatStreamResponseReload(
+                                          widget.questionRequest);
+                                    },
+                                    icon: const Icon(Icons.cached_rounded)),
+                          ],
+                        );
+                      }),
+                  ClickableWords(
+                      onWordTap: (word) {
+                        chatListBloc.add(AddUserMessage(providedWord: word));
+                        chatListBloc
+                            .add(AddLocalTranslation(providedWord: word));
+                      },
+                      text: answer)
+                  // SelectableText(
+                  //     answer),
                 ],
               ),
             ),

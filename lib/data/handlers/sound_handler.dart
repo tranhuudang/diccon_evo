@@ -10,7 +10,6 @@ class SoundHandler {
   final String providedWordToPlay;
   SoundHandler(this.providedWordToPlay);
 
-  void playAnyway() => _playAnyway();
   void playTts() => _playTts(providedWordToPlay);
 
   void _playTts(String word) async {
@@ -31,27 +30,34 @@ class SoundHandler {
     return url;
   }
 
-  void _playAnyway() async {
+  Stream<bool> playAnyway() async* {
     String url = _onlineSoundUrlPath();
-    // Okapi /'ou'kɑ:pi/
-    String refinedWord =
-        providedWordToPlay.getFirstWord().upperCaseFirstLetter();
+    String refinedWord = providedWordToPlay.upperCaseFirstLetter();
 
     if (kDebugMode) {
       print("playing word: $refinedWord");
     }
     String fileName = "$refinedWord.mp3";
-    File file = File(await DirectoryHandler.getLocalResourceFilePath(fileName));
+    final soundFilePath = await DirectoryHandler.getLocalResourceFilePath(fileName);
+    File file = File(soundFilePath);
 
-    // Check if the file is already downloaded before and play it
-    if (await file.exists()) {
-      _playLocal(fileName);
-      return;
-    } else if (await FileHandler(fileName).downloadToResource(url)) {
-      // Try to download if it available on Online Resources
-      _playLocal(fileName);
+    try {
+      if (await file.exists()) {
+        _playLocal(fileName);
+      } else {
+        yield false;
+        await FileHandler(fileName).downloadToResource(url);
+        yield true;
+        _playLocal(fileName);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("error downloading sound track: $e");
+      }
+      _playTts(refinedWord);
     }
   }
+
 
   void _playLocal(String fileName) async {
     try {
