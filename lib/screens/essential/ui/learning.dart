@@ -174,23 +174,23 @@ class _LearningViewState extends State<LearningView> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              TipsBox(
-                                title: "Tips".i18n,
-                                children: [
-                                  "Read whenever possible.".i18n,
-                                  "Write down new words.".i18n,
-                                  "Vocally practice new words.".i18n,
-                                  "Visually remember words.".i18n,
-                                  "Play word games online.".i18n
-                                ].map((text) {
-                                  return Row(
-                                    children: [
-                                      const Text("- "),
-                                      Text(text),
-                                    ],
-                                  );
-                                }).toList(),
-                              )
+                              // TipsBox(
+                              //   title: "Tips".i18n,
+                              //   children: [
+                              //     "Read whenever possible.".i18n,
+                              //     "Write down new words.".i18n,
+                              //     "Vocally practice new words.".i18n,
+                              //     "Visually remember words.".i18n,
+                              //     "Play word games online.".i18n
+                              //   ].map((text) {
+                              //     return Row(
+                              //       children: [
+                              //         const Text("- "),
+                              //         Text(text),
+                              //       ],
+                              //     );
+                              //   }).toList(),
+                              // )
                             ],
                           );
                         default:
