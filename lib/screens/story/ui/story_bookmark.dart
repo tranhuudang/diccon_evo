@@ -3,34 +3,35 @@ import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/header.dart';
-import '../blocs/article_history_list_bloc.dart';
+import '../blocs/story_bookmark_list_bloc.dart';
 import 'components/reading_tile.dart';
 
-class ArticleListHistoryView extends StatefulWidget {
-  const ArticleListHistoryView({super.key});
+class StoryListBookmarkView extends StatefulWidget {
+  const StoryListBookmarkView({super.key});
 
   @override
-  State<ArticleListHistoryView> createState() => _ArticleListHistoryViewState();
+  State<StoryListBookmarkView> createState() =>
+      _StoryListBookmarkViewState();
 }
 
-class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
-  final articleHistoryBloc = ArticleHistoryBloc();
+class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
+  final storyBookmarkBloc = StoryBookmarkBloc();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocConsumer<ArticleHistoryBloc, ArticleHistoryState>(
-          bloc: articleHistoryBloc,
-          listener: (BuildContext context, ArticleHistoryState state) {},
+        body: BlocConsumer<StoryBookmarkBloc, StoryBookmarkState>(
+          bloc: storyBookmarkBloc,
+          listener: (BuildContext context, StoryBookmarkState state) {},
           buildWhen: (previous, current) =>
-              current is! ArticleHistoryActionState,
+              current is! StoryBookmarkActionState,
           listenWhen: (previous, current) =>
-              current is ArticleHistoryActionState,
+              current is StoryBookmarkActionState,
           builder: (context, state) {
             switch (state.runtimeType) {
-              case ArticleHistoryUpdated:
-                var data = state as ArticleHistoryUpdated;
+              case StoryBookmarkUpdated:
+                var data = state as StoryBookmarkUpdated;
                 return Stack(
                   children: [
                     LayoutBuilder(
@@ -51,7 +52,7 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                         }
                         return GridView.builder(
                           padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
-                          itemCount: data.articles.length,
+                          itemCount: data.stories.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             mainAxisSpacing: 8,
@@ -62,18 +63,18 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                                 7 / 3, // Adjust the aspect ratio as needed
                           ),
                           itemBuilder: (context, index) {
-                            return ReadingTile(article: data.articles[index]);
+                            return ReadingTile(story: data.stories[index]);
                           },
                         );
                       },
                     ),
                     Header(
-                      title: "History".i18n,
+                      title: "Bookmark".i18n,
                       actions: [
                         IconButton(
-                            onPressed: () => articleHistoryBloc.add(
-                                ArticleHistorySortAlphabet(
-                                    articles: data.articles)),
+                            onPressed: () => storyBookmarkBloc.add(
+                                StoryBookmarkSortAlphabet(
+                                    stories: data.stories)),
                             icon: const Icon(Icons.sort_by_alpha)),
                         PopupMenuButton(
                           //splashRadius: 10.0,
@@ -85,18 +86,18 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               child: Text("Elementary".i18n),
-                              onTap: () => articleHistoryBloc
-                                  .add(ArticleHistorySortElementary()),
+                              onTap: () => storyBookmarkBloc
+                                  .add(StoryBookmarkSortElementary()),
                             ),
                             PopupMenuItem(
                               child: Text("Intermediate".i18n),
-                              onTap: () => articleHistoryBloc
-                                  .add(ArticleHistorySortIntermediate()),
+                              onTap: () => storyBookmarkBloc
+                                  .add(StoryBookmarkSortIntermediate()),
                             ),
                             PopupMenuItem(
                               child: Text("Advanced".i18n),
-                              onTap: () => articleHistoryBloc
-                                  .add(ArticleHistorySortAdvanced()),
+                              onTap: () => storyBookmarkBloc
+                                  .add(StoryBookmarkSortAdvanced()),
                             ),
                             const PopupMenuItem(
                               enabled: false,
@@ -105,8 +106,8 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                             ),
                             PopupMenuItem(
                               child: Text("All".i18n),
-                              onTap: () => articleHistoryBloc
-                                  .add(ArticleHistoryGetAll()),
+                              onTap: () => storyBookmarkBloc
+                                  .add(StoryBookmarkGetAll()),
                             ),
                             const PopupMenuItem(
                               enabled: false,
@@ -115,14 +116,14 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                             ),
                             PopupMenuItem(
                               child: Text("Reverse List".i18n),
-                              onTap: () => articleHistoryBloc.add(
-                                  ArticleHistorySortReverse(
-                                      articles: data.articles)),
+                              onTap: () => storyBookmarkBloc.add(
+                                  StoryBookmarkSortReverse(
+                                      stories: data.stories)),
                             ),
                             PopupMenuItem(
                               child: Text("Clear all".i18n),
-                              onTap: () =>
-                                  articleHistoryBloc.add(ArticleHistoryClear()),
+                              onTap: () => storyBookmarkBloc
+                                  .add(StoryBookmarkClear()),
                             ),
                           ],
                         ),
@@ -130,7 +131,7 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                     ),
                   ],
                 );
-              case ArticleHistoryEmptyState:
+              case StoryBookmarkEmptyState:
                 return Stack(
                   children: [
                     Center(
@@ -138,14 +139,14 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Image(
-                            image: AssetImage('assets/stickers/history.png'),
+                            image: AssetImage('assets/stickers/bookmark.png'),
                             width: 200,
                           ),
                           const SizedBox(
                             height: 8,
                           ),
                           Text(
-                            "History is empty".i18n,
+                            "TitleBookmarkEmptyBox".i18n,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
@@ -153,21 +154,25 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                           const SizedBox().mediumHeight(),
                           Opacity(
                             opacity: 0.5,
-                            child: Text(
-                              "SubSentenceInArticleHistory".i18n,
-                              style: const TextStyle(
-                                  fontSize: 18),
+                            child: SizedBox(
+                              width: 300,
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "SubSentenceInBookmarkEmptyList".i18n,
+                                style: const TextStyle(
+                                    fontSize: 18),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                     Header(
-                      title: "History".i18n,
+                      title: "Bookmark".i18n,
                     ),
                   ],
                 );
-              case ArticleHistoryErrorState:
+              case StoryBookmarkErrorState:
                 return Stack(
                   children: [
                     Center(
@@ -183,7 +188,7 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                             height: 8,
                           ),
                           Text(
-                            "Error trying to get history.".i18n,
+                            "Error trying to get Bookmark.".i18n,
                             style: TextStyle(
                                 color: Theme.of(context).highlightColor,
                                 fontSize: 18),
@@ -192,17 +197,17 @@ class _ArticleListHistoryViewState extends State<ArticleListHistoryView> {
                       ),
                     ),
                     Header(
-                      title: "History".i18n,
+                      title: "Bookmark".i18n,
                     ),
                   ],
                 );
               default:
-                articleHistoryBloc.add(ArticleHistoryLoad());
+                storyBookmarkBloc.add(StoryBookmarkLoad());
                 return Column(
                   children: [
                     Expanded(
                       child: Header(
-                        title: "History".i18n,
+                        title: "Bookmark".i18n,
                       ),
                     ),
                     const Expanded(

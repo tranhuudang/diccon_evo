@@ -60,8 +60,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     /// Remove local file
     await FileHandler(Properties.wordHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.articleHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.articleBookmarkFileName).deleteOnUserData();
+    await FileHandler(Properties.storyHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.storyBookmarkFileName).deleteOnUserData();
     await FileHandler(Properties.topicHistoryFileName).deleteOnUserData();
     await FileHandler(Properties.essentialFavouriteFileName).deleteOnUserData();
     await Future.delayed(const Duration(seconds: 2));
@@ -72,8 +72,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserLoginState(isSyncing: true, userInfo: sync.userInfo));
     await UserHandler().downloadUserDataFile();
     await UserHandler().uploadUserDataFile(Properties.wordHistoryFileName);
-    await UserHandler().uploadUserDataFile(Properties.articleHistoryFileName);
-    await UserHandler().uploadUserDataFile(Properties.articleBookmarkFileName);
+    await UserHandler().uploadUserDataFile(Properties.storyHistoryFileName);
+    await UserHandler().uploadUserDataFile(Properties.storyBookmarkFileName);
     await UserHandler().uploadUserDataFile(Properties.topicHistoryFileName);
     await UserHandler().uploadUserDataFile(Properties.essentialFavouriteFileName);
     emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
@@ -99,8 +99,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     /// Remove local file
     await FileHandler(Properties.wordHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.articleHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.articleBookmarkFileName).deleteOnUserData();
+    await FileHandler(Properties.storyHistoryFileName).deleteOnUserData();
+    await FileHandler(Properties.storyBookmarkFileName).deleteOnUserData();
     await FileHandler(Properties.topicHistoryFileName).deleteOnUserData();
     await FileHandler(Properties.essentialFavouriteFileName).deleteOnUserData();
     /// Reset properties

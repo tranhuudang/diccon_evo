@@ -56,15 +56,15 @@ class UserHandler {
       List<dynamic> localJsonFile =
           jsonDecode(File(file.path).readAsStringSync());
 
-      /// Syncing article history and bookmark
-      if (ref.name == Properties.articleHistoryFileName ||
-          ref.name == Properties.articleBookmarkFileName) {
-        for (var article in cloudJsonFile) {
+      /// Syncing story history and bookmark
+      if (ref.name == Properties.storyHistoryFileName ||
+          ref.name == Properties.storyBookmarkFileName) {
+        for (var story in cloudJsonFile) {
           bool isArticleExist = localJsonFile.any(
-              (articleInLocal) => articleInLocal['title'] == article["title"]);
+              (storyInLocal) => storyInLocal['title'] == story["title"]);
           if (!isArticleExist) {
             if (json is List<dynamic>) {
-              localJsonFile.add(article.toJson());
+              localJsonFile.add(story.toJson());
               final encoded = jsonEncode(json);
               await file.writeAsString(encoded);
             }
@@ -75,7 +75,7 @@ class UserHandler {
         if (ref.name == Properties.wordHistoryFileName) {
           for (var word in cloudJsonFile) {
             bool isWordExist = localJsonFile.any(
-                (articleInLocal) => articleInLocal['word'] == word["word"]);
+                (storyInLocal) => storyInLocal['word'] == word["word"]);
             if (!isWordExist) {
               if (json is List<dynamic>) {
                 localJsonFile.add(word.toJson());
@@ -104,8 +104,8 @@ class UserHandler {
         /// Syncing word history in dictionary
         if (ref.name == Properties.essentialFavouriteFileName) {
           for (var word in cloudJsonFile) {
-            bool isWordExist = localJsonFile.any((articleInLocal) =>
-                articleInLocal['english'] == word["english"]);
+            bool isWordExist = localJsonFile.any((storyInLocal) =>
+                storyInLocal['english'] == word["english"]);
             if (!isWordExist) {
               if (json is List<dynamic>) {
                 localJsonFile.add(word.toJson());

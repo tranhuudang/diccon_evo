@@ -167,8 +167,8 @@ extension Localization on String {
       "vi_vi": "Góp ý",
     },
 
-    /// Article
-    "SubSentenceInArticleList": {
+    /// Story
+    "SubSentenceInStoryList": {
       "en_us":
           "Let the magic of words transport you to realms uncharted and dreams unbound.",
       "vi_vi":
@@ -178,7 +178,7 @@ extension Localization on String {
       "en_us": "Getting new stories..",
       "vi_vi": "Đang tải truyện mới..",
     },
-    // Article Bookmark
+    // Story Bookmark
     "Bookmarks": {
       "en_us": "Bookmarks",
       "vi_vi": "Bookmarks",
@@ -193,8 +193,8 @@ extension Localization on String {
       "vi_vi":
           "Bạn có thể lưu giữ nhưng mẩu truyện mà mình yêu thích ở đây. Để thi thoảng ghé vào đọc lại.",
     },
-    // Article History
-    "SubSentenceInArticleHistory": {
+    // Story History
+    "SubSentenceInStoryHistory": {
       "en_us": "History is shaped by your actions.",
       "vi_vi": "Lịch sử được viết nên bởi chính bạn.",
     },

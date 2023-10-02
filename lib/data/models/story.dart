@@ -1,5 +1,5 @@
 
-class Article {
+class Story {
   late final String title;
   late final String? source;
   late final String? imageUrl;
@@ -7,7 +7,7 @@ class Article {
   late final String content;
   late final String shortDescription;
   late final String? level;
-  Article(
+  Story(
       {required this.title,
       required this.shortDescription,
       required this.content,
@@ -16,8 +16,8 @@ class Article {
       this.createdDate,
       this.level});
 
-  factory Article.fromJson(Map<String, dynamic> json) {
-    return Article(
+  factory Story.fromJson(Map<String, dynamic> json) {
+    return Story(
         title: json['title'],
         source: json['source'],
         imageUrl: json['imageUrl'],

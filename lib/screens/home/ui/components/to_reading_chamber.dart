@@ -1,5 +1,5 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/screens/article/ui/article_list.dart';
+import 'package:diccon_evo/screens/story/ui/story_list.dart';
 import 'package:flutter/material.dart';
 import 'feature_button.dart';
 
@@ -16,7 +16,7 @@ class ToReadingChamberButton extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const ArticleListView()));
+                builder: (context) => const StoryListView()));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

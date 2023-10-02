@@ -35,12 +35,12 @@ class Properties {
   static const String evDataPath = 'assets/dictionary/diccon_ev.txt';
   static const String veDataPath = 'assets/dictionary/diccon_ve.txt';
 
-  static const String wordHistoryFileName = 'history.json';
+  static const String wordHistoryFileName = 'dictionary_history.json';
   static const String topicHistoryFileName = 'topic_history.json';
-  static const String articleHistoryFileName = 'article_history.json';
-  static const String articleBookmarkFileName = 'article_bookmark.json';
+  static const String storyHistoryFileName = 'story_history.json';
+  static const String storyBookmarkFileName = 'story_bookmark.json';
   static const String essentialFavouriteFileName = 'essential_favourite.json';
-  static const String extendStoryFileName = 'extend-story.json';
+  static const String extendStoryFileName = 'extend_story.json';
 
   // All view in application
   static Setting defaultSetting = Setting(

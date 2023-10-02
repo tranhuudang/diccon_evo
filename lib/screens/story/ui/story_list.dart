@@ -1,27 +1,27 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/screens/article/ui/article_history.dart';
+import 'package:diccon_evo/screens/story/ui/story_history.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
-import '../blocs/article_list_bloc.dart';
-import 'article_bookmark.dart';
+import '../blocs/story_list_bloc.dart';
+import 'story_bookmark.dart';
 import 'components/reading_tile.dart';
 
-class ArticleListView extends StatefulWidget {
-  const ArticleListView({super.key});
+class StoryListView extends StatefulWidget {
+  const StoryListView({super.key});
 
   @override
-  State<ArticleListView> createState() => _ArticleListViewState();
+  State<StoryListView> createState() => _StoryListViewState();
 }
 
-class _ArticleListViewState extends State<ArticleListView> {
+class _StoryListViewState extends State<StoryListView> {
   @override
   Widget build(BuildContext context) {
-    final articleListBloc = context.read<ArticleListBloc>();
+    final storyListBloc = context.read<StoryListBloc>();
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -44,7 +44,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 32, vertical: 26),
-                          child: Text("SubSentenceInArticleList".i18n),
+                          child: Text("SubSentenceInStoryList".i18n),
                         ),
 
                         /// Function button
@@ -59,7 +59,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ArticleListBookmarkView()));
+                                                  const StoryListBookmarkView()));
                                     }),
                                 CircleButton(
                                     iconData: Icons.history,
@@ -68,7 +68,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ArticleListHistoryView()));
+                                                  const StoryListHistoryView()));
                                     }),
                               ],
                             ),
@@ -78,19 +78,19 @@ class _ArticleListViewState extends State<ArticleListView> {
                             CircleButton(
                                 iconData: Icons.autorenew,
                                 onTap: () =>
-                                    articleListBloc.add(ArticleListReload())),
+                                    storyListBloc.add(StoryListReload())),
                           ],
                         ),
                       ],
                     ),
 
                     /// List article
-                    BlocBuilder<ArticleListBloc, ArticleListState>(
-                      bloc: articleListBloc,
+                    BlocBuilder<StoryListBloc, StoryListState>(
+                      bloc: storyListBloc,
                       builder: (context, state) {
                         switch (state.runtimeType) {
-                          case ArticleListInitializedState:
-                            var data = state as ArticleListInitializedState;
+                          case StoryListInitializedState:
+                            var data = state as StoryListInitializedState;
                             return Container(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               child: LayoutBuilder(
@@ -127,15 +127,15 @@ class _ArticleListViewState extends State<ArticleListView> {
                                     itemBuilder: (context, index) {
                                       return ReadingTile(
                                           tag:
-                                              "fromArticleListToPage${data.articleList[index].title}Tag",
-                                          article: data.articleList[index]);
+                                              "fromStoryListToPage${data.articleList[index].title}Tag",
+                                          story: data.articleList[index]);
                                     },
                                   );
                                 },
                               ),
                             );
                           default:
-                            articleListBloc.add(ArticleListInitial());
+                            storyListBloc.add(StoryListInitial());
                             return Padding(
                               padding: const EdgeInsets.only(top: 50),
                               child: Center(
@@ -150,8 +150,8 @@ class _ArticleListViewState extends State<ArticleListView> {
                                     const SizedBox().mediumHeight(),
                                     PillButton(
                                         onTap: () {
-                                          articleListBloc
-                                              .add(ArticleListCancelLoad());
+                                          storyListBloc
+                                              .add(StoryListCancelLoad());
                                         },
                                         title: "Cancel".i18n),
                                   ],
@@ -177,17 +177,17 @@ class _ArticleListViewState extends State<ArticleListView> {
                     PopupMenuItem(
                       child: Text("Elementary".i18n),
                       onTap: () =>
-                          articleListBloc.add(ArticleListSortElementary()),
+                          storyListBloc.add(StoryListSortElementary()),
                     ),
                     PopupMenuItem(
                       child: Text("Intermediate".i18n),
                       onTap: () =>
-                          articleListBloc.add(ArticleListSortIntermediate()),
+                          storyListBloc.add(StoryListSortIntermediate()),
                     ),
                     PopupMenuItem(
                       child: Text("Advanced".i18n),
                       onTap: () =>
-                          articleListBloc.add(ArticleListSortAdvanced()),
+                          storyListBloc.add(StoryListSortAdvanced()),
                     ),
                     const PopupMenuItem(
                       enabled: false,
@@ -196,7 +196,7 @@ class _ArticleListViewState extends State<ArticleListView> {
                     ),
                     PopupMenuItem(
                       child: Text("All".i18n),
-                      onTap: () => articleListBloc.add(ArticleListSortAll()),
+                      onTap: () => storyListBloc.add(StoryListSortAll()),
                     ),
                   ],
                 ),

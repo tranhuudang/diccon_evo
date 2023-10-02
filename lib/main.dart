@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:diccon_evo/extensions/theme_mode.dart';
-import 'package:diccon_evo/screens/article/blocs/article_list_bloc.dart';
+import 'package:diccon_evo/screens/story/blocs/story_list_bloc.dart';
 import 'package:diccon_evo/screens/conversation/bloc/conversation_bloc.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
@@ -55,7 +55,7 @@ class ProgramRoot extends StatelessWidget {
         BlocProvider<UserBloc>(create: (context) => UserBloc()),
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
         BlocProvider<ConversationBloc>(create: (context) => ConversationBloc()),
-        BlocProvider<ArticleListBloc>(create: (context) => ArticleListBloc()),
+        BlocProvider<StoryListBloc>(create: (context) => StoryListBloc()),
       ],
       child: MaterialApp(
         localizationsDelegates: const [

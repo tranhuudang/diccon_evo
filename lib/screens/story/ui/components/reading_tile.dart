@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../../data/models/article.dart';
+import '../../../../data/models/story.dart';
 import '../../../../data/models/level.dart';
 import '../../../commons/level_icon.dart';
-import '../../blocs/article_history_list_bloc.dart';
-import '../article_page.dart';
+import '../../blocs/story_history_list_bloc.dart';
+import '../story_page.dart';
 
 class ReadingTile extends StatelessWidget {
   final String? tag;
-  final Article article;
+  final Story story;
   const ReadingTile({
     super.key,
-    required this.article, this.tag,
+    required this.story, this.tag,
 
   });
 
   @override
   Widget build(BuildContext context) {
-    final articleHistoryBloc = ArticleHistoryBloc();
+    final storyHistoryBloc = StoryHistoryBloc();
     TextTheme textTheme = Theme.of(context).primaryTextTheme;
     return GridTile(
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         onTap: () {
-          articleHistoryBloc.add(ArticleHistoryAdd(article: article));
+          storyHistoryBloc.add(StoryHistoryAdd(story: story));
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ArticlePageView(
-                article: article ,
+              builder: (context) => StoryPageView(
+                story: story ,
               ),
             ),
           );
@@ -44,7 +44,7 @@ class ReadingTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Hero(
-                tag: tag ?? article.title,
+                tag: tag ?? story.title,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
@@ -61,7 +61,7 @@ class ReadingTile extends StatelessWidget {
                       //   backgroundColor: Colors.black45,
                       //   color: Colors.black54,
                       // ),
-                      imageUrl: article.imageUrl ?? '',
+                      imageUrl: story.imageUrl ?? '',
                       height: 100.0,
                       width: 100.0,
                       fit: BoxFit.cover,
@@ -89,7 +89,7 @@ class ReadingTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        article.title,
+                        story.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: textTheme.titleMedium,
@@ -98,14 +98,14 @@ class ReadingTile extends StatelessWidget {
                       Expanded(
                         child: Text(
                           maxLines: 2,
-                          article.shortDescription,
+                          story.shortDescription,
                           textAlign: TextAlign.justify,
                           style: textTheme.bodySmall,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       LevelIcon(
-                        level: article.level ?? Level.intermediate.toLevelNameString(),
+                        level: story.level ?? Level.intermediate.toLevelNameString(),
                       ),
                     ],
                   ),

@@ -1,35 +1,35 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/screens/article/blocs/article_bookmark_list_bloc.dart';
+import 'package:diccon_evo/screens/story/blocs/story_bookmark_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
 import '../../../data/data_providers/notify.dart';
 import '../../../data/data_providers/searching.dart';
-import '../../../data/models/article.dart';
+import '../../../data/models/story.dart';
 import '../../../data/models/word.dart';
 import '../../commons/bottom_sheet_translate.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/clickable_words.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class ArticlePageView extends StatefulWidget {
-  final Article article;
+class StoryPageView extends StatefulWidget {
+  final Story story;
 
-  const ArticlePageView({
+  const StoryPageView({
     Key? key,
-    required this.article,
+    required this.story,
   }) : super(key: key);
 
   @override
-  State<ArticlePageView> createState() => _ArticlePageViewState();
+  State<StoryPageView> createState() => _StoryPageViewState();
 }
 
-class _ArticlePageViewState extends State<ArticlePageView> {
+class _StoryPageViewState extends State<StoryPageView> {
   late List<bool> isWordSelected;
   final translator = GoogleTranslator();
-  final articleBookmarkBloc = ArticleBookmarkBloc();
+  final storyBookmarkBloc = StoryBookmarkBloc();
   bool isTranslating = false;
 
   @override
@@ -62,11 +62,11 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.article.title,
+                            widget.story.title,
                             style: const TextStyle(fontSize: 20),
                           ),
                           Text(
-                            widget.article.source!,
+                            widget.story.source!,
                             style: const TextStyle(fontSize: 12),
                           ),
                         ],
@@ -76,7 +76,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                     /// Image
                     Center(
                       child: Hero(
-                        tag: "fromArticleListToPage${widget.article.title}Tag",
+                        tag: "fromArticleListToPage${widget.story.title}Tag",
                         child: CachedNetworkImage(
                           //height: 380,
                           placeholder: (context, url) =>
@@ -84,7 +84,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                             backgroundColor: Colors.black45,
                             color: Colors.black54,
                           ),
-                          imageUrl: widget.article.imageUrl ?? "",
+                          imageUrl: widget.story.imageUrl ?? "",
                           fit: BoxFit.cover,
                           errorWidget:
                               (context, String exception, dynamic stackTrace) {
@@ -101,7 +101,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:
-                          widget.article.content.split('\n').map((paragraph) {
+                          widget.story.content.split('\n').map((paragraph) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -140,7 +140,7 @@ class _ArticlePageViewState extends State<ArticlePageView> {
                   CircleButton(
                       iconData: Icons.bookmark_border,
                       onTap: () {
-                        articleBookmarkBloc.add(ArticleBookmarkAdd(article: widget.article));
+                        storyBookmarkBloc.add(StoryBookmarkAdd(stories: widget.story));
                         Notify.showSnackBar(context, "Bookmark added".i18n);
                       }),
                   const SizedBox().mediumWidth(),
