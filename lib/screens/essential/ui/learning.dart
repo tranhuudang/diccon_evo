@@ -1,16 +1,15 @@
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/properties.dart';
-import '../../../data/data_providers/notify.dart';
-import '../../../data/repositories/essential_manager.dart';
 import '../../../data/models/essential_word.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
-import '../../commons/tips_box.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../bloc/learning_bloc.dart';
 import 'components/learning_page_item.dart';
 
@@ -117,7 +116,17 @@ class _LearningViewState extends State<LearningView> {
                                   ),
                                 ),
                               ),
-
+                              SmoothPageIndicator(
+                                controller: learningBloc.pageViewController,
+                                count: learningBloc.listEssentialWordByTopic.length,
+                                effect:  ScrollingDotsEffect(
+                                  maxVisibleDots: 5,
+                                  dotHeight: 8,
+                                  dotWidth: 8,
+                                  activeDotColor: Theme.of(context).primaryColor,
+                                  dotColor: Theme.of(context).highlightColor,
+                                ),
+                              ),
                               /// Navigate page
                               Row(
                                 children: [

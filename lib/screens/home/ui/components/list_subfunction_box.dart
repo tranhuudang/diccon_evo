@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/screens/commons/circle_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SubFunctionBox extends StatelessWidget {
   const SubFunctionBox({
@@ -40,65 +42,19 @@ class SubFunctionBox extends StatelessWidget {
                     );
                   }),
             ),
-            defaultTargetPlatform.isDesktop()
-                ?
+            SizedBox().largeHeight(),
 
-                /// List number indicator for desktop devices
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CircleButtonBar(
-                          children: [
-                            for (int index = 0;
-                                index < listSubFunction.length;
-                                index++)
-                              CircleTextButton(
-                                backgroundColor: snapshot.data == index
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).highlightColor,
-                                text: (index + 1).toString(),
-                                onTap: () {
-                                  pageController.animateToPage(index,
-                                      duration:
-                                          const Duration(microseconds: 500),
-                                      curve: Curves.easeIn);
-                                },
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                :
-
-                /// List indicator dot for mobile devices
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (int index = 0;
-                          index < listSubFunction.length;
-                          index++)
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 8, left: 4, right: 4),
-                          child: Container(
-                            height: 10,
-                            width: 10,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: snapshot.data == index
-                                  ? Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .color
-                                  : Theme.of(context).highlightColor,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
+            SmoothPageIndicator(
+              controller: pageController,
+              count: listSubFunction.length,
+              effect:  ScrollingDotsEffect(
+                maxVisibleDots: 5,
+                dotHeight: 8,
+                dotWidth: 8,
+                activeDotColor: Theme.of(context).primaryColor,
+                dotColor: Theme.of(context).highlightColor,
+              ),
+            ),
           ],
         );
       },
