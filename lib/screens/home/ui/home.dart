@@ -1,4 +1,6 @@
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
+import 'package:diccon_evo/screens/home/ui/components/plan_button.dart';
 import 'package:flutter/foundation.dart';
 import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';
@@ -107,9 +109,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                             "Your English",
                             "Proficiency"
                           ]),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox().mediumHeight(),
+                          const PlanButton(),
+                          const SizedBox().mediumHeight(),
 
                           /// TextField for user to enter their words
                           const DictionarySearchBoxInHome(),
@@ -160,7 +162,8 @@ class DictionarySearchBoxInHome extends StatefulWidget {
   const DictionarySearchBoxInHome({super.key});
 
   @override
-  State<DictionarySearchBoxInHome> createState() => _DictionarySearchBoxInHomeState();
+  State<DictionarySearchBoxInHome> createState() =>
+      _DictionarySearchBoxInHomeState();
 }
 
 class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
@@ -188,67 +191,53 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                DictionaryView(
-                                    word: value,
-                                    buildContext:
-                                    context)));
+                            builder: (context) => DictionaryView(
+                                word: value, buildContext: context)));
                   },
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search),
-                    contentPadding:
-                        const EdgeInsets.symmetric(
-                            horizontal: 16),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     hintText: "Search in dictionary".i18n,
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(32),
                         bottomLeft: Radius.circular(32),
-
                       ),
                     ),
                   ),
                 ),
                 _enableTinyCloseButton
                     ? SizedBox(
-                  height: 48,
-                  //color: Colors.black54,
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      Padding(
-                        padding:
-                        const EdgeInsets.only(
-                            right: 8),
-                        child: Center(child:
-                        TinyCloseButton(
-                            onTap: () {
-                              _searchTextController
-                                  .clear();
-                              // Dismiss keyboard
-                              FocusScopeNode
-                              currentFocus =
-                              FocusScope.of(
-                                  context);
+                        height: 48,
+                        //color: Colors.black54,
+                        child: Row(
+                          children: [
+                            const Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: Center(child: TinyCloseButton(onTap: () {
+                                _searchTextController.clear();
+                                // Dismiss keyboard
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
 
-                              if (!currentFocus
-                                  .hasPrimaryFocus) {
-                                currentFocus.unfocus();
-                              }
-                              // Erase tiny button
-                              setState(() {
-                                _enableTinyCloseButton =
-                                false;
-                              });
-                            })),
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                                // Erase tiny button
+                                setState(() {
+                                  _enableTinyCloseButton = false;
+                                });
+                              })),
+                            )
+                          ],
+                        ),
                       )
-                    ],
-                  ),
-                )
                     : const SizedBox.shrink()
               ],
             ),
           ),
+
           /// Navigate to dictionary view
           InkWell(
             onTap: () {
@@ -256,18 +245,14 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                        const DictionaryView()));
-              }
-              else {
+                        builder: (context) => const DictionaryView()));
+              } else {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            DictionaryView(
-                                word: _searchTextController.text,
-                                buildContext:
-                                context)));
+                        builder: (context) => DictionaryView(
+                            word: _searchTextController.text,
+                            buildContext: context)));
               }
             },
             child: Container(
@@ -276,9 +261,12 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor.withOpacity(0.7),
                 borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(32,),
-                    bottomRight: Radius.circular(32,)
-                ),
+                    topRight: Radius.circular(
+                      32,
+                    ),
+                    bottomRight: Radius.circular(
+                      32,
+                    )),
               ),
               child: Row(
                 children: [
@@ -292,8 +280,6 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
     );
   }
 }
-
-
 
 class TinyCloseButton extends StatelessWidget {
   final VoidCallback onTap;
