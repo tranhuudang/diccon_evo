@@ -44,6 +44,7 @@ class _ClickableWordsState extends State<ClickableWords> {
         // We don't want to change cursor or underline text on mobile
         // Which make the performance decrease a lot
         RichText(
+          textAlign: TextAlign.justify,
             text: TextSpan(
               children: [
                 for (var i = 0; i < words.length; i++)

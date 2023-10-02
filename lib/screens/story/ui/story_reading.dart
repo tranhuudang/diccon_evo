@@ -34,7 +34,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   final _storyBookmarkBloc = StoryBookmarkBloc();
   bool _isTranslating = false;
   final _storyRepository = StoryRepository();
-  List<Story> _listStories =[];
+  List<Story> _listStories = [];
   final _streamIsBookmarkController = StreamController<bool>();
   bool _isListStoriesChanged = false;
   @override
@@ -43,16 +43,10 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     getListStoryBookmark();
   }
 
-  Future<void> getListStoryBookmark()async {
+  Future<void> getListStoryBookmark() async {
     _listStories = await _storyRepository.readStoryBookmark();
-    if (_listStories.contains(widget.story))
-    {
-      print("contain");
+    if (_listStories.contains(widget.story)) {
       _streamIsBookmarkController.sink.add(true);
-    }
-    else {
-      print(" not contain");
-
     }
   }
 
@@ -60,11 +54,8 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     return await _translator.translate(word, from: 'auto', to: 'vi');
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -153,53 +144,54 @@ class _StoryReadingViewState extends State<StoryReadingView> {
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: StreamBuilder<bool>(
-                initialData: false,
-                stream: _streamIsBookmarkController.stream,
-                builder: (context, snapshot) {
-                  return Row(
-                    children: [
-                      const Spacer(),
+                  initialData: false,
+                  stream: _streamIsBookmarkController.stream,
+                  builder: (context, snapshot) {
+                    return Row(
+                      children: [
+                        const Spacer(),
 
-                      /// Bookmark button
-                      snapshot.data! ?
-                      CircleButton(
-                        backgroundColor: Theme.of(context).primaryColor,
-                          iconData: Icons.bookmark_border,
-                          onTap: () {
-                            _isListStoriesChanged = true;
-                            _streamIsBookmarkController.sink.add(false);
-                            _storyBookmarkBloc.add(StoryBookmarkRemove(story: widget.story));
-                            Notify.showSnackBar(context, "Bookmark removed".i18n);
-                          }):
-                      CircleButton(
-                          iconData: Icons.bookmark_border,
-                          onTap: () {
-                            _isListStoriesChanged = true;
+                        /// Bookmark button
+                        snapshot.data!
+                            ? CircleButton(
+                                backgroundColor: Theme.of(context).primaryColor,
+                                iconData: Icons.bookmark_border,
+                                onTap: () {
+                                  _isListStoriesChanged = true;
+                                  _streamIsBookmarkController.sink.add(false);
+                                  _storyBookmarkBloc.add(
+                                      StoryBookmarkRemove(story: widget.story));
+                                  Notify.showSnackBar(
+                                      context, "Bookmark removed".i18n);
+                                })
+                            : CircleButton(
+                                iconData: Icons.bookmark_border,
+                                onTap: () {
+                                  _isListStoriesChanged = true;
 
-                            _streamIsBookmarkController.sink.add(true);
-                            _storyBookmarkBloc.add(StoryBookmarkAdd(stories: widget.story));
-                            Notify.showSnackBar(context, "Bookmark added".i18n);
-                          }),
-                      const SizedBox().mediumWidth(),
-                      /// CLose button
-                      CircleButton(
-                          iconData: Icons.close,
-                          onTap: () {
-                            Navigator.pop(context, _isListStoriesChanged);
-                          }),
-                    ],
-                  );
-                }
-              ),
+                                  _streamIsBookmarkController.sink.add(true);
+                                  _storyBookmarkBloc.add(
+                                      StoryBookmarkAdd(stories: widget.story));
+                                  Notify.showSnackBar(
+                                      context, "Bookmark added".i18n);
+                                }),
+                        const SizedBox().mediumWidth(),
+
+                        /// CLose button
+                        CircleButton(
+                            iconData: Icons.close,
+                            onTap: () {
+                              Navigator.pop(context, _isListStoriesChanged);
+                            }),
+                      ],
+                    );
+                  }),
             ),
           ],
         ),
       ),
     );
   }
-
-
-
 
   Future<void> _showModalBottomSheet(
       BuildContext context, String searchWord) async {
@@ -251,5 +243,4 @@ class _StoryReadingViewState extends State<StoryReadingView> {
       );
     }
   }
-
 }
