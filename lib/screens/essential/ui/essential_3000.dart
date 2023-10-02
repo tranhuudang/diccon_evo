@@ -3,7 +3,7 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
-import '../../../data/data_providers/essential_manager.dart';
+import '../../../data/repositories/essential_manager.dart';
 import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/notify.dart';
 import '../../commons/circle_button.dart';
@@ -136,7 +136,7 @@ class _EssentialViewState extends State<EssentialView> {
                               HistoryManager.saveTopicToHistory(_selectedTopic);
 
                               /// Load essential word based on provided topic
-                              await EssentialManager.loadEssentialData(
+                              await EssentialWordRepository.loadEssentialData(
                                       _selectedTopic)
                                   .then(
                                 (listEssential) => {
@@ -159,7 +159,7 @@ class _EssentialViewState extends State<EssentialView> {
                           CircleButton(
                             iconData: FontAwesomeIcons.heart,
                             onTap: () async {
-                              await EssentialManager.readFavouriteEssential()
+                              await EssentialWordRepository.readFavouriteEssential()
                                   .then((listFavourite) => {
                                         if (listFavourite.isNotEmpty)
                                           {
@@ -278,7 +278,7 @@ class _EssentialViewState extends State<EssentialView> {
                                   return PillButton(
                                       onTap: () async {
                                         /// Load essential word based on provided topic
-                                        await EssentialManager
+                                        await EssentialWordRepository
                                                 .loadEssentialData(topic)
                                             .then(
                                           (listEssential) => {

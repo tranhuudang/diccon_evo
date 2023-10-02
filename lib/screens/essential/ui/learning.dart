@@ -2,24 +2,38 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/properties.dart';
-import '../../../data/data_providers/essential_manager.dart';
+import '../../../data/data_providers/notify.dart';
+import '../../../data/repositories/essential_manager.dart';
 import '../../../data/models/essential_word.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/tips_box.dart';
+import '../bloc/learning_bloc.dart';
 import 'components/learning_page_item.dart';
 
-class LearningView extends StatelessWidget {
+class LearningView extends StatefulWidget {
   final String topic;
   final List<EssentialWord> listEssentialWord;
   const LearningView(
-      {super.key, required this.listEssentialWord, required this.topic});
+      {super.key, required this.topic, required this.listEssentialWord});
+
+  @override
+  State<LearningView> createState() => _LearningViewState();
+}
+
+class _LearningViewState extends State<LearningView> {
+  final learningBloc = LearningBloc();
+  @override
+  void initState() {
+    super.initState();
+    learningBloc.add(InitialLearningEssential(topic: widget.topic));
+  }
 
   @override
   Widget build(BuildContext context) {
-    final pageViewController = PageController();
     int currentIndex = 0;
     return SafeArea(
       child: Scaffold(
@@ -43,121 +57,146 @@ class LearningView extends StatelessWidget {
                   "You're studying".i18n,
                   "the subject of".i18n,
                 ]),
-                Text(topic,
+                Text(widget.topic,
                     style: const TextStyle(
                       fontSize: 38,
                       fontWeight: FontWeight.bold,
                     )),
+                BlocBuilder<LearningBloc, LearningState>(
+                    bloc: learningBloc,
+                    builder: (context, state) {
+                      switch (state.runtimeType) {
+                        case LearningUpdatedState:
+                          var data = state as LearningUpdatedState;
+                          return Column(
+                            children: [
+                              /// List page word
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: SizedBox(
+                                  height: 250,
+                                  child: PageView.builder(
+                                    onPageChanged: (index) {
+                                      learningBloc.add(OnPageChanged(
+                                          currentPageIndex: index));
+                                      Properties.saveSettings(
+                                          Properties.defaultSetting.copyWith(
+                                              numberOfEssentialLeft: Properties
+                                                      .defaultSetting
+                                                      .numberOfEssentialLeft -
+                                                  1));
+                                      if (kDebugMode) {
+                                        print(Properties.defaultSetting
+                                            .numberOfEssentialLeft);
+                                      }
+                                      currentIndex = index;
+                                    },
+                                    controller: learningBloc.pageViewController,
+                                    itemCount: widget.listEssentialWord.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(1),
+                                        child: LearningPageItem(
+                                          currentIndex: index + 1,
+                                          totalIndex:
+                                              widget.listEssentialWord.length,
+                                          word: widget
+                                              .listEssentialWord[index].english
+                                              .upperCaseFirstLetter(),
+                                          phonetic: widget
+                                              .listEssentialWord[index]
+                                              .phonetic,
+                                          vietnamese: widget
+                                              .listEssentialWord[index]
+                                              .vietnamese
+                                              .upperCaseFirstLetter(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
 
-                /// List page word
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: SizedBox(
-                    height: 250,
-                    child: PageView.builder(
-                      onPageChanged: (index) {
-                        Properties.saveSettings(Properties.defaultSetting
-                            .copyWith(
-                                numberOfEssentialLeft: Properties
-                                        .defaultSetting.numberOfEssentialLeft -
-                                    1));
-                        if (kDebugMode) {
-                          print(
-                              Properties.defaultSetting.numberOfEssentialLeft);
-                        }
-                        currentIndex = index;
-                      },
-                      controller: pageViewController,
-                      itemCount: listEssentialWord.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(1),
-                          child: LearningPageItem(
-                            currentIndex: index + 1,
-                            totalIndex: listEssentialWord.length,
-                            word: listEssentialWord[index]
-                                .english
-                                .upperCaseFirstLetter(),
-                            phonetic: listEssentialWord[index].phonetic,
-                            vietnamese: listEssentialWord[index]
-                                .vietnamese
-                                .upperCaseFirstLetter(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
+                              /// Navigate page
+                              Row(
+                                children: [
+                                  CircleButtonBar(
+                                    children: [
+                                      CircleButton(
+                                        iconData: FontAwesomeIcons.chevronLeft,
+                                        onTap: () {
+                                          learningBloc.add(GoToPreviousCard());
+                                        },
+                                      ),
+                                      CircleButton(
+                                        iconData: FontAwesomeIcons.chevronRight,
+                                        onTap: () {
+                                          learningBloc.add(GoToNextCard());
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const Spacer(),
 
-                /// Navigate page
-                Row(
-                  children: [
-                    CircleButtonBar(
-                      children: [
-                        CircleButton(
-                          iconData: FontAwesomeIcons.chevronLeft,
-                          onTap: () {
-                            pageViewController.previousPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                        ),
-                        CircleButton(
-                          iconData: FontAwesomeIcons.chevronRight,
-                          onTap: () {
-                            pageViewController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-
-                    /// Mark as done button
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 8),
-                    //   child: Container(
-                    //     height: 50,
-                    //     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    //       decoration: BoxDecoration(
-                    //         color: Theme.of(context).primaryColor,
-                    //         borderRadius: BorderRadius.circular(32),
-                    //       ),
-                    //       child: const Center(child: Text("Mark as done"))),
-                    // ),
-                    /// Heart button
-                    CircleButton(
-                      iconData: FontAwesomeIcons.heart,
-                      onTap: () {
-                        EssentialManager.saveEssentialWordToFavourite(
-                            listEssentialWord[currentIndex]);
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                TipsBox(
-                  title: "Tips".i18n,
-                  children: [
-                    "Read whenever possible.".i18n,
-                    "Write down new words.".i18n,
-                    "Vocally practice new words.".i18n,
-                    "Visually remember words.".i18n,
-                    "Play word games online.".i18n
-                  ].map((text) {
-                    return Row(
-                      children: [
-                        const Text("- "),
-                        Text(text),
-                      ],
-                    );
-                  }).toList(),
-                )
+                                  /// Mark as done button
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  //   child: Container(
+                                  //     height: 50,
+                                  //     padding: const EdgeInsets.symmetric(horizontal: 16),
+                                  //       decoration: BoxDecoration(
+                                  //         color: Theme.of(context).primaryColor,
+                                  //         borderRadius: BorderRadius.circular(32),
+                                  //       ),
+                                  //       child: const Center(child: Text("Mark as done"))),
+                                  // ),
+                                  /// Heart button
+                                  CircleButton(
+                                    backgroundColor: data.isCurrentWordFavourite
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context).highlightColor,
+                                    iconData: FontAwesomeIcons.heart,
+                                    onTap: () {
+                                      if (data.isCurrentWordFavourite) {
+                                        learningBloc.add(RemoveFromFavourite(
+                                            word: widget.listEssentialWord[
+                                                currentIndex]));
+                                      } else {
+                                        learningBloc.add(AddToFavourite(
+                                            word: widget.listEssentialWord[
+                                                currentIndex]));
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              TipsBox(
+                                title: "Tips".i18n,
+                                children: [
+                                  "Read whenever possible.".i18n,
+                                  "Write down new words.".i18n,
+                                  "Vocally practice new words.".i18n,
+                                  "Visually remember words.".i18n,
+                                  "Play word games online.".i18n
+                                ].map((text) {
+                                  return Row(
+                                    children: [
+                                      const Text("- "),
+                                      Text(text),
+                                    ],
+                                  );
+                                }).toList(),
+                              )
+                            ],
+                          );
+                        default:
+                          return Container();
+                      }
+                    }),
               ],
             ),
           ),

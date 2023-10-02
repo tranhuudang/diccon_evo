@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import '../handlers/directory_handler.dart';
 import '../models/essential_word.dart';
 
-class EssentialManager {
+class EssentialWordRepository {
 
   static Future<List<EssentialWord>> loadEssentialData(String topic) async {
     final jsonString = await rootBundle
@@ -88,7 +88,7 @@ class EssentialManager {
     }
   }
 
-  static removeAWordOutOfFavourite(String wordEnglishName) async {
+  static removeEssentialWordOutOfFavourite(EssentialWord word) async {
     final filePath = await DirectoryHandler
         .getLocalUserDataFilePath(Properties.essentialFavouriteFileName);
     try {
@@ -101,14 +101,14 @@ class EssentialManager {
             Map<String, dynamic>>();
 
         // Filter the list to remove the object with the specified condition
-        jsonList.removeWhere((item) => item['english'] == wordEnglishName);
+        jsonList.removeWhere((item) => item['english'] == word.english);
 
         // Convert the filtered list back into a JSON string
         String updatedJsonData = json.encode(jsonList);
         await file.writeAsString(updatedJsonData);
         // Print the updated JSON string
         if (kDebugMode) {
-          print(updatedJsonData);
+          print("${word.english} is removed out of essential favourite list");
         }
       }
     } catch (e) {
