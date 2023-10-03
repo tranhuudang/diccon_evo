@@ -156,7 +156,7 @@ class _DictionaryViewState extends State<DictionaryView>
                             final data = state as ChatListUpdated;
                             return ListView.builder(
                               padding:
-                                  const EdgeInsets.only(top: 80, bottom: 120),
+                                  const EdgeInsets.only(top: 80, bottom: 130),
                               itemCount: data.chatList.length,
                               controller: chatListBloc.chatListController,
                               itemBuilder: (BuildContext context, int index) {

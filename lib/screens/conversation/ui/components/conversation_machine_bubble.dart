@@ -10,13 +10,14 @@ class ConversationMachineBubble extends StatefulWidget {
     required this.questionRequest,
     this.onWordTap,
     required this.chatGptRepository,
-    required this.answerIndex,
+    required this.answerIndex, required this.conversationScrollController,
   }) : super(key: key);
 
   final ChatCompletionRequest questionRequest;
   final Function(String)? onWordTap;
   final ChatGptRepository chatGptRepository;
   final int answerIndex;
+  final ScrollController conversationScrollController;
 
   @override
   State<ConversationMachineBubble> createState() => _ConversationMachineBubbleState();
@@ -26,10 +27,11 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
     with AutomaticKeepAliveClientMixin {
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
-  /// End implement Chat Gpt
+  final isLoadingStreamController = StreamController<bool>();
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
+    isLoadingStreamController.sink.add(true);
     try {
       final stream = await widget.chatGptRepository.chatGpt
           .createChatCompletionStream(request);
@@ -38,7 +40,9 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
           () {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
+              isLoadingStreamController.sink.add(false);
             } else {
+              _scrollToBottom();
               return widget.chatGptRepository.questionAnswers.last.answer.write(
                 event.choices?.first.delta?.content,
               );
@@ -57,36 +61,15 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
     }
   }
 
-  _chatStreamResponseReload(ChatCompletionRequest request) async {
-    _chatStreamSubscription?.cancel();
-    try {
-      final stream = await widget.chatGptRepository.chatGpt
-          .createChatCompletionStream(request);
-      _chatStreamSubscription = stream?.listen(
-        (event) => setState(
-          () {
-            if (event.streamMessageEnd) {
-              _chatStreamSubscription?.cancel();
-            } else {
-              return widget
-                  .chatGptRepository.questionAnswers[widget.answerIndex].answer
-                  .write(
-                event.choices?.first.delta?.content,
-              );
-            }
-          },
-        ),
+  void _scrollToBottom() {
+    /// Delay the scroll animation until after the list has been updated
+    Future.delayed(const Duration(milliseconds: 300), () {
+      widget.conversationScrollController.animateTo(
+        widget.conversationScrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
       );
-
-    } catch (error) {
-      setState(() {
-        widget.chatGptRepository.questionAnswers.last.answer.write(
-            "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
-      });
-      if (kDebugMode) {
-        print("Error occurred: $error");
-      }
-    }
+    });
   }
 
   @override
@@ -101,6 +84,7 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
   @override
   void dispose() {
     _chatStreamSubscription?.cancel();
+    isLoadingStreamController.close();
     super.dispose();
   }
 
@@ -111,45 +95,72 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
         widget.chatGptRepository.questionAnswers[widget.answerIndex];
     var answer = questionAnswer.answer.toString().trim();
     return Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 8.0,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 32),
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: 600,
+        padding: const EdgeInsets.fromLTRB(40, 8, 16, 8),
+        child: Container(
+          constraints: const BoxConstraints(
+            maxWidth: 600,
+          ),
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(0.0),
+              bottomLeft: Radius.circular(16.0),
+              bottomRight: Radius.circular(16.0),
             ),
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(0.0),
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      const Spacer(),
-                      IconButton(
-                          onPressed: () {
-                            setState(() {
-                              answer = "";
-                            });
-                            _chatStreamResponseReload(widget.questionRequest);
-                          },
-                          icon: const Icon(Icons.cached_rounded)),
-                    ],
-                  ),
-                  Text(answer),
-                ],
-              ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                StreamBuilder<bool>(
+                  initialData: false,
+                  stream: isLoadingStreamController.stream,
+                  builder: (context, snapshot) {
+                    return  Row(
+                      children: [
+                        const Spacer(),
+                        snapshot.data!
+                            ? IconButton(
+                            onPressed: () {
+                              _chatStreamSubscription?.cancel();
+                              isLoadingStreamController.sink.add(false);
+                            },
+                            icon:
+                            const Icon(Icons.stop_circle_outlined))
+                            : const SizedBox.shrink(),
+                        snapshot.data!
+                            ? const Padding(
+                          padding: EdgeInsets.only(right: 12),
+                          child: SizedBox(
+                            height: 15,
+                            width: 15,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                            : IconButton(
+                            onPressed: () {
+                              isLoadingStreamController.sink.add(true);
+                              widget
+                                  .chatGptRepository
+                                  .questionAnswers[widget.answerIndex]
+                                  .answer
+                                  .clear();
+                              _chatStreamResponse(
+                                  widget.questionRequest);
+                            },
+                            icon: const Icon(Icons.cached_rounded)),
+                      ],
+                    );
+                  }
+                ),
+                Align(
+                    alignment:Alignment.topLeft,
+                    child: Text(answer)),
+              ],
             ),
           ),
         ));

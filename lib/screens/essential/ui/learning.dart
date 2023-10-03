@@ -1,5 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
+import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -117,34 +118,44 @@ class _LearningViewState extends State<LearningView> {
                               ),
                               SmoothPageIndicator(
                                 controller: learningBloc.pageViewController,
-                                count: learningBloc.listEssentialWordByTopic.length,
-                                effect:  ScrollingDotsEffect(
+                                count: learningBloc
+                                    .listEssentialWordByTopic.length,
+                                effect: ScrollingDotsEffect(
                                   maxVisibleDots: 5,
                                   dotHeight: 8,
                                   dotWidth: 8,
-                                  activeDotColor: Theme.of(context).primaryColor,
+                                  activeDotColor:
+                                      Theme.of(context).primaryColor,
                                   dotColor: Theme.of(context).highlightColor,
                                 ),
                               ),
+
                               /// Navigate page
                               Row(
                                 children: [
-                                  CircleButtonBar(
-                                    children: [
-                                      CircleButton(
-                                        iconData: FontAwesomeIcons.chevronLeft,
-                                        onTap: () {
-                                          learningBloc.add(GoToPreviousCard());
-                                        },
-                                      ),
-                                      CircleButton(
-                                        iconData: FontAwesomeIcons.chevronRight,
-                                        onTap: () {
-                                          learningBloc.add(GoToNextCard());
-                                        },
-                                      ),
-                                    ],
-                                  ),
+                                  // Only display navigation bar on desktop devices
+                                  defaultTargetPlatform.isDesktop()
+                                      ? CircleButtonBar(
+                                          children: [
+                                            CircleButton(
+                                              iconData:
+                                                  FontAwesomeIcons.chevronLeft,
+                                              onTap: () {
+                                                learningBloc
+                                                    .add(GoToPreviousCard());
+                                              },
+                                            ),
+                                            CircleButton(
+                                              iconData:
+                                                  FontAwesomeIcons.chevronRight,
+                                              onTap: () {
+                                                learningBloc
+                                                    .add(GoToNextCard());
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox.shrink(),
                                   const Spacer(),
 
                                   /// Mark as done button

@@ -25,6 +25,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddSynonyms>(_addSynonymsList);
     on<AddAntonyms>(_addAntonymsList);
     on<AddImage>(_addImage);
+    on<ScrollToBottom>(_scrollToBottom);
   }
   final translator = GoogleTranslator();
   final chatGptRepository = ChatGptRepository();
@@ -92,7 +93,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         word : event.providedWord,
         questionRequest: request,
         chatGptRepository: chatGptRepository,
-        answerIndex: answerIndex,
+        answerIndex: answerIndex, chatListController: chatListController,
       ));
       emit(ChatListUpdated(chatList: chatList));
       _scrollChatListToBottom();
@@ -118,6 +119,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       }
     }
   }
+
+  FutureOr<void> _scrollToBottom (ScrollToBottom event, Emitter<ChatListState> emit){
+  _scrollChatListToBottom();
+}
 
   void _scrollChatListToBottom() {
     /// Delay the scroll animation until after the list has been updated

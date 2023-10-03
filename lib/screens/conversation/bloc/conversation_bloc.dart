@@ -38,11 +38,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
   final chatGptRepository = ChatGptRepository();
   List<Widget> conversation = [const ConversationWelcome()];
+  final ScrollController conversationScrollController = ScrollController();
 
   Future<void> _addUserMessage(
       AskAQuestion event, Emitter<ConversationState> emit) async {
     conversation.add(ConversationUserBubble(message: event.providedWord));
     emit(ConversationUpdated(conversation: conversation));
+    _scrollToBottom();
     // Process and return reply
     final question = event.providedWord;
     // create gpt request
@@ -51,8 +53,20 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     conversation.add(ConversationMachineBubble(
       questionRequest: request,
       chatGptRepository: chatGptRepository,
-      answerIndex: answerIndex,
+      answerIndex: answerIndex, conversationScrollController: conversationScrollController,
     ));
     emit(ConversationUpdated(conversation: conversation));
+    _scrollToBottom();
+  }
+
+  void _scrollToBottom() {
+    /// Delay the scroll animation until after the list has been updated
+    Future.delayed(const Duration(milliseconds: 300), () {
+      conversationScrollController.animateTo(
+        conversationScrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 }

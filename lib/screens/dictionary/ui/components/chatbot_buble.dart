@@ -9,13 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatbotBubble extends StatefulWidget {
-  const ChatbotBubble({
+   const ChatbotBubble({
     Key? key,
     required this.questionRequest,
     this.onWordTap,
     required this.chatGptRepository,
     required this.answerIndex,
     required this.word,
+     required this.chatListController,
   }) : super(key: key);
 
   final ChatCompletionRequest questionRequest;
@@ -23,6 +24,7 @@ class ChatbotBubble extends StatefulWidget {
   final ChatGptRepository chatGptRepository;
   final int answerIndex;
   final String word;
+  final ScrollController chatListController;
 
   @override
   State<ChatbotBubble> createState() => _ChatbotBubbleState();
@@ -47,6 +49,9 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               _chatStreamSubscription?.cancel();
               isLoadingStreamController.sink.add(false);
             } else {
+              widget.chatListController.animateTo(
+                widget.chatListController.position.maxScrollExtent, duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut, );
               return widget.chatGptRepository.questionAnswers.last.answer.write(
                 event.choices?.first.delta?.content,
               );

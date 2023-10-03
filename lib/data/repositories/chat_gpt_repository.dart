@@ -22,7 +22,7 @@ class ChatGptRepository {
       maxTokens: 2000,
       messages: questionAnswers.map((e) => Message(role: Role.user.name, content: e.question)).toList(),
       model: ChatGptModel.gpt35Turbo,
-      temperature: 0.3,
+      temperature: 0.8,
     );
     return request;
   }

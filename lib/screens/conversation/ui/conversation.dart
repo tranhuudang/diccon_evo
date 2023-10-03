@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../commons/header.dart';
 import '../bloc/conversation_bloc.dart';
@@ -15,22 +14,12 @@ class ConversationView extends StatefulWidget {
 class _ConversationViewState extends State<ConversationView>
     with AutomaticKeepAliveClientMixin {
   final TextEditingController _textController = TextEditingController();
-  final ScrollController _conversationScrollController = ScrollController();
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
-  void scrollToBottom() {
-    /// Delay the scroll animation until after the list has been updated
-    Future.delayed(const Duration(milliseconds: 300), () {
-      _conversationScrollController.animateTo(
-        _conversationScrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
-  }
+
 
   void _handleSubmitted(String searchWord, BuildContext context) async {
     var conversationBloc = context.read<ConversationBloc>();
@@ -45,20 +34,18 @@ class _ConversationViewState extends State<ConversationView>
       currentFocus.unfocus();
     }
 
-    /// Delay the scroll animation until after the list has been updated
-    scrollToBottom();
   }
 
   @override
   void dispose() {
     super.dispose();
     _textController.dispose();
-    _conversationScrollController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final conversationBloc = context.read<ConversationBloc>();
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -82,7 +69,7 @@ class _ConversationViewState extends State<ConversationView>
                             final data = state as ConversationInitial;
                             return ListView.builder(
                               itemCount: data.conversation.length,
-                              controller: _conversationScrollController,
+                              controller: conversationBloc.conversationScrollController,
                               itemBuilder: (BuildContext context, int index) {
                                 return state.conversation[index];
                               },
@@ -93,7 +80,7 @@ class _ConversationViewState extends State<ConversationView>
                               padding:
                                   const EdgeInsets.only(top: 80, bottom: 120),
                               itemCount: data.conversation.length,
-                              controller: _conversationScrollController,
+                              controller: conversationBloc.conversationScrollController,
                               itemBuilder: (BuildContext context, int index) {
                                 return state.conversation[index];
                               },

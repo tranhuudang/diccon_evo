@@ -35,3 +35,5 @@ class AddSorryMessage extends ChatListEvent{
   AddSorryMessage();
 }
 
+class ScrollToBottom extends ChatListEvent{}
+
