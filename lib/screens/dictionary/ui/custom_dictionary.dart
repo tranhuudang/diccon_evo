@@ -122,7 +122,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
               ),
             ),
             Header(
-              title: "Customize".i18n,
+              title: "Custom".i18n,
               actions: const [],
             ),
           ],
@@ -173,9 +173,9 @@ class CustomItem extends StatelessWidget {
                         : Theme.of(context).highlightColor,
                   ),
                   const SizedBox().mediumWidth(),
-                  const Text(
-                    "Set as default format",
-                    style: TextStyle(fontSize: 16),
+                  Text(
+                    "Set as default format".i18n,
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ],
               ),

@@ -204,6 +204,7 @@ extension Localization on String {
     },
 
     /// Dictionary
+
     "SubWordInDictionaryWelcomeBox": {
       "en_us":
           "Learning vocabulary can be quite challenging, but when you overcome the fear of new words, you'll unlock the door to a new language.",
@@ -213,6 +214,18 @@ extension Localization on String {
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với những tùy chọn của riêng bạn",
+    },
+   "Customize your experience": {
+      "en_us": "Customize your experience",
+      "vi_vi": "Tùy chỉnh",
+    },
+    "Custom": {
+      "en_us": "Custom",
+      "vi_vi": "Tùy chỉnh",
+    },
+    "Set as default format": {
+      "en_us": "Set as default format",
+      "vi_vi": "Đặt làm mẫu trả lời mặc định",
     },
 
     /// Conversation

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:diccon_evo/config/properties.dart';
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:flutter/foundation.dart';
@@ -100,17 +101,20 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                 }
               },
             ),
-             PopupMenuItem(
+            PopupMenuItem(
               child: Row(
                 children: [
                   const Icon(Icons.settings),
                   const SizedBox().mediumWidth(),
-                  const Text("Custom"),
+                  Text("Custom".i18n),
                 ],
               ),
-            onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CustomDictionary()));
-            },
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CustomDictionary()));
+              },
             ),
           ],
         );
