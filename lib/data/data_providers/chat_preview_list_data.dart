@@ -1,6 +1,5 @@
-import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
-
 import '../models/chat_preview.dart';
+import '../models/dictionary_response_type.dart';
 
 List<ChatPreview> listChatPreviewContent = [
   ChatPreview(
@@ -18,7 +17,7 @@ List<ChatPreview> listChatPreviewContent = [
         'Phiên âm của từ "happy" là [ˈhæpi].\n\nTừ "happy" là một từ tiếng Anh có nghĩa là "vui vẻ" hoặc "hạnh phúc". Nó được sử dụng để mô tả trạng thái tinh thần tích cực khi bạn cảm thấy thoải mái, hài lòng, và đầy niềm vui. Nếu bạn nói bạn đang cảm thấy "happy," có nghĩa bạn đang trải qua một tình trạng tâm hồn tích cực và hạnh phúc. Từ này thường được sử dụng để diễn đạt tình trạng tinh thần tích cực và làm cho người ta cảm thấy thoải mái và vui vẻ.',
   ),
   ChatPreview(
-    responseType: DictionaryResponseType.normalWIthOutPronunciation,
+    responseType: DictionaryResponseType.normalWithOutPronunciation,
     content:
         'Từ "happy" có nghĩa là hạnh phúc, vui vẻ, hứng thú hoặc đầy hạnh phúc và hài lòng. Dưới đây là một số ví dụ:\nVí dụ: Spending time with loved ones makes me happy.\nDịch: Dành thời gian cùng người thân yêu làm tôi hạnh phúc.\nVí dụ: The children were happy to play in the park all day.\nDịch: Các em bé rất vui khi chơi trong công viên cả ngày.\nVí dụ: Winning the competition made him incredibly happy.\nDịch: Chiến thắng trong cuộc thi khiến anh ấy vô cùng hạnh phúc.',
   ),

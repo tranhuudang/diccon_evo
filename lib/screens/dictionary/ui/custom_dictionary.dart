@@ -12,13 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../data/data_providers/chat_preview_list_data.dart';
+import '../../../data/models/dictionary_response_type.dart';
 
-enum DictionaryResponseType {
-  short,
-  normal,
-  normalWithOutExample,
-  normalWIthOutPronunciation,
-}
+
 
 class CustomDictionary extends StatefulWidget {
   const CustomDictionary({super.key});

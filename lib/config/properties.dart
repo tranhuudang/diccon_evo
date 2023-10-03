@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../data/models/dictionary_response_type.dart';
 import '../data/models/setting.dart';
 import '../data/models/user_info.dart';
 import '../data/models/word.dart';

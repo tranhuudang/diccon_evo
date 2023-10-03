@@ -1,4 +1,4 @@
-import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
+import 'dictionary_response_type.dart';
 
 class ChatPreview{
   final DictionaryResponseType responseType;
