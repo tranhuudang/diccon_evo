@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/models/setting.dart';
 import '../data/models/user_info.dart';
@@ -42,6 +43,7 @@ class Properties {
   static const String essentialFavouriteFileName = 'essential_favourite.json';
   static const String extendStoryFileName = 'extend_story.json';
 
+  static DictionaryResponseType dictionaryResponseType = DictionaryResponseType.normal;
   // All view in application
   static Setting defaultSetting = Setting(
       numberOfSynonyms: 10,

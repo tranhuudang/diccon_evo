@@ -1,0 +1,195 @@
+import 'dart:async';
+import 'package:diccon_evo/config/properties.dart';
+import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/extensions/target_platform.dart';
+import 'package:diccon_evo/screens/commons/header.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble_preview.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/navigate_button_bar_pageview.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/user_bubble_preview.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../data/data_providers/chat_preview_list_data.dart';
+
+enum DictionaryResponseType {
+  short,
+  normal,
+  normalWithOutExample,
+  normalWIthOutPronunciation,
+}
+
+class CustomDictionary extends StatefulWidget {
+  const CustomDictionary({super.key});
+
+  @override
+  State<CustomDictionary> createState() => _CustomDictionaryState();
+}
+
+class _CustomDictionaryState extends State<CustomDictionary> {
+  final pageViewController = PageController();
+  final isSelectedStreamController = StreamController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 90,
+                  ),
+                  SizedBox(
+                    height: 550,
+                    child: Stack(
+                      children: [
+                        StreamBuilder(
+                            stream: isSelectedStreamController.stream,
+                            initialData: DictionaryResponseType.normal,
+                            builder: (context, snapshot) {
+                              return PageView(
+                                controller: pageViewController,
+                                children: listChatPreviewContent.map((item) {
+                                  return CustomItem(
+                                      isSelected:
+                                          snapshot.data == item.responseType,
+                                      content: item.content,
+                                      onTap: () {
+                                        isSelectedStreamController.sink
+                                            .add(item.responseType);
+                                        Properties.dictionaryResponseType =
+                                            item.responseType;
+                                      });
+                                }).toList(),
+                              );
+                            }),
+                        defaultTargetPlatform.isDesktop()
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Column(
+                                  children: [
+                                    const Spacer(),
+                                    NavigateBarForRectangeButton(
+                                      children: [
+                                        RectangleButton(
+                                          iconData:
+                                              FontAwesomeIcons.chevronLeft,
+                                          onTap: () {
+                                            pageViewController.previousPage(
+                                                duration: const Duration(
+                                                    microseconds: 3000),
+                                                curve: Curves.easeInOut);
+                                          },
+                                        ),
+                                        const Spacer(),
+                                        RectangleButton(
+                                          iconData:
+                                              FontAwesomeIcons.chevronRight,
+                                          onTap: () {
+                                            pageViewController.nextPage(
+                                                duration: const Duration(
+                                                    microseconds: 300),
+                                                curve: Curves.easeIn);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ],
+                    ),
+                  ),
+                  SmoothPageIndicator(
+                    controller: pageViewController,
+                    count: 4,
+                    effect: ScrollingDotsEffect(
+                      maxVisibleDots: 5,
+                      dotHeight: 8,
+                      dotWidth: 8,
+                      activeDotColor: Theme.of(context).primaryColor,
+                      dotColor: Theme.of(context).highlightColor,
+                    ),
+                  ),
+                  const SizedBox().mediumHeight(),
+                ],
+              ),
+            ),
+            Header(
+              title: "Customize".i18n,
+              actions: const [],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomItem extends StatelessWidget {
+  final String content;
+  final VoidCallback onTap;
+  final bool isSelected;
+  const CustomItem({
+    super.key,
+    required this.content,
+    required this.onTap,
+    required this.isSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(32),
+        ),
+        child: Column(
+          children: [
+            const UserBubblePreview(content: "Happy"),
+            ChatbotBubblePreview(
+              textReturn: content,
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: onTap,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    size: 26,
+                    color: isSelected
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).highlightColor,
+                  ),
+                  const SizedBox().mediumWidth(),
+                  const Text(
+                    "Set as default format",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox().mediumHeight(),
+          ],
+        ),
+      ),
+    );
+  }
+}
