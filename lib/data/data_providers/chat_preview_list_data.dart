@@ -3,8 +3,13 @@ import '../models/dictionary_response_type.dart';
 
 List<ChatPreview> listChatPreviewContent = [
   ChatPreview(
-    responseType: DictionaryResponseType.short,
+    responseType: DictionaryResponseType.shortWithOutPronunciation,
     content: 'Từ "happy" có nghĩa là hạnh phúc hoặc vui vẻ.',
+  ),
+  ChatPreview(
+    responseType: DictionaryResponseType.short,
+    content: 'Phiên âm của từ "happy" là /ˈhæpi/.\n\nTừ "happy" có nghĩa là cảm thấy vui vẻ, hạnh phúc, hài lòng hoặc sung sướng.',
+
   ),
   ChatPreview(
     responseType: DictionaryResponseType.normal,

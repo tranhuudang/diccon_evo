@@ -14,8 +14,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../data/data_providers/chat_preview_list_data.dart';
 import '../../../data/models/dictionary_response_type.dart';
 
-
-
 class CustomDictionary extends StatefulWidget {
   const CustomDictionary({super.key});
 
@@ -110,7 +108,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                   ),
                   SmoothPageIndicator(
                     controller: pageViewController,
-                    count: 4,
+                    count: listChatPreviewContent.length,
                     effect: ScrollingDotsEffect(
                       maxVisibleDots: 5,
                       dotHeight: 8,

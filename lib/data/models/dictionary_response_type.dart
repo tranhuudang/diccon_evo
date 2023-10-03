@@ -1,4 +1,5 @@
 enum DictionaryResponseType {
+  shortWithOutPronunciation,
   short,
   normal,
   normalWithOutExample,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/properties.dart';
@@ -47,6 +48,8 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                       ),
                     ),
                     const SizedBox().largeHeight(),
+
+                    /// Switch button to change between Ai dictionary and classic dictionary
                     Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
@@ -75,7 +78,31 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    const SizedBox().mediumHeight(),
+
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const CustomDictionary()));
+                      },
+                      child:  Opacity(
+                        opacity: 0.5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Customize your experience".i18n,
+                            style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                decorationThickness: 1,
+                                decoration: TextDecoration.underline),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

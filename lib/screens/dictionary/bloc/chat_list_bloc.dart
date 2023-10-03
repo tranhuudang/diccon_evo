@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:diccon_evo/data/models/dictionary_response_type.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
@@ -85,15 +86,38 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   Future<void> _addLocalTranslation(
       AddLocalTranslation event, Emitter<ChatListState> emit) async {
     if (Properties.chatbotEnable) {
-      final question =
-          'Hãy cho tôi biết phiên âm của từ "${event.providedWord}", sau đó giải thích nghĩa của từ "${event.providedWord}". Sau đó cho tôi ví dụ khi sử dụng từ "${event.providedWord}"';
-      var request = await chatGptRepository.createSingleQuestionRequest(question);
+      var question = '';
+      switch (Properties.dictionaryResponseType) {
+
+        case DictionaryResponseType.shortWithOutPronunciation:
+          question = 'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
+          break;
+        case DictionaryResponseType.short:
+          question = 'Viết một dòng về phiên âm của từ "${event.providedWord}". Bên dưới giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
+          break;
+        case DictionaryResponseType.normal:
+          question = 'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng anh và dịch ví dụ ngay bên dưới.';
+          break;
+        case DictionaryResponseType.normalWithOutExample:
+          question =
+              'Viết cho tôi một dòng về phiên âm của từ "${event.providedWord}", sau đó giải thích về nghĩa của từ "${event.providedWord}"?';
+          break;
+        case DictionaryResponseType.normalWithOutPronunciation:
+          question = 'Giải thích nghĩa của từ "${event.providedWord}" và cho ví dụ kèm bản dịch ở bên dưới.';
+          break;
+        default:
+          question = 'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
+          break;
+      }
+      var request =
+          await chatGptRepository.createSingleQuestionRequest(question);
       var answerIndex = chatGptRepository.questionAnswers.length - 1;
       chatList.add(ChatbotBubble(
-        word : event.providedWord,
+        word: event.providedWord,
         questionRequest: request,
         chatGptRepository: chatGptRepository,
-        answerIndex: answerIndex, chatListController: chatListController,
+        answerIndex: answerIndex,
+        chatListController: chatListController,
       ));
       emit(ChatListUpdated(chatList: chatList));
       _scrollChatListToBottom();
@@ -120,9 +144,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     }
   }
 
-  FutureOr<void> _scrollToBottom (ScrollToBottom event, Emitter<ChatListState> emit){
-  _scrollChatListToBottom();
-}
+  FutureOr<void> _scrollToBottom(
+      ScrollToBottom event, Emitter<ChatListState> emit) {
+    _scrollChatListToBottom();
+  }
 
   void _scrollChatListToBottom() {
     /// Delay the scroll animation until after the list has been updated
