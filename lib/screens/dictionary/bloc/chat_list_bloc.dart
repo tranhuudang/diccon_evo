@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:diccon_evo/data/models/dictionary_response_type.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
+import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/searching.dart';
 import '../../../data/models/word.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
@@ -88,25 +90,29 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (Properties.chatbotEnable) {
       var question = '';
       switch (Properties.dictionaryResponseType) {
-
         case DictionaryResponseType.shortWithOutPronunciation:
-          question = 'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
+          question =
+              'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
           break;
         case DictionaryResponseType.short:
-          question = 'Viết một dòng về phiên âm của từ "${event.providedWord}". Bên dưới giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
+          question =
+              'Viết một dòng về phiên âm của từ "${event.providedWord}". Bên dưới giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
           break;
         case DictionaryResponseType.normal:
-          question = 'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng anh và dịch ví dụ ngay bên dưới.';
+          question =
+              'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng anh và dịch ví dụ ngay bên dưới.';
           break;
         case DictionaryResponseType.normalWithOutExample:
           question =
               'Viết cho tôi một dòng về phiên âm của từ "${event.providedWord}", sau đó giải thích về nghĩa của từ "${event.providedWord}"?';
           break;
         case DictionaryResponseType.normalWithOutPronunciation:
-          question = 'Giải thích nghĩa của từ "${event.providedWord}" và cho ví dụ kèm bản dịch ở bên dưới.';
+          question =
+              'Giải thích nghĩa của từ "${event.providedWord}" và cho ví dụ kèm bản dịch ở bên dưới.';
           break;
         default:
-          question = 'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
+          question =
+              'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
           break;
       }
       var request =
@@ -119,8 +125,11 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         answerIndex: answerIndex,
         chatListController: chatListController,
       ));
+      // Save word to history
       emit(ChatListUpdated(chatList: chatList));
       _scrollChatListToBottom();
+      await HistoryManager.saveWordToHistory(event.providedWord.upperCaseFirstLetter());
+
     } else {
       Word? wordResult = Searching.getDefinition(event.providedWord);
       if (wordResult != null) {

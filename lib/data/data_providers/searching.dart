@@ -20,7 +20,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(refineWord);
+        HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
       } else
 
@@ -31,7 +31,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(refineWord);
+        HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
       }
     }
@@ -46,7 +46,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(refineWord);
+        HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
       } else
       // Remove d in verb in the past Ex: play (chơi) → played (đã chơi)
@@ -58,7 +58,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(refineWord);
+        HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
       } else
       // Remove ied in verb in the past Ex: study (học) → studied (đã học)
@@ -71,7 +71,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(refineWord);
+        HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
       } else if (word.startsWith(refineWord)) {
         if (kDebugMode) {
@@ -79,7 +79,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(refineWord);
+        HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
       }
     }
@@ -96,7 +96,7 @@ class Searching {
         }
 
         // Add found word to history file
-        HistoryManager.saveWordToHistory(refineWord);
+        HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
       }
     }
