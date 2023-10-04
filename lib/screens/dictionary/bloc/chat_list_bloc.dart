@@ -5,9 +5,10 @@ import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:diccon_evo/screens/commons/no_internet_buble.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/local_dictionary_bubble.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/user_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
@@ -83,8 +84,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
-    var word = Word(word: event.providedWord);
-    chatList.add(DictionaryBubble(isMachine: false, message: word));
+    chatList.add(UserBubble(message: event.providedWord));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
   }
@@ -96,7 +96,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if (Properties.chatbotEnable && !isInternetConnected && !isReportedAboutDisconnection){
+    if (Properties.chatbotEnable &&
+        !isInternetConnected &&
+        !isReportedAboutDisconnection) {
       chatList.add(const NoInternetBubble());
       emit(ChatListUpdated(chatList: chatList));
       isReportedAboutDisconnection = true;
@@ -114,7 +116,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           break;
         case DictionaryResponseType.normal:
           question =
-              'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng Anh và dịch ví dụ sang tiếng Việt ngay bên dưới câu ví dụ tiếng Anh.';
+              'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng Anh và dịch ví dụ sang tiếng Việt.';
           break;
         case DictionaryResponseType.normalWithOutExample:
           question =
@@ -140,24 +142,20 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       // Save word to history
       emit(ChatListUpdated(chatList: chatList));
       _scrollChatListToBottom();
-      await HistoryManager.saveWordToHistory(event.providedWord.upperCaseFirstLetter());
-
+      await HistoryManager.saveWordToHistory(
+          event.providedWord.upperCaseFirstLetter());
     } else {
       Word? wordResult = Searching.getDefinition(event.providedWord);
       if (wordResult != null) {
         /// Right bubble represent machine reply
-        chatList.add(DictionaryBubble(isMachine: true, message: wordResult));
+        chatList.add(LocalDictionaryBubble(message: wordResult));
         emit(ChatListUpdated(chatList: chatList));
         _scrollChatListToBottom();
       } else {
         await translate(event.providedWord).then((translatedWord) {
-          chatList.add(
-            DictionaryBubble(
-              isMachine: true,
-              message:
-                  Word(word: event.providedWord, meaning: translatedWord.text),
-            ),
-          );
+          chatList.add(LocalDictionaryBubble(
+              message: Word(
+                  word: event.providedWord, meaning: translatedWord.text)));
           emit(ChatListUpdated(chatList: chatList));
           _scrollChatListToBottom();
         });
