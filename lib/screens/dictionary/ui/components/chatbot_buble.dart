@@ -8,19 +8,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/properties.dart';
+import '../../../../data/models/dictionary_response_type.dart';
+
 class ChatbotBubble extends StatefulWidget {
-   const ChatbotBubble({
+  const ChatbotBubble({
     Key? key,
-    required this.questionRequest,
     this.onWordTap,
-    required this.chatGptRepository,
     required this.word,
-     required this.chatListController,
+    required this.chatListController,
   }) : super(key: key);
 
-  final ChatCompletionRequest questionRequest;
   final Function(String)? onWordTap;
-  final ChatGptRepository chatGptRepository;
   final String word;
   final ScrollController chatListController;
 
@@ -32,25 +31,30 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     with AutomaticKeepAliveClientMixin {
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
-  final isLoadingStreamController = StreamController<bool>();
+  final _isLoadingStreamController = StreamController<bool>();
+  ChatGptRepository chatGptRepository = ChatGptRepository();
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
-    isLoadingStreamController.sink.add(true);
+    _isLoadingStreamController.sink.add(true);
     try {
-      final stream = await widget.chatGptRepository.chatGpt
-          .createChatCompletionStream(request);
+      final stream =
+          await chatGptRepository.chatGpt.createChatCompletionStream(request);
       _chatStreamSubscription = stream?.listen(
         (event) => setState(
           () {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
-              isLoadingStreamController.sink.add(false);
+              _isLoadingStreamController.sink.add(false);
             } else {
-              widget.chatListController.animateTo(
-                widget.chatListController.position.maxScrollExtent, duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut, );
-              return widget.chatGptRepository.singleQuestionAnswer.answer.write(
+              Future.delayed(const Duration(milliseconds: 300), () {
+                widget.chatListController.animateTo(
+                  widget.chatListController.position.maxScrollExtent,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.linear,
+                );
+              });
+              return chatGptRepository.singleQuestionAnswer.answer.write(
                 event.choices?.first.delta?.content,
               );
             }
@@ -59,7 +63,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
       );
     } catch (error) {
       setState(() {
-        widget.chatGptRepository.singleQuestionAnswer.answer.write(
+        chatGptRepository.singleQuestionAnswer.answer.write(
             "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
       });
       if (kDebugMode) {
@@ -71,24 +75,59 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   @override
   void initState() {
     super.initState();
-    if (widget.chatGptRepository.singleQuestionAnswer.question.isEmpty ||
-        widget.chatGptRepository.singleQuestionAnswer.answer
-            .isEmpty) {
-      _chatStreamResponse(widget.questionRequest);
+    if (chatGptRepository.singleQuestionAnswer.question.isEmpty ||
+        chatGptRepository.singleQuestionAnswer.answer.isEmpty) {
+      _getGptResponse();
     }
+  }
+
+  void _getGptResponse() async {
+    var request = await _getQuestionRequest();
+    _chatStreamResponse(request);
+  }
+
+  Future<ChatCompletionRequest> _getQuestionRequest() async {
+    var question = '';
+    switch (Properties.dictionaryResponseType) {
+      case DictionaryResponseType.shortWithOutPronunciation:
+        question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
+        break;
+      case DictionaryResponseType.short:
+        question =
+            'Viết một dòng về phiên âm của từ "${widget.word}". Bên dưới giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
+        break;
+      case DictionaryResponseType.normal:
+        question =
+            'Phiên âm của từ "${widget.word}", nghĩa của từ "${widget.word}" và ví dụ khi sử dụng từ "${widget.word}" trong tiếng Anh kèm bản dịch.';
+        break;
+      case DictionaryResponseType.normalWithOutExample:
+        question =
+            'Viết cho tôi một dòng về phiên âm của từ "${widget.word}", sau đó giải thích về nghĩa của từ "${widget.word}"?';
+        break;
+      case DictionaryResponseType.normalWithOutPronunciation:
+        question =
+            'Giải thích nghĩa của từ "${widget.word}" và cho ví dụ tiếng Anh cùng với bản dịch tiếng Việt ở bên dưới.';
+        break;
+      default:
+        question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
+        break;
+    }
+    var request = await chatGptRepository.createSingleQuestionRequest(question);
+    return request;
   }
 
   @override
   void dispose() {
-    _chatStreamSubscription?.cancel();
-    isLoadingStreamController.close();
     super.dispose();
+    _chatStreamSubscription?.cancel();
+    _isLoadingStreamController.close();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    var answer = widget.chatGptRepository.singleQuestionAnswer.answer.toString().trim();
+    var answer =
+        chatGptRepository.singleQuestionAnswer.answer.toString().trim();
     final chatListBloc = context.read<ChatListBloc>();
     return Padding(
         padding: const EdgeInsets.symmetric(
@@ -117,7 +156,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                 children: [
                   StreamBuilder<bool>(
                       initialData: false,
-                      stream: isLoadingStreamController.stream,
+                      stream: _isLoadingStreamController.stream,
                       builder: (context, snapshot) {
                         return Row(
                           children: [
@@ -127,7 +166,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                                 ? IconButton(
                                     onPressed: () {
                                       _chatStreamSubscription?.cancel();
-                                      isLoadingStreamController.sink.add(false);
+                                      _isLoadingStreamController.sink
+                                          .add(false);
                                     },
                                     icon:
                                         const Icon(Icons.stop_circle_outlined))
@@ -145,14 +185,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                                   )
                                 : IconButton(
                                     onPressed: () {
-                                      isLoadingStreamController.sink.add(true);
-                                      widget
-                                          .chatGptRepository
-                                          .singleQuestionAnswer
-                                          .answer
-                                          .clear();
-                                      _chatStreamResponse(
-                                          widget.questionRequest);
+                                      _isLoadingStreamController.sink.add(true);
+                                      _getGptResponse();
                                     },
                                     icon: const Icon(Icons.cached_rounded)),
                           ],

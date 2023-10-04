@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:diccon_evo/data/models/dictionary_response_type.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
@@ -104,39 +103,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       isReportedAboutDisconnection = true;
     }
     if (Properties.chatbotEnable && isInternetConnected) {
-      var question = '';
-      switch (Properties.dictionaryResponseType) {
-        case DictionaryResponseType.shortWithOutPronunciation:
-          question =
-              'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
-          break;
-        case DictionaryResponseType.short:
-          question =
-              'Viết một dòng về phiên âm của từ "${event.providedWord}". Bên dưới giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
-          break;
-        case DictionaryResponseType.normal:
-          question =
-              'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng Anh và dịch ví dụ sang tiếng Việt.';
-          break;
-        case DictionaryResponseType.normalWithOutExample:
-          question =
-              'Viết cho tôi một dòng về phiên âm của từ "${event.providedWord}", sau đó giải thích về nghĩa của từ "${event.providedWord}"?';
-          break;
-        case DictionaryResponseType.normalWithOutPronunciation:
-          question =
-              'Giải thích nghĩa của từ "${event.providedWord}" và cho ví dụ tiếng Anh cùng với bản dịch tiếng Việt ở bên dưới.';
-          break;
-        default:
-          question =
-              'Giải thích ngắn gọn từ "${event.providedWord}" nghĩa là gì?';
-          break;
-      }
-      var request =
-          await chatGptRepository.createSingleQuestionRequest(question);
       chatList.add(ChatbotBubble(
         word: event.providedWord,
-        questionRequest: request,
-        chatGptRepository: chatGptRepository,
         chatListController: chatListController,
       ));
       // Save word to history
