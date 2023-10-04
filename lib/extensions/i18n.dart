@@ -23,6 +23,17 @@ extension Localization on String {
 
   static const _t = Translations.from("en_us", {
     /// Common
+    // NoInternetBubble
+    "You're not connected": {
+      "en_us": "You're not connected",
+      "vi_vi": "Không có kết nối mạng",
+    },
+    "SubSentenceInNoInternetBubble": {
+      "en_us":
+          "No internet. You are not connected to the internet, or your internet connection is experiencing an issue.",
+      "vi_vi":
+          "Không có mạng. Bạn đang mất kết nối mạng hoặc mạng của bạn đang gặp sự cố.",
+    },
     "Cancel": {
       "en_us": "Cancel",
       "vi_vi": "Hủy bỏ",
@@ -215,7 +226,7 @@ extension Localization on String {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với những tùy chọn của riêng bạn",
     },
-   "Customize your experience": {
+    "Customize your experience": {
       "en_us": "Customize your experience",
       "vi_vi": "Tùy chỉnh",
     },

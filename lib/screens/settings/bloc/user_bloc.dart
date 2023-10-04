@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../config/properties.dart';
 import '../../../data/handlers/file_handler.dart';
 import '../../../data/data_providers/user_handler.dart';
@@ -28,6 +30,7 @@ abstract class UserActionState extends UserState {}
 
 class UserUninitialized extends UserState {}
 
+class NoInternetState extends UserActionState{}
 class UserLoggingoutState extends UserActionState {}
 
 class UserLogoutCompletedState extends UserActionState {}
@@ -81,11 +84,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
-    AuthService authService = AuthService();
-    GoogleSignInAccount? user = await authService.googleSignIn();
-    Properties.userInfo = UserInfo(
-        user!.id, user.displayName ?? "", user.photoUrl ?? "", user.email);
-    emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+    // Check internet connection
+    bool isInternetConnected = await InternetConnectionChecker().hasConnection;
+    if (kDebugMode) {
+      print("[Internet Connection] $isInternetConnected");
+    }
+    if(isInternetConnected) {
+      AuthService authService = AuthService();
+      GoogleSignInAccount? user = await authService.googleSignIn();
+      Properties.userInfo = UserInfo(
+          user!.id, user.displayName ?? "", user.photoUrl ?? "", user.email);
+      emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+    }
+    else {
+      emit(NoInternetState());
+    }
   }
 
   FutureOr<void> _userLogout(

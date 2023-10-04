@@ -69,8 +69,6 @@ dependencies:
   firebase_storage: ^11.2.7
   firebase_app_check: ^0.2.0
 
-  google_fonts: ^6.0.0
-
   # custom icon
   font_awesome_flutter: ^10.5.0
   unicons: ^2.1.1
@@ -80,10 +78,9 @@ dependencies:
   flutter_localization: ^0.1.14
   # gpt
   chat_gpt_flutter: ^1.0.15
-  #create shimmer effect
-  shimmer: ^3.0.0
-
-
+  # use to check internet connectivity
+  internet_connection_checker: ^1.0.0+1
+  # create dotted indicator for pageview
   smooth_page_indicator: ^1.1.0
 
 dev_dependencies:

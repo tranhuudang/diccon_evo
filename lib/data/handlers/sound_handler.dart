@@ -32,19 +32,24 @@ class SoundHandler {
 
   Stream<bool> playAnyway() async* {
     String url = _onlineSoundUrlPath();
-    String refinedWord = providedWordToPlay.upperCaseFirstLetter();
+    // Okapi /'ou'kɑ:pi/
+    String refinedWord =
+    providedWordToPlay.getFirstWord().upperCaseFirstLetter();
 
     if (kDebugMode) {
       print("playing word: $refinedWord");
     }
     String fileName = "$refinedWord.mp3";
-    final soundFilePath = await DirectoryHandler.getLocalResourceFilePath(fileName);
+    final soundFilePath =
+        await DirectoryHandler.getLocalResourceFilePath(fileName);
     File file = File(soundFilePath);
-
+print(soundFilePath);
     try {
-      if (await file.exists()) {
-        _playLocal(fileName);
-      } else {
+      if (file.existsSync()) {
+        await _playLocal(fileName);
+        return;
+      }
+      if (!file.existsSync()) {
         yield false;
         await FileHandler(fileName).downloadToResource(url);
         yield true;
@@ -58,15 +63,18 @@ class SoundHandler {
     }
   }
 
-
-  void _playLocal(String fileName) async {
+  Future<bool> _playLocal(String fileName) async {
     try {
       var filePath = await DirectoryHandler.getLocalResourceFilePath(fileName);
       AudioPlayer audioPlayer = AudioPlayer();
       await audioPlayer.play(UrlSource(filePath));
+      return true;
     } catch (e) {
       // Play sound using local tts
       _playTts(fileName.substring(0, fileName.indexOf('.')));
+      return false;
     }
+
   }
+
 }

@@ -28,15 +28,22 @@ class _UserSettingsViewState extends State<UserSettingsView> {
           listenWhen: (previous, current) => current is UserActionState,
           buildWhen: (previous, current) => current is! UserActionState,
           listener: (context, state) {
-            if (state is UserLoggingoutState) {
-              Notify.showLoadingAlertDialog(context, "Logging out".i18n,
-                  "Your data will be cleared during the process.".i18n);
-            } else if (state is UserLogoutCompletedState) {
-              Navigator.pop(context);
-              Notify.showSnackBar(context, "You are logged out");
-            }
-            if (state is UserSyncCompleted) {
-              Notify.showSnackBar(context, "Your data is synced");
+            switch (state.runtimeType) {
+              case UserLoggingoutState:
+                Notify.showLoadingAlertDialog(context, "Logging out".i18n,
+                    "Your data will be cleared during the process.".i18n);
+                break;
+              case UserLogoutCompletedState:
+                Navigator.pop(context);
+                Notify.showSnackBar(context, "You are logged out");
+                break;
+              case UserSyncCompleted:
+                Notify.showSnackBar(context, "Your data is synced");
+                break;
+              case NoInternetState:
+                Notify.showAlertDialog(context, "You're not connected".i18n,
+                    "SubSentenceInNoInternetBubble".i18n);
+                break;
             }
           },
           builder: (context, state) {

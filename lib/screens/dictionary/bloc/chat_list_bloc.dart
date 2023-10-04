@@ -4,6 +4,8 @@ import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
+import 'package:diccon_evo/screens/commons/no_internet_buble.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_buble.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,7 @@ import '../../../data/models/word.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../ui/components/brick_wall_buttons.dart';
 import '../ui/components/image_buble.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 part 'chat_list_state.dart';
 part 'chat_list_event.dart';
@@ -34,6 +37,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   final chatGptRepository = ChatGptRepository();
   final ScrollController chatListController = ScrollController();
   List<Widget> chatList = [const DictionaryWelcome()];
+  bool isReportedAboutDisconnection = false;
 
   Future<Translation> translate(String word) async {
     return await translator.translate(word, from: 'auto', to: 'vi');
@@ -87,7 +91,17 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   Future<void> _addLocalTranslation(
       AddLocalTranslation event, Emitter<ChatListState> emit) async {
-    if (Properties.chatbotEnable) {
+    // Check internet connection before create request to chatbot
+    bool isInternetConnected = await InternetConnectionChecker().hasConnection;
+    if (kDebugMode) {
+      print("[Internet Connection] $isInternetConnected");
+    }
+    if (Properties.chatbotEnable && !isInternetConnected && !isReportedAboutDisconnection){
+      chatList.add(const NoInternetBubble());
+      emit(ChatListUpdated(chatList: chatList));
+      isReportedAboutDisconnection = true;
+    }
+    if (Properties.chatbotEnable && isInternetConnected) {
       var question = '';
       switch (Properties.dictionaryResponseType) {
         case DictionaryResponseType.shortWithOutPronunciation:
@@ -100,7 +114,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           break;
         case DictionaryResponseType.normal:
           question =
-              'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng anh và dịch ví dụ ngay bên dưới.';
+              'Phiên âm của từ "${event.providedWord}", nghĩa của từ "${event.providedWord}" và ví dụ khi sử dụng từ "${event.providedWord}" trong tiếng Anh và dịch ví dụ sang tiếng Việt ngay bên dưới câu ví dụ tiếng Anh.';
           break;
         case DictionaryResponseType.normalWithOutExample:
           question =
@@ -108,7 +122,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           break;
         case DictionaryResponseType.normalWithOutPronunciation:
           question =
-              'Giải thích nghĩa của từ "${event.providedWord}" và cho ví dụ kèm bản dịch ở bên dưới.';
+              'Giải thích nghĩa của từ "${event.providedWord}" và cho ví dụ tiếng Anh cùng với bản dịch tiếng Việt ở bên dưới.';
           break;
         default:
           question =
