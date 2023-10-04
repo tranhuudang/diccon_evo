@@ -19,10 +19,12 @@ class ChatGptRepository {
         answer: StringBuffer(),
       ),
     );
+    final List<Message> messages = createMessageListFromQuestionAnswers(questionAnswers);
+    
     final request = ChatCompletionRequest(
       stream: true,
       maxTokens: 2000,
-      messages: questionAnswers.map((e) => Message(role: Role.user.name, content: e.question)).toList(),
+      messages: messages,
       model: ChatGptModel.gpt35Turbo,
       temperature: 0.8,
     );
@@ -37,11 +39,10 @@ class ChatGptRepository {
         question: userQuestion,
         answer: StringBuffer(),
     );
-    final List<Message> messages = createMessageListFromQuestionAnswers(questionAnswers);
     final request = ChatCompletionRequest(
       stream: true,
       maxTokens: 2000,
-      messages: messages,
+      messages: [Message(role: Role.user.name, content: singleQuestionAnswer.question)],
       model: ChatGptModel.gpt35Turbo,
       temperature: 0.3,
     );
