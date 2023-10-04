@@ -14,7 +14,6 @@ class ChatbotBubble extends StatefulWidget {
     required this.questionRequest,
     this.onWordTap,
     required this.chatGptRepository,
-    required this.answerIndex,
     required this.word,
      required this.chatListController,
   }) : super(key: key);
@@ -22,7 +21,6 @@ class ChatbotBubble extends StatefulWidget {
   final ChatCompletionRequest questionRequest;
   final Function(String)? onWordTap;
   final ChatGptRepository chatGptRepository;
-  final int answerIndex;
   final String word;
   final ScrollController chatListController;
 
@@ -52,7 +50,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               widget.chatListController.animateTo(
                 widget.chatListController.position.maxScrollExtent, duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut, );
-              return widget.chatGptRepository.questionAnswers.last.answer.write(
+              return widget.chatGptRepository.singleQuestionAnswer.answer.write(
                 event.choices?.first.delta?.content,
               );
             }
@@ -61,7 +59,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
       );
     } catch (error) {
       setState(() {
-        widget.chatGptRepository.questionAnswers.last.answer.write(
+        widget.chatGptRepository.singleQuestionAnswer.answer.write(
             "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
       });
       if (kDebugMode) {
@@ -73,8 +71,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   @override
   void initState() {
     super.initState();
-    if (widget.chatGptRepository.questionAnswers.isEmpty ||
-        widget.chatGptRepository.questionAnswers[widget.answerIndex].answer
+    if (widget.chatGptRepository.singleQuestionAnswer.question.isEmpty ||
+        widget.chatGptRepository.singleQuestionAnswer.answer
             .isEmpty) {
       _chatStreamResponse(widget.questionRequest);
     }
@@ -90,9 +88,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final questionAnswer =
-        widget.chatGptRepository.questionAnswers[widget.answerIndex];
-    var answer = questionAnswer.answer.toString().trim();
+    var answer = widget.chatGptRepository.singleQuestionAnswer.answer.toString().trim();
     final chatListBloc = context.read<ChatListBloc>();
     return Padding(
         padding: const EdgeInsets.symmetric(
@@ -152,7 +148,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                                       isLoadingStreamController.sink.add(true);
                                       widget
                                           .chatGptRepository
-                                          .questionAnswers[widget.answerIndex]
+                                          .singleQuestionAnswer
                                           .answer
                                           .clear();
                                       _chatStreamResponse(

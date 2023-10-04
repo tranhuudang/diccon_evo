@@ -65,7 +65,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       /// Process and return reply
       final question = event.providedWord;
       // create gpt request
-      var request = await chatGptRepository.createQuestionRequest(question);
+      var request = await chatGptRepository.createMultipleQuestionRequest(question);
       var answerIndex = chatGptRepository.questionAnswers.length - 1;
       listConversations.add(ConversationMachineBubble(
         questionRequest: request,

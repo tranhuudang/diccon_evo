@@ -6,9 +6,10 @@ class ChatGptRepository {
   /// Implement Chat Gpt
   final ChatGpt chatGpt =
       ChatGpt(apiKey: "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");
-  final List<QuestionAnswer> questionAnswers = [];
+  List<QuestionAnswer> questionAnswers = [];
+  QuestionAnswer singleQuestionAnswer = QuestionAnswer(question: '', answer: StringBuffer());
 
-  Future<ChatCompletionRequest> createQuestionRequest(
+  Future<ChatCompletionRequest> createMultipleQuestionRequest(
       String userQuestion) async {
     final question = userQuestion;
     questionAnswers.add(
@@ -29,11 +30,10 @@ class ChatGptRepository {
 
   Future<ChatCompletionRequest> createSingleQuestionRequest(
       String userQuestion) async {
-    questionAnswers.add(
+    singleQuestionAnswer =
       QuestionAnswer(
         question: userQuestion,
         answer: StringBuffer(),
-      ),
     );
     final request = ChatCompletionRequest(
       stream: true,

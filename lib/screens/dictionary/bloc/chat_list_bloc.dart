@@ -131,12 +131,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       }
       var request =
           await chatGptRepository.createSingleQuestionRequest(question);
-      var answerIndex = chatGptRepository.questionAnswers.length - 1;
       chatList.add(ChatbotBubble(
         word: event.providedWord,
         questionRequest: request,
         chatGptRepository: chatGptRepository,
-        answerIndex: answerIndex,
         chatListController: chatListController,
       ));
       // Save word to history
