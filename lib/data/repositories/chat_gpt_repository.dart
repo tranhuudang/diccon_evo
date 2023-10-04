@@ -9,6 +9,7 @@ class ChatGptRepository {
   List<QuestionAnswer> questionAnswers = [];
   QuestionAnswer singleQuestionAnswer = QuestionAnswer(question: '', answer: StringBuffer());
 
+  // Using in conversation to understand multiple questions in a conversation
   Future<ChatCompletionRequest> createMultipleQuestionRequest(
       String userQuestion) async {
     final question = userQuestion;
@@ -28,6 +29,7 @@ class ChatGptRepository {
     return request;
   }
 
+  // Using in dictionary for single question per request
   Future<ChatCompletionRequest> createSingleQuestionRequest(
       String userQuestion) async {
     singleQuestionAnswer =
@@ -35,14 +37,29 @@ class ChatGptRepository {
         question: userQuestion,
         answer: StringBuffer(),
     );
+    final List<Message> messages = createMessageListFromQuestionAnswers(questionAnswers);
     final request = ChatCompletionRequest(
       stream: true,
       maxTokens: 2000,
-      messages: [Message(role: Role.user.name, content: userQuestion)],
+      messages: messages,
       model: ChatGptModel.gpt35Turbo,
       temperature: 0.3,
     );
     return request;
+  }
+
+  List<Message> createMessageListFromQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+    final List<Message> messages = [];
+
+    for (var qa in questionAnswers) {
+      // Add a user message for the question
+      messages.add(Message(role: Role.user.name, content: qa.question));
+
+      // Add a bot message for the answer
+      messages.add(Message(role: Role.assistant.name, content: qa.answer.toString()));
+    }
+
+    return messages;
   }
 
 }
