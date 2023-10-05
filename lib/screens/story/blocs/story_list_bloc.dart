@@ -60,6 +60,7 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
           print("Load all article reach timeout 10 seconds limit.");
         }
       });
+      defaultStoryList.shuffle();
       emit(StoryListUpdatedState(articleList: defaultStoryList));
     } catch(e)
     {
