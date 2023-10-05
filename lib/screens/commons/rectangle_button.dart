@@ -1,25 +1,5 @@
 import 'package:flutter/material.dart';
 
-class NavigateBarForRectangeButton extends StatelessWidget {
-  final List<Widget> children;
-  const NavigateBarForRectangeButton({
-    super.key,
-    required this.children,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        //color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Row(
-        children: children,
-      ),
-    );
-  }
-}
 
 class RectangleButton extends StatefulWidget {
   final IconData iconData;

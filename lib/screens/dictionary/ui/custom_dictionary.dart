@@ -5,14 +5,13 @@ import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble_preview.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/navigate_button_bar_pageview.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/user_bubble_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../data/data_providers/chat_preview_list_data.dart';
 import '../../../data/models/dictionary_response_type.dart';
+import 'components/pageview_navigator.dart';
 
 class CustomDictionary extends StatefulWidget {
   const CustomDictionary({super.key});
@@ -68,39 +67,11 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                             }),
                         defaultTargetPlatform.isDesktop()
                             ? Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Column(
-                                  children: [
-                                    const Spacer(),
-                                    NavigateBarForRectangeButton(
-                                      children: [
-                                        RectangleButton(
-                                          iconData:
-                                              FontAwesomeIcons.chevronLeft,
-                                          onTap: () {
-                                            pageViewController.previousPage(
-                                                duration: const Duration(
-                                                    microseconds: 3000),
-                                                curve: Curves.easeInOut);
-                                          },
-                                        ),
-                                        const Spacer(),
-                                        RectangleButton(
-                                          iconData:
-                                              FontAwesomeIcons.chevronRight,
-                                          onTap: () {
-                                            pageViewController.nextPage(
-                                                duration: const Duration(
-                                                    microseconds: 300),
-                                                curve: Curves.easeIn);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                  ],
-                                ),
+                                padding: const EdgeInsets.all(16.0),
+                                child: PageViewNavigator(
+                                    itemCount: listChatPreviewContent.length,
+                                    controller: pageViewController,
+                                    height: 550),
                               )
                             : const SizedBox.shrink(),
                       ],

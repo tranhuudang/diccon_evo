@@ -196,8 +196,15 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                   children: [
                     TextField(
                       controller: _searchTextController,
-                      onTap: () {
-                        _tinyCloseButtonStreamController.add(true);
+                      onChanged: (value){
+                        if (value == "")
+                          {
+                            _tinyCloseButtonStreamController.add(false);
+                          }
+                        else {
+                          _tinyCloseButtonStreamController.add(true);
+
+                        }
                       },
                       onSubmitted: (String value) {
                         Navigator.push(
