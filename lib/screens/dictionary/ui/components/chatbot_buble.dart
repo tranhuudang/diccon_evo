@@ -16,12 +16,14 @@ class ChatbotBubble extends StatefulWidget {
     Key? key,
     this.onWordTap,
     required this.word,
-    required this.chatListController,
+    required this.chatListController, required this.index, required this.listChatGptRepository,
   }) : super(key: key);
 
   final Function(String)? onWordTap;
   final String word;
   final ScrollController chatListController;
+  final int index;
+  final List<ChatGptRepository> listChatGptRepository;
 
   @override
   State<ChatbotBubble> createState() => _ChatbotBubbleState();
@@ -32,14 +34,13 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
   final _isLoadingStreamController = StreamController<bool>();
-  ChatGptRepository chatGptRepository = ChatGptRepository();
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
     _isLoadingStreamController.sink.add(true);
     try {
       final stream =
-          await chatGptRepository.chatGpt.createChatCompletionStream(request);
+          await widget.listChatGptRepository[widget.index].chatGpt.createChatCompletionStream(request);
       _chatStreamSubscription = stream?.listen(
         (event) => setState(
           () {
@@ -54,7 +55,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                   curve: Curves.linear,
                 );
               });
-              return chatGptRepository.singleQuestionAnswer.answer.write(
+              return widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.write(
                 event.choices?.first.delta?.content,
               );
             }
@@ -63,7 +64,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
       );
     } catch (error) {
       setState(() {
-        chatGptRepository.singleQuestionAnswer.answer.write(
+        widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.write(
             "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
       });
       if (kDebugMode) {
@@ -75,15 +76,14 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   @override
   void initState() {
     super.initState();
-    if (chatGptRepository.singleQuestionAnswer.question.isEmpty ||
-        chatGptRepository.singleQuestionAnswer.answer.isEmpty) {
-      _getGptResponse();
-    }
+    _getGptResponse();
   }
 
   void _getGptResponse() async {
-    var request = await _getQuestionRequest();
-    _chatStreamResponse(request);
+    if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.isEmpty) {
+      var request = await _getQuestionRequest();
+      _chatStreamResponse(request);
+    }
   }
 
   Future<ChatCompletionRequest> _getQuestionRequest() async {
@@ -112,7 +112,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
         question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
         break;
     }
-    var request = await chatGptRepository.createSingleQuestionRequest(question);
+    var request = await widget.listChatGptRepository[widget.index].createSingleQuestionRequest(question);
     return request;
   }
 
@@ -127,7 +127,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   Widget build(BuildContext context) {
     super.build(context);
     var answer =
-        chatGptRepository.singleQuestionAnswer.answer.toString().trim();
+    widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.toString().trim();
     final chatListBloc = context.read<ChatListBloc>();
     return Padding(
         padding: const EdgeInsets.symmetric(

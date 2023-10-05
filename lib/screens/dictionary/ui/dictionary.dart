@@ -22,7 +22,7 @@ class DictionaryView extends StatefulWidget {
 }
 
 class _DictionaryViewState extends State<DictionaryView>
-    with AutomaticKeepAliveClientMixin {
+   {
   final TextEditingController _textController = TextEditingController();
   final ImageHandler _imageProvider = ImageHandler();
   List<String> _suggestionWords = [];
@@ -33,9 +33,7 @@ class _DictionaryViewState extends State<DictionaryView>
   bool _hasSuggestionWords = true;
   String _currentSearchWord = '';
 
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
+  
 
   void resetSuggestion() {
     setState(() {
@@ -107,7 +105,6 @@ class _DictionaryViewState extends State<DictionaryView>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     var chatListBloc = context.read<ChatListBloc>();
     return SafeArea(
       child: Scaffold(
@@ -155,9 +152,11 @@ class _DictionaryViewState extends State<DictionaryView>
                           case ChatListUpdated:
                             final data = state as ChatListUpdated;
                             return ListView.builder(
+
                               padding:
                                   const EdgeInsets.only(top: 80, bottom: 130),
                               itemCount: data.chatList.length,
+                              addAutomaticKeepAlives: true,
                               controller: chatListBloc.chatListController,
                               itemBuilder: (BuildContext context, int index) {
                                 return state.chatList[index];

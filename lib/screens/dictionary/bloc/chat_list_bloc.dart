@@ -34,7 +34,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<ScrollToBottom>(_scrollToBottom);
   }
   final translator = GoogleTranslator();
-  final chatGptRepository = ChatGptRepository();
+  List<ChatGptRepository> listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
   List<Widget> chatList = [const DictionaryWelcome()];
   bool isReportedAboutDisconnection = false;
@@ -102,10 +102,14 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       emit(ChatListUpdated(chatList: chatList));
       isReportedAboutDisconnection = true;
     }
+    var newChatGptRepository = ChatGptRepository();
+    listChatGptRepository.add(newChatGptRepository);
+    var chatGptRepositoryIndex = listChatGptRepository.length -1;
     if (Properties.chatbotEnable && isInternetConnected) {
       chatList.add(ChatbotBubble(
         word: event.providedWord,
-        chatListController: chatListController,
+        chatListController: chatListController, index: chatGptRepositoryIndex,
+        listChatGptRepository: listChatGptRepository,
       ));
       // Save word to history
       emit(ChatListUpdated(chatList: chatList));
