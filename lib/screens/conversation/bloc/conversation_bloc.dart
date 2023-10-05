@@ -17,7 +17,9 @@ class AskAQuestion extends ConversationEvent {
   final String providedWord;
   AskAQuestion({required this.providedWord});
 }
-class ResetConversation extends ConversationEvent{}
+
+class ResetConversation extends ConversationEvent {}
+
 /// State
 abstract class ConversationState {}
 
@@ -45,11 +47,17 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   final chatGptRepository = ChatGptRepository();
   List<Widget> listConversations = [const ConversationWelcome()];
   final ScrollController conversationScrollController = ScrollController();
+  final TextEditingController textController = TextEditingController();
   bool isReportedAboutDisconnection = false;
 
   Future<void> _addUserMessage(
       AskAQuestion event, Emitter<ConversationState> emit) async {
-    listConversations.add(ConversationUserBubble(message: event.providedWord));
+    listConversations.add(ConversationUserBubble(
+      message: event.providedWord,
+      onTap: () {
+        textController.text = event.providedWord;
+      },
+    ));
     emit(ConversationUpdated(conversation: listConversations));
     _scrollToBottom();
     // Check internet connection before create request to chatbot
@@ -62,11 +70,11 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       emit(ConversationUpdated(conversation: listConversations));
       isReportedAboutDisconnection = true;
     } else {
-
       /// Process and return reply
       final question = event.providedWord;
       // create gpt request
-      var request = await chatGptRepository.createMultipleQuestionRequest(question);
+      var request =
+          await chatGptRepository.createMultipleQuestionRequest(question);
       var answerIndex = chatGptRepository.questionAnswers.length - 1;
       listConversations.add(ConversationMachineBubble(
         questionRequest: request,
@@ -79,10 +87,10 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     }
   }
 
-  FutureOr<void> _resetConversation(ResetConversation event, Emitter<ConversationState> emit)
-  {
+  FutureOr<void> _resetConversation(
+      ResetConversation event, Emitter<ConversationState> emit) {
     chatGptRepository.reset();
-    listConversations= [const ConversationWelcome()];
+    listConversations = [const ConversationWelcome()];
     emit(ConversationUpdated(conversation: listConversations));
   }
 

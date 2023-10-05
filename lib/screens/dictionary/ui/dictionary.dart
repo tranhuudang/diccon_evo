@@ -23,7 +23,6 @@ class DictionaryView extends StatefulWidget {
 
 class _DictionaryViewState extends State<DictionaryView>
    {
-  final TextEditingController _textController = TextEditingController();
   final ImageHandler _imageProvider = ImageHandler();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
@@ -47,7 +46,7 @@ class _DictionaryViewState extends State<DictionaryView>
   void _handleSubmitted(String searchWord, BuildContext context) async {
     _currentSearchWord = searchWord;
     var chatListBloc = context.read<ChatListBloc>();
-    _textController.clear();
+    chatListBloc.textController.clear();
     resetSuggestion();
 
     /// Add left bubble as user message
@@ -356,7 +355,7 @@ class _DictionaryViewState extends State<DictionaryView>
                                               BorderRadius.circular(32.0),
                                         ),
                                       ),
-                                      controller: _textController,
+                                      controller: chatListBloc.textController,
                                     ),
                                   ),
                                 ],

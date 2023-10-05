@@ -36,6 +36,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   final translator = GoogleTranslator();
   List<ChatGptRepository> listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
+  final TextEditingController textController = TextEditingController();
   List<Widget> chatList = [const DictionaryWelcome()];
   bool isReportedAboutDisconnection = false;
 
@@ -83,7 +84,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
-    chatList.add(UserBubble(message: event.providedWord));
+    chatList.add(UserBubble(message: event.providedWord, onTap: () {
+      textController.text = event.providedWord;
+    },));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
   }

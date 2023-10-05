@@ -14,17 +14,13 @@ class ConversationView extends StatefulWidget {
 
 class _ConversationViewState extends State<ConversationView>
     with AutomaticKeepAliveClientMixin {
-  final TextEditingController _textController = TextEditingController();
-
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
-
-
   void _handleSubmitted(String searchWord, BuildContext context) async {
     var conversationBloc = context.read<ConversationBloc>();
-    _textController.clear();
+    conversationBloc.textController.clear();
 
     /// Add left bubble as user message
     conversationBloc.add(AskAQuestion(providedWord: searchWord));
@@ -34,13 +30,6 @@ class _ConversationViewState extends State<ConversationView>
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
     }
-
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _textController.dispose();
   }
 
   @override
@@ -70,7 +59,8 @@ class _ConversationViewState extends State<ConversationView>
                             final data = state as ConversationInitial;
                             return ListView.builder(
                               itemCount: data.conversation.length,
-                              controller: conversationBloc.conversationScrollController,
+                              controller:
+                                  conversationBloc.conversationScrollController,
                               itemBuilder: (BuildContext context, int index) {
                                 return state.conversation[index];
                               },
@@ -81,7 +71,8 @@ class _ConversationViewState extends State<ConversationView>
                               padding:
                                   const EdgeInsets.only(top: 80, bottom: 120),
                               itemCount: data.conversation.length,
-                              controller: conversationBloc.conversationScrollController,
+                              controller:
+                                  conversationBloc.conversationScrollController,
                               itemBuilder: (BuildContext context, int index) {
                                 return state.conversation[index];
                               },
@@ -151,12 +142,17 @@ class _ConversationViewState extends State<ConversationView>
                               //margin:  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Row(
                                 children: <Widget>[
-                                  IconButton(onPressed: (){
-                                    conversationBloc.add(ResetConversation());
-                                  }, icon: const Icon(Icons.add_circle_outline)),
+                                  IconButton(
+                                      onPressed: () {
+                                        conversationBloc
+                                            .add(ResetConversation());
+                                      },
+                                      icon:
+                                          const Icon(Icons.add_circle_outline)),
                                   Expanded(
                                     child: TextField(
-                                      controller: _textController,
+                                      controller:
+                                          conversationBloc.textController,
                                       onSubmitted: (providedWord) {
                                         _handleSubmitted(providedWord, context);
                                       },
