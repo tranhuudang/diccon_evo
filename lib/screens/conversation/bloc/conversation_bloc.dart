@@ -17,7 +17,7 @@ class AskAQuestion extends ConversationEvent {
   final String providedWord;
   AskAQuestion({required this.providedWord});
 }
-
+class ResetConversation extends ConversationEvent{}
 /// State
 abstract class ConversationState {}
 
@@ -39,6 +39,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       : super(
             ConversationInitial(conversation: [const ConversationWelcome()])) {
     on<AskAQuestion>(_addUserMessage);
+    on<ResetConversation>(_resetConversation);
   }
 
   final chatGptRepository = ChatGptRepository();
@@ -76,6 +77,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       emit(ConversationUpdated(conversation: listConversations));
       _scrollToBottom();
     }
+  }
+
+  FutureOr<void> _resetConversation(ResetConversation event, Emitter<ConversationState> emit)
+  {
+    chatGptRepository.reset();
+    listConversations= [const ConversationWelcome()];
+    emit(ConversationUpdated(conversation: listConversations));
   }
 
   void _scrollToBottom() {

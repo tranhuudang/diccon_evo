@@ -63,4 +63,8 @@ class ChatGptRepository {
     return messages;
   }
 
+  void reset(){
+    questionAnswers.clear();
+    singleQuestionAnswer = QuestionAnswer(question: '', answer: StringBuffer());
+  }
 }

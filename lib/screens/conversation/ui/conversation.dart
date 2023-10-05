@@ -1,3 +1,4 @@
+import 'package:diccon_evo/screens/commons/circle_button.dart';
 import 'package:flutter/material.dart';
 import '../../commons/header.dart';
 import '../bloc/conversation_bloc.dart';
@@ -104,7 +105,7 @@ class _ConversationViewState extends State<ConversationView>
                   ),
                 ),
 
-                /// Suggestion bar with different suggestive button
+                /// Text field
                 ClipRect(
                   child: SizedBox(
                     height: 130,
@@ -147,10 +148,12 @@ class _ConversationViewState extends State<ConversationView>
                             Container(
                               padding: const EdgeInsets.only(
                                   left: 10, right: 10, top: 2, bottom: 16),
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              //margin:  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Row(
                                 children: <Widget>[
+                                  IconButton(onPressed: (){
+                                    conversationBloc.add(ResetConversation());
+                                  }, icon: const Icon(Icons.add_circle_outline)),
                                   Expanded(
                                     child: TextField(
                                       controller: _textController,
