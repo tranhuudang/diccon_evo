@@ -11,6 +11,7 @@ class ToConversationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FeatureButton(
+      backgroundColor: Theme.of(context).primaryColor,
       onTap: () {
         Navigator.push(
           context,
@@ -30,7 +31,7 @@ class ToConversationButton extends StatelessWidget {
               ),
               padding: const EdgeInsets.all(8),
               child: const Icon(Icons.chat)),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
            Text(
             "Talk with our bot in".i18n,
             style: const TextStyle(fontSize: 12),

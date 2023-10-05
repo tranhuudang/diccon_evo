@@ -11,7 +11,6 @@ class ToReadingChamberButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FeatureButton(
-      backgroundColor: Theme.of(context).primaryColor,
       onTap: () {
         Navigator.push(
             context,

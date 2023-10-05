@@ -1,7 +1,6 @@
-import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:flutter/material.dart';
-
-import '../../../dictionary/ui/dictionary.dart';
+import 'feature_button.dart';
 
 class ToDictionaryButton extends StatelessWidget {
   const ToDictionaryButton({
@@ -10,29 +9,37 @@ class ToDictionaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return FeatureButton(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                const DictionaryView()));
-      },
-      child: Container(
-        height: 48,
-        padding: const EdgeInsets.only(left: 8, right: 16),
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(0.5),
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(32,),
-              bottomRight: Radius.circular(32,)
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DictionaryView(),
           ),
-        ),
-        child: Row(
-          children: [
-            Text("Dictionary".i18n),
-          ],
-        ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              padding: const EdgeInsets.all(8),
+              child: const Icon(Icons.search)),
+          const SizedBox(height: 8),
+          const Text(
+            "Diccon dual-mode",
+            style: TextStyle(fontSize: 12),
+          ),
+          const Text(
+            "Dictionary",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }

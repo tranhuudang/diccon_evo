@@ -34,7 +34,7 @@ class SoundHandler {
     String url = _onlineSoundUrlPath();
     // Okapi /'ou'kɑ:pi/
     String refinedWord =
-    providedWordToPlay.getFirstWord().upperCaseFirstLetter();
+        providedWordToPlay.getFirstWord().upperCaseFirstLetter();
 
     if (kDebugMode) {
       print("playing word: $refinedWord");
@@ -43,7 +43,6 @@ class SoundHandler {
     final soundFilePath =
         await DirectoryHandler.getLocalResourceFilePath(fileName);
     File file = File(soundFilePath);
-print(soundFilePath);
     try {
       if (file.existsSync()) {
         await _playLocal(fileName);
@@ -74,7 +73,5 @@ print(soundFilePath);
       _playTts(fileName.substring(0, fileName.indexOf('.')));
       return false;
     }
-
   }
-
 }

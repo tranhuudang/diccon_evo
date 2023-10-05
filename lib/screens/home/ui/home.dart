@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/home/ui/components/plan_button.dart';
+import 'package:diccon_evo/screens/home/ui/components/to_dictionary_button.dart';
 import 'package:flutter/foundation.dart';
 import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';
@@ -30,10 +31,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   final dataRepository = DictionaryRepository();
   final thesaurusRepository = ThesaurusRepository();
   List<Widget> listPrimaryFunction = const [
+    ToDictionaryButton(),
     ToConversationButton(),
-    ToReadingChamberButton(),
   ];
   List<Widget> listSubFunction = const [
+    ToReadingChamberButton(),
     ToEssentialWordButton(),
     //ToConversationalPhrasesButton(),
   ];
@@ -213,10 +215,7 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                             const EdgeInsets.symmetric(horizontal: 16),
                         hintText: "Search in dictionary".i18n,
                         border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(32),
-                            bottomLeft: Radius.circular(32),
-                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(32)),
                         ),
                       ),
                     ),
@@ -253,45 +252,6 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
               }),
         ),
 
-        /// Navigate to dictionary view
-        InkWell(
-          onTap: () {
-            if (_searchTextController.text.trim().isEmpty) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DictionaryView()));
-            } else {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DictionaryView(
-                          word: _searchTextController.text,
-                          buildContext: context)));
-            }
-            // Remove text in textfield
-            _searchTextController.clear();
-          },
-          child: Container(
-            height: 48,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.7),
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(
-                    32,
-                  ),
-                  bottomRight: Radius.circular(
-                    32,
-                  )),
-            ),
-            child: Row(
-              children: [
-                Text("Dictionary".i18n),
-              ],
-            ),
-          ),
-        )
       ],
     );
   }
