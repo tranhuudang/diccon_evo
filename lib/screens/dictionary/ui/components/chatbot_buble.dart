@@ -87,6 +87,13 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     }
   }
 
+  // This function be used to resend the question to gpt to get new answer
+  void _reGetGptResponse() async {
+    widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.clear();
+      var request = await _getQuestionRequest();
+      _chatStreamResponse(request);
+  }
+
   Future<ChatCompletionRequest> _getQuestionRequest() async {
     var question = '';
     switch (Properties.dictionaryResponseType) {
@@ -166,6 +173,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                             snapshot.data!
                                 ? IconButton(
                                     onPressed: () {
+                                      // Cancel response
                                       _chatStreamSubscription?.cancel();
                                       _isLoadingStreamController.sink
                                           .add(false);
@@ -187,8 +195,9 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                                   )
                                 : IconButton(
                                     onPressed: () {
+                                      // resend the request to get new answer
                                       _isLoadingStreamController.sink.add(true);
-                                      _getGptResponse();
+                                      _reGetGptResponse();
                                     },
                                     icon: const Icon(Icons.cached_rounded)),
                           ],
