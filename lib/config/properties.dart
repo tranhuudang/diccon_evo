@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class Properties {
   /// Manually change this version base on commit count
-  static String version = "v254";
+  static String version = "v265";
 
   static UserInfo userInfo = UserInfo("", "", "", "");
 
