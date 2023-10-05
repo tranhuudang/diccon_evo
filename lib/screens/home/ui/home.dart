@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/home/ui/components/plan_button.dart';
@@ -119,7 +121,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
                           /// Two big brother button
                           GridView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: listPrimaryFunction.length,
                               gridDelegate:
@@ -170,7 +172,13 @@ class DictionarySearchBoxInHome extends StatefulWidget {
 
 class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
   final _searchTextController = TextEditingController();
-  bool _enableTinyCloseButton = false;
+  final _tinyCloseButtonStreamController = StreamController<bool>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tinyCloseButtonStreamController.close();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,64 +186,71 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
       children: <Widget>[
         /// Search dictionay textfield
         Expanded(
-          child: Stack(
-            children: [
-              TextField(
-                controller: _searchTextController,
-                onTap: () {
-                  setState(() {
-                    _enableTinyCloseButton = true;
-                  });
-                },
-                onSubmitted: (String value) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DictionaryView(
-                              word: value, buildContext: context)));
-                },
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  hintText: "Search in dictionary".i18n,
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(32),
-                      bottomLeft: Radius.circular(32),
-                    ),
-                  ),
-                ),
-              ),
-              _enableTinyCloseButton
-                  ? SizedBox(
-                      height: 48,
-                      //color: Colors.black54,
-                      child: Row(
-                        children: [
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: Center(child: TinyCloseButton(onTap: () {
-                              _searchTextController.clear();
-                              // Dismiss keyboard
-                              FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-
-                              if (!currentFocus.hasPrimaryFocus) {
-                                currentFocus.unfocus();
-                              }
-                              // Erase tiny button
-                              setState(() {
-                                _enableTinyCloseButton = false;
-                              });
-                            })),
-                          )
-                        ],
+          child: StreamBuilder<bool>(
+              stream: _tinyCloseButtonStreamController.stream,
+              initialData: false,
+              builder: (context, snapshot) {
+                return Stack(
+                  children: [
+                    TextField(
+                      controller: _searchTextController,
+                      onTap: () {
+                        _tinyCloseButtonStreamController.add(true);
+                      },
+                      onSubmitted: (String value) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DictionaryView(
+                                    word: value, buildContext: context)));
+                        // Remove text in textfield
+                        _searchTextController.clear();
+                        _tinyCloseButtonStreamController.add(false);
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16),
+                        hintText: "Search in dictionary".i18n,
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(32),
+                            bottomLeft: Radius.circular(32),
+                          ),
+                        ),
                       ),
-                    )
-                  : const SizedBox.shrink()
-            ],
-          ),
+                    ),
+                    snapshot.data!
+                        ? SizedBox(
+                            height: 48,
+                            //color: Colors.black54,
+                            child: Row(
+                              children: [
+                                const Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child:
+                                      Center(child: TinyCloseButton(onTap: () {
+                                    _searchTextController.clear();
+                                    // Dismiss keyboard
+                                    FocusScopeNode currentFocus =
+                                        FocusScope.of(context);
+
+                                    if (!currentFocus.hasPrimaryFocus) {
+                                      currentFocus.unfocus();
+                                    }
+                                    // Erase tiny button
+                                    _tinyCloseButtonStreamController.add(false);
+                                    _tinyCloseButtonStreamController.add(false);
+                                  })),
+                                )
+                              ],
+                            ),
+                          )
+                        : const SizedBox.shrink()
+                  ],
+                );
+              }),
         ),
 
         /// Navigate to dictionary view
@@ -254,6 +269,8 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                           word: _searchTextController.text,
                           buildContext: context)));
             }
+            // Remove text in textfield
+            _searchTextController.clear();
           },
           child: Container(
             height: 48,
