@@ -22,10 +22,10 @@ class FeatureButton extends StatelessWidget {
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(33),
-                border: Border.all(
-                  color: Theme.of(context).splashColor,
-                ),
+            borderRadius: BorderRadius.circular(33),
+            border: Border.all(
+              color: Theme.of(context).dividerColor,
+            ),
             color: backgroundColor ?? Theme.of(context).cardColor),
         child: child,
       ),

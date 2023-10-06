@@ -82,6 +82,8 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   # create dotted indicator for pageview
   smooth_page_indicator: ^1.1.0
+  # create route for application
+  go_router: ^11.1.2
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,5 @@
-import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'feature_button.dart';
 
 class ToDictionaryButton extends StatelessWidget {
@@ -11,12 +11,7 @@ class ToDictionaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FeatureButton(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DictionaryView(),
-          ),
-        );
+        context.pushNamed('dictionary');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

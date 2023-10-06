@@ -1,11 +1,9 @@
-import 'dart:async';
-
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/screens/story/ui/story_reading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../commons/header.dart';
 import '../blocs/story_bookmark_list_bloc.dart';
 import 'components/reading_tile.dart';
@@ -68,29 +66,18 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                           itemBuilder: (context, index) {
                             return ReadingTile(
                               story: data.stories[index],
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => StoryReadingView(
-                                      story: data.stories[index],
-                                    ),
-                                  ),
-                                ).then(
-                                    (FutureOr<dynamic> isListStoriesChanged) {
-                                  // Get result value from Navigator.pop
-                                  // to see if the listStoriesPage is changed and therefore trigger reload.
-                                  if (isListStoriesChanged != null) {
-                                    if ((isListStoriesChanged is bool) &&
-                                        (isListStoriesChanged == true)) {
-                                      storyBookmarkBloc
-                                          .add(StoryBookmarkLoad());
-                                      if (kDebugMode) {
-                                        print("List Bookmark is reloaded");
-                                      }
+                              onTap: () async {
+                                bool? isBookmarkChanged = await context
+                                    .pushNamed('bookmark-to-reading-space',
+                                        extra: data.stories[index]);
+                                if (isBookmarkChanged != null) {
+                                  if (isBookmarkChanged == true) {
+                                    storyBookmarkBloc.add(StoryBookmarkLoad());
+                                    if (kDebugMode) {
+                                      print("List Bookmark is reloaded");
                                     }
                                   }
-                                });
+                                }
                               },
                             );
                           },
@@ -98,7 +85,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                       },
                     ),
                     Header(
-                      title: "Bookmark".i18n,
+                      title: "Bookmarks".i18n,
                       actions: [
                         IconButton(
                             onPressed: () => storyBookmarkBloc.add(
@@ -195,7 +182,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                       ),
                     ),
                     Header(
-                      title: "Bookmark".i18n,
+                      title: "Bookmarks".i18n,
                     ),
                   ],
                 );
@@ -224,7 +211,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                       ),
                     ),
                     Header(
-                      title: "Bookmark".i18n,
+                      title: "Bookmarks".i18n,
                     ),
                   ],
                 );
@@ -234,7 +221,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                   children: [
                     Expanded(
                       child: Header(
-                        title: "Bookmark".i18n,
+                        title: "Bookmarks".i18n,
                       ),
                     ),
                     const Expanded(

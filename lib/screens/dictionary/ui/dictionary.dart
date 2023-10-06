@@ -1,6 +1,6 @@
-import 'package:diccon_evo/screens/dictionary/ui/word_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../data/handlers/image_handler.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/header.dart';
@@ -181,11 +181,7 @@ class _DictionaryViewState extends State<DictionaryView>
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const WordHistoryView()));
+                           context.pushNamed('word-history');
                         },
                       ),
                       const DictionaryMenuButton(),

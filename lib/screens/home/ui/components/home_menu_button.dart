@@ -2,11 +2,8 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../settings/ui/infos.dart';
-import '../../../settings/ui/settings.dart';
-import '../../../settings/ui/user_settings.dart';
 
 class HomeMenuButton extends StatelessWidget {
   const HomeMenuButton({
@@ -47,10 +44,7 @@ class HomeMenuButton extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const UserSettingsView()));
+                      context.pushNamed('user-settings');
                     },
                   )
                 : const PopupMenuItem(
@@ -71,10 +65,7 @@ class HomeMenuButton extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SettingsView()));
+                context.pushNamed('common-settings');
               },
             ),
             const PopupMenuItem(
@@ -93,8 +84,8 @@ class HomeMenuButton extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const InfosView()));
-                },
+                context.pushNamed('infos');
+              },
             ),
             PopupMenuItem(
               child: Row(

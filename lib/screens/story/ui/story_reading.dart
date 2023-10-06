@@ -6,6 +6,7 @@ import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/story/blocs/story_bookmark_list_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
 import '../../../data/data_providers/notify.dart';
@@ -36,7 +37,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   final _storyRepository = StoryRepository();
   List<Story> _listStories = [];
   final _streamIsBookmarkController = StreamController<bool>();
-  bool _isListStoriesChanged = false;
+  bool _isListStoriesShouldChanged = false;
   @override
   void initState() {
     super.initState();
@@ -157,23 +158,23 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                 backgroundColor: Theme.of(context).primaryColor,
                                 iconData: Icons.bookmark_border,
                                 onTap: () {
-                                  _isListStoriesChanged = true;
+                                  _isListStoriesShouldChanged = true;
                                   _streamIsBookmarkController.sink.add(false);
                                   _storyBookmarkBloc.add(
                                       StoryBookmarkRemove(story: widget.story));
                                   Notify.showSnackBar(
-                                      context, "Bookmark removed".i18n);
+                                      context, "Bookmark is removed".i18n);
                                 })
                             : CircleButton(
                                 iconData: Icons.bookmark_border,
                                 onTap: () {
-                                  _isListStoriesChanged = true;
+                                  _isListStoriesShouldChanged = true;
 
                                   _streamIsBookmarkController.sink.add(true);
                                   _storyBookmarkBloc.add(
                                       StoryBookmarkAdd(stories: widget.story));
                                   Notify.showSnackBar(
-                                      context, "Bookmark added".i18n);
+                                      context, "Bookmark is added".i18n);
                                 }),
                         const SizedBox().mediumWidth(),
 
@@ -181,7 +182,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                         CircleButton(
                             iconData: Icons.close,
                             onTap: () {
-                              Navigator.pop(context, _isListStoriesChanged);
+                              context.pop( _isListStoriesShouldChanged);
                             }),
                       ],
                     );

@@ -3,6 +3,7 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../data/repositories/essential_manager.dart';
 import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/notify.dart';
@@ -140,15 +141,11 @@ class _EssentialViewState extends State<EssentialView> {
                                       _selectedTopic)
                                   .then(
                                 (listEssential) => {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => LearningView(
+                                  context.pushNamed('learning-flash-card',
+                                      extra: LearningView(
                                         topic: _selectedTopic,
                                         listEssentialWord: listEssential,
-                                      ),
-                                    ),
-                                  )
+                                      ))
                                 },
                               );
                             },
@@ -159,20 +156,17 @@ class _EssentialViewState extends State<EssentialView> {
                           CircleButton(
                             iconData: FontAwesomeIcons.heart,
                             onTap: () async {
-                              await EssentialWordRepository.readFavouriteEssential()
+                              await EssentialWordRepository
+                                      .readFavouriteEssential()
                                   .then((listFavourite) => {
                                         if (listFavourite.isNotEmpty)
                                           {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    FavouriteReviewView(
+                                            context.pushNamed(
+                                                'learning-favourite',
+                                                extra: FavouriteReviewView(
                                                   listEssentialWord:
                                                       listFavourite,
-                                                ),
-                                              ),
-                                            )
+                                                ))
                                           }
                                         else
                                           {
@@ -282,17 +276,13 @@ class _EssentialViewState extends State<EssentialView> {
                                                 .loadEssentialData(topic)
                                             .then(
                                           (listEssential) => {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LearningView(
-                                                  topic: topic,
+                                            context.pushNamed(
+                                                'learning-flash-card',
+                                                extra: LearningView(
+                                                  topic: _selectedTopic,
                                                   listEssentialWord:
                                                       listEssential,
-                                                ),
-                                              ),
-                                            ),
+                                                ))
                                           },
                                         );
                                       },

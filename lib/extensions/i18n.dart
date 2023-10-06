@@ -190,6 +190,14 @@ extension Localization on String {
       "vi_vi": "Đang tải truyện mới..",
     },
     // Story Bookmark
+    "Bookmark is removed": {
+      "en_us": "Bookmark is removed",
+      "vi_vi": "Bookmark đã được gỡ",
+    },
+    "Bookmark is added": {
+      "en_us": "Bookmark is added",
+      "vi_vi": "Bookmark đã được thêm vào",
+    },
     "Bookmarks": {
       "en_us": "Bookmarks",
       "vi_vi": "Bookmarks",

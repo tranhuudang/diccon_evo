@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:diccon_evo/extensions/theme_mode.dart';
+import 'package:diccon_evo/config/route_configurations.dart';
 import 'package:diccon_evo/screens/story/blocs/story_list_bloc.dart';
 import 'package:diccon_evo/screens/conversation/bloc/conversation_bloc.dart';
-import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -12,7 +12,6 @@ import 'config/properties.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'config/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
@@ -57,7 +56,7 @@ class ProgramRoot extends StatelessWidget {
         BlocProvider<ConversationBloc>(create: (context) => ConversationBloc()),
         BlocProvider<StoryListBloc>(create: (context) => StoryListBloc()),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -75,9 +74,7 @@ class ProgramRoot extends StatelessWidget {
         darkTheme: CustomTheme.getDark(context),
         title: Properties.diccon,
         debugShowCheckedModeBanner: false,
-        home: I18n(
-          child: const HomeView(),
-        ),
+        routerConfig: router,
       ),
     );
   }

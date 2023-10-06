@@ -1,15 +1,13 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/screens/story/ui/story_history.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
-import 'package:diccon_evo/screens/story/ui/story_reading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../blocs/story_list_bloc.dart';
-import 'story_bookmark.dart';
 import 'components/reading_tile.dart';
 
 class StoryListView extends StatelessWidget {
@@ -51,20 +49,14 @@ class StoryListView extends StatelessWidget {
                                 CircleButton(
                                     iconData: Icons.bookmark_border,
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const StoryListBookmarkView()));
+                                      context.pushNamed(
+                                          'reading-chamber-bookmark');
                                     }),
                                 CircleButton(
                                     iconData: Icons.history,
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const StoryListHistoryView()));
+                                      context
+                                          .pushNamed('reading-chamber-history');
                                     }),
                               ],
                             ),
@@ -126,15 +118,9 @@ class StoryListView extends StatelessWidget {
                                             "fromStoryListToPage${data.articleList[index].title}Tag",
                                         story: data.articleList[index],
                                         onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  StoryReadingView(
-                                                story: data.articleList[index],
-                                              ),
-                                            ),
-                                          );
+                                          context.pushNamed(
+                                              'reading-chamber-to-reading-space',
+                                              extra: data.articleList[index]);
                                         },
                                       );
                                     },
@@ -151,14 +137,16 @@ class StoryListView extends StatelessWidget {
                                 children: [
                                   const SizedBox().mediumHeight(),
                                   const Image(
-                                    image: AssetImage('assets/stickers/error.png'),
+                                    image:
+                                        AssetImage('assets/stickers/error.png'),
                                     width: 200,
                                   ),
                                   const SizedBox().mediumHeight(),
                                   Text(
                                     "I'm tired. I guess I'm getting old.".i18n,
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.bold, fontSize: 20),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
                                   ),
                                   const SizedBox().mediumHeight(),
                                   Opacity(
@@ -167,7 +155,8 @@ class StoryListView extends StatelessWidget {
                                       width: 300,
                                       child: Text(
                                         textAlign: TextAlign.center,
-                                        "Don't worry, this sometimes happens to prove the theory that nothing is perfect. We are on the way to fixing it. So, keep calm and keep kicking.".i18n,
+                                        "Don't worry, this sometimes happens to prove the theory that nothing is perfect. We are on the way to fixing it. So, keep calm and keep kicking."
+                                            .i18n,
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ),

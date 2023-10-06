@@ -1,6 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/screens/story/ui/story_list.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'feature_button.dart';
 
 class ToReadingChamberButton extends StatelessWidget {
@@ -12,10 +12,7 @@ class ToReadingChamberButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FeatureButton(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const StoryListView()));
+        context.pushNamed('reading-chamber');
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -23,8 +20,7 @@ class ToReadingChamberButton extends StatelessWidget {
         children: [
           const Text(
             "199",
-            style: TextStyle(
-                fontSize: 32, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           Text(
             "stories to read".i18n,
