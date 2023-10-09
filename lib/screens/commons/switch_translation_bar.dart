@@ -31,25 +31,30 @@ class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
   TranslationChoices selectedItem = TranslationChoices.classic;
   @override
   Widget build(BuildContext context) {
-    return SegmentedButton<TranslationChoices>(
-      showSelectedIcon: false,
-      segments: [
-        ButtonSegment(
-          value: TranslationChoices.classic,
-          label: Text(TranslationChoices.classic.title()),
-        ),
-        ButtonSegment(
-          value: TranslationChoices.ai,
-          label: Text(TranslationChoices.ai.title()),
+    return Row(
+      children: [
+        Spacer(),
+        SegmentedButton<TranslationChoices>(
+          showSelectedIcon: false,
+          segments: [
+            ButtonSegment(
+              value: TranslationChoices.classic,
+              label: Text(TranslationChoices.classic.title()),
+            ),
+            ButtonSegment(
+              value: TranslationChoices.ai,
+              label: Text(TranslationChoices.ai.title()),
+            ),
+          ],
+          selected: {selectedItem},
+          onSelectionChanged: (newSelection) {
+            widget.selectedItemSet(newSelection);
+            setState(() {
+              selectedItem = newSelection.first;
+            });
+          },
         ),
       ],
-      selected: {selectedItem},
-      onSelectionChanged: (newSelection) {
-        widget.selectedItemSet(newSelection);
-        setState(() {
-          selectedItem = newSelection.first;
-        });
-      },
     );
   }
 }

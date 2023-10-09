@@ -49,13 +49,13 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
             } else {
-              Future.delayed(const Duration(milliseconds: 300), () {
-                widget.chatListController.animateTo(
-                  widget.chatListController.position.maxScrollExtent,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.linear,
-                );
-              });
+              // Future.delayed(const Duration(milliseconds: 300), () {
+              //   widget.chatListController.animateTo(
+              //     widget.chatListController.position.maxScrollExtent,
+              //     duration: const Duration(milliseconds: 500),
+              //     curve: Curves.linear,
+              //   );
+              // });
               return widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.write(
                 event.choices?.first.delta?.content,
               );
@@ -137,86 +137,69 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     var answer =
     widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.toString().trim();
     final chatListBloc = context.read<ChatListBloc>();
-    return Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 8.0,
+    return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 600,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 12,right: 12,bottom: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            StreamBuilder<bool>(
+                initialData: false,
+                stream: _isLoadingStreamController.stream,
+                builder: (context, snapshot) {
+                  return Row(
+                    children: [
+                      WordPlaybackButton(message: widget.word),
+                      const Spacer(),
+                      snapshot.data!
+                          ? IconButton(
+                              onPressed: () {
+                                // Cancel response
+                                _chatStreamSubscription?.cancel();
+                                _isLoadingStreamController.sink
+                                    .add(false);
+                              },
+                              icon:
+                                  const Icon(Icons.stop_circle_outlined))
+                          : const SizedBox.shrink(),
+                      const SizedBox().mediumWidth(),
+                      snapshot.data!
+                          ? const Padding(
+                              padding: EdgeInsets.only(right: 12),
+                              child: SizedBox(
+                                height: 15,
+                                width: 15,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                // resend the request to get new answer
+                                _isLoadingStreamController.sink.add(true);
+                                _reGetGptResponse();
+                              },
+                              icon: const Icon(Icons.cached_rounded)),
+                    ],
+                  );
+                }),
+            ClickableWords(
+                onWordTap: (word) {
+                  chatListBloc.add(AddUserMessage(providedWord: word));
+                  chatListBloc
+                      .add(AddLocalTranslation(providedWord: word));
+                },
+                text: answer)
+            // SelectableText(
+            //     answer),
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 32),
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: 600,
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(0.0),
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  StreamBuilder<bool>(
-                      initialData: false,
-                      stream: _isLoadingStreamController.stream,
-                      builder: (context, snapshot) {
-                        return Row(
-                          children: [
-                            WordPlaybackButton(message: widget.word),
-                            const Spacer(),
-                            snapshot.data!
-                                ? IconButton(
-                                    onPressed: () {
-                                      // Cancel response
-                                      _chatStreamSubscription?.cancel();
-                                      _isLoadingStreamController.sink
-                                          .add(false);
-                                    },
-                                    icon:
-                                        const Icon(Icons.stop_circle_outlined))
-                                : const SizedBox.shrink(),
-                            const SizedBox().mediumWidth(),
-                            snapshot.data!
-                                ? const Padding(
-                                    padding: EdgeInsets.only(right: 12),
-                                    child: SizedBox(
-                                      height: 15,
-                                      width: 15,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  )
-                                : IconButton(
-                                    onPressed: () {
-                                      // resend the request to get new answer
-                                      _isLoadingStreamController.sink.add(true);
-                                      _reGetGptResponse();
-                                    },
-                                    icon: const Icon(Icons.cached_rounded)),
-                          ],
-                        );
-                      }),
-                  ClickableWords(
-                      onWordTap: (word) {
-                        chatListBloc.add(AddUserMessage(providedWord: word));
-                        chatListBloc
-                            .add(AddLocalTranslation(providedWord: word));
-                      },
-                      text: answer)
-                  // SelectableText(
-                  //     answer),
-                ],
-              ),
-            ),
-          ),
-        ));
+      ),
+    );
   }
 
   @override

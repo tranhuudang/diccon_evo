@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/combineBubble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:diccon_evo/screens/commons/no_internet_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/local_dictionary_bubble.dart';
@@ -84,9 +85,12 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
-    chatList.add(UserBubble(message: event.providedWord, onTap: () {
-      textController.text = event.providedWord;
-    },));
+    chatList.add(UserBubble(
+      message: event.providedWord,
+      onTap: () {
+        textController.text = event.providedWord;
+      },
+    ));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
   }
@@ -107,34 +111,70 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     }
     var newChatGptRepository = ChatGptRepository();
     listChatGptRepository.add(newChatGptRepository);
-    var chatGptRepositoryIndex = listChatGptRepository.length -1;
-    if (Properties.chatbotEnable && isInternetConnected) {
-      chatList.add(ChatbotBubble(
-        word: event.providedWord,
-        chatListController: chatListController, index: chatGptRepositoryIndex,
-        listChatGptRepository: listChatGptRepository,
-      ));
-      // Save word to history
+    var chatGptRepositoryIndex = listChatGptRepository.length - 1;
+    var wordResult = await _getLocalOrGoolgeTranslation(event.providedWord);
+    chatList.add(CombineBubble(
+        wordObjectForLocal: wordResult,
+        wordForChatbot: event.providedWord,
+        chatListController: chatListController,
+        index: chatGptRepositoryIndex,
+        listChatGptRepository: listChatGptRepository));
+  }
+
+  Future<Word> _getLocalOrGoolgeTranslation(String providedWord) async {
+    Word? wordResult = await Searching.getDefinition(providedWord);
+    if (wordResult != null) {
+      print("got result from local dictionary");
+      return wordResult;
+    } else {
+      await translate(providedWord).then((translatedWord) {
+        var googleTranslatedResult =
+            Word(word: providedWord, meaning: translatedWord.text);
+        return googleTranslatedResult;
+      }).timeout(const Duration(seconds: 3), onTimeout: () {
+        print("google translate time out");
+        var badResult = Word(
+            word: providedWord,
+            meaning: "Can't translate this word at the moment");
+        return badResult;
+      });
+    }
+    var badResult = Word(
+        word: providedWord, meaning: "Can't translate this word at the moment");
+    return badResult;
+  }
+
+  Future<void> _addChatbotTranslationBubble(AddLocalTranslation event,
+      int chatGptRepositoryIndex, Emitter<ChatListState> emit) async {
+    chatList.add(ChatbotBubble(
+      word: event.providedWord,
+      chatListController: chatListController,
+      index: chatGptRepositoryIndex,
+      listChatGptRepository: listChatGptRepository,
+    ));
+    // Save word to history
+    emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
+    await HistoryManager.saveWordToHistory(
+        event.providedWord.upperCaseFirstLetter());
+  }
+
+  Future<void> _addLocalTranslationBubble(
+      AddLocalTranslation event, Emitter<ChatListState> emit) async {
+    Word? wordResult = await Searching.getDefinition(event.providedWord);
+    if (wordResult != null) {
+      /// Right bubble represent machine reply
+      chatList.add(LocalDictionaryBubble(word: wordResult));
       emit(ChatListUpdated(chatList: chatList));
       _scrollChatListToBottom();
-      await HistoryManager.saveWordToHistory(
-          event.providedWord.upperCaseFirstLetter());
     } else {
-      Word? wordResult = Searching.getDefinition(event.providedWord);
-      if (wordResult != null) {
-        /// Right bubble represent machine reply
-        chatList.add(LocalDictionaryBubble(message: wordResult));
+      await translate(event.providedWord).then((translatedWord) {
+        chatList.add(LocalDictionaryBubble(
+            word:
+                Word(word: event.providedWord, meaning: translatedWord.text)));
         emit(ChatListUpdated(chatList: chatList));
         _scrollChatListToBottom();
-      } else {
-        await translate(event.providedWord).then((translatedWord) {
-          chatList.add(LocalDictionaryBubble(
-              message: Word(
-                  word: event.providedWord, meaning: translatedWord.text)));
-          emit(ChatListUpdated(chatList: chatList));
-          _scrollChatListToBottom();
-        });
-      }
+      });
     }
   }
 

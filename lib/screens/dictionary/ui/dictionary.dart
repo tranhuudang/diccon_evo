@@ -92,6 +92,11 @@ class _DictionaryViewState extends State<DictionaryView>
         _hasImages = true;
       });
     }
+    else {
+      setState(() {
+        _hasImages = false;
+      });
+    }
   }
 
   @override
