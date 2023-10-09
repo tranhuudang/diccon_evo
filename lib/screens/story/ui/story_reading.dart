@@ -13,7 +13,7 @@ import '../../../data/data_providers/notify.dart';
 import '../../../data/data_providers/searching.dart';
 import '../../../data/models/story.dart';
 import '../../../data/models/word.dart';
-import '../../commons/bottom_sheet_translate.dart';
+import 'components/bottom_sheet_translate.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/clickable_words.dart';
 import 'package:cached_network_image/cached_network_image.dart';
