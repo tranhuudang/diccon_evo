@@ -8,7 +8,6 @@ import 'package:diccon_evo/screens/dictionary/ui/components/user_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
 import '../../../data/data_providers/searching.dart';
 import '../../../data/models/translation_choices.dart';
@@ -32,16 +31,11 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddImage>(_addImage);
     on<ScrollToBottom>(_scrollToBottom);
   }
-  final translator = GoogleTranslator();
   List<ChatGptRepository> listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
   final TextEditingController textController = TextEditingController();
   List<Widget> chatList = [const DictionaryWelcome()];
   bool isReportedAboutDisconnection = false;
-
-  Future<Translation> translate(String word) async {
-    return await translator.translate(word, from: 'auto', to: 'vi');
-  }
 
   /// Implement Events and Callbacks
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
@@ -124,23 +118,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         print("got result from local dictionary");
       }
       return wordResult;
-    } else {
-      await translate(providedWord).then((translatedWord) {
-        var googleTranslatedResult =
-            Word(word: providedWord, meaning: translatedWord.text);
-        return googleTranslatedResult;
-      }).timeout(const Duration(seconds: 3), onTimeout: () {
-        if (kDebugMode) {
-          print("google translate time out");
-        }
-        var badResult = Word(
-            word: providedWord,
-            meaning: "Can't translate this word at the moment");
-        return badResult;
-      });
     }
     var badResult = Word(
-        word: providedWord, meaning: "Can't translate this word at the moment");
+        word: providedWord, meaning: "Local dictionary don't have definition for this word. Check out AI Dictionary !");
     return badResult;
   }
 

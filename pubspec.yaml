@@ -45,9 +45,6 @@ dependencies:
   audioplayers: ^5.1.0
   # Package for Packaging Windows App
   msix: ^3.16.4
-  #translator: ^0.1.7
-  translator:
-    git: https://github.com/tranhuudang/google-translator
   cached_network_image: ^3.2.3
   flutter_cache_manager: ^3.3.1
   # Save settings

@@ -1002,15 +1002,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
-  translator:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: b55d8ef39e5d068286ff58f78c241f395c8f30b7
-      url: "https://github.com/tranhuudang/google-translator"
-    source: git
-    version: "0.1.7"
   typed_data:
     dependency: transitive
     description:

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:diccon_evo/data/repositories/story_repository.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
@@ -7,7 +6,6 @@ import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/story/blocs/story_bookmark_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
 import '../../../data/data_providers/notify.dart';
 import '../../../data/data_providers/searching.dart';
@@ -31,7 +29,6 @@ class StoryReadingView extends StatefulWidget {
 }
 
 class _StoryReadingViewState extends State<StoryReadingView> {
-  final _translator = GoogleTranslator();
   final _storyBookmarkBloc = StoryBookmarkBloc();
   bool isTranslating = false;
   final _storyRepository = StoryRepository();
@@ -49,10 +46,6 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     if (_listStories.contains(widget.story)) {
       _streamIsBookmarkController.sink.add(true);
     }
-  }
-
-  Future<Translation> translate(String word) async {
-    return await _translator.translate(word, from: 'auto', to: 'vi');
   }
 
   @override
@@ -204,30 +197,6 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     /// This line is the skeleton of finding the word in the dictionary
     wordResult = await Searching.getDefinition(searchWord);
     if (wordResult != null) {
-      showModalBottomSheet(
-        context: currentContext, // Use the captured context here
-        builder: (BuildContext context) {
-          return SizedBox(
-            height: 300,
-            child: SingleChildScrollView(
-              child: BottomSheetTranslation(
-                message: wordResult!,
-              ),
-            ),
-          );
-        },
-      );
-    } else {
-      setState(() {
-        isTranslating = true;
-      });
-      Translation result = await translate(searchWord);
-      setState(() {
-        isTranslating = false;
-      });
-
-      wordResult =
-          Word(word: searchWord, pronunciation: "", meaning: result.text);
       showModalBottomSheet(
         context: currentContext, // Use the captured context here
         builder: (BuildContext context) {
