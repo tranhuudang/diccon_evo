@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../config/properties.dart';
-import '../../../data/handlers/file_handler.dart';
 import '../../../data/models/story.dart';
 import '../../../data/models/level.dart';
 import '../../../data/repositories/story_repository.dart';
@@ -35,14 +33,13 @@ class StoryListUpdatedState extends StoryListState {
   StoryListUpdatedState({required this.articleList});
 }
 
-class StoryListErrorState extends StoryListState{}
+class StoryListErrorState extends StoryListState {}
 
 /// Bloc
 class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
   StoryListBloc() : super(StoryListUninitialized()) {
     on<StoryListInitial>(_storyListInitial);
     on<StoryListReload>(_storyListReload);
-    on<StoryListCancelLoad>(_cancelLoading);
     on<StoryListSortElementary>(_sortElementary);
     on<StoryListSortIntermediate>(_sortIntermediate);
     on<StoryListSortAdvanced>(_sortAdvanced);
@@ -55,15 +52,10 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
   FutureOr<void> _storyListInitial(
       StoryListInitial event, Emitter<StoryListState> emit) async {
     try {
-      await _loadAll().timeout(const Duration(seconds: 10), onTimeout: () {
-        if (kDebugMode) {
-          print("Load all article reach timeout 10 seconds limit.");
-        }
-      });
+      await _loadAll();
       defaultStoryList.shuffle();
       emit(StoryListUpdatedState(articleList: defaultStoryList));
-    } catch(e)
-    {
+    } catch (e) {
       if (kDebugMode) {
         print("This error happened in StoryListInitial: $e");
       }
@@ -73,20 +65,9 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
 
   FutureOr<void> _storyListReload(
       StoryListReload event, Emitter<StoryListState> emit) async {
-    await _reLoadAll().timeout(const Duration(seconds: 10), onTimeout: (){
-      if (kDebugMode) {
-        print("Reload all article reach timeout 10 seconds limit.");
-      }
-    });
+    await _loadAll();
+    defaultStoryList.shuffle();
     emit(StoryListUpdatedState(articleList: defaultStoryList));
-  }
-
-  FutureOr<void> _cancelLoading(
-      StoryListCancelLoad event, Emitter<StoryListState> emit) async {
-    //await _cancelableOperation?.cancel();
-    if (kDebugMode) {
-      print("Manually cancel loading process.");
-    }
   }
 
   void _sortElementary(
@@ -122,25 +103,5 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
 
   Future<void> _loadAll() async {
     defaultStoryList = await articleRepository.getDefaultStories();
-    var onlineStories = await articleRepository.getOnlineStoryList();
-
-    for (var story in onlineStories) {
-      if (story.title != "") {
-        defaultStoryList.add(story);
-      }
-    }
-  }
-
-  Future<void> _reLoadAll() async {
-    /// Remove downloaded extend-story.json
-    await FileHandler(Properties.extendStoryFileName).deleteOnUserData();
-    defaultStoryList = await articleRepository.getDefaultStories();
-    var onlineStories = await articleRepository.getOnlineStoryList();
-
-    for (var story in onlineStories) {
-      if (story.title != "") {
-        defaultStoryList.add(story);
-      }
-    }
   }
 }

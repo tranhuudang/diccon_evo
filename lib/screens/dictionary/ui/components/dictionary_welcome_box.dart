@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/screens/commons/suggested_item.dart';
 import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:flutter/material.dart';
 
@@ -57,16 +56,16 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                                   builder: (context) =>
                                       const CustomDictionary()));
                         },
-                        child:  Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                            )
-                          ),
-                          child: Text("Customize your experience".i18n,
-
+                              borderRadius: BorderRadius.circular(32),
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                              )),
+                          child: Text(
+                            "Customize your experience".i18n,
                           ),
                         ),
                       ),
