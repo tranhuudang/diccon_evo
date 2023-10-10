@@ -86,8 +86,8 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
                           chatListBloc.add(AddLocalTranslation(
                               providedWord: currentWord));
                         },
-                        highlightColor: Colors.white,
-                        subColor: Colors.white70,
+                        highlightColor: Theme.of(context).textTheme.bodyLarge?.color,
+                        subColor: Theme.of(context).textTheme.bodyMedium?.color,
                       ),
                     ],
                   ),
