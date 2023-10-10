@@ -75,14 +75,20 @@ class _CombineBubbleState extends State<CombineBubble> {
               padding: const EdgeInsets.only(top: 8, right: 8),
               child: SwitchTranslationBar(selectedItemSet: (selectedItemSet) {
                 _translationModeStreamController.add(selectedItemSet.first);
-                _scrollToBottom();
+                // Only scroll to the bottom when switch translation mode changed on the lastest widget bubble
+                if(widget.index >= widget.listChatGptRepository.length -1){
+                  _scrollToBottom();
+                }
               }),
             ),
             StreamBuilder<TranslationChoices>(
                 stream: _translationModeStreamController.stream,
                 initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
                 builder: (context, translationChoice) {
-                  _scrollToBottom();
+                  //_scrollToBottom();
+                  if (widget.wordObjectForLocal.meaning == "Local dictionary don't have definition for this word. Check out AI Dictionary !"){
+                    _translationModeStreamController.add(TranslationChoices.ai);
+                  }
                   return Column(children: [
                     Visibility(
                       visible:

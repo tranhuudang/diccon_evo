@@ -111,6 +111,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         index: chatGptRepositoryIndex,
         listChatGptRepository: listChatGptRepository));
     emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
   }
 
   Future<Word> _getLocalTranslation(String providedWord) async {
