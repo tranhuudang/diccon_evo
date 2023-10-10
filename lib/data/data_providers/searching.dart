@@ -60,27 +60,6 @@ class Searching {
         // Add found word to history file
         await HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
         return Properties.wordList[i];
-      } else
-      // Remove ied in verb in the past Ex: study (học) → studied (đã học)
-      if (word.startsWith(
-              "${refineWord.substring(0, refineWord.length - 2)}y") &&
-          (refineWord.lastIndexOf('ied') == (refineWord.length - 3))) {
-        if (kDebugMode) {
-          print(
-              "Remove ied in verb in the past Ex: study (học) → studied (đã học)");
-        }
-
-        // Add found word to history file
-        await HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
-        return Properties.wordList[i];
-      } else if (word.startsWith(refineWord)) {
-        if (kDebugMode) {
-          print("ennnnnnnnnnnnnnnnnnnnnnnnnnddddddddd");
-        }
-
-        // Add found word to history file
-        await HistoryManager.saveWordToHistory(refineWord.upperCaseFirstLetter());
-        return Properties.wordList[i];
       }
     }
     for (int i = 0; i < Properties.wordList.length; i++) {

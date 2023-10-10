@@ -80,6 +80,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   # create route for application
   go_router: ^11.1.2
+  collection: ^1.17.0
 
 dev_dependencies:
   flutter_test:

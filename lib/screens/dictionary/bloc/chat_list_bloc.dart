@@ -92,7 +92,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.ai &&
+    if (Properties.defaultSetting.translationChoice.toTranslationChoice() ==
+            TranslationChoices.ai &&
         !isInternetConnected &&
         !isReportedAboutDisconnection) {
       chatList.add(const NoInternetBubble());
@@ -102,16 +103,17 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     var newChatGptRepository = ChatGptRepository();
     listChatGptRepository.add(newChatGptRepository);
     var chatGptRepositoryIndex = listChatGptRepository.length - 1;
-    var wordResult = await _getLocalOrGoolgeTranslation(event.providedWord);
+    var wordResult = await _getLocalTranslation(event.providedWord);
     chatList.add(CombineBubble(
         wordObjectForLocal: wordResult,
         wordForChatbot: event.providedWord,
         chatListController: chatListController,
         index: chatGptRepositoryIndex,
         listChatGptRepository: listChatGptRepository));
+    emit(ChatListUpdated(chatList: chatList));
   }
 
-  Future<Word> _getLocalOrGoolgeTranslation(String providedWord) async {
+  Future<Word> _getLocalTranslation(String providedWord) async {
     Word? wordResult = await Searching.getDefinition(providedWord);
     if (wordResult != null) {
       if (kDebugMode) {
@@ -120,7 +122,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       return wordResult;
     }
     var badResult = Word(
-        word: providedWord, meaning: "Local dictionary don't have definition for this word. Check out AI Dictionary !");
+        word: providedWord,
+        meaning:
+            "Local dictionary don't have definition for this word. Check out AI Dictionary !");
     return badResult;
   }
 

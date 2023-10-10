@@ -373,11 +373,11 @@ extension Localization on String {
     },
     "Light mode": {
       "en_us": "Light",
-      "vi_vi": "Chế độ sáng",
+      "vi_vi": "Sáng",
     },
     "Dark mode": {
       "en_us": "Dark",
-      "vi_vi": "Chế độ tối",
+      "vi_vi": "Tối",
     },
     "Adaptive": {
       "en_us": "Adaptive",
