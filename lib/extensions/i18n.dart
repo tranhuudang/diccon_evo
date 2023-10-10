@@ -228,7 +228,7 @@ extension Localization on String {
       "en_us":
           "Learning vocabulary can be quite challenging, but when you overcome the fear of new words, you'll unlock the door to a new language.",
       "vi_vi":
-          "Sẽ khá khó khăn trong việc lưu giữ những từ vựng mới, nhưng bằng sự nỗ lực và kiên trì, bạn sẽ vượt qua những thử thách.",
+          "Sẽ khá khó khăn trong việc ghi nhớ những từ vựng mới, nhưng bằng sự nỗ lực và kiên trì, bạn sẽ vượt qua những thử thách.",
     },
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
@@ -295,6 +295,20 @@ extension Localization on String {
     "Sync your data": {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
+    },
+    "Erase all": {
+      "en_us": "Erase all",
+      "vi_vi": "Xóa tất cả",
+    },
+    "Delete all your data on cloud.": {
+      "en_us": "Delete all your data on cloud.",
+      "vi_vi": "Xóa tất cả dữ liệu trực tuyến của bạn.",
+    },
+    "(This process once fired will never be undone. Please take it serious.)": {
+      "en_us":
+          "(This process once fired will never be undone. Please take it serious.)",
+      "vi_vi":
+          "(Không thể khôi phục dữ liệu sau khi xóa, vui lòng cân nhắc trước khi thực hiện.)",
     },
     "Settings": {
       "en_us": "Settings",

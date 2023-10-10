@@ -10,7 +10,7 @@ class SettingSection extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).primaryTextTheme;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      //crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Align(
           alignment: Alignment.centerLeft,
@@ -30,7 +30,7 @@ class SettingSection extends StatelessWidget {
             border: Border.all(color: Colors.black12),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: children,
           ),
         ),

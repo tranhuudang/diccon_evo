@@ -164,9 +164,11 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             const Divider(),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              //crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Customize dictionary responses".i18n),
+                                Align(
+                                   alignment: Alignment.centerLeft,
+                                    child: Text("Customize dictionary responses".i18n)),
                                 const SizedBox().mediumHeight(),
                                 PillButton(
                                     onTap: () {
