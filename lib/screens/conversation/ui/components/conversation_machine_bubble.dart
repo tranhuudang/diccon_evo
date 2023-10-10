@@ -159,7 +159,7 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
                 ),
                 Align(
                     alignment:Alignment.topLeft,
-                    child: Text(answer, style: Theme.of(context).textTheme.bodyLarge,)),
+                    child: SelectableText(answer, style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),)),
               ],
             ),
           ),

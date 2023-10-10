@@ -1,3 +1,4 @@
+import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -158,7 +159,12 @@ class _DictionaryViewState extends State<DictionaryView>
                               },
                             );
                           default:
-                            return Container();
+                            return const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              DictionaryWelcome(),
+                            ],
+                            );
                         }
                       }
                     },
