@@ -6,6 +6,8 @@ import '../data/models/user_info.dart';
 import '../data/models/word.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/commons/switch_translation_bar.dart';
+
 class Properties {
   /// Manually change this version base on commit count
   static String version = "v265";
@@ -29,7 +31,6 @@ class Properties {
   static const double overflowHeight = 745;
   static const String diccon = "Diccon";
   static const String blankSpace = ' ';
-  static bool chatbotEnable = true;
 
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
@@ -44,6 +45,7 @@ class Properties {
   static const String extendStoryFileName = 'extend_story.json';
 
   static DictionaryResponseType dictionaryResponseType = DictionaryResponseType.normal;
+  static TranslationChoices translationChoice = TranslationChoices.classic;
   // All view in application
   static Setting defaultSetting = Setting(
       numberOfSynonyms: 10,

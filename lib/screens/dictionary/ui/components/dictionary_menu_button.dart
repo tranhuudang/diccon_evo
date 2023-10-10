@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/commons/switch_translation_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ class DictionaryMenuButton extends StatefulWidget {
 }
 
 class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
-  final streamController = StreamController<bool>();
+  final streamController = StreamController<TranslationChoices>();
   @override
   void dispose() {
     // TODO: implement dispose
@@ -25,8 +26,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<bool>(
-      initialData: Properties.chatbotEnable,
+    return StreamBuilder<TranslationChoices>(
+      initialData: Properties.translationChoice,
       stream: streamController.stream,
       builder: (context, snapshot) {
         return PopupMenuButton(
@@ -37,18 +38,19 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
           ),
           itemBuilder: (context) => [
             PopupMenuItem(
-              child: snapshot.data!
+              child: snapshot.data! == TranslationChoices.ai
                   ? Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.auto_awesome,
-                          color: Colors.blue,
+                          color: Theme.of(context).primaryColor,
                         ),
                         const SizedBox().mediumWidth(),
-                        const Text(
+                        Text(
                           "AI Dictionary",
                           style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     )
@@ -64,38 +66,38 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       ],
                     ),
               onTap: () {
-                streamController.sink.add(true);
-                Properties.chatbotEnable = true;
+                streamController.sink.add(TranslationChoices.ai);
+                Properties.translationChoice = TranslationChoices.ai;
                 if (kDebugMode) {
                   print("Enable chatbot dictionary");
                 }
               },
             ),
             PopupMenuItem(
-              child: snapshot.data!
+              child: snapshot.data! == TranslationChoices.classic
                   ? Row(
-                      children: [
-                        const Icon(UniconsLine.books),
-                        const SizedBox().mediumWidth(),
-                        const Text("Classic Dictionary"),
-                      ],
-                    )
-                  : Row(
                       children: [
                         const Icon(
                           UniconsLine.books,
                           color: Colors.blue,
                         ),
                         const SizedBox().mediumWidth(),
-                        const Text("Classic Dictionary",
+                        Text("Classic Dictionary",
                             style: TextStyle(
-                                color: Colors.blue,
+                                color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold)),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        const Icon(Icons.book),
+                        const SizedBox().mediumWidth(),
+                        const Text("Classic Dictionary"),
                       ],
                     ),
               onTap: () {
-                streamController.sink.add(false);
-                Properties.chatbotEnable = false;
+                streamController.sink.add(TranslationChoices.classic);
+                Properties.translationChoice = TranslationChoices.classic;
                 if (kDebugMode) {
                   print("Enable classic dictionary");
                 }
@@ -110,7 +112,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                 ],
               ),
               onTap: () {
-                 context.pushNamed('custom-dictionary');
+                context.pushNamed('custom-dictionary');
               },
             ),
           ],

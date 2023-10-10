@@ -1,11 +1,8 @@
 import 'dart:async';
-
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../config/properties.dart';
 
 class DictionaryWelcome extends StatefulWidget {
   const DictionaryWelcome({super.key});
@@ -50,35 +47,35 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                     const SizedBox().largeHeight(),
 
                     /// Switch button to change between Ai dictionary and classic dictionary
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).cardColor,
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AiDictionaryPillButton(
-                            selected: Properties.chatbotEnable,
-                            onTap: () {
-                              streamController.sink.add(true);
-                              Properties.chatbotEnable = true;
-                            },
-                          ),
-                          const VerticalDivider(
-                            width: 1,
-                          ),
-                          ClassicDictionaryPillButton(
-                            selected: Properties.chatbotEnable,
-                            onTap: () {
-                              streamController.sink.add(false);
-                              Properties.chatbotEnable = false;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     color: Theme.of(context).cardColor,
+                    //     borderRadius: BorderRadius.circular(32),
+                    //   ),
+                    //   child: Row(
+                    //     mainAxisSize: MainAxisSize.min,
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       AiDictionaryPillButton(
+                    //         selected: Properties.chatbotEnable,
+                    //         onTap: () {
+                    //           streamController.sink.add(true);
+                    //           Properties.chatbotEnable = true;
+                    //         },
+                    //       ),
+                    //       const VerticalDivider(
+                    //         width: 1,
+                    //       ),
+                    //       ClassicDictionaryPillButton(
+                    //         selected: Properties.chatbotEnable,
+                    //         onTap: () {
+                    //           streamController.sink.add(false);
+                    //           Properties.chatbotEnable = false;
+                    //         },
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     const SizedBox().mediumHeight(),
 
                     InkWell(

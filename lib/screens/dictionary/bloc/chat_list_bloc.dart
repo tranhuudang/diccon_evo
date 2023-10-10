@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/combineBubble.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/combine_bubble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:diccon_evo/screens/commons/no_internet_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/local_dictionary_bubble.dart';
@@ -16,6 +16,7 @@ import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/searching.dart';
 import '../../../data/models/word.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
+import '../../commons/switch_translation_bar.dart';
 import '../ui/components/brick_wall_buttons.dart';
 import '../ui/components/image_buble.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -102,7 +103,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if (Properties.chatbotEnable &&
+    if (Properties.translationChoice == TranslationChoices.ai &&
         !isInternetConnected &&
         !isReportedAboutDisconnection) {
       chatList.add(const NoInternetBubble());
@@ -124,7 +125,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   Future<Word> _getLocalOrGoolgeTranslation(String providedWord) async {
     Word? wordResult = await Searching.getDefinition(providedWord);
     if (wordResult != null) {
-      print("got result from local dictionary");
+      if (kDebugMode) {
+        print("got result from local dictionary");
+      }
       return wordResult;
     } else {
       await translate(providedWord).then((translatedWord) {
@@ -132,7 +135,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
             Word(word: providedWord, meaning: translatedWord.text);
         return googleTranslatedResult;
       }).timeout(const Duration(seconds: 3), onTimeout: () {
-        print("google translate time out");
+        if (kDebugMode) {
+          print("google translate time out");
+        }
         var badResult = Word(
             word: providedWord,
             meaning: "Can't translate this word at the moment");
