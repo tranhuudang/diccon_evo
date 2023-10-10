@@ -189,6 +189,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                   );
                 }),
             ClickableWords(
+              style: Theme.of(context).textTheme.bodyLarge,
                 onWordTap: (word) {
                   chatListBloc.add(AddUserMessage(providedWord: word));
                   chatListBloc
