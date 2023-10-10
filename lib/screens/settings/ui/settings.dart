@@ -187,6 +187,7 @@ class _SettingsViewState extends State<SettingsView> {
                               children: [
                                 const Icon(Icons.text_increase),
                                 Slider(
+                                  activeColor: Theme.of(context).primaryColor,
                                     min: 0.1,
                                     value: state.readingFontSize / 70,
                                     onChangeEnd: (newValue) {
