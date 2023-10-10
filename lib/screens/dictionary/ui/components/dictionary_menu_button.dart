@@ -49,8 +49,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                         Text(
                           "AI Dictionary",
                           style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold),
+                              color: Theme.of(context).primaryColor,),
                         ),
                       ],
                     )
@@ -78,15 +77,14 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
               child: snapshot.data! == TranslationChoices.classic
                   ? Row(
                       children: [
-                        const Icon(
+                         Icon(
                           Icons.book,
-                          color: Colors.blue,
+                          color: Theme.of(context).primaryColor,
                         ),
                         const SizedBox().mediumWidth(),
                         Text("Classic Dictionary",
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold)),
+                                color: Theme.of(context).primaryColor,)),
                       ],
                     )
                   : Row(
