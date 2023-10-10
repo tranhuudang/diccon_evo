@@ -44,40 +44,7 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                         style: const TextStyle(fontSize: 16),
                       ),
                     ),
-                    const SizedBox().largeHeight(),
-
-                    /// Switch button to change between Ai dictionary and classic dictionary
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     color: Theme.of(context).cardColor,
-                    //     borderRadius: BorderRadius.circular(32),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisSize: MainAxisSize.min,
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       AiDictionaryPillButton(
-                    //         selected: Properties.chatbotEnable,
-                    //         onTap: () {
-                    //           streamController.sink.add(true);
-                    //           Properties.chatbotEnable = true;
-                    //         },
-                    //       ),
-                    //       const VerticalDivider(
-                    //         width: 1,
-                    //       ),
-                    //       ClassicDictionaryPillButton(
-                    //         selected: Properties.chatbotEnable,
-                    //         onTap: () {
-                    //           streamController.sink.add(false);
-                    //           Properties.chatbotEnable = false;
-                    //         },
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     const SizedBox().mediumHeight(),
-
                     InkWell(
                       onTap: () {
                         Navigator.push(
