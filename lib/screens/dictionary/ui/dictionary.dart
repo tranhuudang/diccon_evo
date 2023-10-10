@@ -144,15 +144,6 @@ class _DictionaryViewState extends State<DictionaryView>
                     builder: (context, state) {
                       {
                         switch (state.runtimeType) {
-                          case ChatListInitial:
-                            final data = state as ChatListInitial;
-                            return ListView.builder(
-                              itemCount: data.chatList.length,
-                              controller: chatListBloc.chatListController,
-                              itemBuilder: (BuildContext context, int index) {
-                                return state.chatList[index];
-                              },
-                            );
                           case ChatListUpdated:
                             final data = state as ChatListUpdated;
                             return ListView.builder(
@@ -248,7 +239,7 @@ class _DictionaryViewState extends State<DictionaryView>
                                                 .map((String word) {
                                               return SuggestedItem(
                                                 title: word,
-                                                backgroundColor: Colors.blue,
+                                                backgroundColor: Theme.of(context).primaryColor,
                                                 onPressed:
                                                     (String clickedWord) {
                                                   _handleSubmitted(
