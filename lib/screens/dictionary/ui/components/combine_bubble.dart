@@ -61,9 +61,9 @@ class _CombineBubbleState extends State<CombineBubble> {
             maxWidth: 600,
           ),
           //height: _isTooLarge ? 500 : null,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(16.0),
               topRight: Radius.circular(0.0),
               bottomLeft: Radius.circular(16.0),
