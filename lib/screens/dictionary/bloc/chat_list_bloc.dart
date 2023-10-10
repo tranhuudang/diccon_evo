@@ -48,7 +48,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     chatList.add(ImageBubble(imageUrl: event.imageUrl));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
-
     emit(ImageAdded());
   }
 
@@ -57,7 +56,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     chatList.add(BrickWallButtons(stringList: listSynonyms));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
-
     emit(SynonymsAdded());
   }
 
