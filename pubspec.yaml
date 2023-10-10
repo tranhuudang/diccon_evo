@@ -81,6 +81,8 @@ dependencies:
   # create route for application
   go_router: ^11.1.2
   collection: ^1.17.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
