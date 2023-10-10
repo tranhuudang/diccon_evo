@@ -365,13 +365,21 @@ extension Localization on String {
       "en_us": "Dark mode",
       "vi_vi": "Chế độ tối",
     },
-    "System default": {
-      "en_us": "System default",
+    "Adaptive": {
+      "en_us": "Adaptive",
       "vi_vi": "Mặc định",
     },
     "Theme": {
       "en_us": "Theme",
       "vi_vi": "Giao diện",
+    },
+    "Customize dictionary responses": {
+      "en_us": "Customize dictionary responses",
+      "vi_vi": "Tùy chỉnh câu trả lời/ phản hồi",
+    },
+    "Customize": {
+      "en_us": "Customize",
+      "vi_vi": "Tùy chỉnh",
     },
 
     /// Essential

@@ -1,7 +1,9 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../data/models/setting.dart';
 import '../../commons/header.dart';
 import '../cubit/setting_cubit.dart';
@@ -158,6 +160,19 @@ class _SettingsViewState extends State<SettingsView> {
                                             .toList()),
                                   ),
                                 ),
+                              ],
+                            ),
+                            const Divider(),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Customize dictionary responses".i18n),
+                                const SizedBox().mediumHeight(),
+                                PillButton(
+                                    onTap: () {
+                                      context.pushNamed("custom-dictionary");
+                                    },
+                                    title: "Customize"),
                               ],
                             )
                           ],

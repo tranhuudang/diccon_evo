@@ -1,18 +1,15 @@
 import 'dart:async';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/combine_bubble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:diccon_evo/screens/commons/no_internet_buble.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/local_dictionary_bubble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/user_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
-import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/searching.dart';
 import '../../../data/models/translation_choices.dart';
 import '../../../data/models/word.dart';
@@ -147,40 +144,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     var badResult = Word(
         word: providedWord, meaning: "Can't translate this word at the moment");
     return badResult;
-  }
-
-  Future<void> _addChatbotTranslationBubble(AddLocalTranslation event,
-      int chatGptRepositoryIndex, Emitter<ChatListState> emit) async {
-    chatList.add(ChatbotBubble(
-      word: event.providedWord,
-      chatListController: chatListController,
-      index: chatGptRepositoryIndex,
-      listChatGptRepository: listChatGptRepository,
-    ));
-    // Save word to history
-    emit(ChatListUpdated(chatList: chatList));
-    _scrollChatListToBottom();
-    await HistoryManager.saveWordToHistory(
-        event.providedWord.upperCaseFirstLetter());
-  }
-
-  Future<void> _addLocalTranslationBubble(
-      AddLocalTranslation event, Emitter<ChatListState> emit) async {
-    Word? wordResult = await Searching.getDefinition(event.providedWord);
-    if (wordResult != null) {
-      /// Right bubble represent machine reply
-      chatList.add(LocalDictionaryBubble(word: wordResult));
-      emit(ChatListUpdated(chatList: chatList));
-      _scrollChatListToBottom();
-    } else {
-      await translate(event.providedWord).then((translatedWord) {
-        chatList.add(LocalDictionaryBubble(
-            word:
-                Word(word: event.providedWord, meaning: translatedWord.text)));
-        emit(ChatListUpdated(chatList: chatList));
-        _scrollChatListToBottom();
-      });
-    }
   }
 
   FutureOr<void> _scrollToBottom(
