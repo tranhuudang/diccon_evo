@@ -279,7 +279,7 @@ class _EssentialViewState extends State<EssentialView> {
                                             context.pushNamed(
                                                 'learning-flash-card',
                                                 extra: LearningView(
-                                                  topic: _selectedTopic,
+                                                  topic: topic,
                                                   listEssentialWord:
                                                       listEssential,
                                                 ))

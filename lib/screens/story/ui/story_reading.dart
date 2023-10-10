@@ -203,7 +203,6 @@ class _StoryReadingViewState extends State<StoryReadingView> {
 
     /// This line is the skeleton of finding the word in the dictionary
     wordResult = await Searching.getDefinition(searchWord);
-
     if (wordResult != null) {
       showModalBottomSheet(
         context: currentContext, // Use the captured context here
