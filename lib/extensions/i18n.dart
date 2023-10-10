@@ -372,11 +372,11 @@ extension Localization on String {
       "vi_vi": "Tiếp tục với Google",
     },
     "Light mode": {
-      "en_us": "Light mode",
+      "en_us": "Light",
       "vi_vi": "Chế độ sáng",
     },
     "Dark mode": {
-      "en_us": "Dark mode",
+      "en_us": "Dark",
       "vi_vi": "Chế độ tối",
     },
     "Adaptive": {

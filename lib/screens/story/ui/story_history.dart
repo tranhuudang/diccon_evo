@@ -64,7 +64,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                             return ReadingTile(
                               story: data.stories[index],
                               onTap: () {
-                                context.pushNamed('history-to-reading-space');
+                                context.pushNamed('history-to-reading-space', extra:data.stories[index] );
                               },
                             );
                           },
