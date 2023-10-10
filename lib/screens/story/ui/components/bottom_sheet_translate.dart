@@ -7,6 +7,7 @@ import 'package:diccon_evo/screens/commons/word_pronunciation.dart';
 import 'package:diccon_evo/screens/commons/word_title.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../../../data/models/translation_choices.dart';
 import '../../../../data/models/word.dart';
 import '../../../commons/switch_translation_bar.dart';
 

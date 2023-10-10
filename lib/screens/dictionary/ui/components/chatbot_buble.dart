@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/commons/clickable_words.dart';
 import 'package:diccon_evo/screens/commons/word_playback_button.dart';
 import 'package:diccon_evo/screens/dictionary/bloc/chat_list_bloc.dart';
@@ -96,7 +97,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
 
   Future<ChatCompletionRequest> _getQuestionRequest() async {
     var question = '';
-    switch (Properties.dictionaryResponseType) {
+    switch (Properties.defaultSetting.dictionaryResponseType.toDictionaryResponseType()) {
       case DictionaryResponseType.shortWithOutPronunciation:
         question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
         break;

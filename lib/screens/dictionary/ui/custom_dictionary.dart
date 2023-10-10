@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble_preview.dart';
@@ -21,8 +22,8 @@ class CustomDictionary extends StatefulWidget {
 }
 
 class _CustomDictionaryState extends State<CustomDictionary> {
-  final pageViewController = PageController();
-  final isSelectedStreamController = StreamController();
+  final _pageViewController = PageController();
+  final _isSelectedStreamController = StreamController<DictionaryResponseType>();
 
   @override
   void initState() {
@@ -45,22 +46,22 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                     height: 550,
                     child: Stack(
                       children: [
-                        StreamBuilder(
-                            stream: isSelectedStreamController.stream,
-                            initialData: DictionaryResponseType.normal,
+                        StreamBuilder<DictionaryResponseType>(
+                            stream: _isSelectedStreamController.stream,
+                            initialData: Properties.defaultSetting.dictionaryResponseType.toDictionaryResponseType(),
                             builder: (context, snapshot) {
                               return PageView(
-                                controller: pageViewController,
+                                controller: _pageViewController,
                                 children: listChatPreviewContent.map((item) {
                                   return CustomItem(
                                       isSelected:
                                           snapshot.data == item.responseType,
                                       content: item.content,
                                       onTap: () {
-                                        isSelectedStreamController.sink
+                                        _isSelectedStreamController.sink
                                             .add(item.responseType);
-                                        Properties.dictionaryResponseType =
-                                            item.responseType;
+                                        Properties.defaultSetting = Properties.defaultSetting.copyWith(dictionaryResponseType: item.responseType.title());
+                                        Properties.saveSettings(Properties.defaultSetting);
                                       });
                                 }).toList(),
                               );
@@ -70,7 +71,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                                 padding: const EdgeInsets.all(16.0),
                                 child: PageViewNavigator(
                                     itemCount: listChatPreviewContent.length,
-                                    controller: pageViewController,
+                                    controller: _pageViewController,
                                     height: 550),
                               )
                             : const SizedBox.shrink(),
@@ -78,7 +79,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                     ),
                   ),
                   SmoothPageIndicator(
-                    controller: pageViewController,
+                    controller: _pageViewController,
                     count: listChatPreviewContent.length,
                     effect: ScrollingDotsEffect(
                       maxVisibleDots: 5,
@@ -138,7 +139,7 @@ class CustomItem extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.check_circle,
-                    size: 26,
+                    size: 32,
                     color: isSelected
                         ? Theme.of(context).primaryColor
                         : Theme.of(context).highlightColor,

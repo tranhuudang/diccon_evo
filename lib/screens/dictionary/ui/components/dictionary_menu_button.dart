@@ -2,11 +2,12 @@ import 'dart:async';
 import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/screens/commons/switch_translation_bar.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:unicons/unicons.dart';
+import '../../../../data/models/translation_choices.dart';
 
 class DictionaryMenuButton extends StatefulWidget {
   const DictionaryMenuButton({super.key});
@@ -27,7 +28,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<TranslationChoices>(
-      initialData: Properties.translationChoice,
+      initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
       stream: streamController.stream,
       builder: (context, snapshot) {
         return PopupMenuButton(
@@ -67,7 +68,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                     ),
               onTap: () {
                 streamController.sink.add(TranslationChoices.ai);
-                Properties.translationChoice = TranslationChoices.ai;
+                Properties.defaultSetting = Properties.defaultSetting.copyWith(translationChoice:TranslationChoices.ai.title());
+                Properties.saveSettings(Properties.defaultSetting);
                 if (kDebugMode) {
                   print("Enable chatbot dictionary");
                 }
@@ -97,7 +99,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                     ),
               onTap: () {
                 streamController.sink.add(TranslationChoices.classic);
-                Properties.translationChoice = TranslationChoices.classic;
+                Properties.defaultSetting = Properties.defaultSetting.copyWith(translationChoice: TranslationChoices.classic.title());
+                Properties.saveSettings(Properties.defaultSetting);
                 if (kDebugMode) {
                   print("Enable classic dictionary");
                 }

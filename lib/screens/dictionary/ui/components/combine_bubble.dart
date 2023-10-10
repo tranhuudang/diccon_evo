@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:diccon_evo/config/properties.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/commons/switch_translation_bar.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/local_dictionary_bubble.dart';
 import 'package:flutter/material.dart';
+import '../../../../data/models/translation_choices.dart';
 import '../../../../data/models/word.dart';
 import '../../../../data/repositories/chat_gpt_repository.dart';
 
@@ -78,7 +80,7 @@ class _CombineBubbleState extends State<CombineBubble> {
             ),
             StreamBuilder<TranslationChoices>(
                 stream: _translationModeStreamController.stream,
-                initialData: Properties.translationChoice,
+                initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
                 builder: (context, translationChoice) {
                   _scrollToBottom();
                   return Column(children: [

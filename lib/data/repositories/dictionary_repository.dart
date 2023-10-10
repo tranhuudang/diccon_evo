@@ -14,8 +14,9 @@ class DictionaryRepository {
 
   Future<List<Word>> _getWordList() async {
     String dataEv = await rootBundle.loadString(Properties.evDataPath);
-    String dataVe = await rootBundle.loadString(Properties.veDataPath);
-    String data = dataEv + dataVe;
+    //String dataVe = await rootBundle.loadString(Properties.veDataPath);
+    //String data = dataEv + dataVe;
+    String data = dataEv;
     List<String> wordDataList = data.split('@');
     List<Word> wordList = [];
 

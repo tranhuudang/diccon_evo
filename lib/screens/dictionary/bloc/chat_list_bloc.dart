@@ -14,9 +14,9 @@ import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
 import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/searching.dart';
+import '../../../data/models/translation_choices.dart';
 import '../../../data/models/word.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
-import '../../commons/switch_translation_bar.dart';
 import '../ui/components/brick_wall_buttons.dart';
 import '../ui/components/image_buble.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -103,7 +103,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if (Properties.translationChoice == TranslationChoices.ai &&
+    if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.ai &&
         !isInternetConnected &&
         !isReportedAboutDisconnection) {
       chatList.add(const NoInternetBubble());

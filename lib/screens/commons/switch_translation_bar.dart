@@ -1,21 +1,9 @@
+import 'package:diccon_evo/config/properties.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/models/translation_choices.dart';
 
-enum TranslationChoices{
-  classic,
-  ai
-}
-extension TranslationChoicesTitle on TranslationChoices{
-  String title(){
-    switch(this) {
-      case TranslationChoices.classic:
-        return "Classic";
-      case TranslationChoices.ai:
-        return "AI";
-    }
-
-  }
-}
 class SwitchTranslationBar extends StatefulWidget {
   final Function(Set<TranslationChoices> selectedItemSet) selectedItemSet;
   const SwitchTranslationBar({
@@ -28,12 +16,12 @@ class SwitchTranslationBar extends StatefulWidget {
 }
 
 class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
-  TranslationChoices selectedItem = TranslationChoices.classic;
+  TranslationChoices selectedItem = Properties.defaultSetting.translationChoice.toTranslationChoice();
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Spacer(),
+        const Spacer(),
         SegmentedButton<TranslationChoices>(
           showSelectedIcon: false,
           segments: [

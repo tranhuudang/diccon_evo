@@ -1,12 +1,12 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/models/dictionary_response_type.dart';
 import '../data/models/setting.dart';
+import '../data/models/translation_choices.dart';
 import '../data/models/user_info.dart';
 import '../data/models/word.dart';
 import 'package:flutter/material.dart';
-
-import '../screens/commons/switch_translation_bar.dart';
 
 class Properties {
   /// Manually change this version base on commit count
@@ -43,11 +43,10 @@ class Properties {
   static const String storyBookmarkFileName = 'story_bookmark.json';
   static const String essentialFavouriteFileName = 'essential_favourite.json';
   static const String extendStoryFileName = 'extend_story.json';
-
-  static DictionaryResponseType dictionaryResponseType = DictionaryResponseType.normal;
-  static TranslationChoices translationChoice = TranslationChoices.classic;
   // All view in application
   static Setting defaultSetting = Setting(
+      dictionaryResponseType: DictionaryResponseType.short.title(),
+      translationChoice: TranslationChoices.classic.title(),
       numberOfSynonyms: 10,
       numberOfAntonyms: 10,
       readingFontSize: 16,
@@ -61,6 +60,9 @@ class Properties {
   static void saveSettings(Setting newSetting) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('readingFontSize', newSetting.readingFontSize);
+    await prefs.setString(
+        'dictionaryResponseType', newSetting.dictionaryResponseType);
+    await prefs.setString('translationChoice', newSetting.translationChoice);
     await prefs.setDouble(
         'readingFontSizeSliderValue', newSetting.readingFontSizeSliderValue);
     await prefs.setInt('numberOfSynonyms', newSetting.numberOfSynonyms);
@@ -70,6 +72,9 @@ class Properties {
     await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
     await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
     await prefs.setString('themeMode', newSetting.themeMode);
+    if (kDebugMode) {
+      print("Setting saved");
+    }
   }
 
   static Future<bool> getSettings() async {
@@ -79,6 +84,10 @@ class Properties {
     defaultSetting = defaultSetting.copyWith(
         readingFontSize: prefs.getDouble('readingFontSize') ??
             defaultSetting.readingFontSize,
+        translationChoice: prefs.getString('translationChoice') ??
+            defaultSetting.translationChoice,
+        dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
+            defaultSetting.dictionaryResponseType,
         readingFontSizeSliderValue:
             prefs.getDouble('readingFontSizeSliderValue') ??
                 defaultSetting.readingFontSizeSliderValue,
