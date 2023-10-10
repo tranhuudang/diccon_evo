@@ -156,7 +156,8 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                   _storyBookmarkBloc.add(
                                       StoryBookmarkRemove(story: widget.story));
                                   Notify.showSnackBar(
-                                      context, "Bookmark is removed".i18n);
+                                      context: context,
+                                      content: "Bookmark is removed".i18n);
                                 })
                             : CircleButton(
                                 iconData: Icons.bookmark_border,
@@ -167,7 +168,8 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                   _storyBookmarkBloc.add(
                                       StoryBookmarkAdd(stories: widget.story));
                                   Notify.showSnackBar(
-                                      context, "Bookmark is added".i18n);
+                                      context: context,
+                                      content: "Bookmark is added".i18n);
                                 }),
                         const SizedBox().mediumWidth(),
 
@@ -175,7 +177,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                         CircleButton(
                             iconData: Icons.close,
                             onTap: () {
-                              context.pop( _isListStoriesShouldChanged);
+                              context.pop(_isListStoriesShouldChanged);
                             }),
                       ],
                     );

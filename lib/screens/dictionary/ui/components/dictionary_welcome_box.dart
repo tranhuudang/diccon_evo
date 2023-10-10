@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/commons/suggested_item.dart';
 import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:flutter/material.dart';
 
@@ -45,24 +46,27 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                       ),
                     ),
                     const SizedBox().mediumHeight(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const CustomDictionary()));
-                      },
-                      child:  Opacity(
-                        opacity: 0.5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Customize your experience".i18n,
-                            style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                decorationThickness: 1,
-                                decoration: TextDecoration.underline),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(32),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const CustomDictionary()));
+                        },
+                        child:  Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                            )
+                          ),
+                          child: Text("Customize your experience".i18n,
+
                           ),
                         ),
                       ),

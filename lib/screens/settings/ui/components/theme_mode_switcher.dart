@@ -120,9 +120,11 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                         topRight: Radius.circular(16),
                         bottomRight: Radius.circular(16),
                       )),
-                  child: Text(
-                    "Adaptive".i18n,
-                    style: const TextStyle(fontSize: 16),
+                  child: Center(
+                    child: Text(
+                      "Adaptive".i18n,
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   )
                 ),
               ),

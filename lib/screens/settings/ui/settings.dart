@@ -29,7 +29,7 @@ class _SettingsViewState extends State<SettingsView> {
               return Stack(
                 children: [
                   SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(16, 70, 16, 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -85,7 +85,7 @@ class _SettingsViewState extends State<SettingsView> {
                           Text(
                             "* The changes will become effective the next time you open the app."
                                 .i18n,
-                            style: const TextStyle(fontStyle: FontStyle.italic),
+                            style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.orange),
                           )
                         ]),
                         SettingSection(

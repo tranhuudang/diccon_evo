@@ -30,6 +30,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddAntonyms>(_addAntonymsList);
     on<AddImage>(_addImage);
     on<ScrollToBottom>(_scrollToBottom);
+    on<CreateNewChatlist>(_createNewChatlist);
   }
   List<ChatGptRepository> listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
@@ -114,6 +115,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     _scrollChatListToBottom();
   }
 
+
+  FutureOr<void> _createNewChatlist(CreateNewChatlist event, Emitter<ChatListState> emit){
+    listChatGptRepository = [];
+    textController.clear();
+    chatList = [const DictionaryWelcome()];
+    emit(ChatListUpdated(chatList: chatList));
+  }
   Future<Word> _getLocalTranslation(String providedWord) async {
     Word? wordResult = await Searching.getDefinition(providedWord);
     if (wordResult != null) {

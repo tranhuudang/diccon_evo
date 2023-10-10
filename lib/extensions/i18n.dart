@@ -381,7 +381,7 @@ extension Localization on String {
     },
     "Adaptive": {
       "en_us": "Adaptive",
-      "vi_vi": "Mặc định",
+      "vi_vi": "Tự động",
     },
     "Theme": {
       "en_us": "Theme",

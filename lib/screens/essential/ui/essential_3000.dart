@@ -170,11 +170,13 @@ class _EssentialViewState extends State<EssentialView> {
                                           }
                                         else
                                           {
-                                            Notify.showAlertDialog(
-                                                context,
-                                                "Favourite Chamber is empty"
-                                                    .i18n,
-                                                "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
+                                            Notify.showAlertDialogWithoutAction(
+                                                context: context,
+                                                title:
+                                                    "Favourite Chamber is empty"
+                                                        .i18n,
+                                                content:
+                                                    "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
                                           },
                                       });
                             },

@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.3.5+35
+version: 1.3.6+36
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -148,6 +148,6 @@ msix_config:
   publisher_display_name: Zeroboy
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
-  msix_version: 1.3.5.0
+  msix_version: 1.3.6.0
   logo_path: C:\Users\Zr\StudioProjects\diccon_evo\assets\dictionary\icon.ico
   store: true
