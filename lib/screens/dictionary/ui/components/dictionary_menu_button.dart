@@ -6,7 +6,6 @@ import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:unicons/unicons.dart';
 import '../../../../data/models/translation_choices.dart';
 
 class DictionaryMenuButton extends StatefulWidget {
@@ -80,7 +79,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                   ? Row(
                       children: [
                         const Icon(
-                          UniconsLine.books,
+                          Icons.book,
                           color: Colors.blue,
                         ),
                         const SizedBox().mediumWidth(),

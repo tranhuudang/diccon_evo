@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:unicons/unicons.dart';
 import '../../../data/data_providers/notify.dart';
 import '../../commons/header.dart';
 import '../../commons/pill_button.dart';
@@ -124,7 +123,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                         .i18n),
                                 const SizedBox().mediumHeight(),
                                 PillButton(
-                                    icon: UniconsLine.trash,
+                                    icon: Icons.delete_outline,
                                     backgroundColor: Colors.red,
                                     onTap: () {
                                       userBloc.add(UserDeleteDateEvent());
