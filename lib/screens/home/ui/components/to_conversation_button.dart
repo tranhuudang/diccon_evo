@@ -1,9 +1,6 @@
-
-
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/route_constants.dart';
 import 'feature_button.dart';
 class ToConversationButton extends StatelessWidget {
   const ToConversationButton({
@@ -15,7 +12,7 @@ class ToConversationButton extends StatelessWidget {
     return FeatureButton(
       backgroundColor: Theme.of(context).primaryColor,
       onTap: () {
-        context.pushNamed(RouterConstants.conversation);
+        context.pushNamed('conversation');
       },
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/route_constants.dart';
 import '../../commons/header.dart';
 import '../blocs/story_bookmark_list_bloc.dart';
 import 'components/reading_tile.dart';
@@ -69,7 +68,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                               story: data.stories[index],
                               onTap: () async {
                                 bool? isBookmarkChanged = await context
-                                    .pushNamed(RouterConstants.readingSpace,
+                                    .pushNamed('bookmark-to-reading-space',
                                         extra: data.stories[index]);
                                 if (isBookmarkChanged != null) {
                                   if (isBookmarkChanged == true) {

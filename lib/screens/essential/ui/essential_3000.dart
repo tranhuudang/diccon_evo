@@ -4,7 +4,6 @@ import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/route_constants.dart';
 import '../../../data/repositories/essential_manager.dart';
 import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/notify.dart';
@@ -142,7 +141,7 @@ class _EssentialViewState extends State<EssentialView> {
                                       _selectedTopic)
                                   .then(
                                 (listEssential) => {
-                                  context.pushNamed(RouterConstants.learningFlashCard,
+                                  context.pushNamed('learning-flash-card',
                                       extra: LearningView(
                                         topic: _selectedTopic,
                                         listEssentialWord: listEssential,
@@ -163,7 +162,7 @@ class _EssentialViewState extends State<EssentialView> {
                                         if (listFavourite.isNotEmpty)
                                           {
                                             context.pushNamed(
-                                                RouterConstants.learningFavourite,
+                                                'learning-favourite',
                                                 extra: FavouriteReviewView(
                                                   listEssentialWord:
                                                       listFavourite,
@@ -280,7 +279,7 @@ class _EssentialViewState extends State<EssentialView> {
                                             .then(
                                           (listEssential) => {
                                             context.pushNamed(
-                                                RouterConstants.learningFlashCard,
+                                                'learning-flash-card',
                                                 extra: LearningView(
                                                   topic: topic,
                                                   listEssentialWord:

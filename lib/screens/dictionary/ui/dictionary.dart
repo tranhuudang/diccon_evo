@@ -1,7 +1,8 @@
+import 'package:diccon_evo/data/data_providers/notify.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/route_constants.dart';
 import '../../../data/handlers/image_handler.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/header.dart';
@@ -22,8 +23,7 @@ class DictionaryView extends StatefulWidget {
   State<DictionaryView> createState() => _DictionaryViewState();
 }
 
-class _DictionaryViewState extends State<DictionaryView>
-   {
+class _DictionaryViewState extends State<DictionaryView> {
   final ImageHandler _imageProvider = ImageHandler();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
@@ -32,8 +32,6 @@ class _DictionaryViewState extends State<DictionaryView>
   bool _hasSynonyms = false;
   bool _hasSuggestionWords = true;
   String _currentSearchWord = '';
-
-  
 
   void resetSuggestion() {
     setState(() {
@@ -92,6 +90,10 @@ class _DictionaryViewState extends State<DictionaryView>
       setState(() {
         _hasImages = true;
       });
+    } else {
+      setState(() {
+        _hasImages = false;
+      });
     }
   }
 
@@ -140,19 +142,9 @@ class _DictionaryViewState extends State<DictionaryView>
                     builder: (context, state) {
                       {
                         switch (state.runtimeType) {
-                          case ChatListInitial:
-                            final data = state as ChatListInitial;
-                            return ListView.builder(
-                              itemCount: data.chatList.length,
-                              controller: chatListBloc.chatListController,
-                              itemBuilder: (BuildContext context, int index) {
-                                return state.chatList[index];
-                              },
-                            );
                           case ChatListUpdated:
                             final data = state as ChatListUpdated;
                             return ListView.builder(
-
                               padding:
                                   const EdgeInsets.only(top: 80, bottom: 130),
                               itemCount: data.chatList.length,
@@ -163,7 +155,12 @@ class _DictionaryViewState extends State<DictionaryView>
                               },
                             );
                           default:
-                            return Container();
+                            return const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                DictionaryWelcome(),
+                              ],
+                            );
                         }
                       }
                     },
@@ -182,11 +179,10 @@ class _DictionaryViewState extends State<DictionaryView>
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
-                           context.pushNamed(RouterConstants.wordHistory);
+                          context.pushNamed('word-history');
                         },
                       ),
                       const DictionaryMenuButton(),
-
                     ],
                   ),
                 ),
@@ -244,7 +240,9 @@ class _DictionaryViewState extends State<DictionaryView>
                                                 .map((String word) {
                                               return SuggestedItem(
                                                 title: word,
-                                                backgroundColor: Colors.blue,
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .primaryColor,
                                                 onPressed:
                                                     (String clickedWord) {
                                                   _handleSubmitted(
@@ -306,6 +304,21 @@ class _DictionaryViewState extends State<DictionaryView>
                                   const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Row(
                                 children: <Widget>[
+                                  IconButton(
+                                      onPressed: () {
+                                        Notify.showAlertDialog(
+                                            context: context,
+                                            title: "Close this session?",
+                                            content:
+                                                "Clear all the bubbles in this translation session.",
+                                            action: () {
+                                              resetSuggestion();
+                                              chatListBloc
+                                                  .add(CreateNewChatlist());
+                                            });
+                                      },
+                                      icon:
+                                          const Icon(Icons.add_circle_outline)),
                                   Expanded(
                                     child: TextField(
                                       focusNode: Properties.textFieldFocusNode,

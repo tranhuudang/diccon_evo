@@ -3,7 +3,6 @@ import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/route_constants.dart';
 import '../../commons/header.dart';
 import '../blocs/story_history_list_bloc.dart';
 import 'components/reading_tile.dart';
@@ -65,7 +64,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                             return ReadingTile(
                               story: data.stories[index],
                               onTap: () {
-                                context.pushNamed(RouterConstants.readingSpace, extra: data.stories[index]);
+                                context.pushNamed('history-to-reading-space', extra:data.stories[index] );
                               },
                             );
                           },

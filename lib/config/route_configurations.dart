@@ -1,4 +1,3 @@
-import 'package:diccon_evo/config/route_constants.dart';
 import 'package:diccon_evo/screens/conversation/ui/conversation.dart';
 import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
@@ -24,7 +23,7 @@ GoRouter router = GoRouter(
   routes: [
     /// Home
     GoRoute(
-        name: RouterConstants.home,
+        name: 'home',
         path: '/',
         pageBuilder: (context, state) {
           return MaterialPage(child: I18n(child: const HomeView()));
@@ -32,7 +31,7 @@ GoRouter router = GoRouter(
         routes: [
           // Settings
           GoRoute(
-            name: RouterConstants.commonSettings,
+            name: 'common-settings',
             path: 'settings',
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const SettingsView()));
@@ -40,7 +39,7 @@ GoRouter router = GoRouter(
           ),
           // Settings
           GoRoute(
-            name: RouterConstants.userSettings,
+            name: 'user-settings',
             path: 'user-settings',
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const UserSettingsView()));
@@ -48,7 +47,7 @@ GoRouter router = GoRouter(
           ),
           // Settings
           GoRoute(
-            name: RouterConstants.infos,
+            name: 'infos',
             path: 'infos',
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const InfosView()));
@@ -58,21 +57,21 @@ GoRouter router = GoRouter(
 
     /// Dictionary
     GoRoute(
-        name: RouterConstants.dictionary,
+        name: 'dictionary',
         path: '/dictionary',
         pageBuilder: (context, state) {
           return MaterialPage(child: I18n(child: const DictionaryView()));
         },
         routes: [
           GoRoute(
-            name: RouterConstants.wordHistory,
+            name: 'word-history',
             path: 'history',
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const WordHistoryView()));
             },
           ),
           GoRoute(
-            name: RouterConstants.customDictionary,
+            name: 'custom-dictionary',
             path: 'custom',
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const CustomDictionary()));
@@ -82,7 +81,7 @@ GoRouter router = GoRouter(
 
     /// Conversation
     GoRoute(
-      name: RouterConstants.conversation,
+      name: 'conversation',
       path: '/conversation',
       pageBuilder: (context, state) {
         return MaterialPage(child: I18n(child: const ConversationView()));
@@ -91,7 +90,7 @@ GoRouter router = GoRouter(
 
     /// Reading-chamber
     GoRoute(
-      name: RouterConstants.readingChamber,
+      name: 'reading-chamber',
       path: '/reading-chamber',
       pageBuilder: (context, state) {
         return MaterialPage(child: I18n(child: const StoryListView()));
@@ -99,7 +98,7 @@ GoRouter router = GoRouter(
       routes: [
         // Reading chamber's reading space
         GoRoute(
-            name: RouterConstants.readingSpace,
+            name: 'reading-chamber-to-reading-space',
             path: 'reading-space',
             pageBuilder: (context, state) {
               return MaterialPage(
@@ -111,7 +110,7 @@ GoRouter router = GoRouter(
             }),
         // Reading history
         GoRoute(
-          name: RouterConstants.readingChamberHistory,
+          name: 'reading-chamber-history',
           path: 'history',
           pageBuilder: (context, state) {
             return MaterialPage(
@@ -119,10 +118,25 @@ GoRouter router = GoRouter(
                   child: const StoryListHistoryView(),
                 ));
           },
+          routes: [
+            GoRoute(
+              name: 'history-to-reading-space',
+              path: 'reading-space',
+              pageBuilder: (context, state) {
+                return MaterialPage(
+                  child: I18n(
+                    child: StoryReadingView(
+                      story: state.extra as Story,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         // Reading bookmarks
         GoRoute(
-          name: RouterConstants.readingChamberBookmark,
+          name: 'reading-chamber-bookmark',
           path: 'bookmarks',
           pageBuilder: (context, state) {
             return MaterialPage(
@@ -131,20 +145,34 @@ GoRouter router = GoRouter(
               ),
             );
           },
+          routes: [
+            GoRoute(
+                name: 'bookmark-to-reading-space',
+                path: 'reading-space',
+                pageBuilder: (context, state) {
+                  return MaterialPage(
+                    child: I18n(
+                      child: StoryReadingView(
+                        story: state.extra as Story,
+                      ),
+                    ),
+                  );
+                })
+          ],
         ),
       ],
     ),
 
     /// Essential 1848
     GoRoute(
-        name: RouterConstants.essential1848,
+        name: 'essential-1848',
         path: '/essential-1848',
         pageBuilder: (context, state) {
           return MaterialPage(child: I18n(child: const EssentialView()));
         },
         routes: [
           GoRoute(
-            name: RouterConstants.learningFlashCard,
+            name: 'learning-flash-card',
             path: 'flash-card',
             pageBuilder: (context, state) {
               var params = state.extra as LearningView;
@@ -157,7 +185,7 @@ GoRouter router = GoRouter(
             },
           ),
           GoRoute(
-            name: RouterConstants.learningFavourite,
+            name: 'learning-favourite',
             path: 'favourite',
             pageBuilder: (context, state) {
               var params = state as FavouriteReviewView;
