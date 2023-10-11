@@ -81,6 +81,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await UserHandler().uploadUserDataFile(Properties.essentialFavouriteFileName);
     emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
     emit(UserSyncCompleted());
+
   }
 
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
@@ -95,6 +96,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       Properties.userInfo = UserInfo(
           user!.id, user.displayName ?? "", user.photoUrl ?? "", user.email);
       emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+      // Sync user data right after log in successful
+      add(UserSyncEvent(
+          userInfo: Properties.userInfo));
     }
     else {
       emit(NoInternetState());
