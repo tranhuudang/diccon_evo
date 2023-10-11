@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:unicons/unicons.dart';
 
+import '../../../../config/route_constants.dart';
+
 class DictionaryMenuButton extends StatefulWidget {
   const DictionaryMenuButton({super.key});
 
@@ -110,7 +112,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                 ],
               ),
               onTap: () {
-                 context.pushNamed('custom-dictionary');
+                 context.pushNamed(RouterConstants.customDictionary);
               },
             ),
           ],

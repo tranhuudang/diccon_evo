@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../config/route_constants.dart';
 import '../../../data/handlers/image_handler.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/header.dart';
@@ -181,7 +182,7 @@ class _DictionaryViewState extends State<DictionaryView>
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
-                           context.pushNamed('word-history');
+                           context.pushNamed(RouterConstants.wordHistory);
                         },
                       ),
                       const DictionaryMenuButton(),
