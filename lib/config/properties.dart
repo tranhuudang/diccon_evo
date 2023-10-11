@@ -12,7 +12,7 @@ class Properties {
   /// Manually change this version base on commit count
   static String version = "v293";
 
-  static UserInfo userInfo = UserInfo("", "", "", "");
+  static UserInfo userInfo = UserInfo.empty();
 
   static List<Word> wordList = [];
   static List<String> suggestionListWord = [];

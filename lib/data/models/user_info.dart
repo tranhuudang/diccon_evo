@@ -1,8 +1,21 @@
-class UserInfo {
-  late String id;
-  late String name;
-  late String avatarUrl;
-  late String email;
+import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-  UserInfo(this.id, this.name, this.avatarUrl, this.email);
+class UserInfo extends Equatable {
+  final String id;
+  final String name;
+  final String avatarUrl;
+  final String email;
+
+  const UserInfo({required this.id, required this.name, required this.avatarUrl, required this.email});
+
+  static UserInfo empty(){
+    return const UserInfo(id: "", name: "", avatarUrl: "", email: "");
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
+
+
 }

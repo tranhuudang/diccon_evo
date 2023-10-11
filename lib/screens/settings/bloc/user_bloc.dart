@@ -30,7 +30,8 @@ abstract class UserActionState extends UserState {}
 
 class UserUninitialized extends UserState {}
 
-class NoInternetState extends UserActionState{}
+class NoInternetState extends UserActionState {}
+
 class UserLoggingoutState extends UserActionState {}
 
 class UserLogoutCompletedState extends UserActionState {}
@@ -78,10 +79,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await UserHandler().uploadUserDataFile(Properties.storyHistoryFileName);
     await UserHandler().uploadUserDataFile(Properties.storyBookmarkFileName);
     await UserHandler().uploadUserDataFile(Properties.topicHistoryFileName);
-    await UserHandler().uploadUserDataFile(Properties.essentialFavouriteFileName);
+    await UserHandler()
+        .uploadUserDataFile(Properties.essentialFavouriteFileName);
     emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
     emit(UserSyncCompleted());
-
   }
 
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
@@ -90,26 +91,27 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if(isInternetConnected) {
+    if (isInternetConnected) {
       AuthService authService = AuthService();
       GoogleSignInAccount? user = await authService.googleSignIn();
       Properties.userInfo = UserInfo(
-          user!.id, user.displayName ?? "", user.photoUrl ?? "", user.email);
+          id: user!.id,
+          name: user.displayName ?? "",
+          avatarUrl: user.photoUrl ?? "",
+          email: user.email);
       emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
       // Sync user data right after log in successful
-      add(UserSyncEvent(
-          userInfo: Properties.userInfo));
-    }
-    else {
+      add(UserSyncEvent(userInfo: Properties.userInfo));
+    } else {
       emit(NoInternetState());
     }
   }
 
   FutureOr<void> _userLogout(
       UserLogoutEvent logout, Emitter<UserState> emit) async {
-
     /// Reset User object
     emit(UserLoggingoutState());
+
     /// Logout Auth services
     AuthService authService = AuthService();
     authService.googleSignOut();
@@ -120,8 +122,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await FileHandler(Properties.storyBookmarkFileName).deleteOnUserData();
     await FileHandler(Properties.topicHistoryFileName).deleteOnUserData();
     await FileHandler(Properties.essentialFavouriteFileName).deleteOnUserData();
+
     /// Reset properties
-    Properties.userInfo = UserInfo("", "", "", "");
+    Properties.userInfo = UserInfo.empty();
     await Future.delayed(const Duration(seconds: 2));
     emit(UserLogoutCompletedState());
     emit(UserUninitialized());
