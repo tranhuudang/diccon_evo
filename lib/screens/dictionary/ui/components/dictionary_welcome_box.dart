@@ -3,6 +3,9 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../config/route_constants.dart';
 
 class DictionaryWelcome extends StatefulWidget {
   const DictionaryWelcome({super.key});
@@ -50,11 +53,7 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(32),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CustomDictionary()));
+                          context.pushNamed(RouterConstants.customDictionary);
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(

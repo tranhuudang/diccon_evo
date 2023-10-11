@@ -1,6 +1,7 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../config/route_constants.dart';
 import 'feature_button.dart';
 
 class ToReadingChamberButton extends StatelessWidget {
@@ -12,20 +13,18 @@ class ToReadingChamberButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FeatureButton(
       onTap: () {
-        context.pushNamed('reading-chamber');
+        context.pushNamed(RouterConstants.readingChamber);
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "199",
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "stories to read".i18n,
+            "Library",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
+
           Text(
             "For all levels and audiences".i18n,
             style: const TextStyle(fontWeight: FontWeight.bold),

@@ -6,6 +6,7 @@ import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../config/route_constants.dart';
 import '../../../../data/models/translation_choices.dart';
 
 class DictionaryMenuButton extends StatefulWidget {
@@ -27,7 +28,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<TranslationChoices>(
-      initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
+      initialData:
+          Properties.defaultSetting.translationChoice.toTranslationChoice(),
       stream: streamController.stream,
       builder: (context, snapshot) {
         return PopupMenuButton(
@@ -49,7 +51,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                         Text(
                           "AI Dictionary",
                           style: TextStyle(
-                              color: Theme.of(context).primaryColor,),
+                            color: Theme.of(context).primaryColor,
+                          ),
                         ),
                       ],
                     )
@@ -66,7 +69,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                     ),
               onTap: () {
                 streamController.sink.add(TranslationChoices.ai);
-                Properties.defaultSetting = Properties.defaultSetting.copyWith(translationChoice:TranslationChoices.ai.title());
+                Properties.defaultSetting = Properties.defaultSetting
+                    .copyWith(translationChoice: TranslationChoices.ai.title());
                 Properties.saveSettings(Properties.defaultSetting);
                 if (kDebugMode) {
                   print("Enable chatbot dictionary");
@@ -77,14 +81,15 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
               child: snapshot.data! == TranslationChoices.classic
                   ? Row(
                       children: [
-                         Icon(
+                        Icon(
                           Icons.book,
                           color: Theme.of(context).primaryColor,
                         ),
                         const SizedBox().mediumWidth(),
                         Text("Classic Dictionary",
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor,)),
+                              color: Theme.of(context).primaryColor,
+                            )),
                       ],
                     )
                   : Row(
@@ -96,7 +101,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                     ),
               onTap: () {
                 streamController.sink.add(TranslationChoices.classic);
-                Properties.defaultSetting = Properties.defaultSetting.copyWith(translationChoice: TranslationChoices.classic.title());
+                Properties.defaultSetting = Properties.defaultSetting.copyWith(
+                    translationChoice: TranslationChoices.classic.title());
                 Properties.saveSettings(Properties.defaultSetting);
                 if (kDebugMode) {
                   print("Enable classic dictionary");
@@ -112,7 +118,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                 ],
               ),
               onTap: () {
-                context.pushNamed('custom-dictionary');
+                context.pushNamed(RouterConstants.customDictionary);
               },
             ),
           ],

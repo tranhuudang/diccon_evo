@@ -4,6 +4,7 @@ import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../config/route_constants.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../blocs/story_list_bloc.dart';
@@ -118,7 +119,7 @@ class StoryListView extends StatelessWidget {
                                         story: data.articleList[index],
                                         onTap: () {
                                           context.pushNamed(
-                                              'reading-chamber-to-reading-space',
+                                              RouterConstants.readingSpace,
                                               extra: data.articleList[index]);
                                         },
                                       );

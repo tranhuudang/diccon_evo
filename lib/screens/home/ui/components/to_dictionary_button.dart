@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../config/route_constants.dart';
 import 'feature_button.dart';
 
 class ToDictionaryButton extends StatelessWidget {
@@ -11,7 +12,7 @@ class ToDictionaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FeatureButton(
       onTap: () {
-        context.pushNamed('dictionary');
+        context.pushNamed(RouterConstants.dictionary);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
