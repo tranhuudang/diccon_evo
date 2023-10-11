@@ -40,7 +40,6 @@ class CustomTheme {
     ThemeData themeData = Theme.of(context);
 
     return ThemeData.light().copyWith(
-      useMaterial3: true,
       segmentedButtonTheme: SegmentedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -103,7 +102,6 @@ class CustomTheme {
   static ThemeData getDark(context) {
     ThemeData themeData = Theme.of(context);
     return ThemeData.dark().copyWith(
-      useMaterial3: true,
       segmentedButtonTheme: SegmentedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
