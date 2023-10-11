@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.3.5+35
+version: 1.3.6+36
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -45,9 +45,6 @@ dependencies:
   audioplayers: ^5.1.0
   # Package for Packaging Windows App
   msix: ^3.16.4
-  #translator: ^0.1.7
-  translator:
-    git: https://github.com/tranhuudang/google-translator
   cached_network_image: ^3.2.3
   flutter_cache_manager: ^3.3.1
   # Save settings
@@ -71,7 +68,6 @@ dependencies:
 
   # custom icon
   font_awesome_flutter: ^10.5.0
-  unicons: ^2.1.1
 
   # localization
   i18n_extension: ^9.0.2
@@ -84,6 +80,9 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   # create route for application
   go_router: ^11.1.2
+  collection: ^1.17.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -149,6 +148,6 @@ msix_config:
   publisher_display_name: Zeroboy
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
-  msix_version: 1.3.5.0
+  msix_version: 1.3.6.0
   logo_path: C:\Users\Zr\StudioProjects\diccon_evo\assets\dictionary\icon.ico
   store: true

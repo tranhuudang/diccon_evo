@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import '../../../config/properties.dart';
 import '../../../data/models/essential_word.dart';
 import '../../commons/circle_button.dart';
@@ -47,7 +48,7 @@ class _LearningViewState extends State<LearningView> {
                   child: CircleButton(
                       iconData: Icons.close,
                       onTap: () {
-                        Navigator.pop(context);
+                        context.pop();
                       }),
                 ),
 

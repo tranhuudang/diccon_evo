@@ -11,11 +11,11 @@ import '../../bloc/chat_list_bloc.dart';
 class LocalDictionaryBubble extends StatefulWidget {
   const LocalDictionaryBubble({
     Key? key,
-    required this.message,
+    required this.word,
     this.onWordTap,
   }) : super(key: key);
 
-  final Word message;
+  final Word word;
   final Function(String)? onWordTap;
 
   @override
@@ -40,8 +40,8 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
   }
 
   int countLine() {
-    if (widget.message.meaning != null) {
-      return widget.message.meaning!.split('\n').length;
+    if (widget.word.meaning != null) {
+      return widget.word.meaning!.split('\n').length;
     }
     return 0;
   }
@@ -49,89 +49,71 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
   @override
   Widget build(BuildContext context) {
     final chatListBloc = context.read<ChatListBloc>();
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
+    return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 600,
       ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 32),
-        child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: 600,
-          ),
-          height: _isTooLarge ? 500 : null,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(0.0),
-              bottomLeft: Radius.circular(16.0),
-              bottomRight: Radius.circular(16.0),
-            ),
-          ),
-          child: Stack(
-            children: [
-              /// This widget contains meaning of the word
-              SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
+      height: _isTooLarge ? 500 : null,
+      child: Stack(
+        children: [
+          /// This widget contains meaning of the word
+          SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          WordTitle(
-                            message: widget.message,
-                            titleColor: Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 8.0,
-                          ),
-                          WordPronunciation(message: widget.message),
-                          WordPlaybackButton(message: widget.message.word),
-                        ],
+                      WordTitle(
+                        message: widget.word,
+                        titleColor: Colors.white,
                       ),
-                      Row(
-                        children: [
-                          WordMeaning(
-                            message: widget.message,
-                            onWordTap: (String currentWord) {
-                              chatListBloc.add(
-                                  AddUserMessage(providedWord: currentWord));
-                              chatListBloc.add(AddLocalTranslation(
-                                  providedWord: currentWord));
-                            },
-                            highlightColor: Colors.white,
-                            subColor: Colors.white70,
-                          ),
-                        ],
+                      const SizedBox(
+                        width: 8.0,
+                      ),
+                      WordPronunciation(message: widget.word),
+                      WordPlaybackButton(message: widget.word.word),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      WordMeaning(
+                        message: widget.word,
+                        onWordTap: (String currentWord) {
+                          chatListBloc.add(
+                              AddUserMessage(providedWord: currentWord));
+                          chatListBloc.add(AddLocalTranslation(
+                              providedWord: currentWord));
+                        },
+                        highlightColor: Colors.white,
+                        subColor: Colors.white70,
                       ),
                     ],
                   ),
-                ),
-              ),
-
-              /// Show ExpandButton when the number of line in Meaning to large.
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  _isTooLarge
-                      ? ExpandBubbleButton(
-                          onTap: () {
-                            setState(
-                              () {
-                                _isTooLarge = !_isTooLarge;
-                              },
-                            );
-                          },
-                        )
-                      : const SizedBox.shrink(),
                 ],
               ),
+            ),
+          ),
+
+          /// Show ExpandButton when the number of line in Meaning to large.
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _isTooLarge
+                  ? ExpandBubbleButton(
+                      onTap: () {
+                        setState(
+                          () {
+                            _isTooLarge = !_isTooLarge;
+                          },
+                        );
+                      },
+                    )
+                  : const SizedBox.shrink(),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

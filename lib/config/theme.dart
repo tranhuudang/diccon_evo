@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../extensions/target_platform.dart';
 
-
-
 class DarkColors {
   static const primaryColor = Colors.blue;
   static const splashColor = Color(0x14B7DCFB);
@@ -42,6 +40,20 @@ class CustomTheme {
     ThemeData themeData = Theme.of(context);
 
     return ThemeData.light().copyWith(
+      useMaterial3: true,
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (states.contains(MaterialState.selected)) {
+                  return Theme.of(context).highlightColor;
+                }
+                return Theme.of(context).primaryColor;
+              },
+            ),
+            padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(horizontal: 16))),
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: LightColors.bottomNavigationBarThemeBackgroundColor,
         selectedItemColor: themeData.primaryColor,
@@ -60,10 +72,7 @@ class CustomTheme {
       primaryColor: LightColors.primaryColor,
       scaffoldBackgroundColor: LightColors.scaffoldBackgroundColor,
       primaryTextTheme: TextTheme(
-        labelLarge: const TextStyle(
-          color: Colors.red,
-          fontSize: 40
-        ),
+          labelLarge: const TextStyle(color: Colors.red, fontSize: 40),
           labelMedium: const TextStyle(
             color: LightColors.labelMedium,
           ),
@@ -94,6 +103,20 @@ class CustomTheme {
   static ThemeData getDark(context) {
     ThemeData themeData = Theme.of(context);
     return ThemeData.dark().copyWith(
+      useMaterial3: true,
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.selected)) {
+                  return Theme.of(context).highlightColor;
+                }
+                return Theme.of(context).primaryColor;
+              },
+            ),
+            padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(horizontal: 16))),
+      ),
       bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: themeData.primaryColor,
           shape:

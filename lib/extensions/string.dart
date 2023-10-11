@@ -1,4 +1,37 @@
+import '../data/models/dictionary_response_type.dart';
+import '../data/models/translation_choices.dart';
+
 extension StringExtenstion on String {
+  DictionaryResponseType toDictionaryResponseType() {
+    switch (this) {
+      case "shortWithOutPronunciation":
+        return DictionaryResponseType.shortWithOutPronunciation;
+      case "short":
+        return DictionaryResponseType.short;
+      case "normal":
+        return DictionaryResponseType.normal;
+      case "normalWithOutExample":
+        return DictionaryResponseType.normalWithOutExample;
+      case "normalWithOutPronunciation":
+        return DictionaryResponseType.normalWithOutPronunciation;
+      default:
+        throw FormatException(
+            "$this is not have a valid value to convert to DictionaryResponseType");
+    }
+  }
+
+  TranslationChoices toTranslationChoice() {
+    switch (this) {
+      case "Classic":
+        return TranslationChoices.classic;
+      case "AI":
+        return TranslationChoices.ai;
+      default:
+        throw FormatException(
+            "$this is not have a valid value to convert to TranslationChoice");
+    }
+  }
+
   String removeSpecialCharacters() {
     RegExp regExp = RegExp(r"[^\p{L}\p{N}']+", unicode: true);
     var output = replaceAll('\'', '');

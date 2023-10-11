@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:unicons/unicons.dart';
 import '../../../data/data_providers/notify.dart';
 import '../../commons/header.dart';
 import '../../commons/pill_button.dart';
@@ -30,19 +29,26 @@ class _UserSettingsViewState extends State<UserSettingsView> {
           listener: (context, state) {
             switch (state.runtimeType) {
               case UserLoggingoutState:
-                Notify.showLoadingAlertDialog(context, "Logging out".i18n,
-                    "Your data will be cleared during the process.".i18n);
+                Notify.showLoadingAlertDialog(
+                    context: context,
+                    title: "Logging out".i18n,
+                    content:
+                        "Your data will be cleared during the process.".i18n);
                 break;
               case UserLogoutCompletedState:
                 Navigator.pop(context);
-                Notify.showSnackBar(context, "You are logged out");
+                Notify.showSnackBar(
+                    context: context, content: "You are logged out");
                 break;
               case UserSyncCompleted:
-                Notify.showSnackBar(context, "Your data is synced");
+                Notify.showSnackBar(
+                    context: context, content: "Your data is synced");
                 break;
               case NoInternetState:
-                Notify.showAlertDialog(context, "You're not connected".i18n,
-                    "SubSentenceInNoInternetBubble".i18n);
+                Notify.showAlertDialogWithoutAction(
+                    context: context,
+                    title: "You're not connected".i18n,
+                    content: "SubSentenceInNoInternetBubble".i18n);
                 break;
             }
           },
@@ -53,7 +59,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                 children: [
                   /// Login form and user infomations
                   SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(16, 70, 16, 16),
                     child: Column(
                       children: [
                         SettingSection(
@@ -124,7 +130,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                         .i18n),
                                 const SizedBox().mediumHeight(),
                                 PillButton(
-                                    icon: UniconsLine.trash,
+                                    icon: Icons.delete_outline,
                                     backgroundColor: Colors.red,
                                     onTap: () {
                                       userBloc.add(UserDeleteDateEvent());

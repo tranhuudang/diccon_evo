@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../data/data_providers/notify.dart';
 import '../../commons/header.dart';
 import '../bloc/conversation_bloc.dart';
 import '../../../extensions/i18n.dart';
@@ -143,8 +144,15 @@ class _ConversationViewState extends State<ConversationView>
                                 children: <Widget>[
                                   IconButton(
                                       onPressed: () {
-                                        conversationBloc
-                                            .add(ResetConversation());
+                                        Notify.showAlertDialog(
+                                            context: context,
+                                            title: "Close this session?",
+                                            content:
+                                                "Clear all the bubbles in this translation session.",
+                                            action: () {
+                                              conversationBloc
+                                                  .add(ResetConversation());
+                                            });
                                       },
                                       icon:
                                           const Icon(Icons.add_circle_outline)),

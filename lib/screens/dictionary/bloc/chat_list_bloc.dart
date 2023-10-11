@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble.dart';
+import 'package:diccon_evo/screens/dictionary/ui/components/combine_bubble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:diccon_evo/screens/commons/no_internet_buble.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/local_dictionary_bubble.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/user_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:translator/translator.dart';
 import '../../../config/properties.dart';
-import '../../../data/data_providers/history_manager.dart';
 import '../../../data/data_providers/searching.dart';
+import '../../../data/models/translation_choices.dart';
 import '../../../data/models/word.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../ui/components/brick_wall_buttons.dart';
@@ -32,24 +30,19 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddAntonyms>(_addAntonymsList);
     on<AddImage>(_addImage);
     on<ScrollToBottom>(_scrollToBottom);
+    on<CreateNewChatlist>(_createNewChatlist);
   }
-  final translator = GoogleTranslator();
   List<ChatGptRepository> listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
   final TextEditingController textController = TextEditingController();
   List<Widget> chatList = [const DictionaryWelcome()];
   bool isReportedAboutDisconnection = false;
 
-  Future<Translation> translate(String word) async {
-    return await translator.translate(word, from: 'auto', to: 'vi');
-  }
-
   /// Implement Events and Callbacks
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
     chatList.add(ImageBubble(imageUrl: event.imageUrl));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
-
     emit(ImageAdded());
   }
 
@@ -58,7 +51,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     chatList.add(BrickWallButtons(stringList: listSynonyms));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
-
     emit(SynonymsAdded());
   }
 
@@ -84,9 +76,12 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
-    chatList.add(UserBubble(message: event.providedWord, onTap: () {
-      textController.text = event.providedWord;
-    },));
+    chatList.add(UserBubble(
+      message: event.providedWord,
+      onTap: () {
+        textController.text = event.providedWord;
+      },
+    ));
     emit(ChatListUpdated(chatList: chatList));
     _scrollChatListToBottom();
   }
@@ -98,7 +93,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if (Properties.chatbotEnable &&
+    if (Properties.defaultSetting.translationChoice.toTranslationChoice() ==
+            TranslationChoices.ai &&
         !isInternetConnected &&
         !isReportedAboutDisconnection) {
       chatList.add(const NoInternetBubble());
@@ -107,35 +103,38 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     }
     var newChatGptRepository = ChatGptRepository();
     listChatGptRepository.add(newChatGptRepository);
-    var chatGptRepositoryIndex = listChatGptRepository.length -1;
-    if (Properties.chatbotEnable && isInternetConnected) {
-      chatList.add(ChatbotBubble(
-        word: event.providedWord,
-        chatListController: chatListController, index: chatGptRepositoryIndex,
-        listChatGptRepository: listChatGptRepository,
-      ));
-      // Save word to history
-      emit(ChatListUpdated(chatList: chatList));
-      _scrollChatListToBottom();
-      await HistoryManager.saveWordToHistory(
-          event.providedWord.upperCaseFirstLetter());
-    } else {
-      Word? wordResult = Searching.getDefinition(event.providedWord);
-      if (wordResult != null) {
-        /// Right bubble represent machine reply
-        chatList.add(LocalDictionaryBubble(message: wordResult));
-        emit(ChatListUpdated(chatList: chatList));
-        _scrollChatListToBottom();
-      } else {
-        await translate(event.providedWord).then((translatedWord) {
-          chatList.add(LocalDictionaryBubble(
-              message: Word(
-                  word: event.providedWord, meaning: translatedWord.text)));
-          emit(ChatListUpdated(chatList: chatList));
-          _scrollChatListToBottom();
-        });
+    var chatGptRepositoryIndex = listChatGptRepository.length - 1;
+    var wordResult = await _getLocalTranslation(event.providedWord);
+    chatList.add(CombineBubble(
+        wordObjectForLocal: wordResult,
+        wordForChatbot: event.providedWord,
+        chatListController: chatListController,
+        index: chatGptRepositoryIndex,
+        listChatGptRepository: listChatGptRepository));
+    emit(ChatListUpdated(chatList: chatList));
+    _scrollChatListToBottom();
+  }
+
+
+  FutureOr<void> _createNewChatlist(CreateNewChatlist event, Emitter<ChatListState> emit){
+    listChatGptRepository = [];
+    textController.clear();
+    chatList = [const DictionaryWelcome()];
+    emit(ChatListUpdated(chatList: chatList));
+  }
+  Future<Word> _getLocalTranslation(String providedWord) async {
+    Word? wordResult = await Searching.getDefinition(providedWord);
+    if (wordResult != null) {
+      if (kDebugMode) {
+        print("got result from local dictionary");
       }
+      return wordResult;
     }
+    var badResult = Word(
+        word: providedWord,
+        meaning:
+            "Local dictionary don't have definition for this word. Check out AI Dictionary !");
+    return badResult;
   }
 
   FutureOr<void> _scrollToBottom(

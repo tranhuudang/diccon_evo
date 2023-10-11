@@ -4,11 +4,6 @@ abstract class ChatListState {
 }
 abstract class ChatListActionState extends ChatListState {}
 
-class ChatListInitial extends ChatListState {
-  List<Widget> chatList;
-  ChatListInitial({required this.chatList});
-}
-
 class ChatListUpdated extends ChatListState {
   List<Widget> chatList;
   ChatListUpdated({required this.chatList});

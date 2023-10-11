@@ -35,11 +35,12 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   widget.settingCubit.saveSettings();
                 },
                 child: Container(
+                  height: 48,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.light
-                          ? Colors.blue
+                          ? Theme.of(context).primaryColor
                           : Theme.of(context).highlightColor,
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(16),
@@ -72,11 +73,12 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   widget.settingCubit.saveSettings();
                 },
                 child: Container(
+                  height: 48,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
-                        ? Colors.blue
+                        ? Theme.of(context).primaryColor
                         : Theme.of(context).highlightColor,
                   ),
                   child: Row(
@@ -107,30 +109,23 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   widget.settingCubit.saveSettings();
                 },
                 child: Container(
+                  height: 48,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.system
-                          ? Colors.blue
+                          ? Theme.of(context).primaryColor
                           : Theme.of(context).highlightColor,
                       borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(16),
                         bottomRight: Radius.circular(16),
                       )),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.auto_awesome),
-                      snapshot.data == ThemeMode.system
-                          ? const SizedBox().mediumWidth()
-                          : const SizedBox.shrink(),
-                      snapshot.data == ThemeMode.system
-                          ? Text(
-                              "System default".i18n,
-                              style: const TextStyle(fontSize: 16),
-                            )
-                          : const SizedBox.shrink()
-                    ],
-                  ),
+                  child: Center(
+                    child: Text(
+                      "Adaptive".i18n,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  )
                 ),
               ),
             ],

@@ -54,7 +54,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
           ),
           // Gradient layers
           Container(
-            height: 81,
+            height: 66,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -73,7 +73,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
           // Child layers
           Container(
             color: Colors.transparent,
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -86,7 +86,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
                 title != null
                     ? Text(
                         title!,
-                        style: const TextStyle(fontSize: 28),
+                        style: const TextStyle(fontSize: 26),
                       )
                     : const SizedBox.shrink(),
                 const SizedBox(

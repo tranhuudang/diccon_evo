@@ -1,7 +1,6 @@
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
-import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -167,24 +166,15 @@ class StoryListView extends StatelessWidget {
                             );
                           default:
                             storyListBloc.add(StoryListInitial());
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 50),
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 50),
                               child: Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const CircularProgressIndicator(),
-                                    const SizedBox().mediumHeight(),
-                                    Text("Getting new stories..".i18n),
-                                    const SizedBox().mediumHeight(),
-                                    PillButton(
-                                        onTap: () {
-                                          storyListBloc
-                                              .add(StoryListCancelLoad());
-                                        },
-                                        title: "Cancel".i18n),
+                                    CircularProgressIndicator(),
                                   ],
                                 ),
                               ),

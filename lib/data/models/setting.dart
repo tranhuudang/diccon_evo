@@ -8,8 +8,13 @@ class Setting {
   final String language;
   final double windowsWidth;
   final double windowsHeight;
+  final String translationChoice;
+  final String dictionaryResponseType;
   Setting(
-      {required this.readingFontSizeSliderValue,
+      {
+        required this.dictionaryResponseType,
+        required this.translationChoice,
+      required this.readingFontSizeSliderValue,
       required this.themeMode,
       required this.numberOfSynonyms,
       required this.numberOfAntonyms,
@@ -21,8 +26,10 @@ class Setting {
 
   Setting copyWith(
       {
-        String? themeMode,
-        int? numberOfSynonyms,
+        String? dictionaryResponseType,
+        String? translationChoice,
+      String? themeMode,
+      int? numberOfSynonyms,
       int? numberOfAntonyms,
       double? readingFontSize,
       int? numberOfEssentialLeft,
@@ -31,6 +38,8 @@ class Setting {
       double? readingFontSizeSliderValue,
       String? language}) {
     return Setting(
+        dictionaryResponseType: dictionaryResponseType ?? this.dictionaryResponseType,
+        translationChoice: translationChoice ?? this.translationChoice,
         readingFontSizeSliderValue:
             readingFontSizeSliderValue ?? this.readingFontSizeSliderValue,
         numberOfSynonyms: numberOfSynonyms ?? this.numberOfSynonyms,
@@ -41,7 +50,6 @@ class Setting {
         language: language ?? this.language,
         windowsWidth: windowsWidth ?? this.windowsWidth,
         windowsHeight: windowsHeight ?? this.windowsHeight,
-        themeMode: themeMode ?? this.themeMode
-    );
+        themeMode: themeMode ?? this.themeMode);
   }
 }

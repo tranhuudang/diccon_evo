@@ -17,9 +17,9 @@ class ChatbotBubblePreview extends StatelessWidget {
             constraints: const BoxConstraints(
               maxWidth: 600,
             ),
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(0.0),
                 bottomLeft: Radius.circular(16.0),
