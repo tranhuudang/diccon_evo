@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/home/ui/components/plan_button.dart';
@@ -99,67 +100,117 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                 const HomeMenuButton(),
 
                 /// Body
-                Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          /// Head welcome to essential tab
-                          const HeadSentence(listText: [
-                            "Empower",
-                            "Your English",
-                            "Proficiency"
-                          ]),
-                          const SizedBox().mediumHeight(),
-                          const PlanButton(),
-                          const SizedBox().largeHeight(),
-
-                          /// TextField for user to enter their words
-                          const DictionarySearchBoxInHome(),
-                          const SizedBox().largeHeight(),
-
-                          /// Two big brother button
-                          GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: listPrimaryFunction.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                mainAxisExtent: 180,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 8,
-                                crossAxisCount: 2,
-                              ),
-                              itemBuilder: (context, index) {
-                                return listPrimaryFunction[index];
-                              }),
-                          const SizedBox(height: 16),
-
-                          /// Other functions
-                          SubFunctionBox(
-                              height: 180, listSubFunction: listSubFunction),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    /// From the universe
-                    // Container(
-                    //   color: Theme.of(context).highlightColor,
-                    //   child: const QuoteBox(),
-                    // ),
-                  ],
+                Responsive(
+                  smallSizeDevice: smallSizeBody(),
+                  mediumSizeDevice: smallSizeBody(),
+                  largeSizeDevice: largeSizeBody(),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Column smallSizeBody() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /// Head welcome to essential tab
+        const HeadSentence(
+            listText: ["Empower", "Your English", "Proficiency"]),
+        const SizedBox().mediumHeight(),
+        const PlanButton(),
+        const SizedBox().largeHeight(),
+
+        /// TextField for user to enter their words
+        const DictionarySearchBoxInHome(),
+        const SizedBox().largeHeight(),
+
+        /// Two big brother button
+        GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: listPrimaryFunction.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisExtent: 180,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              crossAxisCount: 2,
+            ),
+            itemBuilder: (context, index) {
+              return listPrimaryFunction[index];
+            }),
+        const SizedBox(height: 16),
+
+        /// Other functions
+        SubFunctionBox(height: 180, listSubFunction: listSubFunction),
+        const SizedBox(
+          height: 16,
+        ),
+      ],
+    );
+  }
+
+  Column largeSizeBody() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /// Head welcome to essential tab
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 30),
+          child: Center(
+              child: Column(
+            children: [
+              Text(
+                "Diccon Dictionary",
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+              ),
+              Opacity(
+                  opacity: 0.5,
+                  child: Text(
+                    "Empower Your English Proficiency",
+                    style: TextStyle(fontSize: 40),
+                  )),
+            ],
+          )),
+        ),
+        const SizedBox().mediumHeight(),
+        const PlanButton(),
+        const SizedBox().largeHeight(),
+
+        /// TextField for user to enter their words
+        const DictionarySearchBoxInHome(),
+        const SizedBox().largeHeight(),
+
+        /// List Funtions
+        Container(
+          height: 220,
+          child: GridView(
+
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              mainAxisExtent: 220,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+            ),
+            children: [
+              ToDictionaryButton(),
+              ToConversationButton(),
+              ToReadingChamberButton(),
+              ToEssentialWordButton(),
+
+            ],
+          ),
+        ),
+
+        const SizedBox(
+          height: 16,
+        ),
+      ],
     );
   }
 }
@@ -196,14 +247,11 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                   children: [
                     TextField(
                       controller: _searchTextController,
-                      onChanged: (value){
-                        if (value == "")
-                          {
-                            _tinyCloseButtonStreamController.add(false);
-                          }
-                        else {
+                      onChanged: (value) {
+                        if (value == "") {
+                          _tinyCloseButtonStreamController.add(false);
+                        } else {
                           _tinyCloseButtonStreamController.add(true);
-
                         }
                       },
                       onSubmitted: (String value) {
@@ -258,7 +306,6 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                 );
               }),
         ),
-
       ],
     );
   }

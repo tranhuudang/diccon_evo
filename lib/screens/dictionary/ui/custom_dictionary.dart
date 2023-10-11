@@ -42,7 +42,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                   Container(
                     height: 90,
                   ),
-                  SizedBox(
+                  SizedBox( 
                     height: 550,
                     child: Stack(
                       children: [

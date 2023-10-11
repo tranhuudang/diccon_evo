@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
@@ -110,8 +111,21 @@ class _EssentialViewState extends State<EssentialView> {
           body: Stack(
         children: [
           SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+            child: Responsive(
+              smallSizeDevice: body(context),
+              mediumSizeDevice: body(context),
+              largeSizeDevice: body(context),
+            ),
+          ),
+          const Header(),
+        ],
+      )),
+    );
+  }
+
+  Padding body(BuildContext context) {
+    return Padding(
+              padding: const EdgeInsets.only(top: 70),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -300,11 +314,6 @@ class _EssentialViewState extends State<EssentialView> {
                       }),
                 ],
               ),
-            ),
-          ),
-          const Header(),
-        ],
-      )),
-    );
+            );
   }
 }

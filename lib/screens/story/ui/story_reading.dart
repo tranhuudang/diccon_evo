@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/data/repositories/story_repository.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
@@ -55,84 +56,10 @@ class _StoryReadingViewState extends State<StoryReadingView> {
         body: Stack(
           children: [
             SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// Header
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16, top: 56),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.story.title,
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                          Text(
-                            widget.story.source!,
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    /// Image
-                    Center(
-                      child: Hero(
-                        tag: "fromArticleListToPage${widget.story.title}Tag",
-                        child: CachedNetworkImage(
-                          //height: 380,
-                          placeholder: (context, url) =>
-                              const LinearProgressIndicator(
-                            backgroundColor: Colors.black45,
-                            color: Colors.black54,
-                          ),
-                          imageUrl: widget.story.imageUrl ?? "",
-                          fit: BoxFit.cover,
-                          errorWidget:
-                              (context, String exception, dynamic stackTrace) {
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-
-                    /// Content
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          widget.story.content.split('\n').map((paragraph) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            paragraph.isNotEmpty
-                                ? ClickableWords(
-                                    text: paragraph,
-                                    fontSize: Properties
-                                        .defaultSetting.readingFontSize,
-                                    textColor: Theme.of(context)
-                                        .primaryTextTheme
-                                        .labelMedium
-                                        ?.color,
-                                    onWordTap: (String value) {
-                                      _showModalBottomSheet(context,
-                                          value.removeSpecialCharacters());
-                                    })
-                                : Container(),
-                            const SizedBox(
-                              height: 5,
-                            )
-                          ],
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
+              child: Responsive(
+                smallSizeDevice: readingSpaceBody(context: context),
+                mediumSizeDevice:readingSpaceBody(context: context),
+                largeSizeDevice:readingSpaceBody(context: context),
               ),
             ),
             Padding(
@@ -187,6 +114,87 @@ class _StoryReadingViewState extends State<StoryReadingView> {
         ),
       ),
     );
+  }
+
+  SingleChildScrollView readingSpaceBody({required BuildContext context}) {
+    return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Header
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16, top: 56),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.story.title,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          widget.story.source!,
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// Image
+                  Center(
+                    child: Hero(
+                      tag: "fromArticleListToPage${widget.story.title}Tag",
+                      child: CachedNetworkImage(
+                        //height: 380,
+                        placeholder: (context, url) =>
+                            const LinearProgressIndicator(
+                          backgroundColor: Colors.black45,
+                          color: Colors.black54,
+                        ),
+                        imageUrl: widget.story.imageUrl ?? "",
+                        fit: BoxFit.cover,
+                        errorWidget:
+                            (context, String exception, dynamic stackTrace) {
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+
+                  /// Content
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                        widget.story.content.split('\n').map((paragraph) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          paragraph.isNotEmpty
+                              ? ClickableWords(
+                                  text: paragraph,
+                                  fontSize: Properties
+                                      .defaultSetting.readingFontSize,
+                                  textColor: Theme.of(context)
+                                      .primaryTextTheme
+                                      .labelMedium
+                                      ?.color,
+                                  onWordTap: (String value) {
+                                    _showModalBottomSheet(context,
+                                        value.removeSpecialCharacters());
+                                  })
+                              : Container(),
+                          const SizedBox(
+                            height: 5,
+                          )
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            );
   }
 
   Future<void> _showModalBottomSheet(

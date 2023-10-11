@@ -40,52 +40,43 @@ class _ConversationViewState extends State<ConversationView>
       child: Scaffold(
         body: Stack(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /// List of all bubble messages on a conversation
-                Expanded(
-                  child: BlocConsumer<ConversationBloc, ConversationState>(
-                    buildWhen: (previous, current) =>
-                        current is! ConversationActionState,
-                    listenWhen: (previous, current) =>
-                        current is ConversationActionState,
-                    listener:
-                        (BuildContext context, ConversationState state) {},
-                    builder: (context, state) {
-                      {
-                        switch (state.runtimeType) {
-                          case ConversationInitial:
-                            final data = state as ConversationInitial;
-                            return ListView.builder(
-                              itemCount: data.conversation.length,
-                              controller:
-                                  conversationBloc.conversationScrollController,
-                              itemBuilder: (BuildContext context, int index) {
-                                return state.conversation[index];
-                              },
-                            );
-                          case ConversationUpdated:
-                            final data = state as ConversationUpdated;
-                            return ListView.builder(
-                              padding:
-                                  const EdgeInsets.only(top: 80, bottom: 120),
-                              itemCount: data.conversation.length,
-                              controller:
-                                  conversationBloc.conversationScrollController,
-                              itemBuilder: (BuildContext context, int index) {
-                                return state.conversation[index];
-                              },
-                            );
-                          default:
-                            return Container();
-                        }
-                      }
-                    },
-                  ),
-                ),
-                //const SizedBox(height: 116),
-              ],
+            BlocConsumer<ConversationBloc, ConversationState>(
+              buildWhen: (previous, current) =>
+                  current is! ConversationActionState,
+              listenWhen: (previous, current) =>
+                  current is ConversationActionState,
+              listener:
+                  (BuildContext context, ConversationState state) {},
+              builder: (context, state) {
+                {
+                  switch (state.runtimeType) {
+                    case ConversationInitial:
+                      final data = state as ConversationInitial;
+                      return ListView.builder(
+                        itemCount: data.conversation.length,
+                        controller:
+                            conversationBloc.conversationScrollController,
+                        itemBuilder: (BuildContext context, int index) {
+                          return state.conversation[index];
+                        },
+                      );
+                    case ConversationUpdated:
+                      final data = state as ConversationUpdated;
+                      return ListView.builder(
+                        padding:
+                            const EdgeInsets.only(top: 80, bottom: 120),
+                        itemCount: data.conversation.length,
+                        controller:
+                            conversationBloc.conversationScrollController,
+                        itemBuilder: (BuildContext context, int index) {
+                          return state.conversation[index];
+                        },
+                      );
+                    default:
+                      return Container();
+                  }
+                }
+              },
             ),
             Column(
               children: [

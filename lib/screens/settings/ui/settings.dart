@@ -1,3 +1,4 @@
+import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
@@ -30,8 +31,25 @@ class _SettingsViewState extends State<SettingsView> {
               return Stack(
                 children: [
                   SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(16, 70, 16, 16),
-                    child: Column(
+                    padding: const EdgeInsets.only(top: 60),
+                    child: Responsive(
+                      smallSizeDevice: body(context, state),
+                      mediumSizeDevice: body(context, state),
+                      largeSizeDevice: body(context, state),
+                    ),
+                  ),
+
+                  /// Header
+                  Header(title: "Settings".i18n),
+                ],
+              );
+            }),
+      ),
+    );
+  }
+
+  Column body(BuildContext context, Setting state) {
+    return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SettingSection(title: "Common Section".i18n, children: [
@@ -208,15 +226,6 @@ class _SettingsViewState extends State<SettingsView> {
                           ],
                         ),
                       ],
-                    ),
-                  ),
-
-                  /// Header
-                  Header(title: "Settings".i18n),
-                ],
-              );
-            }),
-      ),
-    );
+                    );
   }
 }

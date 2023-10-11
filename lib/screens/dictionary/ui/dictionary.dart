@@ -112,62 +112,53 @@ class _DictionaryViewState extends State<DictionaryView> {
       child: Scaffold(
         body: Stack(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /// List of all bubble messages on a conversation
-                Expanded(
-                  child: BlocConsumer<ChatListBloc, ChatListState>(
-                    buildWhen: (previous, current) =>
-                        current is! ChatListActionState,
-                    listenWhen: (previous, current) =>
-                        current is ChatListActionState,
-                    listener: (BuildContext context, ChatListState state) {
-                      if (state is ImageAdded) {
-                        setState(() {
-                          _hasImages = false;
-                        });
-                      }
-                      if (state is SynonymsAdded) {
-                        setState(() {
-                          _hasSynonyms = false;
-                        });
-                      }
-                      if (state is AntonymsAdded) {
-                        setState(() {
-                          _hasAntonyms = false;
-                        });
-                      }
-                    },
-                    builder: (context, state) {
-                      {
-                        switch (state.runtimeType) {
-                          case ChatListUpdated:
-                            final data = state as ChatListUpdated;
-                            return ListView.builder(
-                              padding:
-                                  const EdgeInsets.only(top: 80, bottom: 130),
-                              itemCount: data.chatList.length,
-                              addAutomaticKeepAlives: true,
-                              controller: chatListBloc.chatListController,
-                              itemBuilder: (BuildContext context, int index) {
-                                return state.chatList[index];
-                              },
-                            );
-                          default:
-                            return const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                DictionaryWelcome(),
-                              ],
-                            );
-                        }
-                      }
-                    },
-                  ),
-                ),
-                //const SizedBox(height: 116),
-              ],
+            BlocConsumer<ChatListBloc, ChatListState>(
+              buildWhen: (previous, current) =>
+                  current is! ChatListActionState,
+              listenWhen: (previous, current) =>
+                  current is ChatListActionState,
+              listener: (BuildContext context, ChatListState state) {
+                if (state is ImageAdded) {
+                  setState(() {
+                    _hasImages = false;
+                  });
+                }
+                if (state is SynonymsAdded) {
+                  setState(() {
+                    _hasSynonyms = false;
+                  });
+                }
+                if (state is AntonymsAdded) {
+                  setState(() {
+                    _hasAntonyms = false;
+                  });
+                }
+              },
+              builder: (context, state) {
+                {
+                  switch (state.runtimeType) {
+                    case ChatListUpdated:
+                      final data = state as ChatListUpdated;
+                      return ListView.builder(
+                        padding:
+                            const EdgeInsets.only(top: 80, bottom: 130),
+                        itemCount: data.chatList.length,
+                        addAutomaticKeepAlives: true,
+                        controller: chatListBloc.chatListController,
+                        itemBuilder: (BuildContext context, int index) {
+                          return state.chatList[index];
+                        },
+                      );
+                    default:
+                      return const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          DictionaryWelcome(),
+                        ],
+                      );
+                  }
+                }
+              },
             ),
             Column(
               children: [

@@ -160,7 +160,7 @@ GoRouter router = GoRouter(
             name: RouterConstants.learningFavourite,
             path: 'favourite',
             pageBuilder: (context, state) {
-              var params = state as FavouriteReviewView;
+              var params = state.extra as FavouriteReviewView;
               return MaterialPage(
                   child: I18n(
                       child: FavouriteReviewView(

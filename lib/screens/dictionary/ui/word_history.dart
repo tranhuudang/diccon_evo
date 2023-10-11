@@ -1,3 +1,4 @@
+import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
@@ -58,13 +59,11 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                     ),
                   );
                 } else {
-                  return ListView.builder(
-                    padding: const EdgeInsets.only(left: 16, top: 90, right: 16, bottom: 16),
-                    itemCount: state.length,
-                    itemBuilder: (context, index) {
-                      final word = state[index];
-                      return HistoryTile(word: word);
-                    },
+                  return Responsive(
+                    useDefaultPadding: false,
+                    smallSizeDevice: body(state: state, bodyPadding: const EdgeInsets.only(left: 16, top: 60, right: 16, bottom: 16),),
+                    mediumSizeDevice: body( state: state, bodyPadding: const EdgeInsets.only(left: 100, top: 60, right: 100, bottom: 16),),
+                    largeSizeDevice: body(state: state, bodyPadding: const EdgeInsets.only(left: 200, top: 60, right: 200, bottom: 16),),
                   );
                 }
               },
@@ -98,5 +97,16 @@ class _WordHistoryViewState extends State<WordHistoryView> {
         ),
       ),
     );
+  }
+
+  ListView body({required List<String> state, required EdgeInsets bodyPadding}) {
+    return ListView.builder(
+                    padding: bodyPadding,
+                    itemCount: state.length,
+                    itemBuilder: (context, index) {
+                      final word = state[index];
+                      return HistoryTile(word: word);
+                    },
+                  );
   }
 }

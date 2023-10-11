@@ -1,3 +1,4 @@
+import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,26 @@ class _InfosViewState extends State<InfosView> {
         body: Stack(
           children: [
             SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
-              child: Column(
+              padding: const EdgeInsets.only(top: 60),
+              child: Responsive(
+                smallSizeDevice: body(),
+                mediumSizeDevice: body(),
+                largeSizeDevice: body(),
+              ),
+            ),
+
+            /// Header
+            Header(
+              title: "About".i18n,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column body() {
+    return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SettingSection(
@@ -82,16 +101,6 @@ class _InfosViewState extends State<InfosView> {
                     ],
                   ),
                 ],
-              ),
-            ),
-
-            /// Header
-            Header(
-              title: "About".i18n,
-            ),
-          ],
-        ),
-      ),
-    );
+              );
   }
 }
