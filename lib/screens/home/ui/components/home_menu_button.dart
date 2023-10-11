@@ -1,5 +1,4 @@
 import 'package:diccon_evo/config/properties.dart';
-import 'package:diccon_evo/data/data_providers/notify.dart';
 import 'package:diccon_evo/data/models/user_info.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
@@ -57,27 +56,29 @@ class HomeMenuButton extends StatelessWidget {
                     height: 0,
                     child: SizedBox.shrink(),
                   ),
-            Properties.userInfo!= UserInfo.empty() ?
-            PopupMenuItem(
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.sync,
+            Properties.userInfo != UserInfo.empty()
+                ? PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.sync,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text("Sync".i18n),
+                      ],
+                    ),
+                    onTap: () {
+                      context
+                          .read<UserBloc>()
+                          .add(UserSyncEvent(userInfo: Properties.userInfo));
+                    },
+                  )
+                : const PopupMenuItem(
+                    height: 0,
+                    child: SizedBox.shrink(),
                   ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text("Sync".i18n),
-                ],
-              ),
-              onTap: () {
-                context
-                    .read<UserBloc>()
-                    .add(UserSyncEvent(userInfo: Properties.userInfo));
-              },
-            ) : const PopupMenuItem(
-              height: 0,
-              child: SizedBox.shrink(),),
             PopupMenuItem(
               child: Row(
                 children: [

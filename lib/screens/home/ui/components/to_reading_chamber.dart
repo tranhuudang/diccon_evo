@@ -19,12 +19,11 @@ class ToReadingChamberButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Library",
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          Text(
+            "Library".i18n,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
-
           Text(
             "For all levels and audiences".i18n,
             style: const TextStyle(fontWeight: FontWeight.bold),

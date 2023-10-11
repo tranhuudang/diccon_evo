@@ -169,6 +169,10 @@ extension Localization on String {
       "en_us": "About",
       "vi_vi": "Thông tin",
     },
+    "Library": {
+      "en_us": "Library",
+      "vi_vi": "Thư viện",
+    },
     "Search in dictionary": {
       "en_us": "Search in dictionary",
       "vi_vi": "Tra cứu từ điển",

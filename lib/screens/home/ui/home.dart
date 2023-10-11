@@ -187,22 +187,20 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         const SizedBox().largeHeight(),
 
         /// List Funtions
-        Container(
+        SizedBox(
           height: 220,
           child: GridView(
-
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               mainAxisExtent: 220,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
             ),
-            children: [
+            children: const [
               ToDictionaryButton(),
               ToConversationButton(),
               ToReadingChamberButton(),
               ToEssentialWordButton(),
-
             ],
           ),
         ),
