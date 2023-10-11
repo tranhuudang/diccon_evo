@@ -2,11 +2,12 @@ import 'dart:async';
 import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../data/models/translation_choices.dart';
+import 'package:unicons/unicons.dart';
+
+import '../../../../config/route_constants.dart';
 
 class DictionaryMenuButton extends StatefulWidget {
   const DictionaryMenuButton({super.key});
@@ -16,7 +17,7 @@ class DictionaryMenuButton extends StatefulWidget {
 }
 
 class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
-  final streamController = StreamController<TranslationChoices>();
+  final streamController = StreamController<bool>();
   @override
   void dispose() {
     // TODO: implement dispose
@@ -26,8 +27,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<TranslationChoices>(
-      initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
+    return StreamBuilder<bool>(
+      initialData: Properties.chatbotEnable,
       stream: streamController.stream,
       builder: (context, snapshot) {
         return PopupMenuButton(
@@ -38,18 +39,18 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
           ),
           itemBuilder: (context) => [
             PopupMenuItem(
-              child: snapshot.data! == TranslationChoices.ai
+              child: snapshot.data!
                   ? Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.auto_awesome,
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.blue,
                         ),
                         const SizedBox().mediumWidth(),
-                        Text(
+                        const Text(
                           "AI Dictionary",
                           style: TextStyle(
-                              color: Theme.of(context).primaryColor,),
+                              color: Colors.blue, fontWeight: FontWeight.bold),
                         ),
                       ],
                     )
@@ -65,39 +66,38 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       ],
                     ),
               onTap: () {
-                streamController.sink.add(TranslationChoices.ai);
-                Properties.defaultSetting = Properties.defaultSetting.copyWith(translationChoice:TranslationChoices.ai.title());
-                Properties.saveSettings(Properties.defaultSetting);
+                streamController.sink.add(true);
+                Properties.chatbotEnable = true;
                 if (kDebugMode) {
                   print("Enable chatbot dictionary");
                 }
               },
             ),
             PopupMenuItem(
-              child: snapshot.data! == TranslationChoices.classic
+              child: snapshot.data!
                   ? Row(
                       children: [
-                         Icon(
-                          Icons.book,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                        const Icon(UniconsLine.books),
                         const SizedBox().mediumWidth(),
-                        Text("Classic Dictionary",
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,)),
+                        const Text("Classic Dictionary"),
                       ],
                     )
                   : Row(
                       children: [
-                        const Icon(Icons.book),
+                        const Icon(
+                          UniconsLine.books,
+                          color: Colors.blue,
+                        ),
                         const SizedBox().mediumWidth(),
-                        const Text("Classic Dictionary"),
+                        const Text("Classic Dictionary",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
               onTap: () {
-                streamController.sink.add(TranslationChoices.classic);
-                Properties.defaultSetting = Properties.defaultSetting.copyWith(translationChoice: TranslationChoices.classic.title());
-                Properties.saveSettings(Properties.defaultSetting);
+                streamController.sink.add(false);
+                Properties.chatbotEnable = false;
                 if (kDebugMode) {
                   print("Enable classic dictionary");
                 }
@@ -112,7 +112,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                 ],
               ),
               onTap: () {
-                context.pushNamed('custom-dictionary');
+                 context.pushNamed(RouterConstants.customDictionary);
               },
             ),
           ],
