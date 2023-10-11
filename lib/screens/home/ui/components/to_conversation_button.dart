@@ -28,16 +28,11 @@ class ToConversationButton extends StatelessWidget {
               child: const Icon(Icons.chat)),
           const SizedBox(height: 4),
            Text(
-            "Talk with our bot in".i18n,
+            "Ask me anything".i18n,
             style: const TextStyle(fontSize: 12),
           ),
           const Text(
-            "Conversation",
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const Text(
-            "Space",
+            "Mr. Know It All",
             style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold),
           ),

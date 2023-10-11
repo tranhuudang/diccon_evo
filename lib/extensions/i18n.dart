@@ -256,9 +256,9 @@ extension Localization on String {
       "en_us": "Send a message for practice",
       "vi_vi": "Viết để mở đầu cuộc trò chuyện",
     },
-    "Talk with our bot in": {
-      "en_us": "Talk with our bot in",
-      "vi_vi": "Trò chuyện với bot-chat",
+    "Ask me anything": {
+      "en_us": "Ask me anything",
+      "vi_vi": "Hỏi đáp với",
     },
     "This practice will prepare you for various real-life conversation scenarios.":
         {
