@@ -46,7 +46,7 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
     on<StoryListSortAll>(_sortAll);
   }
 
-  final articleRepository = StoryRepository();
+  final _articleRepository = StoryRepository();
   List<Story> defaultStoryList = [];
 
   FutureOr<void> _storyListInitial(
@@ -102,6 +102,6 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
   }
 
   Future<void> _loadAll() async {
-    defaultStoryList = await articleRepository.getDefaultStories();
+    defaultStoryList = await _articleRepository.getDefaultStories();
   }
 }
