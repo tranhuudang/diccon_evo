@@ -8,7 +8,7 @@ import '../../../config/properties.dart';
 import '../../../config/properties_constants.dart';
 import '../../../data/handlers/file_handler.dart';
 import '../../../data/data_providers/user_handler.dart';
-import '../../../data/models/user_info.dart' as UserModel;
+import '../../../data/models/user_info.dart' as user_model;
 import '../../../data/services/auth_service.dart';
 
 /// User Events
@@ -21,7 +21,7 @@ class UserLoginEvent extends UserEvent {}
 class UserLogoutEvent extends UserEvent {}
 
 class UserSyncEvent extends UserEvent {
-  UserModel.UserInfo userInfo;
+  user_model.UserInfo userInfo;
   UserSyncEvent({required this.userInfo});
 }
 
@@ -42,7 +42,7 @@ class UserLogoutErrorState extends UserActionState {}
 
 class UserLoginState extends UserState {
   bool isSyncing = false;
-  UserModel.UserInfo userInfo;
+  user_model.UserInfo userInfo;
   UserLoginState({required this.userInfo, required this.isSyncing});
 }
 
@@ -143,7 +143,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await FileHandler(PropertiesConstants.essentialFavouriteFileName).deleteOnUserData();
 
     /// Reset properties
-    Properties.userInfo = UserModel.UserInfo.empty();
+    Properties.userInfo = user_model.UserInfo.empty();
     await Future.delayed(const Duration(seconds: 2));
     emit(UserLogoutCompletedState());
     emit(UserUninitialized());
@@ -154,11 +154,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       if (user.uid.isNotEmpty) {
-        print("User.uid.isNotEmpty: ${user.uid}");
+        if (kDebugMode) {
+          print("User.uid.isNotEmpty: ${user.uid}");
+        }
       }
       return user;
     } else {
-      print("No user logged in in this device.");
+      if (kDebugMode) {
+        print("No user logged in in this device.");
+      }
       return null;
     }
   }

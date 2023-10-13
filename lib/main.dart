@@ -4,7 +4,6 @@ import 'package:diccon_evo/config/route_configurations.dart';
 import 'package:diccon_evo/screens/story/blocs/story_list_bloc.dart';
 import 'package:diccon_evo/screens/conversation/bloc/conversation_bloc.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

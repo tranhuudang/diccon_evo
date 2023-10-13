@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
-import '../../config/properties.dart';
 import '../../config/properties_constants.dart';
 import '../models/word.dart';
 

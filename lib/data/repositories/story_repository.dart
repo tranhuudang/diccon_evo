@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:diccon_evo/data/handlers/file_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../../config/properties.dart';
 import '../../config/properties_constants.dart';
 import '../handlers/directory_handler.dart';
 import '../helpers/file_helper.dart';

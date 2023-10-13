@@ -96,7 +96,6 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           PillButton(
                               backgroundColor: Theme.of(context).cardColor,
-                              //icon: FontAwesomeIcons.google,
                               onTap: () {
                                 context
                                     .pushReplacementNamed(RouterConstants.home);

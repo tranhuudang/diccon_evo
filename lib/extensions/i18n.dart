@@ -299,13 +299,16 @@ extension Localization on String {
     "Sync your data": {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
-    },"Privacy Policy": {
+    },
+    "Privacy Policy": {
       "en_us": "Privacy Policy",
       "vi_vi": "Điều khoản",
-    },"Continue without login": {
+    },
+    "Continue without login": {
       "en_us": "Continue without login",
       "vi_vi": "Tiếp tục mà không đăng nhập",
-    },"Sync": {
+    },
+    "Sync": {
       "en_us": "Sync",
       "vi_vi": "Đồng bộ hóa",
     },

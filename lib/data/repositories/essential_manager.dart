@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:diccon_evo/config/properties.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import '../../config/properties_constants.dart';

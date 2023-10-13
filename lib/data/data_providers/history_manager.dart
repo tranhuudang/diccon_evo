@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import '../../config/properties.dart';
 import '../../config/properties_constants.dart';
 import '../handlers/directory_handler.dart';
 import '../models/word.dart';

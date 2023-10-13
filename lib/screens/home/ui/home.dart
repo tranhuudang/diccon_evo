@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/home/ui/components/plan_button.dart';
 import 'package:diccon_evo/screens/home/ui/components/to_dictionary_button.dart';
-import 'package:diccon_evo/screens/settings/ui/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';

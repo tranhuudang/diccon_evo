@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../config/properties.dart';
 import '../../../config/properties_constants.dart';
 import '../../../data/handlers/file_handler.dart';
 import '../../../data/data_providers/history_manager.dart';
