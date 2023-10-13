@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../config/properties.dart';
 import '../../../config/properties_constants.dart';
@@ -112,11 +111,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
       if (isInternetConnected) {
         AuthService authService = AuthService();
-        GoogleSignInAccount? user = await authService.googleSignIn();
+        User? user = await authService.googleSignIn();
         Properties.userInfo = Properties.userInfo.copyWith(
-          uid: user!.id,
+          uid: user!.uid,
           displayName: user.displayName,
-          photoURL: user.photoUrl,
+          photoURL: user.photoURL,
           email: user.email,
         );
         emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));

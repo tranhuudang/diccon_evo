@@ -6,7 +6,7 @@ class AuthService {
   late final GoogleSignInAccount? gUser;
   late final GoogleSignInAuthentication gAuth;
   // Google sign in
-  Future<GoogleSignInAccount?> googleSignIn() async {
+  Future<User?> googleSignIn() async {
     try {
       // begin interactive sign in process
       gUser = await GoogleSignIn().signIn();
@@ -19,7 +19,7 @@ class AuthService {
           accessToken: gAuth.accessToken, idToken: gAuth.idToken);
       // finally lets sign in
       await FirebaseAuth.instance.signInWithCredential(credential);
-      return gUser;
+      return FirebaseAuth.instance.currentUser;
     } catch (e) {
       if (kDebugMode) {
         print("[Google Sign In Service] : $e");

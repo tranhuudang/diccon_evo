@@ -9,7 +9,8 @@ import '../handlers/directory_handler.dart';
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {
     final onlinePath = "users/${Properties.userInfo.uid}/$fileName";
-    final localFilePath = await DirectoryHandler.getLocalUserDataFilePath(fileName);
+    final localFilePath =
+        await DirectoryHandler.getLocalUserDataFilePath(fileName);
     final fileToUpload = File(localFilePath);
     if (fileToUpload.existsSync()) {
       if (kDebugMode) {
@@ -27,14 +28,13 @@ class UserHandler {
 
   /// Download all founded user data file in Firebase
   Future downloadUserDataFile() async {
-    Future<ListResult> futureFiles =
-        FirebaseStorage.instance.ref("/${Properties.userInfo.uid}").listAll();
-    await futureFiles.then((ListResult fileObjects) {
-      List<Reference> files = fileObjects.items;
-      for (Reference ref in files) {
-        _downloadFirebaseFile(ref);
-      }
-    });
+    ListResult futureFiles = await FirebaseStorage.instance
+        .ref("users/${Properties.userInfo.uid}")
+        .listAll();
+    List<Reference> files = futureFiles.items;
+    for (Reference ref in files) {
+      _downloadFirebaseFile(ref);
+    }
   }
 
   Future _downloadFirebaseFile(Reference ref) async {
@@ -49,7 +49,8 @@ class UserHandler {
         print("Downloaded: ${file.path}");
       }
     } else {
-      final tempCloudFilePath = await DirectoryHandler.getLocalUserDataFilePath(ref.name);
+      final tempCloudFilePath =
+          await DirectoryHandler.getLocalUserDataFilePath(ref.name);
       final tempCloudfile = File(tempCloudFilePath);
       await ref.writeToFile(tempCloudfile);
       List<dynamic> cloudJsonFile =
@@ -61,8 +62,8 @@ class UserHandler {
       if (ref.name == PropertiesConstants.storyHistoryFileName ||
           ref.name == PropertiesConstants.storyBookmarkFileName) {
         for (var story in cloudJsonFile) {
-          bool isArticleExist = localJsonFile.any(
-              (storyInLocal) => storyInLocal['title'] == story["title"]);
+          bool isArticleExist = localJsonFile
+              .any((storyInLocal) => storyInLocal['title'] == story["title"]);
           if (!isArticleExist) {
             if (json is List<dynamic>) {
               localJsonFile.add(story.toJson());
@@ -75,8 +76,8 @@ class UserHandler {
         /// Syncing word history in dictionary
         if (ref.name == PropertiesConstants.wordHistoryFileName) {
           for (var word in cloudJsonFile) {
-            bool isWordExist = localJsonFile.any(
-                (storyInLocal) => storyInLocal['word'] == word["word"]);
+            bool isWordExist = localJsonFile
+                .any((storyInLocal) => storyInLocal['word'] == word["word"]);
             if (!isWordExist) {
               if (json is List<dynamic>) {
                 localJsonFile.add(word.toJson());
@@ -105,8 +106,8 @@ class UserHandler {
         /// Syncing word history in dictionary
         if (ref.name == PropertiesConstants.essentialFavouriteFileName) {
           for (var word in cloudJsonFile) {
-            bool isWordExist = localJsonFile.any((storyInLocal) =>
-                storyInLocal['english'] == word["english"]);
+            bool isWordExist = localJsonFile.any(
+                (storyInLocal) => storyInLocal['english'] == word["english"]);
             if (!isWordExist) {
               if (json is List<dynamic>) {
                 localJsonFile.add(word.toJson());
