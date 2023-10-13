@@ -22,7 +22,7 @@ class AuthService {
       return FirebaseAuth.instance.currentUser;
     } catch (e) {
       if (kDebugMode) {
-        print("[Google Sign In Service] : $e");
+        print("[Google Sign In Service Error] : $e");
       }
       return null;
     }
