@@ -1,12 +1,14 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../config/properties.dart';
+import '../../../config/properties_constants.dart';
 import '../../../data/handlers/file_handler.dart';
 import '../../../data/data_providers/user_handler.dart';
-import '../../../data/models/user_info.dart';
+import '../../../data/models/user_info.dart' as UserModel;
 import '../../../data/services/auth_service.dart';
 
 /// User Events
@@ -19,7 +21,7 @@ class UserLoginEvent extends UserEvent {}
 class UserLogoutEvent extends UserEvent {}
 
 class UserSyncEvent extends UserEvent {
-  UserInfo userInfo;
+  UserModel.UserInfo userInfo;
   UserSyncEvent({required this.userInfo});
 }
 
@@ -40,9 +42,12 @@ class UserLogoutErrorState extends UserActionState {}
 
 class UserLoginState extends UserState {
   bool isSyncing = false;
-  UserInfo userInfo;
+  UserModel.UserInfo userInfo;
   UserLoginState({required this.userInfo, required this.isSyncing});
 }
+
+class UserLoggedInSuccessfulState extends UserActionState {}
+
 
 class UserSyncingState extends UserState {}
 
@@ -63,11 +68,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await UserHandler().deleteUserDataFile();
 
     /// Remove local file
-    await FileHandler(Properties.wordHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.storyHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.storyBookmarkFileName).deleteOnUserData();
-    await FileHandler(Properties.topicHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.essentialFavouriteFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.wordHistoryFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.storyHistoryFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.storyBookmarkFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.topicHistoryFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.essentialFavouriteFileName).deleteOnUserData();
     await Future.delayed(const Duration(seconds: 2));
   }
 
@@ -75,35 +80,49 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       UserSyncEvent sync, Emitter<UserState> emit) async {
     emit(UserLoginState(isSyncing: true, userInfo: sync.userInfo));
     await UserHandler().downloadUserDataFile();
-    await UserHandler().uploadUserDataFile(Properties.wordHistoryFileName);
-    await UserHandler().uploadUserDataFile(Properties.storyHistoryFileName);
-    await UserHandler().uploadUserDataFile(Properties.storyBookmarkFileName);
-    await UserHandler().uploadUserDataFile(Properties.topicHistoryFileName);
+    await UserHandler().uploadUserDataFile(PropertiesConstants.wordHistoryFileName);
+    await UserHandler().uploadUserDataFile(PropertiesConstants.storyHistoryFileName);
+    await UserHandler().uploadUserDataFile(PropertiesConstants.storyBookmarkFileName);
+    await UserHandler().uploadUserDataFile(PropertiesConstants.topicHistoryFileName);
     await UserHandler()
-        .uploadUserDataFile(Properties.essentialFavouriteFileName);
+        .uploadUserDataFile(PropertiesConstants.essentialFavouriteFileName);
     emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
     emit(UserSyncCompleted());
   }
 
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
-    // Check internet connection
-    bool isInternetConnected = await InternetConnectionChecker().hasConnection;
-    if (kDebugMode) {
-      print("[Internet Connection] $isInternetConnected");
-    }
-    if (isInternetConnected) {
-      AuthService authService = AuthService();
-      GoogleSignInAccount? user = await authService.googleSignIn();
-      Properties.userInfo = UserInfo(
-          id: user!.id,
-          name: user.displayName ?? "",
-          avatarUrl: user.photoUrl ?? "",
-          email: user.email);
+    var currentLoggedInUser = _currentLoggedInUser();
+    if (currentLoggedInUser != null) {
+      Properties.userInfo = Properties.userInfo.copyWith(
+        uid: currentLoggedInUser.uid,
+        displayName: currentLoggedInUser.displayName,
+        photoURL: currentLoggedInUser.photoURL,
+        email: currentLoggedInUser.email,
+      );
       emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
-      // Sync user data right after log in successful
-      add(UserSyncEvent(userInfo: Properties.userInfo));
     } else {
-      emit(NoInternetState());
+      // Check internet connection
+      bool isInternetConnected =
+          await InternetConnectionChecker().hasConnection;
+      if (kDebugMode) {
+        print("[Internet Connection] $isInternetConnected");
+      }
+      if (isInternetConnected) {
+        AuthService authService = AuthService();
+        GoogleSignInAccount? user = await authService.googleSignIn();
+        Properties.userInfo = Properties.userInfo.copyWith(
+          uid: user!.id,
+          displayName: user.displayName,
+          photoURL: user.photoUrl,
+          email: user.email,
+        );
+        emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+        emit(UserLoggedInSuccessfulState());
+        // Sync user data right after log in successful
+        add(UserSyncEvent(userInfo: Properties.userInfo));
+      } else {
+        emit(NoInternetState());
+      }
     }
   }
 
@@ -117,16 +136,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     authService.googleSignOut();
 
     /// Remove local file
-    await FileHandler(Properties.wordHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.storyHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.storyBookmarkFileName).deleteOnUserData();
-    await FileHandler(Properties.topicHistoryFileName).deleteOnUserData();
-    await FileHandler(Properties.essentialFavouriteFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.wordHistoryFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.storyHistoryFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.storyBookmarkFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.topicHistoryFileName).deleteOnUserData();
+    await FileHandler(PropertiesConstants.essentialFavouriteFileName).deleteOnUserData();
 
     /// Reset properties
-    Properties.userInfo = UserInfo.empty();
+    Properties.userInfo = UserModel.UserInfo.empty();
     await Future.delayed(const Duration(seconds: 2));
     emit(UserLogoutCompletedState());
     emit(UserUninitialized());
+  }
+
+  User? _currentLoggedInUser() {
+    // Check if user still login to device
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      if (user.uid.isNotEmpty) {
+        print("User.uid.isNotEmpty: ${user.uid}");
+      }
+      return user;
+    } else {
+      print("No user logged in in this device.");
+      return null;
+    }
   }
 }

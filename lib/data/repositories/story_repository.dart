@@ -4,6 +4,7 @@ import 'package:diccon_evo/data/handlers/file_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../../config/properties.dart';
+import '../../config/properties_constants.dart';
 import '../handlers/directory_handler.dart';
 import '../helpers/file_helper.dart';
 import '../models/story.dart';
@@ -25,7 +26,7 @@ class StoryRepository {
   Future<List<Story>> getOnlineStoryList() async {
     try {
       String filePath = await DirectoryHandler.getLocalUserDataFilePath(
-          Properties.extendStoryFileName);
+          PropertiesConstants.extendStoryFileName);
       File file = File(filePath);
       if (!file.existsSync()) {
         if (kDebugMode) {
@@ -85,7 +86,7 @@ class StoryRepository {
 
   Future<List<Story>> readStoryHistory() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Properties.storyHistoryFileName);
+        PropertiesConstants.storyHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -111,7 +112,7 @@ class StoryRepository {
 
   Future<List<Story>> readStoryBookmark() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Properties.storyBookmarkFileName);
+        PropertiesConstants.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -137,7 +138,7 @@ class StoryRepository {
 
   Future<bool> saveReadStoryToHistory(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Properties.storyHistoryFileName);
+        PropertiesConstants.storyHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -172,7 +173,7 @@ class StoryRepository {
 
   Future<bool> saveReadStoryToBookmark(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Properties.storyBookmarkFileName);
+        PropertiesConstants.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -203,7 +204,7 @@ class StoryRepository {
 
   Future<bool> removeAStoryInBookmark(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Properties.storyBookmarkFileName);
+        PropertiesConstants.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -218,7 +219,7 @@ class StoryRepository {
             final encoded = jsonEncode(json);
             await file.writeAsString(encoded);
             if (kDebugMode) {
-              print("Remove a story out of ${Properties.storyBookmarkFileName}");
+              print("Remove a story out of ${PropertiesConstants.storyBookmarkFileName}");
             }
         }
       }
@@ -227,19 +228,19 @@ class StoryRepository {
     } catch (e) {
       if (kDebugMode) {
         print(
-            "Can't remove to story ${Properties.storyBookmarkFileName}. Error detail: $e");
+            "Can't remove to story ${PropertiesConstants.storyBookmarkFileName}. Error detail: $e");
       }
       return false;
     }
   }
 
   Future<bool> deleteAllStoryHistory() async {
-    return await FileHandler(Properties.storyHistoryFileName)
+    return await FileHandler(PropertiesConstants.storyHistoryFileName)
         .deleteOnUserData();
   }
 
   Future<bool> deleteAllStoryBookmark() async {
-    return await FileHandler(Properties.storyBookmarkFileName)
+    return await FileHandler(PropertiesConstants.storyBookmarkFileName)
         .deleteOnUserData();
   }
 }

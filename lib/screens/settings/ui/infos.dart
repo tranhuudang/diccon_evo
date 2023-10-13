@@ -3,6 +3,7 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
 import '../../../config/properties.dart';
+import '../../../config/properties_constants.dart';
 import 'components/setting_section.dart';
 import 'components/store_badge.dart';
 
@@ -65,7 +66,7 @@ class _InfosViewState extends State<InfosView> {
                             ],
                           ),
                           const Spacer(),
-                          Text(Properties.version),
+                          Text(PropertiesConstants.version),
                         ],
                       )
                     ],

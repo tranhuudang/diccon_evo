@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import '../../config/properties.dart';
+import '../../config/properties_constants.dart';
 import '../handlers/directory_handler.dart';
 import '../models/word.dart';
 
@@ -10,7 +11,7 @@ class HistoryManager {
   ///
   /// Returns a [Boolean] value as true if the process is completed without error.
   static Future<bool> saveWordToHistory(String word) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.wordHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -44,7 +45,7 @@ class HistoryManager {
   }
 
   static Future<List<String>> readWordHistory() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.wordHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -68,7 +69,7 @@ class HistoryManager {
     }
   }
   static Future<bool> saveTopicToHistory(String topic) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.topicHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.topicHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -102,7 +103,7 @@ class HistoryManager {
   }
 
   static Future<List<String>> readTopicHistory() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.topicHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.topicHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {

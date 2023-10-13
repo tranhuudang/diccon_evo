@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../../config/properties.dart';
+import '../../config/properties_constants.dart';
 import '../models/word.dart';
 
 class DictionaryRepository {
@@ -13,7 +14,7 @@ class DictionaryRepository {
   Future<List<String>> getSuggestionWordList() async => await _getSuggestionWordList();
 
   Future<List<Word>> _getWordList() async {
-    String dataEv = await rootBundle.loadString(Properties.evDataPath);
+    String dataEv = await rootBundle.loadString(PropertiesConstants.evDataPath);
     //String dataVe = await rootBundle.loadString(Properties.veDataPath);
     //String data = dataEv + dataVe;
     String data = dataEv;

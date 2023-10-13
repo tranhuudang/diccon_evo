@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:diccon_evo/config/properties.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import '../../config/properties_constants.dart';
 import '../handlers/directory_handler.dart';
 import '../models/essential_word.dart';
 
@@ -21,7 +22,7 @@ class EssentialWordRepository {
   }
 
   static Future<List<EssentialWord>> readFavouriteEssential() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Properties.essentialFavouriteFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -48,7 +49,7 @@ class EssentialWordRepository {
 
   static Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
     final filePath = await DirectoryHandler
-        .getLocalUserDataFilePath(Properties.essentialFavouriteFileName);
+        .getLocalUserDataFilePath(PropertiesConstants.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -90,7 +91,7 @@ class EssentialWordRepository {
 
   static removeEssentialWordOutOfFavourite(EssentialWord word) async {
     final filePath = await DirectoryHandler
-        .getLocalUserDataFilePath(Properties.essentialFavouriteFileName);
+        .getLocalUserDataFilePath(PropertiesConstants.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()

@@ -1,6 +1,7 @@
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/foundation.dart';
 import '../../config/properties.dart';
+import '../../config/properties_constants.dart';
 import '../models/word.dart';
 import 'history_manager.dart';
 
@@ -25,7 +26,7 @@ class Searching {
       } else
 
       // Start to get the value that completely match with user input
-      if (word.startsWith("$refineWord${Properties.blankSpace}")) {
+      if (word.startsWith("$refineWord${PropertiesConstants.blankSpace}")) {
         if (kDebugMode) {
           print("Start to get the value that completely match with user input");
         }

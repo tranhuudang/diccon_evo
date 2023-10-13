@@ -5,6 +5,8 @@ import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/home/ui/components/plan_button.dart';
 import 'package:diccon_evo/screens/home/ui/components/to_dictionary_button.dart';
+import 'package:diccon_evo/screens/settings/ui/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import '../../../config/properties.dart';
 import '../../../data/repositories/dictionary_repository.dart';
@@ -28,29 +30,28 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with WindowListener {
-  // Instance of Repository implementations
-  final dataRepository = DictionaryRepository();
-  final thesaurusRepository = ThesaurusRepository();
-  List<Widget> listPrimaryFunction = const [
+  final List<Widget> _listPrimaryFunction = const [
     ToDictionaryButton(),
     ToConversationButton(),
   ];
-  List<Widget> listSubFunction = const [
+  final List<Widget> _listSubFunction = const [
     ToReadingChamberButton(),
     ToEssentialWordButton(),
     //ToConversationalPhrasesButton(),
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    WindowManager.instance.addListener(this);
-    // Other loading steps
-    loadUpData();
-    if (kDebugMode) {
-      print("Data is loaded");
-    }
+  DateTime backPressedTime = DateTime.now();
+
+  _loadUpData() async {
+    /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
+    Properties.wordList = await DictionaryRepository().getWordList();
+    // Load up thesaurus dictionary
+    ThesaurusRepository().loadThesaurus();
+    // Load up suggestion list word
+    Properties.suggestionListWord =
+        await DictionaryRepository().getSuggestionWordList();
   }
+
 
   /// Detect when windows is changing size
   @override
@@ -63,17 +64,17 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Properties.saveSettings(Properties.defaultSetting);
   }
 
-  loadUpData() async {
-    /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
-    Properties.wordList = await DictionaryRepository().getWordList();
-    // Load up thesaurus dictionary
-    ThesaurusRepository().loadThesaurus();
-    // Load up suggestion list word
-    Properties.suggestionListWord =
-        await DictionaryRepository().getSuggestionWordList();
+  @override
+  void initState() {
+    super.initState();
+    WindowManager.instance.addListener(this);
+    // Other loading steps
+    _loadUpData();
+    if (kDebugMode) {
+      print("Data is loaded");
+    }
   }
 
-  DateTime backPressedTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -133,7 +134,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: listPrimaryFunction.length,
+            itemCount: _listPrimaryFunction.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisExtent: 180,
               mainAxisSpacing: 8,
@@ -141,12 +142,12 @@ class _HomeViewState extends State<HomeView> with WindowListener {
               crossAxisCount: 2,
             ),
             itemBuilder: (context, index) {
-              return listPrimaryFunction[index];
+              return _listPrimaryFunction[index];
             }),
         const SizedBox(height: 16),
 
         /// Other functions
-        SubFunctionBox(height: 180, listSubFunction: listSubFunction),
+        SubFunctionBox(height: 180, listSubFunction: _listSubFunction),
         const SizedBox(
           height: 16,
         ),

@@ -17,9 +17,10 @@ class UserSettingsView extends StatefulWidget {
 }
 
 class _UserSettingsViewState extends State<UserSettingsView> {
+
   @override
   Widget build(BuildContext context) {
-    var userBloc = context.read<UserBloc>();
+    final userBloc = context.read<UserBloc>();
     userBloc.add(UserLoginEvent());
     return SafeArea(
       child: Scaffold(
@@ -68,7 +69,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                userLoginState.userInfo.avatarUrl.isNotEmpty
+                                userLoginState.userInfo.photoURL.isNotEmpty
                                     ? ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(50.0),
@@ -76,7 +77,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                           height: 70,
                                           width: 70,
                                           image: NetworkImage(userLoginState
-                                              .userInfo.avatarUrl),
+                                              .userInfo.photoURL),
                                           fit: BoxFit
                                               .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
                                         ),
@@ -85,7 +86,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    userLoginState.userInfo.name,
+                                    userLoginState.userInfo.displayName,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),

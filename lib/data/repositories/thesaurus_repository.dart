@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import '../../config/properties.dart';
+import '../../config/properties_constants.dart';
 
 class ThesaurusRepository {
   Future<void> loadThesaurus() async {
@@ -21,7 +22,7 @@ class ThesaurusRepository {
   }
 
   Future<Map<String, List<String>>> loadSynonymsData() async {
-    String jsonString = await rootBundle.loadString(Properties.enSynonymsPath);
+    String jsonString = await rootBundle.loadString(PropertiesConstants.enSynonymsPath);
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     return jsonData.map((key, value) {
       return MapEntry<String, List<String>>(key, List<String>.from(value));
@@ -29,7 +30,7 @@ class ThesaurusRepository {
   }
 
   Future<Map<String, List<String>>> loadAntonymsData() async {
-    String jsonString = await rootBundle.loadString(Properties.enAntonymsPath);
+    String jsonString = await rootBundle.loadString(PropertiesConstants.enAntonymsPath);
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     return jsonData.map((key, value) {
       return MapEntry<String, List<String>>(key, List<String>.from(value));

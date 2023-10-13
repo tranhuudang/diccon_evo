@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import '../../config/properties.dart';
+import '../../config/properties_constants.dart';
 import '../handlers/directory_handler.dart';
 
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {
-    final onlinePath = "${Properties.userInfo.id}/$fileName";
+    final onlinePath = "${Properties.userInfo.uid}/$fileName";
     final localFilePath = await DirectoryHandler.getLocalUserDataFilePath(fileName);
     final fileToUpload = File(localFilePath);
     if (fileToUpload.existsSync()) {
@@ -27,7 +28,7 @@ class UserHandler {
   /// Download all founded user data file in Firebase
   Future downloadUserDataFile() async {
     Future<ListResult> futureFiles =
-        FirebaseStorage.instance.ref("/${Properties.userInfo.id}").listAll();
+        FirebaseStorage.instance.ref("/${Properties.userInfo.uid}").listAll();
     await futureFiles.then((ListResult fileObjects) {
       List<Reference> files = fileObjects.items;
       for (Reference ref in files) {
@@ -57,8 +58,8 @@ class UserHandler {
           jsonDecode(File(file.path).readAsStringSync());
 
       /// Syncing story history and bookmark
-      if (ref.name == Properties.storyHistoryFileName ||
-          ref.name == Properties.storyBookmarkFileName) {
+      if (ref.name == PropertiesConstants.storyHistoryFileName ||
+          ref.name == PropertiesConstants.storyBookmarkFileName) {
         for (var story in cloudJsonFile) {
           bool isArticleExist = localJsonFile.any(
               (storyInLocal) => storyInLocal['title'] == story["title"]);
@@ -72,7 +73,7 @@ class UserHandler {
         }
 
         /// Syncing word history in dictionary
-        if (ref.name == Properties.wordHistoryFileName) {
+        if (ref.name == PropertiesConstants.wordHistoryFileName) {
           for (var word in cloudJsonFile) {
             bool isWordExist = localJsonFile.any(
                 (storyInLocal) => storyInLocal['word'] == word["word"]);
@@ -87,7 +88,7 @@ class UserHandler {
         }
 
         /// Syncing topic history in 1848 essential
-        if (ref.name == Properties.topicHistoryFileName) {
+        if (ref.name == PropertiesConstants.topicHistoryFileName) {
           for (var topic in cloudJsonFile) {
             bool isTopicExist =
                 localJsonFile.any((topicInLocal) => topicInLocal == topic);
@@ -102,7 +103,7 @@ class UserHandler {
         }
 
         /// Syncing word history in dictionary
-        if (ref.name == Properties.essentialFavouriteFileName) {
+        if (ref.name == PropertiesConstants.essentialFavouriteFileName) {
           for (var word in cloudJsonFile) {
             bool isWordExist = localJsonFile.any((storyInLocal) =>
                 storyInLocal['english'] == word["english"]);
@@ -127,7 +128,7 @@ class UserHandler {
   /// Delete all founded user data file in Firebase
   Future deleteUserDataFile() async {
     Future<ListResult> futureFiles =
-        FirebaseStorage.instance.ref("/${Properties.userInfo.id}").listAll();
+        FirebaseStorage.instance.ref("/${Properties.userInfo.uid}").listAll();
     await futureFiles.then((ListResult fileObjects) {
       List<Reference> references = fileObjects.items;
       for (Reference ref in references) {

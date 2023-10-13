@@ -4,9 +4,11 @@ import 'package:diccon_evo/config/route_configurations.dart';
 import 'package:diccon_evo/screens/story/blocs/story_list_bloc.dart';
 import 'package:diccon_evo/screens/conversation/bloc/conversation_bloc.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'config/properties_constants.dart';
 import 'screens/dictionary/bloc/chat_list_bloc.dart';
 import 'config/properties.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,16 +29,20 @@ void main() async {
     await FirebaseAppCheck.instance.activate(
       androidProvider: AndroidProvider.debug,
     );
+
   }
+
+
+  /// Initial for Windows
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
 
     /// register player first
     WindowManager.instance.setSize(Size(Properties.defaultSetting.windowsWidth,
         Properties.defaultSetting.windowsHeight));
-    WindowManager.instance.setMinimumSize(Properties.minWindowsSize);
-    WindowManager.instance.setMaximumSize(Properties.maxWindowsSize);
-    WindowManager.instance.setTitle(Properties.diccon);
+    WindowManager.instance.setMinimumSize(PropertiesConstants.minWindowsSize);
+    WindowManager.instance.setMaximumSize(PropertiesConstants.maxWindowsSize);
+    WindowManager.instance.setTitle(PropertiesConstants.diccon);
   }
 
   runApp(const ProgramRoot());
@@ -72,7 +78,7 @@ class ProgramRoot extends StatelessWidget {
         themeMode: Properties.defaultSetting.themeMode.toThemeMode(),
         theme: CustomTheme.getLight(context),
         darkTheme: CustomTheme.getDark(context),
-        title: Properties.diccon,
+        title: PropertiesConstants.diccon,
         debugShowCheckedModeBanner: false,
         routerConfig: router,
       ),

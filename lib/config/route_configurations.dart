@@ -8,6 +8,7 @@ import 'package:diccon_evo/screens/essential/ui/favourite_review.dart';
 import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/ui/infos.dart';
+import 'package:diccon_evo/screens/settings/ui/login.dart';
 import 'package:diccon_evo/screens/settings/ui/settings.dart';
 import 'package:diccon_evo/screens/settings/ui/user_settings.dart';
 import 'package:diccon_evo/screens/story/ui/story_bookmark.dart';
@@ -22,10 +23,14 @@ import '../data/models/story.dart';
 
 GoRouter router = GoRouter(
   routes: [
+    /// Login
+    GoRoute(name: "login",path: '/',pageBuilder: (context, state){
+      return MaterialPage(child: I18n(child: const LoginView(),));
+    }),
     /// Home
     GoRoute(
         name: RouterConstants.home,
-        path: '/',
+        path: '/home',
         pageBuilder: (context, state) {
           return MaterialPage(child: I18n(child: const HomeView()));
         },

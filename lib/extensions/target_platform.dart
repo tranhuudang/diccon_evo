@@ -7,12 +7,34 @@ extension PlatformExtension on TargetPlatform {
         this == TargetPlatform.android ||
         this == TargetPlatform.fuchsia;
   }
-  bool isAndroid(){
+
+  bool isAndroid() {
     return this == TargetPlatform.android;
   }
-  bool isDesktop(){
+
+  bool isIOS() {
+    return this == TargetPlatform.iOS;
+  }
+
+  bool isFushia() {
+    return this == TargetPlatform.fuchsia;
+  }
+
+  bool isDesktop() {
     return this == TargetPlatform.linux ||
-    this == TargetPlatform.macOS ||
-    this == TargetPlatform.windows;
+        this == TargetPlatform.macOS ||
+        this == TargetPlatform.windows;
+  }
+
+  bool isLinux() {
+    return this == TargetPlatform.linux;
+  }
+
+  bool isWindows() {
+    return this == TargetPlatform.windows;
+  }
+
+  bool isMacOS() {
+    return this == TargetPlatform.macOS;
   }
 }
