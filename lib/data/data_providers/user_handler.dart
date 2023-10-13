@@ -8,7 +8,7 @@ import '../handlers/directory_handler.dart';
 
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {
-    final onlinePath = "${Properties.userInfo.uid}/$fileName";
+    final onlinePath = "users/${Properties.userInfo.uid}/$fileName";
     final localFilePath = await DirectoryHandler.getLocalUserDataFilePath(fileName);
     final fileToUpload = File(localFilePath);
     if (fileToUpload.existsSync()) {

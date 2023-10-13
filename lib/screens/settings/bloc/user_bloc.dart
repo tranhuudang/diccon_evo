@@ -88,6 +88,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .uploadUserDataFile(PropertiesConstants.essentialFavouriteFileName);
     emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
     emit(UserSyncCompleted());
+    if (kDebugMode) {
+      print("Data is synced");
+    }
   }
 
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {

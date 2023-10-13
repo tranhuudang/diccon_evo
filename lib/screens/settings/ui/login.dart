@@ -120,7 +120,7 @@ class _LoginViewState extends State<LoginView> {
           ),
         );
       } else {
-        userBloc.add(UserLoginEvent());
+        //userBloc.add(UserLoginEvent());
         return const HomeView();
       }
     } else {

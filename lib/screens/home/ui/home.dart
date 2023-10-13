@@ -54,8 +54,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   @override
   void onWindowResize() async {
     Size windowsSize = await WindowManager.instance.getSize();
-
-    /// Save windows size to setting
+    // Save windows size to setting
     Properties.defaultSetting = Properties.defaultSetting.copyWith(
         windowsWidth: windowsSize.width, windowsHeight: windowsSize.height);
     Properties.saveSettings(Properties.defaultSetting);
