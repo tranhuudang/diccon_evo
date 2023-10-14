@@ -15,13 +15,13 @@ class ThemeSwitcher extends StatefulWidget {
 }
 
 class _ThemeSwitcherState extends State<ThemeSwitcher> {
-  StreamController<ThemeMode> streamController = StreamController<ThemeMode>();
+  StreamController<ThemeMode> _streamController = StreamController<ThemeMode>();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ThemeMode>(
         initialData: Properties.defaultSetting.themeMode.toThemeMode(),
-        stream: streamController.stream,
+        stream: _streamController.stream,
         builder: (context, snapshot) {
           return Row(
             children: [
@@ -30,7 +30,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
               /// Light Mode
               InkWell(
                 onTap: () {
-                  streamController.sink.add(ThemeMode.light);
+                  _streamController.sink.add(ThemeMode.light);
                   widget.settingCubit.setThemeMode(ThemeMode.light.toString());
                   widget.settingCubit.saveSettings();
                 },
@@ -48,15 +48,13 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   child: Row(
                     children: [
                       const Icon(Icons.light_mode),
-                      snapshot.data == ThemeMode.light
-                          ? const SizedBox().mediumWidth()
-                          : const SizedBox.shrink(),
-                      snapshot.data == ThemeMode.light
-                          ? Text(
-                              "Light mode".i18n,
-                              style: const TextStyle(fontSize: 16),
-                            )
-                          : const SizedBox.shrink()
+                      if (snapshot.data == ThemeMode.light)
+                        const SizedBox().mediumWidth(),
+                      if (snapshot.data == ThemeMode.light)
+                        Text(
+                          "Light mode".i18n,
+                          style: const TextStyle(fontSize: 16),
+                        ),
                     ],
                   ),
                 ),
@@ -68,7 +66,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
               /// Dark Mode
               InkWell(
                 onTap: () {
-                  streamController.sink.add(ThemeMode.dark);
+                  _streamController.sink.add(ThemeMode.dark);
                   widget.settingCubit.setThemeMode(ThemeMode.dark.toString());
                   widget.settingCubit.saveSettings();
                 },
@@ -84,15 +82,13 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   child: Row(
                     children: [
                       const Icon(Icons.dark_mode),
-                      snapshot.data == ThemeMode.dark
-                          ? const SizedBox().mediumWidth()
-                          : const SizedBox.shrink(),
-                      snapshot.data == ThemeMode.dark
-                          ? Text(
-                              "Dark mode".i18n,
-                              style: const TextStyle(fontSize: 16),
-                            )
-                          : const SizedBox.shrink()
+                      if (snapshot.data == ThemeMode.dark)
+                        const SizedBox().mediumWidth(),
+                      if (snapshot.data == ThemeMode.dark)
+                        Text(
+                          "Dark mode".i18n,
+                          style: const TextStyle(fontSize: 16),
+                        ),
                     ],
                   ),
                 ),
@@ -104,29 +100,28 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
               /// System Mode
               InkWell(
                 onTap: () {
-                  streamController.sink.add(ThemeMode.system);
+                  _streamController.sink.add(ThemeMode.system);
                   widget.settingCubit.setThemeMode(ThemeMode.system.toString());
                   widget.settingCubit.saveSettings();
                 },
                 child: Container(
-                  height: 48,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  decoration: BoxDecoration(
-                      color: snapshot.data == ThemeMode.system
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).highlightColor,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(16),
-                        bottomRight: Radius.circular(16),
-                      )),
-                  child: Center(
-                    child: Text(
-                      "Adaptive".i18n,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  )
-                ),
+                    height: 48,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 12),
+                    decoration: BoxDecoration(
+                        color: snapshot.data == ThemeMode.system
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).highlightColor,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                        )),
+                    child: Center(
+                      child: Text(
+                        "Adaptive".i18n,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    )),
               ),
             ],
           );

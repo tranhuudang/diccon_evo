@@ -37,7 +37,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     //ToConversationalPhrasesButton(),
   ];
 
-  DateTime backPressedTime = DateTime.now();
+  DateTime _backPressedTime = DateTime.now();
 
   _loadUpData() async {
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
@@ -75,11 +75,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final difference = DateTime.now().difference(backPressedTime);
+        final difference = DateTime.now().difference(_backPressedTime);
         if (difference >= const Duration(seconds: 2)) {
           Fluttertoast.showToast(
               msg: 'Press back again to exit'.i18n, fontSize: 14);
-          backPressedTime = DateTime.now();
+          _backPressedTime = DateTime.now();
           return false;
         } else {
           Fluttertoast.cancel();
@@ -140,7 +140,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
             itemBuilder: (context, index) {
               return _listPrimaryFunction[index];
             }),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
 
         /// Other functions
         SubFunctionBox(height: 180, listSubFunction: _listSubFunction),
@@ -269,8 +269,8 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                         ),
                       ),
                     ),
-                    snapshot.data!
-                        ? SizedBox(
+                    if (snapshot.data!)
+                        SizedBox(
                             height: 48,
                             //color: Colors.black54,
                             child: Row(
@@ -295,8 +295,7 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                                 )
                               ],
                             ),
-                          )
-                        : const SizedBox.shrink()
+                          ),
                   ],
                 );
               }),

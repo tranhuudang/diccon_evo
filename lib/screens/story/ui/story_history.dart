@@ -16,14 +16,14 @@ class StoryListHistoryView extends StatefulWidget {
 }
 
 class _StoryListHistoryViewState extends State<StoryListHistoryView> {
-  final storyHistoryBloc = StoryHistoryBloc();
+  final _storyHistoryBloc = StoryHistoryBloc();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: BlocConsumer<StoryHistoryBloc, StoryHistoryState>(
-          bloc: storyHistoryBloc,
+          bloc: _storyHistoryBloc,
           listener: (BuildContext context, StoryHistoryState state) {},
           buildWhen: (previous, current) => current is! StoryHistoryActionState,
           listenWhen: (previous, current) => current is StoryHistoryActionState,
@@ -77,7 +77,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                       title: "History".i18n,
                       actions: [
                         IconButton(
-                            onPressed: () => storyHistoryBloc.add(
+                            onPressed: () => _storyHistoryBloc.add(
                                 StoryHistorySortAlphabet(
                                     stories: data.stories)),
                             icon: const Icon(Icons.sort_by_alpha)),
@@ -91,17 +91,17 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               child: Text("Elementary".i18n),
-                              onTap: () => storyHistoryBloc
+                              onTap: () => _storyHistoryBloc
                                   .add(StoryHistorySortElementary()),
                             ),
                             PopupMenuItem(
                               child: Text("Intermediate".i18n),
-                              onTap: () => storyHistoryBloc
+                              onTap: () => _storyHistoryBloc
                                   .add(StoryHistorySortIntermediate()),
                             ),
                             PopupMenuItem(
                               child: Text("Advanced".i18n),
-                              onTap: () => storyHistoryBloc
+                              onTap: () => _storyHistoryBloc
                                   .add(StoryHistorySortAdvanced()),
                             ),
                             const PopupMenuItem(
@@ -112,7 +112,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                             PopupMenuItem(
                               child: Text("All".i18n),
                               onTap: () =>
-                                  storyHistoryBloc.add(StoryHistoryGetAll()),
+                                  _storyHistoryBloc.add(StoryHistoryGetAll()),
                             ),
                             const PopupMenuItem(
                               enabled: false,
@@ -121,14 +121,14 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                             ),
                             PopupMenuItem(
                               child: Text("Reverse List".i18n),
-                              onTap: () => storyHistoryBloc.add(
+                              onTap: () => _storyHistoryBloc.add(
                                   StoryHistorySortReverse(
                                       stories: data.stories)),
                             ),
                             PopupMenuItem(
                               child: Text("Clear all".i18n),
                               onTap: () =>
-                                  storyHistoryBloc.add(StoryHistoryClear()),
+                                  _storyHistoryBloc.add(StoryHistoryClear()),
                             ),
                           ],
                         ),
@@ -201,7 +201,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                   ],
                 );
               default:
-                storyHistoryBloc.add(StoryHistoryLoad());
+                _storyHistoryBloc.add(StoryHistoryLoad());
                 return Column(
                   children: [
                     Expanded(

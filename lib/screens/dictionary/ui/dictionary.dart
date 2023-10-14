@@ -113,10 +113,8 @@ class _DictionaryViewState extends State<DictionaryView> {
         body: Stack(
           children: [
             BlocConsumer<ChatListBloc, ChatListState>(
-              buildWhen: (previous, current) =>
-                  current is! ChatListActionState,
-              listenWhen: (previous, current) =>
-                  current is ChatListActionState,
+              buildWhen: (previous, current) => current is! ChatListActionState,
+              listenWhen: (previous, current) => current is ChatListActionState,
               listener: (BuildContext context, ChatListState state) {
                 if (state is ImageAdded) {
                   setState(() {
@@ -140,8 +138,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                     case ChatListUpdated:
                       final data = state as ChatListUpdated;
                       return ListView.builder(
-                        padding:
-                            const EdgeInsets.only(top: 80, bottom: 130),
+                        padding: const EdgeInsets.only(top: 80, bottom: 130),
                         itemCount: data.chatList.length,
                         addAutomaticKeepAlives: true,
                         controller: chatListBloc.chatListController,
@@ -225,63 +222,55 @@ class _DictionaryViewState extends State<DictionaryView> {
                                     const SizedBox(
                                       width: 16,
                                     ),
-                                    _hasSuggestionWords
-                                        ? Row(
-                                            children: _suggestionWords
-                                                .map((String word) {
-                                              return SuggestedItem(
-                                                title: word,
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .primaryColor,
-                                                onPressed:
-                                                    (String clickedWord) {
-                                                  _handleSubmitted(
-                                                      clickedWord, context);
-                                                },
-                                              );
-                                            }).toList(),
-                                          )
-                                        : const SizedBox.shrink(),
-                                    _hasSynonyms
-                                        ? SuggestedItem(
-                                            onPressed: (String a) {
-                                              chatListBloc.add(AddSynonyms(
-                                                providedWord:
-                                                    _currentSearchWord,
-                                                itemOnPressed: (clickedWord) {
-                                                  _handleSubmitted(
-                                                      clickedWord, context);
-                                                },
-                                              ));
+                                    if (_hasSuggestionWords)
+                                      Row(
+                                        children:
+                                            _suggestionWords.map((String word) {
+                                          return SuggestedItem(
+                                            title: word,
+                                            backgroundColor:
+                                                Theme.of(context).primaryColor,
+                                            onPressed: (String clickedWord) {
+                                              _handleSubmitted(
+                                                  clickedWord, context);
                                             },
-                                            title: 'Synonyms'.i18n,
-                                          )
-                                        : const SizedBox.shrink(),
-                                    _hasAntonyms
-                                        ? SuggestedItem(
-                                            onPressed: (String a) {
-                                              chatListBloc.add(AddAntonyms(
-                                                providedWord:
-                                                    _currentSearchWord,
-                                                itemOnPressed: (clickedWord) {
-                                                  _handleSubmitted(
-                                                      clickedWord, context);
-                                                },
-                                              ));
+                                          );
+                                        }).toList(),
+                                      ),
+                                    if (_hasSynonyms)
+                                      SuggestedItem(
+                                        onPressed: (String a) {
+                                          chatListBloc.add(AddSynonyms(
+                                            providedWord: _currentSearchWord,
+                                            itemOnPressed: (clickedWord) {
+                                              _handleSubmitted(
+                                                  clickedWord, context);
                                             },
-                                            title: 'Antonyms'.i18n,
-                                          )
-                                        : const SizedBox.shrink(),
-                                    _hasImages
-                                        ? SuggestedItem(
-                                            title: 'Images'.i18n,
-                                            onPressed: (String a) {
-                                              chatListBloc.add(AddImage(
-                                                  imageUrl: _imageUrl));
+                                          ));
+                                        },
+                                        title: 'Synonyms'.i18n,
+                                      ),
+                                    if (_hasAntonyms)
+                                      SuggestedItem(
+                                        onPressed: (String a) {
+                                          chatListBloc.add(AddAntonyms(
+                                            providedWord: _currentSearchWord,
+                                            itemOnPressed: (clickedWord) {
+                                              _handleSubmitted(
+                                                  clickedWord, context);
                                             },
-                                          )
-                                        : const SizedBox.shrink(),
+                                          ));
+                                        },
+                                        title: 'Antonyms'.i18n,
+                                      ),
+                                    if (_hasImages)
+                                      SuggestedItem(
+                                        title: 'Images'.i18n,
+                                        onPressed: (String a) {
+                                          chatListBloc.add(
+                                              AddImage(imageUrl: _imageUrl));
+                                        },
+                                      ),
                                   ],
                                 ),
                               ),

@@ -30,7 +30,9 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-    _loggedInUser = _currentLoggedInUser();
+    if (defaultTargetPlatform.isAndroid()) {
+      _loggedInUser = _currentLoggedInUser();
+    }
   }
 
   @override

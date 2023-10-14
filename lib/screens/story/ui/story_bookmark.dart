@@ -17,14 +17,14 @@ class StoryListBookmarkView extends StatefulWidget {
 }
 
 class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
-  final storyBookmarkBloc = StoryBookmarkBloc();
+  final _storyBookmarkBloc = StoryBookmarkBloc();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: BlocConsumer<StoryBookmarkBloc, StoryBookmarkState>(
-          bloc: storyBookmarkBloc,
+          bloc: _storyBookmarkBloc,
           listener: (BuildContext context, StoryBookmarkState state) {},
           buildWhen: (previous, current) =>
               current is! StoryBookmarkActionState,
@@ -73,7 +73,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                                         extra: data.stories[index]);
                                 if (isBookmarkChanged != null) {
                                   if (isBookmarkChanged == true) {
-                                    storyBookmarkBloc.add(StoryBookmarkLoad());
+                                    _storyBookmarkBloc.add(StoryBookmarkLoad());
                                     if (kDebugMode) {
                                       print("List Bookmark is reloaded");
                                     }
@@ -89,12 +89,11 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                       title: "Bookmarks".i18n,
                       actions: [
                         IconButton(
-                            onPressed: () => storyBookmarkBloc.add(
+                            onPressed: () => _storyBookmarkBloc.add(
                                 StoryBookmarkSortAlphabet(
                                     stories: data.stories)),
                             icon: const Icon(Icons.sort_by_alpha)),
                         PopupMenuButton(
-                          //splashRadius: 10.0,
                           shape: RoundedRectangleBorder(
                             side: BorderSide(
                                 color: Theme.of(context).dividerColor),
@@ -103,17 +102,17 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               child: Text("Elementary".i18n),
-                              onTap: () => storyBookmarkBloc
+                              onTap: () => _storyBookmarkBloc
                                   .add(StoryBookmarkSortElementary()),
                             ),
                             PopupMenuItem(
                               child: Text("Intermediate".i18n),
-                              onTap: () => storyBookmarkBloc
+                              onTap: () => _storyBookmarkBloc
                                   .add(StoryBookmarkSortIntermediate()),
                             ),
                             PopupMenuItem(
                               child: Text("Advanced".i18n),
-                              onTap: () => storyBookmarkBloc
+                              onTap: () => _storyBookmarkBloc
                                   .add(StoryBookmarkSortAdvanced()),
                             ),
                             const PopupMenuItem(
@@ -124,7 +123,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             PopupMenuItem(
                               child: Text("All".i18n),
                               onTap: () =>
-                                  storyBookmarkBloc.add(StoryBookmarkGetAll()),
+                                  _storyBookmarkBloc.add(StoryBookmarkGetAll()),
                             ),
                             const PopupMenuItem(
                               enabled: false,
@@ -133,14 +132,14 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             ),
                             PopupMenuItem(
                               child: Text("Reverse List".i18n),
-                              onTap: () => storyBookmarkBloc.add(
+                              onTap: () => _storyBookmarkBloc.add(
                                   StoryBookmarkSortReverse(
                                       stories: data.stories)),
                             ),
                             PopupMenuItem(
                               child: Text("Clear all".i18n),
                               onTap: () =>
-                                  storyBookmarkBloc.add(StoryBookmarkClear()),
+                                  _storyBookmarkBloc.add(StoryBookmarkClear()),
                             ),
                           ],
                         ),
@@ -217,7 +216,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                   ],
                 );
               default:
-                storyBookmarkBloc.add(StoryBookmarkLoad());
+                _storyBookmarkBloc.add(StoryBookmarkLoad());
                 return Column(
                   children: [
                     Expanded(

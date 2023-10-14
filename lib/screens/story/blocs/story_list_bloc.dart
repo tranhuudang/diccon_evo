@@ -47,14 +47,14 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
   }
 
   final _articleRepository = StoryRepository();
-  List<Story> defaultStoryList = [];
+  List<Story> _defaultStoryList = [];
 
   FutureOr<void> _storyListInitial(
       StoryListInitial event, Emitter<StoryListState> emit) async {
     try {
       await _loadAll();
-      defaultStoryList.shuffle();
-      emit(StoryListUpdatedState(articleList: defaultStoryList));
+      _defaultStoryList.shuffle();
+      emit(StoryListUpdatedState(articleList: _defaultStoryList));
     } catch (e) {
       if (kDebugMode) {
         print("This error happened in StoryListInitial: $e");
@@ -66,13 +66,13 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
   FutureOr<void> _storyListReload(
       StoryListReload event, Emitter<StoryListState> emit) async {
     await _loadAll();
-    defaultStoryList.shuffle();
-    emit(StoryListUpdatedState(articleList: defaultStoryList));
+    _defaultStoryList.shuffle();
+    emit(StoryListUpdatedState(articleList: _defaultStoryList));
   }
 
   void _sortElementary(
       StoryListSortElementary event, Emitter<StoryListState> emit) {
-    var elementaryOnly = defaultStoryList
+    var elementaryOnly = _defaultStoryList
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
         .toList();
@@ -81,7 +81,7 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
 
   void _sortIntermediate(
       StoryListSortIntermediate event, Emitter<StoryListState> emit) {
-    var intermediateOnly = defaultStoryList
+    var intermediateOnly = _defaultStoryList
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
         .toList();
@@ -90,18 +90,18 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
 
   void _sortAdvanced(
       StoryListSortAdvanced event, Emitter<StoryListState> emit) {
-    var advancedOnly = defaultStoryList
+    var advancedOnly = _defaultStoryList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(StoryListUpdatedState(articleList: advancedOnly));
   }
 
   void _sortAll(StoryListSortAll event, Emitter<StoryListState> emit) {
-    var all = defaultStoryList;
+    var all = _defaultStoryList;
     emit(StoryListUpdatedState(articleList: all));
   }
 
   Future<void> _loadAll() async {
-    defaultStoryList = await _articleRepository.getDefaultStories();
+    _defaultStoryList = await _articleRepository.getDefaultStories();
   }
 }

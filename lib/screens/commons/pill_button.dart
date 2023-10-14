@@ -10,7 +10,13 @@ class PillButton extends StatelessWidget {
   final bool? isDisabled;
   final Color? backgroundColor;
 
-  const PillButton({super.key, required this.onTap, required this.title, this.icon, this.isDisabled = false, this.backgroundColor});
+  const PillButton(
+      {super.key,
+      required this.onTap,
+      required this.title,
+      this.icon,
+      this.isDisabled = false,
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +26,18 @@ class PillButton extends StatelessWidget {
           padding: EdgeInsets.zero.buttonEdgeInsets(),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
-              color: isDisabled! ? Theme.of(context).highlightColor: backgroundColor ?? Theme.of(context).primaryColor),
+              color: isDisabled!
+                  ? Theme.of(context).highlightColor
+                  : backgroundColor ?? Theme.of(context).primaryColor),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              icon!= null ?
-              Icon(icon, size: 18,) : const SizedBox.shrink(),
-              icon!= null ? const SizedBox().mediumWidth() : const SizedBox.shrink(),
+              if (icon != null)
+                Icon(
+                  icon,
+                  size: 18,
+                ),
+              if (icon != null) const SizedBox().mediumWidth(),
               Text(title.i18n),
             ],
           )),

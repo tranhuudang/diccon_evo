@@ -80,6 +80,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     _isLoadingStreamController.close();
     _chatStreamSubscription?.cancel();
   }
+
   @override
   Widget build(BuildContext context) {
     final questionAnswer = _chatGptRepository.singleQuestionAnswer;
@@ -89,63 +90,67 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: StreamBuilder<TranslationChoices>(
-                initialData: TranslationChoices.classic,
-                stream: _tabSwicherStreamController.stream,
-                builder: (context, tabSwitcher) {
-                  return Column(
-                    children: [
-                      SwitchTranslationBar(
-                        selectedItemSet:
-                            (Set<TranslationChoices> selectedItemSet) {
-                          _tabSwicherStreamController.add(selectedItemSet.first);
-                        },
-                      ),
-                      tabSwitcher.data == TranslationChoices.classic ?
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              WordTitle(
-                                message: widget.message,
-                                titleColor: Colors.white,
-                              ),
-                              const SizedBox(
-                                width: 8.0,
-                              ),
-                              WordPronunciation(message: widget.message),
-                              WordPlaybackButton(message: widget.message.word),
-                            ],
+          padding: const EdgeInsets.all(12.0),
+          child: StreamBuilder<TranslationChoices>(
+            initialData: TranslationChoices.classic,
+            stream: _tabSwicherStreamController.stream,
+            builder: (context, tabSwitcher) {
+              return Column(
+                children: [
+                  SwitchTranslationBar(
+                    selectedItemSet: (Set<TranslationChoices> selectedItemSet) {
+                      _tabSwicherStreamController.add(selectedItemSet.first);
+                    },
+                  ),
+                  if (tabSwitcher.data == TranslationChoices.classic) ...[
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            WordTitle(
+                              message: widget.message,
+                              titleColor: Colors.white,
+                            ),
+                            const SizedBox(
+                              width: 8.0,
+                            ),
+                            WordPronunciation(message: widget.message),
+                            WordPlaybackButton(message: widget.message.word),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            WordMeaning(
+                              message: widget.message,
+                              onWordTap: widget.onWordTap,
+                              highlightColor: Colors.white,
+                              subColor: Colors.white70,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                  if (tabSwitcher.data == TranslationChoices.ai) ...[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: Text(
+                            answer,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                          Row(
-                            children: [
-                              WordMeaning(
-                                message: widget.message,
-                                onWordTap: widget.onWordTap,
-                                highlightColor: Colors.white,
-                                subColor: Colors.white70,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ): const SizedBox.shrink(),
-                      tabSwitcher.data == TranslationChoices.ai ?
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children:
-
-                          [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Text(answer, style: Theme.of(context).textTheme.bodyLarge,),
-                            )
-                          ],): const SizedBox.shrink(),
-                    ],
-                  );
-                })),
+                        )
+                      ],
+                    ),
+                  ],
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }
-
 }

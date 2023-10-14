@@ -14,11 +14,11 @@ class WordHistoryView extends StatefulWidget {
   State<WordHistoryView> createState() => _WordHistoryViewState();
 }
 class _WordHistoryViewState extends State<WordHistoryView> {
-  final historyListCubit = HistoryListCubit();
+  final _historyListCubit = HistoryListCubit();
 
   @override
   void initState(){
-    historyListCubit.loadHistory();
+    _historyListCubit.loadHistory();
     super.initState();
   }
   @override
@@ -28,7 +28,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
         body: Stack(
           children: [
             BlocBuilder<HistoryListCubit, List<String>>(
-              bloc: historyListCubit,
+              bloc: _historyListCubit,
               builder: (context, state) {
                 if (state.isEmpty) {
                   return Center(
@@ -72,7 +72,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
               title: "History".i18n,
               actions: [
                 IconButton(
-                    onPressed: () => historyListCubit.sortAlphabet(),
+                    onPressed: () => _historyListCubit.sortAlphabet(),
                     icon: const Icon(Icons.sort_by_alpha)),
                 PopupMenuButton(
                   //splashRadius: 10.0,
@@ -83,11 +83,11 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                   itemBuilder: (context) => [
                     PopupMenuItem(
                       child: Text("Reverse List".i18n),
-                      onTap: () => historyListCubit.sortReverse(),
+                      onTap: () => _historyListCubit.sortReverse(),
                     ),
                     PopupMenuItem(
                       child: Text("Clear all".i18n),
-                      onTap: () => historyListCubit.clearHistory(),
+                      onTap: () => _historyListCubit.clearHistory(),
                     ),
                   ],
                 ),

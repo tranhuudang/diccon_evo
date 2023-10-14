@@ -77,18 +77,18 @@ class StoryBookmarkBloc
     on<StoryBookmarkClear>(_clear);
     on<StoryBookmarkRemove>(_removeAStory);
   }
-  final storyRepository = StoryRepository();
-  var loadedStoryBookmarkList = List<Story>.empty();
+  final _storyRepository = StoryRepository();
+  var _loadedStoryBookmarkList = List<Story>.empty();
 
   FutureOr<void> _loadBookmarkList(
       StoryBookmarkLoad event, Emitter<StoryBookmarkState> emit) async {
     try {
-      loadedStoryBookmarkList = await storyRepository.readStoryBookmark();
-      if (loadedStoryBookmarkList.isEmpty) {
+      _loadedStoryBookmarkList = await _storyRepository.readStoryBookmark();
+      if (_loadedStoryBookmarkList.isEmpty) {
         emit(StoryBookmarkEmptyState());
       } else {
         emit(
-            StoryBookmarkUpdated(stories: loadedStoryBookmarkList));
+            StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
       }
     } catch (e) {
       if (kDebugMode) {
@@ -119,7 +119,7 @@ class StoryBookmarkBloc
 
   FutureOr<void> _sortElementary(
       StoryBookmarkSortElementary event, Emitter<StoryBookmarkState> emit) {
-    var elementaryOnly = loadedStoryBookmarkList
+    var elementaryOnly = _loadedStoryBookmarkList
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
         .toList();
@@ -128,7 +128,7 @@ class StoryBookmarkBloc
 
   FutureOr<void> _sortIntermediate(
       StoryBookmarkSortIntermediate event, Emitter<StoryBookmarkState> emit) {
-    var intermediateOnly = loadedStoryBookmarkList
+    var intermediateOnly = _loadedStoryBookmarkList
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
         .toList();
@@ -137,7 +137,7 @@ class StoryBookmarkBloc
 
   FutureOr<void> _sortAdvanced(
       StoryBookmarkSortAdvanced event, Emitter<StoryBookmarkState> emit) {
-    var advancedOnly = loadedStoryBookmarkList
+    var advancedOnly = _loadedStoryBookmarkList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(StoryBookmarkUpdated(stories: advancedOnly));
@@ -145,25 +145,25 @@ class StoryBookmarkBloc
 
   FutureOr<void> _removeAStory(
       StoryBookmarkRemove event, Emitter<StoryBookmarkState> emit) async {
-    storyRepository.removeAStoryInBookmark(event.story);
+    _storyRepository.removeAStoryInBookmark(event.story);
     //loadedStoryBookmarkList.remove(event.story);
-    emit(StoryBookmarkUpdated(stories: loadedStoryBookmarkList));
+    emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
   }
 
   FutureOr<void> _all(
       StoryBookmarkGetAll event, Emitter<StoryBookmarkState> emit) async {
-    emit(StoryBookmarkUpdated(stories: loadedStoryBookmarkList));
+    emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
   }
 
   FutureOr<void> _clear(
       StoryBookmarkClear event, Emitter<StoryBookmarkState> emit) {
-    storyRepository.deleteAllStoryBookmark();
+    _storyRepository.deleteAllStoryBookmark();
     emit(StoryBookmarkEmptyState());
   }
 
   FutureOr<void> _add(
       StoryBookmarkAdd event, Emitter<StoryBookmarkState> emit) async {
-    await storyRepository.saveReadStoryToBookmark(event.stories);
+    await _storyRepository.saveReadStoryToBookmark(event.stories);
     if (kDebugMode) {
       print("${event.stories.title} is added to Bookmark file.");
     }

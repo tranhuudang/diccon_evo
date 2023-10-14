@@ -12,10 +12,10 @@ class WordPlaybackButton extends StatefulWidget {
 }
 
 class _WordPlaybackButtonState extends State<WordPlaybackButton> {
-  final streamController = StreamController<bool>();
+  final _streamController = StreamController<bool>();
   void listenToProgress(Stream<bool> progressStream) {
     progressStream.listen((isDownloaded) {
-      streamController.sink.add(isDownloaded);
+      _streamController.sink.add(isDownloaded);
       if (kDebugMode) {
         print("the sound track downloaded is $isDownloaded");
       } // You can update your UI or perform actions based on these messages.
@@ -25,7 +25,7 @@ class _WordPlaybackButtonState extends State<WordPlaybackButton> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
-        stream: streamController.stream,
+        stream: _streamController.stream,
         initialData: true,
         builder: (context, snapshot) {
           return snapshot.data!

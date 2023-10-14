@@ -62,16 +62,16 @@ class LearningBloc extends Bloc<LearningEvent, LearningState> {
     on<RemoveFromFavourite>(_removeFromFavourite);
   }
   final pageViewController = PageController();
-  List<EssentialWord> listFavouriteEssential = [];
+  List<EssentialWord> _listFavouriteEssential = [];
   List<EssentialWord> listEssentialWordByTopic = [];
 
   FutureOr<void> _initial(
       InitialLearningEssential event, Emitter<LearningState> emit) async {
     emit(LearningLoadingState());
-    listFavouriteEssential = await EssentialWordRepository.readFavouriteEssential();
+    _listFavouriteEssential = await EssentialWordRepository.readFavouriteEssential();
     listEssentialWordByTopic =
         await EssentialWordRepository.loadEssentialData(event.topic);
-    if (listFavouriteEssential.any(
+    if (_listFavouriteEssential.any(
         (element) => element.english == listEssentialWordByTopic[0].english)) {
       emit(LearningUpdatedState(
           listEssentialWord: listEssentialWordByTopic,
@@ -103,7 +103,7 @@ class LearningBloc extends Bloc<LearningEvent, LearningState> {
       OnPageChanged event, Emitter<LearningState> emit) {
     var currentWord = listEssentialWordByTopic[event.currentPageIndex];
     // check to see if current word is a favourite word
-    if (listFavouriteEssential
+    if (_listFavouriteEssential
         .any((element) => element.english == currentWord.english)) {
       emit(LearningUpdatedState(
           listEssentialWord: listEssentialWordByTopic,
@@ -118,14 +118,14 @@ class LearningBloc extends Bloc<LearningEvent, LearningState> {
   FutureOr<void> _gotItTips(GotItTips event, Emitter<LearningState> emit) {}
   FutureOr<void> _addToFavourite(
       AddToFavourite event, Emitter<LearningState> emit) {
-    listFavouriteEssential.add(event.word);
+    _listFavouriteEssential.add(event.word);
     EssentialWordRepository.saveEssentialWordToFavourite(event.word);
     emit(LearningUpdatedState(isCurrentWordFavourite: true, listEssentialWord: listEssentialWordByTopic));
   }
 
   FutureOr<void> _removeFromFavourite(
       RemoveFromFavourite event, Emitter<LearningState> emit) {
-    listFavouriteEssential.remove(event.word);
+    _listFavouriteEssential.remove(event.word);
     EssentialWordRepository.removeEssentialWordOutOfFavourite(event.word);
     emit(LearningUpdatedState(isCurrentWordFavourite: false, listEssentialWord: listEssentialWordByTopic));
   }

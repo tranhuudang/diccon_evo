@@ -17,7 +17,6 @@ class UserSettingsView extends StatefulWidget {
 }
 
 class _UserSettingsViewState extends State<UserSettingsView> {
-
   @override
   Widget build(BuildContext context) {
     final userBloc = context.read<UserBloc>();
@@ -69,20 +68,19 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                userLoginState.userInfo.photoURL.isNotEmpty
-                                    ? ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                        child: Image(
-                                          height: 70,
-                                          width: 70,
-                                          image: NetworkImage(userLoginState
-                                              .userInfo.photoURL),
-                                          fit: BoxFit
-                                              .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
-                                        ),
-                                      )
-                                    : const SizedBox.shrink(),
+                                if (userLoginState
+                                    .userInfo.photoURL.isNotEmpty)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    child: Image(
+                                      height: 70,
+                                      width: 70,
+                                      image: NetworkImage(
+                                          userLoginState.userInfo.photoURL),
+                                      fit: BoxFit
+                                          .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
+                                    ),
+                                  ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -141,8 +139,8 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                             ),
 
                             /// Loading Indicator for syncing process
-                            userLoginState.isSyncing
-                                ? Column(
+                            if (userLoginState.isSyncing)
+                                 Column(
                                     children: [
                                       const Padding(
                                         padding:
@@ -152,8 +150,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                       Text("Your data is syncing..".i18n),
                                       const SizedBox().mediumHeight(),
                                     ],
-                                  )
-                                : const SizedBox.shrink(),
+                                  ),
                           ],
                         ),
                       ],

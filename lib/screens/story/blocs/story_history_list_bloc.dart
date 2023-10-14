@@ -72,18 +72,18 @@ class StoryHistoryBloc
     on<StoryHistoryAdd>(_add);
     on<StoryHistoryClear>(_clear);
   }
-  final storyRepository = StoryRepository();
-  var loadedStoryHistoryList = List<Story>.empty();
+  final _storyRepository = StoryRepository();
+  var _loadedStoryHistoryList = List<Story>.empty();
 
   FutureOr<void> _loadHistoryList(
       StoryHistoryLoad event, Emitter<StoryHistoryState> emit) async {
     try {
-      loadedStoryHistoryList = await storyRepository.readStoryHistory();
-      if (loadedStoryHistoryList.isEmpty) {
+      _loadedStoryHistoryList = await _storyRepository.readStoryHistory();
+      if (_loadedStoryHistoryList.isEmpty) {
         emit(StoryHistoryEmptyState());
       } else {
         emit(
-            StoryHistoryUpdated(stories: loadedStoryHistoryList));
+            StoryHistoryUpdated(stories: _loadedStoryHistoryList));
       }
     } catch (e) {
       if (kDebugMode) {
@@ -114,7 +114,7 @@ class StoryHistoryBloc
 
   FutureOr<void> _sortElementary(
       StoryHistorySortElementary event, Emitter<StoryHistoryState> emit) {
-    var elementaryOnly = loadedStoryHistoryList
+    var elementaryOnly = _loadedStoryHistoryList
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
         .toList();
@@ -123,7 +123,7 @@ class StoryHistoryBloc
 
   FutureOr<void> _sortIntermediate(
       StoryHistorySortIntermediate event, Emitter<StoryHistoryState> emit) {
-    var intermediateOnly = loadedStoryHistoryList
+    var intermediateOnly = _loadedStoryHistoryList
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
         .toList();
@@ -132,7 +132,7 @@ class StoryHistoryBloc
 
   FutureOr<void> _sortAdvanced(
       StoryHistorySortAdvanced event, Emitter<StoryHistoryState> emit) {
-    var advancedOnly = loadedStoryHistoryList
+    var advancedOnly = _loadedStoryHistoryList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(StoryHistoryUpdated(stories: advancedOnly));
@@ -140,18 +140,18 @@ class StoryHistoryBloc
 
   FutureOr<void> _all(
       StoryHistoryGetAll event, Emitter<StoryHistoryState> emit) async {
-    emit(StoryHistoryUpdated(stories: loadedStoryHistoryList));
+    emit(StoryHistoryUpdated(stories: _loadedStoryHistoryList));
   }
 
   FutureOr<void> _clear(
       StoryHistoryClear event, Emitter<StoryHistoryState> emit) {
-    storyRepository.deleteAllStoryHistory();
+    _storyRepository.deleteAllStoryHistory();
     emit(StoryHistoryEmptyState());
   }
 
   FutureOr<void> _add(
       StoryHistoryAdd event, Emitter<StoryHistoryState> emit) async {
-    await storyRepository.saveReadStoryToHistory(event.story);
+    await _storyRepository.saveReadStoryToHistory(event.story);
     if (kDebugMode) {
       print("${event.story.title} is added to history file.");
     }
