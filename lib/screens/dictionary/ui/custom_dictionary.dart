@@ -66,15 +66,14 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                                 }).toList(),
                               );
                             }),
-                        defaultTargetPlatform.isDesktop()
-                            ? Padding(
+                        if (defaultTargetPlatform.isDesktop())
+                             Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: PageViewNavigator(
                                     itemCount: listChatPreviewContent.length,
                                     controller: _pageViewController,
                                     height: 550),
-                              )
-                            : const SizedBox.shrink(),
+                              ),
                       ],
                     ),
                   ),

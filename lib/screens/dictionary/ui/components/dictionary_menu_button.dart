@@ -17,12 +17,12 @@ class DictionaryMenuButton extends StatefulWidget {
 }
 
 class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
-  final streamController = StreamController<TranslationChoices>();
+  final _streamController = StreamController<TranslationChoices>();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    streamController.close();
+    _streamController.close();
   }
 
   @override
@@ -30,7 +30,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
     return StreamBuilder<TranslationChoices>(
       initialData:
           Properties.defaultSetting.translationChoice.toTranslationChoice(),
-      stream: streamController.stream,
+      stream: _streamController.stream,
       builder: (context, snapshot) {
         return PopupMenuButton(
           //splashRadius: 10.0,
@@ -68,7 +68,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       ],
                     ),
               onTap: () {
-                streamController.sink.add(TranslationChoices.ai);
+                _streamController.sink.add(TranslationChoices.ai);
                 Properties.defaultSetting = Properties.defaultSetting
                     .copyWith(translationChoice: TranslationChoices.ai.title());
                 Properties.saveSettings(Properties.defaultSetting);
@@ -100,7 +100,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       ],
                     ),
               onTap: () {
-                streamController.sink.add(TranslationChoices.classic);
+                _streamController.sink.add(TranslationChoices.classic);
                 Properties.defaultSetting = Properties.defaultSetting.copyWith(
                     translationChoice: TranslationChoices.classic.title());
                 Properties.saveSettings(Properties.defaultSetting);

@@ -32,57 +32,57 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<ScrollToBottom>(_scrollToBottom);
     on<CreateNewChatlist>(_createNewChatlist);
   }
-  List<ChatGptRepository> listChatGptRepository = [];
+  List<ChatGptRepository> _listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
   final TextEditingController textController = TextEditingController();
-  List<Widget> chatList = [const DictionaryWelcome()];
-  bool isReportedAboutDisconnection = false;
+  List<Widget> _chatList = [const DictionaryWelcome()];
+  bool _isReportedAboutDisconnection = false;
 
   /// Implement Events and Callbacks
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
-    chatList.add(ImageBubble(imageUrl: event.imageUrl));
-    emit(ChatListUpdated(chatList: chatList));
+    _chatList.add(ImageBubble(imageUrl: event.imageUrl));
+    emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
     emit(ImageAdded());
   }
 
   void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) {
     var listSynonyms = ThesaurusRepository().getSynonyms(event.providedWord);
-    chatList.add(BrickWallButtons(stringList: listSynonyms));
-    emit(ChatListUpdated(chatList: chatList));
+    _chatList.add(BrickWallButtons(stringList: listSynonyms));
+    emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
     emit(SynonymsAdded());
   }
 
   void _addAntonymsList(AddAntonyms event, Emitter<ChatListState> emit) {
     var listAntonyms = ThesaurusRepository().getAntonyms(event.providedWord);
-    chatList.add(BrickWallButtons(
+    _chatList.add(BrickWallButtons(
         textColor: Colors.orange,
         borderColor: Colors.orangeAccent,
         stringList: listAntonyms));
-    emit(ChatListUpdated(chatList: chatList));
+    emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
 
     emit(AntonymsAdded());
   }
 
   void _addSorryMessage(AddSorryMessage event, Emitter<ChatListState> emit) {
-    chatList.add(const Row(
+    _chatList.add(const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [Text("Sorry, we couldn't find this word at this time.")],
     ));
-    emit(ChatListUpdated(chatList: chatList));
+    emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
-    chatList.add(UserBubble(
+    _chatList.add(UserBubble(
       message: event.providedWord,
       onTap: () {
         textController.text = event.providedWord;
       },
     ));
-    emit(ChatListUpdated(chatList: chatList));
+    emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
   }
 
@@ -96,31 +96,31 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (Properties.defaultSetting.translationChoice.toTranslationChoice() ==
             TranslationChoices.ai &&
         !isInternetConnected &&
-        !isReportedAboutDisconnection) {
-      chatList.add(const NoInternetBubble());
-      emit(ChatListUpdated(chatList: chatList));
-      isReportedAboutDisconnection = true;
+        !_isReportedAboutDisconnection) {
+      _chatList.add(const NoInternetBubble());
+      emit(ChatListUpdated(chatList: _chatList));
+      _isReportedAboutDisconnection = true;
     }
     var newChatGptRepository = ChatGptRepository();
-    listChatGptRepository.add(newChatGptRepository);
-    var chatGptRepositoryIndex = listChatGptRepository.length - 1;
+    _listChatGptRepository.add(newChatGptRepository);
+    var chatGptRepositoryIndex = _listChatGptRepository.length - 1;
     var wordResult = await _getLocalTranslation(event.providedWord);
-    chatList.add(CombineBubble(
+    _chatList.add(CombineBubble(
         wordObjectForLocal: wordResult,
         wordForChatbot: event.providedWord,
         chatListController: chatListController,
         index: chatGptRepositoryIndex,
-        listChatGptRepository: listChatGptRepository));
-    emit(ChatListUpdated(chatList: chatList));
+        listChatGptRepository: _listChatGptRepository));
+    emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
   }
 
 
   FutureOr<void> _createNewChatlist(CreateNewChatlist event, Emitter<ChatListState> emit){
-    listChatGptRepository = [];
+    _listChatGptRepository = [];
     textController.clear();
-    chatList = [const DictionaryWelcome()];
-    emit(ChatListUpdated(chatList: chatList));
+    _chatList = [const DictionaryWelcome()];
+    emit(ChatListUpdated(chatList: _chatList));
   }
   Future<Word> _getLocalTranslation(String providedWord) async {
     Word? wordResult = await Searching.getDefinition(providedWord);

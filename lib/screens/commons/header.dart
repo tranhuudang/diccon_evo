@@ -83,21 +83,19 @@ class HeaderWithBlurEffect extends StatelessWidget {
                       Navigator.pop(context);
                     }),
                 const SizedBox().mediumWidth(),
-                title != null
-                    ? Text(
+                if(title != null)
+                    Text(
                         title!,
                         style: const TextStyle(fontSize: 26),
-                      )
-                    : const SizedBox.shrink(),
+                      ),
                 const SizedBox(
                   width: 16,
                 ),
                 const Spacer(),
-                actions != null
-                    ? Row(
+                if(actions != null)
+                     Row(
                         children: actions!,
-                      )
-                    : const SizedBox.shrink(),
+                      ),
               ],
             ),
           ),

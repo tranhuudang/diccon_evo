@@ -18,7 +18,9 @@ class ChatbotBubble extends StatefulWidget {
     Key? key,
     this.onWordTap,
     required this.word,
-    required this.chatListController, required this.index, required this.listChatGptRepository,
+    required this.chatListController,
+    required this.index,
+    required this.listChatGptRepository,
   }) : super(key: key);
 
   final Function(String)? onWordTap;
@@ -41,8 +43,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     _chatStreamSubscription?.cancel();
     _isLoadingStreamController.sink.add(true);
     try {
-      final stream =
-          await widget.listChatGptRepository[widget.index].chatGpt.createChatCompletionStream(request);
+      final stream = await widget.listChatGptRepository[widget.index].chatGpt
+          .createChatCompletionStream(request);
       _chatStreamSubscription = stream?.listen(
         (event) => setState(
           () {
@@ -57,7 +59,9 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               //     curve: Curves.linear,
               //   );
               // });
-              return widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.write(
+              return widget.listChatGptRepository[widget.index]
+                  .singleQuestionAnswer.answer
+                  .write(
                 event.choices?.first.delta?.content,
               );
             }
@@ -66,8 +70,9 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
       );
     } catch (error) {
       setState(() {
-        widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.write(
-            "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
+        widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
+            .write(
+                "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
       });
       if (kDebugMode) {
         print("Error occurred: $error");
@@ -82,7 +87,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   }
 
   void _getGptResponse() async {
-    if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.isEmpty) {
+    if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
+        .isEmpty) {
       var request = await _getQuestionRequest();
       _chatStreamResponse(request);
     }
@@ -90,14 +96,16 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
 
   // This function be used to resend the question to gpt to get new answer
   void _reGetGptResponse() async {
-    widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.clear();
-      var request = await _getQuestionRequest();
-      _chatStreamResponse(request);
+    widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
+        .clear();
+    var request = await _getQuestionRequest();
+    _chatStreamResponse(request);
   }
 
   Future<ChatCompletionRequest> _getQuestionRequest() async {
     var question = '';
-    switch (Properties.defaultSetting.dictionaryResponseType.toDictionaryResponseType()) {
+    switch (Properties.defaultSetting.dictionaryResponseType
+        .toDictionaryResponseType()) {
       case DictionaryResponseType.shortWithOutPronunciation:
         question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
         break;
@@ -121,7 +129,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
         question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
         break;
     }
-    var request = await widget.listChatGptRepository[widget.index].createSingleQuestionRequest(question);
+    var request = await widget.listChatGptRepository[widget.index]
+        .createSingleQuestionRequest(question);
     return request;
   }
 
@@ -135,15 +144,17 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    var answer =
-    widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer.toString().trim();
+    var answer = widget
+        .listChatGptRepository[widget.index].singleQuestionAnswer.answer
+        .toString()
+        .trim();
     final chatListBloc = context.read<ChatListBloc>();
     return Container(
       constraints: const BoxConstraints(
         maxWidth: 600,
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 12,right: 12,bottom: 12),
+        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -155,17 +166,14 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                     children: [
                       WordPlaybackButton(message: widget.word),
                       const Spacer(),
-                      snapshot.data!
-                          ? IconButton(
-                              onPressed: () {
-                                // Cancel response
-                                _chatStreamSubscription?.cancel();
-                                _isLoadingStreamController.sink
-                                    .add(false);
-                              },
-                              icon:
-                                  const Icon(Icons.stop_circle_outlined))
-                          : const SizedBox.shrink(),
+                      if (snapshot.data!)
+                        IconButton(
+                            onPressed: () {
+                              // Cancel response
+                              _chatStreamSubscription?.cancel();
+                              _isLoadingStreamController.sink.add(false);
+                            },
+                            icon: const Icon(Icons.stop_circle_outlined)),
                       const SizedBox().mediumWidth(),
                       snapshot.data!
                           ? const Padding(
@@ -191,8 +199,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
             ClickableWords(
                 onWordTap: (word) {
                   chatListBloc.add(AddUserMessage(providedWord: word));
-                  chatListBloc
-                      .add(AddLocalTranslation(providedWord: word));
+                  chatListBloc.add(AddLocalTranslation(providedWord: word));
                 },
                 text: answer)
             // SelectableText(

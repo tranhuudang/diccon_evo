@@ -10,7 +10,8 @@ class ConversationMachineBubble extends StatefulWidget {
     required this.questionRequest,
     this.onWordTap,
     required this.chatGptRepository,
-    required this.answerIndex, required this.conversationScrollController,
+    required this.answerIndex,
+    required this.conversationScrollController,
   }) : super(key: key);
 
   final ChatCompletionRequest questionRequest;
@@ -20,18 +21,19 @@ class ConversationMachineBubble extends StatefulWidget {
   final ScrollController conversationScrollController;
 
   @override
-  State<ConversationMachineBubble> createState() => _ConversationMachineBubbleState();
+  State<ConversationMachineBubble> createState() =>
+      _ConversationMachineBubbleState();
 }
 
 class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
     with AutomaticKeepAliveClientMixin {
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
-  final isLoadingStreamController = StreamController<bool>();
+  final _isLoadingStreamController = StreamController<bool>();
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
-    isLoadingStreamController.sink.add(true);
+    _isLoadingStreamController.sink.add(true);
     try {
       final stream = await widget.chatGptRepository.chatGpt
           .createChatCompletionStream(request);
@@ -40,7 +42,7 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
           () {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
-              isLoadingStreamController.sink.add(false);
+              _isLoadingStreamController.sink.add(false);
             } else {
               _scrollToBottom();
               return widget.chatGptRepository.questionAnswers.last.answer.write(
@@ -84,7 +86,7 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
   @override
   void dispose() {
     _chatStreamSubscription?.cancel();
-    isLoadingStreamController.close();
+    _isLoadingStreamController.close();
     super.dispose();
   }
 
@@ -115,51 +117,53 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 StreamBuilder<bool>(
-                  initialData: false,
-                  stream: isLoadingStreamController.stream,
-                  builder: (context, snapshot) {
-                    return  Row(
-                      children: [
-                        const Spacer(),
-                        snapshot.data!
-                            ? IconButton(
-                            onPressed: () {
-                              _chatStreamSubscription?.cancel();
-                              isLoadingStreamController.sink.add(false);
-                            },
-                            icon:
-                            const Icon(Icons.stop_circle_outlined))
-                            : const SizedBox.shrink(),
-                        snapshot.data!
-                            ? const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: SizedBox(
-                            height: 15,
-                            width: 15,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                            : IconButton(
-                            onPressed: () {
-                              isLoadingStreamController.sink.add(true);
-                              widget
-                                  .chatGptRepository
-                                  .questionAnswers[widget.answerIndex]
-                                  .answer
-                                  .clear();
-                              _chatStreamResponse(
-                                  widget.questionRequest);
-                            },
-                            icon: const Icon(Icons.cached_rounded)),
-                      ],
-                    );
-                  }
-                ),
+                    initialData: false,
+                    stream: _isLoadingStreamController.stream,
+                    builder: (context, snapshot) {
+                      return Row(
+                        children: [
+                          const Spacer(),
+                          if (snapshot.data!)
+                            IconButton(
+                                onPressed: () {
+                                  _chatStreamSubscription?.cancel();
+                                  _isLoadingStreamController.sink.add(false);
+                                },
+                                icon: const Icon(Icons.stop_circle_outlined)),
+                          snapshot.data!
+                              ? const Padding(
+                                  padding: EdgeInsets.only(right: 12),
+                                  child: SizedBox(
+                                    height: 15,
+                                    width: 15,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : IconButton(
+                                  onPressed: () {
+                                    _isLoadingStreamController.sink.add(true);
+                                    widget
+                                        .chatGptRepository
+                                        .questionAnswers[widget.answerIndex]
+                                        .answer
+                                        .clear();
+                                    _chatStreamResponse(widget.questionRequest);
+                                  },
+                                  icon: const Icon(Icons.cached_rounded)),
+                        ],
+                      );
+                    }),
                 Align(
-                    alignment:Alignment.topLeft,
-                    child: SelectableText(answer, style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),)),
+                    alignment: Alignment.topLeft,
+                    child: SelectableText(
+                      answer,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: Colors.white),
+                    )),
               ],
             ),
           ),

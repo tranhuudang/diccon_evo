@@ -81,10 +81,10 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
                       WordMeaning(
                         message: widget.word,
                         onWordTap: (String currentWord) {
+                          chatListBloc
+                              .add(AddUserMessage(providedWord: currentWord));
                           chatListBloc.add(
-                              AddUserMessage(providedWord: currentWord));
-                          chatListBloc.add(AddLocalTranslation(
-                              providedWord: currentWord));
+                              AddLocalTranslation(providedWord: currentWord));
                         },
                         highlightColor: Colors.white,
                         subColor: Colors.white70,
@@ -100,17 +100,16 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              _isTooLarge
-                  ? ExpandBubbleButton(
-                      onTap: () {
-                        setState(
-                          () {
-                            _isTooLarge = !_isTooLarge;
-                          },
-                        );
+              if (_isTooLarge)
+                ExpandBubbleButton(
+                  onTap: () {
+                    setState(
+                      () {
+                        _isTooLarge = !_isTooLarge;
                       },
-                    )
-                  : const SizedBox.shrink(),
+                    );
+                  },
+                ),
             ],
           ),
         ],

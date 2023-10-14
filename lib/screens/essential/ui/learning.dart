@@ -26,11 +26,11 @@ class LearningView extends StatefulWidget {
 }
 
 class _LearningViewState extends State<LearningView> {
-  final learningBloc = LearningBloc();
+  final _learningBloc = LearningBloc();
   @override
   void initState() {
     super.initState();
-    learningBloc.add(InitialLearningEssential(topic: widget.topic));
+    _learningBloc.add(InitialLearningEssential(topic: widget.topic));
   }
 
   @override
@@ -81,7 +81,7 @@ class _LearningViewState extends State<LearningView> {
               fontWeight: FontWeight.bold,
             )),
         BlocBuilder<LearningBloc, LearningState>(
-            bloc: learningBloc,
+            bloc: _learningBloc,
             builder: (context, state) {
               switch (state.runtimeType) {
                 case LearningUpdatedState:
@@ -95,7 +95,7 @@ class _LearningViewState extends State<LearningView> {
                           height: 250,
                           child: PageView.builder(
                             onPageChanged: (index) {
-                              learningBloc
+                              _learningBloc
                                   .add(OnPageChanged(currentPageIndex: index));
                               Properties.saveSettings(Properties.defaultSetting
                                   .copyWith(
@@ -109,7 +109,7 @@ class _LearningViewState extends State<LearningView> {
                               }
                               currentIndex = index;
                             },
-                            controller: learningBloc.pageViewController,
+                            controller: _learningBloc.pageViewController,
                             itemCount: widget.listEssentialWord.length,
                             itemBuilder: (context, index) {
                               return Padding(
@@ -131,8 +131,8 @@ class _LearningViewState extends State<LearningView> {
                         ),
                       ),
                       SmoothPageIndicator(
-                        controller: learningBloc.pageViewController,
-                        count: learningBloc.listEssentialWordByTopic.length,
+                        controller: _learningBloc.pageViewController,
+                        count: _learningBloc.listEssentialWordByTopic.length,
                         effect: ScrollingDotsEffect(
                           maxVisibleDots: 5,
                           dotHeight: 8,
@@ -146,24 +146,23 @@ class _LearningViewState extends State<LearningView> {
                       Row(
                         children: [
                           // Only display navigation bar on desktop devices
-                          defaultTargetPlatform.isDesktop()
-                              ? CircleButtonBar(
-                                  children: [
-                                    CircleButton(
-                                      iconData: FontAwesomeIcons.chevronLeft,
-                                      onTap: () {
-                                        learningBloc.add(GoToPreviousCard());
-                                      },
-                                    ),
-                                    CircleButton(
-                                      iconData: FontAwesomeIcons.chevronRight,
-                                      onTap: () {
-                                        learningBloc.add(GoToNextCard());
-                                      },
-                                    ),
-                                  ],
-                                )
-                              : const SizedBox.shrink(),
+                          if (defaultTargetPlatform.isDesktop())
+                            CircleButtonBar(
+                              children: [
+                                CircleButton(
+                                  iconData: FontAwesomeIcons.chevronLeft,
+                                  onTap: () {
+                                    _learningBloc.add(GoToPreviousCard());
+                                  },
+                                ),
+                                CircleButton(
+                                  iconData: FontAwesomeIcons.chevronRight,
+                                  onTap: () {
+                                    _learningBloc.add(GoToNextCard());
+                                  },
+                                ),
+                              ],
+                            ),
                           const Spacer(),
 
                           /// Mark as done button
@@ -186,11 +185,11 @@ class _LearningViewState extends State<LearningView> {
                             iconData: FontAwesomeIcons.heart,
                             onTap: () {
                               if (data.isCurrentWordFavourite) {
-                                learningBloc.add(RemoveFromFavourite(
+                                _learningBloc.add(RemoveFromFavourite(
                                     word: widget
                                         .listEssentialWord[currentIndex]));
                               } else {
-                                learningBloc.add(AddToFavourite(
+                                _learningBloc.add(AddToFavourite(
                                     word: widget
                                         .listEssentialWord[currentIndex]));
                               }

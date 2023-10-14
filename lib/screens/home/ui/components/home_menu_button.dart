@@ -34,51 +34,42 @@ class HomeMenuButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
           ),
           itemBuilder: (context) => [
-            defaultTargetPlatform.isMobile()
-                ? PopupMenuItem(
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.account_circle_outlined,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Text("Account".i18n),
-                      ],
+            if (defaultTargetPlatform.isMobile())
+              PopupMenuItem(
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.account_circle_outlined,
                     ),
-                    onTap: () {
-                      context.pushNamed('user-settings');
-                    },
-                  )
-                : const PopupMenuItem(
-                    enabled: false,
-                    height: 0,
-                    child: SizedBox.shrink(),
-                  ),
-            Properties.userInfo != UserInfo.empty()
-                ? PopupMenuItem(
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.sync,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Text("Sync".i18n),
-                      ],
+                    const SizedBox(
+                      width: 8,
                     ),
-                    onTap: () {
-                      context
-                          .read<UserBloc>()
-                          .add(UserSyncEvent(userInfo: Properties.userInfo));
-                    },
-                  )
-                : const PopupMenuItem(
-                    height: 0,
-                    child: SizedBox.shrink(),
-                  ),
+                    Text("Account".i18n),
+                  ],
+                ),
+                onTap: () {
+                  context.pushNamed('user-settings');
+                },
+              ),
+            if (Properties.userInfo != UserInfo.empty())
+              PopupMenuItem(
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.sync,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text("Sync".i18n),
+                  ],
+                ),
+                onTap: () {
+                  context
+                      .read<UserBloc>()
+                      .add(UserSyncEvent(userInfo: Properties.userInfo));
+                },
+              ),
             PopupMenuItem(
               child: Row(
                 children: [

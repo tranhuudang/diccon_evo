@@ -14,11 +14,11 @@ class DictionaryWelcome extends StatefulWidget {
 }
 
 class _DictionaryWelcomeState extends State<DictionaryWelcome> {
-  final streamController = StreamController<bool>();
+  final _streamController = StreamController<bool>();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
-        stream: streamController.stream,
+        stream: _streamController.stream,
         builder: (context, snapshot) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
