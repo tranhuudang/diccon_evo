@@ -353,9 +353,9 @@ extension Localization on String {
     },
     "* The changes will become effective the next time you open the app.": {
       "en_us":
-          "* The changes will become effective the next time you open the app.",
+          "Note: The changes will become effective the next time you open the app.",
       "vi_vi":
-          "* Những thay đổi sẽ có hiệu lực vào lần tiếp theo bạn mở ứng dụng.",
+          "Ghi chú: Những thay đổi sẽ có hiệu lực vào lần tiếp theo bạn mở ứng dụng.",
     },
     "Common Section": {
       "en_us": "Common Section",
