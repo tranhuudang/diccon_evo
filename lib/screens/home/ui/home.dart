@@ -40,6 +40,12 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   DateTime _backPressedTime = DateTime.now();
 
   _loadUpData() async {
+    /// Inscease count number to count the how many time user open app
+    Properties.saveSettings(Properties.defaultSetting
+        .copyWith(openAppCount: Properties.defaultSetting.openAppCount + 1));
+    if (kDebugMode) {
+      print(" Current Properties.defaultSetting.openAppCount value: ${Properties.defaultSetting.openAppCount.toString()}");
+    }
     /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
     Properties.wordList = await DictionaryRepository().getWordList();
     // Load up thesaurus dictionary
@@ -48,7 +54,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
     Properties.suggestionListWord =
         await DictionaryRepository().getSuggestionWordList();
   }
-
 
   /// Detect when windows is changing size
   @override
@@ -73,6 +78,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
   @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(_backPressedTime);
@@ -270,32 +276,31 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                       ),
                     ),
                     if (snapshot.data!)
-                        SizedBox(
-                            height: 48,
-                            //color: Colors.black54,
-                            child: Row(
-                              children: [
-                                const Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child:
-                                      Center(child: TinyCloseButton(onTap: () {
-                                    _searchTextController.clear();
-                                    // Dismiss keyboard
-                                    FocusScopeNode currentFocus =
-                                        FocusScope.of(context);
+                      SizedBox(
+                        height: 48,
+                        //color: Colors.black54,
+                        child: Row(
+                          children: [
+                            const Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: Center(child: TinyCloseButton(onTap: () {
+                                _searchTextController.clear();
+                                // Dismiss keyboard
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
 
-                                    if (!currentFocus.hasPrimaryFocus) {
-                                      currentFocus.unfocus();
-                                    }
-                                    // Erase tiny button
-                                    _tinyCloseButtonStreamController.add(false);
-                                    _tinyCloseButtonStreamController.add(false);
-                                  })),
-                                )
-                              ],
-                            ),
-                          ),
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                                // Erase tiny button
+                                _tinyCloseButtonStreamController.add(false);
+                                _tinyCloseButtonStreamController.add(false);
+                              })),
+                            )
+                          ],
+                        ),
+                      ),
                   ],
                 );
               }),

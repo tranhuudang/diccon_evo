@@ -28,6 +28,18 @@ extension Localization on String {
       "en_us": "You're not connected",
       "vi_vi": "Không có kết nối mạng",
     },
+    "We'd love to hear your feedback!": {
+      "en_us": "We'd love to hear your feedback!",
+      "vi_vi": "Bạn có thích sử dụng Diccon không?",
+    },
+    "Give feedbacks": {
+      "en_us": "Give feedbacks",
+      "vi_vi": "Gửi phản hồi",
+    },
+    "Later": {
+      "en_us": "Later",
+      "vi_vi": "Để sau",
+    },
     "SubSentenceInNoInternetBubble": {
       "en_us":
           "No internet. You are not connected to the internet, or your internet connection is experiencing an issue.",

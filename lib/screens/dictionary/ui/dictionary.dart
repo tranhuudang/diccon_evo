@@ -108,6 +108,7 @@ class _DictionaryViewState extends State<DictionaryView> {
   @override
   Widget build(BuildContext context) {
     var chatListBloc = context.read<ChatListBloc>();
+
     return SafeArea(
       child: Scaffold(
         body: Stack(

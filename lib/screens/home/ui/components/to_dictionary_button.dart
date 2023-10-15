@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/route_constants.dart';
+import '../../../../data/helpers/feedback_helper.dart';
 import 'feature_button.dart';
 
 class ToDictionaryButton extends StatelessWidget {
@@ -12,6 +13,7 @@ class ToDictionaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FeatureButton(
       onTap: () {
+        FeedbackHelper.showFeedbackBottomSheet(context);
         context.pushNamed(RouterConstants.dictionary);
       },
       child: Column(

@@ -38,7 +38,7 @@ class Properties {
       readingFontSizeSliderValue: 0.2,
       windowsWidth: 400,
       windowsHeight: 700,
-      themeMode: 'ThemeMode.system');
+      themeMode: 'ThemeMode.system', openAppCount: 0);
 
   static void saveSettings(Setting newSetting) async {
     var prefs = await SharedPreferences.getInstance();
@@ -50,6 +50,7 @@ class Properties {
         'readingFontSizeSliderValue', newSetting.readingFontSizeSliderValue);
     await prefs.setInt('numberOfSynonyms', newSetting.numberOfSynonyms);
     await prefs.setInt('numberOfAntonyms', newSetting.numberOfAntonyms);
+    await prefs.setInt('openAppCount', newSetting.openAppCount);
     await prefs.setString('language', newSetting.language);
     await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
     await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
@@ -69,6 +70,7 @@ class Properties {
             defaultSetting.readingFontSize,
         translationChoice: prefs.getString('translationChoice') ??
             defaultSetting.translationChoice,
+        openAppCount: prefs.getInt("openAppCount") ?? defaultSetting.openAppCount,
         dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
             defaultSetting.dictionaryResponseType,
         readingFontSizeSliderValue:

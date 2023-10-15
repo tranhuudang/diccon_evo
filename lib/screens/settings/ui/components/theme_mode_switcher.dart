@@ -15,7 +15,7 @@ class ThemeSwitcher extends StatefulWidget {
 }
 
 class _ThemeSwitcherState extends State<ThemeSwitcher> {
-  StreamController<ThemeMode> _streamController = StreamController<ThemeMode>();
+  final _streamController = StreamController<ThemeMode>();
 
   @override
   Widget build(BuildContext context) {

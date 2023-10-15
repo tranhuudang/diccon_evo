@@ -1,4 +1,5 @@
 import 'package:diccon_evo/config/properties.dart';
+import 'package:diccon_evo/data/helpers/feedback_helper.dart';
 import 'package:diccon_evo/data/models/user_info.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeMenuButton extends StatelessWidget {
   const HomeMenuButton({
@@ -115,23 +115,7 @@ class HomeMenuButton extends StatelessWidget {
                   Text("Feedbacks".i18n),
                 ],
               ),
-              onTap: () async {
-                if (defaultTargetPlatform.isMobile()) {
-                  final Uri url = Uri.parse(
-                      'https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo');
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
-                } else {
-                  final Uri url = Uri.parse(
-                      'https://apps.microsoft.com/store/detail/diccon-evo/9NPF4HBMNG5D');
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
-                }
-              },
+              onTap: () => FeedbackHelper.goToStoreListing(),
             ),
           ],
         ),

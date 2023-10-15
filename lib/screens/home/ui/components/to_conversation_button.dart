@@ -1,8 +1,10 @@
+import 'package:diccon_evo/data/helpers/feedback_helper.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/route_constants.dart';
 import 'feature_button.dart';
+
 class ToConversationButton extends StatelessWidget {
   const ToConversationButton({
     super.key,
@@ -13,9 +15,10 @@ class ToConversationButton extends StatelessWidget {
     return FeatureButton(
       backgroundColor: Theme.of(context).primaryColor,
       onTap: () {
+        FeedbackHelper.showFeedbackBottomSheet(context);
         context.pushNamed(RouterConstants.conversation);
       },
-      child:  Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -27,18 +30,19 @@ class ToConversationButton extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: const Icon(Icons.chat)),
           const SizedBox(height: 4),
-           Text(
+          Text(
             "Ask me anything".i18n,
             style: const TextStyle(fontSize: 12),
           ),
           const Text(
             "Mr. Know It All",
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
         ],
       ),
     );
   }
+
+
 }
