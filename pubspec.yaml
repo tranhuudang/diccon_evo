@@ -118,6 +118,7 @@ flutter:
     - assets/essential/
     - assets/stories/
     - assets/stickers/
+    - assets/theme/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

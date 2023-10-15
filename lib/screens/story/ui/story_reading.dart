@@ -208,6 +208,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     wordResult = await Searching.getDefinition(searchWord);
     if (wordResult != null) {
       showModalBottomSheet(
+        backgroundColor: Theme.of(context).primaryColor,
         context: currentContext, // Use the captured context here
         builder: (BuildContext context) {
           return SizedBox(
