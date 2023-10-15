@@ -60,7 +60,7 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
                               border: Border.all(
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context).colorScheme.primary,
                               )),
                           child: Text(
                             "Customize your experience".i18n,

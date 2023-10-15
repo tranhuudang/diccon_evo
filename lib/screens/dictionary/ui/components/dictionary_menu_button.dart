@@ -45,13 +45,13 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       children: [
                         Icon(
                           Icons.auto_awesome,
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         const SizedBox().mediumWidth(),
                         Text(
                           "AI Dictionary",
                           style: TextStyle(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ],
@@ -83,12 +83,12 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       children: [
                         Icon(
                           Icons.book,
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         const SizedBox().mediumWidth(),
                         Text("Classic Dictionary",
                             style: TextStyle(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                             )),
                       ],
                     )

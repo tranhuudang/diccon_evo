@@ -12,27 +12,25 @@ class HistoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).primaryTextTheme;
     final chatListBloc = context.read<ChatListBloc>();
 
     return Container(
       decoration: const BoxDecoration(
         border: Border(
             bottom: BorderSide(
-              width: 2,
-              color: Color.fromRGBO(128, 128, 128, 0.1),
-            )
-        ),
+          width: 2,
+          color: Color.fromRGBO(128, 128, 128, 0.1),
+        )),
       ),
       child: ListTile(
-        onTap: (){
+        onTap: () {
           chatListBloc.add(AddUserMessage(providedWord: word));
           chatListBloc.add(AddLocalTranslation(providedWord: word));
           Navigator.pop(context);
         },
         title: Text(
           word,
-          style: textTheme.titleMedium
+          style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
         ),
         // trailing: Icon(
         //   Icons.chevron_right_rounded,

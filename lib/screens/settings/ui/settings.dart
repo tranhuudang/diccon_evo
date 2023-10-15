@@ -100,7 +100,7 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const SizedBox().mediumHeight(),
-          
+
           const SizedBox().mediumHeight(),
 
           const Divider(),
@@ -206,7 +206,7 @@ class _SettingsViewState extends State<SettingsView> {
               children: [
                 const Icon(Icons.text_increase),
                 Slider(
-                    activeColor: Theme.of(context).primaryColor,
+                    activeColor: Theme.of(context).colorScheme.primary,
                     min: 0.1,
                     value: state.readingFontSize / 70,
                     onChangeEnd: (newValue) {

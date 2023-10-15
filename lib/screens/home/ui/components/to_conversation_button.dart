@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:diccon_evo/data/helpers/feedback_helper.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
@@ -27,28 +27,29 @@ class ToConversationButton extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: BackdropFilter(
-          filter: ImageFilter.blur(
-              sigmaX: 2.0,
-              sigmaY: 5),
+          filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 5),
           child: Container(
-            color: Theme.of(context).primaryColor.withOpacity(0.8),
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.chat,
-                    size: 40,
-                  ),
+                  Icon(Icons.chat,
+                      size: 40, color: Theme.of(context).colorScheme.onPrimary),
                   const SizedBox(height: 4),
                   Text(
                     "Ask me anything".i18n,
-                    style: const TextStyle(fontSize: 12),
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).colorScheme.onPrimary),
                   ),
-                  const Text(
+                  Text(
                     "Mr. Know It All",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onPrimary),
                   ),
                   const SizedBox(height: 16),
                 ],

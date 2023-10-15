@@ -23,24 +23,28 @@ class PillButton extends StatelessWidget {
     return InkWell(
       onTap: isDisabled! ? null : onTap,
       child: Container(
-          padding: EdgeInsets.zero.buttonEdgeInsets(),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(32),
-              color: isDisabled!
-                  ? Theme.of(context).highlightColor
-                  : backgroundColor ?? Theme.of(context).primaryColor),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (icon != null)
-                Icon(
-                  icon,
-                  size: 18,
-                ),
-              if (icon != null) const SizedBox().mediumWidth(),
-              Text(title.i18n),
-            ],
-          )),
+        padding: EdgeInsets.zero.buttonEdgeInsets(),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32),
+            color: isDisabled!
+                ? Theme.of(context).highlightColor
+                : backgroundColor ?? Theme.of(context).colorScheme.primary),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (icon != null)
+              Icon(
+                icon,
+                size: 18,
+              ),
+            if (icon != null) const SizedBox().mediumWidth(),
+            Text(
+              title.i18n,
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

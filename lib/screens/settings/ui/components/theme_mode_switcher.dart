@@ -40,20 +40,32 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.light
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).highlightColor,
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondaryContainer,
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(16),
                           bottomLeft: Radius.circular(16))),
                   child: Row(
                     children: [
-                      const Icon(Icons.light_mode),
+                      Icon(
+                        Icons.light_mode,
+                        color: snapshot.data == ThemeMode.light
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
                       if (snapshot.data == ThemeMode.light)
                         const SizedBox().mediumWidth(),
                       if (snapshot.data == ThemeMode.light)
                         Text(
                           "Light mode".i18n,
-                          style: const TextStyle(fontSize: 16),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: snapshot.data == ThemeMode.light
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
+                          ),
                         ),
                     ],
                   ),
@@ -76,18 +88,30 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context).highlightColor,
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.secondaryContainer,
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.dark_mode),
+                      Icon(
+                        Icons.dark_mode,
+                        color: snapshot.data == ThemeMode.dark
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
                       if (snapshot.data == ThemeMode.dark)
                         const SizedBox().mediumWidth(),
                       if (snapshot.data == ThemeMode.dark)
                         Text(
                           "Dark mode".i18n,
-                          style: const TextStyle(fontSize: 16),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: snapshot.data == ThemeMode.dark
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
+                          ),
                         ),
                     ],
                   ),
@@ -105,23 +129,31 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   widget.settingCubit.saveSettings();
                 },
                 child: Container(
-                    height: 48,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 12),
-                    decoration: BoxDecoration(
+                  height: 48,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  decoration: BoxDecoration(
+                      color: snapshot.data == ThemeMode.system
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondaryContainer,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
+                      )),
+                  child: Center(
+                    child: Text(
+                      "Adaptive".i18n,
+                      style: TextStyle(
+                        fontSize: 16,
                         color: snapshot.data == ThemeMode.system
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).highlightColor,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(16),
-                          bottomRight: Radius.circular(16),
-                        )),
-                    child: Center(
-                      child: Text(
-                        "Adaptive".i18n,
-                        style: const TextStyle(fontSize: 16),
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ],
           );

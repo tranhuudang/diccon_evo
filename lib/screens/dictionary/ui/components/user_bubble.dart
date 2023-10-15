@@ -26,7 +26,7 @@ class UserBubble extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
-              color: Colors.grey[800],
+              color: Theme.of(context).colorScheme.secondaryContainer,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(0.0),
                 topRight: Radius.circular(16.0),
@@ -36,8 +36,8 @@ class UserBubble extends StatelessWidget {
             ),
             child: Text(
               message,
-              style: const TextStyle(
-                color: Colors.white,
+              style:  TextStyle(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
               ),

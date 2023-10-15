@@ -57,7 +57,7 @@ class SubFunctionBox extends StatelessWidget {
                 maxVisibleDots: 5,
                 dotHeight: 8,
                 dotWidth: 8,
-                activeDotColor: Theme.of(context).primaryColor,
+                activeDotColor: Theme.of(context).colorScheme.primary,
                 dotColor: Theme.of(context).highlightColor,
               ),
             ),

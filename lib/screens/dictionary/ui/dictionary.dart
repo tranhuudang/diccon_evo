@@ -189,25 +189,21 @@ class _DictionaryViewState extends State<DictionaryView> {
                                   end: Alignment.bottomCenter,
                                   colors: [
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.0),
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.1),
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.5),
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.9),
-                                Theme.of(context).appBarTheme.backgroundColor!,
-                                Theme.of(context).appBarTheme.backgroundColor!,
-                                Theme.of(context).appBarTheme.backgroundColor!,
-                                Theme.of(context).appBarTheme.backgroundColor!,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
                               ])),
                         ),
                         Column(
@@ -229,8 +225,9 @@ class _DictionaryViewState extends State<DictionaryView> {
                                             _suggestionWords.map((String word) {
                                           return SuggestedItem(
                                             title: word,
+                                            textColor: Theme.of(context).colorScheme.onPrimary,
                                             backgroundColor:
-                                                Theme.of(context).primaryColor,
+                                                Theme.of(context).colorScheme.primary,
                                             onPressed: (String clickedWord) {
                                               _handleSubmitted(
                                                   clickedWord, context);

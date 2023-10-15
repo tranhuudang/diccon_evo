@@ -4,7 +4,8 @@ class SuggestedItem extends StatelessWidget {
   final String title;
   final Function(String)? onPressed;
   final Color? backgroundColor;
-  const SuggestedItem({super.key, required this.title, this.onPressed, this.backgroundColor});
+  final Color? textColor;
+  const SuggestedItem({super.key, required this.title, this.onPressed, this.backgroundColor, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +22,14 @@ class SuggestedItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(32),
             border: Border.all(
               width: 2,
-              color: Theme.of(context).primaryColor
+              color: Theme.of(context).colorScheme.primary,
             )
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
               title,
-              style:  TextStyle(color: Theme.of(context).textTheme.titleSmall?.color),
+              style: TextStyle(color: textColor?? Theme.of(context).textTheme.titleSmall?.color),
             ),
           ),
         ),

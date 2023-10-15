@@ -83,7 +83,8 @@ dependencies:
   collection: ^1.17.0
   flutter_localizations:
     sdk: flutter
-
+  # use for customizing theme
+  dynamic_color: ^1.6.7
 
 dev_dependencies:
   flutter_test:

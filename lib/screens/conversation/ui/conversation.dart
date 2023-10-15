@@ -100,25 +100,21 @@ class _ConversationViewState extends State<ConversationView>
                               end: Alignment.bottomCenter,
                               colors: [
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.0),
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.1),
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.5),
                                 Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor!
+                                    .scaffoldBackgroundColor
                                     .withOpacity(0.9),
-                                Theme.of(context).appBarTheme.backgroundColor!,
-                                Theme.of(context).appBarTheme.backgroundColor!,
-                                Theme.of(context).appBarTheme.backgroundColor!,
-                                Theme.of(context).appBarTheme.backgroundColor!,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
                               ],
                             ),
                           ),
