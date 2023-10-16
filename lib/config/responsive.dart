@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Responsive extends StatefulWidget {
@@ -27,7 +28,9 @@ class _ResponsiveState extends State<Responsive> {
       if (widget.useDefaultPadding!) {
         // Mobile devices (small screen size)
         if (smallSize) {
-          print("In small size device");
+          if (kDebugMode) {
+            print("In small size device");
+          }
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: widget.smallSizeDevice,
@@ -35,7 +38,9 @@ class _ResponsiveState extends State<Responsive> {
         }
         // Tablet devices (medium screen size)
         else if (mediumSize) {
-          print("In medium size device");
+          if (kDebugMode) {
+            print("In medium size device");
+          }
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -47,7 +52,9 @@ class _ResponsiveState extends State<Responsive> {
         }
         // Desktop device (large screen size)
         else if (largeSize) {
-          print("In large size device");
+          if (kDebugMode) {
+            print("In large size device");
+          }
 
           return Padding(
             padding: const EdgeInsets.fromLTRB(200, 16, 200, 16),
@@ -59,19 +66,25 @@ class _ResponsiveState extends State<Responsive> {
       } else {
         // Mobile devices (small screen size)
         if (smallSize) {
-          print("In small size device");
+          if (kDebugMode) {
+            print("In small size device");
+          }
 
           return widget.smallSizeDevice;
         }
         // Tablet devices (medium screen size)
         else if (mediumSize) {
-          print("In medium size device");
+          if (kDebugMode) {
+            print("In medium size device");
+          }
 
           return widget.mediumSizeDevice ?? widget.smallSizeDevice;
         }
         // Desktop device (large screen size)
         else if (largeSize) {
-          print("In large size device");
+          if (kDebugMode) {
+            print("In large size device");
+          }
 
           return widget.largeSizeDevice ?? widget.smallSizeDevice;
         } else {

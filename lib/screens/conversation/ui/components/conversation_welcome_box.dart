@@ -17,7 +17,7 @@ class ConversationWelcome extends StatelessWidget {
             children: [
               const Image(
                 image: AssetImage('assets/stickers/book_glass.png'),
-                width: 200,
+                height: 200,
               ),
               Text(
                 "Enhance your communication skills with our advanced bot.".i18n,

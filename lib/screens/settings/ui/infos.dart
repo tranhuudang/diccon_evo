@@ -63,7 +63,7 @@ class _InfosViewState extends State<InfosView> {
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 color: Theme.of(context).colorScheme.onSurface),
                           ),
-                          SizedBox().mediumHeight(),
+                          const SizedBox().mediumHeight(),
                           PillButton(onTap: () async {
                             final Uri url = Uri.parse(
                                 PropertiesConstants.privacyPolicyURL);
@@ -82,7 +82,7 @@ class _InfosViewState extends State<InfosView> {
 
                        Column(
                         children: [
-                          Image(image: AssetImage("assets/diccon-256.png"), height: 90,),
+                          const Image(image: AssetImage("assets/diccon-256.png"), height: 90,),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text("Diccon",  style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -119,7 +119,7 @@ class _InfosViewState extends State<InfosView> {
                         children: [
                            Text("© 2023 Zeroboy.",  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               color: Theme.of(context).colorScheme.onSurfaceVariant),),
-                           SizedBox(width: 5),
+                           const SizedBox(width: 5),
                           Text("All rights reserved.".i18n,  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               color: Theme.of(context).colorScheme.onSurfaceVariant),),
                         ],

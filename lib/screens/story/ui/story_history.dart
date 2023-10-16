@@ -146,7 +146,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                         children: [
                           const Image(
                             image: AssetImage('assets/stickers/history.png'),
-                            width: 200,
+                            height: 200,
                           ),
                           const SizedBox(
                             height: 8,

@@ -38,7 +38,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                       children: [
                         const Image(
                           image: AssetImage('assets/stickers/history.png'),
-                          width: 200,
+                          height: 200,
                         ),
                         const SizedBox(
                           height: 8,

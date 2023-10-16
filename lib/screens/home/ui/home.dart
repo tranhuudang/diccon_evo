@@ -34,7 +34,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   final List<Widget> _listSubFunction = const [
     ToReadingChamberButton(),
     ToEssentialWordButton(),
-    //ToConversationalPhrasesButton(),
   ];
 
   DateTime _backPressedTime = DateTime.now();

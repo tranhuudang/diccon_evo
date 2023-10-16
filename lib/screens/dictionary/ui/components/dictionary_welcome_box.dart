@@ -30,7 +30,7 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                   children: [
                     const Image(
                       image: AssetImage('assets/stickers/book.png'),
-                      width: 200,
+                      height: 200,
                     ),
                     const SizedBox().mediumHeight(),
                     Text(

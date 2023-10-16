@@ -157,7 +157,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                         children: [
                           const Image(
                             image: AssetImage('assets/stickers/bookmark.png'),
-                            width: 200,
+                            height: 200,
                           ),
                           const SizedBox(
                             height: 8,
