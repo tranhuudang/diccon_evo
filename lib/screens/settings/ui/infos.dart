@@ -91,29 +91,10 @@ class _InfosViewState extends State<InfosView> {
 
                         ],
                       ),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          PillButton(
-                              onTap: (){}, title: PropertiesConstants.version),
-                          PillButton(onTap: () async {
-                            final Uri url = Uri.parse(
-                                PropertiesConstants.linkInURL);
-                            if (!await launchUrl(url,
-                            mode: LaunchMode.externalApplication)) {
-                            throw Exception('Could not launch $url');
-                            }
-                          }, title: "Tran Huu Dang"),
-                          PillButton(onTap: () async {
-                            final Uri url = Uri.parse(
-                                PropertiesConstants.githubURL);
-                            if (!await launchUrl(url,
-                            mode: LaunchMode.externalApplication)) {
-                            throw Exception('Could not launch $url');
-                            }
-                          }, title: "Github"),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: PillButton(
+                            onTap: (){}, title: PropertiesConstants.version),
                       ),
                       Row(
                         children: [

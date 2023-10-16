@@ -98,12 +98,13 @@ class _LoginViewState extends State<LoginView> {
                             height: 8,
                           ),
                           PillButton(
-                              backgroundColor: Theme.of(context).cardColor,
+                              backgroundColor: Theme.of(context).colorScheme.secondary,
+                              color: Theme.of(context).colorScheme.onSecondary,
                               onTap: () {
                                 context
                                     .pushReplacementNamed(RouterConstants.home);
                               },
-                              title: "Continue without login".i18n),
+                              title: "Continue without login".i18n,),
                           const SizedBox(
                             height: 8,
                           ),

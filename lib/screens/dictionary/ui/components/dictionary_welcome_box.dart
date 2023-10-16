@@ -64,7 +64,8 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                               )),
                           child: Text(
                             "Customize your experience".i18n,
-                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface),
                           ),
                         ),
                       ),
