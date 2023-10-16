@@ -49,10 +49,7 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
   @override
   Widget build(BuildContext context) {
     final chatListBloc = context.read<ChatListBloc>();
-    return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 600,
-      ),
+    return SizedBox(
       height: _isTooLarge ? 500 : null,
       child: Stack(
         children: [

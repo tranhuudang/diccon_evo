@@ -1,5 +1,6 @@
 import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
+import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
@@ -49,13 +50,20 @@ class _InfosViewState extends State<InfosView> {
                   SettingSection(
                     title: "Privacy Policy".i18n,
                     children: [
-                      Text("DesciptionTextForPrivacyPolicy".i18n),
+                      Text("DesciptionTextForPrivacyPolicy".i18n,
+    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+        color: Theme.of(context).colorScheme.onSurface),
+                      ),
                       const SizedBox(
                         height: 5,
                       ),
                       Column(
                         children: [
-                          Text("For more information about our privacy policy, please visit:".i18n),
+                          Text("For more information about our privacy policy, please visit:".i18n,
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface),
+                          ),
+                          SizedBox().mediumHeight(),
                           PillButton(onTap: () async {
                             final Uri url = Uri.parse(
                                 PropertiesConstants.privacyPolicyURL);
@@ -71,28 +79,52 @@ class _InfosViewState extends State<InfosView> {
                   SettingSection(
                     title: "About".i18n,
                     children: [
-                      const Row(
+
+                       Column(
                         children: [
-                          Text("Diccon", style: TextStyle()),
-                          Spacer(),
+                          Image(image: AssetImage("assets/diccon-256.png"), height: 90,),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Diccon",  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),),
+                          ),
+
                         ],
                       ),
-                      const SizedBox(
-                        height: 5,
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          PillButton(
+                              onTap: (){}, title: PropertiesConstants.version),
+                          PillButton(onTap: () async {
+                            final Uri url = Uri.parse(
+                                PropertiesConstants.linkInURL);
+                            if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                            throw Exception('Could not launch $url');
+                            }
+                          }, title: "Tran Huu Dang"),
+                          PillButton(onTap: () async {
+                            final Uri url = Uri.parse(
+                                PropertiesConstants.githubURL);
+                            if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                            throw Exception('Could not launch $url');
+                            }
+                          }, title: "Github"),
+                        ],
                       ),
                       Row(
                         children: [
-                          Row(
-                            children: [
-                              const Text("© 2023 Zeroboy."),
-                              const SizedBox(width: 5),
-                              Text("All rights reserved.".i18n),
-                            ],
-                          ),
-                          const Spacer(),
-                          Text(PropertiesConstants.version),
+                           Text("© 2023 Zeroboy.",  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant),),
+                           SizedBox(width: 5),
+                          Text("All rights reserved.".i18n,  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant),),
                         ],
-                      )
+                      ),
+
                     ],
                   ),
                   const SizedBox(

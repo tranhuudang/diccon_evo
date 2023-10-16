@@ -149,63 +149,58 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
         .toString()
         .trim();
     final chatListBloc = context.read<ChatListBloc>();
-    return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 600,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            StreamBuilder<bool>(
-                initialData: false,
-                stream: _isLoadingStreamController.stream,
-                builder: (context, snapshot) {
-                  return Row(
-                    children: [
-                      WordPlaybackButton(message: widget.word),
-                      const Spacer(),
-                      if (snapshot.data!)
-                        IconButton(
-                            onPressed: () {
-                              // Cancel response
-                              _chatStreamSubscription?.cancel();
-                              _isLoadingStreamController.sink.add(false);
-                            },
-                            icon: const Icon(Icons.stop_circle_outlined)),
-                      const SizedBox().mediumWidth(),
-                      snapshot.data!
-                          ? const Padding(
-                              padding: EdgeInsets.only(right: 12),
-                              child: SizedBox(
-                                height: 15,
-                                width: 15,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          StreamBuilder<bool>(
+              initialData: false,
+              stream: _isLoadingStreamController.stream,
+              builder: (context, snapshot) {
+                return Row(
+                  children: [
+                    WordPlaybackButton(message: widget.word),
+                    const Spacer(),
+                    if (snapshot.data!)
+                      IconButton(
+                          onPressed: () {
+                            // Cancel response
+                            _chatStreamSubscription?.cancel();
+                            _isLoadingStreamController.sink.add(false);
+                          },
+                          icon: Icon(Icons.stop_circle_outlined, color: Theme.of(context).colorScheme.onSecondary)),
+                    const SizedBox().mediumWidth(),
+                    snapshot.data!
+                        ? Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: CircularProgressIndicator(
+                                color: Theme.of(context).colorScheme.onSecondary,
                               ),
-                            )
-                          : IconButton(
-                              onPressed: () {
-                                // resend the request to get new answer
-                                _isLoadingStreamController.sink.add(true);
-                                _reGetGptResponse();
-                              },
-                              icon: const Icon(Icons.cached_rounded)),
-                    ],
-                  );
-                }),
-            ClickableWords(
-                onWordTap: (word) {
-                  chatListBloc.add(AddUserMessage(providedWord: word));
-                  chatListBloc.add(AddLocalTranslation(providedWord: word));
-                },
-                text: answer)
-            // SelectableText(
-            //     answer),
-          ],
-        ),
+                            ),
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              // resend the request to get new answer
+                              _isLoadingStreamController.sink.add(true);
+                              _reGetGptResponse();
+                            },
+                            icon: Icon(Icons.cached_rounded, color: Theme.of(context).colorScheme.onSecondary,)),
+                  ],
+                );
+              }),
+          ClickableWords(
+              onWordTap: (word) {
+                chatListBloc.add(AddUserMessage(providedWord: word));
+                chatListBloc.add(AddLocalTranslation(providedWord: word));
+              },
+              text: answer)
+          // SelectableText(
+          //     answer),
+        ],
       ),
     );
   }

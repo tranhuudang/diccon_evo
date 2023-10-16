@@ -17,6 +17,7 @@ class ToConversationButton extends StatelessWidget {
       borderColor: Theme.of(context).scaffoldBackgroundColor,
       padding: EdgeInsets.zero,
       image: const DecorationImage(
+        fit: BoxFit.cover,
         image: AssetImage("assets/theme/theme-1-1.png"),
       ),
       onTap: () {
