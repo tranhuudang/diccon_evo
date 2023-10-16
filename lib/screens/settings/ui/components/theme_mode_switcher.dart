@@ -41,7 +41,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.light
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.secondaryContainer,
+                          : Theme.of(context).highlightColor,
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(16),
                           bottomLeft: Radius.circular(16))),
@@ -89,7 +89,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
                         ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.secondaryContainer ,
+                        : Theme.of(context).highlightColor ,
                   ),
                   child: Row(
                     children: [
@@ -135,7 +135,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.system
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.secondaryContainer,
+                          : Theme.of(context).highlightColor,
                       borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(16),
                         bottomRight: Radius.circular(16),
