@@ -12,10 +12,12 @@ class Setting {
   final double windowsHeight;
   final String translationChoice;
   final String dictionaryResponseType;
+  final int themeColor;
   Setting(
       {
         required this.dictionaryResponseType,
         required this.translationChoice,
+        required this.themeColor,
         required this.openAppCount,
       required this.readingFontSizeSliderValue,
       required this.themeMode,
@@ -32,6 +34,7 @@ class Setting {
         String? dictionaryResponseType,
         String? translationChoice,
       String? themeMode,
+      int? themeColor,
       int? numberOfSynonyms,
       int? numberOfAntonyms,
         int? openAppCount,
@@ -55,6 +58,8 @@ class Setting {
         language: language ?? this.language,
         windowsWidth: windowsWidth ?? this.windowsWidth,
         windowsHeight: windowsHeight ?? this.windowsHeight,
-        themeMode: themeMode ?? this.themeMode);
+        themeMode: themeMode ?? this.themeMode,
+        themeColor: themeColor ?? this.themeColor,
+    );
   }
 }

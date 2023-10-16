@@ -38,7 +38,9 @@ class Properties {
       readingFontSizeSliderValue: 0.2,
       windowsWidth: 400,
       windowsHeight: 700,
-      themeMode: 'ThemeMode.system', openAppCount: 0);
+      themeMode: 'ThemeMode.system', openAppCount: 0,
+      themeColor: 0
+  );
 
   static void saveSettings(Setting newSetting) async {
     var prefs = await SharedPreferences.getInstance();
@@ -56,6 +58,7 @@ class Properties {
     await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
     await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
     await prefs.setString('themeMode', newSetting.themeMode);
+    await prefs.setInt('themeColor', newSetting.themeColor);
     if (kDebugMode) {
       print("Setting saved");
     }
@@ -87,7 +90,9 @@ class Properties {
             prefs.getDouble("widthOfWindowSize") ?? defaultSetting.windowsWidth,
         windowsHeight: prefs.getDouble("heightOfWindowSize") ??
             defaultSetting.windowsHeight,
-        themeMode: prefs.getString("themeMode") ?? defaultSetting.themeMode);
+        themeMode: prefs.getString("themeMode") ?? defaultSetting.themeMode,
+        themeColor: prefs.getInt("themeColor") ?? defaultSetting.themeColor,
+    );
     return true;
   }
 }

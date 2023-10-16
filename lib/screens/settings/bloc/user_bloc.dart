@@ -61,6 +61,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserDeleteDateEvent>(_deleteAllData);
   }
 
+
+
   FutureOr<void> _deleteAllData(
       UserDeleteDateEvent deleteAll, Emitter<UserState> emit) async {
     /// Remove online file
@@ -91,6 +93,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       print("Data is synced");
     }
   }
+
+
+
+  /// --------------------------------------------------------------------------
 
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
     var currentLoggedInUser = _currentLoggedInUser();
@@ -168,4 +174,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       return null;
     }
   }
+
+
 }
