@@ -24,12 +24,6 @@ class SettingCubit extends Cubit<Setting> {
     emit(Properties.defaultSetting);
   }
 
-  void setThemeMode(String themeMode) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(themeMode: themeMode);
-    emit(Properties.defaultSetting);
-  }
-
   void setReadingFontSize(double num) {
     Properties.defaultSetting =
         Properties.defaultSetting.copyWith(readingFontSize: num);

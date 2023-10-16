@@ -125,19 +125,25 @@ class _ProgramRootState extends State<ProgramRoot> {
                   );
                 }
                 break;
+              case ThemeModeChanged:
+
               default:
                 if (kDebugMode) {
                   print("Manual create a new color scheme for theme");
                 }
                 lightColorScheme = ColorScheme.fromSeed(
-                  seedColor: Colors.blue,
+                  seedColor: Color(Properties.defaultSetting.themeColor),
                 );
                 darkColorScheme = ColorScheme.fromSeed(
-                  seedColor: Colors.blue,
+                  seedColor: Color(Properties.defaultSetting.themeColor),
                   brightness: Brightness.dark,
                 );
             }
-
+            // Condition cases for dark mode
+            var themeMode = Properties.defaultSetting.themeMode.toThemeMode();
+            if (state is ThemeModeChanged) {
+              themeMode = state.themeMode;
+            }
             return MaterialApp.router(
               localizationsDelegates: const [
                 GlobalMaterialLocalizations.delegate,
@@ -151,7 +157,7 @@ class _ProgramRootState extends State<ProgramRoot> {
               locale: Properties.defaultSetting.language == "English"
                   ? const Locale('en', "US")
                   : const Locale('vi', "VI"),
-              themeMode: Properties.defaultSetting.themeMode.toThemeMode(),
+              themeMode: themeMode,
               theme: ThemeData(
                 colorScheme: lightColorScheme,
               ),

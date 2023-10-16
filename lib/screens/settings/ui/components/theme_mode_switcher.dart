@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/theme_mode.dart';
+import 'package:diccon_evo/screens/settings/bloc/setting_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/properties.dart';
-import '../../cubit/setting_cubit.dart';
 
 class ThemeSwitcher extends StatefulWidget {
-  final SettingCubit settingCubit;
-  const ThemeSwitcher({super.key, required this.settingCubit});
+  const ThemeSwitcher({super.key});
 
   @override
   State<ThemeSwitcher> createState() => _ThemeSwitcherState();
@@ -19,6 +19,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
 
   @override
   Widget build(BuildContext context) {
+    final settingBloc = context.read<SettingBloc>();
     return StreamBuilder<ThemeMode>(
         initialData: Properties.defaultSetting.themeMode.toThemeMode(),
         stream: _streamController.stream,
@@ -31,8 +32,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
               InkWell(
                 onTap: () {
                   _streamController.sink.add(ThemeMode.light);
-                  widget.settingCubit.setThemeMode(ThemeMode.light.toString());
-                  widget.settingCubit.saveSettings();
+                  settingBloc
+                      .add(ChangeThemeModeEvent(themeMode: ThemeMode.light));
                 },
                 child: Container(
                   height: 48,
@@ -51,7 +52,9 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                         Icons.light_mode,
                         color: snapshot.data == ThemeMode.light
                             ? Theme.of(context).colorScheme.onPrimary
-                            : Theme.of(context).colorScheme.onSecondaryContainer,
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                       ),
                       if (snapshot.data == ThemeMode.light)
                         const SizedBox().mediumWidth(),
@@ -79,8 +82,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
               InkWell(
                 onTap: () {
                   _streamController.sink.add(ThemeMode.dark);
-                  widget.settingCubit.setThemeMode(ThemeMode.dark.toString());
-                  widget.settingCubit.saveSettings();
+                  settingBloc
+                      .add(ChangeThemeModeEvent(themeMode: ThemeMode.dark));
                 },
                 child: Container(
                   height: 48,
@@ -89,7 +92,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
                         ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).highlightColor ,
+                        : Theme.of(context).highlightColor,
                   ),
                   child: Row(
                     children: [
@@ -97,7 +100,9 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                         Icons.dark_mode,
                         color: snapshot.data == ThemeMode.dark
                             ? Theme.of(context).colorScheme.onPrimary
-                            : Theme.of(context).colorScheme.onSecondaryContainer,
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                       ),
                       if (snapshot.data == ThemeMode.dark)
                         const SizedBox().mediumWidth(),
@@ -125,8 +130,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
               InkWell(
                 onTap: () {
                   _streamController.sink.add(ThemeMode.system);
-                  widget.settingCubit.setThemeMode(ThemeMode.system.toString());
-                  widget.settingCubit.saveSettings();
+                  settingBloc
+                      .add(ChangeThemeModeEvent(themeMode: ThemeMode.system));
                 },
                 child: Container(
                   height: 48,
