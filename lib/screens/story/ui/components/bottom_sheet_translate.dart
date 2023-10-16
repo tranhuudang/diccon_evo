@@ -144,7 +144,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                 ?.copyWith(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onPrimary),
+                                        .onSecondary),
                           ),
                         )
                       ],

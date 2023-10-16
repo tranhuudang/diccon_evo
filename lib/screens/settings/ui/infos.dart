@@ -1,7 +1,9 @@
 import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
+import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../config/properties_constants.dart';
 import 'components/setting_section.dart';
 import 'components/store_badge.dart';
@@ -18,6 +20,7 @@ class _InfosViewState extends State<InfosView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -43,6 +46,28 @@ class _InfosViewState extends State<InfosView> {
     return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SettingSection(
+                    title: "Privacy Policy".i18n,
+                    children: [
+                      Text("DesciptionTextForPrivacyPolicy".i18n),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Column(
+                        children: [
+                          Text("For more information about our privacy policy, please visit:".i18n),
+                          PillButton(onTap: () async {
+                            final Uri url = Uri.parse(
+                                PropertiesConstants.privacyPolicyURL);
+                            if (!await launchUrl(url,
+                                mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          }, title: "Privacy Policy"),
+                        ],
+                      )
+                    ],
+                  ),
                   SettingSection(
                     title: "About".i18n,
                     children: [

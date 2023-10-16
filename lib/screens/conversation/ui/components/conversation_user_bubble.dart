@@ -22,7 +22,7 @@ class ConversationUserBubble extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.secondaryContainer,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(0.0),
                 topRight: Radius.circular(16.0),
@@ -32,11 +32,8 @@ class ConversationUserBubble extends StatelessWidget {
             ),
             child: Text(
               message,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer),
             ),
           ),
         ),

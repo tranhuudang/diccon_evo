@@ -19,6 +19,7 @@ class StoryListView extends StatelessWidget {
     final storyListBloc = context.read<StoryListBloc>();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -99,7 +100,8 @@ class StoryListView extends StatelessWidget {
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
-                child: Text("SubSentenceInStoryList".i18n),
+                child: Text("SubSentenceInStoryList".i18n,  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface),),
               ),
 
               /// Function button

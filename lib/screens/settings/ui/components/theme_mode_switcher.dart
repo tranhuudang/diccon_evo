@@ -89,7 +89,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
                         ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.secondaryContainer,
+                        : Theme.of(context).colorScheme.secondaryContainer ,
                   ),
                   child: Row(
                     children: [

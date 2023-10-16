@@ -18,6 +18,7 @@ class FavouriteReviewView extends StatelessWidget {
     final pageViewController = PageController();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),

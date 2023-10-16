@@ -15,7 +15,7 @@ class TipsBox extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
-        color: Theme.of(context).cardColor,
+        color: Theme.of(context).colorScheme.surfaceVariant,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,9 +27,9 @@ class TipsBox extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(16)),
-                  child: Text(title!)),
+                  child: Text(title!, style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),)),
             ),
           Row(
             children: [

@@ -43,6 +43,7 @@ class _LoginViewState extends State<LoginView> {
       if (_loggedInUser == null) {
         return SafeArea(
           child: Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.surface,
             body: Stack(
               children: [
                 Center(

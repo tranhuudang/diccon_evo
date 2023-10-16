@@ -8,7 +8,7 @@ import 'package:diccon_evo/screens/story/blocs/story_bookmark_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/properties.dart';
-import '../../../data/data_providers/notify.dart';
+import '../../commons/notify.dart';
 import '../../../data/data_providers/searching.dart';
 import '../../../data/models/story.dart';
 import '../../../data/models/word.dart';
@@ -53,6 +53,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -206,7 +207,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     wordResult = await Searching.getDefinition(searchWord);
     if (wordResult != null) {
       showModalBottomSheet(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         context: currentContext, // Use the captured context here
         builder: (BuildContext context) {
           return SizedBox(

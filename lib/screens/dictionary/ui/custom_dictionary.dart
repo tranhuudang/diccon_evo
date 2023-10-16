@@ -34,6 +34,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -84,7 +85,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                       maxVisibleDots: 5,
                       dotHeight: 8,
                       dotWidth: 8,
-                      activeDotColor: Theme.of(context).primaryColor,
+                      activeDotColor: Theme.of(context).colorScheme.primary,
                       dotColor: Theme.of(context).highlightColor,
                     ),
                   ),

@@ -25,6 +25,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             BlocBuilder<HistoryListCubit, List<String>>(

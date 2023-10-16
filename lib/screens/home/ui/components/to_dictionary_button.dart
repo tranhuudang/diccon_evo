@@ -28,7 +28,7 @@ class ToDictionaryButton extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme.of(context).colorScheme.surface,
               )),
           const SizedBox(height: 8),
           const Text(

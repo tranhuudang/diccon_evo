@@ -22,6 +22,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: BlocConsumer<StoryHistoryBloc, StoryHistoryState>(
           bloc: _storyHistoryBloc,
           listener: (BuildContext context, StoryHistoryState state) {},

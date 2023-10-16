@@ -31,13 +31,14 @@ class ChatbotBubblePreview extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     children: [Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.volume_up, size: 20,),
-                    )],
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.volume_up, size: 20,color: Theme.of(context).colorScheme.onSecondary),),
+                    ],
                   ),
-                  Text(textReturn, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),)
+                  Text(textReturn, style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSecondary),)
                   // SelectableText(
                   //     answer),
                 ],

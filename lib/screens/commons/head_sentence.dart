@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 class HeadSentence extends StatelessWidget {
   final List<String> listText;
+  final double? fontSize;
   const HeadSentence({
-    super.key, required this.listText,
+    super.key, required this.listText, this.fontSize,
   });
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle =  const TextStyle(letterSpacing: .5, fontSize: 36);
+    TextStyle? textStyle = Theme.of(context).textTheme.headlineMedium?.copyWith(
+    color: Theme.of(context).colorScheme.onSurface);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: listText.map((text) {

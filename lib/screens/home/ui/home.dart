@@ -94,6 +94,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       },
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
           body: SingleChildScrollView(
             child: Stack(
               children: [

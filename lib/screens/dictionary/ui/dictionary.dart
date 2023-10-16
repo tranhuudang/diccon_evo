@@ -1,4 +1,4 @@
-import 'package:diccon_evo/data/data_providers/notify.dart';
+import 'package:diccon_evo/screens/commons/notify.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -111,6 +111,7 @@ class _DictionaryViewState extends State<DictionaryView> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             BlocConsumer<ChatListBloc, ChatListState>(

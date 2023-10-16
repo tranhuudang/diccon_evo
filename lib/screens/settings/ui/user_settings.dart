@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
-import '../../../data/data_providers/notify.dart';
+import '../../commons/notify.dart';
 import '../../commons/header.dart';
 import '../../commons/pill_button.dart';
 import 'components/setting_section.dart';
@@ -23,6 +23,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
     userBloc.add(UserLoginEvent());
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: BlocConsumer<UserBloc, UserState>(
           listenWhen: (previous, current) => current is UserActionState,
           buildWhen: (previous, current) => current is! UserActionState,

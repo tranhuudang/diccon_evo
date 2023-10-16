@@ -38,6 +38,7 @@ class _LearningViewState extends State<LearningView> {
     int currentIndex = 0;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -55,6 +56,7 @@ class _LearningViewState extends State<LearningView> {
 
                 /// Topic
                 Responsive(
+                  useDefaultPadding: false,
                   smallSizeDevice: body(currentIndex),
                   mediumSizeDevice: body(currentIndex),
                   largeSizeDevice: body(currentIndex),
@@ -71,13 +73,15 @@ class _LearningViewState extends State<LearningView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeadSentence(listText: [
+        HeadSentence(
+            fontSize: 28,
+            listText: [
           "You're studying".i18n,
           "the subject of".i18n,
         ]),
         Text(widget.topic,
             style: const TextStyle(
-              fontSize: 38,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
             )),
         BlocBuilder<LearningBloc, LearningState>(
@@ -137,7 +141,7 @@ class _LearningViewState extends State<LearningView> {
                           maxVisibleDots: 5,
                           dotHeight: 8,
                           dotWidth: 8,
-                          activeDotColor: Theme.of(context).primaryColor,
+                          activeDotColor: Theme.of(context).colorScheme.primary,
                           dotColor: Theme.of(context).highlightColor,
                         ),
                       ),
@@ -179,8 +183,9 @@ class _LearningViewState extends State<LearningView> {
                           // ),
                           /// Heart button
                           CircleButton(
+
                             backgroundColor: data.isCurrentWordFavourite
-                                ? Theme.of(context).primaryColor
+                                ? Theme.of(context).colorScheme.primary
                                 : Theme.of(context).highlightColor,
                             iconData: FontAwesomeIcons.heart,
                             onTap: () {

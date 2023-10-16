@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../config/route_constants.dart';
 import '../../../data/repositories/essential_manager.dart';
 import '../../../data/data_providers/history_manager.dart';
-import '../../../data/data_providers/notify.dart';
+import '../../commons/notify.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/head_sentence.dart';
 import '../../commons/header.dart';
@@ -108,6 +108,7 @@ class _EssentialViewState extends State<EssentialView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
           body: Stack(
         children: [
           SingleChildScrollView(
@@ -125,7 +126,7 @@ class _EssentialViewState extends State<EssentialView> {
 
   Padding body(BuildContext context) {
     return Padding(
-              padding: const EdgeInsets.only(top: 70),
+              padding: const EdgeInsets.only(top: 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -138,7 +139,10 @@ class _EssentialViewState extends State<EssentialView> {
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32, vertical: 26),
-                    child: Text("SubSentenceInEssentialWord".i18n),
+                    child: Text("SubSentenceInEssentialWord".i18n,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface),
+                    ),
                   ),
                   Row(
                     children: [
@@ -164,7 +168,7 @@ class _EssentialViewState extends State<EssentialView> {
                                 },
                               );
                             },
-                            backgroundColor: Theme.of(context).primaryColor,
+                            backgroundColor: Theme.of(context).colorScheme.primary,
                           ),
 
                           /// Favourite button
@@ -206,7 +210,7 @@ class _EssentialViewState extends State<EssentialView> {
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).cardColor,
+                              color: Theme.of(context).colorScheme.surfaceVariant,
                               borderRadius: BorderRadius.circular(16)),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
@@ -287,6 +291,8 @@ class _EssentialViewState extends State<EssentialView> {
                                 runSpacing: 8,
                                 children: snapshot.data!.map((topic) {
                                   return PillButton(
+                                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                                       onTap: () async {
                                         /// Load essential word based on provided topic
                                         await EssentialWordRepository

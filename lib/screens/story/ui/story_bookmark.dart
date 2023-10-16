@@ -23,6 +23,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: BlocConsumer<StoryBookmarkBloc, StoryBookmarkState>(
           bloc: _storyBookmarkBloc,
           listener: (BuildContext context, StoryBookmarkState state) {},

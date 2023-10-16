@@ -30,8 +30,9 @@ class _WordPlaybackButtonState extends State<WordPlaybackButton> {
         builder: (context, snapshot) {
           return snapshot.data!
               ? IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.volume_up_sharp,
+                    color: Theme.of(context).colorScheme.onSecondary,
                   ),
                   onPressed: () {
                     final progressStream =

@@ -311,6 +311,12 @@ extension Localization on String {
     "Sync your data": {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
+    },"DesciptionTextForPrivacyPolicy": {
+      "en_us": "We hold your privacy in high regard and assure you that your personal data will not be disclosed to any third party.",
+      "vi_vi": "Chúng tôi tôn trọng quyền riêng tư của bạn và cam kết dữ liệu cá nhân của bạn sẽ không được chia sẻ với bất cứ bên thứ ba nào cả.",
+    },"For more information about our privacy policy, please visit:": {
+      "en_us": "For more information about our privacy policy, please visit:",
+      "vi_vi": "Để biết thêm chi tiết về điều khoản riêng tư, vui lòng truy cập:",
     },
     "Privacy Policy": {
       "en_us": "Privacy Policy",
@@ -443,9 +449,9 @@ extension Localization on String {
     },
     "SubSentenceInEssentialWord": {
       "en_us":
-          "Mastering 1848 core English words fosters clear communication. Enhanced vocabulary aids reading, writing, speaking, and understanding. It facilitates meaningful interactions, empowers expression, and broadens access to information and opportunities.",
+          "Mastering 1848 core English words fosters clear communication. It facilitates meaningful interactions, empowers expression, and broadens access to information and opportunities.",
       "vi_vi":
-          "Nắm vững 1848 từ tiếng Anh cốt lõi sẽ thúc đẩy sự giao tiếp rõ ràng. Tăng vốn từ vựng giúp người học cải thiện khả năng đọc, viết, nói và hiểu. Việc này tạo điều kiện cho các cuộc trò chuyện mang nhiều màu sắc, tăng cường khả năng diễn đạt của người nói trong nhiều hoàn cảnh khác nhau.",
+          "Nắm vững 1848 từ tiếng Anh cốt lõi sẽ thúc đẩy sự giao tiếp rõ ràng. Tạo điều kiện cho các cuộc trò chuyện mang nhiều màu sắc, tăng cường khả năng diễn đạt của người nói trong nhiều hoàn cảnh khác nhau.",
     },
     "Actions": {
       "en_us": "Actions",

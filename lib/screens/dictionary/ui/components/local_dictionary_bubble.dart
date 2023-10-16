@@ -67,7 +67,7 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
                     children: [
                       WordTitle(
                         message: widget.word,
-                        titleColor: Colors.white,
+                        titleColor: Theme.of(context).colorScheme.onSecondary,
                       ),
                       const SizedBox(
                         width: 8.0,

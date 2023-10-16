@@ -61,10 +61,10 @@ class HeaderWithBlurEffect extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                   Theme.of(context)
-                      .scaffoldBackgroundColor
+                      .colorScheme.background
                       .withOpacity(0.9),
                   Theme.of(context)
-                      .scaffoldBackgroundColor
+                      .colorScheme.background
                       .withOpacity(0.5),
                 ])),
           ),

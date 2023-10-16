@@ -20,15 +20,15 @@ class LearningPageItem extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
-              color: Theme.of(context).primaryColor),
+              color: Theme.of(context).colorScheme.primary),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   word,
-                  style: const TextStyle(
-                      fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 40, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary,),
                 ),
                 Text(phonetic),
                 Text(vietnamese),

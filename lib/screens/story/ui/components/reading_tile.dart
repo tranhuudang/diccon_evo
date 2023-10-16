@@ -29,7 +29,7 @@ class ReadingTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).colorScheme.surfaceVariant,
             borderRadius: BorderRadius.circular(32),
           ),
           width: 300,
@@ -85,7 +85,7 @@ class ReadingTile extends StatelessWidget {
                         story.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
-                        style: textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                        style: textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Expanded(
@@ -93,7 +93,7 @@ class ReadingTile extends StatelessWidget {
                           maxLines: 2,
                           story.shortDescription,
                           textAlign: TextAlign.justify,
-                          style: textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onBackground.withOpacity(.5)),
+                          style: textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

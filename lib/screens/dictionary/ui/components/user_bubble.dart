@@ -36,11 +36,8 @@ class UserBubble extends StatelessWidget {
             ),
             child: Text(
               message,
-              style:  TextStyle(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer),
             ),
           ),
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../data/data_providers/notify.dart';
+import '../../commons/notify.dart';
 import '../../commons/header.dart';
 import '../bloc/conversation_bloc.dart';
 import '../../../extensions/i18n.dart';
@@ -38,6 +38,7 @@ class _ConversationViewState extends State<ConversationView>
     final conversationBloc = context.read<ConversationBloc>();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             BlocConsumer<ConversationBloc, ConversationState>(
@@ -45,8 +46,7 @@ class _ConversationViewState extends State<ConversationView>
                   current is! ConversationActionState,
               listenWhen: (previous, current) =>
                   current is ConversationActionState,
-              listener:
-                  (BuildContext context, ConversationState state) {},
+              listener: (BuildContext context, ConversationState state) {},
               builder: (context, state) {
                 {
                   switch (state.runtimeType) {
@@ -63,8 +63,7 @@ class _ConversationViewState extends State<ConversationView>
                     case ConversationUpdated:
                       final data = state as ConversationUpdated;
                       return ListView.builder(
-                        padding:
-                            const EdgeInsets.only(top: 80, bottom: 120),
+                        padding: const EdgeInsets.only(top: 80, bottom: 120),
                         itemCount: data.conversation.length,
                         controller:
                             conversationBloc.conversationScrollController,
@@ -130,19 +129,24 @@ class _ConversationViewState extends State<ConversationView>
                               child: Row(
                                 children: <Widget>[
                                   IconButton(
-                                      onPressed: () {
-                                        Notify.showAlertDialog(
-                                            context: context,
-                                            title: "Close this session?",
-                                            content:
-                                                "Clear all the bubbles in this translation session.",
-                                            action: () {
-                                              conversationBloc
-                                                  .add(ResetConversation());
-                                            });
-                                      },
-                                      icon:
-                                          const Icon(Icons.add_circle_outline)),
+                                    onPressed: () {
+                                      Notify.showAlertDialog(
+                                          context: context,
+                                          title: "Close this session?",
+                                          content:
+                                              "Clear all the bubbles in this translation session.",
+                                          action: () {
+                                            conversationBloc
+                                                .add(ResetConversation());
+                                          });
+                                    },
+                                    icon: Icon(
+                                      Icons.add_circle_outline,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                    ),
+                                  ),
                                   Expanded(
                                     child: TextField(
                                       controller:

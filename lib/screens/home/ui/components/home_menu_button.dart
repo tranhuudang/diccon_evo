@@ -19,13 +19,9 @@ class HomeMenuButton extends StatelessWidget {
     return Positioned(
       right: 16,
       top: 16,
-      child: Container(
+      child: SizedBox(
         height: 50,
         width: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Theme.of(context).cardColor,
-        ),
         child: PopupMenuButton(
           icon: const Icon(Icons.menu),
           //splashRadius: 10.0,

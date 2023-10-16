@@ -27,12 +27,8 @@ class FeatureButton extends StatelessWidget {
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         decoration: BoxDecoration(
             image: image,
-
             borderRadius: BorderRadius.circular(33),
-            // border: Border.all(
-            //   color: borderColor?? Theme.of(context).dividerColor,
-            // ),
-            color: backgroundColor ?? Theme.of(context).cardColor),
+            color: backgroundColor ?? Theme.of(context).colorScheme.surfaceVariant),
         child: child,
       ),
     );

@@ -25,6 +25,7 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: BlocBuilder<SettingCubit, Setting>(
             bloc: settingCubit,
             builder: (context, state) {
@@ -107,7 +108,7 @@ class _SettingsViewState extends State<SettingsView> {
           Text(
             "* The changes will become effective the next time you open the app."
                 .i18n,
-            style: const TextStyle(color: Colors.orange),
+            style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
           )
         ]),
         SettingSection(
