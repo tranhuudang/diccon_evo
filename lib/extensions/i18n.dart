@@ -311,12 +311,17 @@ extension Localization on String {
     "Sync your data": {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
-    },"DesciptionTextForPrivacyPolicy": {
-      "en_us": "We hold your privacy in high regard and assure you that your personal data will not be disclosed to any third party.",
-      "vi_vi": "Chúng tôi tôn trọng quyền riêng tư của bạn và cam kết dữ liệu cá nhân của bạn sẽ không được chia sẻ với bất cứ bên thứ ba nào cả.",
-    },"For more information about our privacy policy, please visit:": {
+    },
+    "DesciptionTextForPrivacyPolicy": {
+      "en_us":
+          "We hold your privacy in high regard and assure you that your personal data will not be disclosed to any third party.",
+      "vi_vi":
+          "Chúng tôi tôn trọng quyền riêng tư của bạn và cam kết dữ liệu cá nhân của bạn sẽ không được chia sẻ với bất cứ bên thứ ba nào cả.",
+    },
+    "For more information about our privacy policy, please visit:": {
       "en_us": "For more information about our privacy policy, please visit:",
-      "vi_vi": "Để biết thêm chi tiết về điều khoản riêng tư, vui lòng truy cập:",
+      "vi_vi":
+          "Để biết thêm chi tiết về điều khoản riêng tư, vui lòng truy cập:",
     },
     "Privacy Policy": {
       "en_us": "Privacy Policy",
