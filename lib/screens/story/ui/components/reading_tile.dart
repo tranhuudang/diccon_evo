@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../data/models/story.dart';
 import '../../../../data/models/level.dart';
-import '../../../commons/level_icon.dart';
+import 'level_icon.dart';
 import '../../blocs/story_history_list_bloc.dart';
 
 class ReadingTile extends StatelessWidget {
@@ -85,7 +85,7 @@ class ReadingTile extends StatelessWidget {
                         story.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
-                        style: textTheme.titleMedium,
+                        style: textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Expanded(
@@ -93,7 +93,7 @@ class ReadingTile extends StatelessWidget {
                           maxLines: 2,
                           story.shortDescription,
                           textAlign: TextAlign.justify,
-                          style: textTheme.bodySmall,
+                          style: textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onBackground.withOpacity(.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

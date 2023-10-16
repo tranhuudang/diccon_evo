@@ -37,7 +37,7 @@ class ChatbotBubblePreview extends StatelessWidget {
                       child: Icon(Icons.volume_up, size: 20,),
                     )],
                   ),
-                  Text(textReturn)
+                  Text(textReturn, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),)
                   // SelectableText(
                   //     answer),
                 ],

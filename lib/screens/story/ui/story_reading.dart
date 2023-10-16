@@ -75,7 +75,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                         /// Bookmark button
                         snapshot.data!
                             ? CircleButton(
-                                backgroundColor: Theme.of(context).primaryColor,
+                                backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                                 iconData: Icons.bookmark_border,
                                 onTap: () {
                                   _isListStoriesShouldChanged = true;
@@ -177,9 +177,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                   fontSize: Properties
                                       .defaultSetting.readingFontSize,
                                   textColor: Theme.of(context)
-                                      .primaryTextTheme
-                                      .labelMedium
-                                      ?.color,
+                                      .colorScheme.onBackground,
                                   onWordTap: (String value) {
                                     _showModalBottomSheet(context,
                                         value.removeSpecialCharacters());
@@ -208,7 +206,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     wordResult = await Searching.getDefinition(searchWord);
     if (wordResult != null) {
       showModalBottomSheet(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         context: currentContext, // Use the captured context here
         builder: (BuildContext context) {
           return SizedBox(

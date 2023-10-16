@@ -140,7 +140,7 @@ class CustomItem extends StatelessWidget {
                     Icons.check_circle,
                     size: 32,
                     color: isSelected
-                        ? Theme.of(context).primaryColor
+                        ? Theme.of(context).colorScheme.primary
                         : Theme.of(context).highlightColor,
                   ),
                   const SizedBox().mediumWidth(),

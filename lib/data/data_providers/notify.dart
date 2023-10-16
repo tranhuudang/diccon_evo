@@ -79,10 +79,10 @@ class Notify {
   static void showSnackBar({required BuildContext context, required String content}) =>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           content: Text(
             content,
-            style: Theme.of(context).textTheme.labelMedium,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer),
           ),
         ),
       );

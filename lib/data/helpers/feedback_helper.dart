@@ -14,7 +14,7 @@ class FeedbackHelper {
     if ((Properties.defaultSetting.openAppCount == 10) ||
         (Properties.defaultSetting.openAppCount == 50)) {
       showModalBottomSheet(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         context: context,
         builder: (context) {
           return Padding(
@@ -31,18 +31,21 @@ class FeedbackHelper {
                       )),
                   Center(
                     child: Text("We'd love to hear your feedback!".i18n,
-                        style: Theme.of(context).textTheme.titleLarge),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer)),
                   ),
                   const SizedBox().largeHeight(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PillButton(
-                          backgroundColor: Theme.of(context).highlightColor,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor: Theme.of(context).colorScheme.primary,
                           onTap: () => goToStoreListing(),
                           title: "Give feedbacks".i18n),
                       const SizedBox().largeWidth(),
                       PillButton(
+                          color: Theme.of(context).colorScheme.onSecondaryContainer,
+                          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                           onTap: () {
                             context.pop();
                           },

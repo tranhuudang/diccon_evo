@@ -102,7 +102,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                       _tabSwicherStreamController.add(selectedItemSet.first);
                     },
                   ),
-                  if (tabSwitcher.data == TranslationChoices.classic) ...[
+                  if (tabSwitcher.data == TranslationChoices.classic)
                     Column(
                       children: [
                         Row(
@@ -129,8 +129,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           ],
                         ),
                       ],
-                    )
-                  ],
+                    ),
                   if (tabSwitcher.data == TranslationChoices.ai) ...[
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +138,13 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Text(
                             answer,
-                            style: Theme.of(context).textTheme.bodyLarge,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
                           ),
                         )
                       ],

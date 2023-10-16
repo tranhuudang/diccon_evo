@@ -15,9 +15,9 @@ class LevelIcon extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Theme.of(context).primaryColor),
+          color: Theme.of(context).colorScheme.primary),
       child: Text(
-        level.upperCaseFirstLetter().i18n,
+        level.upperCaseFirstLetter().i18n, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
       ),
     );
   }
