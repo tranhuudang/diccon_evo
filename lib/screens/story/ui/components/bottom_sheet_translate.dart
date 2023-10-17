@@ -109,7 +109,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           children: [
                             WordTitle(
                               message: widget.message,
-                              titleColor: Colors.white,
+                              titleColor:   Theme.of(context).colorScheme.onSecondary,
                             ),
                             const SizedBox(
                               width: 8.0,
@@ -123,8 +123,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                             WordMeaning(
                               message: widget.message,
                               onWordTap: widget.onWordTap,
-                              highlightColor: Colors.white,
-                              subColor: Colors.white70,
+                              highlightColor:   Theme.of(context).colorScheme.onSecondary,
+                              subColor:   Theme.of(context).colorScheme.onSecondary.withOpacity(.8),
                             ),
                           ],
                         ),
