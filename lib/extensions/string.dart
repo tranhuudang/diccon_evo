@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import '../data/models/dictionary_response_type.dart';
 import '../data/models/translation_choices.dart';
 
@@ -19,6 +21,19 @@ extension StringExtenstion on String {
             "$this is not have a valid value to convert to DictionaryResponseType");
     }
   }
+
+  Locale toLocale() {
+    switch (this) {
+      case "English":
+        return const Locale('en', "US");
+      case "Tiếng Việt":
+        return const Locale('vi', "VI");
+      default:
+        throw FormatException(
+            "$this is not have a valid value to convert to Locale");
+    }
+  }
+
 
   TranslationChoices toTranslationChoice() {
     switch (this) {

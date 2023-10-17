@@ -25,21 +25,22 @@ class Properties {
   // control focus
   static FocusNode textFieldFocusNode = FocusNode();
 
-
   // All view in application
   static Setting defaultSetting = Setting(
-      dictionaryResponseType: DictionaryResponseType.short.title(),
-      translationChoice: TranslationChoices.classic.title(),
-      numberOfSynonyms: 10,
-      numberOfAntonyms: 10,
-      readingFontSize: 16,
-      numberOfEssentialLeft: 1848,
-      language: 'English',
-      readingFontSizeSliderValue: 0.2,
-      windowsWidth: 400,
-      windowsHeight: 700,
-      themeMode: 'ThemeMode.system', openAppCount: 0,
-      themeColor: 0
+    dictionaryResponseType: DictionaryResponseType.short.title(),
+    translationChoice: TranslationChoices.classic.title(),
+    numberOfSynonyms: 10,
+    numberOfAntonyms: 10,
+    readingFontSize: 16,
+    numberOfEssentialLeft: 1848,
+    language: 'English',
+    readingFontSizeSliderValue: 0.2,
+    windowsWidth: 400,
+    windowsHeight: 700,
+    themeMode: 'ThemeMode.system',
+    openAppCount: 0,
+    themeColor: 0,
+    enableAdaptiveTheme: true,
   );
 
   static void saveSettings(Setting newSetting) async {
@@ -59,6 +60,7 @@ class Properties {
     await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
     await prefs.setString('themeMode', newSetting.themeMode);
     await prefs.setInt('themeColor', newSetting.themeColor);
+    await prefs.setBool('enableAdaptiveTheme', newSetting.enableAdaptiveTheme);
     if (kDebugMode) {
       print("Setting saved");
     }
@@ -69,30 +71,48 @@ class Properties {
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
     defaultSetting = defaultSetting.copyWith(
-        readingFontSize: prefs.getDouble('readingFontSize') ??
-            defaultSetting.readingFontSize,
-        translationChoice: prefs.getString('translationChoice') ??
-            defaultSetting.translationChoice,
-        openAppCount: prefs.getInt("openAppCount") ?? defaultSetting.openAppCount,
-        dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
-            defaultSetting.dictionaryResponseType,
-        readingFontSizeSliderValue:
-            prefs.getDouble('readingFontSizeSliderValue') ??
-                defaultSetting.readingFontSizeSliderValue,
-        numberOfSynonyms:
-            prefs.getInt('numberOfSynonyms') ?? defaultSetting.numberOfSynonyms,
-        numberOfAntonyms:
-            prefs.getInt('numberOfAntonyms') ?? defaultSetting.numberOfAntonyms,
-        language: prefs.getString('language') ?? defaultSetting.language,
-        numberOfEssentialLeft: prefs.getInt('essentialLeft') ??
-            defaultSetting.numberOfEssentialLeft,
-        windowsWidth:
-            prefs.getDouble("widthOfWindowSize") ?? defaultSetting.windowsWidth,
-        windowsHeight: prefs.getDouble("heightOfWindowSize") ??
-            defaultSetting.windowsHeight,
-        themeMode: prefs.getString("themeMode") ?? defaultSetting.themeMode,
-        themeColor: prefs.getInt("themeColor") ?? defaultSetting.themeColor,
+      readingFontSize:
+          prefs.getDouble('readingFontSize') ?? defaultSetting.readingFontSize,
+      translationChoice: prefs.getString('translationChoice') ??
+          defaultSetting.translationChoice,
+      openAppCount: prefs.getInt("openAppCount") ?? defaultSetting.openAppCount,
+      dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
+          defaultSetting.dictionaryResponseType,
+      readingFontSizeSliderValue:
+          prefs.getDouble('readingFontSizeSliderValue') ??
+              defaultSetting.readingFontSizeSliderValue,
+      numberOfSynonyms:
+          prefs.getInt('numberOfSynonyms') ?? defaultSetting.numberOfSynonyms,
+      numberOfAntonyms:
+          prefs.getInt('numberOfAntonyms') ?? defaultSetting.numberOfAntonyms,
+      language: prefs.getString('language') ?? defaultSetting.language,
+      numberOfEssentialLeft:
+          prefs.getInt('essentialLeft') ?? defaultSetting.numberOfEssentialLeft,
+      windowsWidth:
+          prefs.getDouble("widthOfWindowSize") ?? defaultSetting.windowsWidth,
+      windowsHeight:
+          prefs.getDouble("heightOfWindowSize") ?? defaultSetting.windowsHeight,
+      themeMode: prefs.getString("themeMode") ?? defaultSetting.themeMode,
+      themeColor: prefs.getInt("themeColor") ?? defaultSetting.themeColor,
+      enableAdaptiveTheme: prefs.getBool("enableAdaptiveTheme") ??
+          defaultSetting.enableAdaptiveTheme,
     );
+    if (kDebugMode) {
+      print("New setting is saved with these bellow customs:");
+      print("numberOfSynonyms: ${Properties.defaultSetting.numberOfSynonyms}");
+      print("numberOfAntonyms: ${Properties.defaultSetting.numberOfAntonyms}");
+      print(
+          "numberOfEssentialLeft: ${Properties.defaultSetting.numberOfEssentialLeft}");
+      print("readingFontSize: ${Properties.defaultSetting.readingFontSize}");
+      print(
+          "readingFontSizeSliderValue: ${Properties.defaultSetting.readingFontSizeSliderValue}");
+      print("language: ${Properties.defaultSetting.language}");
+      print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
+      print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");
+      print("themeMode: ${Properties.defaultSetting.themeMode}");
+      print("language: ${Properties.defaultSetting.language}");
+      print("themeColor: ${Properties.defaultSetting.themeColor}");
+    }
     return true;
   }
 }

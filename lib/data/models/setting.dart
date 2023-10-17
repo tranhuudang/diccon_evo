@@ -2,7 +2,7 @@ class Setting {
   final String themeMode;
   final int numberOfSynonyms;
   final int numberOfAntonyms;
-
+  final bool enableAdaptiveTheme;
   final int openAppCount;
   final double readingFontSize;
   final int numberOfEssentialLeft;
@@ -22,6 +22,7 @@ class Setting {
       required this.readingFontSizeSliderValue,
       required this.themeMode,
       required this.numberOfSynonyms,
+      required this.enableAdaptiveTheme,
       required this.numberOfAntonyms,
       required this.readingFontSize,
       required this.numberOfEssentialLeft,
@@ -38,6 +39,7 @@ class Setting {
       int? numberOfSynonyms,
       int? numberOfAntonyms,
         int? openAppCount,
+        bool? enableAdaptiveTheme,
       double? readingFontSize,
       int? numberOfEssentialLeft,
       double? windowsWidth,
@@ -53,6 +55,7 @@ class Setting {
         numberOfSynonyms: numberOfSynonyms ?? this.numberOfSynonyms,
         numberOfAntonyms: numberOfAntonyms ?? this.numberOfAntonyms,
         readingFontSize: readingFontSize ?? this.readingFontSize,
+      enableAdaptiveTheme: enableAdaptiveTheme ?? this.enableAdaptiveTheme,
         numberOfEssentialLeft:
             numberOfEssentialLeft ?? this.numberOfEssentialLeft,
         language: language ?? this.language,

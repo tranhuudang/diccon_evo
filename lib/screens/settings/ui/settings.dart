@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/pill_button.dart';
+import 'package:diccon_evo/screens/settings/bloc/setting_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../config/properties.dart';
 import '../../../config/route_constants.dart';
 import '../../../data/models/setting.dart';
 import '../../commons/header.dart';
@@ -24,6 +27,7 @@ class _SettingsViewState extends State<SettingsView> {
   final settingCubit = SettingCubit();
   @override
   Widget build(BuildContext context) {
+    final settingBloc = context.read<SettingBloc>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -35,9 +39,9 @@ class _SettingsViewState extends State<SettingsView> {
                   SingleChildScrollView(
                     padding: const EdgeInsets.only(top: 60),
                     child: Responsive(
-                      smallSizeDevice: body(context, state),
-                      mediumSizeDevice: body(context, state),
-                      largeSizeDevice: body(context, state),
+                      smallSizeDevice: body(context, state,settingBloc ),
+                      mediumSizeDevice: body(context, state,settingBloc),
+                      largeSizeDevice: body(context, state,settingBloc),
                     ),
                   ),
 
@@ -50,7 +54,8 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
-  Column body(BuildContext context, Setting state) {
+  Column body(BuildContext context, Setting state, SettingBloc settingBloc) {
+    final languageStreamController = StreamController<String>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -66,26 +71,32 @@ class _SettingsViewState extends State<SettingsView> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 width: 120,
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                      isExpanded: true,
-                      borderRadius: BorderRadius.circular(16),
-                      focusColor: Colors.white,
-                      value: state.language,
-                      hint: Text('Select a language'.i18n),
-                      onChanged: (String? newValue) {
-                        settingCubit.setLanguage(newValue!);
-                        settingCubit.saveSettings();
-                      },
-                      items: ["English", "Tiếng Việt"]
-                          .map(
-                            (value) => DropdownMenuItem<String>(
-                              alignment: Alignment.center,
-                              value: value,
-                              child: Text(value.toString()),
-                            ),
-                          )
-                          .toList()),
+                child: StreamBuilder<String>(
+                  stream: languageStreamController.stream,
+                  initialData: Properties.defaultSetting.language,
+                  builder: (context, languageState) {
+                    return DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                          isExpanded: true,
+                          borderRadius: BorderRadius.circular(16),
+                          focusColor: Colors.white,
+                          value: languageState.data,
+                          hint: Text('Select a language'.i18n),
+                          onChanged: (String? selectedLanguage) {
+                            languageStreamController.add(selectedLanguage!);
+                            settingBloc.add(ChangeLanguageEvent(language: selectedLanguage));
+                          },
+                          items: ["English", "Tiếng Việt"]
+                              .map(
+                                (value) => DropdownMenuItem<String>(
+                                  alignment: Alignment.center,
+                                  value: value,
+                                  child: Text(value.toString()),
+                                ),
+                              )
+                              .toList()),
+                    );
+                  }
                 ),
               ),
             ],

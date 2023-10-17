@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:diccon_evo/config/route_configurations.dart';
-import 'package:diccon_evo/extensions/theme_mode.dart';
+import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/settings/bloc/setting_bloc.dart';
 import 'package:diccon_evo/screens/story/blocs/story_list_bloc.dart';
 import 'package:diccon_evo/screens/conversation/bloc/conversation_bloc.dart';
@@ -70,107 +70,103 @@ class _ProgramRootState extends State<ProgramRoot> {
           builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
             ColorScheme lightColorScheme;
             ColorScheme darkColorScheme;
-            // Switcher of theme color
             switch (state.runtimeType) {
-              case SettingInitial:
-                if (Properties.defaultSetting.themeColor != 0) {
-                  /// Custom theme that user set in setting
-                  lightColorScheme = ColorScheme.fromSeed(
-                    seedColor: Color(Properties.defaultSetting.themeColor),
-                  );
-                  darkColorScheme = ColorScheme.fromSeed(
-                    seedColor: Color(Properties.defaultSetting.themeColor),
-                    brightness: Brightness.dark,
-                  );
-                } else {
-                  /// If adaptive theme is not available, we create a new one
-                  lightColorScheme = ColorScheme.fromSeed(
-                    seedColor: Colors.blue,
-                  );
-                  darkColorScheme = ColorScheme.fromSeed(
-                    seedColor: Colors.blue,
-                    brightness: Brightness.dark,
-                  );
-                }
-                break;
-              case ChangeThemeColor:
-                final data = state as ChangeThemeColor;
-                lightColorScheme = ColorScheme.fromSeed(
-                  seedColor: data.color,
-                );
-                darkColorScheme = ColorScheme.fromSeed(
-                  seedColor: data.color,
-                  brightness: Brightness.dark,
-                );
-                break;
-              case AdaptiveThemeColor:
-                if (lightDynamic != null && darkDynamic != null) {
+              case SettingUpdated:
+                if ((state.params.enableAdaptiveTheme) &&
+                    (lightDynamic != null && darkDynamic != null)) {
                   /// If not set we use adaptive theme
-
                   if (kDebugMode) {
                     print("Adaptive theme available");
                   }
                   lightColorScheme = lightDynamic.harmonized();
                   darkColorScheme = darkDynamic.harmonized();
+                  return buildMaterialApp(
+                      themeMode: state.params.themeMode,
+                      lightColorScheme: lightColorScheme,
+                      darkColorScheme: darkColorScheme,
+                      language: state.params.language.toLocale());
                 } else {
                   if (kDebugMode) {
                     print("Manual create a new color scheme for theme");
                   }
                   lightColorScheme = ColorScheme.fromSeed(
-                    seedColor: Colors.blue,
+                    seedColor: state.params.accentColor,
                   );
                   darkColorScheme = ColorScheme.fromSeed(
-                    seedColor: Colors.blue,
+                    seedColor: state.params.accentColor,
                     brightness: Brightness.dark,
                   );
+                  return buildMaterialApp(
+                      themeMode: state.params.themeMode,
+                      lightColorScheme: lightColorScheme,
+                      darkColorScheme: darkColorScheme,
+                      language: state.params.language.toLocale());
                 }
-                break;
-              case ThemeModeChanged:
 
               default:
-                if (kDebugMode) {
-                  print("Manual create a new color scheme for theme");
+                if ((Properties.defaultSetting.enableAdaptiveTheme) &&
+                    (lightDynamic != null && darkDynamic != null)) {
+                  /// If not set we use adaptive theme
+                  if (kDebugMode) {
+                    print("Adaptive theme available");
+                  }
+                  lightColorScheme = lightDynamic.harmonized();
+                  darkColorScheme = darkDynamic.harmonized();
+                  return buildMaterialApp(
+                      themeMode: state.params.themeMode,
+                      lightColorScheme: lightColorScheme,
+                      darkColorScheme: darkColorScheme,
+                      language: state.params.language.toLocale());
+                } else {
+                  if (kDebugMode) {
+                    print("Manual create a new color scheme for theme");
+                  }
+                  lightColorScheme = ColorScheme.fromSeed(
+                    seedColor: state.params.accentColor,
+                  );
+                  darkColorScheme = ColorScheme.fromSeed(
+                    seedColor: state.params.accentColor,
+                    brightness: Brightness.dark,
+                  );
+                  return buildMaterialApp(
+                      themeMode: state.params.themeMode,
+                      lightColorScheme: lightColorScheme,
+                      darkColorScheme: darkColorScheme,
+                      language: state.params.language.toLocale());
                 }
-                lightColorScheme = ColorScheme.fromSeed(
-                  seedColor: Color(Properties.defaultSetting.themeColor),
-                );
-                darkColorScheme = ColorScheme.fromSeed(
-                  seedColor: Color(Properties.defaultSetting.themeColor),
-                  brightness: Brightness.dark,
-                );
             }
-            // Condition cases for dark mode
-            var themeMode = Properties.defaultSetting.themeMode.toThemeMode();
-            if (state is ThemeModeChanged) {
-              themeMode = state.themeMode;
-            }
-            return MaterialApp.router(
-              localizationsDelegates: const [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale('en', "US"),
-                Locale('vi', "VI"),
-              ],
-              locale: Properties.defaultSetting.language == "English"
-                  ? const Locale('en', "US")
-                  : const Locale('vi', "VI"),
-              themeMode: themeMode,
-              theme: ThemeData(
-                colorScheme: lightColorScheme,
-              ),
-              darkTheme: ThemeData(
-                colorScheme: darkColorScheme,
-              ),
-              title: PropertiesConstants.diccon,
-              debugShowCheckedModeBanner: false,
-              routerConfig: router,
-            );
           },
         );
       }),
+    );
+  }
+
+  MaterialApp buildMaterialApp(
+      {required ThemeMode themeMode,
+      required ColorScheme lightColorScheme,
+      required ColorScheme darkColorScheme,
+      required Locale language}) {
+    return MaterialApp.router(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', "US"),
+        Locale('vi', "VI"),
+      ],
+      locale: language,
+      themeMode: themeMode,
+      theme: ThemeData(
+        colorScheme: lightColorScheme,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: darkColorScheme,
+      ),
+      title: PropertiesConstants.diccon,
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
     );
   }
 }

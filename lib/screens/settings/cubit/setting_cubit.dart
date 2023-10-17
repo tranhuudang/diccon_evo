@@ -18,12 +18,6 @@ class SettingCubit extends Cubit<Setting> {
     emit(Properties.defaultSetting);
   }
 
-  void setLanguage(String language) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(language: language);
-    emit(Properties.defaultSetting);
-  }
-
   void setReadingFontSize(double num) {
     Properties.defaultSetting =
         Properties.defaultSetting.copyWith(readingFontSize: num);
