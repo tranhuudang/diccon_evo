@@ -312,6 +312,10 @@ extension Localization on String {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
     },
+    "Accent color": {
+      "en_us": "Accent color",
+      "vi_vi": "Tông màu",
+    },
     "DesciptionTextForPrivacyPolicy": {
       "en_us":
           "We hold your privacy in high regard and assure you that your personal data will not be disclosed to any third party.",

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,16 +10,16 @@ import '../../../commons/pill_button.dart';
 import '../../bloc/setting_bloc.dart';
 
 
-class ThemeColorSelector extends StatefulWidget {
-  const ThemeColorSelector({
+class ThemeColorPalette extends StatefulWidget {
+  const ThemeColorPalette({
     super.key,
   });
 
   @override
-  State<ThemeColorSelector> createState() => _ThemeColorSelectorState();
+  State<ThemeColorPalette> createState() => _ThemeColorPaletteState();
 }
 
-class _ThemeColorSelectorState extends State<ThemeColorSelector> {
+class _ThemeColorPaletteState extends State<ThemeColorPalette> {
   final _selectController = StreamController<Color>();
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,13 @@ class _ThemeColorSelectorState extends State<ThemeColorSelector> {
         builder: (context, selectedColor) {
           return Column(
             children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                  child: Text("Accent color".i18n)),
+              SizedBox().smallHeight(),
               Wrap(
+                spacing: 3,
+                runSpacing: 3,
                 alignment: WrapAlignment.center,
                 children: [
                   Colors.red,
@@ -43,28 +50,28 @@ class _ThemeColorSelectorState extends State<ThemeColorSelector> {
                   Colors.brown,
                   Colors.grey
                 ].map((currentColor) {
-                  return Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: InkWell(
-                      onTap: () {
-                        _selectController.add(currentColor);
-                        settingBloc
-                            .add(ChangeThemeColorEvent(color: currentColor));
-                      },
-                      child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: currentColor,
-                            border: selectedColor.data?.value == currentColor.value
-                                ? Border.all(
-                              color: Colors.white,
-                              width: 3,
-                            )
-                                : null,
-                            borderRadius: BorderRadius.circular(50),
-                          )),
-                    ),
+                  return InkWell(
+                    onTap: () {
+                      _selectController.add(currentColor);
+                      settingBloc
+                          .add(ChangeThemeColorEvent(color: currentColor));
+                    },
+                    onHover: (isHover){
+                      _selectController.add(currentColor);
+                    },
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: currentColor,
+                          border: selectedColor.data?.value == currentColor.value
+                              ? Border.all(
+                            color: Colors.white,
+                            width: 3,
+                          )
+                              : null,
+                          borderRadius: BorderRadius.circular(8),
+                        )),
                   );
                 }).toList(),
               ),

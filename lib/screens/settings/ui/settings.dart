@@ -10,7 +10,7 @@ import '../../../data/models/setting.dart';
 import '../../commons/header.dart';
 import '../cubit/setting_cubit.dart';
 import 'components/setting_section.dart';
-import 'components/theme_color_selector.dart';
+import 'components/theme_color_palette.dart';
 import 'components/theme_mode_switcher.dart';
 
 class SettingsView extends StatefulWidget {
@@ -100,7 +100,7 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const SizedBox().largeHeight(),
-          const ThemeColorSelector(),
+          const ThemeColorPalette(),
         ]),
         SettingSection(
           title: 'Dictionary Section'.i18n,
