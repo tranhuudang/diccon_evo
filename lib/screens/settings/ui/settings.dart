@@ -79,7 +79,6 @@ class _SettingsViewState extends State<SettingsView> {
                       child: DropdownButton<String>(
                           isExpanded: true,
                           borderRadius: BorderRadius.circular(16),
-                          focusColor: Colors.white,
                           value: languageState.data,
                           hint: Text('Select a language'.i18n),
                           onChanged: (String? selectedLanguage) {

@@ -62,7 +62,6 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                         Text(
                           "Light mode".i18n,
                           style: TextStyle(
-                            fontSize: 16,
                             color: snapshot.data == ThemeMode.light
                                 ? Theme.of(context).colorScheme.onPrimary
                                 : Theme.of(context)
@@ -110,7 +109,6 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                         Text(
                           "Dark mode".i18n,
                           style: TextStyle(
-                            fontSize: 16,
                             color: snapshot.data == ThemeMode.dark
                                 ? Theme.of(context).colorScheme.onPrimary
                                 : Theme.of(context)
@@ -149,7 +147,6 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                     child: Text(
                       "Adaptive".i18n,
                       style: TextStyle(
-                        fontSize: 16,
                         color: snapshot.data == ThemeMode.system
                             ? Theme.of(context).colorScheme.onPrimary
                             : Theme.of(context)

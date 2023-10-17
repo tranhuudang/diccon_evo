@@ -311,6 +311,9 @@ extension Localization on String {
     "Sync your data": {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
+    },"Use System Theme": {
+      "en_us": "Use System Theme",
+      "vi_vi": "Sử dụng chủ đề hệ thống",
     },
     "Accent color": {
       "en_us": "Accent color",

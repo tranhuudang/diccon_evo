@@ -59,6 +59,8 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
                 Colors.blueAccent,
                 Colors.purple,
                 Colors.brown,
+                Colors.blueGrey,
+                Colors.lime,
                 Colors.grey
               ].map((currentColor) {
                 return InkWell(
@@ -114,7 +116,7 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
             onTap: () {
               settingBloc.add(EnableAdaptiveThemeColorEvent());
             },
-            title: "Use System Theme")
+            title: "Use System Theme".i18n)
       ],
     );
   }
