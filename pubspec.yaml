@@ -86,6 +86,7 @@ dependencies:
   # use for customizing theme
   dynamic_color: ^1.6.7
   flutter_material_color_picker: ^1.2.0
+  wave: ^0.2.2
 
 dev_dependencies:
   flutter_test:
