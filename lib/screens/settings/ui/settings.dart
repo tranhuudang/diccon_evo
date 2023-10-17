@@ -39,9 +39,9 @@ class _SettingsViewState extends State<SettingsView> {
                   SingleChildScrollView(
                     padding: const EdgeInsets.only(top: 60),
                     child: Responsive(
-                      smallSizeDevice: body(context, state,settingBloc ),
-                      mediumSizeDevice: body(context, state,settingBloc),
-                      largeSizeDevice: body(context, state,settingBloc),
+                      smallSizeDevice: body(context, state, settingBloc),
+                      mediumSizeDevice: body(context, state, settingBloc),
+                      largeSizeDevice: body(context, state, settingBloc),
                     ),
                   ),
 
@@ -72,34 +72,36 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 width: 120,
                 child: StreamBuilder<String>(
-                  stream: languageStreamController.stream,
-                  initialData: Properties.defaultSetting.language,
-                  builder: (context, languageState) {
-                    return DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                          isExpanded: true,
-                          borderRadius: BorderRadius.circular(16),
-                          value: languageState.data,
-                          hint: Text('Select a language'.i18n),
-                          onChanged: (String? selectedLanguage) {
-                            languageStreamController.add(selectedLanguage!);
-                            settingBloc.add(ChangeLanguageEvent(language: selectedLanguage));
-                          },
-                          items: ["English", "Tiếng Việt"]
-                              .map(
-                                (value) => DropdownMenuItem<String>(
-                                  alignment: Alignment.center,
-                                  value: value,
-                                  child: Text(value.toString()),
-                                ),
-                              )
-                              .toList()),
-                    );
-                  }
-                ),
+                    stream: languageStreamController.stream,
+                    initialData: Properties.defaultSetting.language,
+                    builder: (context, languageState) {
+                      return DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                            isExpanded: true,
+                            borderRadius: BorderRadius.circular(16),
+                            value: languageState.data,
+                            hint: Text('Select a language'.i18n),
+                            onChanged: (String? selectedLanguage) {
+                              languageStreamController.add(selectedLanguage!);
+                              settingBloc.add(ChangeLanguageEvent(
+                                  language: selectedLanguage));
+                            },
+                            items: ["English", "Tiếng Việt"]
+                                .map(
+                                  (value) => DropdownMenuItem<String>(
+                                    alignment: Alignment.center,
+                                    value: value,
+                                    child: Text(value.toString()),
+                                  ),
+                                )
+                                .toList()),
+                      );
+                    }),
               ),
             ],
           ),
+          const SizedBox().mediumHeight(),
+          const Divider(),
           const SizedBox().mediumHeight(),
 
           /// Theme switcher
@@ -109,7 +111,9 @@ class _SettingsViewState extends State<SettingsView> {
               const ThemeSwitcher(),
             ],
           ),
-          const SizedBox().largeHeight(),
+          const SizedBox().mediumHeight(),
+          const Divider(),
+          const SizedBox().mediumHeight(),
           const ThemeColorPalette(),
         ]),
         SettingSection(

@@ -111,7 +111,7 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
             );
           },
         ),
-        const SizedBox().mediumHeight(),
+        const SizedBox().largeHeight(),
         PillButton(
             onTap: () {
               settingBloc.add(EnableAdaptiveThemeColorEvent());
