@@ -39,7 +39,7 @@ class Properties {
     windowsHeight: 700,
     themeMode: 'ThemeMode.system',
     openAppCount: 0,
-    themeColor: 0,
+    themeColor: Colors.blue.value,
     enableAdaptiveTheme: true,
   );
 

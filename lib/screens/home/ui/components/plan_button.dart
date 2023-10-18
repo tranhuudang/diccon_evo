@@ -14,7 +14,8 @@ class PlanButton extends StatelessWidget {
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(16)),
-      child: Properties.userInfo.uid == "PpvAkcjQnfVDb1i3u2aSW6jLN383"
+      child: ((Properties.userInfo.uid == "PpvAkcjQnfVDb1i3u2aSW6jLN383") ||
+              (Properties.userInfo.uid == "jwRlpB8QJ4MLaub4ka0m2X9dXhC3"))
           ? Text(
               "Made with ❤️ for Thảo",
               style:

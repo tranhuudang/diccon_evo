@@ -40,13 +40,18 @@ class FeedbackHelper {
                       PillButton(
                         color: Theme.of(context).colorScheme.onPrimary,
                           backgroundColor: Theme.of(context).colorScheme.primary,
-                          onTap: () => goToStoreListing(),
+                          onTap: () {
+                            Properties.defaultSetting = Properties.defaultSetting.copyWith(openAppCount: Properties.defaultSetting.openAppCount +1 );
+                            Properties.saveSettings(Properties.defaultSetting);
+                          goToStoreListing();},
                           title: "Give feedbacks".i18n),
                       const SizedBox().largeWidth(),
                       PillButton(
                           color: Theme.of(context).colorScheme.onSecondaryContainer,
                           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                           onTap: () {
+                            Properties.defaultSetting = Properties.defaultSetting.copyWith(openAppCount: Properties.defaultSetting.openAppCount +1 );
+                            Properties.saveSettings(Properties.defaultSetting);
                             context.pop();
                           },
                           title: "Later".i18n),

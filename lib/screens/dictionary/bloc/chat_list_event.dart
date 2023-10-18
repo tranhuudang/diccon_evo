@@ -8,9 +8,9 @@ class AddUserMessage extends ChatListEvent{
   AddUserMessage({required this.providedWord});
 }
 
-class AddLocalTranslation extends ChatListEvent{
+class AddTranslation extends ChatListEvent{
   final String providedWord;
-  AddLocalTranslation({required this.providedWord});
+  AddTranslation({required this.providedWord});
 }
 
 

@@ -11,24 +11,24 @@ import 'components/history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WordHistoryView extends StatefulWidget {
-  const WordHistoryView({super.key});
+  final WordHistoryBloc wordHistoryBloc;
+  const WordHistoryView({super.key, required this.wordHistoryBloc});
 
   @override
   State<WordHistoryView> createState() => _WordHistoryViewState();
 }
 
 class _WordHistoryViewState extends State<WordHistoryView> {
-  final _editController = StreamController<bool>();
 
   @override
   Widget build(BuildContext context) {
-    final wordHistoryBloc = context.read<WordHistoryBloc>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             BlocBuilder<WordHistoryBloc, WordHistoryState>(
+              bloc: widget.wordHistoryBloc,
               builder: (context, state) {
                 switch (state.runtimeType) {
                   case WordHistoryUpdated:
@@ -61,23 +61,18 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                         ),
                       );
                     } else {
-                      return StreamBuilder<bool>(
-                          stream: _editController.stream,
-                          initialData: false,
-                          builder: (context, snapshot) {
-                            return ListView.builder(
-                              padding: const EdgeInsets.only(top: 60),
-                              itemCount: state.words.length,
-                              itemBuilder: (context, index) {
-                                final word = state.words[index];
-                                return HistoryTile(
-                                    word: word, onEdit: state.isEdit!);
-                              },
-                            );
-                          });
+                      return ListView.builder(
+                        padding: const EdgeInsets.only(top: 60),
+                        itemCount: state.words.length,
+                        itemBuilder: (context, index) {
+                          final word = state.words[index];
+                          return HistoryTile(
+                              word: word, onEdit: state.isEdit!, wordHistoryBloc : widget.wordHistoryBloc);
+                        },
+                      );
                     }
                   default:
-                    wordHistoryBloc.add(InitialWordHistory());
+                    widget.wordHistoryBloc.add(InitialWordHistory());
                     return Container();
                 }
               },
@@ -87,7 +82,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
               actions: [
                 IconButton(
                     onPressed: () =>
-                        wordHistoryBloc.add(SortAlphabetWordHistory()),
+                        widget.wordHistoryBloc.add(SortAlphabetWordHistory()),
                     icon: const Icon(Icons.sort_by_alpha)),
                 PopupMenuButton(
                   //splashRadius: 10.0,
@@ -99,7 +94,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                     PopupMenuItem(
                       child: Text("Reverse".i18n),
                       onTap: () =>
-                          wordHistoryBloc.add(SortReverseWordHistory()),
+                          widget.wordHistoryBloc.add(SortReverseWordHistory()),
                     ),
                     const PopupMenuItem(
                       height: 0,
@@ -107,7 +102,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                     ),
                     PopupMenuItem(
                       child: Text("Edit".i18n),
-                      onTap: () => wordHistoryBloc.add(WordHistoryEditMode()),
+                      onTap: () => widget.wordHistoryBloc.add(WordHistoryEditMode()),
                     ),
                   ],
                 ),
@@ -116,6 +111,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
           ],
         ),
         bottomNavigationBar: BlocBuilder<WordHistoryBloc, WordHistoryState>(
+            bloc: widget.wordHistoryBloc,
             builder: (context, state) {
           if (state.isEdit == true) {
             return BottomAppBar(
@@ -132,8 +128,8 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                               content:
                                   "AskQuestionBeforeDelete".i18n,
                               action: () {
-                                wordHistoryBloc.add(ClearAllWordHistory());
-                                wordHistoryBloc.add(CloseWordHistoryEditMode());
+                                widget.wordHistoryBloc.add(ClearAllWordHistory());
+                                widget.wordHistoryBloc.add(CloseWordHistoryEditMode());
 
                               });
 
@@ -143,7 +139,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                     CircleButton(
                         iconData: Icons.close,
                         onTap: () {
-                          wordHistoryBloc.add(CloseWordHistoryEditMode());
+                          widget.wordHistoryBloc.add(CloseWordHistoryEditMode());
                         })
                   ],
                 ),

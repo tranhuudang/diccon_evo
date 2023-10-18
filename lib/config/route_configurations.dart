@@ -20,6 +20,7 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
 import '../data/models/story.dart';
+import '../screens/dictionary/bloc/word_history_bloc.dart';
 
 GoRouter router = GoRouter(
   routes: [
@@ -73,7 +74,8 @@ GoRouter router = GoRouter(
             name: RouterConstants.wordHistory,
             path: 'history',
             pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const WordHistoryView()));
+              var wordHistoryBloc = state.extra as WordHistoryBloc;
+              return MaterialPage(child: I18n(child:  WordHistoryView(wordHistoryBloc: wordHistoryBloc,)));
             },
           ),
           GoRoute(

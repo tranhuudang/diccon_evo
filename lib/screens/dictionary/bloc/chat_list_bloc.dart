@@ -23,7 +23,7 @@ part 'chat_list_event.dart';
 class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   ChatListBloc()
       : super(ChatListUpdated(chatList: [const DictionaryWelcome()])) {
-    on<AddLocalTranslation>(_addLocalTranslation);
+    on<AddTranslation>(_addTranslation);
     on<AddUserMessage>(_addUserMessage);
     on<AddSorryMessage>(_addSorryMessage);
     on<AddSynonyms>(_addSynonymsList);
@@ -86,8 +86,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     _scrollChatListToBottom();
   }
 
-  Future<void> _addLocalTranslation(
-      AddLocalTranslation event, Emitter<ChatListState> emit) async {
+  Future<void> _addTranslation(
+      AddTranslation event, Emitter<ChatListState> emit) async {
     // Check internet connection before create request to chatbot
     bool isInternetConnected = await InternetConnectionChecker().hasConnection;
     if (kDebugMode) {

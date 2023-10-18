@@ -26,6 +26,7 @@ class DictionaryView extends StatefulWidget {
 
 class _DictionaryViewState extends State<DictionaryView> {
   final ImageHandler _imageProvider = ImageHandler();
+  final _wordHistoryBloc = WordHistoryBloc();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
   bool _hasImages = false;
@@ -54,7 +55,7 @@ class _DictionaryViewState extends State<DictionaryView> {
     try {
       /// Right bubble represent machine reply
       chatListBloc.add(
-        AddLocalTranslation(
+        AddTranslation(
           providedWord: searchWord,
         ),
       );
@@ -109,7 +110,6 @@ class _DictionaryViewState extends State<DictionaryView> {
   @override
   Widget build(BuildContext context) {
     var chatListBloc = context.read<ChatListBloc>();
-    var wordHistoryBloc = context.read<WordHistoryBloc>();
 
     return SafeArea(
       child: Scaffold(
@@ -171,7 +171,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
-                          context.pushNamed('word-history');
+                          context.pushNamed('word-history', extra: _wordHistoryBloc);
                         },
                       ),
                       const DictionaryMenuButton(),
@@ -304,7 +304,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                                     child: TextField(
                                       focusNode: Properties.textFieldFocusNode,
                                       onSubmitted: (providedWord) {
-                                        wordHistoryBloc.add(AddWordToHistory(providedWord: providedWord));
+                                        _wordHistoryBloc.add(AddWordToHistory(providedWord: providedWord));
                                         _handleSubmitted(providedWord, context);
                                       },
                                       onChanged: (String word) {

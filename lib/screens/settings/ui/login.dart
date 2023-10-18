@@ -30,105 +30,111 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
+
     if (defaultTargetPlatform.isAndroid()) {
       _loggedInUser = _currentLoggedInUser();
+      if (_loggedInUser != null) {
+        context.read<UserBloc>().add(UserLoginEvent());
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final userBloc = context.read<UserBloc>();
-
     if (defaultTargetPlatform.isAndroid()) {
       if (_loggedInUser == null) {
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            body: Stack(
-              children: [
-                Center(
-                  child: SizedBox(
-                    //color: Colors.red,
-                    height: 500,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 120,
-                            child: Image(
-                              image: AssetImage("assets/diccon-256.png"),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          const Text(
-                            "Simplifying",
-                            style: TextStyle(
-                                fontSize: 26, fontWeight: FontWeight.bold),
-                          ),
-                          const Text(
-                            "Language Learning",
-                            style: TextStyle(
-                                fontSize: 26, fontWeight: FontWeight.bold),
-                          ),
-                          const Spacer(),
-
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          BlocListener<UserBloc, UserState>(
-                            listenWhen: (previous, current) =>
-                                current is UserActionState,
-                            listener: (context, state) {
-                              if (state is UserLoggedInSuccessfulState) {
-                                context
-                                    .pushReplacementNamed(RouterConstants.home);
-                              }
-                            },
-                            child: PillButton(
-                                icon: FontAwesomeIcons.google,
-                                onTap: () async {
-                                  userBloc.add(UserLoginEvent());
-                                },
-                                title: "Continue with Google".i18n),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          PillButton(
-                              backgroundColor: Theme.of(context).colorScheme.secondary,
-                              color: Theme.of(context).colorScheme.onSecondary,
-                              onTap: () {
-                                context
-                                    .pushReplacementNamed(RouterConstants.home);
-                              },
-                              title: "Continue without login".i18n,),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          // TipsBox(children: [
-                          // ]),
-                          const Spacer(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                /// Menu
-                const LoginMenu(),
-              ],
-            ),
-          ),
-        );
+        return buildUserNotLoginYetWidget(context);
       } else {
-        //userBloc.add(UserLoginEvent());
         return const HomeView();
       }
     } else {
       return const HomeView();
     }
+  }
+
+  SafeArea buildUserNotLoginYetWidget(BuildContext context) {
+    final userBloc = context.read<UserBloc>();
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: Stack(
+          children: [
+            Center(
+              child: SizedBox(
+                //color: Colors.red,
+                height: 500,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 120,
+                        child: Image(
+                          image: AssetImage("assets/diccon-256.png"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Text(
+                        "Simplifying",
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                      ),
+                      const Text(
+                        "Language Learning",
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                      ),
+                      const Spacer(),
+
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      BlocListener<UserBloc, UserState>(
+                        listenWhen: (previous, current) =>
+                            current is UserActionState,
+                        listener: (context, state) {
+                          if (state is UserLoggedInSuccessfulState) {
+                            context.pushReplacementNamed(RouterConstants.home);
+                          }
+                        },
+                        child: PillButton(
+                            icon: FontAwesomeIcons.google,
+                            onTap: () async {
+                              userBloc.add(UserLoginEvent());
+                            },
+                            title: "Continue with Google".i18n),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      PillButton(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        onTap: () {
+                          context.pushReplacementNamed(RouterConstants.home);
+                        },
+                        title: "Continue without login".i18n,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      // TipsBox(children: [
+                      // ]),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            /// Menu
+            const LoginMenu(),
+          ],
+        ),
+      ),
+    );
   }
 }

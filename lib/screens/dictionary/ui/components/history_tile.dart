@@ -8,17 +8,17 @@ class HistoryTile extends StatelessWidget {
   const HistoryTile({
     super.key,
     required this.word,
-    required this.onEdit,
+    required this.onEdit, required this.wordHistoryBloc,
   });
 
   final String word;
   final bool onEdit;
+  final WordHistoryBloc wordHistoryBloc;
 
 
   @override
   Widget build(BuildContext context) {
     final chatListBloc = context.read<ChatListBloc>();
-    final wordHistoryBloc = context.read<WordHistoryBloc>();
     return Container(
       alignment: Alignment.center,
       constraints: const BoxConstraints(minHeight: 70),
@@ -32,7 +32,7 @@ class HistoryTile extends StatelessWidget {
       child: ListTile(
         onTap: () {
           chatListBloc.add(AddUserMessage(providedWord: word));
-          chatListBloc.add(AddLocalTranslation(providedWord: word));
+          chatListBloc.add(AddTranslation(providedWord: word));
           Navigator.pop(context);
         },
         title: Text(

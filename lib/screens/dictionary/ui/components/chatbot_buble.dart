@@ -196,7 +196,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
             textColor: Theme.of(context).colorScheme.onSecondary,
               onWordTap: (word) {
                 chatListBloc.add(AddUserMessage(providedWord: word));
-                chatListBloc.add(AddLocalTranslation(providedWord: word));
+                chatListBloc.add(AddTranslation(providedWord: word));
               },
               text: answer)
           // SelectableText(
