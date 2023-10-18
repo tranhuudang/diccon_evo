@@ -5,7 +5,7 @@ import '../../../../data/models/level.dart';
 import 'level_icon.dart';
 import '../../blocs/story_history_list_bloc.dart';
 
-class ReadingTile extends StatelessWidget {
+class ReadingTile extends StatefulWidget {
   final String? tag;
   final Story story;
   final VoidCallback onTap;
@@ -16,15 +16,21 @@ class ReadingTile extends StatelessWidget {
   });
 
   @override
+  State<ReadingTile> createState() => _ReadingTileState();
+}
+
+class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClientMixin{
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     final storyHistoryBloc = StoryHistoryBloc();
     TextTheme textTheme = Theme.of(context).primaryTextTheme;
     return GridTile(
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         onTap: (){
-          storyHistoryBloc.add(StoryHistoryAdd(story: story));
-          onTap();
+          storyHistoryBloc.add(StoryHistoryAdd(story: widget.story));
+          widget.onTap();
         },
         child: Container(
           padding: const EdgeInsets.all(8),
@@ -37,7 +43,7 @@ class ReadingTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Hero(
-                tag: tag ?? story.title,
+                tag: widget.tag ?? widget.story.title,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
@@ -54,7 +60,7 @@ class ReadingTile extends StatelessWidget {
                       //   backgroundColor: Colors.black45,
                       //   color: Colors.black54,
                       // ),
-                      imageUrl: story.imageUrl ?? '',
+                      imageUrl: widget.story.imageUrl ?? '',
                       height: 100.0,
                       width: 100.0,
                       fit: BoxFit.cover,
@@ -82,7 +88,7 @@ class ReadingTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        story.title,
+                        widget.story.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -91,14 +97,14 @@ class ReadingTile extends StatelessWidget {
                       Expanded(
                         child: Text(
                           maxLines: 2,
-                          story.shortDescription,
+                          widget.story.shortDescription,
                           textAlign: TextAlign.justify,
                           style: textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       LevelIcon(
-                        level: story.level ?? Level.intermediate.toLevelNameString(),
+                        level: widget.story.level ?? Level.intermediate.toLevelNameString(),
                       ),
                     ],
                   ),
@@ -110,4 +116,7 @@ class ReadingTile extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

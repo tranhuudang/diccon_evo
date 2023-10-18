@@ -17,7 +17,8 @@ class PillButton extends StatelessWidget {
       required this.title,
       this.icon,
       this.isDisabled = false,
-      this.backgroundColor, this.color});
+      this.backgroundColor,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +36,15 @@ class PillButton extends StatelessWidget {
           children: [
             if (icon != null)
               Icon(
+                color: Theme.of(context).colorScheme.onPrimary,
                 icon,
                 size: 18,
               ),
             if (icon != null) const SizedBox().mediumWidth(),
             Text(
               title.i18n,
-              style: TextStyle(color: color??Theme.of(context).colorScheme.onPrimary),
+              style: TextStyle(
+                  color: color ?? Theme.of(context).colorScheme.onPrimary),
             ),
           ],
         ),

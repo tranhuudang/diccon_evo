@@ -11,7 +11,7 @@ class CircleButtonBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(.3),
         borderRadius: BorderRadius.circular(50),
       ),
       child: Wrap(
@@ -44,7 +44,7 @@ class _CircleButtonState extends State<CircleButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultBackgroundColor = Theme.of(context).highlightColor;
+    final Color defaultBackgroundColor = Theme.of(context).colorScheme.surfaceVariant;
     return InkWell(
       onTap: widget.onTap,
       onHover: (isHover) {

@@ -1,4 +1,5 @@
 import 'package:diccon_evo/screens/commons/notify.dart';
+import 'package:diccon_evo/screens/dictionary/bloc/word_history_bloc.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +109,7 @@ class _DictionaryViewState extends State<DictionaryView> {
   @override
   Widget build(BuildContext context) {
     var chatListBloc = context.read<ChatListBloc>();
+    var wordHistoryBloc = context.read<WordHistoryBloc>();
 
     return SafeArea(
       child: Scaffold(
@@ -302,6 +304,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                                     child: TextField(
                                       focusNode: Properties.textFieldFocusNode,
                                       onSubmitted: (providedWord) {
+                                        wordHistoryBloc.add(AddWordToHistory(providedWord: providedWord));
                                         _handleSubmitted(providedWord, context);
                                       },
                                       onChanged: (String word) {

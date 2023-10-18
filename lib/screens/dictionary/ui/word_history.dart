@@ -1,9 +1,12 @@
-import 'package:diccon_evo/config/responsive.dart';
+import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
+import 'package:diccon_evo/screens/commons/circle_button.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
-import '../cubit/word_history_list_cubit.dart';
+import '../../commons/notify.dart';
+import '../../commons/pill_button.dart';
+import '../bloc/word_history_bloc.dart';
 import 'components/history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,59 +16,69 @@ class WordHistoryView extends StatefulWidget {
   @override
   State<WordHistoryView> createState() => _WordHistoryViewState();
 }
+
 class _WordHistoryViewState extends State<WordHistoryView> {
-  final _historyListCubit = HistoryListCubit();
+  final _editController = StreamController<bool>();
 
   @override
-  void initState(){
-    _historyListCubit.loadHistory();
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
+    final wordHistoryBloc = context.read<WordHistoryBloc>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
-            BlocBuilder<HistoryListCubit, List<String>>(
-              bloc: _historyListCubit,
+            BlocBuilder<WordHistoryBloc, WordHistoryState>(
               builder: (context, state) {
-                if (state.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Image(
-                          image: AssetImage('assets/stickers/history.png'),
-                          height: 200,
+                switch (state.runtimeType) {
+                  case WordHistoryUpdated:
+                    if (state.words.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Image(
+                              image: AssetImage('assets/stickers/history.png'),
+                              height: 200,
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "History is empty".i18n,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                            const SizedBox().mediumHeight(),
+                            Opacity(
+                              opacity: 0.5,
+                              child: Text(
+                                "SubSentenceInWordHistory".i18n,
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          "History is empty".i18n,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        const SizedBox().mediumHeight(),
-                        Opacity(
-                          opacity: 0.5,
-                          child: Text(
-                            "SubSentenceInWordHistory".i18n,
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Responsive(
-                    useDefaultPadding: false,
-                    smallSizeDevice: body(state: state, bodyPadding: const EdgeInsets.only(left: 16, top: 60, right: 16, bottom: 16),),
-                    mediumSizeDevice: body( state: state, bodyPadding: const EdgeInsets.only(left: 100, top: 60, right: 100, bottom: 16),),
-                    largeSizeDevice: body(state: state, bodyPadding: const EdgeInsets.only(left: 200, top: 60, right: 200, bottom: 16),),
-                  );
+                      );
+                    } else {
+                      return StreamBuilder<bool>(
+                          stream: _editController.stream,
+                          initialData: false,
+                          builder: (context, snapshot) {
+                            return ListView.builder(
+                              padding: const EdgeInsets.only(top: 60),
+                              itemCount: state.words.length,
+                              itemBuilder: (context, index) {
+                                final word = state.words[index];
+                                return HistoryTile(
+                                    word: word, onEdit: state.isEdit!);
+                              },
+                            );
+                          });
+                    }
+                  default:
+                    wordHistoryBloc.add(InitialWordHistory());
+                    return Container();
                 }
               },
             ),
@@ -73,7 +86,8 @@ class _WordHistoryViewState extends State<WordHistoryView> {
               title: "History".i18n,
               actions: [
                 IconButton(
-                    onPressed: () => _historyListCubit.sortAlphabet(),
+                    onPressed: () =>
+                        wordHistoryBloc.add(SortAlphabetWordHistory()),
                     icon: const Icon(Icons.sort_by_alpha)),
                 PopupMenuButton(
                   //splashRadius: 10.0,
@@ -83,12 +97,17 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                   ),
                   itemBuilder: (context) => [
                     PopupMenuItem(
-                      child: Text("Reverse List".i18n),
-                      onTap: () => _historyListCubit.sortReverse(),
+                      child: Text("Reverse".i18n),
+                      onTap: () =>
+                          wordHistoryBloc.add(SortReverseWordHistory()),
+                    ),
+                    const PopupMenuItem(
+                      height: 0,
+                      child: Divider(),
                     ),
                     PopupMenuItem(
-                      child: Text("Clear all".i18n),
-                      onTap: () => _historyListCubit.clearHistory(),
+                      child: Text("Edit".i18n),
+                      onTap: () => wordHistoryBloc.add(WordHistoryEditMode()),
                     ),
                   ],
                 ),
@@ -96,18 +115,45 @@ class _WordHistoryViewState extends State<WordHistoryView> {
             ),
           ],
         ),
+        bottomNavigationBar: BlocBuilder<WordHistoryBloc, WordHistoryState>(
+            builder: (context, state) {
+          if (state.isEdit == true) {
+            return BottomAppBar(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    PillButton(
+                        icon: Icons.delete_outline,
+                        onTap: () {
+                          Notify.showAlertDialog(
+                              context: context,
+                              title: "Delete History".i18n,
+                              content:
+                                  "AskQuestionBeforeDelete".i18n,
+                              action: () {
+                                wordHistoryBloc.add(ClearAllWordHistory());
+                                wordHistoryBloc.add(CloseWordHistoryEditMode());
+
+                              });
+
+                        },
+                        title: "Clear all".i18n),
+                    const Spacer(),
+                    CircleButton(
+                        iconData: Icons.close,
+                        onTap: () {
+                          wordHistoryBloc.add(CloseWordHistoryEditMode());
+                        })
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        }),
       ),
     );
-  }
-
-  ListView body({required List<String> state, required EdgeInsets bodyPadding}) {
-    return ListView.builder(
-                    padding: bodyPadding,
-                    itemCount: state.length,
-                    itemBuilder: (context, index) {
-                      final word = state[index];
-                      return HistoryTile(word: word);
-                    },
-                  );
   }
 }

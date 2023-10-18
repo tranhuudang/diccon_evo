@@ -43,6 +43,36 @@ class HistoryManager {
     }
   }
 
+  static Future<bool> removeWordOutOfHistory(String providedWord) async {
+
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.wordHistoryFileName);
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        final json = jsonDecode(contents);
+        // Check is a word is already exists in the history
+        bool isWordExists =
+        json.any((word) => word == providedWord);
+        if (isWordExists) {
+            json.remove(providedWord);
+            final encoded = jsonEncode(json);
+            await file.writeAsString(encoded);
+            if (kDebugMode) {
+              print("Delete word $providedWord");
+            }
+
+        }
+      }
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Can't delete $providedWord out of history.json. Error detail: $e");
+      }
+      return false;
+    }
+  }
+
   static Future<List<String>> readWordHistory() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.wordHistoryFileName);
     try {

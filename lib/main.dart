@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:diccon_evo/config/route_configurations.dart';
 import 'package:diccon_evo/extensions/string.dart';
+import 'package:diccon_evo/screens/dictionary/bloc/word_history_bloc.dart';
 import 'package:diccon_evo/screens/settings/bloc/setting_bloc.dart';
 import 'package:diccon_evo/screens/story/blocs/story_list_bloc.dart';
 import 'package:diccon_evo/screens/conversation/bloc/conversation_bloc.dart';
@@ -60,6 +61,7 @@ class _ProgramRootState extends State<ProgramRoot> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<UserBloc>(create: (context) => UserBloc()),
+        BlocProvider<WordHistoryBloc>(create: (context) => WordHistoryBloc()),
         BlocProvider<SettingBloc>(create: (context) => SettingBloc()),
         BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
         BlocProvider<ConversationBloc>(create: (context) => ConversationBloc()),

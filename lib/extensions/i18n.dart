@@ -115,13 +115,17 @@ extension Localization on String {
       "en_us": "History",
       "vi_vi": "Lịch sử",
     },
-    "Reverse List": {
-      "en_us": "Reverse List",
+    "Reverse": {
+      "en_us": "Reverse",
       "vi_vi": "Đảo ngược danh sách",
     },
     "Clear all": {
       "en_us": "Clear all",
       "vi_vi": "Xóa tất cả",
+    },
+    "Edit": {
+      "en_us": "Edit",
+      "vi_vi": "Chỉnh sửa",
     },
     "All": {
       "en_us": "All",
@@ -250,6 +254,14 @@ extension Localization on String {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với những tùy chọn của riêng bạn",
     },
+    "Prefer AI": {
+      "en_us": "Prefer AI",
+      "vi_vi": "Ưu tiên AI",
+    },
+    "Prefer Classic": {
+      "en_us": "Prefer Classic",
+      "vi_vi": "Ưu tiên Cổ điển",
+    },
     "Customize your experience": {
       "en_us": "Customize your experience",
       "vi_vi": "Tùy chỉnh",
@@ -261,6 +273,16 @@ extension Localization on String {
     "Set as default format": {
       "en_us": "Set as default format",
       "vi_vi": "Đặt làm mẫu trả lời mặc định",
+    },
+    "Delete History": {
+      "en_us": "Delete History",
+      "vi_vi": "Xóa lịch sử",
+    },
+    "AskQuestionBeforeDelete": {
+      "en_us":
+          "This operation will completely erase your entire history. Are you sure you want to proceed?",
+      "vi_vi":
+          "Tác vụ này sẽ xóa tất cả lịch sử tra cứu của bạn. Bạn có muốn tiếp tục không?",
     },
 
     /// Conversation
@@ -311,7 +333,8 @@ extension Localization on String {
     "Sync your data": {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
-    },"Use System Theme": {
+    },
+    "Use System Theme": {
       "en_us": "Use System Theme",
       "vi_vi": "Sử dụng chủ đề hệ thống",
     },

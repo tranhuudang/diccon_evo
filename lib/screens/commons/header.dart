@@ -80,7 +80,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                     }),
-                const SizedBox().mediumWidth(),
+                const SizedBox().largeWidth(),
                 if(title != null)
                     Text(
                         title!,

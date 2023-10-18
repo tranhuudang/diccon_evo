@@ -2,9 +2,6 @@ import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../config/route_constants.dart';
 
 class DictionaryWelcome extends StatefulWidget {
   const DictionaryWelcome({super.key});
@@ -24,6 +21,7 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
+                alignment: Alignment.center,
                 width: 300,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
@@ -44,30 +42,6 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                       child: Text(
                         "SubWordInDictionaryWelcomeBox".i18n,
                         style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    const SizedBox().mediumHeight(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(32),
-                        onTap: () {
-                          context.pushNamed(RouterConstants.customDictionary);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(32),
-                              border: Border.all(
-                                color: Theme.of(context).colorScheme.primary,
-                              )),
-                          child: Text(
-                            "Customize your experience".i18n,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.onSurface),
-                          ),
-                        ),
                       ),
                     ),
                   ],

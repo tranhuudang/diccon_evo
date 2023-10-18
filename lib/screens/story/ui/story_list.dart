@@ -100,8 +100,11 @@ class StoryListView extends StatelessWidget {
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
-                child: Text("SubSentenceInStoryList".i18n,  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface),),
+                child: Text(
+                  "SubSentenceInStoryList".i18n,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
+                ),
               ),
 
               /// Function button
@@ -142,6 +145,14 @@ class StoryListView extends StatelessWidget {
                   return Container(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: GridView.builder(
+                        cacheExtent: 500,
+                        findChildIndexCallback: (Key key) {
+                          var valueKey = key as ValueKey;
+                          var index = data.articleList.indexWhere(
+                              (element) => element == valueKey.value);
+                          if (index == -1) return null;
+                          return index;
+                        },
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: data.articleList.length,
@@ -155,6 +166,7 @@ class StoryListView extends StatelessWidget {
                         ),
                         itemBuilder: (context, index) {
                           return ReadingTile(
+                            key: ValueKey(data.articleList[index]),
                             tag:
                                 "fromStoryListToPage${data.articleList[index].title}Tag",
                             story: data.articleList[index],
