@@ -1,3 +1,4 @@
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 
@@ -16,18 +17,19 @@ class Notify {
           actions: [
             TextButton(
               onPressed: () {
-                // Close the alert dialog
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
                 action();
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: Text('OK'.i18n),
             ),
+            TextButton(
+              onPressed: () {
+                // Close the alert dialog
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'.i18n),
+            ),
+
           ],
         );
       },
