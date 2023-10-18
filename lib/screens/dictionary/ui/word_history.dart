@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/circle_button.dart';
