@@ -162,7 +162,7 @@ extension Localization on String {
       "vi_vi": "Chọn một số",
     },
     "Send a message": {
-      "en_us": "  Enter for lookup",
+      "en_us": "  Enter to look up",
       "vi_vi": "  Nhập để tra cứu",
     },
 
