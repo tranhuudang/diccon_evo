@@ -486,7 +486,7 @@ extension Localization on String {
       "en_us":
           "Mastering 1848 core English words fosters clear communication. It facilitates meaningful interactions, empowers expression, and broadens access to information and opportunities.",
       "vi_vi":
-          "Nắm vững 1848 từ tiếng Anh cốt lõi sẽ thúc đẩy sự giao tiếp rõ ràng. Tạo điều kiện cho các cuộc trò chuyện mang nhiều màu sắc, tăng cường khả năng diễn đạt của người nói trong nhiều hoàn cảnh khác nhau.",
+          "Nắm vững 1848 từ tiếng Anh cốt lõi sẽ thúc đẩy sự giao tiếp rõ ràng. Tạo điều kiện cho các cuộc trò chuyện mang nhiều màu sắc, tăng cường khả năng diễn đạt của người nói.",
     },
     "Actions": {
       "en_us": "Actions",
