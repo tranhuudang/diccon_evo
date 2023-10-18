@@ -138,9 +138,9 @@ class _EssentialViewState extends State<EssentialView> {
                   /// Sub sentence
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 26),
+                        horizontal: 32, vertical: 18),
                     child: Text("SubSentenceInEssentialWord".i18n,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(context).colorScheme.onSurface),
                     ),
                   ),

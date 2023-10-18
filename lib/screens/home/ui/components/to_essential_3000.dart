@@ -22,8 +22,7 @@ class ToEssentialWordButton extends StatelessWidget {
         children: [
           Text(
             Properties.defaultSetting.numberOfEssentialLeft.toString(),
-            style: const TextStyle(
-                fontSize: 32, fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w500),
           ),
           Text(
             "words to learn".i18n,
@@ -31,7 +30,7 @@ class ToEssentialWordButton extends StatelessWidget {
           const Spacer(),
           Text(
             "1848 Essential English Words".i18n,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ],
       ),

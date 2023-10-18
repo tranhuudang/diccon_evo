@@ -14,6 +14,7 @@ class ToConversationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onPrimary = Theme.of(context).colorScheme.onPrimary;
     return FeatureButton(
       borderColor: Theme.of(context).scaffoldBackgroundColor,
       padding: EdgeInsets.zero,
@@ -26,32 +27,28 @@ class ToConversationButton extends StatelessWidget {
         child: Stack(
           children: [
             Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 22),
               color: Theme.of(context).colorScheme.primary.withOpacity(0.9),
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.chat,
-                        size: 30,
-                        color: Theme.of(context).colorScheme.onPrimary),
-                    const SizedBox(height: 4),
-                    Text(
-                      "Ask me anything".i18n,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Theme.of(context).colorScheme.onPrimary),
-                    ),
-                    Text(
-                      "Mr. Know It All",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onPrimary),
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 14,),
+                  Icon(Icons.chat,
+                      size: 32,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                  const SizedBox(height: 4),
+                  Text(
+                    "Ask me anything".i18n,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color:onPrimary ),
+                  ),
+                  Text(
+                    "Javis",
+                    style:  Theme.of(context).textTheme.titleLarge?.copyWith(color:onPrimary, fontWeight: FontWeight.w500 ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
             ),
             Opacity(

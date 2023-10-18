@@ -23,7 +23,7 @@ class HomeMenuButton extends StatelessWidget {
         height: 50,
         width: 50,
         child: PopupMenuButton(
-          icon: const Icon(Icons.menu),
+          icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.primary,),
           //splashRadius: 10.0,
           shape: RoundedRectangleBorder(
             side: BorderSide(color: Theme.of(context).dividerColor),

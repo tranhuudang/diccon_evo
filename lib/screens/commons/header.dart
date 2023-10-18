@@ -76,6 +76,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleButton(
+                  backgroundColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(.5),
                     iconData: Icons.arrow_back,
                     onTap: () {
                       Navigator.pop(context);
@@ -84,7 +85,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
                 if(title != null)
                     Text(
                         title!,
-                        style: const TextStyle(fontSize: 26),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                 const SizedBox(
                   width: 16,

@@ -125,9 +125,12 @@ class _ProgramRootState extends State<ProgramRoot> {
       locale: language,
       themeMode: themeMode,
       theme: ThemeData(
+        useMaterial3: true,
         colorScheme: lightColorScheme,
       ),
       darkTheme: ThemeData(
+        useMaterial3: true,
+
         colorScheme: darkColorScheme,
       ),
       title: PropertiesConstants.diccon,

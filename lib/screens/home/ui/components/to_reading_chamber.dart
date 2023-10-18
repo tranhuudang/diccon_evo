@@ -21,12 +21,12 @@ class ToReadingChamberButton extends StatelessWidget {
         children: [
           Text(
             "Library".i18n,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            style:  Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
           const Spacer(),
           Text(
             "For all levels and audiences".i18n,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ],
       ),

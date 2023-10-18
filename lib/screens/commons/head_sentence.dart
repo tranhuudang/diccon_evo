@@ -9,7 +9,7 @@ class HeadSentence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle? textStyle = Theme.of(context).textTheme.headlineMedium?.copyWith(
+    TextStyle? textStyle = Theme.of(context).textTheme.headlineLarge?.copyWith(
     color: Theme.of(context).colorScheme.onSurface);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,7 +4,6 @@ import 'package:diccon_evo/screens/commons/circle_button.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
 import '../../commons/notify.dart';
-import '../../commons/pill_button.dart';
 import '../bloc/word_history_bloc.dart';
 import 'components/history_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -118,22 +117,18 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    PillButton(
-                        icon: Icons.delete_outline,
-                        onTap: () {
-                          Notify.showAlertDialog(
-                              context: context,
-                              title: "Delete History".i18n,
-                              content:
-                                  "AskQuestionBeforeDelete".i18n,
-                              action: () {
-                                widget.wordHistoryBloc.add(ClearAllWordHistory());
-                                widget.wordHistoryBloc.add(CloseWordHistoryEditMode());
+                    FilledButton.icon(onPressed: (){
+                      Notify.showAlertDialog(
+                          context: context,
+                          title: "Delete History".i18n,
+                          content:
+                          "AskQuestionBeforeDelete".i18n,
+                          action: () {
+                            widget.wordHistoryBloc.add(ClearAllWordHistory());
+                            widget.wordHistoryBloc.add(CloseWordHistoryEditMode());
 
-                              });
-
-                        },
-                        title: "Clear all".i18n),
+                          });
+                    }, icon: const Icon(Icons.delete_outline), label: Text("Clear all".i18n)),
                     const Spacer(),
                     CircleButton(
                         iconData: Icons.close,

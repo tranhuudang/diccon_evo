@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../config/properties.dart';
-import '../../../commons/pill_button.dart';
 import '../../bloc/setting_bloc.dart';
 
 class ColorPaletteSelector {
@@ -32,7 +29,8 @@ class ThemeColorPalette extends StatefulWidget {
 class _ThemeColorPaletteState extends State<ThemeColorPalette> {
   final _selectController = StreamController<ColorPaletteSelector>();
   var _colorPaletteSelector = ColorPaletteSelector(
-      selectedColor: Color(Properties.defaultSetting.themeColor), onHover: Colors.black54);
+      selectedColor: Color(Properties.defaultSetting.themeColor),
+      onHover: Colors.black54);
   @override
   Widget build(BuildContext context) {
     final settingBloc = context.read<SettingBloc>();
@@ -82,7 +80,8 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
                         width: 50,
                         decoration: BoxDecoration(
                           color: currentColor,
-                          border: selectedColor.data?.onHover.value == currentColor.value
+                          border: selectedColor.data?.onHover.value ==
+                                  currentColor.value
                               ? Border.all(
                                   color: Colors.white,
                                   width: 3,
@@ -91,7 +90,8 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      if (selectedColor.data?.selectedColor.value == currentColor.value)
+                      if (selectedColor.data?.selectedColor.value ==
+                          currentColor.value)
                         Container(
                           height: 50,
                           width: 50,
@@ -112,11 +112,11 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
           },
         ),
         const SizedBox().largeHeight(),
-        PillButton(
-            onTap: () {
+        FilledButton.tonal(
+            onPressed: () {
               settingBloc.add(EnableAdaptiveThemeColorEvent());
             },
-            title: "Use System Theme".i18n)
+            child: Text("Use System Theme".i18n))
       ],
     );
   }

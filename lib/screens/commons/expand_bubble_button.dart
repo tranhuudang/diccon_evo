@@ -12,8 +12,8 @@ class ExpandBubbleButton extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(16.0),
-          bottomRight: Radius.circular(16.0),
+          bottomLeft: Radius.circular(14.0),
+          bottomRight: Radius.circular(14.0),
         ),
         gradient: LinearGradient(
           begin: Alignment.topCenter,

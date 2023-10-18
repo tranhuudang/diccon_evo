@@ -1,3 +1,4 @@
+import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/route_constants.dart';
@@ -31,13 +32,13 @@ class ToDictionaryButton extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
               )),
           const SizedBox(height: 8),
-          const Text(
+           Text(
             "Diccon dual-mode",
-            style: TextStyle(fontSize: 12),
+            style: Theme.of(context).textTheme.labelSmall,
           ),
-          const Text(
-            "Dictionary",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+           Text(
+            "Dictionary".i18n,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 16),
         ],

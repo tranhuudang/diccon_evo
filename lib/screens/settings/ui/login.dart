@@ -6,10 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/route_constants.dart';
-import '../../commons/pill_button.dart';
 import 'components/login_menu.dart';
 
 class LoginView extends StatefulWidget {
@@ -92,32 +90,28 @@ class _LoginViewState extends State<LoginView> {
                         height: 16,
                       ),
                       BlocListener<UserBloc, UserState>(
-                        listenWhen: (previous, current) =>
-                            current is UserActionState,
-                        listener: (context, state) {
-                          if (state is UserLoggedInSuccessfulState) {
-                            context.pushReplacementNamed(RouterConstants.home);
-                          }
-                        },
-                        child: PillButton(
-                            icon: FontAwesomeIcons.google,
-                            onTap: () async {
+                          listenWhen: (previous, current) =>
+                              current is UserActionState,
+                          listener: (context, state) {
+                            if (state is UserLoggedInSuccessfulState) {
+                              context
+                                  .pushReplacementNamed(RouterConstants.home);
+                            }
+                          },
+                          child: FilledButton(
+                            onPressed: () async {
                               userBloc.add(UserLoginEvent());
                             },
-                            title: "Continue with Google".i18n),
-                      ),
+                            child: Text("Continue with Google".i18n),
+                          )),
                       const SizedBox(
                         height: 8,
                       ),
-                      PillButton(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                        onTap: () {
-                          context.pushReplacementNamed(RouterConstants.home);
-                        },
-                        title: "Continue without login".i18n,
-                      ),
+                      FilledButton.tonal(
+                          onPressed: () {
+                            context.pushReplacementNamed(RouterConstants.home);
+                          },
+                          child: Text("Continue without login".i18n)),
                       const SizedBox(
                         height: 8,
                       ),

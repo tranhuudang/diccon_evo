@@ -182,7 +182,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                 /// Suggestion bar with different suggestive button
                 ClipRect(
                   child: SizedBox(
-                    height: 130,
+                    height: 138,
                     child: Stack(
                       children: [
                         Container(

@@ -17,18 +17,19 @@ class ConversationWelcome extends StatelessWidget {
             children: [
               const Image(
                 image: AssetImage('assets/stickers/book_glass.png'),
-                height: 200,
+                height: 180,
               ),
               Text(
                 "Enhance your communication skills with our advanced bot.".i18n,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
               ),
               const SizedBox().mediumHeight(),
               Opacity(
                 opacity: 0.5,
                 child: Text(
                   "This practice will prepare you for various real-life conversation scenarios.".i18n,
-                  style: const TextStyle(fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               )
             ],

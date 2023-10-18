@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:diccon_evo/screens/settings/bloc/setting_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +29,7 @@ class _SettingsViewState extends State<SettingsView> {
     final settingBloc = context.read<SettingBloc>();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        //backgroundColor: Theme.of(context).colorScheme.surface,
         body: BlocBuilder<SettingCubit, Setting>(
             bloc: settingCubit,
             builder: (context, state) {
@@ -195,11 +194,11 @@ class _SettingsViewState extends State<SettingsView> {
                     alignment: Alignment.centerLeft,
                     child: Text("Customize dictionary responses".i18n)),
                 const SizedBox().mediumHeight(),
-                PillButton(
-                    onTap: () {
+                FilledButton.tonal(
+                    onPressed: () {
                       context.pushNamed(RouterConstants.customDictionary);
                     },
-                    title: "Customize"),
+                    child: Text("Customize".i18n)),
               ],
             )
           ],

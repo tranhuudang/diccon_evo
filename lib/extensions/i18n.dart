@@ -252,7 +252,7 @@ extension Localization on String {
     },
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
-      "vi_vi": "Tra cứu với những tùy chọn của riêng bạn",
+      "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
     },
     "Prefer AI": {
       "en_us": "Prefer AI",
@@ -302,8 +302,8 @@ extension Localization on String {
           "Chuẩn bị cho bạn kĩ năng đối thoại trong nhiều tình huống khác nhau.",
     },
     "Enhance your communication skills with our advanced bot.": {
-      "en_us": "Enhance your communication skills with our advanced bot.",
-      "vi_vi": "Cải thiện kĩ năng giao tiếp với Diccon Chat-bot.",
+      "en_us": "Enhance your communication skills with our advanced bot",
+      "vi_vi": "Cải thiện kĩ năng giao tiếp cùng với Javis",
     },
     "Conversation": {
       "en_us": "Conversation",
@@ -359,7 +359,7 @@ extension Localization on String {
     },
     "Continue without login": {
       "en_us": "Continue without login",
-      "vi_vi": "Tiếp tục mà không đăng nhập",
+      "vi_vi": "Đăng nhập sau",
     },
     "Sync": {
       "en_us": "Sync",

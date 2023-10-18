@@ -22,14 +22,16 @@ class FeatureButton extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(32),
       onTap: onTap,
-      child: Container(
-        alignment: Alignment.centerLeft,
-        padding: padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-        decoration: BoxDecoration(
-            image: image,
-            borderRadius: BorderRadius.circular(33),
-            color: backgroundColor ?? Theme.of(context).colorScheme.surfaceVariant),
-        child: child,
+      child: Card(
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(32),
+        ),
+        child: Container(
+          alignment: Alignment.centerLeft,
+          padding: padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          child: child,
+        ),
       ),
     );
   }

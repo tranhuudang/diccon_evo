@@ -52,7 +52,7 @@ class _CircleButtonState extends State<CircleButton> {
           _isHovering = isHover;
         });
       },
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(10),
       child: Container(
         alignment: Alignment.center,
         height: 50,

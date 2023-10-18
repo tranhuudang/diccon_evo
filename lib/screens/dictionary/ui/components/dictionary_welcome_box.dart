@@ -28,20 +28,21 @@ class _DictionaryWelcomeState extends State<DictionaryWelcome> {
                   children: [
                     const Image(
                       image: AssetImage('assets/stickers/book.png'),
-                      height: 200,
+                      height: 180,
                     ),
                     const SizedBox().mediumHeight(),
                     Text(
+
                       "TitleWordInDictionaryWelcomeBox".i18n,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox().mediumHeight(),
                     Opacity(
                       opacity: 0.5,
                       child: Text(
                         "SubWordInDictionaryWelcomeBox".i18n,
-                        style: const TextStyle(fontSize: 16),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
                   ],

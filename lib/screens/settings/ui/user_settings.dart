@@ -1,12 +1,10 @@
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import '../../commons/notify.dart';
 import '../../commons/header.dart';
-import '../../commons/pill_button.dart';
 import 'components/setting_section.dart';
 
 class UserSettingsView extends StatefulWidget {
@@ -69,8 +67,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (userLoginState
-                                    .userInfo.photoURL.isNotEmpty)
+                                if (userLoginState.userInfo.photoURL.isNotEmpty)
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(50.0),
                                     child: Image(
@@ -100,17 +97,15 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                PillButton(
-                                    icon: Icons.sync,
-                                    isDisabled: userLoginState.isSyncing,
-                                    onTap: () => userBloc.add(UserSyncEvent(
+                                FilledButton(
+                                    onPressed: () => userBloc.add(UserSyncEvent(
                                         userInfo: userLoginState.userInfo)),
-                                    title: "Sync your data"),
+                                    child: Text("Sync your data".i18n)),
                                 const SizedBox().mediumWidth(),
-                                PillButton(
-                                  onTap: () => userBloc.add(UserLogoutEvent()),
-                                  title: "Log out",
-                                ),
+                                FilledButton.tonal(
+                                    onPressed: () =>
+                                        userBloc.add(UserLogoutEvent()),
+                                    child: Text("Log out".i18n)),
                               ],
                             ),
                             const SizedBox(
@@ -129,29 +124,26 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                     "(This process once fired will never be undone. Please take it serious.)"
                                         .i18n),
                                 const SizedBox().mediumHeight(),
-                                PillButton(
-                                    icon: Icons.delete_outline,
-                                    backgroundColor: Colors.red,
-                                    onTap: () {
+                                FilledButton(
+                                    onPressed: () {
                                       userBloc.add(UserDeleteDateEvent());
                                     },
-                                    title: "Erase all"),
+                                    child: Text("Erase all".i18n)),
                               ],
                             ),
 
                             /// Loading Indicator for syncing process
                             if (userLoginState.isSyncing)
-                                 Column(
-                                    children: [
-                                      const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 8),
-                                        child: LinearProgressIndicator(),
-                                      ),
-                                      Text("Your data is syncing..".i18n),
-                                      const SizedBox().mediumHeight(),
-                                    ],
+                              Column(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                    child: LinearProgressIndicator(),
                                   ),
+                                  Text("Your data is syncing..".i18n),
+                                  const SizedBox().mediumHeight(),
+                                ],
+                              ),
                           ],
                         ),
                       ],
@@ -199,10 +191,9 @@ class UninitializedView extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox().mediumHeight(),
-                  PillButton(
-                      icon: FontAwesomeIcons.google,
-                      onTap: () async => userBloc.add(UserLoginEvent()),
-                      title: "Continue with Google"),
+                  FilledButton(
+                      onPressed: () async => userBloc.add(UserLoginEvent()),
+                      child: Text("Continue with Google".i18n))
                 ],
               ),
             ],

@@ -88,6 +88,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                       content: "Bookmark is removed".i18n);
                                 })
                             : CircleButton(
+                            backgroundColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(.5),
                                 iconData: Icons.bookmark_border,
                                 onTap: () {
                                   _isListStoriesShouldChanged = true;
@@ -103,6 +104,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
 
                         /// CLose button
                         CircleButton(
+                          backgroundColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(.5),
                             iconData: Icons.close,
                             onTap: () {
                               context.pop(_isListStoriesShouldChanged);

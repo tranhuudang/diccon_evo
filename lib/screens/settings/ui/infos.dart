@@ -2,7 +2,6 @@ import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
-import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../config/properties_constants.dart';
@@ -67,22 +66,19 @@ class _InfosViewState extends State<InfosView> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child:
-                  PillButton(onTap: () {}, title: PropertiesConstants.version),
-            ),
+            OutlinedButton(onPressed: (){}, child: Text(PropertiesConstants.version, style: Theme.of(context).textTheme.titleSmall,),),
+
             Row(
               children: [
                 Text(
                   "© 2023 Zeroboy.",
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 const SizedBox(width: 5),
                 Text(
                   "All rights reserved.".i18n,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
@@ -96,7 +92,7 @@ class _InfosViewState extends State<InfosView> {
               "DesciptionTextForPrivacyPolicy".i18n,
               style: Theme.of(context)
                   .textTheme
-                  .titleMedium
+                  .bodyMedium
                   ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
             ),
             const SizedBox(
@@ -107,20 +103,18 @@ class _InfosViewState extends State<InfosView> {
                 Text(
                   "For more information about our privacy policy, please visit:"
                       .i18n,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
                 const SizedBox().mediumHeight(),
-                PillButton(
-                    onTap: () async {
-                      final Uri url =
-                          Uri.parse(PropertiesConstants.privacyPolicyURL);
-                      if (!await launchUrl(url,
-                          mode: LaunchMode.externalApplication)) {
-                        throw Exception('Could not launch $url');
-                      }
-                    },
-                    title: "Privacy Policy"),
+                FilledButton.tonal(onPressed: () async {
+                  final Uri url =
+                  Uri.parse(PropertiesConstants.privacyPolicyURL);
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
+                }, child: Text("Privacy Policy".i18n))
               ],
             )
           ],
