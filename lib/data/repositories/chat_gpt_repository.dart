@@ -3,9 +3,10 @@ import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import '../models/question_answer.dart';
 
 class ChatGptRepository {
+  ChatGptRepository({required this.chatGpt});
   /// Implement Chat Gpt
-  final ChatGpt chatGpt =
-      ChatGpt(apiKey: "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");
+
+  final ChatGpt chatGpt;
   List<QuestionAnswer> questionAnswers = [];
   QuestionAnswer singleQuestionAnswer = QuestionAnswer(question: '', answer: StringBuffer());
 

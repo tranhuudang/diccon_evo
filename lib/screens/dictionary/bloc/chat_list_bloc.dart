@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/combine_bubble.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/properties.dart';
+import '../../../config/properties_constants.dart';
 import '../../../data/data_providers/searching.dart';
 import '../../../data/models/translation_choices.dart';
 import '../../../data/models/word.dart';
@@ -101,7 +103,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       emit(ChatListUpdated(chatList: _chatList));
       _isReportedAboutDisconnection = true;
     }
-    var newChatGptRepository = ChatGptRepository();
+    var newChatGptRepository = ChatGptRepository(chatGpt: ChatGpt(apiKey: PropertiesConstants.dictionaryKey));
     _listChatGptRepository.add(newChatGptRepository);
     var chatGptRepositoryIndex = _listChatGptRepository.length - 1;
     var wordResult = await _getLocalTranslation(event.providedWord);

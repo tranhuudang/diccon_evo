@@ -7,6 +7,7 @@ import 'package:diccon_evo/screens/commons/word_pronunciation.dart';
 import 'package:diccon_evo/screens/commons/word_title.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../../../config/properties_constants.dart';
 import '../../../../data/models/translation_choices.dart';
 import '../../../../data/models/word.dart';
 import '../../../commons/switch_translation_bar.dart';
@@ -22,7 +23,7 @@ class BottomSheetTranslation extends StatefulWidget {
 }
 
 class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
-  final _chatGptRepository = ChatGptRepository();
+  final _chatGptRepository = ChatGptRepository(chatGpt: ChatGpt(apiKey: PropertiesConstants.dictionaryKey));
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
   final _isLoadingStreamController = StreamController();
   final _tabSwicherStreamController = StreamController<TranslationChoices>();

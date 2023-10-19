@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/screens/conversation/ui/components/conversation_welcome_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../../../config/properties_constants.dart';
 import '../../commons/no_internet_buble.dart';
 import '../ui/components/conversation_machine_bubble.dart';
 import '../ui/components/conversation_user_bubble.dart';
@@ -44,7 +46,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<ResetConversation>(_resetConversation);
   }
 
-  final chatGptRepository = ChatGptRepository();
+  final chatGptRepository = ChatGptRepository(chatGpt: ChatGpt(apiKey: PropertiesConstants.conversationKey));
   List<Widget> listConversations = [const ConversationWelcome()];
   final ScrollController conversationScrollController = ScrollController();
   final TextEditingController textController = TextEditingController();
