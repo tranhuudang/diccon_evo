@@ -33,7 +33,7 @@ class Properties {
     numberOfAntonyms: 10,
     readingFontSize: 16,
     numberOfEssentialLeft: 1848,
-    language: 'English',
+    language: 'System default',
     readingFontSizeSliderValue: 0.2,
     windowsWidth: 400,
     windowsHeight: 700,

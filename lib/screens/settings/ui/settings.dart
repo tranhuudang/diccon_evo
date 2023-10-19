@@ -69,7 +69,7 @@ class _SettingsViewState extends State<SettingsView> {
                   color: Theme.of(context).highlightColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                width: 120,
+                width: 170,
                 child: StreamBuilder<String>(
                     stream: languageStreamController.stream,
                     initialData: Properties.defaultSetting.language,
@@ -85,12 +85,12 @@ class _SettingsViewState extends State<SettingsView> {
                               settingBloc.add(ChangeLanguageEvent(
                                   language: selectedLanguage));
                             },
-                            items: ["English", "Tiếng Việt"]
+                            items: ["System default","English", "Tiếng Việt"]
                                 .map(
                                   (value) => DropdownMenuItem<String>(
                                     alignment: Alignment.center,
                                     value: value,
-                                    child: Text(value.toString()),
+                                    child: Text(value.i18n.toString()),
                                   ),
                                 )
                                 .toList()),

@@ -334,6 +334,18 @@ extension Localization on String {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",
     },
+    "System default": {
+      "en_us": "System default",
+      "vi_vi": "Tự động",
+    },
+    "English": {
+      "en_us": "English",
+      "vi_vi": "English",
+    },
+    "Tiếng Việt": {
+      "en_us": "Tiếng Việt",
+      "vi_vi": "Tiếng Việt",
+    },
     "Use System Theme": {
       "en_us": "Use System Theme",
       "vi_vi": "Sử dụng chủ đề hệ thống",
