@@ -52,13 +52,6 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
             } else {
-              // Future.delayed(const Duration(milliseconds: 300), () {
-              //   widget.chatListController.animateTo(
-              //     widget.chatListController.position.maxScrollExtent,
-              //     duration: const Duration(milliseconds: 500),
-              //     curve: Curves.linear,
-              //   );
-              // });
               return widget.listChatGptRepository[widget.index]
                   .singleQuestionAnswer.answer
                   .write(

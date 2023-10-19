@@ -86,7 +86,6 @@ class CombineBubble extends StatelessWidget {
                 initialData: Properties.defaultSetting.translationChoice
                     .toTranslationChoice(),
                 builder: (context, translationChoice) {
-                  //_scrollToBottom();
                   if (wordObjectForLocal.meaning ==
                       "Local dictionary don't have definition for this word. Check out AI Dictionary !") {
                     translationModeStreamController.add(TranslationChoices.ai);
