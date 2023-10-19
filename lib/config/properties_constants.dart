@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PropertiesConstants{
-  static String version = "v346";
+  static int version = 346;
 
   static const Size minWindowsSize = Size(400, 400);
   static const Size maxWindowsSize = Size(5000, 10000);

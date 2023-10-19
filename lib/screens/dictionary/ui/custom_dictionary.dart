@@ -41,10 +41,10 @@ class _CustomDictionaryState extends State<CustomDictionary> {
               child: Column(
                 children: [
                   Container(
-                    height: 90,
+                    height: 60,
                   ),
                   SizedBox( 
-                    height: 550,
+                    height: 600,
                     child: Stack(
                       children: [
                         StreamBuilder<DictionaryResponseType>(
@@ -54,7 +54,7 @@ class _CustomDictionaryState extends State<CustomDictionary> {
                               return PageView(
                                 controller: _pageViewController,
                                 children: listChatPreviewContent.map((item) {
-                                  return CustomItem(
+                                  return ChatbotResponseFormatPicker(
                                       isSelected:
                                           snapshot.data == item.responseType,
                                       content: item.content,
@@ -104,11 +104,11 @@ class _CustomDictionaryState extends State<CustomDictionary> {
   }
 }
 
-class CustomItem extends StatelessWidget {
+class ChatbotResponseFormatPicker extends StatelessWidget {
   final String content;
   final VoidCallback onTap;
   final bool isSelected;
-  const CustomItem({
+  const ChatbotResponseFormatPicker({
     super.key,
     required this.content,
     required this.onTap,
@@ -117,14 +117,13 @@ class CustomItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(32),
-        ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(32),
+      ),
+      margin:const EdgeInsets.all(16.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             const UserBubblePreview(content: "Happy"),

@@ -66,8 +66,13 @@ class _InfosViewState extends State<InfosView> {
                 ),
               ],
             ),
-            OutlinedButton(onPressed: (){}, child: Text(PropertiesConstants.version, style: Theme.of(context).textTheme.titleSmall,),),
-
+            OutlinedButton(
+              onPressed: () {},
+              child: Text(
+                "v${PropertiesConstants.version}",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
             Row(
               children: [
                 Text(
@@ -107,14 +112,16 @@ class _InfosViewState extends State<InfosView> {
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
                 const SizedBox().mediumHeight(),
-                FilledButton.tonal(onPressed: () async {
-                  final Uri url =
-                  Uri.parse(PropertiesConstants.privacyPolicyURL);
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
-                }, child: Text("Privacy Policy".i18n))
+                FilledButton.tonal(
+                    onPressed: () async {
+                      final Uri url =
+                          Uri.parse(PropertiesConstants.privacyPolicyURL);
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw Exception('Could not launch $url');
+                      }
+                    },
+                    child: Text("Privacy Policy".i18n))
               ],
             )
           ],

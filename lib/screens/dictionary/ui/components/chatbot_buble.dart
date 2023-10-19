@@ -186,7 +186,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                 );
               }),
           ClickableWords(
-            textColor: Theme.of(context).colorScheme.onSecondary,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSecondary),
               onWordTap: (word) {
                 chatListBloc.add(AddUserMessage(providedWord: word));
                 chatListBloc.add(AddTranslation(providedWord: word));

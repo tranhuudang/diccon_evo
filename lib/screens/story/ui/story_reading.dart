@@ -59,8 +59,8 @@ class _StoryReadingViewState extends State<StoryReadingView> {
             SingleChildScrollView(
               child: Responsive(
                 smallSizeDevice: readingSpaceBody(context: context),
-                mediumSizeDevice:readingSpaceBody(context: context),
-                largeSizeDevice:readingSpaceBody(context: context),
+                mediumSizeDevice: readingSpaceBody(context: context),
+                largeSizeDevice: readingSpaceBody(context: context),
               ),
             ),
             Padding(
@@ -76,7 +76,9 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                         /// Bookmark button
                         snapshot.data!
                             ? CircleButton(
-                                backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .secondaryContainer,
                                 iconData: Icons.bookmark_border,
                                 onTap: () {
                                   _isListStoriesShouldChanged = true;
@@ -88,7 +90,10 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                       content: "Bookmark is removed".i18n);
                                 })
                             : CircleButton(
-                            backgroundColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(.5),
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceVariant
+                                    .withOpacity(.5),
                                 iconData: Icons.bookmark_border,
                                 onTap: () {
                                   _isListStoriesShouldChanged = true;
@@ -104,7 +109,10 @@ class _StoryReadingViewState extends State<StoryReadingView> {
 
                         /// CLose button
                         CircleButton(
-                          backgroundColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(.5),
+                            backgroundColor: Theme.of(context)
+                                .colorScheme
+                                .surfaceVariant
+                                .withOpacity(.5),
                             iconData: Icons.close,
                             onTap: () {
                               context.pop(_isListStoriesShouldChanged);
@@ -121,81 +129,83 @@ class _StoryReadingViewState extends State<StoryReadingView> {
 
   SingleChildScrollView readingSpaceBody({required BuildContext context}) {
     return SingleChildScrollView(
-              child: Column(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// Header
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16, top: 56),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.story.title,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                Text(
+                  widget.story.source!,
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+
+          /// Image
+          Center(
+            child: Hero(
+              tag: "fromArticleListToPage${widget.story.title}Tag",
+              child: CachedNetworkImage(
+                //height: 380,
+                placeholder: (context, url) => const LinearProgressIndicator(
+                  backgroundColor: Colors.black45,
+                  color: Colors.black54,
+                ),
+                imageUrl: widget.story.imageUrl ?? "",
+                fit: BoxFit.cover,
+                errorWidget: (context, String exception, dynamic stackTrace) {
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+
+          /// Content
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: widget.story.content.split('\n').map((paragraph) {
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// Header
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16, top: 56),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.story.title,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        Text(
-                          widget.story.source!,
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  /// Image
-                  Center(
-                    child: Hero(
-                      tag: "fromArticleListToPage${widget.story.title}Tag",
-                      child: CachedNetworkImage(
-                        //height: 380,
-                        placeholder: (context, url) =>
-                            const LinearProgressIndicator(
-                          backgroundColor: Colors.black45,
-                          color: Colors.black54,
-                        ),
-                        imageUrl: widget.story.imageUrl ?? "",
-                        fit: BoxFit.cover,
-                        errorWidget:
-                            (context, String exception, dynamic stackTrace) {
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ),
-                  ),
+                  paragraph.isNotEmpty
+                      ? ClickableWords(
+                          text: paragraph,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                fontSize:
+                                    Properties.defaultSetting.readingFontSize,
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
+                          onWordTap: (String value) {
+                            _showModalBottomSheet(
+                                context, value.removeSpecialCharacters());
+                          })
+                      : Container(),
                   const SizedBox(
-                    height: 16,
-                  ),
-
-                  /// Content
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        widget.story.content.split('\n').map((paragraph) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          paragraph.isNotEmpty
-                              ? ClickableWords(
-                                  text: paragraph,
-                                  fontSize: Properties
-                                      .defaultSetting.readingFontSize,
-                                  textColor: Theme.of(context)
-                                      .colorScheme.onBackground,
-                                  onWordTap: (String value) {
-                                    _showModalBottomSheet(context,
-                                        value.removeSpecialCharacters());
-                                  })
-                              : Container(),
-                          const SizedBox(
-                            height: 5,
-                          )
-                        ],
-                      );
-                    }).toList(),
-                  ),
+                    height: 5,
+                  )
                 ],
-              ),
-            );
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _showModalBottomSheet(

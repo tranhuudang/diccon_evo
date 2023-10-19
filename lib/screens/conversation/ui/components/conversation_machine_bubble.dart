@@ -44,7 +44,6 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
             } else {
-              _scrollToBottom();
               return widget.chatGptRepository.questionAnswers.last.answer.write(
                 event.choices?.first.delta?.content,
               );
@@ -61,17 +60,6 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
         print("Error occurred: $error");
       }
     }
-  }
-
-  void _scrollToBottom() {
-    /// Delay the scroll animation until after the list has been updated
-    Future.delayed(const Duration(milliseconds: 300), () {
-      widget.conversationScrollController.animateTo(
-        widget.conversationScrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
   }
 
   @override

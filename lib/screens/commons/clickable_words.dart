@@ -9,8 +9,6 @@ import '../../extensions/target_platform.dart';
 class ClickableWords extends StatefulWidget {
   final String text;
   final TextStyle? style;
-  final Color? textColor;
-  final double? fontSize;
   final Function(String)? onWordTap;
 
   const ClickableWords({
@@ -18,8 +16,6 @@ class ClickableWords extends StatefulWidget {
     required this.text,
     this.onWordTap,
     this.style,
-    this.textColor,
-    this.fontSize,
   });
 
   @override
@@ -56,11 +52,7 @@ class _ClickableWordsState extends State<ClickableWords> {
                           widget.onWordTap!(words[i]);
                         }
                       },
-                    style: widget.style ??
-                        TextStyle(
-                          color: widget.textColor ?? Colors.white,
-                          fontSize: widget.fontSize,
-                        ),
+                    style: widget.style
                   ),
               ],
             ),
@@ -89,8 +81,6 @@ class _ClickableWordsState extends State<ClickableWords> {
                         },
                         style: widget.style ??
                             TextStyle(
-                              color: widget.textColor ?? Colors.white,
-                              fontSize: widget.fontSize,
                               decoration: snapshot.data == i
                                   ? TextDecoration.underline
                                   : TextDecoration.none,
