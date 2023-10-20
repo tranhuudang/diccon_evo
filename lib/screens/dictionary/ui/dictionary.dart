@@ -8,7 +8,7 @@ import '../../../data/handlers/image_handler.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/header.dart';
 import '../../commons/suggested_item.dart';
-import '../bloc/chat_list_bloc.dart';
+import '../bloc/dictionary_bloc.dart';
 import '../../../config/properties.dart';
 import '../../../extensions/target_platform.dart';
 import '../../../extensions/i18n.dart';
@@ -171,7 +171,8 @@ class _DictionaryViewState extends State<DictionaryView> {
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
-                          context.pushNamed('word-history', extra: _wordHistoryBloc);
+                          context.pushNamed('word-history',
+                              extra: _wordHistoryBloc);
                         },
                       ),
                       const DictionaryMenuButton(),
@@ -228,9 +229,12 @@ class _DictionaryViewState extends State<DictionaryView> {
                                             _suggestionWords.map((String word) {
                                           return SuggestedItem(
                                             title: word,
-                                            textColor: Theme.of(context).colorScheme.onPrimary,
-                                            backgroundColor:
-                                                Theme.of(context).colorScheme.primary,
+                                            textColor: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary,
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
                                             onPressed: (String clickedWord) {
                                               _handleSubmitted(
                                                   clickedWord, context);
@@ -304,7 +308,8 @@ class _DictionaryViewState extends State<DictionaryView> {
                                     child: TextField(
                                       focusNode: Properties.textFieldFocusNode,
                                       onSubmitted: (providedWord) {
-                                        _wordHistoryBloc.add(AddWordToHistory(providedWord: providedWord));
+                                        _wordHistoryBloc.add(AddWordToHistory(
+                                            providedWord: providedWord));
                                         _handleSubmitted(providedWord, context);
                                       },
                                       onChanged: (String word) {

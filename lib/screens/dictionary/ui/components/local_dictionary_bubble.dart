@@ -8,7 +8,7 @@ import '../../../commons/word_meaning.dart';
 import '../../../commons/word_playback_button.dart';
 import '../../../commons/word_pronunciation.dart';
 import '../../../commons/word_title.dart';
-import '../../bloc/chat_list_bloc.dart';
+import '../../bloc/dictionary_bloc.dart';
 
 class LocalDictionaryBubble extends StatefulWidget {
   const LocalDictionaryBubble({
@@ -32,7 +32,9 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
     if (widget.word.meaning != null) {
       return widget.word.meaning!.split('\n').length;
     }
-    return 0;
+    else {
+      return 0;
+    }
   }
   @override
   void initState() {

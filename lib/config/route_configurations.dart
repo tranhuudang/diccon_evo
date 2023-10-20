@@ -1,6 +1,6 @@
 import 'package:diccon_evo/config/route_constants.dart';
 import 'package:diccon_evo/screens/conversation/ui/conversation.dart';
-import 'package:diccon_evo/screens/dictionary/ui/custom_dictionary.dart';
+import 'package:diccon_evo/screens/dictionary/ui/dictionary_preferences.dart';
 import 'package:diccon_evo/screens/dictionary/ui/dictionary.dart';
 import 'package:diccon_evo/screens/dictionary/ui/word_history.dart';
 import 'package:diccon_evo/screens/essential/ui/essential_3000.dart';
@@ -82,7 +82,7 @@ GoRouter router = GoRouter(
             name: RouterConstants.customDictionary,
             path: 'custom',
             pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const CustomDictionary()));
+              return MaterialPage(child: I18n(child: const DictionaryPreferences()));
             },
           ),
         ]),

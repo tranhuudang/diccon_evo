@@ -60,6 +60,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         textController.text = event.providedWord;
       },
     ));
+    textController.clear();
     emit(ConversationUpdated(conversation: listConversations));
     _scrollToBottom();
     // Check internet connection before create request to chatbot

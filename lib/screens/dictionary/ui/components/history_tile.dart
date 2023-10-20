@@ -1,4 +1,4 @@
-import 'package:diccon_evo/screens/dictionary/bloc/chat_list_bloc.dart';
+import 'package:diccon_evo/screens/dictionary/bloc/dictionary_bloc.dart';
 import 'package:diccon_evo/screens/dictionary/bloc/word_history_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -5,7 +5,7 @@ import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/commons/clickable_words.dart';
 import 'package:diccon_evo/screens/commons/word_playback_button.dart';
-import 'package:diccon_evo/screens/dictionary/bloc/chat_list_bloc.dart';
+import 'package:diccon_evo/screens/dictionary/bloc/dictionary_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

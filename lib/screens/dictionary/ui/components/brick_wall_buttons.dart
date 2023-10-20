@@ -1,16 +1,13 @@
-import 'package:diccon_evo/screens/dictionary/bloc/chat_list_bloc.dart';
+import 'package:diccon_evo/screens/dictionary/bloc/dictionary_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BrickWallButtons extends StatelessWidget {
-  final List<String> stringList;
+  final List<String> listString;
   final Color? borderColor;
   final Color? textColor;
   const BrickWallButtons(
-      {super.key,
-      required this.stringList,
-      this.borderColor,
-      this.textColor});
+      {super.key, required this.listString, this.borderColor, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +23,12 @@ class BrickWallButtons extends StatelessWidget {
             alignment: WrapAlignment.end,
             spacing: 8.0,
             runSpacing: 8.0,
-            children: stringList.map((String item) {
+            children: listString.map((String item) {
               return Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: borderColor ?? Theme.of(context).colorScheme.primary,
+                      color:
+                          borderColor ?? Theme.of(context).colorScheme.primary,
                     ),
                     //color: Colors.blue[400],
                     borderRadius: BorderRadius.circular(16),
@@ -42,7 +40,9 @@ class BrickWallButtons extends StatelessWidget {
                     },
                     child: Text(
                       item,
-                      style: TextStyle(color: textColor ?? Theme.of(context).colorScheme.primary),
+                      style: TextStyle(
+                          color: textColor ??
+                              Theme.of(context).colorScheme.primary),
                     ),
                   ));
             }).toList(),

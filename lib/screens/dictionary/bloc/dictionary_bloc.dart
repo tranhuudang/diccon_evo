@@ -19,8 +19,8 @@ import '../ui/components/brick_wall_buttons.dart';
 import '../ui/components/image_buble.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-part 'chat_list_state.dart';
-part 'chat_list_event.dart';
+part 'dictionary_state.dart';
+part 'dictionary_event.dart';
 
 class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   ChatListBloc()
@@ -50,7 +50,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) {
     var listSynonyms = ThesaurusRepository().getSynonyms(event.providedWord);
-    _chatList.add(BrickWallButtons(stringList: listSynonyms));
+    _chatList.add(BrickWallButtons(listString: listSynonyms));
     emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
     emit(SynonymsAdded());
@@ -61,7 +61,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     _chatList.add(BrickWallButtons(
         textColor: Colors.orange,
         borderColor: Colors.orangeAccent,
-        stringList: listAntonyms));
+        listString: listAntonyms));
     emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
 

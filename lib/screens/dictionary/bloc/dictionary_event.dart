@@ -1,4 +1,4 @@
-part of 'chat_list_bloc.dart';
+part of 'dictionary_bloc.dart';
 
 @immutable
 abstract class ChatListEvent{}

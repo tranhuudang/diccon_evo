@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 
@@ -16,35 +18,43 @@ class RectangleButton extends StatefulWidget {
 }
 
 class _RectangleButtonState extends State<RectangleButton> {
-  bool _isHovering = false;
+  final _hoveringController = StreamController<bool>();
+  @override
+  void dispose(){
+    super.dispose();
+    _hoveringController.close();
+  }
 
   @override
   Widget build(BuildContext context) {
     final Color defaultBackgroundColor = Theme.of(context).highlightColor;
-    return InkWell(
-      onTap: widget.onTap,
-      onHover: (isHover) {
-        setState(() {
-          _isHovering = isHover;
-        });
-      },
-      borderRadius: BorderRadius.circular(5),
-      child: Opacity(
-        opacity: 0.5,
-        child: Container(
-          alignment: Alignment.center,
-          height: 50,
-          width: 30,
-          decoration: BoxDecoration(
-            color: _isHovering
-                ? widget.backgroundColor?.withOpacity(.2) ??
-                    defaultBackgroundColor.withOpacity(.2)
-                : widget.backgroundColor ?? defaultBackgroundColor,
-            borderRadius: BorderRadius.circular(5),
+    return StreamBuilder<bool>(
+      stream: _hoveringController.stream,
+      builder: (context, isHover) {
+        return InkWell(
+          onTap: widget.onTap,
+          onHover: (isHover) {
+            _hoveringController.add(isHover);
+          },
+          borderRadius: BorderRadius.circular(5),
+          child: Opacity(
+            opacity: 0.5,
+            child: Container(
+              alignment: Alignment.center,
+              height: 50,
+              width: 30,
+              decoration: BoxDecoration(
+                color: isHover.data!
+                    ? widget.backgroundColor?.withOpacity(.2) ??
+                        defaultBackgroundColor.withOpacity(.2)
+                    : widget.backgroundColor ?? defaultBackgroundColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Icon(widget.iconData),
+            ),
           ),
-          child: Icon(widget.iconData),
-        ),
-      ),
+        );
+      }
     );
   }
 }

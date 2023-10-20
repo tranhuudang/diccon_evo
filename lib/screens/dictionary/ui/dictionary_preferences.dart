@@ -14,14 +14,14 @@ import '../../../data/data_providers/chat_preview_list_data.dart';
 import '../../../data/models/dictionary_response_type.dart';
 import 'components/pageview_navigator.dart';
 
-class CustomDictionary extends StatefulWidget {
-  const CustomDictionary({super.key});
+class DictionaryPreferences extends StatefulWidget {
+  const DictionaryPreferences({super.key});
 
   @override
-  State<CustomDictionary> createState() => _CustomDictionaryState();
+  State<DictionaryPreferences> createState() => _DictionaryPreferencesState();
 }
 
-class _CustomDictionaryState extends State<CustomDictionary> {
+class _DictionaryPreferencesState extends State<DictionaryPreferences> {
   final _pageViewController = PageController();
   final _isSelectedStreamController = StreamController<DictionaryResponseType>();
 

@@ -12,20 +12,24 @@ class WordPlaybackButton extends StatefulWidget {
 }
 
 class _WordPlaybackButtonState extends State<WordPlaybackButton> {
-  final _streamController = StreamController<bool>();
+  final _downloadController = StreamController<bool>();
   void listenToProgress(Stream<bool> progressStream) {
     progressStream.listen((isDownloaded) {
-      _streamController.sink.add(isDownloaded);
+      _downloadController.sink.add(isDownloaded);
       if (kDebugMode) {
         print("the sound track downloaded is $isDownloaded");
       } // You can update your UI or perform actions based on these messages.
     });
   }
-
+  @override
+  void dispose(){
+    super.dispose();
+    _downloadController.close();
+  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
-        stream: _streamController.stream,
+        stream: _downloadController.stream,
         initialData: true,
         builder: (context, snapshot) {
           return snapshot.data!

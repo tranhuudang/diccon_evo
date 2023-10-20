@@ -5,36 +5,11 @@ import '../bloc/conversation_bloc.dart';
 import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ConversationView extends StatefulWidget {
+class ConversationView extends StatelessWidget {
   const ConversationView({super.key});
 
   @override
-  State<ConversationView> createState() => _ConversationViewState();
-}
-
-class _ConversationViewState extends State<ConversationView>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
-
-  void _handleSubmitted(String searchWord, BuildContext context) async {
-    var conversationBloc = context.read<ConversationBloc>();
-    conversationBloc.textController.clear();
-
-    /// Add left bubble as user message
-    conversationBloc.add(AskAQuestion(providedWord: searchWord));
-
-    // Dismiss keyboard
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     final conversationBloc = context.read<ConversationBloc>();
     return SafeArea(
       child: Scaffold(
@@ -152,7 +127,15 @@ class _ConversationViewState extends State<ConversationView>
                                       controller:
                                           conversationBloc.textController,
                                       onSubmitted: (providedWord) {
-                                        _handleSubmitted(providedWord, context);
+                                        //_handleSubmitted(providedWord, context);
+                                        conversationBloc.add(AskAQuestion(
+                                            providedWord: providedWord));
+                                        // Dismiss keyboard
+                                        FocusScopeNode currentFocus =
+                                            FocusScope.of(context);
+                                        if (!currentFocus.hasPrimaryFocus) {
+                                          currentFocus.unfocus();
+                                        }
                                       },
                                       decoration: InputDecoration(
                                         hintText:

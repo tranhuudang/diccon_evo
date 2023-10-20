@@ -23,7 +23,6 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
     super.dispose();
     _streamController.close();
   }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<TranslationChoices>(
