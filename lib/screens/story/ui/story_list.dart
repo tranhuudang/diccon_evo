@@ -155,7 +155,7 @@ class StoryListView extends StatelessWidget {
                         },
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: data.articleList.length,
+                        itemCount: 9,//data.articleList.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,

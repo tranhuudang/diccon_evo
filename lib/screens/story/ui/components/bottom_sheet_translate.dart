@@ -141,7 +141,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                             answer,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyLarge
+                                .titleMedium
                                 ?.copyWith(
                                     color: Theme.of(context)
                                         .colorScheme
