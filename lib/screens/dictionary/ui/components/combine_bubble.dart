@@ -9,7 +9,7 @@ import '../../../../data/models/translation_choices.dart';
 import '../../../../data/models/word.dart';
 import '../../../../data/repositories/chat_gpt_repository.dart';
 
-class CombineBubble extends StatelessWidget {
+class CombineBubble extends StatefulWidget {
   final Word wordObjectForLocal;
   final String wordForChatbot;
   final ScrollController chatListController;
@@ -24,30 +24,33 @@ class CombineBubble extends StatelessWidget {
       required this.listChatGptRepository});
 
   @override
-  Widget build(BuildContext context) {
-    return body(context);
+  State<CombineBubble> createState() => _CombineBubbleState();
+}
+
+class _CombineBubbleState extends State<CombineBubble> {
+  final translationModeStreamController =
+  StreamController<TranslationChoices>();
+
+  scrollToBottom() {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      widget.chatListController.animateTo(
+        widget.chatListController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.linear,
+      );
+    });
   }
 
-  Padding body(BuildContext context) {
-    final translationModeStreamController =
-        StreamController<TranslationChoices>();
 
-    scrollToBottom() {
-      Future.delayed(const Duration(milliseconds: 300), () {
-        chatListController.animateTo(
-          chatListController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.linear,
-        );
-      });
-    }
-
-    var local = LocalDictionaryBubble(word: wordObjectForLocal);
+  @override
+  Widget build(BuildContext context) {
+    var local = LocalDictionaryBubble(word: widget.wordObjectForLocal);
     var chatbot = ChatbotBubble(
-        word: wordForChatbot,
-        chatListController: chatListController,
-        index: index,
-        listChatGptRepository: listChatGptRepository);
+        word: widget.wordForChatbot,
+        chatListController: widget.chatListController,
+        index: widget.index,
+        listChatGptRepository: widget.listChatGptRepository);
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16.0,
@@ -76,7 +79,7 @@ class CombineBubble extends StatelessWidget {
                 child: SwitchTranslationBar(selectedItemSet: (selectedItemSet) {
                   translationModeStreamController.add(selectedItemSet.first);
                   // Only scroll to the bottom when switch translation mode changed on the lastest widget bubble
-                  if (index >= listChatGptRepository.length - 1) {
+                  if (widget.index >= widget.listChatGptRepository.length - 1) {
                     scrollToBottom();
                   }
                 }),
@@ -86,7 +89,7 @@ class CombineBubble extends StatelessWidget {
                 initialData: Properties.defaultSetting.translationChoice
                     .toTranslationChoice(),
                 builder: (context, translationChoice) {
-                  if (wordObjectForLocal.meaning ==
+                  if (widget.wordObjectForLocal.meaning ==
                       "Local dictionary don't have definition for this word. Check out AI Dictionary !") {
                     translationModeStreamController.add(TranslationChoices.ai);
                   }

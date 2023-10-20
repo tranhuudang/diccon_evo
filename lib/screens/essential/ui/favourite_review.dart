@@ -1,4 +1,3 @@
-import 'package:diccon_evo/config/responsive.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/material.dart';
@@ -35,30 +34,16 @@ class FavouriteReviewView extends StatelessWidget {
                 ),
 
                 /// Topic
-                 Responsive(
-                   smallSizeDevice: body(pageViewController),
-                   mediumSizeDevice: body(pageViewController),
-                   largeSizeDevice: body(pageViewController),
-                 )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Column body(PageController pageViewController) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     HeadSentence(listText: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HeadSentence(listText: [
                       "Reinforce".i18n,
                       "your".i18n,
                       "knowledge".i18n
-              ]),
-              /// List page word
-              Padding(
+                    ]),
+                    /// List page word
+                    Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: SizedBox(
                         height: 250,
@@ -79,10 +64,10 @@ class FavouriteReviewView extends StatelessWidget {
                           },
                         ),
                       ),
-              ),
+                    ),
 
-              /// Navigate page
-              Row(
+                    /// Navigate page
+                    Row(
                       children: [
                         CircleButtonBar(
                           children: [
@@ -130,9 +115,9 @@ class FavouriteReviewView extends StatelessWidget {
                         //   },
                         // ),
                       ],
-              ),
-              const SizedBox(height: 16,),
-              TipsBox(
+                    ),
+                    const SizedBox(height: 16,),
+                    TipsBox(
                       title: "Tips".i18n,
                       children:
                       ["Read whenever possible.".i18n,"Write down new words.".i18n,"Vocally practice new words.".i18n,"Visually remember words.".i18n,"Play word games online.".i18n].map((text){
@@ -143,8 +128,15 @@ class FavouriteReviewView extends StatelessWidget {
                           ],
                         );
                       }).toList(),
-              ),
-                   ],
-                 );
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
+
 }
