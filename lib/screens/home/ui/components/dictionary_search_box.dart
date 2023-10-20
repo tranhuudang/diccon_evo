@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../../commons/tiny_close_button.dart';
 import '../../../dictionary/ui/dictionary.dart';
-import '../home.dart';
 class DictionarySearchBoxInHome extends StatefulWidget {
   const DictionarySearchBoxInHome({super.key});
 

@@ -17,7 +17,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:diccon_evo/firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'dart:ui';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();
