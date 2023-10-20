@@ -53,6 +53,7 @@ class _CircleButtonState extends State<CircleButton> {
         Theme.of(context).colorScheme.surfaceVariant;
     return StreamBuilder<bool>(
         stream: _hoveringController.stream,
+        initialData: false,
         builder: (context, isHovering) {
           return InkWell(
             onTap: widget.onTap,

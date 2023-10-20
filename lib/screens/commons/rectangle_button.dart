@@ -30,6 +30,7 @@ class _RectangleButtonState extends State<RectangleButton> {
     final Color defaultBackgroundColor = Theme.of(context).highlightColor;
     return StreamBuilder<bool>(
       stream: _hoveringController.stream,
+      initialData: false,
       builder: (context, isHover) {
         return InkWell(
           onTap: widget.onTap,
