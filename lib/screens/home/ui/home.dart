@@ -10,6 +10,7 @@ import '../../../data/repositories/dictionary_repository.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/head_sentence.dart';
 import 'package:flutter/material.dart';
+import '../../commons/tiny_close_button.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_subfunction_box.dart';
 import 'components/to_conversation_button.dart';
@@ -306,28 +307,6 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
               }),
         ),
       ],
-    );
-  }
-}
-
-class TinyCloseButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const TinyCloseButton({
-    super.key,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(32),
-          ),
-          child: const Icon(Icons.close)),
     );
   }
 }

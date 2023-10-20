@@ -25,7 +25,12 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
     super.build(context);
     final storyHistoryBloc = StoryHistoryBloc();
     TextTheme textTheme = Theme.of(context).primaryTextTheme;
-    return GridTile(
+    return Card(
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(32),
+
+      ),
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         onTap: (){
@@ -34,11 +39,6 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
         },
         child: Container(
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceVariant,
-            borderRadius: BorderRadius.circular(32),
-          ),
-          width: 300,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -98,7 +98,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
                         child: Text(
                           maxLines: 2,
                           widget.story.shortDescription,
-                          textAlign: TextAlign.justify,
+                          textAlign: TextAlign.start,
                           style: textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
