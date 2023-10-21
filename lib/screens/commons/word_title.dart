@@ -14,7 +14,6 @@ class WordTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      //flex: 8,
       child: Text(
         message.word,
         style: TextStyle(

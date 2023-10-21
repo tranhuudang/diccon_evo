@@ -10,7 +10,7 @@ class EssentialWordRepository {
 
   static Future<List<EssentialWord>> loadEssentialData(String topic) async {
     final jsonString = await rootBundle
-        .loadString('assets/essential/3000_essential_words.json');
+        .loadString(PropertiesConstants.essentialWordFileName);
     final jsonData = json.decode(jsonString);
     List<EssentialWord> essentialWords = [];
 

@@ -6,7 +6,7 @@ import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/route_constants.dart';
-import '../../../data/repositories/essential_manager.dart';
+import '../../../data/repositories/essential_repository.dart';
 import '../../../data/data_providers/history_manager.dart';
 import '../../commons/notify.dart';
 import '../../commons/circle_button.dart';

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/material.dart';
@@ -16,31 +18,40 @@ class SwitchTranslationBar extends StatefulWidget {
 }
 
 class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
-  TranslationChoices selectedItem = Properties.defaultSetting.translationChoice.toTranslationChoice();
+  final _selectedItemController = StreamController<TranslationChoices>();
+  @override
+  void dispose(){
+    super.dispose();
+    _selectedItemController.close();
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const Spacer(),
-        SegmentedButton<TranslationChoices>(
-          showSelectedIcon: false,
-          segments: [
-            ButtonSegment(
-              value: TranslationChoices.classic,
-              label: Text(TranslationChoices.classic.title()),
-            ),
-            ButtonSegment(
-              value: TranslationChoices.ai,
-              label: Text(TranslationChoices.ai.title()),
-            ),
-          ],
-          selected: {selectedItem},
-          onSelectionChanged: (newSelection) {
-            widget.selectedItemSet(newSelection);
-            setState(() {
-              selectedItem = newSelection.first;
-            });
-          },
+        StreamBuilder<TranslationChoices>(
+          stream: _selectedItemController.stream,
+          initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
+          builder: (context, selectedItem) {
+            return SegmentedButton<TranslationChoices>(
+              showSelectedIcon: true,
+              segments: [
+                ButtonSegment(
+                  value: TranslationChoices.classic,
+                  label: Text(TranslationChoices.classic.title()),
+                ),
+                ButtonSegment(
+                  value: TranslationChoices.ai,
+                  label: Text(TranslationChoices.ai.title()),
+                ),
+              ],
+              selected: {selectedItem.data!},
+              onSelectionChanged: (newSelection) {
+                widget.selectedItemSet(newSelection);
+                _selectedItemController.add(newSelection.first);
+              },
+            );
+          }
         ),
       ],
     );

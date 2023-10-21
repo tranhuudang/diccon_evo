@@ -12,6 +12,7 @@ class TinyCloseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(32),
       child: Container(
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(

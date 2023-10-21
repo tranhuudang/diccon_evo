@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/essential_manager.dart';
+import '../../../data/repositories/essential_repository.dart';
 import '../../../data/models/essential_word.dart';
 
 /// Events
