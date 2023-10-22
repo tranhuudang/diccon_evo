@@ -34,6 +34,7 @@ class Properties {
     readingFontSize: 16,
     numberOfEssentialLeft: 1848,
     language: 'System default',
+    dictionaryResponseSelectedList: 'Pronunciation, Definitions, Examples',
     readingFontSizeSliderValue: 0.2,
     windowsWidth: 400,
     windowsHeight: 700,
@@ -55,6 +56,8 @@ class Properties {
     await prefs.setInt('numberOfAntonyms', newSetting.numberOfAntonyms);
     await prefs.setInt('openAppCount', newSetting.openAppCount);
     await prefs.setString('language', newSetting.language);
+    await prefs.setString('dictionaryResponseSelectedList',
+        newSetting.dictionaryResponseSelectedList);
     await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
     await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
     await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
@@ -86,6 +89,9 @@ class Properties {
       numberOfAntonyms:
           prefs.getInt('numberOfAntonyms') ?? defaultSetting.numberOfAntonyms,
       language: prefs.getString('language') ?? defaultSetting.language,
+      dictionaryResponseSelectedList:
+          prefs.getString('dictionaryResponseSelectedList') ??
+              defaultSetting.dictionaryResponseSelectedList,
       numberOfEssentialLeft:
           prefs.getInt('essentialLeft') ?? defaultSetting.numberOfEssentialLeft,
       windowsWidth:
@@ -107,6 +113,7 @@ class Properties {
       print(
           "readingFontSizeSliderValue: ${Properties.defaultSetting.readingFontSizeSliderValue}");
       print("language: ${Properties.defaultSetting.language}");
+      print("dictionaryResponseSelectedList: ${Properties.defaultSetting.dictionaryResponseSelectedList}");
       print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
       print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");
       print("themeMode: ${Properties.defaultSetting.themeMode}");

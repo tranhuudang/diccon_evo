@@ -54,6 +54,7 @@ class ToConversationButton extends StatelessWidget {
             Opacity(
               opacity: .5,
               child: WaveWidget(
+                duration: 3000,
                 config: CustomConfig(
                   colors: [
                     Colors.white70,

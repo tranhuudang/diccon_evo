@@ -11,7 +11,7 @@ import '../../../config/route_constants.dart';
 import '../../../data/models/setting.dart';
 import '../../commons/header.dart';
 import '../cubit/setting_cubit.dart';
-import 'components/setting_section.dart';
+import '../../commons/section.dart';
 import 'components/theme_color_palette.dart';
 import 'components/theme_mode_switcher.dart';
 
@@ -58,7 +58,7 @@ class _SettingsViewState extends State<SettingsView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SettingSection(title: "Common Section".i18n, children: [
+        Section(title: "Common Section".i18n, children: [
           /// Language switcher
           Row(
             children: [
@@ -115,7 +115,7 @@ class _SettingsViewState extends State<SettingsView> {
           const SizedBox().mediumHeight(),
           const ThemeColorPalette(),
         ]),
-        SettingSection(
+        Section(
           title: 'Dictionary Section'.i18n,
           children: [
             Row(children: [
@@ -203,7 +203,7 @@ class _SettingsViewState extends State<SettingsView> {
             )
           ],
         ),
-        SettingSection(
+        Section(
           title: 'Reading Section'.i18n,
           children: [
             Row(

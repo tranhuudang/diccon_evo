@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/route_constants.dart';
 import '../../../../data/models/translation_choices.dart';
+import '../dictionary_preferences_test.dart';
 
 class DictionaryMenuButton extends StatefulWidget {
   const DictionaryMenuButton({super.key});
@@ -82,7 +83,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
             PopupMenuItem(
               child: Text("Custom".i18n),
               onTap: () {
-                context.pushNamed(RouterConstants.customDictionary);
+                //context.pushNamed(RouterConstants.customDictionary);
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>DictionaryPreferencesTest()));
               },
             ),
           ],

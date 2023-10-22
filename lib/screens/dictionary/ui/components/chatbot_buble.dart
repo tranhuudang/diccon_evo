@@ -122,8 +122,10 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
         question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
         break;
     }
+    var customQuestion =
+        'Hãy giúp tôi dịch chữ "${widget.word}" từ tiếng Anh sang tiếng Việt với các chủ đề lần lượt là: ${Properties.defaultSetting.dictionaryResponseSelectedList}. Hãy chia câu trả lời thành các chủ đề, và dịch sang tiếng Việt các chủ đề đó, bắt buộc phải dịch sang tiếng Việt những câu bằng tiếng Anh ngay sau từng câu tiếng Anh (ngay liền kề mỗi câu).';
     var request = await widget.listChatGptRepository[widget.index]
-        .createSingleQuestionRequest(question);
+        .createSingleQuestionRequest(customQuestion);
     return request;
   }
 
@@ -162,7 +164,9 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                             _chatStreamSubscription?.cancel();
                             _isLoadingStreamController.sink.add(false);
                           },
-                          icon: Icon(Icons.stop_circle_outlined, color: Theme.of(context).colorScheme.onSecondary)),
+                          icon: Icon(Icons.stop_circle_outlined,
+                              color:
+                                  Theme.of(context).colorScheme.onSecondary)),
                     const SizedBox().mediumWidth(),
                     snapshot.data!
                         ? Padding(
@@ -171,7 +175,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                               height: 15,
                               width: 15,
                               child: CircularProgressIndicator(
-                                color: Theme.of(context).colorScheme.onSecondary,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
                               ),
                             ),
                           )
@@ -181,12 +186,18 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                               _isLoadingStreamController.sink.add(true);
                               _reGetGptResponse();
                             },
-                            icon: Icon(Icons.cached_rounded, color: Theme.of(context).colorScheme.onSecondary,)),
+                            icon: Icon(
+                              Icons.cached_rounded,
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            )),
                   ],
                 );
               }),
           ClickableWords(
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSecondary),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(color: Theme.of(context).colorScheme.onSecondary),
               onWordTap: (word) {
                 chatListBloc.add(AddUserMessage(providedWord: word));
                 chatListBloc.add(AddTranslation(providedWord: word));

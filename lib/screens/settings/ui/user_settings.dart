@@ -5,7 +5,7 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import '../../commons/notify.dart';
 import '../../commons/header.dart';
-import 'components/setting_section.dart';
+import '../../commons/section.dart';
 
 class UserSettingsView extends StatefulWidget {
   const UserSettingsView({super.key});
@@ -61,7 +61,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                     padding: const EdgeInsets.fromLTRB(16, 70, 16, 16),
                     child: Column(
                       children: [
-                        SettingSection(
+                        Section(
                           title: "User".i18n,
                           children: [
                             Column(
@@ -181,7 +181,7 @@ class UninitializedView extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
           child: Column(
             children: [
-              SettingSection(
+              Section(
                 title: "User".i18n,
                 children: [
                   Text(

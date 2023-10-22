@@ -8,6 +8,7 @@ class Setting {
   final int numberOfEssentialLeft;
   final double readingFontSizeSliderValue;
   final String language;
+  final String dictionaryResponseSelectedList;
   final double windowsWidth;
   final double windowsHeight;
   final String translationChoice;
@@ -27,6 +28,7 @@ class Setting {
       required this.readingFontSize,
       required this.numberOfEssentialLeft,
       required this.language,
+      required this.dictionaryResponseSelectedList,
       required this.windowsWidth,
       required this.windowsHeight});
 
@@ -45,7 +47,9 @@ class Setting {
       double? windowsWidth,
       double? windowsHeight,
       double? readingFontSizeSliderValue,
-      String? language}) {
+      String? language,
+      String? dictionaryResponseSelectedList,
+      }) {
     return Setting(
         dictionaryResponseType: dictionaryResponseType ?? this.dictionaryResponseType,
         translationChoice: translationChoice ?? this.translationChoice,
@@ -59,6 +63,7 @@ class Setting {
         numberOfEssentialLeft:
             numberOfEssentialLeft ?? this.numberOfEssentialLeft,
         language: language ?? this.language,
+      dictionaryResponseSelectedList: dictionaryResponseSelectedList ?? this.dictionaryResponseSelectedList,
         windowsWidth: windowsWidth ?? this.windowsWidth,
         windowsHeight: windowsHeight ?? this.windowsHeight,
         themeMode: themeMode ?? this.themeMode,

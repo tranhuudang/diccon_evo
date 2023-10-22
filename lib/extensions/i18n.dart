@@ -330,6 +330,170 @@ extension Localization on String {
     },
 
     /// Settings
+    "Pronunciation": {
+      "en_us": "Pronunciation",
+      "vi_vi": "Phát âm",
+    },
+    "Definitions": {
+      "en_us": "Definitions",
+      "vi_vi": "Định nghĩa",
+    },
+    "Examples": {
+      "en_us": "Examples",
+      "vi_vi": "Ví dụ",
+    },
+    "Etymology": {
+      "en_us": "Etymology",
+      "vi_vi": "Nguyên gốc của từ",
+    },
+    "Part of Speech": {
+      "en_us": "Part of Speech",
+      "vi_vi": "Phân loại từ",
+    },
+    "Usage Notes": {
+      "en_us": "Usage Notes",
+      "vi_vi": "Lưu ý về cách sử dụng",
+    },
+    "Related Words": {
+      "en_us": "Related Words",
+      "vi_vi": "Từ liên quan",
+    },
+    "Collocations": {
+      "en_us": "Collocations",
+      "vi_vi": "Từ ghép",
+    },
+    "Regional Variations": {
+      "en_us": "Regional Variations",
+      "vi_vi": "Biến thể khu vực",
+    },
+    "Cultural or Historical Context": {
+      "en_us": "Cultural or Historical Context",
+      "vi_vi": "Bối cảnh văn hóa hoặc lịch sử",
+    },
+    "Derived Terms": {
+      "en_us": "Derived Terms",
+      "vi_vi": "Các thuật ngữ có nguồn gốc",
+    },
+    "Phrasal Verbs": {
+      "en_us": "Phrasal Verbs",
+      "vi_vi": "Cụm động từ",
+    },
+    "Abbreviations or Acronyms": {
+      "en_us": "Abbreviations or Acronyms",
+      "vi_vi": "Từ viết tắt hoặc chữ viết tắt",
+    },
+    "Related Concepts": {
+      "en_us": "Related Concepts",
+      "vi_vi": "Các khái niệm liên quan",
+    },
+    "Usage Frequency": {
+      "en_us": "Usage Frequency",
+      "vi_vi": "Tần suất sử dụng",
+    },
+    "Medical Terminology": {
+      "en_us": "Medical Terminology",
+      "vi_vi": "Thuật ngữ y học",
+    },
+    "Legal Terminology": {
+      "en_us": "Legal Terminology",
+      "vi_vi": "Thuật ngữ pháp lý",
+    },
+    "Scientific Terminology": {
+      "en_us": "Scientific Terminology",
+      "vi_vi": "Thuật ngữ khoa học",
+    },
+    "Technical Jargon": {
+      "en_us": "Technical Jargon",
+      "vi_vi": "Lingo kỹ thuật",
+    },
+    "Financial and Economic Terms": {
+      "en_us": "Financial and Economic Terms",
+      "vi_vi": "Thuật ngữ tài chính và kinh tế",
+    },
+    "Environmental Science": {
+      "en_us": "Environmental Science",
+      "vi_vi": "Khoa học môi trường",
+    },
+    "Linguistics": {
+      "en_us": "Linguistics",
+      "vi_vi": "Ngôn ngữ học",
+    },
+    "Mathematics": {
+      "en_us": "Mathematics",
+      "vi_vi": "Toán học",
+    },
+    "Art and Art History": {
+      "en_us": "Art and Art History",
+      "vi_vi": "Nghệ thuật và lịch sử nghệ thuật",
+    },
+    "Music Theory": {
+      "en_us": "Music Theory",
+      "vi_vi": "Lý thuyết âm nhạc",
+    },
+    "Psychology": {
+      "en_us": "Psychology",
+      "vi_vi": "Tâm lý học",
+    },
+    "Philosophy": {
+      "en_us": "Philosophy",
+      "vi_vi": "Triết học",
+    },
+    "Astronomy": {
+      "en_us": "Astronomy",
+      "vi_vi": "Thiên văn học",
+    },
+    "Geology": {
+      "en_us": "Geology",
+      "vi_vi": "Địa chất học",
+    },
+    "Botany": {
+      "en_us": "Botany",
+      "vi_vi": "Thực vật học",
+    },
+    "Zoology": {
+      "en_us": "Zoology",
+      "vi_vi": "Động vật học",
+    },
+    "Architecture": {
+      "en_us": "Architecture",
+      "vi_vi": "Kiến trúc",
+    },
+    "Food and Culinary Arts": {
+      "en_us": "Food and Culinary Arts",
+      "vi_vi": "Thực phẩm và nghệ thuật nấu ăn",
+    },
+    "Fashion and Clothing": {
+      "en_us": "Fashion and Clothing",
+      "vi_vi": "Thời trang và quần áo",
+    },
+    "Sports and Athletics": {
+      "en_us": "Sports and Athletics",
+      "vi_vi": "Thể thao và thể dục",
+    },
+    "Travel and Tourism": {
+      "en_us": "Travel and Tourism",
+      "vi_vi": "Du lịch và du lịch",
+    },
+    "Aviation and Aerospace": {
+      "en_us": "Aviation and Aerospace",
+      "vi_vi": "Hàng không và không gian",
+    },
+    "Maritime and Nautical": {
+      "en_us": "Maritime and Nautical",
+      "vi_vi": "Biển và hàng hải",
+    },
+    "Automotive and Transportation": {
+      "en_us": "Automotive and Transportation",
+      "vi_vi": "Ô tô và vận tải",
+    },
+    "Notes on Usage": {
+      "en_us": "Notes on Usage",
+      "vi_vi": "Ghi chú về cách sử dụng",
+    },
+    "Word Forms": {
+      "en_us": "Word Forms",
+      "vi_vi": "Các hình thức của từ",
+    },
     "Sync your data": {
       "en_us": "Sync your data",
       "vi_vi": "Đồng bộ dữ liệu",

@@ -1,10 +1,10 @@
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 
-class SettingSection extends StatelessWidget {
+class Section extends StatelessWidget {
   final String? title;
   final List<Widget> children;
-  const SettingSection({super.key, this.title, required this.children});
+  const Section({super.key, this.title, required this.children});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../config/properties_constants.dart';
-import 'components/setting_section.dart';
+import '../../commons/section.dart';
 import 'components/store_badge.dart';
 
 class InfosView extends StatefulWidget {
@@ -46,7 +46,7 @@ class _InfosViewState extends State<InfosView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SettingSection(
+        Section(
           title: "About".i18n,
           children: [
             Column(
@@ -90,7 +90,7 @@ class _InfosViewState extends State<InfosView> {
             ),
           ],
         ),
-        SettingSection(
+        Section(
           title: "Privacy Policy".i18n,
           children: [
             Text(
