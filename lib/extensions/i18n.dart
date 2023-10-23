@@ -334,6 +334,19 @@ extension Localization on String {
     },
 
     /// Settings
+
+    "Customize the AI response format.": {
+      "en_us": "Customize the AI response format.",
+      "vi_vi": "Cấu trúc câu trả lời AI"
+    },
+    "Available options": {
+      "en_us": "Available options",
+      "vi_vi": "Những lựa chọn sẵn có"
+    },
+    "Specialized Meanings": {
+      "en_us": "Specialized Meanings",
+      "vi_vi": "Chuyên ngành"
+    },
     "Phiên âm": {
       "en_us": "Pronunciation",
       "vi_vi": "Phát âm"
