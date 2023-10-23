@@ -339,6 +339,10 @@ extension Localization on String {
       "en_us": "Customize the AI response format.",
       "vi_vi": "Cấu trúc câu trả lời AI"
     },
+    "Release notes": {
+      "en_us": "Release notes",
+      "vi_vi": "Thông tin phiên bản"
+    },
     "Available options": {
       "en_us": "Available options",
       "vi_vi": "Những lựa chọn sẵn có"

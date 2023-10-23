@@ -85,7 +85,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
                 if(title != null)
                     Text(
                         title!,
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                 const SizedBox(
                   width: 16,

@@ -9,6 +9,7 @@ import 'package:diccon_evo/screens/essential/ui/learning.dart';
 import 'package:diccon_evo/screens/home/ui/home.dart';
 import 'package:diccon_evo/screens/settings/ui/infos.dart';
 import 'package:diccon_evo/screens/settings/ui/login.dart';
+import 'package:diccon_evo/screens/settings/ui/release_notes.dart';
 import 'package:diccon_evo/screens/settings/ui/settings.dart';
 import 'package:diccon_evo/screens/settings/ui/user_settings.dart';
 import 'package:diccon_evo/screens/story/ui/story_bookmark.dart';
@@ -49,6 +50,13 @@ GoRouter router = GoRouter(
                 path: 'dictionary-preferences',
                 pageBuilder: (context, state) {
                   return MaterialPage(child: I18n(child: const DictionaryPreferences()));
+                },
+              ),
+              GoRoute(
+                name: RouterConstants.releaseNotes,
+                path: 'release-notes',
+                pageBuilder: (context, state) {
+                  return MaterialPage(child: I18n(child: const ReleaseNotes()));
                 },
               ),
             ]

@@ -1,8 +1,10 @@
 import 'package:diccon_evo/config/responsive.dart';
+import 'package:diccon_evo/config/route_constants.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../config/properties_constants.dart';
 import '../../commons/section.dart';
@@ -56,9 +58,9 @@ class _InfosViewState extends State<InfosView> {
                   height: 90,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    "Diccon",
+                    "Diccon Dictionary",
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.bold),
@@ -66,11 +68,16 @@ class _InfosViewState extends State<InfosView> {
                 ),
               ],
             ),
-            OutlinedButton(
-              onPressed: () {},
-              child: Text(
-                "v${PropertiesConstants.version}",
-                style: Theme.of(context).textTheme.titleSmall,
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: OutlinedButton(
+                onPressed: () {
+                  context.pushNamed(RouterConstants.releaseNotes);
+                },
+                child: Text(
+                  "v${PropertiesConstants.version}",
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
               ),
             ),
             Row(
