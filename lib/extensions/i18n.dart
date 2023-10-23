@@ -294,6 +294,10 @@ extension Localization on String {
       "en_us": "Ask me anything",
       "vi_vi": "Hỏi đáp với",
     },
+    "Stop Responding": {
+      "en_us": "Stop Responding",
+      "vi_vi": "Dừng trả lời",
+    },
     "This practice will prepare you for various real-life conversation scenarios.":
         {
       "en_us":

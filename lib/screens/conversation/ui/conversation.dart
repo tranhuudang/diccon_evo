@@ -1,3 +1,4 @@
+import 'package:diccon_evo/screens/commons/pill_button.dart';
 import 'package:flutter/material.dart';
 import '../../commons/notify.dart';
 import '../../commons/header.dart';
@@ -5,9 +6,20 @@ import '../bloc/conversation_bloc.dart';
 import '../../../extensions/i18n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ConversationView extends StatelessWidget {
+class ConversationView extends StatefulWidget {
   const ConversationView({super.key});
 
+  @override
+  State<ConversationView> createState() => _ConversationViewState();
+}
+
+class _ConversationViewState extends State<ConversationView> {
+
+  @override
+  void initState(){
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
     final conversationBloc = context.read<ConversationBloc>();
@@ -37,14 +49,38 @@ class ConversationView extends StatelessWidget {
                       );
                     case ConversationUpdated:
                       final data = state as ConversationUpdated;
-                      return ListView.builder(
-                        padding: const EdgeInsets.only(top: 80, bottom: 120),
-                        itemCount: data.conversation.length,
-                        controller:
-                            conversationBloc.conversationScrollController,
-                        itemBuilder: (BuildContext context, int index) {
-                          return state.conversation[index];
-                        },
+                      return Stack(
+                        children: [
+                          ListView.builder(
+                            padding:
+                                const EdgeInsets.only(top: 80, bottom: 120),
+                            itemCount: data.conversation.length,
+                            controller:
+                                conversationBloc.conversationScrollController,
+                            itemBuilder: (BuildContext context, int index) {
+                              return state.conversation[index];
+                            },
+                          ),
+                          if (state.isResponding)
+                            SizedBox(
+                              width: double.infinity,
+                              child: Column(
+                                children: [
+                                  const Spacer(),
+                                  PillButton(
+                                    icon: Icons.stop_circle_outlined,
+                                    onTap: () {
+                                      conversationBloc.add(StopResponse());
+                                    },
+                                    title: 'Stop Responding',
+                                  ),
+                                  const SizedBox(
+                                    height: 100,
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
                       );
                     default:
                       return Container();
@@ -52,6 +88,7 @@ class ConversationView extends StatelessWidget {
                 }
               },
             ),
+
             /// Conversation header
             Column(
               children: [
@@ -64,7 +101,7 @@ class ConversationView extends StatelessWidget {
                 /// Text field
                 ClipRect(
                   child: SizedBox(
-                    height: 130,
+                    height: 100,
                     child: Stack(
                       children: [
                         Container(
@@ -78,13 +115,19 @@ class ConversationView extends StatelessWidget {
                                     .withOpacity(0.0),
                                 Theme.of(context)
                                     .scaffoldBackgroundColor
-                                    .withOpacity(0.1),
-                                Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withOpacity(0.5),
+                                    .withOpacity(0.3),
                                 Theme.of(context)
                                     .scaffoldBackgroundColor
                                     .withOpacity(0.9),
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
                                 Theme.of(context).scaffoldBackgroundColor,
                                 Theme.of(context).scaffoldBackgroundColor,
                                 Theme.of(context).scaffoldBackgroundColor,
@@ -123,28 +166,60 @@ class ConversationView extends StatelessWidget {
                                     ),
                                   ),
                                   Expanded(
-                                    child: TextField(
-                                      controller:
-                                          conversationBloc.textController,
-                                      onSubmitted: (providedWord) {
-                                        //_handleSubmitted(providedWord, context);
-                                        conversationBloc.add(AskAQuestion(
-                                            providedWord: providedWord));
-                                        // Dismiss keyboard
-                                        FocusScopeNode currentFocus =
-                                            FocusScope.of(context);
-                                        if (!currentFocus.hasPrimaryFocus) {
-                                          currentFocus.unfocus();
+                                    child: BlocBuilder<ConversationBloc, ConversationState>(
+                                      builder: (context, state) {
+
+                                          if(state is ConversationUpdated){
+                                            return TextField(
+                                              enabled: !state.isResponding,
+                                              controller:
+                                              conversationBloc.textController,
+                                              onSubmitted: (providedWord) {
+                                                //_handleSubmitted(providedWord, context);
+                                                conversationBloc.add(AskAQuestion(
+                                                    providedWord: providedWord));
+                                                // Dismiss keyboard
+                                                FocusScopeNode currentFocus =
+                                                FocusScope.of(context);
+                                                if (!currentFocus.hasPrimaryFocus) {
+                                                  currentFocus.unfocus();
+                                                }
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText:
+                                                "Send a message for practice".i18n,
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(32.0),
+                                                ),
+                                              ),
+                                            );
                                         }
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText:
-                                            "Send a message for practice".i18n,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32.0),
-                                        ),
-                                      ),
+
+                                        return TextField(
+                                          controller:
+                                              conversationBloc.textController,
+                                          onSubmitted: (providedWord) {
+                                            //_handleSubmitted(providedWord, context);
+                                            conversationBloc.add(AskAQuestion(
+                                                providedWord: providedWord));
+                                            // Dismiss keyboard
+                                            FocusScopeNode currentFocus =
+                                                FocusScope.of(context);
+                                            if (!currentFocus.hasPrimaryFocus) {
+                                              currentFocus.unfocus();
+                                            }
+                                          },
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                "Send a message for practice".i18n,
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(32.0),
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     ),
                                   ),
                                 ],
@@ -157,7 +232,7 @@ class ConversationView extends StatelessWidget {
                   ),
                 )
               ],
-            )
+            ),
           ],
         ),
       ),

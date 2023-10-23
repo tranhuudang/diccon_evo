@@ -4,6 +4,7 @@ import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/screens/conversation/ui/components/conversation_welcome_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../config/properties_constants.dart';
@@ -20,7 +21,14 @@ class AskAQuestion extends ConversationEvent {
   AskAQuestion({required this.providedWord});
 }
 
+class AnsweringAQuestion extends ConversationEvent {
+  final String answer;
+  AnsweringAQuestion({required this.answer});
+}
+
 class ResetConversation extends ConversationEvent {}
+
+class StopResponse extends ConversationEvent {}
 
 /// State
 abstract class ConversationState {}
@@ -34,7 +42,8 @@ class ConversationInitial extends ConversationState {
 
 class ConversationUpdated extends ConversationState {
   List<Widget> conversation;
-  ConversationUpdated({required this.conversation});
+  bool isResponding;
+  ConversationUpdated({required this.conversation, required this.isResponding});
 }
 
 /// Bloc
@@ -44,16 +53,22 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
             ConversationInitial(conversation: [const ConversationWelcome()])) {
     on<AskAQuestion>(_addUserMessage);
     on<ResetConversation>(_resetConversation);
+    on<AnsweringAQuestion>(_answeringAQuestion);
+    on<StopResponse>(_stopResponse);
   }
 
-  final chatGptRepository = ChatGptRepository(chatGpt: ChatGpt(apiKey: PropertiesConstants.conversationKey));
+  final chatGptRepository = ChatGptRepository(
+      chatGpt: ChatGpt(apiKey: PropertiesConstants.conversationKey));
   List<Widget> listConversations = [const ConversationWelcome()];
   final ScrollController conversationScrollController = ScrollController();
   final TextEditingController textController = TextEditingController();
   bool isReportedAboutDisconnection = false;
 
+  String currentReponseContent = "";
+
   Future<void> _addUserMessage(
       AskAQuestion event, Emitter<ConversationState> emit) async {
+    currentReponseContent = "";
     listConversations.add(ConversationUserBubble(
       message: event.providedWord,
       onTap: () {
@@ -61,7 +76,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       },
     ));
     textController.clear();
-    emit(ConversationUpdated(conversation: listConversations));
+    emit(ConversationUpdated(
+        conversation: listConversations, isResponding: true));
     _scrollToBottom();
     // Check internet connection before create request to chatbot
     bool isInternetConnected = await InternetConnectionChecker().hasConnection;
@@ -70,7 +86,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     }
     if (!isInternetConnected) {
       listConversations.add(const NoInternetBubble());
-      emit(ConversationUpdated(conversation: listConversations));
+      emit(ConversationUpdated(
+          conversation: listConversations, isResponding: false));
       isReportedAboutDisconnection = true;
     } else {
       /// Process and return reply
@@ -78,14 +95,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       // create gpt request
       var request =
           await chatGptRepository.createMultipleQuestionRequest(question);
-      var answerIndex = chatGptRepository.questionAnswers.length - 1;
-      listConversations.add(ConversationMachineBubble(
-        questionRequest: request,
-        chatGptRepository: chatGptRepository,
-        answerIndex: answerIndex,
-        conversationScrollController: conversationScrollController,
+      _chatStreamResponse(request);
+      listConversations.add(const ConversationMachineBubble(
+        content: "",
       ));
-      emit(ConversationUpdated(conversation: listConversations));
+      emit(ConversationUpdated(
+          conversation: listConversations, isResponding: true));
       _scrollToBottom();
     }
   }
@@ -94,17 +109,66 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       ResetConversation event, Emitter<ConversationState> emit) {
     chatGptRepository.reset();
     listConversations = [const ConversationWelcome()];
-    emit(ConversationUpdated(conversation: listConversations));
+    emit(ConversationUpdated(
+        conversation: listConversations, isResponding: false));
   }
 
   void _scrollToBottom() {
     /// Delay the scroll animation until after the list has been updated
-    Future.delayed(const Duration(milliseconds: 300), () {
-      conversationScrollController.animateTo(
-        conversationScrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
+    if (conversationScrollController.position.userScrollDirection == ScrollDirection.idle) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        conversationScrollController.animateTo(
+          conversationScrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      });
+    }
+  }
+
+  FutureOr<void> _answeringAQuestion(
+      AnsweringAQuestion event, Emitter<ConversationState> emit) {
+    listConversations.last = ConversationMachineBubble(content: event.answer);
+
+    emit(ConversationUpdated(
+        conversation: listConversations, isResponding: true));
+  }
+
+  StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
+  final _isLoadingStreamController = StreamController<bool>();
+
+  _chatStreamResponse(ChatCompletionRequest request) async {
+    _chatStreamSubscription?.cancel();
+    _isLoadingStreamController.sink.add(true);
+    try {
+      final stream =
+          await chatGptRepository.chatGpt.createChatCompletionStream(request);
+      _chatStreamSubscription = stream?.listen((event) {
+        if (event.streamMessageEnd) {
+          add(StopResponse());
+        } else {
+          currentReponseContent += event.choices!.first.delta!.content;
+          add(AnsweringAQuestion(answer: currentReponseContent));
+          // Auto scroll down
+          // _scrollToBottom();
+        }
+      });
+    } catch (error) {
+      // setState(() {
+      //   widget.chatGptRepository.questionAnswers.last.answer.write(
+      //       "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
+      // });
+      if (kDebugMode) {
+        print("Error occurred: $error");
+      }
+    }
+  }
+
+  FutureOr<void> _stopResponse(
+      StopResponse event, Emitter<ConversationState> emit) {
+    _chatStreamSubscription?.cancel();
+    _isLoadingStreamController.sink.add(false);
+    emit(ConversationUpdated(
+        conversation: listConversations, isResponding: false));
   }
 }

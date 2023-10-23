@@ -1,89 +1,15 @@
-import 'dart:async';
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class ConversationMachineBubble extends StatefulWidget {
+class ConversationMachineBubble extends StatelessWidget {
+  final String content;
   const ConversationMachineBubble({
-    Key? key,
-    required this.questionRequest,
-    this.onWordTap,
-    required this.chatGptRepository,
-    required this.answerIndex,
-    required this.conversationScrollController,
+    Key? key, required this.content,
   }) : super(key: key);
 
-  final ChatCompletionRequest questionRequest;
-  final Function(String)? onWordTap;
-  final ChatGptRepository chatGptRepository;
-  final int answerIndex;
-  final ScrollController conversationScrollController;
-
-  @override
-  State<ConversationMachineBubble> createState() =>
-      _ConversationMachineBubbleState();
-}
-
-class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
-    with AutomaticKeepAliveClientMixin {
-  StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
-
-  final _isLoadingStreamController = StreamController<bool>();
-
-  _chatStreamResponse(ChatCompletionRequest request) async {
-    _chatStreamSubscription?.cancel();
-    _isLoadingStreamController.sink.add(true);
-    try {
-      final stream = await widget.chatGptRepository.chatGpt
-          .createChatCompletionStream(request);
-      _chatStreamSubscription = stream?.listen(
-        (event) => setState(
-          () {
-            if (event.streamMessageEnd) {
-              _chatStreamSubscription?.cancel();
-              _isLoadingStreamController.sink.add(false);
-            } else {
-              return widget.chatGptRepository.questionAnswers.last.answer.write(
-                event.choices?.first.delta?.content,
-              );
-            }
-          },
-        ),
-      );
-    } catch (error) {
-      setState(() {
-        widget.chatGptRepository.questionAnswers.last.answer.write(
-            "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
-      });
-      if (kDebugMode) {
-        print("Error occurred: $error");
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget
-        .chatGptRepository.questionAnswers[widget.answerIndex].answer.isEmpty) {
-      _chatStreamResponse(widget.questionRequest);
-    }
-  }
-
-  @override
-  void dispose() {
-    _chatStreamSubscription?.cancel();
-    _isLoadingStreamController.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    final questionAnswer =
-        widget.chatGptRepository.questionAnswers[widget.answerIndex];
-    var answer = questionAnswer.answer.toString().trim();
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(40, 8, 16, 8),
       child: Container(
@@ -101,73 +27,19 @@ class _ConversationMachineBubbleState extends State<ConversationMachineBubble>
         ),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              StreamBuilder<bool>(
-                  initialData: false,
-                  stream: _isLoadingStreamController.stream,
-                  builder: (context, snapshot) {
-                    return Row(
-                      children: [
-                        const Spacer(),
-                        if (snapshot.data!)
-                          IconButton(
-                              onPressed: () {
-                                _chatStreamSubscription?.cancel();
-                                _isLoadingStreamController.sink.add(false);
-                              },
-                              icon: Icon(
-                                Icons.stop_circle_outlined,
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
-                              )),
-                        snapshot.data!
-                            ? Padding(
-                                padding: const EdgeInsets.only(right: 12),
-                                child: SizedBox(
-                                  height: 15,
-                                  width: 15,
-                                  child: CircularProgressIndicator(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondary,
-                                  ),
-                                ),
-                              )
-                            : IconButton(
-                                onPressed: () {
-                                  _isLoadingStreamController.sink.add(true);
-                                  widget
-                                      .chatGptRepository
-                                      .questionAnswers[widget.answerIndex]
-                                      .answer
-                                      .clear();
-                                  _chatStreamResponse(widget.questionRequest);
-                                },
-                                icon: Icon(
-                                  Icons.cached_rounded,
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
-                                )),
-                      ],
-                    );
-                  }),
-              Align(
+          child:
+              content != "" ? Align(
                 alignment: Alignment.topLeft,
                 child: SelectableText(
-                  answer,
+                  content,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondary),
                 ),
-              ),
-            ],
+              ):
+          Center(child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onSecondary,),))
+          ,
           ),
         ),
-      ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
