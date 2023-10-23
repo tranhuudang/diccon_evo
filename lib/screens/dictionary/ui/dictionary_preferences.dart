@@ -1,18 +1,8 @@
-import 'dart:async';
 import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
-import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/extensions/target_platform.dart';
 import 'package:diccon_evo/screens/commons/header.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/chatbot_buble_preview.dart';
-import 'package:diccon_evo/screens/dictionary/ui/components/user_bubble_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../data/data_providers/chat_preview_list_data.dart';
-import '../../../data/models/dictionary_response_type.dart';
-import 'components/pageview_navigator.dart';
+import '../../commons/section.dart';
 
 class DictionaryPreferences extends StatefulWidget {
   const DictionaryPreferences({super.key});
@@ -22,8 +12,76 @@ class DictionaryPreferences extends StatefulWidget {
 }
 
 class _DictionaryPreferencesState extends State<DictionaryPreferences> {
-  final _pageViewController = PageController();
-  final _isSelectedStreamController = StreamController<DictionaryResponseType>();
+  List<String> listSelected =
+      Properties.defaultSetting.dictionaryResponseSelectedList.split(", ");
+  List<String> listChoices = [
+    "Phiên âm",
+    "Định nghĩa",
+    "Ví dụ",
+    "Nguồn gốc",
+    "Loại từ",
+    "Ghi chú về cách sử dụng",
+    "Từ liên quan",
+    "Từ đồng âm",
+    "Biến thể vùng miền",
+    "Bối cảnh văn hóa hoặc lịch sử",
+    "Từ tạo thành từ này",
+    "Động từ thành ngữ",
+    "Viết tắt",
+    "Khái niệm liên quan",
+    "Tần suất sử dụng",
+    "Lưu ý về cách sử dụng",
+  ];
+  List<String> listSpecializedFields = [
+    "Y học",
+    "Luật pháp",
+    "Khoa học",
+    "Kỹ thuật",
+    "Tài chính và Kinh tế",
+    "Môi trường",
+    "Ngôn ngữ học",
+    "Toán học",
+    "Nghệ thuật",
+    "Âm nhạc",
+    "Tâm lý học",
+    "Triết học",
+    "Thiên văn học",
+    "Địa chất học",
+    "Thực vật học",
+    "Động vật học",
+    "Kiến trúc",
+    "Lịch sử",
+    "Ẩm thực",
+    "Thời trang",
+    "Thể thao",
+    "Du lịch",
+    "Hàng không vũ trụ",
+    "Hàng hải",
+    "Giao thông vận tải",
+  ];
+
+  void _compileSelectedItems() {
+    final convertedString =
+        listSelected.join(", "); // Joins the items with a space
+    Properties.saveSettings(Properties.defaultSetting
+        .copyWith(dictionaryResponseSelectedList: convertedString));
+    Properties.defaultSetting = Properties.defaultSetting
+        .copyWith(dictionaryResponseSelectedList: convertedString);
+  }
+
+  void _addItemToLists(
+      {required String item, required List<String> targetList}) {
+    setState(() {
+      targetList.add(item);
+    });
+  }
+
+  void _removeItemInLists(
+      {required String item, required List<String> targetList}) {
+    setState(() {
+      targetList.remove(item);
+    });
+  }
 
   @override
   void initState() {
@@ -38,120 +96,104 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
         body: Stack(
           children: [
             SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Container(
-                    height: 60,
+                  const SizedBox(
+                    height: 70,
                   ),
-                  SizedBox( 
-                    height: 600,
-                    child: Stack(
-                      children: [
-                        StreamBuilder<DictionaryResponseType>(
-                            stream: _isSelectedStreamController.stream,
-                            initialData: Properties.defaultSetting.dictionaryResponseType.toDictionaryResponseType(),
-                            builder: (context, snapshot) {
-                              return PageView(
-                                controller: _pageViewController,
-                                children: listChatPreviewContent.map((item) {
-                                  return ChatbotResponseFormatPicker(
-                                      isSelected:
-                                          snapshot.data == item.responseType,
-                                      content: item.content,
-                                      onTap: () {
-                                        _isSelectedStreamController.sink
-                                            .add(item.responseType);
-                                        Properties.defaultSetting = Properties.defaultSetting.copyWith(dictionaryResponseType: item.responseType.title());
-                                        Properties.saveSettings(Properties.defaultSetting);
-                                      });
-                                }).toList(),
-                              );
-                            }),
-                        if (defaultTargetPlatform.isDesktop())
-                             Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: PageViewNavigator(
-                                    itemCount: listChatPreviewContent.length,
-                                    controller: _pageViewController,
-                                    height: 550),
-                              ),
-                      ],
-                    ),
+                  Section(
+                    title: "Customize the AI response format.".i18n,
+                    children: [
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: listSelected
+                            .map((item) => ActionChip(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.secondary,
+                                  label: Text(
+                                    item.i18n,
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary),
+                                  ),
+                                  onPressed: () {
+                                    _removeItemInLists(
+                                        item: item, targetList: listSelected);
+                                    // rebuild list selected item and save it to setting
+                                    _compileSelectedItems();
+                                  },
+                                ))
+                            .toList(),
+                      ),
+                    ],
                   ),
-                  SmoothPageIndicator(
-                    controller: _pageViewController,
-                    count: listChatPreviewContent.length,
-                    effect: ScrollingDotsEffect(
-                      maxVisibleDots: 5,
-                      dotHeight: 8,
-                      dotWidth: 8,
-                      activeDotColor: Theme.of(context).colorScheme.primary,
-                      dotColor: Theme.of(context).highlightColor,
-                    ),
+                  Section(
+                    title: "Available options".i18n,
+                    children: [
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: listChoices.map((item) {
+                          bool isSelected = false;
+                          if (listSelected.contains(item)) isSelected = true;
+                          return ChoiceChip(
+                            label: Text(item.i18n),
+                            selected: isSelected,
+                            onSelected: (selected) {
+                              if (listSelected.contains(item)) {
+                                _removeItemInLists(
+                                    item: item, targetList: listSelected);
+                              } else {
+                                _addItemToLists(
+                                    item: item, targetList: listSelected);
+                              }
+                              // rebuild list selected item and save it to setting
+                              _compileSelectedItems();
+                            },
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
-                  const SizedBox().mediumHeight(),
+                  Section(
+                    title: "Specialized Meanings".i18n,
+                    children: [
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: listSpecializedFields.map((item) {
+                          bool isSelected = false;
+                          if (listSelected.contains(item)) isSelected = true;
+                          return ChoiceChip(
+                            label: Text(item.i18n),
+                            selected: isSelected,
+                            onSelected: (selected) {
+                              if (listSelected.contains(item)) {
+                                _removeItemInLists(
+                                    item: item, targetList: listSelected);
+                              } else {
+                                _addItemToLists(
+                                    item: item, targetList: listSelected);
+                              }
+
+                              // rebuild list selected item and save it to setting
+                              _compileSelectedItems();
+                            },
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
             Header(
-              title: "Custom".i18n,
+              title: "Preferences".i18n,
               actions: const [],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ChatbotResponseFormatPicker extends StatelessWidget {
-  final String content;
-  final VoidCallback onTap;
-  final bool isSelected;
-  const ChatbotResponseFormatPicker({
-    super.key,
-    required this.content,
-    required this.onTap,
-    required this.isSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(32),
-      ),
-      margin:const EdgeInsets.all(16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const UserBubblePreview(content: "Happy"),
-            ChatbotBubblePreview(
-              textReturn: content,
-            ),
-            const Spacer(),
-            InkWell(
-              onTap: onTap,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.check_circle,
-                    size: 32,
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).highlightColor,
-                  ),
-                  const SizedBox().mediumWidth(),
-                  Text(
-                    "Set as default format".i18n,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox().mediumHeight(),
           ],
         ),
       ),

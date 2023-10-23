@@ -196,7 +196,7 @@ class _SettingsViewState extends State<SettingsView> {
                 const SizedBox().mediumHeight(),
                 FilledButton.tonal(
                     onPressed: () {
-                      context.pushNamed(RouterConstants.customDictionary);
+                      context.pushNamed(RouterConstants.dictionaryPreferences);
                     },
                     child: Text("Customize".i18n)),
               ],

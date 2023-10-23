@@ -34,7 +34,7 @@ class Properties {
     readingFontSize: 16,
     numberOfEssentialLeft: 1848,
     language: 'System default',
-    dictionaryResponseSelectedList: 'Pronunciation, Definitions, Examples',
+    dictionaryResponseSelectedList: 'Phiên âm, Định nghĩa, Ví dụ',
     readingFontSizeSliderValue: 0.2,
     windowsWidth: 400,
     windowsHeight: 700,

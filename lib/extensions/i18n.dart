@@ -330,169 +330,169 @@ extension Localization on String {
     },
 
     /// Settings
-    "Pronunciation": {
+    "Phiên âm": {
       "en_us": "Pronunciation",
-      "vi_vi": "Phát âm",
+      "vi_vi": "Phát âm"
     },
-    "Definitions": {
+    "Định nghĩa": {
       "en_us": "Definitions",
-      "vi_vi": "Định nghĩa",
+      "vi_vi": "Định nghĩa"
     },
-    "Examples": {
+    "Ví dụ": {
       "en_us": "Examples",
-      "vi_vi": "Ví dụ",
+      "vi_vi": "Ví dụ"
     },
-    "Etymology": {
+    "Nguồn gốc": {
       "en_us": "Etymology",
-      "vi_vi": "Nguyên gốc của từ",
+      "vi_vi": "Nguồn gốc"
     },
-    "Part of Speech": {
+    "Loại từ": {
       "en_us": "Part of Speech",
-      "vi_vi": "Phân loại từ",
+      "vi_vi": "Loại từ"
     },
-    "Usage Notes": {
+    "Ghi chú về cách sử dụng": {
       "en_us": "Usage Notes",
-      "vi_vi": "Lưu ý về cách sử dụng",
+      "vi_vi": "Ghi chú về cách sử dụng"
     },
-    "Related Words": {
+    "Từ liên quan": {
       "en_us": "Related Words",
-      "vi_vi": "Từ liên quan",
+      "vi_vi": "Từ liên quan"
     },
-    "Collocations": {
-      "en_us": "Collocations",
-      "vi_vi": "Từ ghép",
+    "Từ đồng âm": {
+      "en_us": "Homonyms",
+      "vi_vi": "Từ đồng âm"
     },
-    "Regional Variations": {
+    "Biến thể vùng miền": {
       "en_us": "Regional Variations",
-      "vi_vi": "Biến thể khu vực",
+      "vi_vi": "Biến thể vùng miền"
     },
-    "Cultural or Historical Context": {
+    "Bối cảnh văn hóa hoặc lịch sử": {
       "en_us": "Cultural or Historical Context",
-      "vi_vi": "Bối cảnh văn hóa hoặc lịch sử",
+      "vi_vi": "Bối cảnh văn hóa hoặc lịch sử"
     },
-    "Derived Terms": {
+    "Từ tạo thành từ này": {
       "en_us": "Derived Terms",
-      "vi_vi": "Các thuật ngữ có nguồn gốc",
+      "vi_vi": "Từ tạo thành từ này"
     },
-    "Phrasal Verbs": {
+    "Động từ thành ngữ": {
       "en_us": "Phrasal Verbs",
-      "vi_vi": "Cụm động từ",
+      "vi_vi": "Động từ thành ngữ"
     },
-    "Abbreviations or Acronyms": {
-      "en_us": "Abbreviations or Acronyms",
-      "vi_vi": "Từ viết tắt hoặc chữ viết tắt",
+    "Viết tắt": {
+      "en_us": "Abbreviations",
+      "vi_vi": "Viết tắt"
     },
-    "Related Concepts": {
+    "Khái niệm liên quan": {
       "en_us": "Related Concepts",
-      "vi_vi": "Các khái niệm liên quan",
+      "vi_vi": "Khái niệm liên quan"
     },
-    "Usage Frequency": {
+    "Tần suất sử dụng": {
       "en_us": "Usage Frequency",
-      "vi_vi": "Tần suất sử dụng",
+      "vi_vi": "Tần suất sử dụng"
     },
-    "Medical Terminology": {
-      "en_us": "Medical Terminology",
-      "vi_vi": "Thuật ngữ y học",
-    },
-    "Legal Terminology": {
-      "en_us": "Legal Terminology",
-      "vi_vi": "Thuật ngữ pháp lý",
-    },
-    "Scientific Terminology": {
-      "en_us": "Scientific Terminology",
-      "vi_vi": "Thuật ngữ khoa học",
-    },
-    "Technical Jargon": {
-      "en_us": "Technical Jargon",
-      "vi_vi": "Lingo kỹ thuật",
-    },
-    "Financial and Economic Terms": {
-      "en_us": "Financial and Economic Terms",
-      "vi_vi": "Thuật ngữ tài chính và kinh tế",
-    },
-    "Environmental Science": {
-      "en_us": "Environmental Science",
-      "vi_vi": "Khoa học môi trường",
-    },
-    "Linguistics": {
-      "en_us": "Linguistics",
-      "vi_vi": "Ngôn ngữ học",
-    },
-    "Mathematics": {
-      "en_us": "Mathematics",
-      "vi_vi": "Toán học",
-    },
-    "Art and Art History": {
-      "en_us": "Art and Art History",
-      "vi_vi": "Nghệ thuật và lịch sử nghệ thuật",
-    },
-    "Music Theory": {
-      "en_us": "Music Theory",
-      "vi_vi": "Lý thuyết âm nhạc",
-    },
-    "Psychology": {
-      "en_us": "Psychology",
-      "vi_vi": "Tâm lý học",
-    },
-    "Philosophy": {
-      "en_us": "Philosophy",
-      "vi_vi": "Triết học",
-    },
-    "Astronomy": {
-      "en_us": "Astronomy",
-      "vi_vi": "Thiên văn học",
-    },
-    "Geology": {
-      "en_us": "Geology",
-      "vi_vi": "Địa chất học",
-    },
-    "Botany": {
-      "en_us": "Botany",
-      "vi_vi": "Thực vật học",
-    },
-    "Zoology": {
-      "en_us": "Zoology",
-      "vi_vi": "Động vật học",
-    },
-    "Architecture": {
-      "en_us": "Architecture",
-      "vi_vi": "Kiến trúc",
-    },
-    "Food and Culinary Arts": {
-      "en_us": "Food and Culinary Arts",
-      "vi_vi": "Thực phẩm và nghệ thuật nấu ăn",
-    },
-    "Fashion and Clothing": {
-      "en_us": "Fashion and Clothing",
-      "vi_vi": "Thời trang và quần áo",
-    },
-    "Sports and Athletics": {
-      "en_us": "Sports and Athletics",
-      "vi_vi": "Thể thao và thể dục",
-    },
-    "Travel and Tourism": {
-      "en_us": "Travel and Tourism",
-      "vi_vi": "Du lịch và du lịch",
-    },
-    "Aviation and Aerospace": {
-      "en_us": "Aviation and Aerospace",
-      "vi_vi": "Hàng không và không gian",
-    },
-    "Maritime and Nautical": {
-      "en_us": "Maritime and Nautical",
-      "vi_vi": "Biển và hàng hải",
-    },
-    "Automotive and Transportation": {
-      "en_us": "Automotive and Transportation",
-      "vi_vi": "Ô tô và vận tải",
-    },
-    "Notes on Usage": {
+    "Lưu ý về cách sử dụng": {
       "en_us": "Notes on Usage",
-      "vi_vi": "Ghi chú về cách sử dụng",
+      "vi_vi": "Lưu ý về cách sử dụng"
     },
-    "Word Forms": {
-      "en_us": "Word Forms",
-      "vi_vi": "Các hình thức của từ",
+    "Y học": {
+      "en_us": "Medical",
+      "vi_vi": "Y học"
+    },
+    "Luật pháp": {
+      "en_us": "Legal",
+      "vi_vi": "Luật pháp"
+    },
+    "Khoa học": {
+      "en_us": "Scientific",
+      "vi_vi": "Khoa học"
+    },
+    "Kỹ thuật": {
+      "en_us": "Technical",
+      "vi_vi": "Kỹ thuật"
+    },
+    "Tài chính và Kinh tế": {
+      "en_us": "Financial and Economic",
+      "vi_vi": "Tài chính và Kinh tế"
+    },
+    "Môi trường": {
+      "en_us": "Environmental",
+      "vi_vi": "Môi trường"
+    },
+    "Ngôn ngữ học": {
+      "en_us": "Linguistics",
+      "vi_vi": "Ngôn ngữ học"
+    },
+    "Toán học": {
+      "en_us": "Mathematics",
+      "vi_vi": "Toán học"
+    },
+    "Nghệ thuật": {
+      "en_us": "Art",
+      "vi_vi": "Nghệ thuật"
+    },
+    "Âm nhạc": {
+      "en_us": "Music",
+      "vi_vi": "Âm nhạc"
+    },
+    "Tâm lý học": {
+      "en_us": "Psychology",
+      "vi_vi": "Tâm lý học"
+    },
+    "Triết học": {
+      "en_us": "Philosophy",
+      "vi_vi": "Triết học"
+    },
+    "Thiên văn học": {
+      "en_us": "Astronomy",
+      "vi_vi": "Thiên văn học"
+    },
+    "Địa chất học": {
+      "en_us": "Geology",
+      "vi_vi": "Địa chất học"
+    },
+    "Thực vật học": {
+      "en_us": "Botany",
+      "vi_vi": "Thực vật học"
+    },
+    "Động vật học": {
+      "en_us": "Zoology",
+      "vi_vi": "Động vật học"
+    },
+    "Kiến trúc": {
+      "en_us": "Architecture",
+      "vi_vi": "Kiến trúc"
+    },
+    "Lịch sử": {
+      "en_us": "History",
+      "vi_vi": "Lịch sử"
+    },
+    "Ẩm thực": {
+      "en_us": "Culinary",
+      "vi_vi": "Ẩm thực"
+    },
+    "Thời trang": {
+      "en_us": "Fashion",
+      "vi_vi": "Thời trang"
+    },
+    "Thể thao": {
+      "en_us": "Sports",
+      "vi_vi": "Thể thao"
+    },
+    "Du lịch": {
+      "en_us": "Travel",
+      "vi_vi": "Du lịch"
+    },
+    "Hàng không vũ trụ": {
+      "en_us": "Aviation and Aerospace",
+      "vi_vi": "Hàng không và Vũ trụ"
+    },
+    "Hàng hải": {
+      "en_us": "Maritime",
+      "vi_vi": "Hàng hải"
+    },
+    "Giao thông vận tải": {
+      "en_us": "Automotive and Transportation",
+      "vi_vi": "Giao thông vận tải"
     },
     "Sync your data": {
       "en_us": "Sync your data",
@@ -640,6 +640,11 @@ extension Localization on String {
       "en_us": "Customize",
       "vi_vi": "Tùy chỉnh",
     },
+    "Preferences": {
+      "en_us": "Preferences",
+      "vi_vi": "Tùy chỉnh",
+    },
+
 
     /// Essential
     "School-supplies": {

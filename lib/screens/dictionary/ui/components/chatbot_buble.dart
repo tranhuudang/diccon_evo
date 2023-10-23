@@ -2,16 +2,13 @@ import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/data/repositories/chat_gpt_repository.dart';
 import 'package:diccon_evo/extensions/sized_box.dart';
-import 'package:diccon_evo/extensions/string.dart';
 import 'package:diccon_evo/screens/commons/clickable_words.dart';
 import 'package:diccon_evo/screens/commons/word_playback_button.dart';
 import 'package:diccon_evo/screens/dictionary/bloc/dictionary_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../config/properties.dart';
-import '../../../../data/models/dictionary_response_type.dart';
 
 class ChatbotBubble extends StatefulWidget {
   const ChatbotBubble({
@@ -96,34 +93,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   }
 
   Future<ChatCompletionRequest> _getQuestionRequest() async {
-    var question = '';
-    switch (Properties.defaultSetting.dictionaryResponseType
-        .toDictionaryResponseType()) {
-      case DictionaryResponseType.shortWithOutPronunciation:
-        question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
-        break;
-      case DictionaryResponseType.short:
-        question =
-            'Viết một dòng về phiên âm của từ "${widget.word}". Bên dưới giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
-        break;
-      case DictionaryResponseType.normal:
-        question =
-            'Phiên âm của từ "${widget.word}", nghĩa của từ "${widget.word}" và ví dụ khi sử dụng từ "${widget.word}" trong tiếng Anh kèm bản dịch.';
-        break;
-      case DictionaryResponseType.normalWithOutExample:
-        question =
-            'Viết cho tôi một dòng về phiên âm của từ "${widget.word}", sau đó giải thích về nghĩa của từ "${widget.word}"?';
-        break;
-      case DictionaryResponseType.normalWithOutPronunciation:
-        question =
-            'Giải thích nghĩa của từ "${widget.word}" và cho ví dụ tiếng Anh cùng với bản dịch tiếng Việt ở bên dưới.';
-        break;
-      default:
-        question = 'Giải thích ngắn gọn từ "${widget.word}" nghĩa là gì?';
-        break;
-    }
     var customQuestion =
-        'Hãy giúp tôi dịch chữ "${widget.word}" từ tiếng Anh sang tiếng Việt với các chủ đề lần lượt là: ${Properties.defaultSetting.dictionaryResponseSelectedList}. Hãy chia câu trả lời thành các chủ đề, và dịch sang tiếng Việt các chủ đề đó, bắt buộc phải dịch sang tiếng Việt những câu bằng tiếng Anh ngay sau từng câu tiếng Anh (ngay liền kề mỗi câu).';
+        'Hãy giúp tôi dịch chữ "${widget.word}" từ tiếng Anh sang tiếng Việt với các chủ đề lần lượt là: ${Properties.defaultSetting.dictionaryResponseSelectedList}. Hãy chia câu trả lời thành các chủ đề, và dịch sang tiếng Việt các chủ đề đó, bắt buộc phải dịch sang tiếng Việt những câu bằng tiếng Anh ngay sau từng câu tiếng Anh (ngay liền kề mỗi câu). Bất cứ sự giải thích nào trong câu trả lời đều phải dùng tiếng Việt';
     var request = await widget.listChatGptRepository[widget.index]
         .createSingleQuestionRequest(customQuestion);
     return request;

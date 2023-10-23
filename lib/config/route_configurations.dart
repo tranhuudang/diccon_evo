@@ -43,6 +43,15 @@ GoRouter router = GoRouter(
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const SettingsView()));
             },
+            routes: [
+              GoRoute(
+                name: RouterConstants.dictionaryPreferences,
+                path: 'dictionary-preferences',
+                pageBuilder: (context, state) {
+                  return MaterialPage(child: I18n(child: const DictionaryPreferences()));
+                },
+              ),
+            ]
           ),
           // Settings
           GoRoute(
@@ -78,13 +87,7 @@ GoRouter router = GoRouter(
               return MaterialPage(child: I18n(child:  WordHistoryView(wordHistoryBloc: wordHistoryBloc,)));
             },
           ),
-          GoRoute(
-            name: RouterConstants.customDictionary,
-            path: 'custom',
-            pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const DictionaryPreferences()));
-            },
-          ),
+
         ]),
 
     /// Conversation
