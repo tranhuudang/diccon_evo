@@ -52,9 +52,9 @@ class ConversationView extends StatelessWidget {
                 }
               },
             ),
+            /// Conversation header
             Column(
               children: [
-                /// Conversation header
                 Expanded(
                   child: Header(
                     title: "Conversation".i18n,
