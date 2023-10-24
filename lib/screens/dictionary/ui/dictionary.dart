@@ -295,14 +295,14 @@ class _DictionaryViewState extends State<DictionaryView> {
           IconButton(
               onPressed: () {
                 Notify.showAlertDialog(
-                    context: context,
-                    title: "Close this session?",
-                    content:
-                        "Clear all the bubbles in this translation session.",
-                    action: () {
-                      resetSuggestion();
-                      chatListBloc.add(CreateNewChatlist());
-                    });
+                  context: context,
+                  title: "Close this session?",
+                  content: "Clear all the bubbles in this translation session.",
+                  action: () {
+                    resetSuggestion();
+                    chatListBloc.add(CreateNewChatlist());
+                  },
+                );
               },
               icon: const Icon(Icons.add_circle_outline)),
           Expanded(
@@ -350,11 +350,13 @@ class _DictionaryViewState extends State<DictionaryView> {
                   controller: chatListBloc.textController,
                 ),
                 Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.mic_none)),
-                    ))
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.mic_none)),
+                  ),
+                )
               ],
             ),
           ),
