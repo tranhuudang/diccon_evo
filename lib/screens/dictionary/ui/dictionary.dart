@@ -306,46 +306,56 @@ class _DictionaryViewState extends State<DictionaryView> {
               },
               icon: const Icon(Icons.add_circle_outline)),
           Expanded(
-            child: TextField(
-              focusNode: Properties.textFieldFocusNode,
-              onSubmitted: (providedWord) {
-                _wordHistoryBloc
-                    .add(AddWordToHistory(providedWord: providedWord));
-                _handleSubmitted(providedWord, context);
-              },
-              onChanged: (String word) {
-                Set<String> listStartWith = {};
-                Set<String> listContains = {};
-                var refinedWord = word.toLowerCase();
-                const int suggestionLimit = 5;
-                if (refinedWord.length > 1) {
-                  for (final element in Properties.suggestionListWord) {
-                    if (element.startsWith(refinedWord)) {
-                      listStartWith.add(element);
-                      if (listStartWith.length >= suggestionLimit) {
-                        break;
+            child: Stack(
+              children: [
+                TextField(
+                  focusNode: Properties.textFieldFocusNode,
+                  onSubmitted: (providedWord) {
+                    _wordHistoryBloc
+                        .add(AddWordToHistory(providedWord: providedWord));
+                    _handleSubmitted(providedWord, context);
+                  },
+                  onChanged: (String word) {
+                    Set<String> listStartWith = {};
+                    Set<String> listContains = {};
+                    var refinedWord = word.toLowerCase();
+                    const int suggestionLimit = 5;
+                    if (refinedWord.length > 1) {
+                      for (final element in Properties.suggestionListWord) {
+                        if (element.startsWith(refinedWord)) {
+                          listStartWith.add(element);
+                          if (listStartWith.length >= suggestionLimit) {
+                            break;
+                          }
+                        } else if (element.contains(refinedWord) &&
+                            listContains.length < suggestionLimit) {
+                          listContains.add(element);
+                        }
                       }
-                    } else if (element.contains(refinedWord) &&
-                        listContains.length < suggestionLimit) {
-                      listContains.add(element);
-                    }
-                  }
 
-                  _suggestionWords =
-                      [...listStartWith, ...listContains].toList();
-                  _suggestionWords.reversed;
-                }
-                setState(() {
-                  _hasSuggestionWords = true;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: "Send a message".i18n,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(32.0),
+                      _suggestionWords =
+                          [...listStartWith, ...listContains].toList();
+                      _suggestionWords.reversed;
+                    }
+                    setState(() {
+                      _hasSuggestionWords = true;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Send a message".i18n,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                  ),
+                  controller: chatListBloc.textController,
                 ),
-              ),
-              controller: chatListBloc.textController,
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(onPressed: (){}, icon: Icon(Icons.mic_none)),
+                    ))
+              ],
             ),
           ),
         ],
