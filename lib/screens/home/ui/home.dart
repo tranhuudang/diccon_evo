@@ -98,8 +98,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
           body: SingleChildScrollView(
             child: Stack(
               children: [
-                /// Search dictionary box
-
                 /// Menu button
                 const HomeMenuButton(),
 

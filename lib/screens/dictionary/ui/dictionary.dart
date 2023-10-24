@@ -109,7 +109,7 @@ class _DictionaryViewState extends State<DictionaryView> {
 
   @override
   Widget build(BuildContext context) {
-    var chatListBloc = context.read<ChatListBloc>();
+    final chatListBloc = context.read<ChatListBloc>();
 
     return SafeArea(
       child: Scaffold(
@@ -180,194 +180,175 @@ class _DictionaryViewState extends State<DictionaryView> {
                   ),
                 ),
 
-                /// Suggestion bar with different suggestive button
-                ClipRect(
-                  child: SizedBox(
-                    height: 138,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withOpacity(0.0),
-                                Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withOpacity(0.1),
-                                Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withOpacity(0.5),
-                                Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withOpacity(0.9),
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                              ])),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      width: 16,
-                                    ),
-                                    if (_hasSuggestionWords)
-                                      Row(
-                                        children:
-                                            _suggestionWords.map((String word) {
-                                          return SuggestedItem(
-                                            title: word,
-                                            textColor: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimary,
-                                            backgroundColor: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            onPressed: (String clickedWord) {
-                                              _handleSubmitted(
-                                                  clickedWord, context);
-                                            },
-                                          );
-                                        }).toList(),
-                                      ),
-                                    if (_hasSynonyms)
-                                      SuggestedItem(
-                                        onPressed: (String a) {
-                                          chatListBloc.add(AddSynonyms(
-                                            providedWord: _currentSearchWord,
-                                            itemOnPressed: (clickedWord) {
-                                              _handleSubmitted(
-                                                  clickedWord, context);
-                                            },
-                                          ));
-                                        },
-                                        title: 'Synonyms'.i18n,
-                                      ),
-                                    if (_hasAntonyms)
-                                      SuggestedItem(
-                                        onPressed: (String a) {
-                                          chatListBloc.add(AddAntonyms(
-                                            providedWord: _currentSearchWord,
-                                            itemOnPressed: (clickedWord) {
-                                              _handleSubmitted(
-                                                  clickedWord, context);
-                                            },
-                                          ));
-                                        },
-                                        title: 'Antonyms'.i18n,
-                                      ),
-                                    if (_hasImages)
-                                      SuggestedItem(
-                                        title: 'Images'.i18n,
-                                        onPressed: (String a) {
-                                          chatListBloc.add(
-                                              AddImage(imageUrl: _imageUrl));
-                                        },
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                SizedBox(
+                  height: 138,
+                  child: Stack(
+                    children: [
+                      buildBackgroundGradient(context),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          /// Suggested items list onTyping or onSubmit of TextField
+                          buildSuggestedList(context, chatListBloc),
 
-                            /// TextField for user to enter their words
-                            Container(
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 2, bottom: 16),
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  IconButton(
-                                      onPressed: () {
-                                        Notify.showAlertDialog(
-                                            context: context,
-                                            title: "Close this session?",
-                                            content:
-                                                "Clear all the bubbles in this translation session.",
-                                            action: () {
-                                              resetSuggestion();
-                                              chatListBloc
-                                                  .add(CreateNewChatlist());
-                                            });
-                                      },
-                                      icon:
-                                          const Icon(Icons.add_circle_outline)),
-                                  Expanded(
-                                    child: TextField(
-                                      focusNode: Properties.textFieldFocusNode,
-                                      onSubmitted: (providedWord) {
-                                        _wordHistoryBloc.add(AddWordToHistory(
-                                            providedWord: providedWord));
-                                        _handleSubmitted(providedWord, context);
-                                      },
-                                      onChanged: (String word) {
-                                        Set<String> listStartWith = {};
-                                        Set<String> listContains = {};
-                                        var refinedWord = word.toLowerCase();
-                                        const int suggestionLimit = 5;
-                                        if (refinedWord.length > 1) {
-                                          for (final element in Properties
-                                              .suggestionListWord) {
-                                            if (element
-                                                .startsWith(refinedWord)) {
-                                              listStartWith.add(element);
-                                              if (listStartWith.length >=
-                                                  suggestionLimit) {
-                                                break;
-                                              }
-                                            } else if (element
-                                                    .contains(refinedWord) &&
-                                                listContains.length <
-                                                    suggestionLimit) {
-                                              listContains.add(element);
-                                            }
-                                          }
-
-                                          _suggestionWords = [
-                                            ...listStartWith,
-                                            ...listContains
-                                          ].toList();
-                                          _suggestionWords.reversed;
-                                        }
-                                        setState(() {
-                                          _hasSuggestionWords = true;
-                                        });
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: "Send a message".i18n,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32.0),
-                                        ),
-                                      ),
-                                      controller: chatListBloc.textController,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          /// TextField for user to enter their words
+                          buildTextField(context, chatListBloc),
+                        ],
+                      ),
+                    ],
                   ),
                 )
               ],
-            )
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container buildBackgroundGradient(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.0),
+            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
+            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+            Theme.of(context).scaffoldBackgroundColor,
+            Theme.of(context).scaffoldBackgroundColor,
+            Theme.of(context).scaffoldBackgroundColor,
+            Theme.of(context).scaffoldBackgroundColor,
+          ])),
+    );
+  }
+
+  Align buildSuggestedList(BuildContext context, ChatListBloc chatListBloc) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              width: 16,
+            ),
+            if (_hasSuggestionWords)
+              Row(
+                children: _suggestionWords.map((String word) {
+                  return SuggestedItem(
+                    title: word,
+                    textColor: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    onPressed: (String clickedWord) {
+                      _handleSubmitted(clickedWord, context);
+                    },
+                  );
+                }).toList(),
+              ),
+            if (_hasSynonyms)
+              SuggestedItem(
+                onPressed: (String a) {
+                  chatListBloc.add(AddSynonyms(
+                    providedWord: _currentSearchWord,
+                    itemOnPressed: (clickedWord) {
+                      _handleSubmitted(clickedWord, context);
+                    },
+                  ));
+                },
+                title: 'Synonyms'.i18n,
+              ),
+            if (_hasAntonyms)
+              SuggestedItem(
+                onPressed: (String a) {
+                  chatListBloc.add(AddAntonyms(
+                    providedWord: _currentSearchWord,
+                    itemOnPressed: (clickedWord) {
+                      _handleSubmitted(clickedWord, context);
+                    },
+                  ));
+                },
+                title: 'Antonyms'.i18n,
+              ),
+            if (_hasImages)
+              SuggestedItem(
+                title: 'Images'.i18n,
+                onPressed: (String a) {
+                  chatListBloc.add(AddImage(imageUrl: _imageUrl));
+                },
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildTextField(BuildContext context, ChatListBloc chatListBloc) {
+    return Container(
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: <Widget>[
+          IconButton(
+              onPressed: () {
+                Notify.showAlertDialog(
+                    context: context,
+                    title: "Close this session?",
+                    content:
+                        "Clear all the bubbles in this translation session.",
+                    action: () {
+                      resetSuggestion();
+                      chatListBloc.add(CreateNewChatlist());
+                    });
+              },
+              icon: const Icon(Icons.add_circle_outline)),
+          Expanded(
+            child: TextField(
+              focusNode: Properties.textFieldFocusNode,
+              onSubmitted: (providedWord) {
+                _wordHistoryBloc
+                    .add(AddWordToHistory(providedWord: providedWord));
+                _handleSubmitted(providedWord, context);
+              },
+              onChanged: (String word) {
+                Set<String> listStartWith = {};
+                Set<String> listContains = {};
+                var refinedWord = word.toLowerCase();
+                const int suggestionLimit = 5;
+                if (refinedWord.length > 1) {
+                  for (final element in Properties.suggestionListWord) {
+                    if (element.startsWith(refinedWord)) {
+                      listStartWith.add(element);
+                      if (listStartWith.length >= suggestionLimit) {
+                        break;
+                      }
+                    } else if (element.contains(refinedWord) &&
+                        listContains.length < suggestionLimit) {
+                      listContains.add(element);
+                    }
+                  }
+
+                  _suggestionWords =
+                      [...listStartWith, ...listContains].toList();
+                  _suggestionWords.reversed;
+                }
+                setState(() {
+                  _hasSuggestionWords = true;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: "Send a message".i18n,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+              ),
+              controller: chatListBloc.textController,
+            ),
+          ),
+        ],
       ),
     );
   }
