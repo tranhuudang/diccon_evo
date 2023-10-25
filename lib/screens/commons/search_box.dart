@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'voice_listening_bottom_sheet.dart';
 
