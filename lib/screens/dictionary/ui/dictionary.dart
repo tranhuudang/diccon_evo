@@ -1,4 +1,5 @@
 import 'package:diccon_evo/screens/commons/notify.dart';
+import 'package:diccon_evo/screens/commons/search_box.dart';
 import 'package:diccon_evo/screens/dictionary/bloc/word_history_bloc.dart';
 import 'package:diccon_evo/screens/dictionary/ui/components/dictionary_welcome_box.dart';
 import 'package:flutter/foundation.dart';
@@ -306,58 +307,38 @@ class _DictionaryViewState extends State<DictionaryView> {
               },
               icon: const Icon(Icons.add_circle_outline)),
           Expanded(
-            child: Stack(
-              children: [
-                TextField(
-                  focusNode: Properties.textFieldFocusNode,
-                  onSubmitted: (providedWord) {
-                    _wordHistoryBloc
-                        .add(AddWordToHistory(providedWord: providedWord));
-                    _handleSubmitted(providedWord, context);
-                  },
-                  onChanged: (String word) {
-                    Set<String> listStartWith = {};
-                    Set<String> listContains = {};
-                    var refinedWord = word.toLowerCase();
-                    const int suggestionLimit = 5;
-                    if (refinedWord.length > 1) {
-                      for (final element in Properties.suggestionListWord) {
-                        if (element.startsWith(refinedWord)) {
-                          listStartWith.add(element);
-                          if (listStartWith.length >= suggestionLimit) {
-                            break;
-                          }
-                        } else if (element.contains(refinedWord) &&
-                            listContains.length < suggestionLimit) {
-                          listContains.add(element);
-                        }
+            child: SearchBox(
+              onSubmitted: (providedWord) {
+                _wordHistoryBloc
+                    .add(AddWordToHistory(providedWord: providedWord));
+                _handleSubmitted(providedWord, context);
+              },
+              onChanged: (currentValue){
+                Set<String> listStartWith = {};
+                Set<String> listContains = {};
+                var refinedWord = currentValue.toLowerCase();
+                const int suggestionLimit = 5;
+                if (refinedWord.length > 1) {
+                  for (final element in Properties.suggestionListWord) {
+                    if (element.startsWith(refinedWord)) {
+                      listStartWith.add(element);
+                      if (listStartWith.length >= suggestionLimit) {
+                        break;
                       }
-
-                      _suggestionWords =
-                          [...listStartWith, ...listContains].toList();
-                      _suggestionWords.reversed;
+                    } else if (element.contains(refinedWord) &&
+                        listContains.length < suggestionLimit) {
+                      listContains.add(element);
                     }
-                    setState(() {
-                      _hasSuggestionWords = true;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Send a message".i18n,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32.0),
-                    ),
-                  ),
-                  controller: chatListBloc.textController,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.mic_none)),
-                  ),
-                )
-              ],
+                  }
+
+                  _suggestionWords =
+                      [...listStartWith, ...listContains].toList();
+                  _suggestionWords.reversed;
+                }
+                setState(() {
+                  _hasSuggestionWords = true;
+                });
+              },
             ),
           ),
         ],

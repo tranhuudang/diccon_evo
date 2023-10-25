@@ -9,7 +9,7 @@ import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/head_sentence.dart';
 import 'package:flutter/material.dart';
 import '../../dictionary/ui/dictionary.dart';
-import 'components/search_box.dart';
+import '../../commons/search_box.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_subfunction_box.dart';
 import 'components/to_conversation_button.dart';
@@ -129,7 +129,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
         /// TextField for user to enter their words
         SearchBox(
-          onSubmit: (enteredString) {
+          onSubmitted: (enteredString) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -194,7 +194,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
         /// TextField for user to enter their words
         SearchBox(
-          onSubmit: (enteredString) {
+          onSubmitted: (enteredString) {
             Navigator.push(
                 context,
                 MaterialPageRoute(

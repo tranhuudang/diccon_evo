@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
-import '../../../commons/voice_listening_bottom_sheet.dart';
+import 'voice_listening_bottom_sheet.dart';
 
 class SearchBox extends StatefulWidget {
-  final Function(String) onSubmit;
-  const SearchBox({super.key, required this.onSubmit});
+  final Function(String) onSubmitted;
+  final Function(String)? onChanged;
+  const SearchBox({super.key, required this.onSubmitted, this.onChanged});
 
   @override
   State<SearchBox> createState() =>
@@ -39,15 +40,17 @@ class _SearchBoxState extends State<SearchBox> {
             /// Input box
             TextField(
               controller: _searchTextController,
-              onChanged: (value) {
-                if (value == "") {
+              onChanged: (currentValue) {
+                widget.onChanged != null ? widget.onChanged!(currentValue): null;
+                // Whether to show close button or not
+                if (currentValue == "") {
                   _closeTextFieldController.add(false);
                 } else {
                   _closeTextFieldController.add(true);
                 }
               },
               onSubmitted: (String enteredString) {
-                widget.onSubmit(enteredString);
+                widget.onSubmitted(enteredString);
                 // Remove text in textfield
                 _searchTextController.clear();
                 _closeTextFieldController.add(false);
@@ -91,7 +94,7 @@ class _SearchBoxState extends State<SearchBox> {
                       context: context,
                       builder: (context) => VoiceListeningBottomSheet(
                         onSubmit: (speechResult) {
-                          widget.onSubmit(speechResult);
+                          widget.onSubmitted(speechResult);
                         },
                       ),
                     );
