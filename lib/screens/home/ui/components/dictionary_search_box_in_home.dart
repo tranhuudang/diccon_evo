@@ -5,7 +5,8 @@ import '../../../commons/voice_listening_bottom_sheet.dart';
 import '../../../dictionary/ui/dictionary.dart';
 
 class DictionarySearchBoxInHome extends StatefulWidget {
-  const DictionarySearchBoxInHome({super.key});
+  final Function(String) onSubmit;
+  const DictionarySearchBoxInHome({super.key, required this.onSubmit});
 
   @override
   State<DictionarySearchBoxInHome> createState() =>
@@ -46,12 +47,8 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                   _closeTextFieldController.add(true);
                 }
               },
-              onSubmitted: (String value) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DictionaryView(
-                            word: value, buildContext: context)));
+              onSubmitted: (String enteredString) {
+                widget.onSubmit(enteredString);
                 // Remove text in textfield
                 _searchTextController.clear();
                 _closeTextFieldController.add(false);
@@ -92,17 +89,13 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
                 child: IconButton(
                   onPressed: () {
                     showModalBottomSheet(
-                        context: context,
-                        builder: (context) => VoiceListeningBottomSheet(
-                              onSubmit: (speechResult) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DictionaryView(
-                                            word: speechResult,
-                                            buildContext: context)));
-                              },
-                            ));
+                      context: context,
+                      builder: (context) => VoiceListeningBottomSheet(
+                        onSubmit: (speechResult) {
+                          widget.onSubmit(speechResult);
+                        },
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.mic_none),
                 ),
@@ -113,4 +106,3 @@ class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
     );
   }
 }
-

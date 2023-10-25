@@ -8,6 +8,7 @@ import '../../../data/repositories/dictionary_repository.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../../commons/head_sentence.dart';
 import 'package:flutter/material.dart';
+import '../../dictionary/ui/dictionary.dart';
 import 'components/dictionary_search_box_in_home.dart';
 import 'components/home_menu_button.dart';
 import 'components/list_subfunction_box.dart';
@@ -17,6 +18,7 @@ import 'components/to_reading_chamber.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -25,8 +27,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with WindowListener {
-
-
   final List<Widget> _listPrimaryFunction = const [
     ToDictionaryButton(),
     ToConversationButton(),
@@ -37,8 +37,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   ];
 
   DateTime _backPressedTime = DateTime.now();
-
-
 
   _loadUpData() async {
     /// Inscease count number to count the how many time user open app
@@ -130,7 +128,15 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         const SizedBox().largeHeight(),
 
         /// TextField for user to enter their words
-        const DictionarySearchBoxInHome(),
+        DictionarySearchBoxInHome(
+          onSubmit: (enteredString) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DictionaryView(
+                        word: enteredString, buildContext: context)));
+          },
+        ),
         const SizedBox().largeHeight(),
 
         /// Two big brother button
@@ -187,7 +193,15 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         const SizedBox().largeHeight(),
 
         /// TextField for user to enter their words
-        const DictionarySearchBoxInHome(),
+        DictionarySearchBoxInHome(
+          onSubmit: (enteredString) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DictionaryView(
+                        word: enteredString, buildContext: context)));
+          },
+        ),
         const SizedBox().largeHeight(),
 
         /// List Funtions
