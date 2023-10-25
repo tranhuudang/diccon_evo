@@ -2,18 +2,17 @@ import 'dart:async';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import '../../../commons/voice_listening_bottom_sheet.dart';
-import '../../../dictionary/ui/dictionary.dart';
 
-class DictionarySearchBoxInHome extends StatefulWidget {
+class SearchBox extends StatefulWidget {
   final Function(String) onSubmit;
-  const DictionarySearchBoxInHome({super.key, required this.onSubmit});
+  const SearchBox({super.key, required this.onSubmit});
 
   @override
-  State<DictionarySearchBoxInHome> createState() =>
-      _DictionarySearchBoxInHomeState();
+  State<SearchBox> createState() =>
+      _SearchBoxState();
 }
 
-class _DictionarySearchBoxInHomeState extends State<DictionarySearchBoxInHome> {
+class _SearchBoxState extends State<SearchBox> {
   final _searchTextController = TextEditingController();
   final _closeTextFieldController = StreamController<bool>();
 
