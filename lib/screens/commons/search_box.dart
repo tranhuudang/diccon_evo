@@ -6,7 +6,11 @@ import 'voice_listening_bottom_sheet.dart';
 class SearchBox extends StatefulWidget {
   final Function(String) onSubmitted;
   final Function(String)? onChanged;
-  const SearchBox({super.key, required this.onSubmitted, this.onChanged});
+  final bool? enabled;
+  final String? hintText;
+
+  final Icon? prefixIcon;
+  const SearchBox({super.key, required this.onSubmitted, this.onChanged, this.enabled = true, this.hintText, this.prefixIcon});
 
   @override
   State<SearchBox> createState() =>
@@ -39,6 +43,7 @@ class _SearchBoxState extends State<SearchBox> {
           children: [
             /// Input box
             TextField(
+              enabled: widget.enabled,
               controller: _searchTextController,
               onChanged: (currentValue) {
                 widget.onChanged != null ? widget.onChanged!(currentValue): null;
@@ -56,9 +61,9 @@ class _SearchBoxState extends State<SearchBox> {
                 _closeTextFieldController.add(false);
               },
               decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: widget.prefixIcon,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                hintText: "Search in dictionary".i18n,
+                hintText: widget.hintText,
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32)),
                 ),

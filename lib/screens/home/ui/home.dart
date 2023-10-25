@@ -129,6 +129,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
         /// TextField for user to enter their words
         SearchBox(
+          prefixIcon: const Icon(Icons.search),
+          hintText: "Search in dictionary".i18n,
           onSubmitted: (enteredString) {
             Navigator.push(
                 context,
@@ -194,6 +196,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
         /// TextField for user to enter their words
         SearchBox(
+          prefixIcon: const Icon(Icons.search),
+          hintText: "Search in dictionary".i18n,
           onSubmitted: (enteredString) {
             Navigator.push(
                 context,

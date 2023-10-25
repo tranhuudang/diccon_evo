@@ -1,4 +1,5 @@
 import 'package:diccon_evo/screens/commons/pill_button.dart';
+import 'package:diccon_evo/screens/commons/search_box.dart';
 import 'package:flutter/material.dart';
 import '../../commons/notify.dart';
 import '../../commons/header.dart';
@@ -14,12 +15,11 @@ class ConversationView extends StatefulWidget {
 }
 
 class _ConversationViewState extends State<ConversationView> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
-
   }
+
   @override
   Widget build(BuildContext context) {
     final conversationBloc = context.read<ConversationBloc>();
@@ -166,39 +166,13 @@ class _ConversationViewState extends State<ConversationView> {
                                     ),
                                   ),
                                   Expanded(
-                                    child: BlocBuilder<ConversationBloc, ConversationState>(
-                                      builder: (context, state) {
-
-                                          if(state is ConversationUpdated){
-                                            return TextField(
-                                              enabled: !state.isResponding,
-                                              controller:
-                                              conversationBloc.textController,
-                                              onSubmitted: (providedWord) {
-                                                //_handleSubmitted(providedWord, context);
-                                                conversationBloc.add(AskAQuestion(
-                                                    providedWord: providedWord));
-                                                // Dismiss keyboard
-                                                FocusScopeNode currentFocus =
-                                                FocusScope.of(context);
-                                                if (!currentFocus.hasPrimaryFocus) {
-                                                  currentFocus.unfocus();
-                                                }
-                                              },
-                                              decoration: InputDecoration(
-                                                hintText:
-                                                "Send a message for practice".i18n,
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(32.0),
-                                                ),
-                                              ),
-                                            );
-                                        }
-
-                                        return TextField(
-                                          controller:
-                                              conversationBloc.textController,
+                                    child: BlocBuilder<ConversationBloc,
+                                            ConversationState>(
+                                        builder: (context, state) {
+                                      if (state is ConversationUpdated) {
+                                        return SearchBox(
+                                          hintText: "Send a message for practice".i18n,
+                                          enabled: !state.isResponding,
                                           onSubmitted: (providedWord) {
                                             //_handleSubmitted(providedWord, context);
                                             conversationBloc.add(AskAQuestion(
@@ -210,17 +184,24 @@ class _ConversationViewState extends State<ConversationView> {
                                               currentFocus.unfocus();
                                             }
                                           },
-                                          decoration: InputDecoration(
-                                            hintText:
-                                                "Send a message for practice".i18n,
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(32.0),
-                                            ),
-                                          ),
                                         );
                                       }
-                                    ),
+
+                                      return SearchBox(
+                                        hintText: "Send a message for practice".i18n,
+                                        onSubmitted: (providedWord) {
+                                          //_handleSubmitted(providedWord, context);
+                                          conversationBloc.add(AskAQuestion(
+                                              providedWord: providedWord));
+                                          // Dismiss keyboard
+                                          FocusScopeNode currentFocus =
+                                              FocusScope.of(context);
+                                          if (!currentFocus.hasPrimaryFocus) {
+                                            currentFocus.unfocus();
+                                          }
+                                        },
+                                      );
+                                    }),
                                   ),
                                 ],
                               ),
