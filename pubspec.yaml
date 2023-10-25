@@ -89,7 +89,7 @@ dependencies:
   #wave animation
   wave: ^0.2.2
   speech_to_text: ^6.3.0
-  permission_handler: ^11.0.1
+  loading_indicator: ^3.1.1
 
 dev_dependencies:
   flutter_test:

@@ -12,7 +12,6 @@
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <flutter_localization/flutter_localization_plugin_c_api.h>
 #include <flutter_tts/flutter_tts_plugin.h>
-#include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <screen_retriever/screen_retriever_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
 #include <window_manager/window_manager_plugin.h>
@@ -30,8 +29,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FlutterLocalizationPluginCApi"));
   FlutterTtsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterTtsPlugin"));
-  PermissionHandlerWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
   ScreenRetrieverPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ScreenRetrieverPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
