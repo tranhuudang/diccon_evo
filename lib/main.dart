@@ -1,22 +1,15 @@
 import 'dart:io';
-import 'package:diccon_evo/config/route_configurations.dart';
-import 'package:diccon_evo/extensions/string.dart';
-import 'package:diccon_evo/screens/settings/bloc/setting_bloc.dart';
-import 'package:diccon_evo/screens/story/blocs/story_list_bloc.dart';
-import 'package:diccon_evo/screens/conversation/bloc/conversation_bloc.dart';
-import 'package:diccon_evo/screens/settings/bloc/user_bloc.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'config/properties_constants.dart';
-import 'screens/dictionary/bloc/dictionary_bloc.dart';
-import 'config/properties.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:diccon_evo/firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/features/features.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();

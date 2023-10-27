@@ -1,0 +1,90 @@
+import 'package:diccon_evo/features/features.dart';
+import 'package:diccon_evo/common/common.dart';import 'package:flutter/material.dart';
+
+class Notify {
+  static void showAlertDialog(
+      {required BuildContext context,
+      required String title,
+      required String content,
+      required VoidCallback action}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                action();
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'.i18n),
+            ),
+            TextButton(
+              onPressed: () {
+                // Close the alert dialog
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'.i18n),
+            ),
+
+          ],
+        );
+      },
+    );
+  }
+
+  static void showAlertDialogWithoutAction({
+      required BuildContext context, required String title, required String content}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Close the alert dialog
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static void showLoadingAlertDialog({
+      required BuildContext context, required String title, required String content}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox().mediumHeight(),
+              Text(content),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void showSnackBar({required BuildContext context, required String content}) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+          content: Text(
+            content,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onInverseSurface),
+          ),
+        ),
+      );
+}
