@@ -3,9 +3,6 @@ import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'directory_handler.dart';
-import 'file_handler.dart';
-
 class SoundHandler {
   final String providedWordToPlay;
   SoundHandler(this.providedWordToPlay);

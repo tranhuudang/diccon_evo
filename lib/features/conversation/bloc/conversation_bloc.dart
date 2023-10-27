@@ -7,8 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:diccon_evo/features/features.dart';
 import 'package:diccon_evo/common/common.dart';
-import '../../../common/data/repositories/chat_gpt_repository.dart';
-
 
 /// Events
 @immutable

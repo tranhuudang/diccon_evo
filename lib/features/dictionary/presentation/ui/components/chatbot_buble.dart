@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/features/features.dart';
 import 'package:diccon_evo/common/common.dart';
-import '../../../../../common/data/repositories/chat_gpt_repository.dart';
 
 class ChatbotBubble extends StatefulWidget {
   const ChatbotBubble({

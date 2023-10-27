@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/data/data_providers/history_manager.dart';
-import '../../../common/data/handlers/file_handler.dart';
 import 'package:diccon_evo/common/common.dart';
 
 /// State
