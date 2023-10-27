@@ -4,7 +4,7 @@ import 'package:diccon_evo/config/properties.dart';
 import 'package:diccon_evo/extensions/string.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/models/translation_choices.dart';
+import '../../data/enums/translation_choices.dart';
 
 class SwitchTranslationBar extends StatefulWidget {
   final Function(Set<TranslationChoices> selectedItemSet) selectedItemSet;

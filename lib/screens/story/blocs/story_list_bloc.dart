@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/story.dart';
-import '../../../data/models/level.dart';
+import '../../../data/enums/level.dart';
 import '../../../data/repositories/story_repository.dart';
 
 /// Events

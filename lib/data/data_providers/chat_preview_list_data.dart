@@ -1,5 +1,5 @@
 import '../models/chat_preview.dart';
-import '../models/dictionary_response_type.dart';
+import '../enums/dictionary_response_type.dart';
 
 List<ChatPreview> listChatPreviewContent = [
   ChatPreview(

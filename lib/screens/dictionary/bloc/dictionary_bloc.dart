@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/properties.dart';
 import '../../../config/properties_constants.dart';
 import '../../../data/data_providers/searching.dart';
-import '../../../data/models/translation_choices.dart';
+import '../../../data/enums/translation_choices.dart';
 import '../../../data/models/word.dart';
 import '../../../data/repositories/thesaurus_repository.dart';
 import '../ui/components/brick_wall_buttons.dart';

@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../../config/properties_constants.dart';
 import '../../../../data/data_providers/searching.dart';
-import '../../../../data/models/translation_choices.dart';
+import '../../../../data/enums/translation_choices.dart';
 import '../../../../data/models/word.dart';
 import '../../../commons/switch_translation_bar.dart';
 
@@ -29,8 +29,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
   final _isLoadingStreamController = StreamController();
   final _tabSwicherStreamController = StreamController<TranslationChoices>();
-  Word wordResult = Word.empty();
-  bool isLoading = true;
+  Word _wordResult = Word.empty();
+  bool _isLoading = true;
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
@@ -72,9 +72,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   }
 
   _getLocalDefinition() async {
-    wordResult = await Searching.getDefinition(widget.searchWord);
+    _wordResult = await Searching.getDefinition(widget.searchWord);
     setState(() {
-      isLoading = false;
+      _isLoading = false;
     });
   }
 
@@ -99,7 +99,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   Widget build(BuildContext context) {
     final questionAnswer = _chatGptRepository.singleQuestionAnswer;
     var answer = questionAnswer.answer.toString().trim();
-    return isLoading
+    return _isLoading
         ? const Center(
             child: SizedBox(
                 height: 50, width: 50, child: CircularProgressIndicator()),
@@ -128,25 +128,25 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                               Row(
                                 children: [
                                   WordTitle(
-                                    message: wordResult,
+                                    message: _wordResult,
                                     titleColor:
                                         Theme.of(context).colorScheme.onSurface,
                                   ),
                                   const SizedBox(
                                     width: 8.0,
                                   ),
-                                  WordPronunciation(message: wordResult),
+                                  WordPronunciation(message: _wordResult),
                                   WordPlaybackButton(
                                       buttonColor: Theme.of(context)
                                           .colorScheme
                                           .onSurface,
-                                      message: wordResult.word),
+                                      message: _wordResult.word),
                                 ],
                               ),
                               Row(
                                 children: [
                                   WordMeaning(
-                                    message: wordResult,
+                                    message: _wordResult,
                                     onWordTap: widget.onWordTap,
                                     highlightColor:
                                         Theme.of(context).colorScheme.onSurface,

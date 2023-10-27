@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/route_constants.dart';
-import '../../../../data/models/translation_choices.dart';
+import '../../../../data/enums/translation_choices.dart';
 
 class DictionaryMenuButton extends StatefulWidget {
   const DictionaryMenuButton({super.key});

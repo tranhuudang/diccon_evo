@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../data/models/dictionary_response_type.dart';
+import '../data/enums/dictionary_response_type.dart';
 import '../data/models/setting.dart';
-import '../data/models/translation_choices.dart';
+import '../data/enums/translation_choices.dart';
 import '../data/models/user_info.dart';
 import '../data/models/word.dart';
 import 'package:flutter/material.dart';

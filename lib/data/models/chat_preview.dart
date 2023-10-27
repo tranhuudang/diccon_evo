@@ -1,4 +1,4 @@
-import 'dictionary_response_type.dart';
+import '../enums/dictionary_response_type.dart';
 
 class ChatPreview{
   final DictionaryResponseType responseType;

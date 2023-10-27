@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../data/models/story.dart';
-import '../../../../data/models/level.dart';
+import '../../../../data/enums/level.dart';
 import 'level_icon.dart';
 import '../../blocs/story_history_list_bloc.dart';
 
