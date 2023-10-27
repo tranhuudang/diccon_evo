@@ -18,6 +18,14 @@ class ReleaseNotes extends StatelessWidget {
               shrinkWrap: true,
               children: const [
                 ReleaseNotesItem(
+                  version: '378',
+                  date: '27-10-2023',
+                  changesNote: [
+                    'Hỗ trợ speech-to-text trên thiết bị Android',
+                    'Sửa lỗi và cải thiện hiệu năng'
+                  ],
+                ),
+                ReleaseNotesItem(
                   version: '365',
                   date: '23-10-2023',
                   changesNote: [
