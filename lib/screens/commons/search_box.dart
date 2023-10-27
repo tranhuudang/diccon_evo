@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:diccon_evo/extensions/target_platform.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'voice_listening_bottom_sheet.dart';
 
@@ -60,8 +62,9 @@ class _SearchBoxState extends State<SearchBox> {
                 _closeTextFieldController.add(false);
               },
               decoration: InputDecoration(
+
                 prefixIcon: widget.prefixIcon,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                contentPadding: const EdgeInsets.only(left: 16, right: 50),
                 hintText: widget.hintText,
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32)),
@@ -73,22 +76,26 @@ class _SearchBoxState extends State<SearchBox> {
             if (showCloseButton.data!)
               Align(
                   alignment: Alignment.centerRight,
-                  child: IconButton(
-                      onPressed: () {
-                        _searchTextController.clear();
-                        // Dismiss keyboard
-                        FocusScopeNode currentFocus = FocusScope.of(context);
+                  child: Padding(
+                    padding: defaultTargetPlatform.isWindows() ? const EdgeInsets.all(4.0) : EdgeInsets.zero,
+                    child: IconButton(
+                        onPressed: () {
+                          _searchTextController.clear();
+                          // Dismiss keyboard
+                          FocusScopeNode currentFocus = FocusScope.of(context);
 
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-                        // Erase tiny button
-                        _closeTextFieldController.add(false);
-                        _closeTextFieldController.add(false);
-                      },
-                      icon: const Icon(Icons.close))),
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                          // Erase tiny button
+                          _closeTextFieldController.add(false);
+                          _closeTextFieldController.add(false);
+                        },
+                        icon: const Icon(Icons.close)),
+                  )),
 
             /// Micro button
+            if(defaultTargetPlatform.isAndroid())
             if (!showCloseButton.data!)
               Align(
                 alignment: Alignment.centerRight,
