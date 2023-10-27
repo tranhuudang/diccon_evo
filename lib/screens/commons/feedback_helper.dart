@@ -7,12 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/properties.dart';
-import '../../screens/commons/pill_button.dart';
+import 'pill_button.dart';
 
 class FeedbackHelper {
   static void showFeedbackBottomSheet(BuildContext context) {
     if ((Properties.defaultSetting.openAppCount == 10) ||
-        (Properties.defaultSetting.openAppCount == 50)) {
+        (Properties.defaultSetting.openAppCount == 50) ||
+        (Properties.defaultSetting.openAppCount == 100)) {
       showModalBottomSheet(
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         context: context,
@@ -24,33 +25,49 @@ class FeedbackHelper {
               height: 320,
               child: Column(
                 children: [
-                  const SizedBox(
-                      width: 180,
-                      child: Image(
-                        image: AssetImage("assets/stickers/geography.png"),
-                      )),
+                  const Expanded(
+                    child: Image(
+                      image: AssetImage("assets/stickers/geography.png"),
+                    ),
+                  ),
                   Center(
                     child: Text("We'd love to hear your feedback!".i18n,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer)),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer)),
                   ),
                   const SizedBox().largeHeight(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PillButton(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                           onTap: () {
-                            Properties.defaultSetting = Properties.defaultSetting.copyWith(openAppCount: Properties.defaultSetting.openAppCount +1 );
+                            Properties.defaultSetting =
+                                Properties.defaultSetting.copyWith(
+                                    openAppCount:
+                                        Properties.defaultSetting.openAppCount +
+                                            1);
                             Properties.saveSettings(Properties.defaultSetting);
-                          goToStoreListing();},
+                            goToStoreListing();
+                          },
                           title: "Give feedbacks".i18n),
                       const SizedBox().largeWidth(),
                       PillButton(
-                          color: Theme.of(context).colorScheme.onSecondaryContainer,
-                          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondaryContainer,
                           onTap: () {
-                            Properties.defaultSetting = Properties.defaultSetting.copyWith(openAppCount: Properties.defaultSetting.openAppCount +1 );
+                            Properties.defaultSetting =
+                                Properties.defaultSetting.copyWith(
+                                    openAppCount:
+                                        Properties.defaultSetting.openAppCount +
+                                            1);
                             Properties.saveSettings(Properties.defaultSetting);
                             context.pop();
                           },

@@ -1,12 +1,18 @@
-class Word {
+import 'package:equatable/equatable.dart';
+
+class Word extends Equatable{
   final String word;
   final String? pronunciation;
   final String? meaning;
-  Word({
+  const Word({
     required this.word,
     this.pronunciation,
     this.meaning,
   });
+
+  factory Word.empty(){
+    return const Word(word: '', pronunciation: '', meaning: '');
+  }
 
   factory Word.fromJson(Map<String, dynamic> json) {
     final word = json['word'].toString().trim();
@@ -27,4 +33,8 @@ class Word {
       'meaning': truncatedMeaning,
     };
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [word];
 }

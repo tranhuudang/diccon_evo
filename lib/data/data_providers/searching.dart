@@ -6,7 +6,7 @@ import '../models/word.dart';
 import 'history_manager.dart';
 
 class Searching {
-  static Future<Word?> getDefinition(String searchWord) async  {
+  static Future<Word> getDefinition(String searchWord) async  {
     var refineWord = searchWord.removeSpecialCharacters().trim().toLowerCase();
 
     if (kDebugMode) {
@@ -80,6 +80,6 @@ class Searching {
         return Properties.wordList[i];
       }
     }
-    return null;
+    return Word.empty();
   }
 }

@@ -126,7 +126,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
   Future<Word> _getLocalTranslation(String providedWord) async {
     Word? wordResult = await Searching.getDefinition(providedWord);
-    if (wordResult != null) {
+    if (wordResult != Word.empty()) {
       if (kDebugMode) {
         print("got result from local dictionary");
       }

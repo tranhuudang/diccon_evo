@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import '../../data/handlers/sound_handler.dart';
 
 class WordPlaybackButton extends StatefulWidget {
-  const WordPlaybackButton({super.key, required this.message});
+  const WordPlaybackButton(
+      {super.key, required this.message, this.buttonColor});
   final String message;
+  final Color? buttonColor;
   @override
   State<WordPlaybackButton> createState() => _WordPlaybackButtonState();
 }
@@ -21,11 +23,13 @@ class _WordPlaybackButtonState extends State<WordPlaybackButton> {
       } // You can update your UI or perform actions based on these messages.
     });
   }
+
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _downloadController.close();
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
@@ -36,7 +40,8 @@ class _WordPlaybackButtonState extends State<WordPlaybackButton> {
               ? IconButton(
                   icon: Icon(
                     Icons.volume_up_sharp,
-                    color: Theme.of(context).colorScheme.onSecondary,
+                    color: widget.buttonColor ??
+                        Theme.of(context).colorScheme.onSecondary,
                   ),
                   onPressed: () {
                     final progressStream =

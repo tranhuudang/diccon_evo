@@ -30,7 +30,7 @@ extension Localization on String {
     },
     "We'd love to hear your feedback!": {
       "en_us": "We'd love to hear your feedback!",
-      "vi_vi": "Bạn có thích sử dụng Diccon không?",
+      "vi_vi": "Chúng tôi rất muốn nghe phản hồi của bạn!",
     },
     "Give feedbacks": {
       "en_us": "Give feedbacks",

@@ -2,7 +2,7 @@ import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/route_constants.dart';
-import '../../../../data/helpers/feedback_helper.dart';
+import '../../../commons/feedback_helper.dart';
 import 'feature_button.dart';
 
 class ToDictionaryButton extends StatelessWidget {

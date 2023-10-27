@@ -1,5 +1,5 @@
 import 'package:diccon_evo/config/properties.dart';
-import 'package:diccon_evo/data/helpers/feedback_helper.dart';
+import 'package:diccon_evo/screens/commons/feedback_helper.dart';
 import 'package:diccon_evo/data/models/user_info.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:diccon_evo/extensions/target_platform.dart';

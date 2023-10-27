@@ -1,4 +1,4 @@
-import 'package:diccon_evo/data/helpers/feedback_helper.dart';
+import 'package:diccon_evo/screens/commons/feedback_helper.dart';
 import 'package:diccon_evo/extensions/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

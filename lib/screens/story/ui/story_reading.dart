@@ -9,9 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/properties.dart';
 import '../../commons/notify.dart';
-import '../../../data/data_providers/searching.dart';
 import '../../../data/models/story.dart';
-import '../../../data/models/word.dart';
 import 'components/bottom_sheet_translate.dart';
 import '../../commons/circle_button.dart';
 import '../../commons/clickable_words.dart';
@@ -192,8 +190,13 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                     Theme.of(context).colorScheme.onBackground,
                               ),
                           onWordTap: (String value) {
-                            _showModalBottomSheet(
-                                context, value.removeSpecialCharacters());
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return BottomSheetTranslation(
+                                    searchWord: value.removeSpecialCharacters(),
+                                  );
+                                });
                           })
                       : Container(),
                   const SizedBox(
@@ -206,32 +209,5 @@ class _StoryReadingViewState extends State<StoryReadingView> {
         ],
       ),
     );
-  }
-
-  Future<void> _showModalBottomSheet(
-      BuildContext context, String searchWord) async {
-    Word? wordResult;
-
-    // Capture the context before entering the async function
-    final currentContext = context;
-
-    /// This line is the skeleton of finding the word in the dictionary
-    wordResult = await Searching.getDefinition(searchWord);
-    if (wordResult != null) {
-      showModalBottomSheet(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        context: currentContext, // Use the captured context here
-        builder: (BuildContext context) {
-          return SizedBox(
-            height: 300,
-            child: SingleChildScrollView(
-              child: BottomSheetTranslation(
-                message: wordResult!,
-              ),
-            ),
-          );
-        },
-      );
-    }
   }
 }
