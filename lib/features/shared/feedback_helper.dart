@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'pill_button.dart';
 import 'package:diccon_evo/features/features.dart';
 import 'package:diccon_evo/common/common.dart';
 class FeedbackHelper {
@@ -33,7 +32,7 @@ class FeedbackHelper {
                                 .colorScheme
                                 .onSecondaryContainer)),
                   ),
-                  const SizedBox().largeHeight(),
+                  const VerticalSpacing.large(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -51,7 +50,7 @@ class FeedbackHelper {
                             goToStoreListing();
                           },
                           title: "Give feedbacks".i18n),
-                      const SizedBox().largeWidth(),
+                      const HorizontalSpacing.large(),
                       PillButton(
                           color: context.theme
                               .colorScheme

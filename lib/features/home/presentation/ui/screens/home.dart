@@ -108,9 +108,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         /// Head welcome to essential tab
         const HeadSentence(
             listText: ["Empower", "Your English", "Proficiency"]),
-        const SizedBox().mediumHeight(),
+        const VerticalSpacing.medium(),
         const PlanButton(),
-        const SizedBox().largeHeight(),
+        const VerticalSpacing.large(),
 
         /// TextField for user to enter their words
         SearchBox(
@@ -124,7 +124,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         word: enteredString, buildContext: context)));
           },
         ),
-        const SizedBox().largeHeight(),
+        const VerticalSpacing.large(),
 
         /// Two big brother button
         GridView.builder(
@@ -175,9 +175,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
             ],
           )),
         ),
-        const SizedBox().mediumHeight(),
+        const VerticalSpacing.medium(),
         const PlanButton(),
-        const SizedBox().largeHeight(),
+        const VerticalSpacing.large(),
 
         /// TextField for user to enter their words
         SearchBox(
@@ -191,7 +191,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         word: enteredString, buildContext: context)));
           },
         ),
-        const SizedBox().largeHeight(),
+        const VerticalSpacing.large(),
 
         /// List Funtions
         SizedBox(

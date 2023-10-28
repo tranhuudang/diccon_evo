@@ -1,5 +1,6 @@
 import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/features/features.dart';
 
 class PillButton extends StatelessWidget {
   final IconData? icon;
@@ -38,7 +39,7 @@ class PillButton extends StatelessWidget {
                 icon,
                 size: 18,
               ),
-            if (icon != null) const SizedBox().mediumWidth(),
+            if (icon != null) const HorizontalSpacing.medium(),
             Text(
               title.i18n,
               style: TextStyle(

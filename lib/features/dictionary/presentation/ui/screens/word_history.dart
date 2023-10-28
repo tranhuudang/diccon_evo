@@ -1,6 +1,4 @@
 import 'package:diccon_evo/common/common.dart';
-import 'package:diccon_evo/common/extensions/i18n.dart';
-import 'package:diccon_evo/common/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/features/features.dart';
@@ -38,7 +36,7 @@ class WordHistoryView extends StatelessWidget {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
-                            const SizedBox().mediumHeight(),
+                            const VerticalSpacing.medium(),
                             Opacity(
                               opacity: 0.5,
                               child: Text(

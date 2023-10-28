@@ -18,3 +18,5 @@ export 'word_playback_button.dart';
 export 'word_pronunciation.dart';
 export 'word_title.dart';
 export 'responsive.dart';
+export 'vertical_spacing.dart';
+export 'horizontal_spacing.dart';

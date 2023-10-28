@@ -54,7 +54,7 @@ class _SettingsViewState extends State<SettingsView> {
           Row(
             children: [
               Text("Language".i18n),
-              const SizedBox().mediumWidth(),
+              const HorizontalSpacing.medium(),
               Container(
                 decoration: BoxDecoration(
                   color: context.theme.highlightColor,
@@ -90,9 +90,9 @@ class _SettingsViewState extends State<SettingsView> {
               ),
             ],
           ),
-          const SizedBox().mediumHeight(),
+          const VerticalSpacing.medium(),
           const Divider(),
-          const SizedBox().mediumHeight(),
+          const VerticalSpacing.medium(),
 
           /// Theme switcher
           Row(
@@ -101,9 +101,9 @@ class _SettingsViewState extends State<SettingsView> {
               const ThemeSwitcher(),
             ],
           ),
-          const SizedBox().mediumHeight(),
+          const VerticalSpacing.medium(),
           const Divider(),
-          const SizedBox().mediumHeight(),
+          const VerticalSpacing.medium(),
           const ThemeColorPalette(),
         ]),
         Section(
@@ -111,7 +111,7 @@ class _SettingsViewState extends State<SettingsView> {
           children: [
             Row(children: [
               Text("Number of synonyms".i18n),
-              const SizedBox().mediumWidth(),
+              const HorizontalSpacing.medium(),
               Container(
                 decoration: BoxDecoration(
                   color: context.theme.highlightColor,
@@ -147,7 +147,7 @@ class _SettingsViewState extends State<SettingsView> {
             Row(
               children: [
                 Text("Number of antonyms".i18n),
-                const SizedBox().mediumWidth(),
+                const HorizontalSpacing.medium(),
                 Container(
                   decoration: BoxDecoration(
                     color: context.theme.highlightColor,
@@ -184,7 +184,7 @@ class _SettingsViewState extends State<SettingsView> {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Customize dictionary responses".i18n)),
-                const SizedBox().mediumHeight(),
+                const VerticalSpacing.medium(),
                 FilledButton.tonal(
                     onPressed: () {
                       context.pushNamed(RouterConstants.dictionaryPreferences);

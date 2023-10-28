@@ -1,5 +1,6 @@
 import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/features/features.dart';
 
 
 class NoInternetBubble extends StatelessWidget {
@@ -42,7 +43,7 @@ class NoInternetBubble extends StatelessWidget {
                     ],
                   ),
                   Text("You're not connected".i18n, style: context.theme.textTheme.titleLarge,),
-                  const SizedBox().mediumHeight(),
+                  const VerticalSpacing.medium(),
                   Text("SubSentenceInNoInternetBubble".i18n),
                 ],
               ),

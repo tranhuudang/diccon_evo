@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:diccon_evo/features/features.dart';
 import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/material.dart';
-import 'circle_button.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -81,7 +80,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                     }),
-                const SizedBox().largeWidth(),
+                const HorizontalSpacing.large(),
                 if(title != null)
                     Text(
                         title!,

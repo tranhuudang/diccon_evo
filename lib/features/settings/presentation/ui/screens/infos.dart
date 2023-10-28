@@ -111,7 +111,7 @@ class _InfosViewState extends State<InfosView> {
                   style: context.theme.textTheme.bodyMedium?.copyWith(
                       color: context.theme.colorScheme.onSurface),
                 ),
-                const SizedBox().mediumHeight(),
+                const VerticalSpacing.medium(),
                 FilledButton.tonal(
                     onPressed: () async {
                       final Uri url =

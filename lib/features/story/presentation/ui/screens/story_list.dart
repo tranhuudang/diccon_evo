@@ -176,18 +176,18 @@ class StoryListView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox().mediumHeight(),
+                        const VerticalSpacing.medium(),
                         const Image(
                           image: AssetImage('assets/stickers/error.png'),
                           width: 200,
                         ),
-                        const SizedBox().mediumHeight(),
+                        const VerticalSpacing.medium(),
                         Text(
                           "I'm tired. I guess I'm getting old.".i18n,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
-                        const SizedBox().mediumHeight(),
+                        const VerticalSpacing.medium(),
                         Opacity(
                           opacity: 0.5,
                           child: SizedBox(
@@ -200,7 +200,7 @@ class StoryListView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox().mediumHeight(),
+                        const VerticalSpacing.medium(),
                       ],
                     ),
                   );

@@ -85,7 +85,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                             Text(
                               userLoginState.userInfo.email,
                             ),
-                            const SizedBox().mediumHeight(),
+                            const VerticalSpacing.medium(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -93,7 +93,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                     onPressed: () => userBloc.add(UserSyncEvent(
                                         userInfo: userLoginState.userInfo)),
                                     child: Text("Sync your data".i18n)),
-                                const SizedBox().mediumWidth(),
+                                const HorizontalSpacing.medium(),
                                 FilledButton.tonal(
                                     onPressed: () =>
                                         userBloc.add(UserLogoutEvent()),
@@ -111,11 +111,11 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox().mediumHeight(),
+                                const VerticalSpacing.medium(),
                                 Text(
                                     "(This process once fired will never be undone. Please take it serious.)"
                                         .i18n),
-                                const SizedBox().mediumHeight(),
+                                const VerticalSpacing.medium(),
                                 FilledButton(
                                     onPressed: () {
                                       userBloc.add(UserDeleteDateEvent());
@@ -133,7 +133,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                     child: LinearProgressIndicator(),
                                   ),
                                   Text("Your data is syncing..".i18n),
-                                  const SizedBox().mediumHeight(),
+                                  const VerticalSpacing.medium(),
                                 ],
                               ),
                           ],
@@ -182,7 +182,7 @@ class UninitializedView extends StatelessWidget {
                     style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox().mediumHeight(),
+                  const VerticalSpacing.medium(),
                   FilledButton(
                       onPressed: () async => userBloc.add(UserLoginEvent()),
                       child: Text("Continue with Google".i18n))

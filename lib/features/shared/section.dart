@@ -1,6 +1,6 @@
 import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/material.dart';
-
+import 'package:diccon_evo/features/features.dart';
 class Section extends StatelessWidget {
   final String? title;
   final List<Widget> children;
@@ -24,7 +24,7 @@ class Section extends StatelessWidget {
                 style: context.theme.textTheme.titleMedium?.copyWith(color: context.theme.colorScheme.primary),
               ),
             ),
-            const SizedBox().largeHeight(),
+            const VerticalSpacing.large(),
             Column(
               children: children,
             ),

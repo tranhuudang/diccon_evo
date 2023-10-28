@@ -162,7 +162,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
-                          const SizedBox().mediumHeight(),
+                          const VerticalSpacing.medium(),
                           Opacity(
                             opacity: 0.5,
                             child: SizedBox(

@@ -151,7 +151,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
-                          const SizedBox().mediumHeight(),
+                          const VerticalSpacing.medium(),
                           Opacity(
                             opacity: 0.5,
                             child: Text(

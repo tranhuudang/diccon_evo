@@ -19,7 +19,7 @@ class AvailableBox extends StatelessWidget {
             style: const TextStyle(
                 color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 16),
           ),
-          const SizedBox().mediumHeight(),
+          const VerticalSpacing.medium(),
           GridView.count(
             shrinkWrap: true,
             crossAxisCount: 2,

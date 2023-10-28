@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/features/features.dart';
 
 extension BuildContextExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -72,7 +73,7 @@ extension BuildContextExtension on BuildContext {
             mainAxisSize: MainAxisSize.min,
             children: [
               const CircularProgressIndicator(),
-              const SizedBox().mediumHeight(),
+              const VerticalSpacing.medium(),
               Text(content),
             ],
           ),

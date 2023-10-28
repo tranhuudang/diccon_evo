@@ -92,7 +92,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                   context.showSnackBar(
                                       content: "Bookmark is added".i18n);
                                 }),
-                        const SizedBox().mediumWidth(),
+                        const HorizontalSpacing.medium(),
 
                         /// CLose button
                         CircleButton(

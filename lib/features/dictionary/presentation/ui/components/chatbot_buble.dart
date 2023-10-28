@@ -134,7 +134,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                           icon: Icon(Icons.stop_circle_outlined,
                               color:
                                   context.theme.colorScheme.onSecondary)),
-                    const SizedBox().mediumWidth(),
+                    const HorizontalSpacing.medium(),
                     snapshot.data!
                         ? Padding(
                             padding: const EdgeInsets.only(right: 12),
