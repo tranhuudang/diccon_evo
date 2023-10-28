@@ -6,7 +6,6 @@ import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:diccon_evo/firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:diccon_evo/common/common.dart';
 import 'package:diccon_evo/features/features.dart';

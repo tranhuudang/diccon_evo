@@ -5,11 +5,18 @@ import 'package:flutter/services.dart';
 import 'package:diccon_evo/common/common.dart';
 import '../models/essential_word.dart';
 
-class EssentialWordRepository {
+abstract class EssentialWordRepository {
+  Future<List<EssentialWord>> loadEssentialData(String topic);
+  Future<List<EssentialWord>> readFavouriteEssential();
+  Future<bool> saveEssentialWordToFavourite(EssentialWord word);
+  Future<void> removeEssentialWordOutOfFavourite(EssentialWord word);
+}
 
-  static Future<List<EssentialWord>> loadEssentialData(String topic) async {
-    final jsonString = await rootBundle
-        .loadString(PropertiesConstants.essentialWordFileName);
+class EssentialWordRepositoryImpl implements EssentialWordRepository {
+  @override
+  Future<List<EssentialWord>> loadEssentialData(String topic) async {
+    final jsonString =
+        await rootBundle.loadString(PropertiesConstants.essentialWordFileName);
     final jsonData = json.decode(jsonString);
     List<EssentialWord> essentialWords = [];
 
@@ -19,16 +26,20 @@ class EssentialWordRepository {
     return essentialWords;
   }
 
-  static Future<List<EssentialWord>> readFavouriteEssential() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.essentialFavouriteFileName);
+  @override
+  Future<List<EssentialWord>> readFavouriteEssential() async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        PropertiesConstants.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
         final contents = await file.readAsString();
         final json = jsonDecode(contents);
         if (json is List<dynamic>) {
-          final List<EssentialWord> words =
-          json.map((e) => EssentialWord.fromJson(e)).toList().cast<EssentialWord>();
+          final List<EssentialWord> words = json
+              .map((e) => EssentialWord.fromJson(e))
+              .toList()
+              .cast<EssentialWord>();
           return words;
         } else {
           return [];
@@ -44,10 +55,10 @@ class EssentialWordRepository {
     }
   }
 
-
-  static Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
-    final filePath = await DirectoryHandler
-        .getLocalUserDataFilePath(PropertiesConstants.essentialFavouriteFileName);
+  @override
+  Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        PropertiesConstants.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -55,7 +66,7 @@ class EssentialWordRepository {
         final json = jsonDecode(contents);
         // Check is a word is already exists in the history
         bool isWordExists =
-        json.any((wordInList) => wordInList['english'] == word.english);
+            json.any((wordInList) => wordInList['english'] == word.english);
         if (!isWordExists) {
           if (json is List<dynamic>) {
             json.add(word.toJson());
@@ -80,24 +91,24 @@ class EssentialWordRepository {
       return true;
     } catch (e) {
       if (kDebugMode) {
-        print("Can't save ${word
-            .english} to essential_favourite.json. Error detail: $e");
+        print(
+            "Can't save ${word.english} to essential_favourite.json. Error detail: $e");
       }
       return false;
     }
   }
 
-  static removeEssentialWordOutOfFavourite(EssentialWord word) async {
-    final filePath = await DirectoryHandler
-        .getLocalUserDataFilePath(PropertiesConstants.essentialFavouriteFileName);
+  @override
+  Future<void> removeEssentialWordOutOfFavourite(EssentialWord word) async {
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
+        PropertiesConstants.essentialFavouriteFileName);
     try {
       final file = File(filePath);
-      if (await file.exists()
-      ) {
+      if (await file.exists()) {
         final contents = await file.readAsString();
         // Parse the JSON string into a Dart list
-        List<Map<String, dynamic>> jsonList = json.decode(contents).cast<
-            Map<String, dynamic>>();
+        List<Map<String, dynamic>> jsonList =
+            json.decode(contents).cast<Map<String, dynamic>>();
 
         // Filter the list to remove the object with the specified condition
         jsonList.removeWhere((item) => item['english'] == word.english);

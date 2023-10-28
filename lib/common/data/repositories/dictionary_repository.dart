@@ -3,13 +3,27 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:diccon_evo/common/common.dart';
 import '../models/word.dart';
 
-class DictionaryRepository {
+
+
+abstract class DictionaryRepository{
 
   /// Get list of words with definition in dataset.
+  Future<List<Word>> getWordList();
+
+  /// Get list of word without definition in dataset.
+  Future<List<String>> getSuggestionWordList();
+
+}
+class DictionaryRepositoryImplement implements DictionaryRepository{
+
+  /// Get list of words with definition in dataset.
+  @override
   Future<List<Word>> getWordList() async => await _getWordList();
 
   /// Get list of word without definition in dataset.
+  @override
   Future<List<String>> getSuggestionWordList() async => await _getSuggestionWordList();
+
 
   Future<List<Word>> _getWordList() async {
     String dataEv = await rootBundle.loadString(PropertiesConstants.evDataPath);

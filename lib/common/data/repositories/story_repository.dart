@@ -6,7 +6,21 @@ import '../helpers/file_helper.dart';
 import '../models/story.dart';
 import 'package:diccon_evo/common/common.dart';
 
-class StoryRepository {
+
+abstract class StoryRepository {
+  Future<List<Story>> getDefaultStories();
+  Future<List<Story>> getOnlineStoryList();
+  Future<List<Story>> readStoryHistory();
+  Future<List<Story>> readStoryBookmark();
+  Future<bool> saveReadStoryToHistory(Story story);
+  Future<bool> saveReadStoryToBookmark(Story story);
+  Future<bool> removeAStoryInBookmark(Story story);
+  Future<bool> deleteAllStoryHistory();
+  Future<bool> deleteAllStoryBookmark();
+}
+
+class StoryRepositoryImpl implements StoryRepository{
+  @override
   Future<List<Story>> getDefaultStories() async {
     String contents =
         await FileHelper.getAssetFile('assets/stories/story-default.json');
@@ -20,6 +34,7 @@ class StoryRepository {
     }
   }
 
+  @override
   Future<List<Story>> getOnlineStoryList() async {
     try {
       String filePath = await DirectoryHandler.getLocalUserDataFilePath(
@@ -81,6 +96,7 @@ class StoryRepository {
     }
   }
 
+  @override
   Future<List<Story>> readStoryHistory() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
         PropertiesConstants.storyHistoryFileName);
@@ -107,6 +123,7 @@ class StoryRepository {
     }
   }
 
+  @override
   Future<List<Story>> readStoryBookmark() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
         PropertiesConstants.storyBookmarkFileName);
@@ -133,6 +150,7 @@ class StoryRepository {
     }
   }
 
+  @override
   Future<bool> saveReadStoryToHistory(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
         PropertiesConstants.storyHistoryFileName);
@@ -168,6 +186,7 @@ class StoryRepository {
     }
   }
 
+  @override
   Future<bool> saveReadStoryToBookmark(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
         PropertiesConstants.storyBookmarkFileName);
@@ -199,6 +218,7 @@ class StoryRepository {
     }
   }
 
+  @override
   Future<bool> removeAStoryInBookmark(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
         PropertiesConstants.storyBookmarkFileName);
@@ -231,13 +251,16 @@ class StoryRepository {
     }
   }
 
+  @override
   Future<bool> deleteAllStoryHistory() async {
     return await FileHandler(PropertiesConstants.storyHistoryFileName)
         .deleteOnUserData();
   }
 
+  @override
   Future<bool> deleteAllStoryBookmark() async {
     return await FileHandler(PropertiesConstants.storyBookmarkFileName)
         .deleteOnUserData();
   }
 }
+
