@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 import '../../../../../common/data/models/word.dart';
 
@@ -12,9 +13,9 @@ class WordPronunciation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      message.pronunciation ?? "",
-      style: const TextStyle(
-        color: Colors.red,
+      "/${message.pronunciation}/" ?? "",
+      style: TextStyle(
+        color: context.theme.colorScheme.onSurface,
         fontStyle: FontStyle.italic,
       ),
     );

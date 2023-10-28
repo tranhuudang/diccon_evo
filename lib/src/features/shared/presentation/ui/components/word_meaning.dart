@@ -20,7 +20,7 @@ class WordMeaning extends StatelessWidget {
     return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: message.meaning!.split('\n').map((meaningLine) {
+        children: message.definition!.split('\n').map((meaningLine) {
           /// Change text style to BOLD to some specific lines with special character in the first line
           final lineSplit = meaningLine.split('-');
           final lineStart = lineSplit.first.trim();

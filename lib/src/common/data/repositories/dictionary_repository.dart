@@ -40,7 +40,7 @@ class DictionaryRepositoryImplement implements DictionaryRepository{
       String meaning = wordData.replaceAll(word, '');
       Word newWord = Word(
         word: word,
-        meaning: meaning,
+        definition: meaning,
       );
 
       wordList.add(newWord);

@@ -66,6 +66,7 @@ dependencies:
   wave: ^0.2.2
   speech_to_text: ^6.3.0
   loading_indicator: ^3.1.1
+  sqflite: ^2.3.0
 
 dev_dependencies:
   flutter_test:

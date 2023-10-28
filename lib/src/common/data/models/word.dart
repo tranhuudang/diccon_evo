@@ -3,15 +3,15 @@ import 'package:equatable/equatable.dart';
 class Word extends Equatable{
   final String word;
   final String? pronunciation;
-  final String? meaning;
+  final String? definition;
   const Word({
     required this.word,
     this.pronunciation,
-    this.meaning,
+    this.definition,
   });
 
   factory Word.empty(){
-    return const Word(word: '', pronunciation: '', meaning: '');
+    return const Word(word: '', pronunciation: '', definition: '');
   }
 
   factory Word.fromJson(Map<String, dynamic> json) {
@@ -21,12 +21,12 @@ class Word extends Equatable{
     return Word(
       word: word,
       pronunciation: pronunciation,
-      meaning: meaning,
+      definition: meaning,
     );
   }
 
   Map<String, dynamic> toJson() {
-    final truncatedMeaning = meaning?.substring(0, 60);
+    final truncatedMeaning = definition?.substring(0, 60);
     return {
       'word': word,
       'pronunciation': pronunciation,

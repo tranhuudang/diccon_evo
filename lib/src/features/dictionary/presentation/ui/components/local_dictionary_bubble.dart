@@ -24,8 +24,8 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
 
 
   int countLine() {
-    if (widget.word.meaning != null) {
-      return widget.word.meaning!.split('\n').length;
+    if (widget.word.definition != null) {
+      return widget.word.definition!.split('\n').length;
     }
     else {
       return 0;

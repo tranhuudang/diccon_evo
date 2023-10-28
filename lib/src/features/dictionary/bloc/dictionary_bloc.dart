@@ -125,7 +125,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     }
     var badResult = Word(
         word: providedWord,
-        meaning:
+        definition:
             "Local dictionary don't have definition for this word. Check out AI Dictionary !");
     return badResult;
   }
