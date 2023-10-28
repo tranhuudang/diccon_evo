@@ -1,4 +1,4 @@
-import 'package:diccon_evo/common/extensions/i18n.dart';
+import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/features/features.dart';
@@ -22,7 +22,7 @@ class _ConversationViewState extends State<ConversationView> {
     final conversationBloc = context.read<ConversationBloc>();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             BlocConsumer<ConversationBloc, ConversationState>(
@@ -107,28 +107,28 @@ class _ConversationViewState extends State<ConversationView> {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Theme.of(context)
+                                context.theme
                                     .scaffoldBackgroundColor
                                     .withOpacity(0.0),
-                                Theme.of(context)
+                                context.theme
                                     .scaffoldBackgroundColor
                                     .withOpacity(0.3),
-                                Theme.of(context)
+                                context.theme
                                     .scaffoldBackgroundColor
                                     .withOpacity(0.9),
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Theme.of(context).scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
+                                context.theme.scaffoldBackgroundColor,
                               ],
                             ),
                           ),
@@ -145,8 +145,7 @@ class _ConversationViewState extends State<ConversationView> {
                                 children: <Widget>[
                                   IconButton(
                                     onPressed: () {
-                                      Notify.showAlertDialog(
-                                          context: context,
+                                      context.showAlertDialog(
                                           title: "Close this session?",
                                           content:
                                               "Clear all the bubbles in this translation session.",
@@ -157,7 +156,7 @@ class _ConversationViewState extends State<ConversationView> {
                                     },
                                     icon: Icon(
                                       Icons.add_circle_outline,
-                                      color: Theme.of(context)
+                                      color: context.theme
                                           .colorScheme
                                           .onSurface,
                                     ),

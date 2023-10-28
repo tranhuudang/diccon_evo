@@ -124,14 +124,14 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                   WordTitle(
                                     message: _wordResult,
                                     titleColor:
-                                        Theme.of(context).colorScheme.onSurface,
+                                        context.theme.colorScheme.onSurface,
                                   ),
                                   const SizedBox(
                                     width: 8.0,
                                   ),
                                   WordPronunciation(message: _wordResult),
                                   WordPlaybackButton(
-                                      buttonColor: Theme.of(context)
+                                      buttonColor: context.theme
                                           .colorScheme
                                           .onSurface,
                                       message: _wordResult.word),
@@ -143,8 +143,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     message: _wordResult,
                                     onWordTap: widget.onWordTap,
                                     highlightColor:
-                                        Theme.of(context).colorScheme.onSurface,
-                                    subColor: Theme.of(context)
+                                        context.theme.colorScheme.onSurface,
+                                    subColor: context.theme
                                         .colorScheme
                                         .onSurface
                                         .withOpacity(.8),
@@ -162,11 +162,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     const EdgeInsets.symmetric(vertical: 16),
                                 child: Text(
                                   answer,
-                                  style: Theme.of(context)
+                                  style: context.theme
                                       .textTheme
                                       .titleMedium
                                       ?.copyWith(
-                                          color: Theme.of(context)
+                                          color: context.theme
                                               .colorScheme
                                               .onSurface),
                                 ),

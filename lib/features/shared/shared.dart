@@ -5,7 +5,6 @@ export 'feedback_helper.dart';
 export 'head_sentence.dart';
 export 'header.dart';
 export 'no_internet_buble.dart';
-export 'notify.dart';
 export 'pill_button.dart';
 export 'rectangle_button.dart';
 export 'search_box.dart';

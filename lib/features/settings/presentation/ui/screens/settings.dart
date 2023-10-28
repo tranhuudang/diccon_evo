@@ -20,7 +20,7 @@ class _SettingsViewState extends State<SettingsView> {
     final settingBloc = context.read<SettingBloc>();
     return SafeArea(
       child: Scaffold(
-        //backgroundColor: Theme.of(context).colorScheme.surface,
+        //backgroundColor: context.theme.colorScheme.surface,
         body: BlocBuilder<SettingCubit, Setting>(
             bloc: settingCubit,
             builder: (context, state) {
@@ -57,7 +57,7 @@ class _SettingsViewState extends State<SettingsView> {
               const SizedBox().mediumWidth(),
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).highlightColor,
+                  color: context.theme.highlightColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 width: 170,
@@ -114,7 +114,7 @@ class _SettingsViewState extends State<SettingsView> {
               const SizedBox().mediumWidth(),
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).highlightColor,
+                  color: context.theme.highlightColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 width: 60,
@@ -150,7 +150,7 @@ class _SettingsViewState extends State<SettingsView> {
                 const SizedBox().mediumWidth(),
                 Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).highlightColor,
+                    color: context.theme.highlightColor,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   width: 60,
@@ -202,7 +202,7 @@ class _SettingsViewState extends State<SettingsView> {
               children: [
                 const Icon(Icons.text_increase),
                 Slider(
-                    activeColor: Theme.of(context).colorScheme.primary,
+                    activeColor: context.theme.colorScheme.primary,
                     min: 0.1,
                     value: state.readingFontSize / 70,
                     onChangeEnd: (newValue) {

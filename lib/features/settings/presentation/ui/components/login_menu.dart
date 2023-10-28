@@ -17,7 +17,7 @@ class LoginMenu extends StatelessWidget {
         icon: const Icon(Icons.more_vert),
         //splashRadius: 10.0,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Theme.of(context).dividerColor),
+          side: BorderSide(color: context.theme.dividerColor),
           borderRadius: BorderRadius.circular(16.0),
         ),
         itemBuilder: (context) => [

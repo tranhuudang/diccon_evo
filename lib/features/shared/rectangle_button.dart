@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/material.dart';
 
 
@@ -27,7 +27,7 @@ class _RectangleButtonState extends State<RectangleButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultBackgroundColor = Theme.of(context).highlightColor;
+    final Color defaultBackgroundColor = context.theme.highlightColor;
     return StreamBuilder<bool>(
       stream: _hoveringController.stream,
       initialData: false,

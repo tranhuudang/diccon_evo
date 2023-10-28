@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class ConversationMachineBubble extends StatelessWidget {
   final String content;
@@ -17,7 +18,7 @@ class ConversationMachineBubble extends StatelessWidget {
           maxWidth: 600,
         ),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: context.theme.colorScheme.secondary,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16.0),
             topRight: Radius.circular(0.0),
@@ -32,11 +33,11 @@ class ConversationMachineBubble extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: SelectableText(
                   content,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondary),
+                  style: context.theme.textTheme.titleMedium?.copyWith(
+                      color: context.theme.colorScheme.onSecondary),
                 ),
               ):
-          Center(child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onSecondary,),))
+          Center(child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: context.theme.colorScheme.onSecondary,),))
           ,
           ),
         ),

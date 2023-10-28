@@ -11,7 +11,7 @@ class StoryListView extends StatelessWidget {
     final storyListBloc = context.read<StoryListBloc>();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -35,7 +35,7 @@ class StoryListView extends StatelessWidget {
                 PopupMenuButton(
                   //splashRadius: 10.0,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Theme.of(context).dividerColor),
+                    side: BorderSide(color: context.theme.dividerColor),
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   itemBuilder: (context) => [
@@ -94,8 +94,8 @@ class StoryListView extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
                 child: Text(
                   "SubSentenceInStoryList".i18n,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface),
+                  style: context.theme.textTheme.titleMedium?.copyWith(
+                      color: context.theme.colorScheme.onSurface),
                 ),
               ),
 

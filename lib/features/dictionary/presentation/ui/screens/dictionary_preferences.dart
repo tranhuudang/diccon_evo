@@ -90,7 +90,7 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -109,11 +109,11 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                         children: listSelected
                             .map((item) => ActionChip(
                                   backgroundColor:
-                                      Theme.of(context).colorScheme.secondary,
+                                      context.theme.colorScheme.secondary,
                                   label: Text(
                                     item.i18n,
                                     style: TextStyle(
-                                        color: Theme.of(context)
+                                        color: context.theme
                                             .colorScheme
                                             .onSecondary),
                                   ),

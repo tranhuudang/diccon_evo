@@ -42,7 +42,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -65,7 +65,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                         /// Bookmark button
                         snapshot.data!
                             ? CircleButton(
-                                backgroundColor: Theme.of(context)
+                                backgroundColor: context.theme
                                     .colorScheme
                                     .secondaryContainer,
                                 iconData: Icons.bookmark_border,
@@ -74,12 +74,11 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                   _streamIsBookmarkController.sink.add(false);
                                   _storyBookmarkBloc.add(
                                       StoryBookmarkRemove(story: widget.story));
-                                  Notify.showSnackBar(
-                                      context: context,
+                                  context.showSnackBar(
                                       content: "Bookmark is removed".i18n);
                                 })
                             : CircleButton(
-                                backgroundColor: Theme.of(context)
+                                backgroundColor: context.theme
                                     .colorScheme
                                     .surfaceVariant
                                     .withOpacity(.5),
@@ -90,15 +89,14 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                   _streamIsBookmarkController.sink.add(true);
                                   _storyBookmarkBloc.add(
                                       StoryBookmarkAdd(stories: widget.story));
-                                  Notify.showSnackBar(
-                                      context: context,
+                                  context.showSnackBar(
                                       content: "Bookmark is added".i18n);
                                 }),
                         const SizedBox().mediumWidth(),
 
                         /// CLose button
                         CircleButton(
-                            backgroundColor: Theme.of(context)
+                            backgroundColor: context.theme
                                 .colorScheme
                                 .surfaceVariant
                                 .withOpacity(.5),
@@ -171,14 +169,14 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                   paragraph.isNotEmpty
                       ? ClickableWords(
                           text: paragraph,
-                          style: Theme.of(context)
+                          style: context.theme
                               .textTheme
                               .bodyMedium
                               ?.copyWith(
                                 fontSize:
                                     Properties.defaultSetting.readingFontSize,
                                 color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                    context.theme.colorScheme.onBackground,
                               ),
                           onWordTap: (String value) {
                             showModalBottomSheet(

@@ -133,7 +133,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                           },
                           icon: Icon(Icons.stop_circle_outlined,
                               color:
-                                  Theme.of(context).colorScheme.onSecondary)),
+                                  context.theme.colorScheme.onSecondary)),
                     const SizedBox().mediumWidth(),
                     snapshot.data!
                         ? Padding(
@@ -143,7 +143,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                               width: 15,
                               child: CircularProgressIndicator(
                                 color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                    context.theme.colorScheme.onSecondary,
                               ),
                             ),
                           )
@@ -155,16 +155,16 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                             },
                             icon: Icon(
                               Icons.cached_rounded,
-                              color: Theme.of(context).colorScheme.onSecondary,
+                              color: context.theme.colorScheme.onSecondary,
                             )),
                   ],
                 );
               }),
           ClickableWords(
-              style: Theme.of(context)
+              style: context.theme
                   .textTheme
                   .titleMedium
-                  ?.copyWith(color: Theme.of(context).colorScheme.onSecondary),
+                  ?.copyWith(color: context.theme.colorScheme.onSecondary),
               onWordTap: (word) {
                 chatListBloc.add(AddUserMessage(providedWord: word));
                 chatListBloc.add(AddTranslation(providedWord: word));

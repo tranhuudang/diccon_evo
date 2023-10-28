@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/features/features.dart';
+import 'package:diccon_evo/common/common.dart';
 
 
 class HistoryTile extends StatelessWidget {
@@ -40,7 +41,7 @@ class HistoryTile extends StatelessWidget {
           word,
           style: TextStyle(
               overflow: TextOverflow.ellipsis,
-              color: Theme.of(context).colorScheme.onBackground),
+              color: context.theme.colorScheme.onBackground),
         ),
         trailing: onEdit
             ? IconButton(

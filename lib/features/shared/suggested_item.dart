@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class SuggestedItem extends StatelessWidget {
   final String title;
@@ -18,18 +19,18 @@ class SuggestedItem extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+            color: backgroundColor ?? context.theme.scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(32),
             border: Border.all(
               width: 2,
-              color: Theme.of(context).colorScheme.primary,
+              color: context.theme.colorScheme.primary,
             )
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
               title,
-              style: TextStyle(color: textColor?? Theme.of(context).textTheme.titleSmall?.color),
+              style: TextStyle(color: textColor?? context.theme.textTheme.titleSmall?.color),
             ),
           ),
         ),

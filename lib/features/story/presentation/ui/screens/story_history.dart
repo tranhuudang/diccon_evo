@@ -17,7 +17,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: BlocConsumer<StoryHistoryBloc, StoryHistoryState>(
           bloc: _storyHistoryBloc,
           listener: (BuildContext context, StoryHistoryState state) {},
@@ -81,7 +81,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                           //splashRadius: 10.0,
                           shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Theme.of(context).dividerColor),
+                                color: context.theme.dividerColor),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
                           itemBuilder: (context) => [
@@ -185,7 +185,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                           Text(
                             "Error trying to get history.".i18n,
                             style: TextStyle(
-                                color: Theme.of(context).highlightColor,
+                                color: context.theme.highlightColor,
                                 fontSize: 18),
                           ),
                         ],

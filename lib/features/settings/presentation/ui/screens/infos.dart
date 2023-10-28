@@ -15,7 +15,7 @@ class _InfosViewState extends State<InfosView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -54,8 +54,8 @@ class _InfosViewState extends State<InfosView> {
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
                     "Diccon Dictionary",
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
+                    style: context.theme.textTheme.titleLarge?.copyWith(
+                        color: context.theme.colorScheme.onSurface,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -69,7 +69,7 @@ class _InfosViewState extends State<InfosView> {
                 },
                 child: Text(
                   "v${PropertiesConstants.version}",
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: context.theme.textTheme.titleSmall,
                 ),
               ),
             ),
@@ -77,14 +77,14 @@ class _InfosViewState extends State<InfosView> {
               children: [
                 Text(
                   "© 2023 Zeroboy.",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                      color: context.theme.colorScheme.onSurfaceVariant),
                 ),
                 const SizedBox(width: 5),
                 Text(
                   "All rights reserved.".i18n,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                      color: context.theme.colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
@@ -95,10 +95,10 @@ class _InfosViewState extends State<InfosView> {
           children: [
             Text(
               "DesciptionTextForPrivacyPolicy".i18n,
-              style: Theme.of(context)
+              style: context.theme
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  ?.copyWith(color: context.theme.colorScheme.onSurface),
             ),
             const SizedBox(
               height: 5,
@@ -108,8 +108,8 @@ class _InfosViewState extends State<InfosView> {
                 Text(
                   "For more information about our privacy policy, please visit:"
                       .i18n,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface),
+                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                      color: context.theme.colorScheme.onSurface),
                 ),
                 const SizedBox().mediumHeight(),
                 FilledButton.tonal(

@@ -103,7 +103,7 @@ class _DictionaryViewState extends State<DictionaryView> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             BlocConsumer<ChatListBloc, ChatListState>(
@@ -203,14 +203,14 @@ class _DictionaryViewState extends State<DictionaryView> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.0),
-            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
-            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
-            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-            Theme.of(context).scaffoldBackgroundColor,
-            Theme.of(context).scaffoldBackgroundColor,
-            Theme.of(context).scaffoldBackgroundColor,
-            Theme.of(context).scaffoldBackgroundColor,
+            context.theme.scaffoldBackgroundColor.withOpacity(0.0),
+            context.theme.scaffoldBackgroundColor.withOpacity(0.1),
+            context.theme.scaffoldBackgroundColor.withOpacity(0.5),
+            context.theme.scaffoldBackgroundColor.withOpacity(0.9),
+            context.theme.scaffoldBackgroundColor,
+            context.theme.scaffoldBackgroundColor,
+            context.theme.scaffoldBackgroundColor,
+            context.theme.scaffoldBackgroundColor,
           ])),
     );
   }
@@ -231,8 +231,8 @@ class _DictionaryViewState extends State<DictionaryView> {
                 children: _suggestionWords.map((String word) {
                   return SuggestedItem(
                     title: word,
-                    textColor: Theme.of(context).colorScheme.onPrimary,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    textColor: context.theme.colorScheme.onPrimary,
+                    backgroundColor: context.theme.colorScheme.primary,
                     onPressed: (String clickedWord) {
                       _handleSubmitted(clickedWord, context);
                     },
@@ -284,8 +284,7 @@ class _DictionaryViewState extends State<DictionaryView> {
         children: <Widget>[
           IconButton(
               onPressed: () {
-                Notify.showAlertDialog(
-                  context: context,
+                context.showAlertDialog(
                   title: "Close this session?",
                   content: "Clear all the bubbles in this translation session.",
                   action: () {
@@ -297,13 +296,13 @@ class _DictionaryViewState extends State<DictionaryView> {
               icon: const Icon(Icons.add_circle_outline)),
           Expanded(
             child: SearchBox(
-          hintText: "Send a message".i18n,
+              hintText: "Send a message".i18n,
               onSubmitted: (providedWord) {
                 _wordHistoryBloc
                     .add(AddWordToHistory(providedWord: providedWord));
                 _handleSubmitted(providedWord, context);
               },
-              onChanged: (currentValue){
+              onChanged: (currentValue) {
                 Set<String> listStartWith = {};
                 Set<String> listContains = {};
                 var refinedWord = currentValue.toLowerCase();

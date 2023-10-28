@@ -29,7 +29,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
         return PopupMenuButton(
           //splashRadius: 10.0,
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: Theme.of(context).dividerColor),
+            side: BorderSide(color: context.theme.dividerColor),
             borderRadius: BorderRadius.circular(16.0),
           ),
           itemBuilder: (context) => [
@@ -38,7 +38,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                   ? Text(
                       "Prefer AI".i18n,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: context.theme.colorScheme.primary,
                       ),
                     )
                   : Text(
@@ -58,7 +58,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
               child: snapshot.data! == TranslationChoices.classic
                   ? Text("Prefer Classic".i18n,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: context.theme.colorScheme.primary,
                       ))
                   : const Text("Prefer Classic"),
               onTap: () {

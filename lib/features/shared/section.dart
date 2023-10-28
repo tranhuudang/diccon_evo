@@ -21,7 +21,7 @@ class Section extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title ?? '',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
+                style: context.theme.textTheme.titleMedium?.copyWith(color: context.theme.colorScheme.primary),
               ),
             ),
             const SizedBox().largeHeight(),

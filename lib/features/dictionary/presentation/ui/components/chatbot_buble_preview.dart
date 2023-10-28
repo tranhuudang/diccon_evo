@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class ChatbotBubblePreview extends StatelessWidget {
   final String textReturn;
@@ -18,7 +19,7 @@ class ChatbotBubblePreview extends StatelessWidget {
               maxWidth: 600,
             ),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
+              color: context.theme.colorScheme.primary,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(0.0),
@@ -34,11 +35,11 @@ class ChatbotBubblePreview extends StatelessWidget {
                   Row(
                     children: [Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.volume_up, size: 20,color: Theme.of(context).colorScheme.onSecondary),),
+                      child: Icon(Icons.volume_up, size: 20,color: context.theme.colorScheme.onSecondary),),
                     ],
                   ),
-                  Text(textReturn, style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondary),)
+                  Text(textReturn, style: context.theme.textTheme.titleMedium?.copyWith(
+                      color: context.theme.colorScheme.onSecondary),)
                   // SelectableText(
                   //     answer),
                 ],

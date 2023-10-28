@@ -27,14 +27,14 @@ class PillButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32),
             color: isDisabled!
-                ? Theme.of(context).highlightColor
-                : backgroundColor ?? Theme.of(context).colorScheme.primary),
+                ? context.theme.highlightColor
+                : backgroundColor ?? context.theme.colorScheme.primary),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             if (icon != null)
               Icon(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: context.theme.colorScheme.onPrimary,
                 icon,
                 size: 18,
               ),
@@ -42,7 +42,7 @@ class PillButton extends StatelessWidget {
             Text(
               title.i18n,
               style: TextStyle(
-                  color: color ?? Theme.of(context).colorScheme.onPrimary),
+                  color: color ?? context.theme.colorScheme.onPrimary),
             ),
           ],
         ),

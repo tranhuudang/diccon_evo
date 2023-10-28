@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class LearningPageItem extends StatelessWidget {
   final int? currentIndex, totalIndex;
@@ -20,7 +21,7 @@ class LearningPageItem extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
-              color: Theme.of(context).colorScheme.primary),
+              color: context.theme.colorScheme.primary),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -28,7 +29,7 @@ class LearningPageItem extends StatelessWidget {
                 Text(
                   word,
                   style: TextStyle(
-                      fontSize: 40, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary,),
+                      fontSize: 40, fontWeight: FontWeight.bold, color: context.theme.colorScheme.onPrimary,),
                 ),
                 Text(phonetic),
                 Text(vietnamese),

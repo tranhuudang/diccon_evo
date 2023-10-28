@@ -22,7 +22,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
   Widget build(BuildContext context) {
     super.build(context);
     final storyHistoryBloc = StoryHistoryBloc();
-    TextTheme textTheme = Theme.of(context).primaryTextTheme;
+    TextTheme textTheme = context.theme.primaryTextTheme;
     return Card(
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
@@ -89,7 +89,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
                         widget.story.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
-                        style: textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                        style: textTheme.titleMedium?.copyWith(color: context.theme.colorScheme.onSurfaceVariant),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Expanded(
@@ -97,7 +97,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
                           maxLines: 2,
                           widget.story.shortDescription,
                           textAlign: TextAlign.start,
-                          style: textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(.5)),
+                          style: textTheme.bodySmall?.copyWith(color: context.theme.colorScheme.onSurfaceVariant.withOpacity(.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

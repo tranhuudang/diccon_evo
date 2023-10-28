@@ -18,7 +18,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: BlocConsumer<StoryBookmarkBloc, StoryBookmarkState>(
           bloc: _storyBookmarkBloc,
           listener: (BuildContext context, StoryBookmarkState state) {},
@@ -92,7 +92,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                         PopupMenuButton(
                           shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Theme.of(context).dividerColor),
+                                color: context.theme.dividerColor),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
                           itemBuilder: (context) => [
@@ -200,7 +200,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                           Text(
                             "Error trying to get Bookmark.".i18n,
                             style: TextStyle(
-                                color: Theme.of(context).highlightColor,
+                                color: context.theme.highlightColor,
                                 fontSize: 18),
                           ),
                         ],

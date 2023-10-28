@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class ImageBubble extends StatelessWidget {
   final String imageUrl;
@@ -23,7 +24,7 @@ class ImageBubble extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: context.theme.colorScheme.primary,
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: ClipRRect(

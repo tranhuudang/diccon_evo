@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/features/features.dart';
 import 'package:diccon_evo/common/common.dart';
+
 class UserSettingsView extends StatefulWidget {
   const UserSettingsView({super.key});
 
@@ -16,31 +17,27 @@ class _UserSettingsViewState extends State<UserSettingsView> {
     userBloc.add(UserLoginEvent());
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: BlocConsumer<UserBloc, UserState>(
           listenWhen: (previous, current) => current is UserActionState,
           buildWhen: (previous, current) => current is! UserActionState,
           listener: (context, state) {
             switch (state.runtimeType) {
               case UserLoggingoutState:
-                Notify.showLoadingAlertDialog(
-                    context: context,
+                context.showLoadingAlertDialog(
                     title: "Logging out".i18n,
                     content:
                         "Your data will be cleared during the process.".i18n);
                 break;
               case UserLogoutCompletedState:
                 Navigator.pop(context);
-                Notify.showSnackBar(
-                    context: context, content: "You are logged out");
+                context.showSnackBar(content: "You are logged out");
                 break;
               case UserSyncCompleted:
-                Notify.showSnackBar(
-                    context: context, content: "Your data is synced");
+                context.showSnackBar(content: "Your data is synced");
                 break;
               case NoInternetState:
-                Notify.showAlertDialogWithoutAction(
-                    context: context,
+                context.showAlertDialogWithoutAction(
                     title: "You're not connected".i18n,
                     content: "SubSentenceInNoInternetBubble".i18n);
                 break;

@@ -32,7 +32,7 @@ class _LearningViewState extends State<LearningView> {
     int currentIndex = 0;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -135,8 +135,8 @@ class _LearningViewState extends State<LearningView> {
                           maxVisibleDots: 5,
                           dotHeight: 8,
                           dotWidth: 8,
-                          activeDotColor: Theme.of(context).colorScheme.primary,
-                          dotColor: Theme.of(context).highlightColor,
+                          activeDotColor: context.theme.colorScheme.primary,
+                          dotColor: context.theme.highlightColor,
                         ),
                       ),
 
@@ -170,7 +170,7 @@ class _LearningViewState extends State<LearningView> {
                           //     height: 50,
                           //     padding: const EdgeInsets.symmetric(horizontal: 16),
                           //       decoration: BoxDecoration(
-                          //         color: Theme.of(context).primaryColor,
+                          //         color: context.theme.primaryColor,
                           //         borderRadius: BorderRadius.circular(32),
                           //       ),
                           //       child: const Center(child: Text("Mark as done"))),
@@ -179,8 +179,8 @@ class _LearningViewState extends State<LearningView> {
                           CircleButton(
 
                             backgroundColor: data.isCurrentWordFavourite
-                                ? Theme.of(context).colorScheme.primary
-                                : Theme.of(context).highlightColor,
+                                ? context.theme.colorScheme.primary
+                                : context.theme.highlightColor,
                             iconData: FontAwesomeIcons.heart,
                             onTap: () {
                               if (data.isCurrentWordFavourite) {

@@ -1,3 +1,4 @@
+import 'package:diccon_evo/common/common.dart';
 import 'package:diccon_evo/common/extensions/i18n.dart';
 import 'package:diccon_evo/common/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class WordHistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             BlocBuilder<WordHistoryBloc, WordHistoryState>(
@@ -75,7 +76,7 @@ class WordHistoryView extends StatelessWidget {
                 PopupMenuButton(
                   //splashRadius: 10.0,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Theme.of(context).dividerColor),
+                    side: BorderSide(color: context.theme.dividerColor),
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   itemBuilder: (context) => [
@@ -108,8 +109,7 @@ class WordHistoryView extends StatelessWidget {
                 child: Row(
                   children: [
                     FilledButton.icon(onPressed: (){
-                      Notify.showAlertDialog(
-                          context: context,
+                      context.showAlertDialog(
                           title: "Delete History".i18n,
                           content:
                           "AskQuestionBeforeDelete".i18n,

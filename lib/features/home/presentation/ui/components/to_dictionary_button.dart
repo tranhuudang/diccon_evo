@@ -20,22 +20,22 @@ class ToDictionaryButton extends StatelessWidget {
         children: [
           Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: context.theme.colorScheme.primary,
                 borderRadius: BorderRadius.circular(50),
               ),
               padding: const EdgeInsets.all(8),
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).colorScheme.surface,
+                color: context.theme.colorScheme.surface,
               )),
           const SizedBox(height: 8),
            Text(
             "Diccon dual-mode",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: context.theme.textTheme.labelSmall,
           ),
            Text(
             "Dictionary".i18n,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+            style: context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 16),
         ],

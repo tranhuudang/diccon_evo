@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/features/features.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class BrickWallButtons extends StatelessWidget {
   final List<String> listString;
@@ -29,7 +30,7 @@ class BrickWallButtons extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(
                       color:
-                          borderColor ?? Theme.of(context).colorScheme.primary,
+                          borderColor ?? context.theme.colorScheme.primary,
                     ),
                     //color: Colors.blue[400],
                     borderRadius: BorderRadius.circular(16),
@@ -43,7 +44,7 @@ class BrickWallButtons extends StatelessWidget {
                       item,
                       style: TextStyle(
                           color: textColor ??
-                              Theme.of(context).colorScheme.primary),
+                              context.theme.colorScheme.primary),
                     ),
                   ));
             }).toList(),

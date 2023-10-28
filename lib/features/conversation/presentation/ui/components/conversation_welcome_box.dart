@@ -2,6 +2,7 @@
 import 'package:diccon_evo/common/extensions/i18n.dart';
 import 'package:diccon_evo/common/extensions/sized_box.dart';
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class ConversationWelcome extends StatelessWidget {
   const ConversationWelcome({super.key});
@@ -22,7 +23,7 @@ class ConversationWelcome extends StatelessWidget {
               ),
               Text(
                 "Enhance your communication skills with our advanced bot.".i18n,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: context.theme.textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox().mediumHeight(),
@@ -30,7 +31,7 @@ class ConversationWelcome extends StatelessWidget {
                 opacity: 0.5,
                 child: Text(
                   "This practice will prepare you for various real-life conversation scenarios.".i18n,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: context.theme.textTheme.bodyMedium,
                 ),
               ),
 

@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:diccon_evo/features/features.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:diccon_evo/common/common.dart';
 import '../../../../../common/data/models/word.dart';
 
 class LocalDictionaryBubble extends StatefulWidget {
@@ -67,7 +66,7 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
                         children: [
                           WordTitle(
                             message: widget.word,
-                            titleColor: Theme.of(context).colorScheme.onSecondary,
+                            titleColor: context.theme.colorScheme.onSecondary,
                           ),
                           const SizedBox(
                             width: 8.0,
@@ -86,9 +85,9 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
                               chatListBloc.add(
                                   AddTranslation(providedWord: currentWord));
                             },
-                            highlightColor:            Theme.of(context).colorScheme.onSecondary,
+                            highlightColor:            context.theme.colorScheme.onSecondary,
 
-                            subColor:   Theme.of(context).colorScheme.onSecondary.withOpacity(.8),
+                            subColor:   context.theme.colorScheme.onSecondary.withOpacity(.8),
                           ),
                         ],
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class UserBubblePreview extends StatelessWidget {
   final String content;
@@ -16,7 +17,7 @@ class UserBubblePreview extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondaryContainer,
+            color: context.theme.colorScheme.secondaryContainer,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(0.0),
               topRight: Radius.circular(16.0),
@@ -26,8 +27,8 @@ class UserBubblePreview extends StatelessWidget {
           ),
           child: Text(
             content,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer),
+            style: context.theme.textTheme.titleMedium?.copyWith(
+                color: context.theme.colorScheme.onSecondaryContainer),
           ),
         ),
       ],

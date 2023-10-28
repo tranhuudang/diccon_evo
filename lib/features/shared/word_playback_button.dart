@@ -40,7 +40,7 @@ class _WordPlaybackButtonState extends State<WordPlaybackButton> {
                   icon: Icon(
                     Icons.volume_up_sharp,
                     color: widget.buttonColor ??
-                        Theme.of(context).colorScheme.onSecondary,
+                        context.theme.colorScheme.onSecondary,
                   ),
                   onPressed: () {
                     final progressStream =

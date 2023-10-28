@@ -11,7 +11,7 @@ class FeedbackHelper {
         (Properties.defaultSetting.openAppCount == 50) ||
         (Properties.defaultSetting.openAppCount == 100)) {
       showModalBottomSheet(
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        backgroundColor: context.theme.colorScheme.secondaryContainer,
         context: context,
         builder: (context) {
           return Padding(
@@ -28,8 +28,8 @@ class FeedbackHelper {
                   ),
                   Center(
                     child: Text("We'd love to hear your feedback!".i18n,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Theme.of(context)
+                        style: context.theme.textTheme.titleLarge?.copyWith(
+                            color: context.theme
                                 .colorScheme
                                 .onSecondaryContainer)),
                   ),
@@ -38,9 +38,9 @@ class FeedbackHelper {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PillButton(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: context.theme.colorScheme.onPrimary,
                           backgroundColor:
-                              Theme.of(context).colorScheme.primary,
+                              context.theme.colorScheme.primary,
                           onTap: () {
                             Properties.defaultSetting =
                                 Properties.defaultSetting.copyWith(
@@ -53,11 +53,11 @@ class FeedbackHelper {
                           title: "Give feedbacks".i18n),
                       const SizedBox().largeWidth(),
                       PillButton(
-                          color: Theme.of(context)
+                          color: context.theme
                               .colorScheme
                               .onSecondaryContainer,
                           backgroundColor:
-                              Theme.of(context).colorScheme.secondaryContainer,
+                              context.theme.colorScheme.secondaryContainer,
                           onTap: () {
                             Properties.defaultSetting =
                                 Properties.defaultSetting.copyWith(

@@ -98,22 +98,22 @@ class _VoiceListeningBottomSheetState extends State<VoiceListeningBottomSheet> {
                   pause: false,
                   indicatorType: Indicator.lineScalePulseOut,
                   colors: [
-                    Theme.of(context).colorScheme.primary.withOpacity(.5),
-                    Theme.of(context).colorScheme.primary.withOpacity(.9),
-                    Theme.of(context).colorScheme.primary.withOpacity(.4),
-                    Theme.of(context).colorScheme.primary.withOpacity(.8),
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                    context.theme.colorScheme.primary.withOpacity(.5),
+                    context.theme.colorScheme.primary.withOpacity(.9),
+                    context.theme.colorScheme.primary.withOpacity(.4),
+                    context.theme.colorScheme.primary.withOpacity(.8),
+                    context.theme.colorScheme.primary.withOpacity(.2),
                   ],
                 )
                     : LoadingIndicator(
                   pause: true,
                   indicatorType: Indicator.lineScalePulseOut,
                   colors: [
-                    Theme.of(context).colorScheme.primary.withOpacity(.5),
-                    Theme.of(context).colorScheme.primary.withOpacity(.9),
-                    Theme.of(context).colorScheme.primary.withOpacity(.4),
-                    Theme.of(context).colorScheme.primary.withOpacity(.8),
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                    context.theme.colorScheme.primary.withOpacity(.5),
+                    context.theme.colorScheme.primary.withOpacity(.9),
+                    context.theme.colorScheme.primary.withOpacity(.4),
+                    context.theme.colorScheme.primary.withOpacity(.8),
+                    context.theme.colorScheme.primary.withOpacity(.2),
                   ],
                 ),
               ),
@@ -126,10 +126,10 @@ class _VoiceListeningBottomSheetState extends State<VoiceListeningBottomSheet> {
                 child: Text(
                   listeningResult.data!,
                   style: listeningResult.data!.length < 40
-                      ? Theme.of(context).textTheme.headlineSmall
+                      ? context.theme.textTheme.headlineSmall
                       : listeningResult.data!.length < 80
-                      ? Theme.of(context).textTheme.titleMedium
-                      : Theme.of(context).textTheme.titleSmall,
+                      ? context.theme.textTheme.titleMedium
+                      : context.theme.textTheme.titleSmall,
                 ),
               ),
               Row(
@@ -138,7 +138,7 @@ class _VoiceListeningBottomSheetState extends State<VoiceListeningBottomSheet> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: Theme.of(context).colorScheme.primary,
+                      color: context.theme.colorScheme.primary,
                     ),
                     child: listeningResult.data!.isNotEmpty
                         ? IconButton(
@@ -149,21 +149,21 @@ class _VoiceListeningBottomSheetState extends State<VoiceListeningBottomSheet> {
                       },
                       icon: Icon(
                         Icons.send_rounded,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: context.theme.colorScheme.onPrimary,
                         size: 30,
                       ),
                     )
                         : Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: Theme.of(context).colorScheme.primary,
+                        color: context.theme.colorScheme.primary,
                       ),
                       child: IconButton(
                         onPressed: () {
                           startListening();
                         },
                         icon: const Icon(Icons.mic_none),
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: context.theme.colorScheme.onPrimary,
                       ),
                     ),
                   ),

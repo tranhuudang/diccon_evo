@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
 class TipsBox extends StatelessWidget {
   final List<Widget> children;
@@ -27,9 +28,9 @@ class TipsBox extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceTint,
+                        color: context.theme.colorScheme.surfaceTint,
                         borderRadius: BorderRadius.circular(16)),
-                    child: Text(title!, style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),)),
+                    child: Text(title!, style: TextStyle(color: context.theme.colorScheme.onSecondary),)),
               ),
             Row(
               children: [

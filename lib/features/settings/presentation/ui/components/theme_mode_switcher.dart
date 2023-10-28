@@ -37,8 +37,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.light
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).highlightColor,
+                          ? context.theme.colorScheme.primary
+                          : context.theme.highlightColor,
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(16),
                           bottomLeft: Radius.circular(16))),
@@ -47,8 +47,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                       Icon(
                         Icons.light_mode,
                         color: snapshot.data == ThemeMode.light
-                            ? Theme.of(context).colorScheme.onPrimary
-                            : Theme.of(context)
+                            ? context.theme.colorScheme.onPrimary
+                            : context.theme
                                 .colorScheme
                                 .onSecondaryContainer,
                       ),
@@ -59,8 +59,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                           "Light mode".i18n,
                           style: TextStyle(
                             color: snapshot.data == ThemeMode.light
-                                ? Theme.of(context).colorScheme.onPrimary
-                                : Theme.of(context)
+                                ? context.theme.colorScheme.onPrimary
+                                : context.theme
                                     .colorScheme
                                     .onSecondaryContainer,
                           ),
@@ -86,16 +86,16 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                     color: snapshot.data == ThemeMode.dark
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).highlightColor,
+                        ? context.theme.colorScheme.primary
+                        : context.theme.highlightColor,
                   ),
                   child: Row(
                     children: [
                       Icon(
                         Icons.dark_mode,
                         color: snapshot.data == ThemeMode.dark
-                            ? Theme.of(context).colorScheme.onPrimary
-                            : Theme.of(context)
+                            ? context.theme.colorScheme.onPrimary
+                            : context.theme
                                 .colorScheme
                                 .onSecondaryContainer,
                       ),
@@ -106,8 +106,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                           "Dark mode".i18n,
                           style: TextStyle(
                             color: snapshot.data == ThemeMode.dark
-                                ? Theme.of(context).colorScheme.onPrimary
-                                : Theme.of(context)
+                                ? context.theme.colorScheme.onPrimary
+                                : context.theme
                                     .colorScheme
                                     .onSecondaryContainer,
                           ),
@@ -133,8 +133,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                       color: snapshot.data == ThemeMode.system
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).highlightColor,
+                          ? context.theme.colorScheme.primary
+                          : context.theme.highlightColor,
                       borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(16),
                         bottomRight: Radius.circular(16),
@@ -144,8 +144,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                       "Adaptive".i18n,
                       style: TextStyle(
                         color: snapshot.data == ThemeMode.system
-                            ? Theme.of(context).colorScheme.onPrimary
-                            : Theme.of(context)
+                            ? context.theme.colorScheme.onPrimary
+                            : context.theme
                                 .colorScheme
                                 .onSecondaryContainer,
                       ),

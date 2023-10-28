@@ -14,7 +14,7 @@ class FavouriteReviewView extends StatelessWidget {
     final pageViewController = PageController();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: context.theme.colorScheme.surface,
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -113,7 +113,7 @@ class FavouriteReviewView extends StatelessWidget {
                         //     height: 50,
                         //     padding: const EdgeInsets.symmetric(horizontal: 16),
                         //       decoration: BoxDecoration(
-                        //         color: Theme.of(context).primaryColor,
+                        //         color: context.theme.primaryColor,
                         //         borderRadius: BorderRadius.circular(32),
                         //       ),
                         //       child: const Center(child: Text("Mark as done"))),

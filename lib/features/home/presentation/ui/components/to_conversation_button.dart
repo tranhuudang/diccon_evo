@@ -11,9 +11,9 @@ class ToConversationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onPrimary = Theme.of(context).colorScheme.onPrimary;
+    final onPrimary = context.theme.colorScheme.onPrimary;
     return FeatureButton(
-      borderColor: Theme.of(context).scaffoldBackgroundColor,
+      borderColor: context.theme.scaffoldBackgroundColor,
       padding: EdgeInsets.zero,
       onTap: () {
         FeedbackHelper.showFeedbackBottomSheet(context);
@@ -26,7 +26,7 @@ class ToConversationButton extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 22),
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+              color: context.theme.colorScheme.primary.withOpacity(0.9),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -34,15 +34,15 @@ class ToConversationButton extends StatelessWidget {
                   const SizedBox(height: 14,),
                   Icon(Icons.chat,
                       size: 32,
-                      color: Theme.of(context).colorScheme.onPrimary),
+                      color: context.theme.colorScheme.onPrimary),
                   const SizedBox(height: 4),
                   Text(
                     "Ask me anything".i18n,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color:onPrimary ),
+                    style: context.theme.textTheme.labelSmall?.copyWith(color:onPrimary ),
                   ),
                   Text(
                     "Javis",
-                    style:  Theme.of(context).textTheme.titleLarge?.copyWith(color:onPrimary, fontWeight: FontWeight.w500 ),
+                    style:  context.theme.textTheme.titleLarge?.copyWith(color:onPrimary, fontWeight: FontWeight.w500 ),
                   ),
                   const SizedBox(height: 16),
                 ],

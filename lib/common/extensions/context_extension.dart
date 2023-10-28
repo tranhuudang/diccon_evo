@@ -1,14 +1,19 @@
-import 'package:diccon_evo/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:diccon_evo/common/common.dart';
 
-class Notify {
-  static void showAlertDialog(
-      {required BuildContext context,
-      required String title,
+extension BuildContextExtension on BuildContext {
+  ThemeData get theme => Theme.of(this);
+  Size get screenSize => MediaQuery.sizeOf(this);
+  double get screenTextScaleFactor => MediaQuery.textScaleFactorOf(this);
+  bool get isSmallScreen => screenSize.width < 800;
+  bool get isMediumScreen => screenSize.width >= 800 && screenSize.width < 1300;
+  bool get isLargeScreen => screenSize.width >= 1300;
+  void showAlertDialog(
+      {required String title,
       required String content,
       required VoidCallback action}) {
     showDialog(
-      context: context,
+      context: this,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
@@ -28,17 +33,16 @@ class Notify {
               },
               child: Text('Cancel'.i18n),
             ),
-
           ],
         );
       },
     );
   }
 
-  static void showAlertDialogWithoutAction({
-      required BuildContext context, required String title, required String content}) {
+  void showAlertDialogWithoutAction(
+      {required String title, required String content}) {
     showDialog(
-      context: context,
+      context: this,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
@@ -57,10 +61,10 @@ class Notify {
     );
   }
 
-  static void showLoadingAlertDialog({
-      required BuildContext context, required String title, required String content}) {
+  void showLoadingAlertDialog(
+      {required String title, required String content}) {
     showDialog(
-      context: context,
+      context: this,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
@@ -77,13 +81,14 @@ class Notify {
     );
   }
 
-  static void showSnackBar({required BuildContext context, required String content}) =>
-      ScaffoldMessenger.of(context).showSnackBar(
+  void showSnackBar({required String content}) =>
+      ScaffoldMessenger.of(this).showSnackBar(
         SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+          backgroundColor: theme.colorScheme.inverseSurface,
           content: Text(
             content,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onInverseSurface),
+            style: theme.textTheme.bodyMedium
+                ?.copyWith(color: theme.colorScheme.onInverseSurface),
           ),
         ),
       );
