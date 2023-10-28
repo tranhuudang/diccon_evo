@@ -24,7 +24,7 @@ class PillButton extends StatelessWidget {
     return InkWell(
       onTap: isDisabled! ? null : onTap,
       child: Container(
-        padding: EdgeInsets.zero.buttonEdgeInsets(),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32),
             color: isDisabled!

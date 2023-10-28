@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../common/data/models/word.dart';
+import '../../../../../common/data/models/word.dart';
 
 class WordPronunciation extends StatelessWidget {
   const WordPronunciation({
