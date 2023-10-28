@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/data/data_providers/history_manager.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 
 /// State
 abstract class WordHistoryState {

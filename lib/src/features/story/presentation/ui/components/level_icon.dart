@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 class LevelIcon extends StatelessWidget {
   final String level;
   const LevelIcon({

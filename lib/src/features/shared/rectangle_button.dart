@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 
 

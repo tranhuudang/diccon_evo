@@ -1,7 +1,7 @@
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:diccon_evo/features/features.dart';
+import 'package:diccon_evo/src/features/features.dart';
 
 class WordHistoryView extends StatelessWidget {
   final WordHistoryBloc wordHistoryBloc;

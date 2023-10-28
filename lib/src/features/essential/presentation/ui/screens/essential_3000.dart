@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:diccon_evo/features/features.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/features/features.dart';
+import 'package:diccon_evo/src/common/common.dart';
 import '../../../../../common/data/data_providers/history_manager.dart';
 
 class EssentialView extends StatefulWidget {

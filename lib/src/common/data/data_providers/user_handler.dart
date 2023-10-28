@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {
     final onlinePath = "users/${Properties.userInfo.uid}/$fileName";

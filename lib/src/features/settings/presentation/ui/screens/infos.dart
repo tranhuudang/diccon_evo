@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:diccon_evo/features/features.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/features/features.dart';
+import 'package:diccon_evo/src/common/common.dart';
 class InfosView extends StatefulWidget {
   const InfosView({super.key});
 

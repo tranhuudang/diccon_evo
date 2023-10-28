@@ -1,5 +1,5 @@
 import '../models/chat_preview.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 
 
 

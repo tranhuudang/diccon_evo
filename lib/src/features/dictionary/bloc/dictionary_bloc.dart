@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:diccon_evo/features/features.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/features/features.dart';
+import 'package:diccon_evo/src/common/common.dart';
 
 import '../../../common/data/data_providers/searching.dart';
 import '../../../common/data/models/word.dart';

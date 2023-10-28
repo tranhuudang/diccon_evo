@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'feature_button.dart';
-import 'package:diccon_evo/features/features.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/features/features.dart';
+import 'package:diccon_evo/src/common/common.dart';
 class ToReadingChamberButton extends StatelessWidget {
   const ToReadingChamberButton({
     super.key,

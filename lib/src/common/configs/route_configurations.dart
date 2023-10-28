@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import '../data/models/story.dart';
-import 'package:diccon_evo/features/features.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/features/features.dart';
+import 'package:diccon_evo/src/common/common.dart';
 
 GoRouter router = GoRouter(
   routes: [

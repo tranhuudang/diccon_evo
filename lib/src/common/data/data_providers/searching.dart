@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../models/word.dart';
 import 'history_manager.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 
 class Searching {
   static Future<Word> getDefinition(String searchWord) async  {

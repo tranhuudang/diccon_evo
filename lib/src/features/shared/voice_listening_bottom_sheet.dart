@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

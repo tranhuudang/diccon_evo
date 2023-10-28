@@ -5,7 +5,7 @@ import '../data/models/setting.dart';
 import '../data/models/user_info.dart';
 import '../data/models/word.dart';
 import 'package:flutter/material.dart';
-import 'package:diccon_evo/common/common.dart';
+import 'package:diccon_evo/src/common/common.dart';
 
 class Properties {
   /// Manually change this version base on commit count
