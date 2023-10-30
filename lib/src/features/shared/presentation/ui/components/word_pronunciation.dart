@@ -13,7 +13,7 @@ class WordPronunciation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "/${message.pronunciation}/" ?? "",
+      message.pronunciation == "" ? "/${message.pronunciation}/" : "",
       style: TextStyle(
         color: context.theme.colorScheme.onSurface,
         fontStyle: FontStyle.italic,

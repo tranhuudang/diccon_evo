@@ -67,6 +67,8 @@ dependencies:
   speech_to_text: ^6.3.0
   loading_indicator: ^3.1.1
   sqflite: ^2.3.0
+  # The path package provides common operations for manipulating paths: joining, splitting, normalizing, etc
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:

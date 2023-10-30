@@ -10,9 +10,9 @@ import 'package:diccon_evo/src/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();
-  await DatabaseHelper.initialize();
   /// Initial Firebase
   if (Platform.isAndroid) {
+    await DatabaseHelper.initialize();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.android,
     );

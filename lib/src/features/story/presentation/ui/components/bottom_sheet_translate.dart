@@ -66,7 +66,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   }
 
   _getLocalDefinition() async {
-    _wordResult = await Searching.getDefinition(widget.searchWord);
+    var searchingEngine = SearchingEngine();
+    _wordResult = await searchingEngine.getDefinition(widget.searchWord);
     setState(() {
       _isLoading = false;
     });
