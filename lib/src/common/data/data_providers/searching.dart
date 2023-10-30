@@ -7,8 +7,14 @@ import 'package:diccon_evo/src/common/common.dart';
 class SearchingEngine {
   Future<Word> getDefinition(String word) async {
     if (defaultTargetPlatform.isAndroid()) {
+      if (kDebugMode) {
+        print("Get result from AndroidEngine using SQLite");
+      }
       return await _getDefinitionForAndroid(word);
     } else if (defaultTargetPlatform.isWindows()) {
+      if (kDebugMode) {
+        print("Get result from WindowsEngine using Classic Text Search");
+      }
       return await _getDefinitionForWindows(word);
     } else {
       return await _getDefinitionForWindows(word);
