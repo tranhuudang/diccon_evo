@@ -18,6 +18,7 @@ class _DictionaryViewState extends State<DictionaryView> {
   final ImageHandler _imageProvider = ImageHandler();
   final suggestionWordListDb = SuggestionDatabase.instance;
   final _wordHistoryBloc = WordHistoryBloc();
+  final DictionaryRepository dictionaryRepository = DictionaryRepositoryImpl();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
   bool _hasImages = false;
@@ -52,8 +53,9 @@ class _DictionaryViewState extends State<DictionaryView> {
       );
 
       /// Get and add list synonyms to message box
-      var listSynonyms = ThesaurusRepositoryImpl().getSynonyms(searchWord);
-      var listAntonyms = ThesaurusRepositoryImpl().getAntonyms(searchWord);
+      var listSynonyms = await dictionaryRepository.getSynonyms(searchWord);
+      var listAntonyms = await dictionaryRepository.getAntonyms(searchWord);
+
       if (listSynonyms.isNotEmpty) {
         _hasSynonyms = true;
       }

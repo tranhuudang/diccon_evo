@@ -27,6 +27,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   final TextEditingController textController = TextEditingController();
   List<Widget> _chatList = [const DictionaryWelcome()];
   bool _isReportedAboutDisconnection = false;
+  final DictionaryRepository dictionaryRepository = DictionaryRepositoryImpl();
 
   /// Implement Events and Callbacks
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
@@ -36,16 +37,18 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     emit(ImageAdded());
   }
 
-  void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) {
-    var listSynonyms = ThesaurusRepositoryImpl().getSynonyms(event.providedWord);
+  void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) async {
+    var listSynonyms =
+        await dictionaryRepository.getSynonyms(event.providedWord);
     _chatList.add(BrickWallButtons(listString: listSynonyms));
     emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
     emit(SynonymsAdded());
   }
 
-  void _addAntonymsList(AddAntonyms event, Emitter<ChatListState> emit) {
-    var listAntonyms = ThesaurusRepositoryImpl().getAntonyms(event.providedWord);
+  void _addAntonymsList(AddAntonyms event, Emitter<ChatListState> emit) async {
+    var listAntonyms =
+        await dictionaryRepository.getAntonyms(event.providedWord);
     _chatList.add(BrickWallButtons(
         textColor: Colors.orange,
         borderColor: Colors.orangeAccent,
@@ -91,7 +94,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       emit(ChatListUpdated(chatList: _chatList));
       _isReportedAboutDisconnection = true;
     }
-    var newChatGptRepository = ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: PropertiesConstants.dictionaryKey));
+    var newChatGptRepository = ChatGptRepositoryImplement(
+        chatGpt: ChatGpt(apiKey: PropertiesConstants.dictionaryKey));
     _listChatGptRepository.add(newChatGptRepository);
     var chatGptRepositoryIndex = _listChatGptRepository.length - 1;
     var wordResult = await _getLocalTranslation(event.providedWord);
@@ -105,13 +109,14 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     _scrollChatListToBottom();
   }
 
-
-  FutureOr<void> _createNewChatlist(CreateNewChatlist event, Emitter<ChatListState> emit){
+  FutureOr<void> _createNewChatlist(
+      CreateNewChatlist event, Emitter<ChatListState> emit) {
     _listChatGptRepository = [];
     textController.clear();
     _chatList = [const DictionaryWelcome()];
     emit(ChatListUpdated(chatList: _chatList));
   }
+
   Future<Word> _getLocalTranslation(String providedWord) async {
     DictionaryRepository searchingEngine = DictionaryRepositoryImpl();
     Word? wordResult = await searchingEngine.getDefinition(providedWord);

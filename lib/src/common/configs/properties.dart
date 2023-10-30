@@ -10,8 +10,6 @@ class Properties {
   /// Manually change this version base on commit count
 
   static UserInfo userInfo = UserInfo.empty();
-  static Map<String, List<String>> synonymsData = {};
-  static Map<String, List<String>> antonymsData = {};
 
   // Focus of this textField cause a lot of trouble as the keyboard keep open up
   // when focus still in the textField, so we move it here to make it static to

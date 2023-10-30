@@ -30,9 +30,6 @@ class _HomeViewState extends State<HomeView> with WindowListener {
       print(
           " Current Properties.defaultSetting.openAppCount value: ${Properties.defaultSetting.openAppCount.toString()}");
     }
-
-    // Load up thesaurus dictionary
-    ThesaurusRepositoryImpl().loadThesaurus();
   }
 
   /// Detect when windows is changing size
