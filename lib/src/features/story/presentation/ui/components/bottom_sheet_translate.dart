@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
-import '../../../../../common/data/data_providers/searching.dart';
 import '../../../../../common/data/models/word.dart';
+
 class BottomSheetTranslation extends StatefulWidget {
   final String searchWord;
   final Function(String)? onWordTap;
@@ -61,12 +59,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   void initState() {
     super.initState();
     _getLocalDefinition();
-
     _sendAndGetResponse();
   }
 
   _getLocalDefinition() async {
-    var searchingEngine = SearchingEngine();
+    DictionaryRepository searchingEngine = DictionaryRepositoryImpl();
     _wordResult = await searchingEngine.getDefinition(widget.searchWord);
     setState(() {
       _isLoading = false;
@@ -132,9 +129,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                   ),
                                   WordPronunciation(message: _wordResult),
                                   WordPlaybackButton(
-                                      buttonColor: context.theme
-                                          .colorScheme
-                                          .onSurface,
+                                      buttonColor:
+                                          context.theme.colorScheme.onSurface,
                                       message: _wordResult.word),
                                 ],
                               ),
@@ -145,9 +141,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     onWordTap: widget.onWordTap,
                                     highlightColor:
                                         context.theme.colorScheme.onSurface,
-                                    subColor: context.theme
-                                        .colorScheme
-                                        .onSurface
+                                    subColor: context
+                                        .theme.colorScheme.onSurface
                                         .withOpacity(.8),
                                   ),
                                 ],
@@ -163,13 +158,10 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     const EdgeInsets.symmetric(vertical: 16),
                                 child: Text(
                                   answer,
-                                  style: context.theme
-                                      .textTheme
-                                      .titleMedium
+                                  style: context.theme.textTheme.titleMedium
                                       ?.copyWith(
-                                          color: context.theme
-                                              .colorScheme
-                                              .onSurface),
+                                          color: context
+                                              .theme.colorScheme.onSurface),
                                 ),
                               )
                             ],

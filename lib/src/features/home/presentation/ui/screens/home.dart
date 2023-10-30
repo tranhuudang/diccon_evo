@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -32,13 +31,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
           " Current Properties.defaultSetting.openAppCount value: ${Properties.defaultSetting.openAppCount.toString()}");
     }
 
-    /// Because getWordList for Dictionary take time to complete, so it'll be put behind pages[] to have a better feel of speed.
-    Properties.wordList = await DictionaryRepositoryImplement().getWordList();
     // Load up thesaurus dictionary
     ThesaurusRepositoryImpl().loadThesaurus();
-    // Load up suggestion list word
-    Properties.suggestionListWord =
-        await DictionaryRepositoryImplement().getSuggestionWordList();
   }
 
   /// Detect when windows is changing size

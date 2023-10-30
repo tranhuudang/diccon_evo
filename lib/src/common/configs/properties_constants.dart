@@ -18,6 +18,8 @@ class PropertiesConstants {
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
   static const String evDataPath = 'assets/dictionary/diccon_ev.txt';
   static const String veDataPath = 'assets/dictionary/diccon_ve.txt';
+
+  static const String suggestionListPath = 'assets/dictionary/109k.txt';
   static const String essentialWordFileName =
       "assets/essential/3000_essential_words.json";
   static const String wordHistoryFileName = 'dictionary_history.json';

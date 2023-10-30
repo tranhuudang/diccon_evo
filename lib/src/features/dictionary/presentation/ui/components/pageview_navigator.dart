@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:diccon_evo/src/features/features.dart';
-import 'package:flutter/material.dart';
-
 class PageViewNavigator extends StatefulWidget {
   const PageViewNavigator({
     super.key,

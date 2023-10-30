@@ -4,18 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
-class DatabaseHelper {
 
-  DatabaseHelper._privateConstructor() {
-    _initDB();
-  }
+class DictionaryDatabaseAndroid {
+  DictionaryDatabaseAndroid._privateConstructor();
   static Future<void> initialize() async {
     if (instance._database == null) {
       await instance._initDB();
     }
   }
 
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+  static final DictionaryDatabaseAndroid instance = DictionaryDatabaseAndroid._privateConstructor();
   Database? _database;
 
   Future<Database> get database async {
@@ -57,5 +55,4 @@ class DatabaseHelper {
     final db = await instance.database;
     return await db.query('en_vi', where: 'word = ?', whereArgs: [word]);
   }
-
 }

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:diccon_evo/src/common/data/data_providers/dictionary_database.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,7 +11,6 @@ void main() async {
   Properties.getSettings();
   /// Initial Firebase
   if (Platform.isAndroid) {
-    await DatabaseHelper.initialize();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.android,
     );

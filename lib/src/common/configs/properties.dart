@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/models/setting.dart';
 import '../data/models/user_info.dart';
-import '../data/models/word.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
@@ -11,11 +10,6 @@ class Properties {
   /// Manually change this version base on commit count
 
   static UserInfo userInfo = UserInfo.empty();
-
-  static List<Word> wordList = [];
-  static List<String> suggestionListWord = [];
-
-  // Thesaurus
   static Map<String, List<String>> synonymsData = {};
   static Map<String, List<String>> antonymsData = {};
 

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -16,6 +16,7 @@ class DictionaryView extends StatefulWidget {
 
 class _DictionaryViewState extends State<DictionaryView> {
   final ImageHandler _imageProvider = ImageHandler();
+  final suggestionWordListDb = SuggestionDatabase.instance;
   final _wordHistoryBloc = WordHistoryBloc();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
@@ -302,13 +303,14 @@ class _DictionaryViewState extends State<DictionaryView> {
                     .add(AddWordToHistory(providedWord: providedWord));
                 _handleSubmitted(providedWord, context);
               },
-              onChanged: (currentValue) {
+              onChanged: (currentValue) async {
                 Set<String> listStartWith = {};
                 Set<String> listContains = {};
+                final suggestionWordList = await suggestionWordListDb.database;
                 var refinedWord = currentValue.toLowerCase();
                 const int suggestionLimit = 5;
                 if (refinedWord.length > 1) {
-                  for (final element in Properties.suggestionListWord) {
+                  for (final element in suggestionWordList) {
                     if (element.startsWith(refinedWord)) {
                       listStartWith.add(element);
                       if (listStartWith.length >= suggestionLimit) {

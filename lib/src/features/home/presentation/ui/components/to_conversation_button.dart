@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';

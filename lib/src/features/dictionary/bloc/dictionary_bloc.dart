@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
-import '../../../common/data/data_providers/searching.dart';
 import '../../../common/data/models/word.dart';
 
 part 'dictionary_state.dart';
@@ -116,7 +113,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     emit(ChatListUpdated(chatList: _chatList));
   }
   Future<Word> _getLocalTranslation(String providedWord) async {
-    var searchingEngine = SearchingEngine();
+    DictionaryRepository searchingEngine = DictionaryRepositoryImpl();
     Word? wordResult = await searchingEngine.getDefinition(providedWord);
     if (wordResult != Word.empty()) {
       if (kDebugMode) {

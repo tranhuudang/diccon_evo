@@ -1,5 +1,4 @@
 import 'package:diccon_evo/src/common/common.dart';
-import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/features/features.dart';
 class Section extends StatelessWidget {
   final String? title;
