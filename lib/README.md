@@ -1,22 +1,37 @@
-// Don't forget to check msix config for icon's path in pubspec.yaml. The path might be not right as we change the location path.
+# Project Name
 
-### CREATE MSIX PACKAGE
-// Creating an MSIX installer
-// To create a MSIX installer, run the following command:
-// ****** NOTE: Don't forget to change version in pubspec.yml before create package
-PS c:\src\flutter_project> dart run msix:create
+Diccon Dictionary
 
+## MSIX Configuration
 
-### ANDROID RELEASE
-Remember to change versionCode before upload AppBundle to Google Console
-Go to pubspec.yml to change version: 1.0.2+2
-f
-### KEYSTORE
-Keystore is saved in Onedrive Vault
-Remember to change path for keystore in android/key.properties
-
-Remember to change version (v93) in Properties view too
-
-##
-make sure icon is in the right place as it is setup in pubspec.yaml
+Before proceeding, ensure that your MSIX configuration is set up correctly in the `pubspec.yaml` file. The icon's path might need to be updated if you've changed the location path.
 C:\Users\Zr\StudioProjects\diccon_evo\assets\dictionary\icon.ico
+
+### Creating an MSIX Package
+
+To create an MSIX installer, follow these steps:
+
+1. Make sure you have the correct version set in your `pubspec.yaml` before creating the package.
+
+2. Open your command prompt or terminal.
+
+3. Run the following command:
+
+   ```bash
+   dart run msix:create
+
+## Android Release
+When preparing an Android release, make sure to update the versionCode in the AndroidManifest.xml file and the version in the pubspec.yaml file. Here's how:
+
+Open pubspec.yaml and change the version to the desired value (e.g., 1.0.2+2).
+
+Update the versionCode in the AndroidManifest.xml file in your Android project.
+
+## Keystore
+Your keystore is stored in the Onedrive Vault. If you need to change the keystore path or any other related settings, follow these steps:
+
+Open the android/key.properties file.
+
+Update the keystore path as necessary.
+
+Don't forget to update the version (e.g., v93) in the Properties view too to change the version displayed in the app.
