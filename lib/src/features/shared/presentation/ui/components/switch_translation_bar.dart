@@ -30,7 +30,6 @@ class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
           initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
           builder: (context, selectedItem) {
             return SegmentedButton<TranslationChoices>(
-              showSelectedIcon: true,
               segments: [
                 ButtonSegment(
                   value: TranslationChoices.classic,

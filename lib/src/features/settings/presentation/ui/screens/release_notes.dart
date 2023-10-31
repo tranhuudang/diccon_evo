@@ -19,9 +19,9 @@ class ReleaseNotes extends StatelessWidget {
                   version: '394',
                   date: '30-10-2023',
                   changesNote: [
-                    'Tăng tốc độ tìm kiếm khi sử dụng từ điển Cổ điển'
+                    'Tăng tốc độ tìm kiếm khi sử dụng từ điển Cổ điển',
                     'Giảm thiểu mức sử dụng RAM trên thiết bị Android và Windows',
-                    'Sửa lỗi và cải thiện hiệu năng'
+                    'Sửa lỗi và cải thiện hiệu năng',
                   ],
                 ),
                 ReleaseNotesItem(

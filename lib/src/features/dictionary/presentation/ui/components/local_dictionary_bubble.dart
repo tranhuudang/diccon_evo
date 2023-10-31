@@ -70,7 +70,9 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
                           const SizedBox(
                             width: 8.0,
                           ),
-                          WordPronunciation(message: widget.word),
+                          WordPronunciation(
+                            color: context.theme.colorScheme.onSecondary,
+                              message: widget.word),
                           WordPlaybackButton(message: widget.word.word),
                         ],
                       ),
