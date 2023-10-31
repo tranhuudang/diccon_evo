@@ -3,9 +3,9 @@ import 'package:diccon_evo/src/common/common.dart';
 
 class UserBubble extends StatelessWidget {
   const UserBubble({
-    Key? key,
+    super.key,
     required this.message, required this.onTap,
-  }) : super(key: key);
+  });
 
   final String message;
   final VoidCallback onTap;

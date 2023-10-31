@@ -6,10 +6,10 @@ import '../../../../../common/data/models/word.dart';
 
 class LocalDictionaryBubble extends StatefulWidget {
   const LocalDictionaryBubble({
-    Key? key,
+    super.key,
     required this.word,
     this.onWordTap,
-  }) : super(key: key);
+  });
 
   final Word word;
   final Function(String)? onWordTap;

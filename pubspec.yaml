@@ -20,7 +20,7 @@ dependencies:
   path_provider: ^2.1.1
   audioplayers: ^5.1.0
   # Package for Packaging Windows App
-  msix: ^3.16.4
+  msix: ^3.16.5
   cached_network_image: ^3.2.3
   flutter_cache_manager: ^3.3.1
   # Save settings
@@ -34,13 +34,14 @@ dependencies:
   # Help us loaf svg image
   flutter_svg: ^2.0.7
   # Open link
-  url_launcher: ^6.1.14
+  url_launcher: ^6.2.1
   # using firebase_core: ^2.10.0 get windows build without error
-  firebase_core: ^2.17.0
-  google_sign_in: ^6.1.5
-  firebase_auth: ^4.10.1
+  firebase_core: ^2.20.0
+  firebase_auth: ^4.12.0
   firebase_storage: ^11.2.8
-  firebase_app_check: ^0.2.0+1
+  firebase_database: ^10.3.2
+  firebase_app_check: ^0.2.1+2
+  google_sign_in: ^6.1.5
 
   # custom icon
   font_awesome_flutter: ^10.5.0
@@ -55,16 +56,15 @@ dependencies:
   # create dotted indicator for pageview
   smooth_page_indicator: ^1.1.0
   # create route for application
-  go_router: ^11.1.2
+  go_router: ^12.0.1
   collection: ^1.17.0
   flutter_localizations:
     sdk: flutter
   # use for customizing theme
-  dynamic_color: ^1.6.7
-  flutter_material_color_picker: ^1.2.0
+  dynamic_color: ^1.6.8
   #wave animation
   wave: ^0.2.2
-  speech_to_text: ^6.3.0
+  speech_to_text: ^6.4.0
   loading_indicator: ^3.1.1
   sqflite: ^2.3.0
   # The path package provides common operations for manipulating paths: joining, splitting, normalizing, etc
@@ -73,7 +73,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.3
+  flutter_lints: ^3.0.0
 
 # The following section is specific to Flutter packages.
 flutter:

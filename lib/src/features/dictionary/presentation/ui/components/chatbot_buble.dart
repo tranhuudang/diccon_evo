@@ -7,13 +7,13 @@ import 'package:diccon_evo/src/common/common.dart';
 
 class ChatbotBubble extends StatefulWidget {
   const ChatbotBubble({
-    Key? key,
+    super.key,
     this.onWordTap,
     required this.word,
     required this.chatListController,
     required this.index,
     required this.listChatGptRepository,
-  }) : super(key: key);
+  });
 
   final Function(String)? onWordTap;
   final String word;

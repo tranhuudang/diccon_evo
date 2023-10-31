@@ -4,8 +4,8 @@ import 'package:diccon_evo/src/common/common.dart';
 class ConversationMachineBubble extends StatelessWidget {
   final String content;
   const ConversationMachineBubble({
-    Key? key, required this.content,
-  }) : super(key: key);
+    super.key, required this.content,
+  });
 
 
   @override

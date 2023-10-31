@@ -9,9 +9,9 @@ class StoryReadingView extends StatefulWidget {
   final Story story;
 
   const StoryReadingView({
-    Key? key,
+    super.key,
     required this.story,
-  }) : super(key: key);
+  });
 
   @override
   State<StoryReadingView> createState() => _StoryReadingViewState();
