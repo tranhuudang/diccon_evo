@@ -183,6 +183,7 @@ class _ConversationViewState extends State<ConversationView> {
                                       }
 
                                       return SearchBox(
+                                        enableCamera: false,
                                         hintText: "Send a message for practice".i18n,
                                         onSubmitted: (providedWord) {
                                           //_handleSubmitted(providedWord, context);

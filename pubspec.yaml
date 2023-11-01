@@ -45,7 +45,9 @@ dependencies:
   google_sign_in: ^6.1.5
 
   # custom icon
-  font_awesome_flutter: ^10.5.0
+  font_awesome_flutter: ^10.6.0
+  unicons: ^2.1.1
+
 
   # localization
   i18n_extension: ^9.0.2
