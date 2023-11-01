@@ -72,8 +72,7 @@ GoRouter router = GoRouter(
             name: RouterConstants.wordHistory,
             path: 'history',
             pageBuilder: (context, state) {
-              var wordHistoryBloc = state.extra as WordHistoryBloc;
-              return MaterialPage(child: I18n(child:  WordHistoryView(wordHistoryBloc: wordHistoryBloc,)));
+              return MaterialPage(child: I18n(child:  const WordHistoryView()));
             },
           ),
 

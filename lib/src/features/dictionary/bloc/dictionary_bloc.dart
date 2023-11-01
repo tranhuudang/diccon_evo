@@ -27,6 +27,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   final TextEditingController textController = TextEditingController();
   List<Widget> _chatList = [const DictionaryWelcome()];
   bool _isReportedAboutDisconnection = false;
+  final _wordHistoryBloc = WordHistoryBloc();
   final DictionaryRepository dictionaryRepository = DictionaryRepositoryImpl();
 
   /// Implement Events and Callbacks
@@ -69,12 +70,16 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
+    final refinedWord = event.providedWord.trim().upperCaseFirstLetter();
     _chatList.add(UserBubble(
-      message: event.providedWord,
+      message: refinedWord,
       onTap: () {
-        textController.text = event.providedWord;
+        textController.text = refinedWord;
       },
     ));
+    // Add word to history
+    _wordHistoryBloc
+        .add(AddWordToHistory(providedWord: refinedWord));
     emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
   }

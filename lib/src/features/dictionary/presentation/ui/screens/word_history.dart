@@ -2,10 +2,15 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/features/features.dart';
 
-class WordHistoryView extends StatelessWidget {
-  final WordHistoryBloc wordHistoryBloc;
-  const WordHistoryView({super.key, required this.wordHistoryBloc});
+class WordHistoryView extends StatefulWidget {
+  const WordHistoryView({super.key});
 
+  @override
+  State<WordHistoryView> createState() => _WordHistoryViewState();
+}
+
+class _WordHistoryViewState extends State<WordHistoryView> {
+  final _wordHistoryBloc = WordHistoryBloc();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,7 +19,7 @@ class WordHistoryView extends StatelessWidget {
         body: Stack(
           children: [
             BlocBuilder<WordHistoryBloc, WordHistoryState>(
-              bloc: wordHistoryBloc,
+              bloc: _wordHistoryBloc,
               builder: (context, state) {
                 switch (state.runtimeType) {
                   case WordHistoryUpdated:
@@ -53,12 +58,12 @@ class WordHistoryView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final word = state.words[index];
                           return HistoryTile(
-                              word: word, onEdit: state.isEdit!, wordHistoryBloc : wordHistoryBloc);
+                              word: word, onEdit: state.isEdit!, wordHistoryBloc : _wordHistoryBloc);
                         },
                       );
                     }
                   default:
-                    wordHistoryBloc.add(InitialWordHistory());
+                    _wordHistoryBloc.add(InitialWordHistory());
                     return Container();
                 }
               },
@@ -68,7 +73,7 @@ class WordHistoryView extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () =>
-                        wordHistoryBloc.add(SortAlphabetWordHistory()),
+                        _wordHistoryBloc.add(SortAlphabetWordHistory()),
                     icon: const Icon(Icons.sort_by_alpha)),
                 PopupMenuButton(
                   //splashRadius: 10.0,
@@ -80,7 +85,7 @@ class WordHistoryView extends StatelessWidget {
                     PopupMenuItem(
                       child: Text("Reverse".i18n),
                       onTap: () =>
-                          wordHistoryBloc.add(SortReverseWordHistory()),
+                          _wordHistoryBloc.add(SortReverseWordHistory()),
                     ),
                     const PopupMenuItem(
                       height: 0,
@@ -88,7 +93,7 @@ class WordHistoryView extends StatelessWidget {
                     ),
                     PopupMenuItem(
                       child: Text("Edit".i18n),
-                      onTap: () => wordHistoryBloc.add(WordHistoryEditMode()),
+                      onTap: () => _wordHistoryBloc.add(WordHistoryEditMode()),
                     ),
                   ],
                 ),
@@ -97,7 +102,7 @@ class WordHistoryView extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: BlocBuilder<WordHistoryBloc, WordHistoryState>(
-            bloc: wordHistoryBloc,
+            bloc: _wordHistoryBloc,
             builder: (context, state) {
           if (state.isEdit == true) {
             return BottomAppBar(
@@ -111,8 +116,8 @@ class WordHistoryView extends StatelessWidget {
                           content:
                           "AskQuestionBeforeDelete".i18n,
                           action: () {
-                            wordHistoryBloc.add(ClearAllWordHistory());
-                            wordHistoryBloc.add(CloseWordHistoryEditMode());
+                            _wordHistoryBloc.add(ClearAllWordHistory());
+                            _wordHistoryBloc.add(CloseWordHistoryEditMode());
 
                           });
                     }, icon: const Icon(Icons.delete_outline), label: Text("Clear all".i18n)),
@@ -120,7 +125,7 @@ class WordHistoryView extends StatelessWidget {
                     CircleButton(
                         iconData: Icons.close,
                         onTap: () {
-                          wordHistoryBloc.add(CloseWordHistoryEditMode());
+                          _wordHistoryBloc.add(CloseWordHistoryEditMode());
                         })
                   ],
                 ),

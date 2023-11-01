@@ -17,7 +17,7 @@ class DictionaryView extends StatefulWidget {
 class _DictionaryViewState extends State<DictionaryView> {
   final ImageHandler _imageProvider = ImageHandler();
   final suggestionWordListDb = SuggestionDatabase.instance;
-  final _wordHistoryBloc = WordHistoryBloc();
+
   final DictionaryRepository dictionaryRepository = DictionaryRepositoryImpl();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
@@ -164,8 +164,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
-                          context.pushNamed('word-history',
-                              extra: _wordHistoryBloc);
+                          context.pushNamed('word-history');
                         },
                       ),
                       const DictionaryMenuButton(),
@@ -301,8 +300,6 @@ class _DictionaryViewState extends State<DictionaryView> {
             child: SearchBox(
               hintText: "Send a message".i18n,
               onSubmitted: (providedWord) {
-                _wordHistoryBloc
-                    .add(AddWordToHistory(providedWord: providedWord));
                 _handleSubmitted(providedWord, context);
               },
               onChanged: (currentValue) async {

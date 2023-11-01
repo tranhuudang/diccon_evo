@@ -115,7 +115,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
 
   String _composeMd5IdForFirebaseDb(
       {required String word, required String options}) {
-    word = word.trim();
+    word = word.trim().toLowerCase();
     options = options.trim();
     var composeString = word + options;
     var bytes = utf8.encode(composeString);
