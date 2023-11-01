@@ -16,6 +16,13 @@ class ReleaseNotes extends StatelessWidget {
               shrinkWrap: true,
               children: const [
                 ReleaseNotesItem(
+                  version: '398',
+                  date: '01-11-2023',
+                  changesNote: [
+                    'Tăng tốc độ tìm kiếm khi sử dụng từ điển AI',
+                  ],
+                ),
+                ReleaseNotesItem(
                   version: '394',
                   date: '30-10-2023',
                   changesNote: [
