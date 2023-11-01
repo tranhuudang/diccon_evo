@@ -3,16 +3,15 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class WordPlaybackButton extends StatefulWidget {
-  const WordPlaybackButton(
-      {super.key, required this.message, this.buttonColor});
+class PlaybackButton extends StatefulWidget {
+  const PlaybackButton({super.key, required this.message, this.buttonColor});
   final String message;
   final Color? buttonColor;
   @override
-  State<WordPlaybackButton> createState() => _WordPlaybackButtonState();
+  State<PlaybackButton> createState() => _PlaybackButtonState();
 }
 
-class _WordPlaybackButtonState extends State<WordPlaybackButton> {
+class _PlaybackButtonState extends State<PlaybackButton> {
   final _downloadController = StreamController<bool>();
   void listenToProgress(Stream<bool> progressStream) {
     progressStream.listen((isDownloaded) {

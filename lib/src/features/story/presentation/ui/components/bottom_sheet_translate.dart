@@ -128,7 +128,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     width: 8.0,
                                   ),
                                   WordPronunciation(message: _wordResult),
-                                  WordPlaybackButton(
+                                  PlaybackButton(
                                       buttonColor:
                                           context.theme.colorScheme.onSurface,
                                       message: _wordResult.word),

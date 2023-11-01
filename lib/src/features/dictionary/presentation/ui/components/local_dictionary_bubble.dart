@@ -73,7 +73,7 @@ class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
                           WordPronunciation(
                             color: context.theme.colorScheme.onSecondary,
                               message: widget.word),
-                          WordPlaybackButton(message: widget.word.word),
+                          PlaybackButton(message: widget.word.word),
                         ],
                       ),
                       Row(

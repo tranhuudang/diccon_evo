@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-
 extension StringExtenstion on String {
   DictionaryResponseType toDictionaryResponseType() {
     switch (this) {
@@ -27,13 +26,12 @@ extension StringExtenstion on String {
         return const Locale('en', "US");
       case "Tiếng Việt":
         return const Locale('vi', "VI");
-        case "System default":
+      case "System default":
         return WidgetsBinding.instance.platformDispatcher.locale;
       default:
         return WidgetsBinding.instance.platformDispatcher.locale;
     }
   }
-
 
   TranslationChoices toTranslationChoice() {
     switch (this) {
@@ -47,6 +45,18 @@ extension StringExtenstion on String {
     }
   }
 
+  int numberOfWord() {
+    if (isEmpty) return 0;
+    // Split the sentence into words using whitespace as the delimiter
+    List<String> words = split(' ');
+    // Remove any leading or trailing whitespaces from each word
+    words = words.map((word) => word.trim()).toList();
+    // Remove any empty words (resulting from multiple spaces)
+    words = words.where((word) => word.isNotEmpty).toList();
+    // Return the count of words
+    return words.length;
+  }
+
   String removeSpecialCharacters() {
     RegExp regExp = RegExp(r"[^\p{L}\p{N}']+", unicode: true);
     var output = replaceAll('\'', '');
@@ -58,11 +68,6 @@ extension StringExtenstion on String {
     var output =
         "${substring(0, 1).toUpperCase()}${substring(1).toLowerCase()}";
     return output;
-  }
-
-  /// Get the first word in a String
-  String getFirstWord() {
-    return substring(0, !contains(" ") ? length : indexOf(" "));
   }
 
   /// Get the first letter in a Word

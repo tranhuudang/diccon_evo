@@ -165,7 +165,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               builder: (context, snapshot) {
                 return Row(
                   children: [
-                    WordPlaybackButton(message: widget.word),
+                    PlaybackButton(message: widget.word),
                     const Spacer(),
                     if (snapshot.data!)
                       IconButton(

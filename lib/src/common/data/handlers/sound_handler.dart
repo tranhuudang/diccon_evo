@@ -3,6 +3,7 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:audioplayers/audioplayers.dart';
+
 class SoundHandler {
   final String providedWordToPlay;
   SoundHandler(this.providedWordToPlay);
@@ -20,42 +21,44 @@ class SoundHandler {
   String _onlineSoundUrlPath() {
     // Sample link's format: https://github.com/zeroclubvn/US-Pronunciation/raw/main/A/us/Affected.mp3
     String firstLetter = providedWordToPlay.getFirstLetter().toUpperCase();
-    String word = providedWordToPlay.getFirstWord().upperCaseFirstLetter();
+    String word = providedWordToPlay.upperCaseFirstLetter();
     String url =
         "https://github.com/zeroclubvn/US-Pronunciation/raw/main/$firstLetter/us/$word.mp3";
-
     return url;
   }
 
   Stream<bool> playAnyway() async* {
-    String url = _onlineSoundUrlPath();
-    // Okapi /'ou'kɑ:pi/
-    String refinedWord =
-        providedWordToPlay.getFirstWord().upperCaseFirstLetter();
+    if (providedWordToPlay.numberOfWord() == 1) {
+      String url = _onlineSoundUrlPath();
+      // Okapi /'ou'kɑ:pi/
+      String refinedWord = providedWordToPlay.upperCaseFirstLetter();
 
-    if (kDebugMode) {
-      print("playing word: $refinedWord");
-    }
-    String fileName = "$refinedWord.mp3";
-    final soundFilePath =
-        await DirectoryHandler.getLocalResourceFilePath(fileName);
-    File file = File(soundFilePath);
-    try {
-      if (file.existsSync()) {
-        await _playLocal(fileName);
-        return;
-      }
-      if (!file.existsSync()) {
-        yield false;
-        await FileHandler(fileName).downloadToResource(url);
-        yield true;
-        _playLocal(fileName);
-      }
-    } catch (e) {
       if (kDebugMode) {
-        print("error downloading sound track: $e");
+        print("playing word: $refinedWord");
       }
-      _playTts(refinedWord);
+      String fileName = "$refinedWord.mp3";
+      final soundFilePath =
+          await DirectoryHandler.getLocalResourceFilePath(fileName);
+      File file = File(soundFilePath);
+      try {
+        if (file.existsSync()) {
+          await _playLocal(fileName);
+          return;
+        }
+        if (!file.existsSync()) {
+          yield false;
+          await FileHandler(fileName).downloadToResource(url);
+          yield true;
+          _playLocal(fileName);
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print("error downloading sound track: $e");
+        }
+        _playTts(providedWordToPlay);
+      }
+    } else {
+      _playTts(providedWordToPlay);
     }
   }
 

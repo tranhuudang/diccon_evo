@@ -18,6 +18,6 @@ export 'tips_box.dart';
 export 'vertical_spacing.dart';
 export 'voice_listening_bottom_sheet.dart';
 export 'word_meaning.dart';
-export 'word_playback_button.dart';
+export 'playback_button.dart';
 export 'word_pronunciation.dart';
 export 'word_title.dart';
