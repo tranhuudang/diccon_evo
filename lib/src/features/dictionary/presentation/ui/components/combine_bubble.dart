@@ -23,7 +23,7 @@ class CombineBubble extends StatefulWidget {
 
 class _CombineBubbleState extends State<CombineBubble> {
   final translationModeStreamController =
-  StreamController<TranslationChoices>();
+      StreamController<TranslationChoices>();
 
   scrollToBottom() {
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -34,7 +34,6 @@ class _CombineBubbleState extends State<CombineBubble> {
       );
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

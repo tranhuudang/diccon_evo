@@ -11,7 +11,7 @@ class ThesaurusDatabase {
 
   Future<Map<String, List<String>>> get sysnonymsDatabase async {
     if (_synonymsDatabase.isNotEmpty) return _synonymsDatabase;
-    _synonymsDatabase = await loadAntonymsData();
+    _synonymsDatabase = await loadSynonymsData();
     return _synonymsDatabase;
   }
 

@@ -77,29 +77,28 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   }
 
   Future<void> _createFirebaseDatabaseItem() async {
-    var bytes = utf8.encode(widget.listChatGptRepository[widget.index]
-        .singleQuestionAnswer.question); // Encode the string as bytes
-    var questionMd5 = md5.convert(bytes); // Generate the MD5 hash
-    final docUser = FirebaseFirestore.instance
-        .collection("Dictionary")
-        .doc(questionMd5.toString());
+    final answerId = _composeMd5IdForFirebaseDb(
+        word: widget.word,
+        options: Properties.defaultSetting
+            .dictionaryResponseSelectedList); // Generate the MD5 hash
+    final databaseRow =
+        FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
     final json = {
       'answer': widget
           .listChatGptRepository[widget.index].singleQuestionAnswer.answer
           .toString(),
     };
-    await docUser.set(json);
+    await databaseRow.set(json);
   }
 
   void _getGptResponse() async {
     var request = await _getQuestionRequest();
     // create md5 from question to compare to see if that md5 is already exist in database
-    var bytes = utf8.encode(widget
-        .listChatGptRepository[widget.index].singleQuestionAnswer.question);
-    var questionMd5 = md5.convert(bytes);
-    final docUser = FirebaseFirestore.instance
-        .collection("Dictionary")
-        .doc(questionMd5.toString());
+    var answer = _composeMd5IdForFirebaseDb(
+        word: widget.word,
+        options: Properties.defaultSetting.dictionaryResponseSelectedList);
+    final docUser =
+        FirebaseFirestore.instance.collection("Dictionary").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
@@ -112,6 +111,16 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
         }
       }
     });
+  }
+
+  String _composeMd5IdForFirebaseDb(
+      {required String word, required String options}) {
+    word = word.trim();
+    options = options.trim();
+    var composeString = word + options;
+    var bytes = utf8.encode(composeString);
+    var resultMd5 = md5.convert(bytes);
+    return resultMd5.toString();
   }
 
   // This function be used to resend the question to gpt to get new answer
