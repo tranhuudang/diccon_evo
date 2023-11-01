@@ -40,6 +40,7 @@ dependencies:
   firebase_auth: ^4.12.0
   firebase_storage: ^11.2.8
   firebase_database: ^10.3.2
+  cloud_firestore: ^4.12.2
   firebase_app_check: ^0.2.1+2
   google_sign_in: ^6.1.5
 
@@ -69,7 +70,8 @@ dependencies:
   sqflite: ^2.3.0
   # The path package provides common operations for manipulating paths: joining, splitting, normalizing, etc
   path: ^1.8.3
-
+  # i use this to create hash value for question asnwer
+  crypto: ^3.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

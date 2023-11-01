@@ -29,12 +29,12 @@ class DefaultFirebaseOptions {
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
+              'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
+              'you can reconfigure this by running the FlutterFire CLI again.',
         );
       default:
         throw UnsupportedError(
@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '867146042969',
     projectId: 'diccon-evo',
     authDomain: 'diccon-evo.firebaseapp.com',
+    databaseURL: 'https://diccon-evo-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'diccon-evo.appspot.com',
     measurementId: 'G-YLJQRQBRRT',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:867146042969:android:3a71841159418ebf246b48',
     messagingSenderId: '867146042969',
     projectId: 'diccon-evo',
+    databaseURL: 'https://diccon-evo-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'diccon-evo.appspot.com',
   );
 
@@ -66,8 +68,9 @@ class DefaultFirebaseOptions {
     appId: '1:867146042969:ios:b3c422a1cd151660246b48',
     messagingSenderId: '867146042969',
     projectId: 'diccon-evo',
+    databaseURL: 'https://diccon-evo-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'diccon-evo.appspot.com',
-    androidClientId: '867146042969-o0i0hfjmqtceqa9oqnjedirp429ic3n6.apps.googleusercontent.com',
+    androidClientId: '867146042969-dljr3iq5q2udfklrfoucv63oimin9jbd.apps.googleusercontent.com',
     iosClientId: '867146042969-4qtid0s8vu9gbpccsmhq6hpipm9eakmp.apps.googleusercontent.com',
     iosBundleId: 'com.zeroboy.dicconEvo',
   );
@@ -77,8 +80,9 @@ class DefaultFirebaseOptions {
     appId: '1:867146042969:ios:b3c422a1cd151660246b48',
     messagingSenderId: '867146042969',
     projectId: 'diccon-evo',
+    databaseURL: 'https://diccon-evo-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'diccon-evo.appspot.com',
-    androidClientId: '867146042969-o0i0hfjmqtceqa9oqnjedirp429ic3n6.apps.googleusercontent.com',
+    androidClientId: '867146042969-dljr3iq5q2udfklrfoucv63oimin9jbd.apps.googleusercontent.com',
     iosClientId: '867146042969-4qtid0s8vu9gbpccsmhq6hpipm9eakmp.apps.googleusercontent.com',
     iosBundleId: 'com.zeroboy.dicconEvo',
   );

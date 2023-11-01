@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -30,6 +33,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
   final _isLoadingStreamController = StreamController<bool>();
+  var customQuestion = '';
 
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
@@ -43,6 +47,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
+              _createFirebaseDatabaseItem();
             } else {
               return widget.listChatGptRepository[widget.index]
                   .singleQuestionAnswer.answer
@@ -71,12 +76,42 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     _getGptResponse();
   }
 
+  Future<void> _createFirebaseDatabaseItem() async {
+    var bytes = utf8.encode(widget.listChatGptRepository[widget.index]
+        .singleQuestionAnswer.question); // Encode the string as bytes
+    var questionMd5 = md5.convert(bytes); // Generate the MD5 hash
+    final docUser = FirebaseFirestore.instance
+        .collection("Dictionary")
+        .doc(questionMd5.toString());
+    final json = {
+      'answer': widget
+          .listChatGptRepository[widget.index].singleQuestionAnswer.answer
+          .toString(),
+    };
+    await docUser.set(json);
+  }
+
   void _getGptResponse() async {
-    if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
-        .isEmpty) {
-      var request = await _getQuestionRequest();
-      _chatStreamResponse(request);
-    }
+    var request = await _getQuestionRequest();
+    // create md5 from question to compare to see if that md5 is already exist in database
+    var bytes = utf8.encode(widget
+        .listChatGptRepository[widget.index].singleQuestionAnswer.question);
+    var questionMd5 = md5.convert(bytes);
+    final docUser = FirebaseFirestore.instance
+        .collection("Dictionary")
+        .doc(questionMd5.toString());
+    await docUser.get().then((snapshot) async {
+      if (snapshot.exists) {
+        widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
+            .write(snapshot.data()?['answer'].toString());
+        setState(() {});
+      } else {
+        if (widget.listChatGptRepository[widget.index].singleQuestionAnswer
+            .answer.isEmpty) {
+          _chatStreamResponse(request);
+        }
+      }
+    });
   }
 
   // This function be used to resend the question to gpt to get new answer
@@ -88,7 +123,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   }
 
   Future<ChatCompletionRequest> _getQuestionRequest() async {
-    var customQuestion =
+    customQuestion =
         'Hãy giúp tôi dịch chữ "${widget.word}" từ tiếng Anh sang tiếng Việt với các chủ đề lần lượt là: ${Properties.defaultSetting.dictionaryResponseSelectedList}. Hãy chia câu trả lời thành các chủ đề, và dịch sang tiếng Việt các chủ đề đó, bắt buộc phải dịch sang tiếng Việt những câu bằng tiếng Anh ngay sau từng câu tiếng Anh (ngay liền kề mỗi câu). Bất cứ sự giải thích nào trong câu trả lời đều phải dùng tiếng Việt';
     var request = await widget.listChatGptRepository[widget.index]
         .createSingleQuestionRequest(customQuestion);
@@ -131,8 +166,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                             _isLoadingStreamController.sink.add(false);
                           },
                           icon: Icon(Icons.stop_circle_outlined,
-                              color:
-                                  context.theme.colorScheme.onSecondary)),
+                              color: context.theme.colorScheme.onSecondary)),
                     const HorizontalSpacing.medium(),
                     snapshot.data!
                         ? Padding(
@@ -141,8 +175,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                               height: 15,
                               width: 15,
                               child: CircularProgressIndicator(
-                                color:
-                                    context.theme.colorScheme.onSecondary,
+                                color: context.theme.colorScheme.onSecondary,
                               ),
                             ),
                           )
@@ -160,9 +193,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
                 );
               }),
           ClickableWords(
-              style: context.theme
-                  .textTheme
-                  .titleMedium
+              style: context.theme.textTheme.titleMedium
                   ?.copyWith(color: context.theme.colorScheme.onSecondary),
               onWordTap: (word) {
                 chatListBloc.add(AddUserMessage(providedWord: word));
