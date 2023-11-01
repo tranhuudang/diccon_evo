@@ -45,17 +45,23 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
               alignment: WrapAlignment.center,
               children: [
                 Colors.red,
-                Colors.pinkAccent,
-                Colors.orange,
-                Colors.yellow,
-                Colors.green,
-                Colors.teal,
-                Colors.blueAccent,
+                Colors.pink,
                 Colors.purple,
-                Colors.brown,
-                Colors.blueGrey,
+                Colors.deepPurple,
+                Colors.indigo,
+                Colors.blue,
+                Colors.lightBlue,
+                Colors.cyan,
+                Colors.teal,
+                Colors.green,
+                Colors.lightGreen,
                 Colors.lime,
-                Colors.grey
+                Colors.yellow,
+                Colors.amber,
+                Colors.orange,
+                Colors.deepOrange,
+                Colors.brown,
+                Colors.grey,
               ].map((currentColor) {
                 return InkWell(
                   onTap: () {
