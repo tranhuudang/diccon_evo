@@ -66,18 +66,24 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
         .copyWith(dictionaryResponseSelectedList: convertedString);
   }
 
-  void _addItemToLists(
-      {required String item, required List<String> targetList}) {
-    setState(() {
-      targetList.add(item);
-    });
+  void _addItemToSelectedLists(
+      {required String item}) {
+    if(listSelected.length >= 7) {
+      context.showAlertDialogWithoutAction(title: "Maximum Choices Reached".i18n, content: "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding".i18n);
+    } else {
+      setState(() {
+        listSelected.add(item);
+      });
+    }
   }
 
   void _removeItemInLists(
       {required String item, required List<String> targetList}) {
-    setState(() {
-      targetList.remove(item);
-    });
+    if(targetList.length >=2) {
+      setState(() {
+        targetList.remove(item);
+      });
+    }
   }
 
   @override
@@ -144,8 +150,8 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                                 _removeItemInLists(
                                     item: item, targetList: listSelected);
                               } else {
-                                _addItemToLists(
-                                    item: item, targetList: listSelected);
+  _addItemToSelectedLists(
+                                    item: item);
                               }
                               // rebuild list selected item and save it to setting
                               _compileSelectedItems();
@@ -172,8 +178,8 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                                 _removeItemInLists(
                                     item: item, targetList: listSelected);
                               } else {
-                                _addItemToLists(
-                                    item: item, targetList: listSelected);
+  _addItemToSelectedLists(
+                                    item: item);
                               }
 
                               // rebuild list selected item and save it to setting

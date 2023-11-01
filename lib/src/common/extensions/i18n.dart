@@ -339,6 +339,17 @@ extension Localization on String {
 
     /// Settings
 
+    "Maximum Choices Reached": {
+      "en_us": "Maximum Choices Reached",
+      "vi_vi": "Giới hạn 7 sự lựa chọn"
+    },
+    "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding":
+        {
+      "en_us":
+          "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding",
+      "vi_vi":
+          "Bạn đã đạt đến giới hạn tối đa là 7 lựa chọn trong sự lựa chọn của bạn. Vui lòng xem xét lại các lựa chọn của bạn và thực hiện bất kỳ điều chỉnh cần thiết trước khi tiếp tục."
+    },
     "Customize the AI response format.": {
       "en_us": "Customize the AI response format.",
       "vi_vi": "Cấu trúc câu trả lời AI"
