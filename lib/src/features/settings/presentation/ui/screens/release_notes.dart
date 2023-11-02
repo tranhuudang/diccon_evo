@@ -16,6 +16,18 @@ class ReleaseNotes extends StatelessWidget {
               shrinkWrap: true,
               children: const [
                 ReleaseNotesItem(
+                  version: '416',
+                  date: '02-11-2023',
+                  changesNote: [
+                    'Thêm tính năng dịch từ hình ảnh',
+                    'Thêm bảng màu mới',
+                    'Giới hạn tùy chọn tra cứu',
+                    'Sửa lỗi từ điển Thesaurus hiển thị sai',
+                    'Sửa lỗi không phát được âm thanh đối với câu dài',
+                    'Sửa lỗi không copy được chữ khi chạm vào tin nhắn của người dùng'
+                  ],
+                ),
+                ReleaseNotesItem(
                   version: '398',
                   date: '01-11-2023',
                   changesNote: [
