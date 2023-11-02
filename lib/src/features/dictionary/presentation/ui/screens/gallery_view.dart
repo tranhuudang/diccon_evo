@@ -7,12 +7,10 @@ import 'package:unicons/unicons.dart';
 class GalleryView extends StatefulWidget {
   const GalleryView(
       {super.key,
-      required this.title,
       this.text,
       required this.onImage,
       required this.onDetectorViewModeChanged});
 
-  final String title;
   final String? text;
   final Function(InputImage inputImage) onImage;
   final Function()? onDetectorViewModeChanged;

@@ -32,7 +32,6 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
     return Scaffold(
       body: Stack(children: [
         DetectorView(
-          title: 'Text Detector',
           customPaint: _customPaint,
           text: _text,
           onImage: _processImage,
@@ -62,7 +61,7 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
       );
       _customPaint = CustomPaint(painter: painter);
     } else {
-      _text = 'Recognized text:\n\n${recognizedText.text}';
+      _text = recognizedText.text;
       // TODO: set _customPaint to draw boundingRect on top of image
       _customPaint = null;
     }
