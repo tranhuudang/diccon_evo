@@ -298,6 +298,7 @@ class _DictionaryViewState extends State<DictionaryView> {
               icon: const Icon(Icons.add_circle_outline)),
           Expanded(
             child: SearchBox(
+              searchTextController: chatListBloc.textController,
               hintText: "Send a message".i18n,
               onSubmitted: (providedWord) {
                 _handleSubmitted(providedWord, context);

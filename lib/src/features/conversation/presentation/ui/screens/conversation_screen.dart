@@ -166,6 +166,8 @@ class _ConversationViewState extends State<ConversationView> {
                                         builder: (context, state) {
                                       if (state is ConversationUpdated) {
                                         return SearchBox(
+                                          searchTextController: conversationBloc.textController,
+                                          enableCamera: false,
                                           hintText: "Send a message for practice".i18n,
                                           enabled: !state.isResponding,
                                           onSubmitted: (providedWord) {
@@ -183,6 +185,8 @@ class _ConversationViewState extends State<ConversationView> {
                                       }
 
                                       return SearchBox(
+
+                                        searchTextController: conversationBloc.textController,
                                         enableCamera: false,
                                         hintText: "Send a message for practice".i18n,
                                         onSubmitted: (providedWord) {

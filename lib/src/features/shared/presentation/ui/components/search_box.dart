@@ -11,6 +11,7 @@ class SearchBox extends StatefulWidget {
   final bool? enabled;
   final String? hintText;
 
+  final TextEditingController? searchTextController;
   final bool? enableCamera;
 
   final Icon? prefixIcon;
@@ -21,15 +22,16 @@ class SearchBox extends StatefulWidget {
       this.enabled = true,
       this.hintText,
       this.prefixIcon,
-      this.enableCamera = true});
+      this.enableCamera = true,
+      this.searchTextController});
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
 }
 
 class _SearchBoxState extends State<SearchBox> {
-  final _searchTextController = TextEditingController();
   final _closeTextFieldController = StreamController<bool>();
+  final _defaultSearchTextController = TextEditingController();
 
   @override
   void initState() {
@@ -40,7 +42,7 @@ class _SearchBoxState extends State<SearchBox> {
   void dispose() {
     super.dispose();
     _closeTextFieldController.close();
-    _searchTextController.dispose();
+    _defaultSearchTextController.dispose();
   }
 
   @override
@@ -54,7 +56,8 @@ class _SearchBoxState extends State<SearchBox> {
             /// Input box
             TextField(
               enabled: widget.enabled,
-              controller: _searchTextController,
+              controller:
+                  widget.searchTextController ?? _defaultSearchTextController,
               onChanged: (currentValue) {
                 widget.onChanged != null
                     ? widget.onChanged!(currentValue)
@@ -69,7 +72,10 @@ class _SearchBoxState extends State<SearchBox> {
               onSubmitted: (String enteredString) {
                 widget.onSubmitted(enteredString);
                 // Remove text in textfield
-                _searchTextController.clear();
+                _defaultSearchTextController.clear();
+                if (widget.searchTextController != null) {
+                  widget.searchTextController!.clear();
+                }
                 _closeTextFieldController.add(false);
               },
               decoration: InputDecoration(
@@ -92,7 +98,10 @@ class _SearchBoxState extends State<SearchBox> {
                         : EdgeInsets.zero,
                     child: IconButton(
                         onPressed: () {
-                          _searchTextController.clear();
+                          _defaultSearchTextController.clear();
+                          if (widget.searchTextController != null) {
+                            widget.searchTextController!.clear();
+                          }
                           // Dismiss keyboard
                           FocusScopeNode currentFocus = FocusScope.of(context);
 
@@ -117,8 +126,11 @@ class _SearchBoxState extends State<SearchBox> {
                       if (widget.enableCamera!)
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => const TextRecognizerView()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TextRecognizerView()));
                           },
                           icon: const Icon(UniconsLine.capture),
                         ),
