@@ -3,8 +3,7 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:unicons/unicons.dart';
-
-import '../../../../dictionary/presentation/ui/screens/camera.dart';
+import '../../../../dictionary/presentation/ui/screens/text_detector_view.dart';
 
 class SearchBox extends StatefulWidget {
   final Function(String) onSubmitted;
@@ -119,7 +118,7 @@ class _SearchBoxState extends State<SearchBox> {
                         IconButton(
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => const Camera()));
+                                builder: (context) => const TextRecognizerView()));
                           },
                           icon: const Icon(UniconsLine.capture),
                         ),
