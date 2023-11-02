@@ -1,37 +1,40 @@
 import 'dart:io';
-import 'package:diccon_evo/src/common/common.dart';
-import 'package:diccon_evo/src/features/features.dart';
-import 'package:flutter/foundation.dart';
-import 'package:google_mlkit_commons/google_mlkit_commons.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:unicons/unicons.dart';
+import 'package:translator/translator.dart';
+import '../../../../../common/common.dart';
+import '../../../../features.dart';
 
-class GalleryView extends StatefulWidget {
-  const GalleryView(
-      {super.key,
-      this.text,
-      required this.onImage,
-      required this.onDetectorViewModeChanged});
-
-  final String? text;
-  final Function(InputImage inputImage) onImage;
-  final Function()? onDetectorViewModeChanged;
+class TextRecognizerView extends StatefulWidget {
+  const TextRecognizerView({super.key});
 
   @override
-  State<GalleryView> createState() => _GalleryViewState();
+  State<TextRecognizerView> createState() => _TextRecognizerViewState();
 }
 
-class _GalleryViewState extends State<GalleryView> {
+class _TextRecognizerViewState extends State<TextRecognizerView> {
+  final _textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+  bool _canProcess = true;
+  bool _isBusy = false;
+  String? _text;
   File? _image;
   ImagePicker? _imagePicker;
+  bool _isLoading = false;
 
   final textController = TextEditingController();
-
+  final GoogleTranslator googleTranslator = GoogleTranslator();
+  String _translatedText = '';
   @override
   void initState() {
     super.initState();
-    textController.text = widget.text ?? '';
     _imagePicker = ImagePicker();
+  }
+
+  @override
+  void dispose() {
+    _canProcess = false;
+    _textRecognizer.close();
+    super.dispose();
   }
 
   @override
@@ -41,16 +44,7 @@ class _GalleryViewState extends State<GalleryView> {
           body: Stack(
         children: [
           _galleryBody(),
-          Header(
-            actions: [
-              if (kDebugMode)
-                IconButton(
-                    onPressed: () {
-                      widget.onDetectorViewModeChanged!();
-                    },
-                    icon: const Icon(UniconsLine.capture))
-            ],
-          )
+          const Header(),
         ],
       )),
     );
@@ -72,12 +66,7 @@ class _GalleryViewState extends State<GalleryView> {
               ? SizedBox(
                   height: 400,
                   width: 400,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Image.file(_image!),
-                    ],
-                  ),
+                  child: Image.file(_image!),
                 )
               : const Image(
                   image: AssetImage('assets/stickers/learn.png'),
@@ -109,19 +98,31 @@ class _GalleryViewState extends State<GalleryView> {
                   borderRadius: BorderRadius.circular(32),
                 ),
                 child: Section(title: 'Recognized Text'.i18n, children: [
-                  SelectableText(widget.text ?? ''),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: FilledButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DictionaryView(
-                                      word: widget.text,
-                                      buildContext: context)));
-                        },
-                        child: Text("Go to dictionary".i18n)),
+                  SelectableText(_text ?? ''),
+                  const Divider(),
+                  if (_isLoading) const LinearProgressIndicator(),
+                  SelectableText(_translatedText),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: FilledButton.icon(
+                            onPressed: () async {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              Translation translation = await googleTranslator
+                                  .translate(_text ?? '', from: 'en', to: 'vi');
+                              setState(() {
+                                _isLoading = false;
+                                _translatedText = translation.text;
+                              });
+                            },
+                            icon: const Icon(Icons.translate),
+                            label: Text("Translate now".i18n)),
+                      ),
+                    ],
                   )
                 ]),
               ),
@@ -131,6 +132,7 @@ class _GalleryViewState extends State<GalleryView> {
 
   Future _getImage(ImageSource source) async {
     setState(() {
+      _translatedText = '';
       _image = null;
     });
     final pickedFile = await _imagePicker?.pickImage(source: source);
@@ -141,9 +143,21 @@ class _GalleryViewState extends State<GalleryView> {
 
   Future _processFile(String path) async {
     setState(() {
+      _translatedText = '';
       _image = File(path);
     });
     final inputImage = InputImage.fromFilePath(path);
-    widget.onImage(inputImage);
+    _processStaticImage(inputImage);
+  }
+
+  Future<void> _processStaticImage(InputImage inputImage) async {
+    if (!_canProcess) return;
+    if (_isBusy) return;
+    _isBusy = true;
+    final recognizedText = await _textRecognizer.processImage(inputImage);
+    _isBusy = false;
+    setState(() {
+      _text = recognizedText.text;
+    });
   }
 }

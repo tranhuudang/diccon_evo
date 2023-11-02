@@ -257,13 +257,20 @@ extension Localization on String {
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
-    },"SubSentenceInImageRecognizer": {
-      "en_us": "Instantly convert images into text. Scan, translate, and extract text from photos, making language barriers a thing of the past.",
-      "vi_vi": "Chuyển đổi hình ảnh thành văn bản nhanh chóng. Quét, dịch và trích xuất văn bản từ hình ảnh, phá vỡ rào cản ngôn ngữ.",
+    },
+    "SubSentenceInImageRecognizer": {
+      "en_us":
+          "Instantly convert images into text. Scan, translate, and extract text from photos, making language barriers a thing of the past.",
+      "vi_vi":
+          "Chuyển đổi hình ảnh thành văn bản nhanh chóng. Quét, dịch và trích xuất văn bản từ hình ảnh, phá vỡ rào cản ngôn ngữ.",
     },
     "Gallery": {
       "en_us": "Gallery",
       "vi_vi": "Bộ sưu tập",
+    },
+    "Translate now": {
+      "en_us": "Translate now",
+      "vi_vi": "Dịch ngay",
     },
     "Take a picture": {
       "en_us": "Take a picture",

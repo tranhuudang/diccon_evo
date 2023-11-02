@@ -1,0 +1,1 @@
+enum DetectorViewMode { liveFeed, gallery }
