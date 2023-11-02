@@ -50,6 +50,10 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
     setState(() {
       _text = '';
     });
+
+    // Introduce a delay of, for example, 1 second (adjust as needed)
+    await Future.delayed(const Duration(seconds: 1));
+
     final recognizedText = await _textRecognizer.processImage(inputImage);
     if (inputImage.metadata?.size != null &&
         inputImage.metadata?.rotation != null) {
@@ -62,7 +66,7 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
       _customPaint = CustomPaint(painter: painter);
     } else {
       _text = recognizedText.text;
-      // TODO: set _customPaint to draw boundingRect on top of image
+      // TODO: set _customPaint to draw boundingRect on top of the image
       _customPaint = null;
     }
     _isBusy = false;
@@ -70,4 +74,5 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
       setState(() {});
     }
   }
+
 }

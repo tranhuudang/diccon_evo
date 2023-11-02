@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:diccon_evo/src/common/common.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
@@ -31,6 +32,8 @@ class _CameraViewState extends State<CameraView> {
   CameraController? _controller;
   int _cameraIndex = -1;
   bool _changingCameraLens = false;
+
+  bool _isPause = false;
 
   @override
   void initState() {
@@ -67,15 +70,48 @@ class _CameraViewState extends State<CameraView> {
           body: Stack(
         children: [
           _liveFeedBody(),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: context.theme.colorScheme.primary,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: IconButton(
+                      onPressed: () {
+                        if (_isPause) {
+                          _startLiveFeed();
+                        } else {
+                          _pauseLiveFeed();
+                        }
+                      },
+                      icon: _isPause
+                          ? Icon(
+                              Icons.play_arrow,
+                              size: 50,
+                              color: context.theme.colorScheme.onPrimary,
+                            )
+                          : Icon(
+                              Icons.pause,
+                              size: 50,
+                              color: context.theme.colorScheme.onPrimary,
+                            )),
+                ),
+              )),
           Header(
             actions: [
               IconButton(
                   onPressed: () => _switchLiveCamera(),
                   icon: const Icon(Icons.flip_camera_android_outlined)),
-              IconButton(onPressed: (){
-                widget.onDetectorViewModeChanged!();
-              }, icon: const Icon(Icons.collections_outlined)),
-
+              IconButton(
+                  onPressed: () {
+                    widget.onDetectorViewModeChanged!();
+                  },
+                  icon: const Icon(Icons.collections_outlined)),
             ],
           ),
         ],
@@ -94,8 +130,8 @@ class _CameraViewState extends State<CameraView> {
         children: <Widget>[
           Center(
             child: _changingCameraLens
-                ? const Center(
-                    child: Text('Changing camera lens'),
+                ? Center(
+                    child: Text('Changing camera lens'.i18n),
                   )
                 : CameraPreview(
                     _controller!,
@@ -106,7 +142,6 @@ class _CameraViewState extends State<CameraView> {
       ),
     );
   }
-
 
   Future _startLiveFeed() async {
     final camera = _cameras[_cameraIndex];
@@ -131,7 +166,9 @@ class _CameraViewState extends State<CameraView> {
           widget.onCameraLensDirectionChanged!(camera.lensDirection);
         }
       });
-      setState(() {});
+      setState(() {
+        _isPause = false;
+      });
     });
   }
 
@@ -139,6 +176,13 @@ class _CameraViewState extends State<CameraView> {
     await _controller?.stopImageStream();
     await _controller?.dispose();
     _controller = null;
+  }
+
+  Future _pauseLiveFeed() async {
+    await _controller?.pausePreview();
+    setState(() {
+      _isPause = true;
+    });
   }
 
   Future _switchLiveCamera() async {
@@ -153,6 +197,7 @@ class _CameraViewState extends State<CameraView> {
   void _processCameraImage(CameraImage image) {
     final inputImage = _inputImageFromCameraImage(image);
     if (inputImage == null) return;
+
     widget.onImage(inputImage);
   }
 

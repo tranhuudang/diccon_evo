@@ -13,7 +13,7 @@ class DetectorView extends StatefulWidget {
     required this.onImage,
     this.customPaint,
     this.text,
-    this.initialDetectionMode = DetectorViewMode.liveFeed,
+    this.initialDetectionMode = DetectorViewMode.gallery,
     this.initialCameraLensDirection = CameraLensDirection.back,
     this.onCameraFeedReady,
     this.onDetectorViewModeChanged,

@@ -645,6 +645,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
+  google_mlkit_language_id:
+    dependency: "direct main"
+    description:
+      name: google_mlkit_language_id
+      sha256: cb4241297552f22be638be620add294b6a6c9043eefc1f4c18597ee66ce31a98
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
   google_mlkit_text_recognition:
     dependency: "direct main"
     description:
@@ -653,6 +661,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.0"
+  google_mlkit_translation:
+    dependency: "direct main"
+    description:
+      name: google_mlkit_translation
+      sha256: "175a0cb801b5fa01140f62344bbda6a8dcbb7977ae057f1dab1b74eddc60d71c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -1274,6 +1290,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
+  translator:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: b55d8ef39e5d068286ff58f78c241f395c8f30b7
+      url: "https://github.com/tranhuudang/google-translator"
+    source: git
+    version: "0.1.7"
   typed_data:
     dependency: transitive
     description:

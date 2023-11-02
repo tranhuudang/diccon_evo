@@ -79,6 +79,11 @@ dependencies:
   google_mlkit_text_recognition: ^0.10.0
   image_picker: ^1.0.4
   google_mlkit_commons: ^0.5.0
+  google_mlkit_translation: ^0.8.0
+  google_mlkit_language_id: ^0.8.0
+  translator:
+    git:
+      url: https://github.com/tranhuudang/google-translator
 
 dev_dependencies:
   flutter_test:
