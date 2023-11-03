@@ -1,7 +1,4 @@
-import '../models/chat_preview.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
-
 
 List<ChatPreview> listChatPreviewContent = [
   ChatPreview(
@@ -10,8 +7,8 @@ List<ChatPreview> listChatPreviewContent = [
   ),
   ChatPreview(
     responseType: DictionaryResponseType.short,
-    content: 'Phiên âm của từ "happy" là /ˈhæpi/.\n\nTừ "happy" có nghĩa là cảm thấy vui vẻ, hạnh phúc, hài lòng hoặc sung sướng.',
-
+    content:
+        'Phiên âm của từ "happy" là /ˈhæpi/.\n\nTừ "happy" có nghĩa là cảm thấy vui vẻ, hạnh phúc, hài lòng hoặc sung sướng.',
   ),
   ChatPreview(
     responseType: DictionaryResponseType.normal,

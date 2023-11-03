@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import '../../../common/data/models/user_info.dart' as user_model;
+import '../../../common/data/models/user_info/user_info.dart' as user_model;
 import 'package:diccon_evo/src/common/common.dart';
 import '../../../common/data/services/auth_service.dart';
 
@@ -104,9 +104,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (currentLoggedInUser != null) {
       Properties.userInfo = Properties.userInfo.copyWith(
         uid: currentLoggedInUser.uid,
-        displayName: currentLoggedInUser.displayName,
-        photoURL: currentLoggedInUser.photoURL,
-        email: currentLoggedInUser.email,
+        displayName: currentLoggedInUser.displayName ?? '',
+        photoURL: currentLoggedInUser.photoURL ?? '',
+        email: currentLoggedInUser.email ?? '',
       );
       emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
     } else {
@@ -121,9 +121,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         User? user = await authService.googleSignIn();
         Properties.userInfo = Properties.userInfo.copyWith(
           uid: user!.uid,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          email: user.email,
+          displayName: user.displayName ?? '',
+          photoURL: user.photoURL ?? '',
+          email: user.email ?? '',
         );
         emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
         emit(UserLoggedInSuccessfulState());

@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
-import '../../../common/data/models/story.dart';
 /// Events
 abstract class StoryListEvent {}
 

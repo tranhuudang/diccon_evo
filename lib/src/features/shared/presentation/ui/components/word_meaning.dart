@@ -1,5 +1,5 @@
 import 'package:diccon_evo/src/features/features.dart';
-import '../../../../../common/data/models/word.dart';
+import '../../../../../common/data/models/word/word.dart';
 
 class WordMeaning extends StatelessWidget {
   const WordMeaning({

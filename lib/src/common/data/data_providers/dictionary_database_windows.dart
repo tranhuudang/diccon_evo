@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:diccon_evo/src/common/common.dart';
-import '../models/word.dart';
 
 class DictionaryDatabaseWindows {
   DictionaryDatabaseWindows._();

@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
-import '../../../../../common/data/models/story.dart';
 class StoryReadingView extends StatefulWidget {
   final Story story;
 
@@ -149,7 +147,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                 imageUrl: widget.story.imageUrl ?? "",
                 fit: BoxFit.cover,
                 errorWidget: (context, String exception, dynamic stackTrace) {
-                  return nil;
+                  return const SizedBox.shrink();
                 },
               ),
             ),

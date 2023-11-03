@@ -40,12 +40,11 @@ class SubFunctionBox extends StatelessWidget {
                         );
                       }),
                 ),
-                defaultTargetPlatform.isDesktop()
-                    ? PageViewNavigator(
+                if (defaultTargetPlatform.isDesktop())
+                    PageViewNavigator(
                         itemCount: listSubFunction.length,
                         controller: pageController,
-                        height: height)
-                    : nil,
+                        height: height),
               ],
             ),
             const VerticalSpacing.large(),

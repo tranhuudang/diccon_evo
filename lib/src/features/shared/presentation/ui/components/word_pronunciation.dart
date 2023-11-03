@@ -1,6 +1,5 @@
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
-import '../../../../../common/data/models/word.dart';
 
 class WordPronunciation extends StatelessWidget {
   const WordPronunciation({

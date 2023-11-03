@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../data/models/setting.dart';
-import '../data/models/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
@@ -17,7 +15,7 @@ class Properties {
   static FocusNode textFieldFocusNode = FocusNode();
 
   // All view in application
-  static Setting defaultSetting = Setting(
+  static Settings defaultSetting = Settings(
     dictionaryResponseType: DictionaryResponseType.short.title(),
     translationChoice: TranslationChoices.classic.title(),
     numberOfSynonyms: 10,
@@ -35,7 +33,7 @@ class Properties {
     enableAdaptiveTheme: true,
   );
 
-  static void saveSettings(Setting newSetting) async {
+  static void saveSettings(Settings newSetting) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('readingFontSize', newSetting.readingFontSize);
     await prefs.setString(

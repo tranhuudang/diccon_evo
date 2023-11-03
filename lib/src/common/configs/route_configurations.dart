@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
-import '../data/models/story.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 

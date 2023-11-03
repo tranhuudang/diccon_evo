@@ -6,8 +6,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-import '../../../../../common/data/models/essential_word.dart';
-
 class LearningView extends StatefulWidget {
   final String topic;
   final List<EssentialWord> listEssentialWord;

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
-import '../../../../../common/data/models/setting.dart';
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 
@@ -20,7 +18,7 @@ class _SettingsViewState extends State<SettingsView> {
     return SafeArea(
       child: Scaffold(
         //backgroundColor: context.theme.colorScheme.surface,
-        body: BlocBuilder<SettingCubit, Setting>(
+        body: BlocBuilder<SettingCubit, Settings>(
             bloc: settingCubit,
             builder: (context, state) {
               return Stack(
@@ -43,7 +41,7 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
-  Column body(BuildContext context, Setting state, SettingBloc settingBloc) {
+  Column body(BuildContext context, Settings state, SettingBloc settingBloc) {
     final languageStreamController = StreamController<String>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

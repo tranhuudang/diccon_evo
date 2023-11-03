@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:diccon_evo/src/common/common.dart';
-import '../models/essential_word.dart';
 
 abstract class EssentialWordRepository {
   Future<List<EssentialWord>> loadEssentialData(String topic);

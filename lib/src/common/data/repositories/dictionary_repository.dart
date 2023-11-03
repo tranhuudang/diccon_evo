@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import '../models/word.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
 abstract class DictionaryRepository {

@@ -29,7 +29,10 @@ class LearningPageItem extends StatelessWidget {
                 Text(
                   word,
                   style: TextStyle(
-                      fontSize: 40, fontWeight: FontWeight.bold, color: context.theme.colorScheme.onPrimary,),
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: context.theme.colorScheme.onPrimary,
+                  ),
                 ),
                 Text(phonetic),
                 Text(vietnamese),
@@ -60,13 +63,12 @@ class LearningPageItem extends StatelessWidget {
                 color: Colors.white10),
           ),
         ),
-        currentIndex != null
-            ? Positioned(
-                top: 16,
-                right: 16,
-                child: Text("$currentIndex/$totalIndex"),
-              )
-            : nil,
+        if (currentIndex != null)
+          Positioned(
+            top: 16,
+            right: 16,
+            child: Text("$currentIndex/$totalIndex"),
+          ),
       ],
     );
   }

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/common/common.dart';
-import '../models/word.dart';
 
 class HistoryManager {
   /// Convert a [Word] object to Json format before save it to history.json

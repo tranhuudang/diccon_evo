@@ -3,7 +3,6 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../common/data/models/user_info.dart';
 
 class HomeMenuButton extends StatelessWidget {
   const HomeMenuButton({

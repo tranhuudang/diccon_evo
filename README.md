@@ -1,7 +1,11 @@
 # Project Name
 
 Diccon Dictionary
-
+## Freezed 
+Run the following command to build freezed model:
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
 ## MSIX Configuration
 
 Before proceeding, ensure that your MSIX configuration is set up correctly in the `pubspec.yaml` file. The icon's path might need to be updated if you've changed the location path.

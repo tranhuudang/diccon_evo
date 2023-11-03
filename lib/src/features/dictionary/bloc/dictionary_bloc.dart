@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
-import '../../../common/data/models/word.dart';
 
 part 'dictionary_state.dart';
 part 'dictionary_event.dart';
