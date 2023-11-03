@@ -149,7 +149,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                 imageUrl: widget.story.imageUrl ?? "",
                 fit: BoxFit.cover,
                 errorWidget: (context, String exception, dynamic stackTrace) {
-                  return const SizedBox.shrink();
+                  return nil;
                 },
               ),
             ),

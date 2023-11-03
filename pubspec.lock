@@ -581,6 +581,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.6.0"
+  freezed:
+    dependency: "direct main"
+    description:
+      name: freezed
+      sha256: "21bf2825311de65501d22e563e3d7605dff57fb5e6da982db785ae5372ff018a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.5"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   get_it:
     dependency: transitive
     description:
@@ -877,6 +893,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  nil:
+    dependency: "direct main"
+    description:
+      name: nil
+      sha256: ef05770c48942876d843bf6a4822d35e5da0ff893a61f1d5ad96d15c4a659136
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   octo_image:
     dependency: transitive
     description:

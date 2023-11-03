@@ -301,7 +301,7 @@ class _EssentialViewState extends State<EssentialView> {
                     ],
                   );
                 } else {
-                  return const SizedBox.shrink();
+                  return nil;
                 }
               }),
         ],

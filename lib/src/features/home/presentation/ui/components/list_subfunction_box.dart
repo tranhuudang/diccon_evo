@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
+
 class SubFunctionBox extends StatelessWidget {
   const SubFunctionBox({
     super.key,
@@ -39,10 +40,12 @@ class SubFunctionBox extends StatelessWidget {
                         );
                       }),
                 ),
-                defaultTargetPlatform.isDesktop() ?
-                PageViewNavigator(
-                    itemCount: listSubFunction.length,
-                    controller: pageController, height: height) : const SizedBox.shrink(),
+                defaultTargetPlatform.isDesktop()
+                    ? PageViewNavigator(
+                        itemCount: listSubFunction.length,
+                        controller: pageController,
+                        height: height)
+                    : nil,
               ],
             ),
             const VerticalSpacing.large(),

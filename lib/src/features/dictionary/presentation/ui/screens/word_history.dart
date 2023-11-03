@@ -132,7 +132,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
               ),
             );
           } else {
-            return const SizedBox.shrink();
+            return nil;
           }
         }),
       ),
