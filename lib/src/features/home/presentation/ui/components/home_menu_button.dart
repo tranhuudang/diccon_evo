@@ -82,7 +82,8 @@ class HomeMenuButton extends StatelessWidget {
             const PopupMenuItem(
               enabled: false,
               height: 0,
-              child: WaveDivider(),
+              child: WaveDivider(thickness: .3,),
+
             ),
             PopupMenuItem(
               child: Row(

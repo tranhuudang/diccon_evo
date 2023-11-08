@@ -90,7 +90,7 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const VerticalSpacing.medium(),
-          const WaveDivider(),
+           const WaveDivider(thickness: .3,),
           const VerticalSpacing.medium(),
 
           /// Theme switcher
@@ -101,7 +101,7 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const VerticalSpacing.medium(),
-          const WaveDivider(),
+          const WaveDivider(thickness: .3,),
           const VerticalSpacing.medium(),
           const ThemeColorPalette(),
         ]),
@@ -177,6 +177,7 @@ class _SettingsViewState extends State<SettingsView> {
               ],
             ),
             const WaveDivider(
+              thickness: .3,
               verticalPadding: 16,
             ),
             Column(

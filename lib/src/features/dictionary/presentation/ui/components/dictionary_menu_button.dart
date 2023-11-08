@@ -74,7 +74,8 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
             ),
             const PopupMenuItem(
               height: 0,
-              child: WaveDivider(),
+              child:  WaveDivider(thickness: .3,),
+
             ),
             PopupMenuItem(
               child: Text("Custom".i18n),

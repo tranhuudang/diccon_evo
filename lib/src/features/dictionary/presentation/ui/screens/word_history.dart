@@ -91,7 +91,8 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                     ),
                     const PopupMenuItem(
                       height: 0,
-                      child: WaveDivider(),
+                      child:  WaveDivider(thickness: .3,),
+
                     ),
                     PopupMenuItem(
                       child: Text("Edit".i18n),
