@@ -4,7 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-class SubFunctionBox extends StatelessWidget {
+class SubFunctionBox extends StatefulWidget {
   const SubFunctionBox({
     super.key,
     required this.listSubFunction,
@@ -14,6 +14,23 @@ class SubFunctionBox extends StatelessWidget {
   final List<Widget> listSubFunction;
   final double? height;
 
+  @override
+  State<SubFunctionBox> createState() => _SubFunctionBoxState();
+}
+
+class _SubFunctionBoxState extends State<SubFunctionBox> {
+  var listSubFunction= [];
+  @override
+  void initState(){
+    super.initState();
+    if (Properties.defaultSetting.openAppCount.isEven){
+      listSubFunction = widget.listSubFunction.reversed.toList();
+    }
+    else {
+      listSubFunction  = widget.listSubFunction;
+
+    }
+  }
   @override
   Widget build(BuildContext context) {
     StreamController<int> streamController = StreamController<int>();
@@ -27,7 +44,7 @@ class SubFunctionBox extends StatelessWidget {
             Stack(
               children: [
                 SizedBox(
-                  height: height,
+                  height: widget.height,
                   child: PageView.builder(
                       controller: pageController,
                       itemCount: listSubFunction.length,
@@ -42,9 +59,9 @@ class SubFunctionBox extends StatelessWidget {
                 ),
                 if (defaultTargetPlatform.isDesktop())
                     PageViewNavigator(
-                        itemCount: listSubFunction.length,
+                        itemCount: widget.listSubFunction.length,
                         controller: pageController,
-                        height: height),
+                        height: widget.height),
               ],
             ),
             const VerticalSpacing.large(),
