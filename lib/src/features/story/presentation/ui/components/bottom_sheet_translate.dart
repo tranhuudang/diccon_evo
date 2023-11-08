@@ -3,7 +3,7 @@ import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
+import 'package:flutter/material.dart';
 class BottomSheetTranslation extends StatefulWidget {
   final String searchWord;
   final Function(String)? onWordTap;

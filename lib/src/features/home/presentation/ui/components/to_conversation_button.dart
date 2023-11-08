@@ -3,6 +3,7 @@ import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
+import 'package:flutter/material.dart';
 class ToConversationButton extends StatelessWidget {
   const ToConversationButton({
     super.key,

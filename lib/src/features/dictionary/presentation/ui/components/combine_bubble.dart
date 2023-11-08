@@ -4,6 +4,7 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter/material.dart';
 
 class CombineBubble extends StatefulWidget {
   final Word wordObjectForLocal;

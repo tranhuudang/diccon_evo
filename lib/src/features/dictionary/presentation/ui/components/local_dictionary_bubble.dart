@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
+import 'package:flutter/material.dart';
 class LocalDictionaryBubble extends StatefulWidget {
   const LocalDictionaryBubble({
     super.key,

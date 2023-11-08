@@ -3,8 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/common/common.dart';
-
-import '../../../../features.dart';
+import 'package:wave_divider/wave_divider.dart';
 
 class DictionaryMenuButton extends StatefulWidget {
   const DictionaryMenuButton({super.key});

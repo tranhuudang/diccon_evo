@@ -3,7 +3,7 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:unicons/unicons.dart';
-
+import 'package:flutter/material.dart';
 class SearchBox extends StatefulWidget {
   final Function(String) onSubmitted;
   final Function(String)? onChanged;

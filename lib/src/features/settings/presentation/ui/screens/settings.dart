@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:diccon_evo/src/features/shared/presentation/ui/components/wave_divider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
+import 'package:wave_divider/wave_divider.dart';
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 

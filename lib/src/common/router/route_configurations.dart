@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
+import 'package:flutter/material.dart';
 
 GoRouter router = GoRouter(
   routes: [

@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:diccon_evo/src/features/shared/presentation/ui/components/wave_divider.dart';
+import 'package:wave_divider/wave_divider.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:translator/translator.dart';
 import '../../../../../common/common.dart';
 import '../../../../features.dart';
+import 'package:flutter/material.dart';
 
 class TextRecognizerView extends StatefulWidget {
   const TextRecognizerView({super.key});

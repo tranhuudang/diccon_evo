@@ -1,6 +1,6 @@
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:diccon_evo/src/features/features.dart';
-
+import 'package:flutter/material.dart';
 class DictionaryWelcome extends StatelessWidget {
   const DictionaryWelcome({super.key});
 

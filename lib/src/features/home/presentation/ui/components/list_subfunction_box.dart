@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
+import 'package:flutter/material.dart';
 
 class SubFunctionBox extends StatefulWidget {
   const SubFunctionBox({
