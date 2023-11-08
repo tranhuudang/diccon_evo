@@ -6,7 +6,6 @@ part 'essential_word.g.dart';
 @freezed
 class EssentialWord with _$EssentialWord{
   const factory EssentialWord({
-    required int id,
     required String english,
     required String phonetic,
     required String vietnamese,

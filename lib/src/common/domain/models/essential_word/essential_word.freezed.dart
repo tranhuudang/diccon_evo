@@ -20,7 +20,6 @@ EssentialWord _$EssentialWordFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$EssentialWord {
-  int get id => throw _privateConstructorUsedError;
   String get english => throw _privateConstructorUsedError;
   String get phonetic => throw _privateConstructorUsedError;
   String get vietnamese => throw _privateConstructorUsedError;
@@ -37,7 +36,7 @@ abstract class $EssentialWordCopyWith<$Res> {
           EssentialWord value, $Res Function(EssentialWord) then) =
       _$EssentialWordCopyWithImpl<$Res, EssentialWord>;
   @useResult
-  $Res call({int id, String english, String phonetic, String vietnamese});
+  $Res call({String english, String phonetic, String vietnamese});
 }
 
 /// @nodoc
@@ -53,16 +52,11 @@ class _$EssentialWordCopyWithImpl<$Res, $Val extends EssentialWord>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? english = null,
     Object? phonetic = null,
     Object? vietnamese = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       english: null == english
           ? _value.english
           : english // ignore: cast_nullable_to_non_nullable
@@ -87,7 +81,7 @@ abstract class _$$EssentialWordImplCopyWith<$Res>
       __$$EssentialWordImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String english, String phonetic, String vietnamese});
+  $Res call({String english, String phonetic, String vietnamese});
 }
 
 /// @nodoc
@@ -101,16 +95,11 @@ class __$$EssentialWordImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? english = null,
     Object? phonetic = null,
     Object? vietnamese = null,
   }) {
     return _then(_$EssentialWordImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       english: null == english
           ? _value.english
           : english // ignore: cast_nullable_to_non_nullable
@@ -131,16 +120,13 @@ class __$$EssentialWordImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EssentialWordImpl implements _EssentialWord {
   const _$EssentialWordImpl(
-      {required this.id,
-      required this.english,
+      {required this.english,
       required this.phonetic,
       required this.vietnamese});
 
   factory _$EssentialWordImpl.fromJson(Map<String, dynamic> json) =>
       _$$EssentialWordImplFromJson(json);
 
-  @override
-  final int id;
   @override
   final String english;
   @override
@@ -150,7 +136,7 @@ class _$EssentialWordImpl implements _EssentialWord {
 
   @override
   String toString() {
-    return 'EssentialWord(id: $id, english: $english, phonetic: $phonetic, vietnamese: $vietnamese)';
+    return 'EssentialWord(english: $english, phonetic: $phonetic, vietnamese: $vietnamese)';
   }
 
   @override
@@ -158,7 +144,6 @@ class _$EssentialWordImpl implements _EssentialWord {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EssentialWordImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.english, english) || other.english == english) &&
             (identical(other.phonetic, phonetic) ||
                 other.phonetic == phonetic) &&
@@ -168,8 +153,7 @@ class _$EssentialWordImpl implements _EssentialWord {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, english, phonetic, vietnamese);
+  int get hashCode => Object.hash(runtimeType, english, phonetic, vietnamese);
 
   @JsonKey(ignore: true)
   @override
@@ -187,16 +171,13 @@ class _$EssentialWordImpl implements _EssentialWord {
 
 abstract class _EssentialWord implements EssentialWord {
   const factory _EssentialWord(
-      {required final int id,
-      required final String english,
+      {required final String english,
       required final String phonetic,
       required final String vietnamese}) = _$EssentialWordImpl;
 
   factory _EssentialWord.fromJson(Map<String, dynamic> json) =
       _$EssentialWordImpl.fromJson;
 
-  @override
-  int get id;
   @override
   String get english;
   @override
