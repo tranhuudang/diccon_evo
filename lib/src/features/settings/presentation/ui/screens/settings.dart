@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:diccon_evo/src/features/shared/presentation/ui/components/wave_divider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -88,7 +89,7 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const VerticalSpacing.medium(),
-          const Divider(),
+          const WaveDivider(),
           const VerticalSpacing.medium(),
 
           /// Theme switcher
@@ -99,7 +100,7 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const VerticalSpacing.medium(),
-          const Divider(),
+          const WaveDivider(),
           const VerticalSpacing.medium(),
           const ThemeColorPalette(),
         ]),
@@ -174,7 +175,9 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
               ],
             ),
-            const Divider(),
+            const WaveDivider(
+              verticalPadding: 16,
+            ),
             Column(
               //crossAxisAlignment: CrossAxisAlignment.start,
               children: [

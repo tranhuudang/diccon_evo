@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:diccon_evo/src/features/shared/presentation/ui/components/wave_divider.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:translator/translator.dart';
@@ -55,6 +57,7 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
         padding: const EdgeInsets.only(top: 70),
         shrinkWrap: true,
         children: [
+          /// Head and sub title
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: HeadSentence(listText: ['Capture your text']),
@@ -62,6 +65,8 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
               child: Text("SubSentenceInImageRecognizer".i18n)),
+
+          /// Image preview
           _image != null
               ? SizedBox(
                   height: 400,
@@ -72,6 +77,8 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
                   image: AssetImage('assets/stickers/learn.png'),
                   height: 200,
                 ),
+
+          /// Take picture button and gallery
           Padding(
             padding: const EdgeInsets.only(top: 16),
             child: Row(
@@ -90,6 +97,8 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
               ],
             ),
           ),
+
+          /// Text Recognized Result
           if (_image != null)
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -98,8 +107,17 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
                   borderRadius: BorderRadius.circular(32),
                 ),
                 child: Section(title: 'Recognized Text'.i18n, children: [
-                  SelectableText(_text ?? ''),
-                  const Divider(),
+                  Align(
+                      alignment:Alignment.centerLeft,
+                      child: ChoiceChip(label: Text("Correct Spelling"), selected: false)),
+                  SizedBox(height: 16,),
+                  ExpandablePageView(
+                    children: [
+                      SelectableText(_text ?? ''),
+                      SelectableText(_text ?? ''),
+                    ],
+                  ),
+                  WaveDivider(),
                   if (_isLoading) const LinearProgressIndicator(),
                   SelectableText(_translatedText),
                   Row(
@@ -161,3 +179,5 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
     });
   }
 }
+
+

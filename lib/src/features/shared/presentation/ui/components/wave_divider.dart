@@ -12,7 +12,7 @@ class WaveDivider extends StatelessWidget {
       this.color,
       this.waveHeight = 5,
       this.waveWidth = 10,
-      this.verticalPadding = 16});
+      this.verticalPadding = 8});
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
+import '../../../../features.dart';
+
 class DictionaryMenuButton extends StatefulWidget {
   const DictionaryMenuButton({super.key});
 
@@ -73,7 +75,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
             ),
             const PopupMenuItem(
               height: 0,
-              child: Divider(),
+              child: WaveDivider(),
             ),
             PopupMenuItem(
               child: Text("Custom".i18n),
