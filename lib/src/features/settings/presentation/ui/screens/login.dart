@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
+
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
@@ -51,37 +52,30 @@ class _LoginViewState extends State<LoginView> {
         backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
-            Center(
-              child: SizedBox(
-                //color: Colors.red,
-                height: 500,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 120,
-                        child: Image(
-                          image: AssetImage("assets/diccon-256.png"),
-                        ),
-                      ),
+                      const Align(
+                          alignment: Alignment.topLeft,
+                          child: HeadSentence(
+                              listText: ['Simplifyingg', 'Language Learning'])),
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        "Simplifying",
-                        style: TextStyle(
-                            fontSize: 26, fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        "Language Learning",
-                        style: TextStyle(
-                            fontSize: 26, fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
 
-                      const SizedBox(
-                        height: 16,
+                      /// Sub sentence
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 18),
+                        child: Text(
+                          "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window."
+                              .i18n,
+                          style: context.theme.textTheme.bodyLarge?.copyWith(
+                              color: context.theme.colorScheme.onSurface),
+                        ),
                       ),
                       BlocListener<UserBloc, UserState>(
                           listenWhen: (previous, current) =>
@@ -109,9 +103,6 @@ class _LoginViewState extends State<LoginView> {
                       const SizedBox(
                         height: 8,
                       ),
-                      // TipsBox(children: [
-                      // ]),
-                      const Spacer(),
                     ],
                   ),
                 ),

@@ -111,5 +111,5 @@ msix_config:
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
   msix_version: 1.4.2.0
-  logo_path: C:\Users\Zr\StudioProjects\diccon_evo\assets\dictionary\icon.ico
+  logo_path: C:\Users\Zr\StudioProjects\diccon_evo\assets\icon.ico
   store: true
