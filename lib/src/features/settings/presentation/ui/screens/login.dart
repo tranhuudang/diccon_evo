@@ -77,6 +77,7 @@ class _LoginViewState extends State<LoginView> {
                               color: context.theme.colorScheme.onSurface),
                         ),
                       ),
+                      const SizedBox(height: 70,),
                       BlocListener<UserBloc, UserState>(
                           listenWhen: (previous, current) =>
                               current is UserActionState,
@@ -100,9 +101,7 @@ class _LoginViewState extends State<LoginView> {
                             context.pushReplacementNamed(RouterConstants.home);
                           },
                           child: Text("Continue without login".i18n)),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const SizedBox(height: 50,),
                     ],
                   ),
                 ),
