@@ -20,7 +20,7 @@ EssentialWord _$EssentialWordFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$EssentialWord {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get english => throw _privateConstructorUsedError;
   String get phonetic => throw _privateConstructorUsedError;
   String get vietnamese => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $EssentialWordCopyWith<$Res> {
           EssentialWord value, $Res Function(EssentialWord) then) =
       _$EssentialWordCopyWithImpl<$Res, EssentialWord>;
   @useResult
-  $Res call({String id, String english, String phonetic, String vietnamese});
+  $Res call({int id, String english, String phonetic, String vietnamese});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$EssentialWordCopyWithImpl<$Res, $Val extends EssentialWord>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       english: null == english
           ? _value.english
           : english // ignore: cast_nullable_to_non_nullable
@@ -87,7 +87,7 @@ abstract class _$$EssentialWordImplCopyWith<$Res>
       __$$EssentialWordImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String english, String phonetic, String vietnamese});
+  $Res call({int id, String english, String phonetic, String vietnamese});
 }
 
 /// @nodoc
@@ -110,7 +110,7 @@ class __$$EssentialWordImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       english: null == english
           ? _value.english
           : english // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ class _$EssentialWordImpl implements _EssentialWord {
       _$$EssentialWordImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String english;
   @override
@@ -187,7 +187,7 @@ class _$EssentialWordImpl implements _EssentialWord {
 
 abstract class _EssentialWord implements EssentialWord {
   const factory _EssentialWord(
-      {required final String id,
+      {required final int id,
       required final String english,
       required final String phonetic,
       required final String vietnamese}) = _$EssentialWordImpl;
@@ -196,7 +196,7 @@ abstract class _EssentialWord implements EssentialWord {
       _$EssentialWordImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get english;
   @override
