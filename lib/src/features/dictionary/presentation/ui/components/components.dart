@@ -7,6 +7,6 @@ export 'dictionary_welcome_box.dart';
 export 'history_tile.dart';
 export 'image_buble.dart';
 export 'local_dictionary_bubble.dart';
-export 'pageview_navigator.dart';
+export '../../../../shared/presentation/ui/components/pageview_navigator.dart';
 export 'user_bubble.dart';
 export 'user_bubble_preview.dart';

@@ -21,3 +21,4 @@ export 'word_meaning.dart';
 export 'playback_button.dart';
 export 'word_pronunciation.dart';
 export 'word_title.dart';
+export 'pageview_navigator.dart';
