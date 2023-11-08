@@ -1,2 +1,2 @@
 export 'presentation/presentation.dart';
-export 'bloc/learning_bloc.dart';
+export 'data/data.dart';

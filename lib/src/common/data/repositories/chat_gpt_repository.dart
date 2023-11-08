@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import '../models/question_answer/question_answer.dart';
+import '../../common.dart';
 
 abstract class ChatGptRepository {
   late ChatGpt chatGpt;
