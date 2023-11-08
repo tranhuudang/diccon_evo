@@ -60,7 +60,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       style: TextStyle(
                         color: context.theme.colorScheme.primary,
                       ))
-                  : const Text("Prefer Classic"),
+                  : Text("Prefer Classic".i18n),
               onTap: () {
                 _streamController.sink.add(TranslationChoices.classic);
                 Properties.defaultSetting = Properties.defaultSetting.copyWith(

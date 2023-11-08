@@ -41,13 +41,13 @@ class _CombineBubbleState extends State<CombineBubble> {
   @override
   Widget build(BuildContext context) {
     var listResponseOptions = [
-     LocalDictionaryBubble(word: widget.wordObjectForLocal),
-    ChatbotBubble(
-        word: widget.wordForChatbot,
-        chatListController: widget.chatListController,
-        index: widget.index,
-        listChatGptRepository: widget.listChatGptRepository)
-        ];
+      LocalDictionaryBubble(word: widget.wordObjectForLocal),
+      ChatbotBubble(
+          word: widget.wordForChatbot,
+          chatListController: widget.chatListController,
+          index: widget.index,
+          listChatGptRepository: widget.listChatGptRepository)
+    ];
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -81,23 +81,29 @@ class _CombineBubbleState extends State<CombineBubble> {
                       "Local dictionary don't have definition for this word. Check out AI Dictionary !") {
                     translationModeStreamController.add(TranslationChoices.ai);
                   }
+                  if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.ai){
+                    listResponseOptions = listResponseOptions.reversed.toList();
+                  }
                   return Stack(
                     children: [
                       Column(
                         children: [
                           ExpandablePageView(
-                  controller: listResponseController,
-                            onPageChanged: (pageIndex){
-                              if (widget.index >= widget.listChatGptRepository.length - 1) {
+                            controller: listResponseController,
+                            onPageChanged: (pageIndex) {
+                              if (widget.index >=
+                                  widget.listChatGptRepository.length - 1) {
                                 scrollToBottom();
                               }
                             },
-                            children:listResponseOptions,
+                            children: listResponseOptions,
                           ),
-
                         ],
                       ),
-                      if (defaultTargetPlatform.isDesktop()) PageViewNavigator(controller: listResponseController, itemCount: listResponseOptions.length)
+                      if (defaultTargetPlatform.isDesktop())
+                        PageViewNavigator(
+                            controller: listResponseController,
+                            itemCount: listResponseOptions.length)
                     ],
                   );
                 },
