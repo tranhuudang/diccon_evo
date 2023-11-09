@@ -61,7 +61,7 @@ class _LoginViewState extends State<LoginView> {
                       const Align(
                           alignment: Alignment.topLeft,
                           child: HeadSentence(
-                              listText: ['Simplifyingg', 'Language Learning'])),
+                              listText: ['Simplifying', 'Language Learning'])),
                       const SizedBox(
                         height: 16,
                       ),
