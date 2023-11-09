@@ -27,7 +27,8 @@ class HomeMenuButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
           ),
           itemBuilder: (context) => [
-            if (defaultTargetPlatform.isMobile())
+            //if (defaultTargetPlatform.isMobile())
+            if (false)
               PopupMenuItem(
                 child: Row(
                   children: [

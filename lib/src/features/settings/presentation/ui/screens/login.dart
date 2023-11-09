@@ -35,7 +35,8 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     if (defaultTargetPlatform.isAndroid()) {
-      if (_loggedInUser == null) {
+      //if (_loggedInUser == null) {
+      if (false) {
         return buildUserNotLoginYetWidget(context);
       } else {
         return const HomeView();
