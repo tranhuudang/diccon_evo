@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:translator/translator.dart';
-
-import '../../../common/common.dart';
 import '../models/text_recognizer_bloc_params.dart';
 
 /// States
