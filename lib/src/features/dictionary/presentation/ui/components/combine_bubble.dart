@@ -85,7 +85,15 @@ class _CombineBubbleState extends State<CombineBubble> {
                   if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.ai){
                     listResponseOptions = listResponseOptions.reversed.toList();
                   }
-                  return Stack(
+                  if (widget.wordForChatbot.numberOfWord() > 3) {
+                    return ChatbotBubble(
+                        isParagraph: true,
+                        word: widget.wordForChatbot,
+                        chatListController: widget.chatListController,
+                        index: widget.index,
+                        listChatGptRepository: widget.listChatGptRepository);
+                  } else {
+                    return Stack(
                     children: [
                       Column(
                         children: [
@@ -107,9 +115,11 @@ class _CombineBubbleState extends State<CombineBubble> {
                             itemCount: listResponseOptions.length)
                     ],
                   );
+                  }
                 },
               ),
             ),
+            if (!(widget.wordForChatbot.numberOfWord() > 3))
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SmoothPageIndicator(

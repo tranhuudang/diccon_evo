@@ -97,8 +97,13 @@ class TextRecognizerView extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8),
                                     child: FilledButton.icon(
-                                        onPressed: () => textRecognizerBloc
-                                            .add(TranslateFromGoogle()),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => DictionaryView(
+                                                      word: state.params.rawContent, buildContext: context)));
+                                        },
                                         icon: const Icon(Icons.translate),
                                         label: Text("Send to dictionary".i18n)),
                                   ),
