@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PropertiesConstants {
-  static int version = 416;
+  static int version = 439;
 
   static String conversationKey =
       "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";
