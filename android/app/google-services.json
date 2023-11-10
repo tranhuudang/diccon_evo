@@ -23,22 +23,6 @@
           }
         },
         {
-          "client_id": "867146042969-k59s9pgh2s14qbkp53j7s0uvtnnn1n7l.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.zeroboy.diccon_evo",
-            "certificate_hash": "11ce0ac2b6295ef32064cb6434f1ed21d2ab1d05"
-          }
-        },
-        {
-          "client_id": "867146042969-o0i0hfjmqtceqa9oqnjedirp429ic3n6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.zeroboy.diccon_evo",
-            "certificate_hash": "bc69a47ab62abd75b46256fcf43ca5c51f38ef22"
-          }
-        },
-        {
           "client_id": "867146042969-63mvbjllfa0nsl84u09lgdcl28pjn2m3.apps.googleusercontent.com",
           "client_type": 3
         }

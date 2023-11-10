@@ -49,7 +49,12 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
-              _createFirebaseDatabaseItem();
+              // Only add definition of a word to firebase database when it not a paragraph
+              if(defaultTargetPlatform.isAndroid()) {
+                if (!widget.isParagraph) {
+                  _createFirebaseDatabaseItem();
+                }
+              }
             } else {
               return widget.listChatGptRepository[widget.index]
                   .singleQuestionAnswer.answer
@@ -97,21 +102,22 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
         .isEmpty) {
       var request = await _getQuestionRequest();
-      // create md5 from question to compare to see if that md5 is already exist in database
-      var answer = _composeMd5IdForFirebaseDb(
-          word: widget.word,
-          options: Properties.defaultSetting.dictionaryResponseSelectedList);
-      final docUser =
-          FirebaseFirestore.instance.collection("Dictionary").doc(answer);
-      await docUser.get().then((snapshot) async {
-        if (snapshot.exists) {
-          widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
-              .write(snapshot.data()?['answer'].toString());
-          setState(() {});
-        } else {
-          _chatStreamResponse(request);
-        }
-      });
+        // create md5 from question to compare to see if that md5 is already exist in database
+        var answer = _composeMd5IdForFirebaseDb(
+            word: widget.word,
+            options: Properties.defaultSetting.dictionaryResponseSelectedList);
+        final docUser =
+        FirebaseFirestore.instance.collection("Dictionary").doc(answer);
+        await docUser.get().then((snapshot) async {
+          if (snapshot.exists) {
+            widget.listChatGptRepository[widget.index].singleQuestionAnswer
+                .answer
+                .write(snapshot.data()?['answer'].toString());
+            setState(() {});
+          } else {
+            _chatStreamResponse(request);
+          }
+        });
     }
   }
 
