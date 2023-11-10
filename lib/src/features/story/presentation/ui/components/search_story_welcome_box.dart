@@ -1,6 +1,7 @@
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:flutter/material.dart';
+
 class SearchStoryWelcome extends StatelessWidget {
   const SearchStoryWelcome({super.key});
 
@@ -27,12 +28,11 @@ class SearchStoryWelcome extends StatelessWidget {
           Opacity(
             opacity: 0.5,
             child: Text(
-              "You can search by using title, description, contents and author of the story.".i18n,
+              "You can search by using title, description, contents and author of the story."
+                  .i18n,
               style: context.theme.textTheme.bodyMedium,
             ),
           ),
-
-
         ],
       ),
     );
