@@ -1,0 +1,1 @@
+export 'text_recognizer_bloc_params.dart';

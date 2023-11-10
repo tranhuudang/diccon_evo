@@ -6,8 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 
-import 'features/dictionary/bloc/text_recognizer_bloc.dart';
-
 class App extends StatefulWidget {
   const App({super.key});
 

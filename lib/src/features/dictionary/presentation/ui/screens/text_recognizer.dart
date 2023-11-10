@@ -1,4 +1,3 @@
-import 'package:diccon_evo/src/features/dictionary/bloc/text_recognizer_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wave_divider/wave_divider.dart';
