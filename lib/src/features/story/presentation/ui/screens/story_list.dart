@@ -267,7 +267,11 @@ class StoryListView extends StatelessWidget {
         filter: (story) => [story.title, story.content],
         builder: (story) => ListTile(
           title: Text(story.title),
-          subtitle: Text(story.shortDescription),
+          titleTextStyle: context.theme.textTheme.titleMedium,
+          subtitle: Opacity(
+              opacity: .5,
+              child: Text(story.shortDescription)),
+          subtitleTextStyle: context.theme.textTheme.bodyMedium,
           onTap: () {
             context.pushNamed(RouterConstants.readingSpace, extra: story);
           },

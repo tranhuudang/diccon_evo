@@ -203,6 +203,7 @@ extension Localization on String {
     },
 
     /// Story
+
     "SubSentenceInStoryList": {
       "en_us":
           "Let the magic of words transport you to realms uncharted and dreams unbound.",
@@ -212,6 +213,29 @@ extension Localization on String {
     "Getting new stories..": {
       "en_us": "Getting new stories..",
       "vi_vi": "Đang tải truyện mới..",
+    },
+    "Suggestion": {
+      "en_us": "Suggestion",
+      "vi_vi": "Gợi ý",
+    },
+    "Find your story": {
+      "en_us": "Find your story",
+      "vi_vi": "Tìm câu chuyện mà bạn thích",
+    },
+    "No matching story found": {
+      "en_us": "No matching story found",
+      "vi_vi": "Không tìm thấy câu chuyện tương tự",
+    },
+    "Never miss out on your story ever again": {
+      "en_us": "Never miss out on your story ever again",
+      "vi_vi": "Bạn sẽ không bỏ lỡ câu chuyện đang dang dở",
+    },
+    "You can search by using title, description, contents and author of the story.":
+        {
+      "en_us":
+          "You can search by using title, description, contents and author of the story.",
+      "vi_vi":
+          "Bạn có thể sử dụng từ khóa tìm kiếm từ tiêu đề, mô tả, nội dung hay tên tác giả của câu chuyện.",
     },
     // Story Bookmark
     "Bookmark is removed": {
