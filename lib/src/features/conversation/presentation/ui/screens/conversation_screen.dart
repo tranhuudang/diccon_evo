@@ -4,18 +4,8 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:flutter/material.dart';
 
 
-class ConversationView extends StatefulWidget {
+class ConversationView extends StatelessWidget {
   const ConversationView({super.key});
-
-  @override
-  State<ConversationView> createState() => _ConversationViewState();
-}
-
-class _ConversationViewState extends State<ConversationView> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

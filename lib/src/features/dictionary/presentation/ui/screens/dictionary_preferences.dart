@@ -1,6 +1,9 @@
+import 'package:diccon_evo/src/features/dictionary/data/bloc/dictionary_preferences_bloc.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class DictionaryPreferences extends StatefulWidget {
   const DictionaryPreferences({super.key});
 
@@ -9,8 +12,7 @@ class DictionaryPreferences extends StatefulWidget {
 }
 
 class _DictionaryPreferencesState extends State<DictionaryPreferences> {
-  List<String> listSelected =
-      Properties.defaultSetting.dictionaryResponseSelectedList.split(", ");
+  final dictionaryPreferencesBloc = DictionaryPreferencesBloc();
   List<String> listChoices = [
     "Phiên âm",
     "Định nghĩa",
@@ -57,35 +59,6 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
     "Giao thông vận tải",
   ];
 
-  void _compileSelectedItems() {
-    final convertedString =
-        listSelected.join(", "); // Joins the items with a space
-    Properties.saveSettings(Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedList: convertedString));
-    Properties.defaultSetting = Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedList: convertedString);
-  }
-
-  void _addItemToSelectedLists(
-      {required String item}) {
-    if(listSelected.length >= 7) {
-      context.showAlertDialogWithoutAction(title: "Maximum Choices Reached".i18n, content: "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding".i18n);
-    } else {
-      setState(() {
-        listSelected.add(item);
-      });
-    }
-  }
-
-  void _removeItemInLists(
-      {required String item, required List<String> targetList}) {
-    if(targetList.length >=2) {
-      setState(() {
-        targetList.remove(item);
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -100,98 +73,108 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
           children: [
             SingleChildScrollView(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 70,
-                  ),
-                  Section(
-                    title: "Customize the AI response format.".i18n,
-                    children: [
-                      Wrap(
-                        spacing: 3,
-                        runSpacing: 3,
-                        children: listSelected
-                            .map((item) => ActionChip(
-                                  backgroundColor:
-                                      context.theme.colorScheme.secondary,
-                                  label: Text(
-                                    item.i18n,
-                                    style: TextStyle(
-                                        color: context.theme
-                                            .colorScheme
-                                            .onSecondary),
-                                  ),
-                                  onPressed: () {
-                                    _removeItemInLists(
-                                        item: item, targetList: listSelected);
-                                    // rebuild list selected item and save it to setting
-                                    _compileSelectedItems();
-                                  },
-                                ))
-                            .toList(),
-                      ),
-                    ],
-                  ),
-                  Section(
-                    title: "Available options".i18n,
-                    children: [
-                      Wrap(
-                        spacing: 3,
-                        runSpacing: 3,
-                        children: listChoices.map((item) {
-                          bool isSelected = false;
-                          if (listSelected.contains(item)) isSelected = true;
-                          return ChoiceChip(
-                            label: Text(item.i18n),
-                            selected: isSelected,
-                            onSelected: (selected) {
-                              if (listSelected.contains(item)) {
-                                _removeItemInLists(
-                                    item: item, targetList: listSelected);
-                              } else {
-  _addItemToSelectedLists(
-                                    item: item);
-                              }
-                              // rebuild list selected item and save it to setting
-                              _compileSelectedItems();
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                  Section(
-                    title: "Specialized Meanings".i18n,
-                    children: [
-                      Wrap(
-                        spacing: 3,
-                        runSpacing: 3,
-                        children: listSpecializedFields.map((item) {
-                          bool isSelected = false;
-                          if (listSelected.contains(item)) isSelected = true;
-                          return ChoiceChip(
-                            label: Text(item.i18n),
-                            selected: isSelected,
-                            onSelected: (selected) {
-                              if (listSelected.contains(item)) {
-                                _removeItemInLists(
-                                    item: item, targetList: listSelected);
-                              } else {
-  _addItemToSelectedLists(
-                                    item: item);
-                              }
-
-                              // rebuild list selected item and save it to setting
-                              _compileSelectedItems();
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: BlocConsumer<DictionaryPreferencesBloc,
+                  DictionaryPreferencesState>(
+                  bloc: dictionaryPreferencesBloc,
+                  listenWhen: (previous, current) => current is DictionaryPreferencesActionState,
+                  buildWhen: (previous, current) => current is !DictionaryPreferencesActionState,
+                  listener: (context, state) {
+                if (state is DictionaryPreferencesNotifyAboutLimitChoices) {
+                  context.showAlertDialogWithoutAction(
+                      title: "Maximum Choices Reached".i18n,
+                      content:
+                          "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding"
+                              .i18n);
+                }
+              }, builder: (context, state) {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    Section(
+                      title: "Customize the AI response format.".i18n,
+                      children: [
+                        Wrap(
+                          spacing: 3,
+                          runSpacing: 3,
+                          children: state.listSelected
+                              .map((item) => ActionChip(
+                                    backgroundColor:
+                                        context.theme.colorScheme.secondary,
+                                    label: Text(
+                                      item.i18n,
+                                      style: TextStyle(
+                                          color: context
+                                              .theme.colorScheme.onSecondary),
+                                    ),
+                                    onPressed: () => dictionaryPreferencesBloc
+                                        .add(RemoveItemInList(
+                                            itemToRemove: item)),
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                    Section(
+                      title: "Available options".i18n,
+                      children: [
+                        Wrap(
+                          spacing: 3,
+                          runSpacing: 3,
+                          children: listChoices.map((item) {
+                            bool isSelected = false;
+                            if (state.listSelected.contains(item)) {
+                              isSelected = true;
+                            }
+                            return ChoiceChip(
+                              label: Text(item.i18n),
+                              selected: isSelected,
+                              onSelected: (selected) {
+                                if (state.listSelected.contains(item)) {
+                                  dictionaryPreferencesBloc.add(
+                                      RemoveItemInList(itemToRemove: item));
+                                } else {
+                                  dictionaryPreferencesBloc.add(
+                                      AddItemToSelectedList(itemToAdd: item));
+                                }
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                    Section(
+                      title: "Specialized Meanings".i18n,
+                      children: [
+                        Wrap(
+                          spacing: 3,
+                          runSpacing: 3,
+                          children: listSpecializedFields.map((item) {
+                            bool isSelected = false;
+                            if (state.listSelected.contains(item)) {
+                              isSelected = true;
+                            }
+                            return ChoiceChip(
+                              label: Text(item.i18n),
+                              selected: isSelected,
+                              onSelected: (selected) {
+                                if (state.listSelected.contains(item)) {
+                                  dictionaryPreferencesBloc.add(
+                                      RemoveItemInList(itemToRemove: item));
+                                } else {
+                                  dictionaryPreferencesBloc.add(
+                                      AddItemToSelectedList(itemToAdd: item));
+                                }
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              }),
             ),
             Header(
               title: "Preferences".i18n,
