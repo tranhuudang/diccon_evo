@@ -84,6 +84,8 @@ dependencies:
   json_annotation: ^4.8.1
   expandable_page_view: ^1.0.17
   wave_divider: ^0.0.2
+  # this package help me create a somple way to add search view in searching stories
+  search_page: ^2.3.0
 
 dev_dependencies:
   flutter_test:

@@ -1181,6 +1181,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.9"
+  search_page:
+    dependency: "direct main"
+    description:
+      name: search_page
+      sha256: "675239c1ac17f999c37aea7f4c969dc2fc21b58eb61d78180ff0c16112aab49b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   shared_preferences:
     dependency: "direct main"
     description:

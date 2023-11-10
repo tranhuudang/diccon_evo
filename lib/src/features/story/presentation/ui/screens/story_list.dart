@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
+
 class StoryListView extends StatelessWidget {
   const StoryListView({super.key});
 
@@ -15,24 +18,35 @@ class StoryListView extends StatelessWidget {
         backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: Responsive(
-                smallSizeDevice: body(
-                    context: context,
-                    storyListBloc: storyListBloc,
-                    crossAxisCount: 1),
-                mediumSizeDevice: body(
-                    context: context,
-                    storyListBloc: storyListBloc,
-                    crossAxisCount: 2),
-                largeSizeDevice: body(
-                    context: context,
-                    storyListBloc: storyListBloc,
-                    crossAxisCount: 3),
+            RefreshIndicator(
+              displacement: 60,
+              onRefresh: () async {
+                await Future.delayed(const Duration(seconds: 1));
+                storyListBloc.add(StoryListReload());
+              },
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(top: 60),
+                child: Responsive(
+                  smallSizeDevice: body(
+                      context: context,
+                      storyListBloc: storyListBloc,
+                      crossAxisCount: 1),
+                  mediumSizeDevice: body(
+                      context: context,
+                      storyListBloc: storyListBloc,
+                      crossAxisCount: 2),
+                  largeSizeDevice: body(
+                      context: context,
+                      storyListBloc: storyListBloc,
+                      crossAxisCount: 3),
+                ),
               ),
             ),
             Header(
               actions: [
+                IconButton(
+                    onPressed: () => showSearchPage(context),
+                    icon: const Icon(Icons.search)),
                 PopupMenuButton(
                   //splashRadius: 10.0,
                   shape: RoundedRectangleBorder(
@@ -56,7 +70,9 @@ class StoryListView extends StatelessWidget {
                     const PopupMenuItem(
                       enabled: false,
                       height: 0,
-                      child: WaveDivider(thickness: .3,),
+                      child: WaveDivider(
+                        thickness: .3,
+                      ),
                     ),
                     PopupMenuItem(
                       child: Text("All".i18n),
@@ -76,66 +92,66 @@ class StoryListView extends StatelessWidget {
       {required BuildContext context,
       required StoryListBloc storyListBloc,
       required int crossAxisCount}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 60),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// Head sentence
-              const HeadSentence(
-                listText: ["Library of", "Infinite Adventures"],
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// Head sentence
+            const HeadSentence(
+              listText: ["Library of", "Infinite Adventures"],
+            ),
 
-              /// Sub sentence
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
-                child: Text(
-                  "SubSentenceInStoryList".i18n,
-                  style: context.theme.textTheme.titleMedium?.copyWith(
-                      color: context.theme.colorScheme.onSurface),
+            /// Sub sentence
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
+              child: Text(
+                "SubSentenceInStoryList".i18n,
+                style: context.theme.textTheme.titleMedium
+                    ?.copyWith(color: context.theme.colorScheme.onSurface),
+              ),
+            ),
+
+            /// Function button
+            Row(
+              children: [
+                CircleButtonBar(
+                  children: [
+                    CircleButton(
+                        iconData: Icons.bookmark_border,
+                        onTap: () {
+                          context.pushNamed('reading-chamber-bookmark');
+                        }),
+                    CircleButton(
+                        iconData: Icons.history,
+                        onTap: () {
+                          context.pushNamed('reading-chamber-history');
+                        }),
+                  ],
                 ),
-              ),
+                const Spacer(),
+                FilledButton.tonalIcon(
+                    onPressed: () {
+                      storyListBloc.add(StoryListReload());
+                    },
+                    icon: const Icon(Icons.auto_fix_high_outlined),
+                    label: Text('Suggestion'.i18n)),
+              ],
+            ),
+          ],
+        ),
 
-              /// Function button
-              Row(
-                children: [
-                  CircleButtonBar(
-                    children: [
-                      CircleButton(
-                          iconData: Icons.bookmark_border,
-                          onTap: () {
-                            context.pushNamed('reading-chamber-bookmark');
-                          }),
-                      CircleButton(
-                          iconData: Icons.history,
-                          onTap: () {
-                            context.pushNamed('reading-chamber-history');
-                          }),
-                    ],
-                  ),
-                  const Spacer(),
-
-                  /// Reload button to reload list article
-                  CircleButton(
-                      iconData: Icons.autorenew,
-                      onTap: () => storyListBloc.add(StoryListReload())),
-                ],
-              ),
-            ],
-          ),
-
-          /// List article
-          BlocBuilder<StoryListBloc, StoryListState>(
-            bloc: storyListBloc,
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                case StoryListUpdatedState:
-                  var data = state as StoryListUpdatedState;
-                  return Container(
+        /// List article
+        BlocBuilder<StoryListBloc, StoryListState>(
+          bloc: storyListBloc,
+          builder: (context, state) {
+            switch (state.runtimeType) {
+              case StoryListUpdatedState:
+                var data = state as StoryListUpdatedState;
+                return Column(
+                  children: [
+                    Container(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: GridView.builder(
                         cacheExtent: 500,
@@ -148,7 +164,7 @@ class StoryListView extends StatelessWidget {
                         },
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 9,//data.articleList.length,
+                        itemCount: 9, //data.articleList.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,
@@ -169,61 +185,93 @@ class StoryListView extends StatelessWidget {
                             },
                           );
                         },
-                      ));
-                case StoryListErrorState:
-                  return Center(
+                      ),
+                    ),
+
+                    /// Go to search
+                    Center(
+                      child: GetMoreButton(
+                        onTap: () => showSearchPage(context),
+                      ),
+                    )
+                  ],
+                );
+              case StoryListErrorState:
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const VerticalSpacing.medium(),
+                      const Image(
+                        image: AssetImage('assets/stickers/error.png'),
+                        width: 200,
+                      ),
+                      const VerticalSpacing.medium(),
+                      Text(
+                        "I'm tired. I guess I'm getting old.".i18n,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const VerticalSpacing.medium(),
+                      Opacity(
+                        opacity: 0.5,
+                        child: SizedBox(
+                          width: 300,
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            "Don't worry, this sometimes happens to prove the theory that nothing is perfect. We are on the way to fixing it. So, keep calm and keep kicking."
+                                .i18n,
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      const VerticalSpacing.medium(),
+                    ],
+                  ),
+                );
+              default:
+                storyListBloc.add(StoryListInitial());
+                return const Padding(
+                  padding: EdgeInsets.only(top: 50),
+                  child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const VerticalSpacing.medium(),
-                        const Image(
-                          image: AssetImage('assets/stickers/error.png'),
-                          width: 200,
-                        ),
-                        const VerticalSpacing.medium(),
-                        Text(
-                          "I'm tired. I guess I'm getting old.".i18n,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        const VerticalSpacing.medium(),
-                        Opacity(
-                          opacity: 0.5,
-                          child: SizedBox(
-                            width: 300,
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              "Don't worry, this sometimes happens to prove the theory that nothing is perfect. We are on the way to fixing it. So, keep calm and keep kicking."
-                                  .i18n,
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ),
-                        ),
-                        const VerticalSpacing.medium(),
+                        CircularProgressIndicator(),
                       ],
                     ),
-                  );
-                default:
-                  storyListBloc.add(StoryListInitial());
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 50),
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                        ],
-                      ),
-                    ),
-                  );
-              }
-            },
-          ),
-        ],
+                  ),
+                );
+            }
+          },
+        ),
+      ],
+    );
+  }
+
+  Future<void> showSearchPage(BuildContext context) async {
+    showSearch(
+      context: context,
+      delegate: SearchPage<Story>(
+        items: context.read<StoryListBloc>().state.articleList,
+        searchLabel: 'Find your story'.i18n,
+        searchStyle: context.theme.textTheme.titleMedium,
+        suggestion: const Center(child: SearchStoryWelcome()),
+        failure: Center(
+          child: Text('No matching story found'.i18n),
+        ),
+        filter: (story) => [story.title, story.content],
+        builder: (story) => ListTile(
+          title: Text(story.title),
+          subtitle: Text(story.shortDescription),
+          onTap: () {
+            context.pushNamed(RouterConstants.readingSpace, extra: story);
+          },
+        ),
       ),
     );
   }

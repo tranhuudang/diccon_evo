@@ -21,20 +21,26 @@ class StoryListSortAdvanced extends StoryListEvent {}
 class StoryListSortAll extends StoryListEvent {}
 
 /// States
-abstract class StoryListState {}
-
-class StoryListUninitialized extends StoryListState {}
-
-class StoryListUpdatedState extends StoryListState {
+abstract class StoryListState {
   List<Story> articleList = [];
-  StoryListUpdatedState({required this.articleList});
+  StoryListState({required this.articleList});
 }
 
-class StoryListErrorState extends StoryListState {}
+class StoryListInitialState extends StoryListState {
+  StoryListInitialState({required super.articleList});
+}
+
+class StoryListUpdatedState extends StoryListState {
+  StoryListUpdatedState({required super.articleList});
+}
+
+class StoryListErrorState extends StoryListState {
+  StoryListErrorState({required super.articleList});
+}
 
 /// Bloc
 class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
-  StoryListBloc() : super(StoryListUninitialized()) {
+  StoryListBloc() : super(StoryListInitialState(articleList: [])) {
     on<StoryListInitial>(_storyListInitial);
     on<StoryListReload>(_storyListReload);
     on<StoryListSortElementary>(_sortElementary);
@@ -44,32 +50,30 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
   }
 
   final _articleRepository = StoryRepositoryImpl();
-  List<Story> _defaultStoryList = [];
 
   FutureOr<void> _storyListInitial(
       StoryListInitial event, Emitter<StoryListState> emit) async {
     try {
       await _loadAll();
-      _defaultStoryList.shuffle();
-      emit(StoryListUpdatedState(articleList: _defaultStoryList));
+      state.articleList.shuffle();
+      emit(StoryListUpdatedState(articleList: state.articleList));
     } catch (e) {
       if (kDebugMode) {
         print("This error happened in StoryListInitial: $e");
       }
-      emit(StoryListErrorState());
+      emit(StoryListErrorState(articleList: state.articleList));
     }
   }
 
   FutureOr<void> _storyListReload(
       StoryListReload event, Emitter<StoryListState> emit) async {
-    await _loadAll();
-    _defaultStoryList.shuffle();
-    emit(StoryListUpdatedState(articleList: _defaultStoryList));
+    state.articleList.shuffle();
+    emit(StoryListUpdatedState(articleList: state.articleList));
   }
 
   void _sortElementary(
       StoryListSortElementary event, Emitter<StoryListState> emit) {
-    var elementaryOnly = _defaultStoryList
+    var elementaryOnly = state.articleList
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
         .toList();
@@ -78,7 +82,7 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
 
   void _sortIntermediate(
       StoryListSortIntermediate event, Emitter<StoryListState> emit) {
-    var intermediateOnly = _defaultStoryList
+    var intermediateOnly = state.articleList
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
         .toList();
@@ -87,18 +91,18 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
 
   void _sortAdvanced(
       StoryListSortAdvanced event, Emitter<StoryListState> emit) {
-    var advancedOnly = _defaultStoryList
+    var advancedOnly = state.articleList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(StoryListUpdatedState(articleList: advancedOnly));
   }
 
   void _sortAll(StoryListSortAll event, Emitter<StoryListState> emit) {
-    var all = _defaultStoryList;
+    var all = state.articleList;
     emit(StoryListUpdatedState(articleList: all));
   }
 
   Future<void> _loadAll() async {
-    _defaultStoryList = await _articleRepository.getDefaultStories();
+    state.articleList = await _articleRepository.getDefaultStories();
   }
 }
