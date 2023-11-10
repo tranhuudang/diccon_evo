@@ -13,6 +13,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_localization
   flutter_tts
   screen_retriever
+  sqlite3_flutter_libs
   url_launcher_windows
   window_manager
 )

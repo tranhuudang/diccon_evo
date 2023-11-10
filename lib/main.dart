@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:diccon_evo/src/app.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();
@@ -21,6 +23,8 @@ void main() async {
   /// Initial for Windows
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
+    // Initialize FFI
+    sqfliteFfiInit();
 
     /// register player first
     WindowManager.instance.setSize(Size(Properties.defaultSetting.windowsWidth,
@@ -29,6 +33,6 @@ void main() async {
     WindowManager.instance.setMaximumSize(PropertiesConstants.maxWindowsSize);
     WindowManager.instance.setTitle(PropertiesConstants.diccon);
   }
-
+  databaseFactory = databaseFactoryFfi;
   runApp(const App());
 }

@@ -26,106 +26,9 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
 
   @override
   Future<Word> getDefinition(String word) async {
-    if (defaultTargetPlatform.isAndroid()) {
-      if (kDebugMode) {
-        print("Get result from AndroidEngine using SQLite");
-      }
-      return await _getDefinitionForAndroid(word);
-    } else if (defaultTargetPlatform.isWindows()) {
-      if (kDebugMode) {
-        print("Get result from WindowsEngine using Classic Text Search");
-      }
-      return await _getDefinitionForWindows(word);
-    } else {
-      return await _getDefinitionForWindows(word);
-    }
+      return await _getDefinitionForAndroidAndWindows(word);
   }
-
-  Future<Word> _getDefinitionForWindows(String searchWord) async {
-    final db = DictionaryDatabaseWindows.instance;
-    final wordList = await db.database;
-    var refineWord = searchWord.removeSpecialCharacters().trim().toLowerCase();
-
-    if (kDebugMode) {
-      print("refined word:[$refineWord]");
-    }
-    for (int i = 0; i < wordList.length; i++) {
-      String word = wordList[i].word;
-
-      if (word == refineWord) {
-        if (kDebugMode) {
-          print("Start to get the value that completely match with user input");
-        }
-
-        // Add found word to history file
-        await HistoryManager.saveWordToHistory(
-            refineWord.upperCaseFirstLetter());
-        return wordList[i];
-      } else
-
-      // Start to get the value that completely match with user input
-      if (word.startsWith("$refineWord${PropertiesConstants.blankSpace}")) {
-        if (kDebugMode) {
-          print("Start to get the value that completely match with user input");
-        }
-
-        // Add found word to history file
-        await HistoryManager.saveWordToHistory(
-            refineWord.upperCaseFirstLetter());
-        return wordList[i];
-      }
-    }
-    for (int i = 0; i < wordList.length; i++) {
-      String word = wordList[i].word;
-
-      // Remove s in plural word to get the singular word
-      if (word.startsWith(refineWord.substring(0, refineWord.length - 1)) &&
-          (refineWord.lastIndexOf('s') == (refineWord.length - 1))) {
-        if (kDebugMode) {
-          print("Remove s in plural word to get the singular word");
-        }
-
-        // Add found word to history file
-        await HistoryManager.saveWordToHistory(
-            refineWord.upperCaseFirstLetter());
-        return wordList[i];
-      } else
-      // Remove d in verb in the past Ex: play (chơi) → played (đã chơi)
-      if (word.startsWith(refineWord.substring(0, refineWord.length - 1)) &&
-          (refineWord.lastIndexOf('d') == (refineWord.length - 1))) {
-        if (kDebugMode) {
-          print(
-              "Remove d in verb in the past Ex: play (chơi) → played (đã chơi)");
-        }
-
-        // Add found word to history file
-        await HistoryManager.saveWordToHistory(
-            refineWord.upperCaseFirstLetter());
-        return wordList[i];
-      }
-    }
-    for (int i = 0; i < wordList.length; i++) {
-      String word = wordList[i].word;
-      // Remove ed in verb in the past Ex: dance (nhảy múa) → danced (đã nhảy múa)
-      if (word.startsWith(refineWord.substring(0, refineWord.length - 2)) &&
-          (refineWord.lastIndexOf('ed') == (refineWord.length - 2)) &&
-          (word.substring(0, word.indexOf(' ')) ==
-              refineWord.substring(0, refineWord.length - 2))) {
-        if (kDebugMode) {
-          print(
-              "Remove ed in verb in the past Ex: dance (nhảy múa) → danced (đã nhảy múa)");
-        }
-
-        // Add found word to history file
-        await HistoryManager.saveWordToHistory(
-            refineWord.upperCaseFirstLetter());
-        return wordList[i];
-      }
-    }
-    return Word.empty();
-  }
-
-  Future<Word> _getDefinitionForAndroid(String word) async {
+  Future<Word> _getDefinitionForAndroidAndWindows(String word) async {
     var result = await _getResultFromSQLiteDatabase(word);
     if (result != Word.empty()) return result;
     if (_isSEnding(word) || _isDEnding(word)) {
@@ -144,19 +47,11 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   Future<Word> _getResultFromSQLiteDatabase(String refinedWord) async {
-    final dbHelper = DictionaryDatabaseAndroid.instance;
+    final dbHelper = DictionaryDatabase.instance;
     var result = await dbHelper.queryDictionary(refinedWord);
     if (result.isNotEmpty) {
       final definition = result[0]['definition'];
       final pronounce = result[0]['pronounce'];
-
-      // Handle the definition and pronounce data as needed
-      if (kDebugMode) {
-        print('Definition: $definition');
-      }
-      if (kDebugMode) {
-        print('Pronunciation: $pronounce');
-      }
 
       // Add the found word to the history file
       HistoryManager.saveWordToHistory(refinedWord.upperCaseFirstLetter());
