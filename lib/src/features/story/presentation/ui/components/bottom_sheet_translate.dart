@@ -28,7 +28,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       chatGpt: ChatGpt(apiKey: PropertiesConstants.dictionaryKey));
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
   final _isLoadingStreamController = StreamController();
-  final _tabSwicherStreamController = StreamController<TranslationChoices>();
+  final _tabSwicherStreamController = StreamController<StoryTranslationChoices>();
   Word _wordResult = Word.empty();
   bool _isLoading = true;
   final _pageController = PageController();
@@ -146,8 +146,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: StreamBuilder<TranslationChoices>(
-                  initialData: TranslationChoices.translate,
+                child: StreamBuilder<StoryTranslationChoices>(
+                  initialData: StoryTranslationChoices.translate,
                   stream: _tabSwicherStreamController.stream,
                   builder: (context, tabSwitcher) {
                     return Column(
@@ -155,17 +155,17 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                         SwitchTranslationBar(
                           currentValue: tabSwitcher.data,
                           selectedItemSet:
-                              (Set<TranslationChoices> selectedItemSet) {
+                              (Set<StoryTranslationChoices> selectedItemSet) {
                             _tabSwicherStreamController
                                 .add(selectedItemSet.first);
                             if (selectedItemSet.first ==
-                                TranslationChoices.translate) {
+                                StoryTranslationChoices.translate) {
                               _pageController.previousPage(
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.easeIn);
                             }
                             if (selectedItemSet.first ==
-                                TranslationChoices.explain) {
+                                StoryTranslationChoices.explain) {
                               _pageController.nextPage(
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.easeIn);
@@ -177,11 +177,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           onPageChanged: (index) {
                             if (index == 0) {
                               _tabSwicherStreamController
-                                  .add(TranslationChoices.translate);
+                                  .add(StoryTranslationChoices.translate);
                             }
                             if (index == 1) {
                               _tabSwicherStreamController
-                                  .add(TranslationChoices.explain);
+                                  .add(StoryTranslationChoices.explain);
                             }
                           },
                           children: [

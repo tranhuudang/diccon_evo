@@ -3,8 +3,8 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 
 class SwitchTranslationBar extends StatefulWidget {
-  final Function(Set<TranslationChoices> selectedItemSet) selectedItemSet;
-  final TranslationChoices? currentValue;
+  final Function(Set<StoryTranslationChoices> selectedItemSet) selectedItemSet;
+  final StoryTranslationChoices? currentValue;
   const SwitchTranslationBar({
     super.key, required this.selectedItemSet, this.currentValue,
   });
@@ -15,7 +15,7 @@ class SwitchTranslationBar extends StatefulWidget {
 }
 
 class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
-  final _selectedItemController = StreamController<TranslationChoices>();
+  final _selectedItemController = StreamController<StoryTranslationChoices>();
   @override
   void dispose(){
     super.dispose();
@@ -26,20 +26,20 @@ class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
     return Row(
       children: [
         const Spacer(),
-        StreamBuilder<TranslationChoices>(
+        StreamBuilder<StoryTranslationChoices>(
           stream: _selectedItemController.stream,
           initialData: widget.currentValue,
           builder: (context, selectedItem) {
-            return SegmentedButton<TranslationChoices>(
+            return SegmentedButton<StoryTranslationChoices>(
               showSelectedIcon: false,
               segments: [
                 ButtonSegment(
-                  value: TranslationChoices.translate,
-                  label: Text(TranslationChoices.translate.title()),
+                  value: StoryTranslationChoices.translate,
+                  label: Text(StoryTranslationChoices.translate.title()),
                 ),
                 ButtonSegment(
-                  value: TranslationChoices.explain,
-                  label: Text(TranslationChoices.explain.title()),
+                  value: StoryTranslationChoices.explain,
+                  label: Text(StoryTranslationChoices.explain.title()),
                 ),
               ],
               selected: {selectedItem.data!},
