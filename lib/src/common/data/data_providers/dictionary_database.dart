@@ -30,14 +30,8 @@ class DictionaryDatabase {
     if (_database != null) return _database!;
     // Get the path to the database file in the assets folder
     // Set the db file to proper directory depend on system specific.
-    String databasesPath;
-    if (defaultTargetPlatform.isWindows()) {
-      databasesPath = await DirectoryHandler.getLocalResourcePath();
-    } else if (defaultTargetPlatform.isAndroid()) {
-      databasesPath = await getDatabasesPath();
-    } else {
-      databasesPath = await DirectoryHandler.getLocalResourcePath();
-    }
+    String databasesPath = await DirectoryHandler.getLocalResourcePath();
+
     String path = join(databasesPath, "en_vi.db");
     if (kDebugMode) {
       print("[Database Directory] $path");
