@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class SwitchTranslationBar extends StatefulWidget {
   final Function(Set<TranslationChoices> selectedItemSet) selectedItemSet;
+  final TranslationChoices? currentValue;
   const SwitchTranslationBar({
-    super.key, required this.selectedItemSet,
+    super.key, required this.selectedItemSet, this.currentValue,
   });
 
   @override
@@ -27,7 +28,7 @@ class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
         const Spacer(),
         StreamBuilder<TranslationChoices>(
           stream: _selectedItemController.stream,
-          initialData: TranslationChoices.translate,
+          initialData: widget.currentValue,
           builder: (context, selectedItem) {
             return SegmentedButton<TranslationChoices>(
               showSelectedIcon: false,

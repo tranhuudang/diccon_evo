@@ -68,11 +68,11 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
                         ..onTap = () {
                           if (widget.onWordTap != null) {
                             String sentence = getSentenceContainingWord(words[i], words);
-
                             widget.onWordTap!(words[i], sentence);
-
                             // New: Get the sentence and do something with it
-                            print('Clicked word: ${words[i]}, Sentence: $sentence');
+                            if (kDebugMode) {
+                              print('Clicked word: ${words[i]}, Sentence: $sentence');
+                            }
                           }
                         },
                       style: widget.style),
@@ -93,11 +93,10 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
                     ..onTap = () {
                       if (widget.onWordTap != null) {
                         String sentence = getSentenceContainingWord(words[i], words);
-
                         widget.onWordTap!(words[i], sentence);
-
-                        // New: Get the sentence and do something with it
-                        print('Clicked word: ${words[i]}, Sentence: $sentence');
+                        if (kDebugMode) {
+                          print('Clicked word: ${words[i]}, Sentence: $sentence');
+                        }
                       }
                     },
                   onEnter: (_) {

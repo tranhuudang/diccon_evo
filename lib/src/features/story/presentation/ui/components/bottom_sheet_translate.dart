@@ -3,16 +3,21 @@ import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
 class BottomSheetTranslation extends StatefulWidget {
   final String searchWord;
   final Function(String)? onWordTap;
   final String sentenceContainWord;
   const BottomSheetTranslation(
-      {super.key, this.onWordTap, required this.searchWord, required this.sentenceContainWord});
+      {super.key,
+      this.onWordTap,
+      required this.searchWord,
+      required this.sentenceContainWord});
 
   @override
   State<BottomSheetTranslation> createState() => _BottomSheetTranslationState();
@@ -26,7 +31,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   final _tabSwicherStreamController = StreamController<TranslationChoices>();
   Word _wordResult = Word.empty();
   bool _isLoading = true;
-
+  final _pageController = PageController();
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
     _isLoadingStreamController.sink.add(true);
@@ -39,8 +44,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
-              if(defaultTargetPlatform.isAndroid()) {
-                  _createFirebaseDatabaseItem();
+              if (defaultTargetPlatform.isAndroid()) {
+                _createFirebaseDatabaseItem();
               }
             } else {
               return _chatGptRepository.singleQuestionAnswer.answer.write(
@@ -80,18 +85,16 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     if (kDebugMode) {
       print("widget.message.word : ${widget.searchWord}");
     }
-    var request = await _chatGptRepository
-        .createSingleQuestionRequest('Nghĩa của từ "${widget.searchWord}" trong câu "${widget.sentenceContainWord}" là gì? Sau đó xuống dòng viết lại câu văn gốc và dịch hết câu văn đó.');
+    var request = await _chatGptRepository.createSingleQuestionRequest(
+        'Nghĩa của từ "${widget.searchWord}" trong câu "${widget.sentenceContainWord}" là gì? Sau đó xuống dòng viết lại câu văn gốc và dịch hết câu văn đó.');
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = _composeMd5IdForFirebaseDb(
-        word: widget.searchWord,
-        options: widget.sentenceContainWord);
+        word: widget.searchWord, options: widget.sentenceContainWord);
     final docUser =
-    FirebaseFirestore.instance.collection("Dictionary").doc(answer);
+        FirebaseFirestore.instance.collection("Dictionary").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
-        _chatGptRepository.singleQuestionAnswer
-            .answer
+        _chatGptRepository.singleQuestionAnswer.answer
             .write(snapshot.data()?['answer'].toString());
         setState(() {});
       } else {
@@ -99,6 +102,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       }
     });
   }
+
   String _composeMd5IdForFirebaseDb(
       {required String word, required String options}) {
     word = word.trim().toLowerCase();
@@ -111,16 +115,15 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
 
   Future<void> _createFirebaseDatabaseItem() async {
     final answerId = _composeMd5IdForFirebaseDb(
-        word: widget.searchWord,
-        options: widget.sentenceContainWord);
+        word: widget.searchWord, options: widget.sentenceContainWord);
     final databaseRow =
-    FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
+        FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
     final json = {
-      'answer': _chatGptRepository.singleQuestionAnswer.answer
-          .toString(),
+      'answer': _chatGptRepository.singleQuestionAnswer.answer.toString(),
     };
     await databaseRow.set(json);
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -150,65 +153,90 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                     return Column(
                       children: [
                         SwitchTranslationBar(
+                          currentValue: tabSwitcher.data,
                           selectedItemSet:
                               (Set<TranslationChoices> selectedItemSet) {
                             _tabSwicherStreamController
                                 .add(selectedItemSet.first);
+                            if (selectedItemSet.first ==
+                                TranslationChoices.translate) {
+                              _pageController.previousPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeIn);
+                            }
+                            if (selectedItemSet.first ==
+                                TranslationChoices.explain) {
+                              _pageController.nextPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeIn);
+                            }
                           },
                         ),
-                        if (tabSwitcher.data == TranslationChoices.translate)
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  WordTitle(
-                                    message: _wordResult,
-                                    titleColor:
-                                        context.theme.colorScheme.onSurface,
-                                  ),
-                                  const SizedBox(
-                                    width: 8.0,
-                                  ),
-                                  WordPronunciation(message: _wordResult),
-                                  PlaybackButton(
-                                      buttonColor:
+                        ExpandablePageView(
+                          controller: _pageController,
+                          onPageChanged: (index) {
+                            if (index == 0) {
+                              _tabSwicherStreamController
+                                  .add(TranslationChoices.translate);
+                            }
+                            if (index == 1) {
+                              _tabSwicherStreamController
+                                  .add(TranslationChoices.explain);
+                            }
+                          },
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    WordTitle(
+                                      message: _wordResult,
+                                      titleColor:
                                           context.theme.colorScheme.onSurface,
-                                      message: _wordResult.word),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  WordMeaning(
-                                    message: _wordResult,
-                                    onWordTap: widget.onWordTap,
-                                    highlightColor:
-                                        context.theme.colorScheme.onSurface,
-                                    subColor: context
-                                        .theme.colorScheme.onSurface
-                                        .withOpacity(.8),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        if (tabSwitcher.data == TranslationChoices.explain) ...[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                child: Text(
-                                  answer,
-                                  style: context.theme.textTheme.titleMedium
-                                      ?.copyWith(
-                                          color: context
-                                              .theme.colorScheme.onSurface),
+                                    ),
+                                    const SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    WordPronunciation(message: _wordResult),
+                                    PlaybackButton(
+                                        buttonColor:
+                                            context.theme.colorScheme.onSurface,
+                                        message: _wordResult.word),
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                        ],
+                                Row(
+                                  children: [
+                                    WordMeaning(
+                                      message: _wordResult,
+                                      onWordTap: widget.onWordTap,
+                                      highlightColor:
+                                          context.theme.colorScheme.onSurface,
+                                      subColor: context
+                                          .theme.colorScheme.onSurface
+                                          .withOpacity(.8),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                  child: Text(
+                                    answer,
+                                    style: context.theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                            color: context
+                                                .theme.colorScheme.onSurface),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        )
                       ],
                     );
                   },
