@@ -136,6 +136,26 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
         /// Other functions
         SubFunctionBox(height: 180, listSubFunction: _listSubFunction),
+        const SizedBox(height: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Thông báo từ nhà phát triển',  style: context.theme.textTheme.titleSmall,),
+            const SizedBox(height: 8),
+
+            Text(
+                style:context.theme.textTheme.bodySmall,
+                'Phiên bản từ điển dành cho Windows hiện đang gặp phải nhiều hạn chế trong khâu phát triển. Nhiều tính năng mới đã có trên ứng dụng Android nhưng lại chưa có trên Windows. Chúng tôi vẫn sẽ tiếp tục phát triển và cố gắng khắc phục những hạn chế trong các bản BETA thử nghiệm sắp tới.'),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text("Mời bạn dùng thử Diccon trên điện thoại: ", style: context.theme.textTheme.titleSmall,),
+        const SizedBox(height: 8),
+
+        SizedBox(
+            height: 50,
+            width: 150,
+            child: playStoreBadge()),
         const SizedBox(
           height: 16,
         ),

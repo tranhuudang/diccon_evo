@@ -5,7 +5,6 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:diccon_evo/src/app.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

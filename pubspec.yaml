@@ -66,8 +66,6 @@ dependencies:
   sqflite_common_ffi: ^2.3.0+3
   # The path package provides common operations for manipulating paths: joining, splitting, normalizing, etc
   path: ^1.8.3
-  # i use this to create hash value for question asnwer
-  crypto: ^3.0.3
   # combo to translate image
   camera: ^0.10.5+5
   google_mlkit_text_recognition: ^0.10.0

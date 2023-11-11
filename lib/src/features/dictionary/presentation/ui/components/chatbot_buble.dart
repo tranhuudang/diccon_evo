@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -49,12 +46,6 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
-              // Only add definition of a word to firebase database when it not a paragraph
-              if(defaultTargetPlatform.isAndroid()) {
-                if (!widget.isParagraph) {
-                  _createFirebaseDatabaseItem();
-                }
-              }
             } else {
               return widget.listChatGptRepository[widget.index]
                   .singleQuestionAnswer.answer
@@ -83,54 +74,15 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
     _getGptResponse();
   }
 
-  Future<void> _createFirebaseDatabaseItem() async {
-    final answerId = _composeMd5IdForFirebaseDb(
-        word: widget.word,
-        options: Properties.defaultSetting
-            .dictionaryResponseSelectedList); // Generate the MD5 hash
-    // final databaseRow =
-    //     FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
-    // final json = {
-    //   'answer': widget
-    //       .listChatGptRepository[widget.index].singleQuestionAnswer.answer
-    //       .toString(),
-    // };
-    // await databaseRow.set(json);
-  }
-
   void _getGptResponse() async {
     if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
         .isEmpty) {
       var request = await _getQuestionRequest();
-        // create md5 from question to compare to see if that md5 is already exist in database
-        var answer = _composeMd5IdForFirebaseDb(
-            word: widget.word,
-            options: Properties.defaultSetting.dictionaryResponseSelectedList);
-        // final docUser =
-        // FirebaseFirestore.instance.collection("Dictionary").doc(answer);
-        // await docUser.get().then((snapshot) async {
-        //   if (snapshot.exists) {
-        //     widget.listChatGptRepository[widget.index].singleQuestionAnswer
-        //         .answer
-        //         .write(snapshot.data()?['answer'].toString());
-        //     setState(() {});
-        //   } else {
-        //     _chatStreamResponse(request);
-        //   }
-        // });
       _chatStreamResponse(request);
     }
   }
 
-  String _composeMd5IdForFirebaseDb(
-      {required String word, required String options}) {
-    word = word.trim().toLowerCase();
-    options = options.trim();
-    var composeString = word + options;
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
-  }
+
 
   // This function be used to resend the question to gpt to get new answer
   void _reGetGptResponse() async {
