@@ -67,8 +67,9 @@ class TextRecognizerView extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if (state is TextRecognizerUpdatedState)
 
-                  /// Text Recognized Result
+                    /// Text Recognized Result
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Container(
@@ -100,8 +101,12 @@ class TextRecognizerView extends StatelessWidget {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => DictionaryView(
-                                                      word: state.params.rawContent, buildContext: context)));
+                                                  builder: (context) =>
+                                                      DictionaryView(
+                                                          word: state.params
+                                                              .rawContent,
+                                                          buildContext:
+                                                              context)));
                                         },
                                         icon: const Icon(Icons.translate),
                                         label: Text("Send to dictionary".i18n)),
@@ -113,7 +118,6 @@ class TextRecognizerView extends StatelessWidget {
                                             .add(TranslateFromGoogle()),
                                         child: Text("Translate now".i18n)),
                                   ),
-
                                 ],
                               )
                             ],

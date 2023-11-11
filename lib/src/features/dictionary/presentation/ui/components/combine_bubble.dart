@@ -119,7 +119,7 @@ class _CombineBubbleState extends State<CombineBubble> {
                 },
               ),
             ),
-            if (!(widget.wordForChatbot.numberOfWord() > 3))
+            if (!(widget.wordForChatbot.numberOfWord() >= 3))
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SmoothPageIndicator(

@@ -11,12 +11,12 @@ abstract class TextRecognizerState {
   TextRecognizerState({required this.params});
 }
 
-class TextRecognizerUninitialized extends TextRecognizerState {
-  TextRecognizerUninitialized({required super.params});
+class TextRecognizerInitialState extends TextRecognizerState {
+  TextRecognizerInitialState({required super.params});
 }
 
-class TextRecognizerUpdated extends TextRecognizerState {
-  TextRecognizerUpdated({required super.params});
+class TextRecognizerUpdatedState extends TextRecognizerState {
+  TextRecognizerUpdatedState({required super.params});
 }
 
 /// Events
@@ -34,7 +34,7 @@ class TextRecognizerBloc
     extends Bloc<TextRecognizerEvent, TextRecognizerState> {
   TextRecognizerBloc()
       : super(
-            TextRecognizerUninitialized(params: TextRecognizerParams.init())) {
+            TextRecognizerInitialState(params: TextRecognizerParams.init())) {
     on<AddImageToRecognizer>(_addImageToRecognizer);
     on<TranslateFromGoogle>(_translateFromGoogle);
   }
@@ -49,21 +49,21 @@ class TextRecognizerBloc
     InputImage? inputImage = await _getImage(event.imageSource);
     String recognizedContent = '';
     if (inputImage != null) {
-      emit(TextRecognizerUpdated(
+      emit(TextRecognizerUpdatedState(
           params: state.params.copyWith(filePath: inputImage.filePath!)));
       recognizedContent = await _processStaticImage(inputImage);
+      emit(TextRecognizerUpdatedState(
+          params: state.params.copyWith(rawContent: recognizedContent)));
     }
-    emit(TextRecognizerUpdated(
-        params: state.params.copyWith(rawContent: recognizedContent)));
   }
 
   FutureOr<void> _translateFromGoogle(
       TranslateFromGoogle event, Emitter<TextRecognizerState> emit) async {
-    emit(TextRecognizerUpdated(
+    emit(TextRecognizerUpdatedState(
         params: state.params.copyWith(isGoogleTranslating: true)));
     Translation translatedContent = await _googleTranslator
         .translate(state.params.rawContent, from: 'en', to: 'vi');
-    emit(TextRecognizerUpdated(
+    emit(TextRecognizerUpdatedState(
         params: state.params.copyWith(
             googleTranslatedContent: translatedContent.text,
             isGoogleTranslating: false)));
