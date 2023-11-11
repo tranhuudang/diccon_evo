@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -100,39 +100,39 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   /// --------------------------------------------------------------------------
 
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
-    var currentLoggedInUser = _currentLoggedInUser();
-    if (currentLoggedInUser != null) {
-      Properties.userInfo = Properties.userInfo.copyWith(
-        uid: currentLoggedInUser.uid,
-        displayName: currentLoggedInUser.displayName ?? '',
-        photoURL: currentLoggedInUser.photoURL ?? '',
-        email: currentLoggedInUser.email ?? '',
-      );
-      emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
-    } else {
-      // Check internet connection
-      bool isInternetConnected =
-          await InternetConnectionChecker().hasConnection;
-      if (kDebugMode) {
-        print("[Internet Connection] $isInternetConnected");
-      }
-      if (isInternetConnected) {
-        AuthService authService = AuthService();
-        User? user = await authService.googleSignIn();
-        Properties.userInfo = Properties.userInfo.copyWith(
-          uid: user!.uid,
-          displayName: user.displayName ?? '',
-          photoURL: user.photoURL ?? '',
-          email: user.email ?? '',
-        );
-        emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
-        emit(UserLoggedInSuccessfulState());
-        // Sync user data right after log in successful
-        add(UserSyncEvent(userInfo: Properties.userInfo));
-      } else {
-        emit(NoInternetState());
-      }
-    }
+    // var currentLoggedInUser = _currentLoggedInUser();
+    // if (currentLoggedInUser != null) {
+    //   Properties.userInfo = Properties.userInfo.copyWith(
+    //     uid: currentLoggedInUser.uid,
+    //     displayName: currentLoggedInUser.displayName ?? '',
+    //     photoURL: currentLoggedInUser.photoURL ?? '',
+    //     email: currentLoggedInUser.email ?? '',
+    //   );
+    //   emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+    // } else {
+    //   // Check internet connection
+    //   bool isInternetConnected =
+    //       await InternetConnectionChecker().hasConnection;
+    //   if (kDebugMode) {
+    //     print("[Internet Connection] $isInternetConnected");
+    //   }
+    //   if (isInternetConnected) {
+    //     // AuthService authService = AuthService();
+    //     // User? user = await authService.googleSignIn();
+    //     // Properties.userInfo = Properties.userInfo.copyWith(
+    //     //   uid: user!.uid,
+    //     //   displayName: user.displayName ?? '',
+    //     //   photoURL: user.photoURL ?? '',
+    //     //   email: user.email ?? '',
+    //     // );
+    //     // emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+    //     // emit(UserLoggedInSuccessfulState());
+    //     // // Sync user data right after log in successful
+    //     // add(UserSyncEvent(userInfo: Properties.userInfo));
+    //   } else {
+    //     emit(NoInternetState());
+    //   }
+    // }
   }
 
   FutureOr<void> _userLogout(
@@ -141,8 +141,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserLoggingoutState());
 
     /// Logout Auth services
-    AuthService authService = AuthService();
-    authService.googleSignOut();
+    // AuthService authService = AuthService();
+    // authService.googleSignOut();
 
     /// Remove local file
     await FileHandler(PropertiesConstants.wordHistoryFileName)
@@ -163,21 +163,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserUninitialized());
   }
 
-  User? _currentLoggedInUser() {
-    // Check if user still login to device
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      if (user.uid.isNotEmpty) {
-        if (kDebugMode) {
-          print("User.uid.isNotEmpty: ${user.uid}");
-        }
-      }
-      return user;
-    } else {
-      if (kDebugMode) {
-        print("No user logged in in this device.");
-      }
-      return null;
-    }
-  }
+  // User? _currentLoggedInUser() {
+  //   // Check if user still login to device
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     if (user.uid.isNotEmpty) {
+  //       if (kDebugMode) {
+  //         print("User.uid.isNotEmpty: ${user.uid}");
+  //       }
+  //     }
+  //     return user;
+  //   } else {
+  //     if (kDebugMode) {
+  //       print("No user logged in in this device.");
+  //     }
+  //     return null;
+  //   }
+  // }
 }

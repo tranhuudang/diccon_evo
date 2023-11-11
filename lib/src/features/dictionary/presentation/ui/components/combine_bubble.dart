@@ -109,10 +109,10 @@ class _CombineBubbleState extends State<CombineBubble> {
                           ),
                         ],
                       ),
-                      if (defaultTargetPlatform.isDesktop())
-                        PageViewNavigator(
-                            controller: listResponseController,
-                            itemCount: listResponseOptions.length)
+                      // if (defaultTargetPlatform.isDesktop())
+                      //   PageViewNavigator(
+                      //       controller: listResponseController,
+                      //       itemCount: listResponseOptions.length)
                     ],
                   );
                   }

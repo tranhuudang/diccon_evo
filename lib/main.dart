@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:diccon_evo/src/app.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -13,21 +11,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Properties.getSettings();
   /// Initial Firebase
-  if (Platform.isAndroid) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.android,
-    );
-    await FirebaseAppCheck.instance.activate(
-      androidProvider: AndroidProvider.debug,
-    );
-  }
 
   /// Initial for Windows
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform ,
-    );
     // Initialize FFI
     sqfliteFfiInit();
 

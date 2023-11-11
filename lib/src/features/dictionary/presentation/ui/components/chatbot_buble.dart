@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -88,14 +88,14 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
         word: widget.word,
         options: Properties.defaultSetting
             .dictionaryResponseSelectedList); // Generate the MD5 hash
-    final databaseRow =
-        FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
-    final json = {
-      'answer': widget
-          .listChatGptRepository[widget.index].singleQuestionAnswer.answer
-          .toString(),
-    };
-    await databaseRow.set(json);
+    // final databaseRow =
+    //     FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
+    // final json = {
+    //   'answer': widget
+    //       .listChatGptRepository[widget.index].singleQuestionAnswer.answer
+    //       .toString(),
+    // };
+    // await databaseRow.set(json);
   }
 
   void _getGptResponse() async {
@@ -106,18 +106,19 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
         var answer = _composeMd5IdForFirebaseDb(
             word: widget.word,
             options: Properties.defaultSetting.dictionaryResponseSelectedList);
-        final docUser =
-        FirebaseFirestore.instance.collection("Dictionary").doc(answer);
-        await docUser.get().then((snapshot) async {
-          if (snapshot.exists) {
-            widget.listChatGptRepository[widget.index].singleQuestionAnswer
-                .answer
-                .write(snapshot.data()?['answer'].toString());
-            setState(() {});
-          } else {
-            _chatStreamResponse(request);
-          }
-        });
+        // final docUser =
+        // FirebaseFirestore.instance.collection("Dictionary").doc(answer);
+        // await docUser.get().then((snapshot) async {
+        //   if (snapshot.exists) {
+        //     widget.listChatGptRepository[widget.index].singleQuestionAnswer
+        //         .answer
+        //         .write(snapshot.data()?['answer'].toString());
+        //     setState(() {});
+        //   } else {
+        //     _chatStreamResponse(request);
+        //   }
+        // });
+      _chatStreamResponse(request);
     }
   }
 

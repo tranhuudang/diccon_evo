@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,22 +13,22 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  User? _loggedInUser;
-  User? _currentLoggedInUser() {
-    // Check if user is still logged into device
-    User? user = FirebaseAuth.instance.currentUser;
-    return user;
-  }
+  // User? _loggedInUser;
+  // User? _currentLoggedInUser() {
+  //   // Check if user is still logged into device
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   return user;
+  // }
 
   @override
   void initState() {
     super.initState();
 
     if (defaultTargetPlatform.isAndroid()) {
-      _loggedInUser = _currentLoggedInUser();
-      if (_loggedInUser != null) {
-        context.read<UserBloc>().add(UserLoginEvent());
-      }
+      // _loggedInUser = _currentLoggedInUser();
+      // if (_loggedInUser != null) {
+      //   context.read<UserBloc>().add(UserLoginEvent());
+      // }
     }
   }
 
