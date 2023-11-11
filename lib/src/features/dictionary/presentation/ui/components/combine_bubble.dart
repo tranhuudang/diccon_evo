@@ -80,9 +80,9 @@ class _CombineBubbleState extends State<CombineBubble> {
                 builder: (context, translationChoice) {
                   if (widget.wordObjectForLocal.definition ==
                       "Local dictionary don't have definition for this word. Check out AI Dictionary !") {
-                    translationModeStreamController.add(TranslationChoices.ai);
+                    translationModeStreamController.add(TranslationChoices.explain);
                   }
-                  if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.ai){
+                  if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.explain){
                     listResponseOptions = listResponseOptions.reversed.toList();
                   }
                   if (widget.wordForChatbot.numberOfWord() > 3) {

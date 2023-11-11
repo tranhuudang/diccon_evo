@@ -17,7 +17,7 @@ class Properties {
   // All view in application
   static Settings defaultSetting = Settings(
     dictionaryResponseType: DictionaryResponseType.short.title(),
-    translationChoice: TranslationChoices.classic.title(),
+    translationChoice: TranslationChoices.translate.title(),
     numberOfSynonyms: 10,
     numberOfAntonyms: 10,
     readingFontSize: 16,

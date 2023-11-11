@@ -35,7 +35,7 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
           ),
           itemBuilder: (context) => [
             PopupMenuItem(
-              child: snapshot.data! == TranslationChoices.ai
+              child: snapshot.data! == TranslationChoices.explain
                   ? Text(
                       "Prefer AI".i18n,
                       style: TextStyle(
@@ -46,9 +46,9 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
                       "Prefer AI".i18n,
                     ),
               onTap: () {
-                _streamController.sink.add(TranslationChoices.ai);
+                _streamController.sink.add(TranslationChoices.explain);
                 Properties.defaultSetting = Properties.defaultSetting
-                    .copyWith(translationChoice: TranslationChoices.ai.title());
+                    .copyWith(translationChoice: TranslationChoices.explain.title());
                 Properties.saveSettings(Properties.defaultSetting);
                 if (kDebugMode) {
                   print("Enable prefer chatbot dictionary");
@@ -56,16 +56,16 @@ class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
               },
             ),
             PopupMenuItem(
-              child: snapshot.data! == TranslationChoices.classic
+              child: snapshot.data! == TranslationChoices.translate
                   ? Text("Prefer Classic".i18n,
                       style: TextStyle(
                         color: context.theme.colorScheme.primary,
                       ))
                   : Text("Prefer Classic".i18n),
               onTap: () {
-                _streamController.sink.add(TranslationChoices.classic);
+                _streamController.sink.add(TranslationChoices.translate);
                 Properties.defaultSetting = Properties.defaultSetting.copyWith(
-                    translationChoice: TranslationChoices.classic.title());
+                    translationChoice: TranslationChoices.translate.title());
                 Properties.saveSettings(Properties.defaultSetting);
                 if (kDebugMode) {
                   print("Enable prefer classic dictionary");

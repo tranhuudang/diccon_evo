@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
@@ -7,8 +10,9 @@ import 'package:flutter/material.dart';
 class BottomSheetTranslation extends StatefulWidget {
   final String searchWord;
   final Function(String)? onWordTap;
+  final String sentenceContainWord;
   const BottomSheetTranslation(
-      {super.key, this.onWordTap, required this.searchWord});
+      {super.key, this.onWordTap, required this.searchWord, required this.sentenceContainWord});
 
   @override
   State<BottomSheetTranslation> createState() => _BottomSheetTranslationState();
@@ -35,6 +39,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
+              if(defaultTargetPlatform.isAndroid()) {
+                  _createFirebaseDatabaseItem();
+              }
             } else {
               return _chatGptRepository.singleQuestionAnswer.answer.write(
                 event.choices?.first.delta?.content,
@@ -74,10 +81,46 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       print("widget.message.word : ${widget.searchWord}");
     }
     var request = await _chatGptRepository
-        .createSingleQuestionRequest("Nghĩa của từ ${widget.searchWord}");
-    _chatStreamResponse(request);
+        .createSingleQuestionRequest('Nghĩa của từ "${widget.searchWord}" trong câu "${widget.sentenceContainWord}" là gì? Sau đó xuống dòng viết lại câu văn gốc và dịch hết câu văn đó.');
+    // create md5 from question to compare to see if that md5 is already exist in database
+    var answer = _composeMd5IdForFirebaseDb(
+        word: widget.searchWord,
+        options: widget.sentenceContainWord);
+    final docUser =
+    FirebaseFirestore.instance.collection("Dictionary").doc(answer);
+    await docUser.get().then((snapshot) async {
+      if (snapshot.exists) {
+        _chatGptRepository.singleQuestionAnswer
+            .answer
+            .write(snapshot.data()?['answer'].toString());
+        setState(() {});
+      } else {
+        _chatStreamResponse(request);
+      }
+    });
+  }
+  String _composeMd5IdForFirebaseDb(
+      {required String word, required String options}) {
+    word = word.trim().toLowerCase();
+    options = options.trim();
+    var composeString = word + options;
+    var bytes = utf8.encode(composeString);
+    var resultMd5 = md5.convert(bytes);
+    return resultMd5.toString();
   }
 
+  Future<void> _createFirebaseDatabaseItem() async {
+    final answerId = _composeMd5IdForFirebaseDb(
+        word: widget.searchWord,
+        options: widget.sentenceContainWord);
+    final databaseRow =
+    FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
+    final json = {
+      'answer': _chatGptRepository.singleQuestionAnswer.answer
+          .toString(),
+    };
+    await databaseRow.set(json);
+  }
   @override
   void dispose() {
     super.dispose();
@@ -101,7 +144,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: StreamBuilder<TranslationChoices>(
-                  initialData: TranslationChoices.classic,
+                  initialData: TranslationChoices.translate,
                   stream: _tabSwicherStreamController.stream,
                   builder: (context, tabSwitcher) {
                     return Column(
@@ -113,7 +156,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                 .add(selectedItemSet.first);
                           },
                         ),
-                        if (tabSwitcher.data == TranslationChoices.classic)
+                        if (tabSwitcher.data == TranslationChoices.translate)
                           Column(
                             children: [
                               Row(
@@ -148,7 +191,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                               ),
                             ],
                           ),
-                        if (tabSwitcher.data == TranslationChoices.ai) ...[
+                        if (tabSwitcher.data == TranslationChoices.explain) ...[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

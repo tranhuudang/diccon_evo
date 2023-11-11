@@ -92,7 +92,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       print("[Internet Connection] $isInternetConnected");
     }
     if (Properties.defaultSetting.translationChoice.toTranslationChoice() ==
-            TranslationChoices.ai &&
+            TranslationChoices.explain &&
         !isInternetConnected &&
         !_isReportedAboutDisconnection) {
       _chatList.add(const NoInternetBubble());

@@ -1,14 +1,16 @@
+import 'package:diccon_evo/src/common/common.dart';
+
 enum TranslationChoices{
-  classic,
-  ai
+  translate,
+  explain
 }
 extension TranslationChoicesTitle on TranslationChoices{
   String title(){
     switch(this) {
-      case TranslationChoices.classic:
-        return "Classic";
-      case TranslationChoices.ai:
-        return "AI";
+      case TranslationChoices.translate:
+        return "Definition".i18n;
+      case TranslationChoices.explain:
+        return "Explanation".i18n;
     }
 
   }

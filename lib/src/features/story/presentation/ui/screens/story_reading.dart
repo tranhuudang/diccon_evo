@@ -4,6 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../shared/presentation/ui/components/story_clickable_word.dart';
 class StoryReadingView extends StatefulWidget {
   final Story story;
 
@@ -164,8 +166,8 @@ class _StoryReadingViewState extends State<StoryReadingView> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  paragraph.isNotEmpty
-                      ? ClickableWords(
+                  if (paragraph.isNotEmpty)
+                    StoryClickableWords(
                           text: paragraph,
                           style: context.theme
                               .textTheme
@@ -176,16 +178,16 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                 color:
                                     context.theme.colorScheme.onBackground,
                               ),
-                          onWordTap: (String value) {
+                          onWordTap: (String word, String sentence) {
                             showModalBottomSheet(
                                 context: context,
                                 builder: (context) {
                                   return BottomSheetTranslation(
-                                    searchWord: value.removeSpecialCharacters(),
+                                    searchWord: word.removeSpecialCharacters(),
+                                    sentenceContainWord : sentence,
                                   );
                                 });
-                          })
-                      : Container(),
+                          }),
                   const SizedBox(
                     height: 5,
                   )

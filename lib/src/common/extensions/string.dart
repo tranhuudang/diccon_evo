@@ -36,9 +36,9 @@ extension StringExtenstion on String {
   TranslationChoices toTranslationChoice() {
     switch (this) {
       case "Classic":
-        return TranslationChoices.classic;
+        return TranslationChoices.translate;
       case "AI":
-        return TranslationChoices.ai;
+        return TranslationChoices.explain;
       default:
         throw FormatException(
             "$this is not have a valid value to convert to TranslationChoice");

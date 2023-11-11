@@ -27,18 +27,18 @@ class _SwitchTranslationBarState extends State<SwitchTranslationBar> {
         const Spacer(),
         StreamBuilder<TranslationChoices>(
           stream: _selectedItemController.stream,
-          initialData: Properties.defaultSetting.translationChoice.toTranslationChoice(),
+          initialData: TranslationChoices.translate,
           builder: (context, selectedItem) {
             return SegmentedButton<TranslationChoices>(
               showSelectedIcon: false,
               segments: [
                 ButtonSegment(
-                  value: TranslationChoices.classic,
-                  label: Text(TranslationChoices.classic.title()),
+                  value: TranslationChoices.translate,
+                  label: Text(TranslationChoices.translate.title()),
                 ),
                 ButtonSegment(
-                  value: TranslationChoices.ai,
-                  label: Text(TranslationChoices.ai.title()),
+                  value: TranslationChoices.explain,
+                  label: Text(TranslationChoices.explain.title()),
                 ),
               ],
               selected: {selectedItem.data!},
