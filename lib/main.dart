@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,12 +12,14 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DictionaryDatabase.initialize();
   Properties.getSettings();
   /// Initial Firebase
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.android,
     );
+    FirebaseFirestore.instance;
     await FirebaseAppCheck.instance.activate(
       androidProvider: AndroidProvider.debug,
     );

@@ -78,10 +78,6 @@ class _CombineBubbleState extends State<CombineBubble> {
                 initialData: Properties.defaultSetting.translationChoice
                     .toTranslationChoice(),
                 builder: (context, translationChoice) {
-                  if (widget.wordObjectForLocal.definition ==
-                      "Local dictionary don't have definition for this word. Check out AI Dictionary !") {
-                    translationModeStreamController.add(TranslationChoices.explain);
-                  }
                   if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.explain){
                     listResponseOptions = listResponseOptions.reversed.toList();
                   }
