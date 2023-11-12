@@ -6,9 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../shared/presentation/ui/components/story_clickable_word.dart';
-import '../../../blocs/reading_bloc.dart';
 
 class StoryReadingView extends StatefulWidget {
   final Story story;
