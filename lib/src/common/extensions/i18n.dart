@@ -213,10 +213,20 @@ extension Localization on String {
     "Getting new stories..": {
       "en_us": "Getting new stories..",
       "vi_vi": "Đang tải truyện mới..",
-    },"Definition": {
+    },
+    "Increase": {
+      "en_us": "Increase font size",
+      "vi_vi": "Tăng phông chữ",
+    },
+    "Decrease": {
+      "en_us": "Decrease",
+      "vi_vi": "Giảm phông chữ",
+    },
+    "Definition": {
       "en_us": "Definition",
       "vi_vi": "Định nghĩa",
-    },"Explanation": {
+    },
+    "Explanation": {
       "en_us": "Explanation",
       "vi_vi": "Giải thích",
     },
