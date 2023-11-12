@@ -5,7 +5,7 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 
-class SubFunctionBox extends StatefulWidget {
+class SubFunctionBox extends StatelessWidget {
   const SubFunctionBox({
     super.key,
     required this.listSubFunction,
@@ -15,23 +15,6 @@ class SubFunctionBox extends StatefulWidget {
   final List<Widget> listSubFunction;
   final double? height;
 
-  @override
-  State<SubFunctionBox> createState() => _SubFunctionBoxState();
-}
-
-class _SubFunctionBoxState extends State<SubFunctionBox> {
-  var listSubFunction= [];
-  @override
-  void initState(){
-    super.initState();
-    if (Properties.defaultSetting.openAppCount.isEven){
-      listSubFunction = widget.listSubFunction.reversed.toList();
-    }
-    else {
-      listSubFunction  = widget.listSubFunction;
-
-    }
-  }
   @override
   Widget build(BuildContext context) {
     StreamController<int> streamController = StreamController<int>();
@@ -45,7 +28,7 @@ class _SubFunctionBoxState extends State<SubFunctionBox> {
             Stack(
               children: [
                 SizedBox(
-                  height: widget.height,
+                  height: height,
                   child: PageView.builder(
                       controller: pageController,
                       itemCount: listSubFunction.length,
@@ -60,9 +43,9 @@ class _SubFunctionBoxState extends State<SubFunctionBox> {
                 ),
                 if (defaultTargetPlatform.isDesktop())
                     PageViewNavigator(
-                        itemCount: widget.listSubFunction.length,
+                        itemCount: listSubFunction.length,
                         controller: pageController,
-                        height: widget.height),
+                        height: height),
               ],
             ),
             const VerticalSpacing.large(),
