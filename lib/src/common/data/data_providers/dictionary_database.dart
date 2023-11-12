@@ -60,6 +60,6 @@ class DictionaryDatabase {
 
   Future<List<Map<String, dynamic>>> queryDictionary(String word) async {
     final db = await instance.database;
-    return await db.query('en_vi', where: 'word = ?', whereArgs: [word.trim()]);
+    return await db.query('en_vi', where: 'word = ?', whereArgs: [word.toLowerCase().trim()]);
   }
 }

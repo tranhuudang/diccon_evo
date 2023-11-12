@@ -86,7 +86,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       print("widget.message.word : ${widget.searchWord}");
     }
     var request = await _chatGptRepository.createSingleQuestionRequest(
-        'Nghĩa của từ "${widget.searchWord}" trong câu "${widget.sentenceContainWord}" là gì? Sau đó xuống dòng viết lại câu văn gốc và dịch hết câu văn đó.');
+        'Nghĩa của từ "${widget.searchWord}" trong câu "${widget.sentenceContainWord}" là gì ? Sau đó xuống dòng và dịch hết câu văn đó (Lưu ý: chỉ dịch và không giải thích gì thêm).');
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = _composeMd5IdForFirebaseDb(
         word: widget.searchWord, options: widget.sentenceContainWord);
@@ -222,6 +222,18 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 16),
+                                  child: Text(
+                                    widget.sentenceContainWord,
+                                    style: context.theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                        color: context
+                                            .theme.colorScheme.onSurface),
+                                  ),
+                                )
+                                ,
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 16),
