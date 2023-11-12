@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Responsive extends StatefulWidget {
+class Responsive extends StatelessWidget {
   final Widget smallSizeDevice;
   final Widget? mediumSizeDevice;
   final Widget? largeSizeDevice;
@@ -14,18 +14,13 @@ class Responsive extends StatefulWidget {
       this.useDefaultPadding = true});
 
   @override
-  State<Responsive> createState() => _ResponsiveState();
-}
-
-class _ResponsiveState extends State<Responsive> {
-  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final currentWidth = constraints.maxWidth;
-      var smallSize = currentWidth < 800;
-      var mediumSize = currentWidth > 800 && currentWidth < 1300;
-      var largeSize = currentWidth > 1300;
-      if (widget.useDefaultPadding!) {
+      final smallSize = currentWidth < 800;
+      final mediumSize = currentWidth > 800 && currentWidth < 1300;
+      final largeSize = currentWidth > 1300;
+      if (useDefaultPadding!) {
         // Mobile devices (small screen size)
         if (smallSize) {
           if (kDebugMode) {
@@ -33,7 +28,7 @@ class _ResponsiveState extends State<Responsive> {
           }
           return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: widget.smallSizeDevice,
+            child: smallSizeDevice,
           );
         }
         // Tablet devices (medium screen size)
@@ -46,7 +41,7 @@ class _ResponsiveState extends State<Responsive> {
             padding: const EdgeInsets.all(8.0),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(100, 16, 100, 16),
-              child: widget.mediumSizeDevice ?? widget.smallSizeDevice,
+              child: mediumSizeDevice ?? smallSizeDevice,
             ),
           );
         }
@@ -58,10 +53,10 @@ class _ResponsiveState extends State<Responsive> {
 
           return Padding(
             padding: const EdgeInsets.fromLTRB(200, 16, 200, 16),
-            child: widget.largeSizeDevice ?? widget.smallSizeDevice,
+            child: largeSizeDevice ?? smallSizeDevice,
           );
         } else {
-          return widget.smallSizeDevice;
+          return smallSizeDevice;
         }
       } else {
         // Mobile devices (small screen size)
@@ -70,7 +65,7 @@ class _ResponsiveState extends State<Responsive> {
             print("In small size device");
           }
 
-          return widget.smallSizeDevice;
+          return smallSizeDevice;
         }
         // Tablet devices (medium screen size)
         else if (mediumSize) {
@@ -78,7 +73,7 @@ class _ResponsiveState extends State<Responsive> {
             print("In medium size device");
           }
 
-          return widget.mediumSizeDevice ?? widget.smallSizeDevice;
+          return mediumSizeDevice ?? smallSizeDevice;
         }
         // Desktop device (large screen size)
         else if (largeSize) {
@@ -86,9 +81,9 @@ class _ResponsiveState extends State<Responsive> {
             print("In large size device");
           }
 
-          return widget.largeSizeDevice ?? widget.smallSizeDevice;
+          return largeSizeDevice ?? smallSizeDevice;
         } else {
-          return widget.smallSizeDevice;
+          return smallSizeDevice;
         }
       }
     });

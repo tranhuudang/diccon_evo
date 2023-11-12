@@ -1,27 +1,25 @@
+import 'package:diccon_evo/src/features/story/blocs/reading_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/common.dart';
 import '../../../../features.dart';
 
-class ReadingBottomAppBar extends StatefulWidget {
+class ReadingBottomAppBar extends StatelessWidget {
+  final ReadingBloc readingBloc;
   final bool isVisible;
   const ReadingBottomAppBar({
     super.key,
     required this.isVisible,
+    required this.readingBloc,
   });
 
-  @override
-  State<ReadingBottomAppBar> createState() => _ReadingBottomAppBarState();
-}
-
-class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
   @override
   Widget build(BuildContext context) {
     final settingBloc = context.read<SettingBloc>();
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      height: widget.isVisible ? 60 : 0,
+      height: isVisible ? 60 : 0,
       child: BottomAppBar(
         height: 60,
         child: Row(
@@ -64,16 +62,7 @@ class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
                     ],
                   ),
                   onTap: () {
-                    setState(() {
-                      double currentReadingFontSize =
-                          Properties.defaultSetting.readingFontSize;
-                      if (currentReadingFontSize < 70) {
-                        Properties.defaultSetting = Properties.defaultSetting
-                            .copyWith(
-                                readingFontSize: currentReadingFontSize + 1);
-                      }
-                    });
-                    Properties.saveSettings(Properties.defaultSetting);
+                    readingBloc.add(IncreaseFontSize());
                   },
                 ),
                 PopupMenuItem(
@@ -87,16 +76,7 @@ class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
                     ],
                   ),
                   onTap: () {
-                    setState(() {
-                      double currentReadingFontSize =
-                          Properties.defaultSetting.readingFontSize;
-                      if (currentReadingFontSize > 8) {
-                        Properties.defaultSetting = Properties.defaultSetting
-                            .copyWith(
-                                readingFontSize: currentReadingFontSize - 1);
-                      }
-                    });
-                    Properties.saveSettings(Properties.defaultSetting);
+                    readingBloc.add(DecreaseFontSize());
                   },
                 ),
               ],
