@@ -147,27 +147,25 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     );
   }
 
-  SingleChildScrollView readingSpaceBody({required BuildContext context}) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// Header
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16, top: 56),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.story.title,
-                  style: const TextStyle(fontSize: 20),
-                ),
-                Text(
-                  widget.story.source!,
-                  style: const TextStyle(fontSize: 12),
-                ),
-              ],
-            ),
+  Column readingSpaceBody({required BuildContext context}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /// Header
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16, top: 56),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.story.title,
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                widget.story.source!,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
           ),
         ),
 
