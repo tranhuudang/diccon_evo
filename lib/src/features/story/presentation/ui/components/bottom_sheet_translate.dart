@@ -91,7 +91,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     var answer = _composeMd5IdForFirebaseDb(
         word: widget.searchWord, options: widget.sentenceContainWord);
     final docUser =
-        FirebaseFirestore.instance.collection("Dictionary").doc(answer);
+        FirebaseFirestore.instance.collection("Story").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepository.singleQuestionAnswer.answer
@@ -117,7 +117,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final answerId = _composeMd5IdForFirebaseDb(
         word: widget.searchWord, options: widget.sentenceContainWord);
     final databaseRow =
-        FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
+        FirebaseFirestore.instance.collection("Story").doc(answerId);
     final json = {
       'answer': _chatGptRepository.singleQuestionAnswer.answer.toString(),
     };
