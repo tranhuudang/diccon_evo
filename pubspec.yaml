@@ -86,6 +86,8 @@ dependencies:
   wave_divider: ^0.0.2
   # this package help me create a somple way to add search view in searching stories
   search_page: ^2.3.0
+  # nortification for new update
+  upgrader: ^8.2.0
 
 dev_dependencies:
   flutter_test:

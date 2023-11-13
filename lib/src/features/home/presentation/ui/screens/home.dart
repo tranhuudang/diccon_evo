@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:upgrader/upgrader.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -70,21 +71,25 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         }
       },
       child: SafeArea(
-        child: Scaffold(
-          backgroundColor: context.theme.colorScheme.surface,
-          body: SingleChildScrollView(
-            child: Stack(
-              children: [
-                /// Menu button
-                const HomeMenuButton(),
+        child: UpgradeAlert(
+          upgrader: Upgrader(shouldPopScope: () =>  true),
+          navigatorKey: router.routerDelegate.navigatorKey,
+          child: Scaffold(
+            backgroundColor: context.theme.colorScheme.surface,
+            body: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  /// Menu button
+                  const HomeMenuButton(),
 
-                /// Body
-                Responsive(
-                  smallSizeDevice: smallSizeBody(),
-                  mediumSizeDevice: smallSizeBody(),
-                  largeSizeDevice: largeSizeBody(),
-                ),
-              ],
+                  /// Body
+                  Responsive(
+                    smallSizeDevice: smallSizeBody(),
+                    mediumSizeDevice: smallSizeBody(),
+                    largeSizeDevice: largeSizeBody(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
