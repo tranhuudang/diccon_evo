@@ -35,7 +35,7 @@ class ToConversationButton extends StatelessWidget {
                   Icon(Icons.chat,
                       size: 32,
                       color: context.theme.colorScheme.onPrimary),
-                  const VerticleSpacing.small(),
+                  const VerticalSpacing.small(),
                   Text(
                     "Ask me anything".i18n,
                     style: context.theme.textTheme.labelSmall?.copyWith(color:onPrimary ),
@@ -44,7 +44,7 @@ class ToConversationButton extends StatelessWidget {
                     "Javis",
                     style:  context.theme.textTheme.titleLarge?.copyWith(color:onPrimary, fontWeight: FontWeight.w500 ),
                   ),
-                  const VerticleSpacing.large(),
+                  const VerticalSpacing.large(),
                 ],
               ),
             ),
