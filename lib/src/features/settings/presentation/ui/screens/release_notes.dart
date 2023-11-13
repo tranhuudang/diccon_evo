@@ -17,6 +17,14 @@ class ReleaseNotes extends StatelessWidget {
               shrinkWrap: true,
               children: const [
                 ReleaseNotesItem(
+                  version: '471',
+                  date: '13-11-2023',
+                  changesNote: [
+                    'Add update notifier to suggests if it is a new version of Diccon release',
+                    'Bottom bar in reading page, user can get some customize easier'
+                  ],
+                ),
+                ReleaseNotesItem(
                   version: '454',
                   date: '11-11-2023',
                   changesNote: [

@@ -184,6 +184,9 @@ extension Localization on String {
     "Listening to you...": {
       "en_us": "Listening to you...",
       "vi_vi": "Đang lắng nghe...",
+    },"Report Errors": {
+      "en_us": "Report Errors",
+      "vi_vi": "Báo lỗi",
     },
     "About": {
       "en_us": "About",

@@ -96,7 +96,7 @@ class HomeMenuButton extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-                      Text("Github".i18n),
+                      Text("Report Errors".i18n),
                     ],
                   ),
                   onTap: () async {
@@ -106,6 +106,18 @@ class HomeMenuButton extends StatelessWidget {
                     throw Exception('Could not launch $url');
                     }
                   },
+                ),
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.feedback_outlined),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text("Feedbacks".i18n),
+                    ],
+                  ),
+                  onTap: () => FeedbackHelper.goToStoreListing(),
                 ),
                 PopupMenuItem(
                   child: Row(
@@ -120,18 +132,6 @@ class HomeMenuButton extends StatelessWidget {
                   onTap: () {
                     context.pushNamed('infos');
                   },
-                ),
-                PopupMenuItem(
-                  child: Row(
-                    children: [
-                      const Icon(Icons.feedback_outlined),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text("Feedbacks".i18n),
-                    ],
-                  ),
-                  onTap: () => FeedbackHelper.goToStoreListing(),
                 ),
               ],
             ),
