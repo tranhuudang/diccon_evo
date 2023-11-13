@@ -77,7 +77,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
                   ),
                 ),
               ),
-              const SizedBox(width: 8.0),
+              const HorizontalSpacing.medium(),
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

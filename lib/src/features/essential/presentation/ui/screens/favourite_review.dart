@@ -125,7 +125,7 @@ class FavouriteReviewView extends StatelessWidget {
                         // ),
                       ],
               ),
-              const SizedBox(height: 16,),
+              const VerticleSpacing.large(),,),
               TipsBox(
                       title: "Tips".i18n,
                       children:
