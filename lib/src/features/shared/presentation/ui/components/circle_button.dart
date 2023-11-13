@@ -18,7 +18,6 @@ class CircleButtonBar extends StatelessWidget {
       ),
       child: Wrap(
         spacing: 8,
-        //mainAxisSize: MainAxisSize.min,
         children: children,
       ),
     );

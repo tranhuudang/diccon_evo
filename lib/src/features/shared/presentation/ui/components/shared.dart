@@ -1,7 +1,7 @@
 export 'circle_button.dart';
 export 'clickable_words.dart';
 export 'expand_bubble_button.dart';
-export 'feedback_helper.dart';
+export 'seek_feedback.dart';
 export 'head_sentence.dart';
 export 'header.dart';
 export 'no_internet_buble.dart';

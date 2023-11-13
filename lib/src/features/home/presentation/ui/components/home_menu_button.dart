@@ -117,7 +117,7 @@ class HomeMenuButton extends StatelessWidget {
                       Text("Feedbacks".i18n),
                     ],
                   ),
-                  onTap: () => FeedbackHelper.goToStoreListing(),
+                  onTap: () => SeekFeedback.goToStoreListing(),
                 ),
                 PopupMenuItem(
                   child: Row(

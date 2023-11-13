@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
-class FeedbackHelper {
+class SeekFeedback {
   static void showFeedbackBottomSheet(BuildContext context) {
     if ((Properties.defaultSetting.openAppCount == 10) ||
         (Properties.defaultSetting.openAppCount == 50) ||

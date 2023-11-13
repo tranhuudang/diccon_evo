@@ -11,7 +11,7 @@ class ToDictionaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FeatureButton(
       onTap: () {
-        FeedbackHelper.showFeedbackBottomSheet(context);
+        SeekFeedback.showFeedbackBottomSheet(context);
         context.pushNamed(RouterConstants.dictionary);
       },
       child: Column(
@@ -28,7 +28,7 @@ class ToDictionaryButton extends StatelessWidget {
                 Icons.search,
                 color: context.theme.colorScheme.surface,
               )),
-          const SizedBox(height: 8),
+          const VerticleSpacing.medium(),
            Text(
             "Diccon dual-mode",
             style: context.theme.textTheme.labelSmall,
@@ -37,7 +37,7 @@ class ToDictionaryButton extends StatelessWidget {
             "Dictionary".i18n,
             style: context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
-          const SizedBox(height: 16),
+          const VerticleSpacing.large(),
         ],
       ),
     );

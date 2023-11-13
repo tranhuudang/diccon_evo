@@ -16,7 +16,7 @@ class ToConversationButton extends StatelessWidget {
       borderColor: context.theme.scaffoldBackgroundColor,
       padding: EdgeInsets.zero,
       onTap: () {
-        FeedbackHelper.showFeedbackBottomSheet(context);
+        SeekFeedback.showFeedbackBottomSheet(context);
         context.pushNamed(RouterConstants.conversation);
       },
       child: ClipRRect(
@@ -35,7 +35,7 @@ class ToConversationButton extends StatelessWidget {
                   Icon(Icons.chat,
                       size: 32,
                       color: context.theme.colorScheme.onPrimary),
-                  const SizedBox(height: 4),
+                  const VerticleSpacing.small(),
                   Text(
                     "Ask me anything".i18n,
                     style: context.theme.textTheme.labelSmall?.copyWith(color:onPrimary ),
@@ -44,7 +44,7 @@ class ToConversationButton extends StatelessWidget {
                     "Javis",
                     style:  context.theme.textTheme.titleLarge?.copyWith(color:onPrimary, fontWeight: FontWeight.w500 ),
                   ),
-                  const SizedBox(height: 16),
+                  const VerticleSpacing.large(),
                 ],
               ),
             ),

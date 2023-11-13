@@ -137,7 +137,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
             itemBuilder: (context, index) {
               return _listPrimaryFunction[index];
             }),
-        const SizedBox(height: 8),
+        const VerticleSpacing.medium(),
 
         /// Other functions
         SubFunctionBox(height: 180, listSubFunction: _listSubFunction),

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
 class Header extends StatelessWidget {
   const Header({
     super.key,
@@ -48,9 +49,9 @@ class HeaderWithBlurEffect extends StatelessWidget {
               sigmaX: 4.0,
               sigmaY: 4.0,
             ),
-            child: Container(),
+            child: const SizedBox.shrink(),
           ),
-          // Gradient layers
+          // Child layers
           Container(
             height: 66,
             decoration: BoxDecoration(
@@ -58,41 +59,34 @@ class HeaderWithBlurEffect extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                  context.theme
-                      .colorScheme.background
-                      .withOpacity(0.9),
-                  context.theme
-                      .colorScheme.background
-                      .withOpacity(0.5),
+                  context.theme.colorScheme.background.withOpacity(0.9),
+                  context.theme.colorScheme.background.withOpacity(0.5),
                 ])),
-          ),
-          // Child layers
-          Container(
-            color: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleButton(
-                  backgroundColor: context.theme.colorScheme.surfaceVariant.withOpacity(.5),
+                    backgroundColor: context.theme.colorScheme.surfaceVariant
+                        .withOpacity(.5),
                     iconData: Icons.arrow_back,
                     onTap: () {
                       Navigator.pop(context);
                     }),
                 const HorizontalSpacing.large(),
-                if(title != null)
-                    Text(
-                        title!,
-                        style: context.theme.textTheme.headlineSmall,
-                      ),
+                if (title != null)
+                  Text(
+                    title!,
+                    style: context.theme.textTheme.headlineSmall,
+                  ),
                 const SizedBox(
                   width: 16,
                 ),
                 const Spacer(),
-                if(actions != null)
-                     Row(
-                        children: actions!,
-                      ),
+                if (actions != null)
+                  Row(
+                    children: actions!,
+                  ),
               ],
             ),
           ),
