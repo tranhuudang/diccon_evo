@@ -60,11 +60,11 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   final TextEditingController textController = TextEditingController();
   bool isReportedAboutDisconnection = false;
 
-  String currentReponseContent = "";
+  String currentResponseContent = "";
 
   Future<void> _addUserMessage(
       AskAQuestion event, Emitter<ConversationState> emit) async {
-    currentReponseContent = "";
+    currentResponseContent = "";
     listConversations.add(ConversationUserBubble(
       message: event.providedWord,
       onTap: () {
@@ -113,10 +113,10 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     /// Delay the scroll animation until after the list has been updated
     if (conversationScrollController.position.userScrollDirection ==
         ScrollDirection.idle) {
-      Future.delayed(const Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 200), () {
         conversationScrollController.animateTo(
           conversationScrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
         );
       });
@@ -144,10 +144,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         if (event.streamMessageEnd) {
           add(StopResponse());
         } else {
-          currentReponseContent += event.choices!.first.delta!.content;
-          add(AnsweringAQuestion(answer: currentReponseContent));
+          currentResponseContent += event.choices!.first.delta!.content;
+          add(AnsweringAQuestion(answer: currentResponseContent));
           // Auto scroll down
           // _scrollToBottom();
+          if (conversationScrollController.position.atEdge){
+            _scrollToBottom();
+          }
         }
       });
     } catch (error) {
