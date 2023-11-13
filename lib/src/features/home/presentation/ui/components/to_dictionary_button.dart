@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
 class ToDictionaryButton extends StatelessWidget {
   const ToDictionaryButton({
     super.key,
@@ -28,16 +29,17 @@ class ToDictionaryButton extends StatelessWidget {
                 Icons.search,
                 color: context.theme.colorScheme.surface,
               )),
-          const VerticleSpacing.medium(),
-           Text(
+          const VerticalSpacing.medium(),
+          Text(
             "Diccon dual-mode",
             style: context.theme.textTheme.labelSmall,
           ),
-           Text(
+          Text(
             "Dictionary".i18n,
-            style: context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+            style: context.theme.textTheme.titleLarge
+                ?.copyWith(fontWeight: FontWeight.w500),
           ),
-          const VerticleSpacing.large(),
+          const VerticalSpacing.large(),
         ],
       ),
     );

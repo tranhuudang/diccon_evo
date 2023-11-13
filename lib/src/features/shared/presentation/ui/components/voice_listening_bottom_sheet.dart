@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+
 class VoiceListeningBottomSheet extends StatefulWidget {
   final Function(String) onSubmit;
   const VoiceListeningBottomSheet({super.key, required this.onSubmit});
@@ -95,43 +96,43 @@ class _VoiceListeningBottomSheetState extends State<VoiceListeningBottomSheet> {
                 ),
                 child: _isListening == true
                     ? LoadingIndicator(
-                  pause: false,
-                  indicatorType: Indicator.lineScalePulseOut,
-                  colors: [
-                    context.theme.colorScheme.primary.withOpacity(.5),
-                    context.theme.colorScheme.primary.withOpacity(.9),
-                    context.theme.colorScheme.primary.withOpacity(.4),
-                    context.theme.colorScheme.primary.withOpacity(.8),
-                    context.theme.colorScheme.primary.withOpacity(.2),
-                  ],
-                )
+                        pause: false,
+                        indicatorType: Indicator.lineScalePulseOut,
+                        colors: [
+                          context.theme.colorScheme.primary.withOpacity(.5),
+                          context.theme.colorScheme.primary.withOpacity(.9),
+                          context.theme.colorScheme.primary.withOpacity(.4),
+                          context.theme.colorScheme.primary.withOpacity(.8),
+                          context.theme.colorScheme.primary.withOpacity(.2),
+                        ],
+                      )
                     : LoadingIndicator(
-                  pause: true,
-                  indicatorType: Indicator.lineScalePulseOut,
-                  colors: [
-                    context.theme.colorScheme.primary.withOpacity(.5),
-                    context.theme.colorScheme.primary.withOpacity(.9),
-                    context.theme.colorScheme.primary.withOpacity(.4),
-                    context.theme.colorScheme.primary.withOpacity(.8),
-                    context.theme.colorScheme.primary.withOpacity(.2),
-                  ],
-                ),
+                        pause: true,
+                        indicatorType: Indicator.lineScalePulseOut,
+                        colors: [
+                          context.theme.colorScheme.primary.withOpacity(.5),
+                          context.theme.colorScheme.primary.withOpacity(.9),
+                          context.theme.colorScheme.primary.withOpacity(.4),
+                          context.theme.colorScheme.primary.withOpacity(.8),
+                          context.theme.colorScheme.primary.withOpacity(.2),
+                        ],
+                      ),
               ),
               listeningResult.data!.isEmpty
                   ? Text(_isListening
-                  ? "Listening to you...".i18n
-                  : "Tap to the mic to start again".i18n)
+                      ? "Listening to you...".i18n
+                      : "Tap to the mic to start again".i18n)
                   : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  listeningResult.data!,
-                  style: listeningResult.data!.length < 40
-                      ? context.theme.textTheme.headlineSmall
-                      : listeningResult.data!.length < 80
-                      ? context.theme.textTheme.titleMedium
-                      : context.theme.textTheme.titleSmall,
-                ),
-              ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        listeningResult.data!,
+                        style: listeningResult.data!.length < 40
+                            ? context.theme.textTheme.headlineSmall
+                            : listeningResult.data!.length < 80
+                                ? context.theme.textTheme.titleMedium
+                                : context.theme.textTheme.titleSmall,
+                      ),
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -142,30 +143,30 @@ class _VoiceListeningBottomSheetState extends State<VoiceListeningBottomSheet> {
                     ),
                     child: listeningResult.data!.isNotEmpty
                         ? IconButton(
-                      onPressed: () {
-                        _stopListening();
-                        context.pop();
-                        widget.onSubmit(listeningResult.data!);
-                      },
-                      icon: Icon(
-                        Icons.send_rounded,
-                        color: context.theme.colorScheme.onPrimary,
-                        size: 30,
-                      ),
-                    )
+                            onPressed: () {
+                              _stopListening();
+                              context.pop();
+                              widget.onSubmit(listeningResult.data!);
+                            },
+                            icon: Icon(
+                              Icons.send_rounded,
+                              color: context.theme.colorScheme.onPrimary,
+                              size: 30,
+                            ),
+                          )
                         : Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: context.theme.colorScheme.primary,
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          startListening();
-                        },
-                        icon: const Icon(Icons.mic_none),
-                        color: context.theme.colorScheme.onPrimary,
-                      ),
-                    ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: context.theme.colorScheme.primary,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                startListening();
+                              },
+                              icon: const Icon(Icons.mic_none),
+                              color: context.theme.colorScheme.onPrimary,
+                            ),
+                          ),
                   ),
                 ],
               ),
