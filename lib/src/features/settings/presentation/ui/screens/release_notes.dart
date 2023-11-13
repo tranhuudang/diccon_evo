@@ -20,8 +20,8 @@ class ReleaseNotes extends StatelessWidget {
                   version: '471',
                   date: '13-11-2023',
                   changesNote: [
-                    'Add update notifier to suggests if it is a new version of Diccon release',
-                    'Bottom bar in reading page, user can get some customize easier'
+                    'Thêm tính năng thông báo phiên bản mới',
+                    'Thanh tùy chỉnh trong chế độ đọc trong mục Truyện ngắn'
                   ],
                 ),
                 ReleaseNotesItem(
