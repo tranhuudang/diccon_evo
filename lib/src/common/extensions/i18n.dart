@@ -215,11 +215,11 @@ extension Localization on String {
       "vi_vi": "Đang tải truyện mới..",
     },
     "Increase": {
-      "en_us": "Increase font size",
+      "en_us": "Increase Font Size",
       "vi_vi": "Tăng phông chữ",
     },
     "Decrease": {
-      "en_us": "Decrease",
+      "en_us": "Decrease Font Size",
       "vi_vi": "Giảm phông chữ",
     },
     "Definition": {
