@@ -44,7 +44,7 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
       maxTokens: 2000,
       messages: messages,
       model: ChatGptModel.gpt35Turbo,
-      temperature: 1.5,
+      temperature: 1,
     );
     return request;
   }
@@ -64,7 +64,7 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
         Message(role: Role.user.name, content: singleQuestionAnswer.question)
       ],
       model: ChatGptModel.gpt35Turbo,
-      temperature: 0.5,
+      temperature: 0.2,
     );
     return request;
   }
