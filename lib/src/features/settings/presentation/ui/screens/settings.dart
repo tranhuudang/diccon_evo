@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:wave_divider/wave_divider.dart';
+import 'package:wavy_slider/wavy_slider.dart';
+
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 
@@ -75,7 +77,7 @@ class _SettingsViewState extends State<SettingsView> {
                               settingBloc.add(ChangeLanguageEvent(
                                   language: selectedLanguage));
                             },
-                            items: ["System default","English", "Tiếng Việt"]
+                            items: ["System default", "English", "Tiếng Việt"]
                                 .map(
                                   (value) => DropdownMenuItem<String>(
                                     alignment: Alignment.center,
@@ -90,7 +92,9 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const VerticalSpacing.medium(),
-           const WaveDivider(thickness: .3,),
+          const WaveDivider(
+            thickness: .3,
+          ),
           const VerticalSpacing.medium(),
 
           /// Theme switcher
@@ -101,7 +105,9 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           const VerticalSpacing.medium(),
-          const WaveDivider(thickness: .3,),
+          const WaveDivider(
+            thickness: .3,
+          ),
           const VerticalSpacing.medium(),
           const ThemeColorPalette(),
         ]),
@@ -203,16 +209,20 @@ class _SettingsViewState extends State<SettingsView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.text_increase),
-                Slider(
-                    activeColor: context.theme.colorScheme.primary,
-                    min: 0.1,
-                    value: state.readingFontSize / 70,
-                    onChangeEnd: (newValue) {
-                      settingCubit.saveSettings();
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: WavySlider(
+                    value: .5,
+                    width: 150,
+                    waveHeight: 10,
+                    waveWidth: 15,
+                    strokeWidth: 5,
+                    onChanged: (value) {
+                      settingCubit.setReadingFontSize(value * 70);
                     },
-                    onChanged: (newValue) {
-                      settingCubit.setReadingFontSize(newValue * 70);
-                    }),
+                    color: context.theme.colorScheme.primary,
+                  ),
+                ),
               ],
             ),
             Text(

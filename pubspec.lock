@@ -1659,6 +1659,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.2"
+  wavy_slider:
+    dependency: "direct main"
+    description:
+      name: wavy_slider
+      sha256: "1e34b29910bc5f601c5e03db7b7f51c20444bd22f1ba0bbe89629fbed5183e03"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   web:
     dependency: transitive
     description:
