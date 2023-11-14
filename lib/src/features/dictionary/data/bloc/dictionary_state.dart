@@ -18,13 +18,13 @@ class AntonymsAdded extends ChatListActionState {
 class ImageAdded extends ChatListActionState {
 }
 
-class ChatbotMessageAdded extends ChatListState{
+class ChatBotMessageAdded extends ChatListState{
   List<Widget> chatList;
-  ChatbotMessageAdded({required this.chatList});
+  ChatBotMessageAdded({required this.chatList});
 }
 
-class ChatbotResponding extends ChatListState{
+class ChatBotResponding extends ChatListState{
   String text;
-  ChatbotResponding({required this.text});
+  ChatBotResponding({required this.text});
 }
 

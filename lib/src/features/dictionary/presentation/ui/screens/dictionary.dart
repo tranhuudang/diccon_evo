@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:wave_divider/wave_divider.dart';
 class DictionaryView extends StatefulWidget {
   final String? word;
   final BuildContext? buildContext;
@@ -167,7 +168,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                           context.pushNamed('word-history');
                         },
                       ),
-                      const DictionaryMenuButton(),
+                      const DictionaryMenu(),
                     ],
                   ),
                 ),
@@ -284,18 +285,7 @@ class _DictionaryViewState extends State<DictionaryView> {
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: <Widget>[
-          IconButton(
-              onPressed: () {
-                context.showAlertDialog(
-                  title: "Close this session?",
-                  content: "Clear all the bubbles in this translation session.",
-                  action: () {
-                    resetSuggestion();
-                    chatListBloc.add(CreateNewChatlist());
-                  },
-                );
-              },
-              icon: const Icon(Icons.add_circle_outline)),
+        const DictionaryBottomMenu(),
           Expanded(
             child: SearchBox(
               searchTextController: chatListBloc.textController,

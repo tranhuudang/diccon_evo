@@ -5,14 +5,14 @@ import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:wave_divider/wave_divider.dart';
 
-class DictionaryMenuButton extends StatefulWidget {
-  const DictionaryMenuButton({super.key});
+class DictionaryMenu extends StatefulWidget {
+  const DictionaryMenu({super.key});
 
   @override
-  State<DictionaryMenuButton> createState() => _DictionaryMenuButtonState();
+  State<DictionaryMenu> createState() => _DictionaryMenuState();
 }
 
-class _DictionaryMenuButtonState extends State<DictionaryMenuButton> {
+class _DictionaryMenuState extends State<DictionaryMenu> {
   final _streamController = StreamController<TranslationChoices>();
   @override
   void dispose() {

@@ -6,6 +6,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 
 part 'dictionary_state.dart';
 part 'dictionary_event.dart';
@@ -20,7 +21,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddAntonyms>(_addAntonymsList);
     on<AddImage>(_addImage);
     on<ScrollToBottom>(_scrollToBottom);
-    on<CreateNewChatlist>(_createNewChatlist);
+    on<CreateNewChatList>(_createNewChatList);
+    on<AutoDetectLanguage>(_autoDetectLanguage);
+    on<ForceTranslateVietnameseToEnglish>(_forceTranslateVietnameseToEnglish);
+    on<ForceTranslateEnglishToVietnamese>(_forceTranslateEnglishToVietnamese);
   }
   List<ChatGptRepository> _listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
@@ -86,7 +90,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   Future<void> _addTranslation(
       AddTranslation event, Emitter<ChatListState> emit) async {
-    // Check internet connection before create request to chatbot
+    // Check internet connection before create request to chat-bot
     bool isInternetConnected = await InternetConnectionChecker().hasConnection;
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
@@ -114,13 +118,28 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     _scrollChatListToBottom();
   }
 
-  FutureOr<void> _createNewChatlist(
-      CreateNewChatlist event, Emitter<ChatListState> emit) {
+  FutureOr<void> _createNewChatList(
+      CreateNewChatList event, Emitter<ChatListState> emit) {
     _listChatGptRepository = [];
     textController.clear();
     _chatList = [const DictionaryWelcome()];
     emit(ChatListUpdated(chatList: _chatList));
   }
+
+  FutureOr<void> _scrollToBottom(
+      ScrollToBottom event, Emitter<ChatListState> emit) {
+    _scrollChatListToBottom();
+  }
+
+  FutureOr<void> _autoDetectLanguage(AutoDetectLanguage event, Emitter<ChatListState> emit) async{
+    // final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
+    // final String response = await languageIdentifier.identifyLanguage(text);
+    //
+    // final List<IdentifiedLanguage> possibleLanguages = await languageIdentifier.identifyPossibleLanguages(text);
+    //
+  }
+  FutureOr<void> _forceTranslateVietnameseToEnglish(ForceTranslateVietnameseToEnglish event, Emitter<ChatListState> emit){}
+  FutureOr<void> _forceTranslateEnglishToVietnamese(ForceTranslateEnglishToVietnamese event, Emitter<ChatListState> emit){}
 
   Future<Word> _getLocalTranslation(String providedWord) async {
     DictionaryRepository searchingEngine = DictionaryRepositoryImpl();
@@ -136,11 +155,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         definition:
             "Local dictionary don't have definition for this word. Check out AI Dictionary !");
     return badResult;
-  }
-
-  FutureOr<void> _scrollToBottom(
-      ScrollToBottom event, Emitter<ChatListState> emit) {
-    _scrollChatListToBottom();
   }
 
   void _scrollChatListToBottom() {
