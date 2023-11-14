@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:diccon_evo/src/common/data/enum/translate_language_target.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -7,6 +8,9 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
+
+import '../../../../common/data/repositories/vietnamese_to_english_dictionary_repository.dart';
+import '../../presentation/ui/components/vietnamese_to_english_combine_bubble.dart';
 
 part 'dictionary_state.dart';
 part 'dictionary_event.dart';
@@ -32,7 +36,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   List<Widget> _chatList = [const DictionaryWelcome()];
   bool _isReportedAboutDisconnection = false;
   final _wordHistoryBloc = WordHistoryBloc();
-  final DictionaryRepository dictionaryRepository = DictionaryRepositoryImpl();
+  final EnglishToVietnameseDictionaryRepository dictionaryRepository =
+      EnglishToVietnameseDictionaryRepositoryImpl();
 
   /// Implement Events and Callbacks
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
@@ -82,8 +87,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       },
     ));
     // Add word to history
-    _wordHistoryBloc
-        .add(AddWordToHistory(providedWord: refinedWord));
+    _wordHistoryBloc.add(AddWordToHistory(providedWord: refinedWord));
     emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
   }
@@ -107,13 +111,41 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         chatGpt: ChatGpt(apiKey: PropertiesConstants.dictionaryKey));
     _listChatGptRepository.add(newChatGptRepository);
     var chatGptRepositoryIndex = _listChatGptRepository.length - 1;
-    var wordResult = await _getLocalTranslation(event.providedWord);
-    _chatList.add(CombineBubble(
-        wordObjectForLocal: wordResult,
-        wordForChatbot: event.providedWord,
-        chatListController: chatListController,
-        index: chatGptRepositoryIndex,
-        listChatGptRepository: _listChatGptRepository));
+    /// Detect language if auto detect language mode enable
+    final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
+    String autoDetectResult = languageIdentifier.undeterminedLanguageCode;
+    if (Properties.defaultSetting.translationLanguageTarget == TranslationLanguageTarget.autoDetect.title()){
+      final String detectedLanguage = await languageIdentifier.identifyLanguage(event.providedWord);
+      if (detectedLanguage == 'en' || detectedLanguage == 'vi') {
+        autoDetectResult = detectedLanguage;
+      } else {
+        autoDetectResult = 'en';
+      }
+      print('------------------------------$autoDetectResult');
+    }
+    /// Check if setting force to translate from english to vietnamese
+    if (autoDetectResult == 'en' || Properties.defaultSetting.translationLanguageTarget ==
+        TranslationLanguageTarget.englishToVietnamese.title()) {
+      var wordResult =
+          await _getLocalEnglishToVietnameseTranslation(event.providedWord);
+      _chatList.add(EnglishToVietnameseCombineBubble(
+          wordObjectForLocal: wordResult,
+          wordForChatBot: event.providedWord,
+          chatListController: chatListController,
+          index: chatGptRepositoryIndex,
+          listChatGptRepository: _listChatGptRepository));
+    }
+    if (autoDetectResult == 'vi' || Properties.defaultSetting.translationLanguageTarget ==
+        TranslationLanguageTarget.vietnameseToEnglish.title()) {
+      var wordResult =
+          await _getLocalVietnameseToEnglishTranslation(event.providedWord);
+      _chatList.add(VietnameseToEnglishCombineBubble(
+          wordObjectForLocal: wordResult,
+          wordForChatBot: event.providedWord,
+          chatListController: chatListController,
+          index: chatGptRepositoryIndex,
+          listChatGptRepository: _listChatGptRepository));
+    }
     emit(ChatListUpdated(chatList: _chatList));
     _scrollChatListToBottom();
   }
@@ -131,18 +163,41 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     _scrollChatListToBottom();
   }
 
-  FutureOr<void> _autoDetectLanguage(AutoDetectLanguage event, Emitter<ChatListState> emit) async{
+  FutureOr<void> _autoDetectLanguage(
+      AutoDetectLanguage event, Emitter<ChatListState> emit) async {
     // final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
     // final String response = await languageIdentifier.identifyLanguage(text);
     //
     // final List<IdentifiedLanguage> possibleLanguages = await languageIdentifier.identifyPossibleLanguages(text);
     //
   }
-  FutureOr<void> _forceTranslateVietnameseToEnglish(ForceTranslateVietnameseToEnglish event, Emitter<ChatListState> emit){}
-  FutureOr<void> _forceTranslateEnglishToVietnamese(ForceTranslateEnglishToVietnamese event, Emitter<ChatListState> emit){}
+  FutureOr<void> _forceTranslateVietnameseToEnglish(
+      ForceTranslateVietnameseToEnglish event, Emitter<ChatListState> emit) {}
+  FutureOr<void> _forceTranslateEnglishToVietnamese(
+      ForceTranslateEnglishToVietnamese event, Emitter<ChatListState> emit) {}
 
-  Future<Word> _getLocalTranslation(String providedWord) async {
-    DictionaryRepository searchingEngine = DictionaryRepositoryImpl();
+  Future<Word> _getLocalEnglishToVietnameseTranslation(
+      String providedWord) async {
+    EnglishToVietnameseDictionaryRepository searchingEngine =
+        EnglishToVietnameseDictionaryRepositoryImpl();
+    Word? wordResult = await searchingEngine.getDefinition(providedWord);
+    if (wordResult != Word.empty()) {
+      if (kDebugMode) {
+        print("got result from local dictionary");
+      }
+      return wordResult;
+    }
+    var badResult = Word(
+        word: providedWord,
+        definition:
+            "Local dictionary don't have definition for this word. Check out AI Dictionary !");
+    return badResult;
+  }
+
+  Future<Word> _getLocalVietnameseToEnglishTranslation(
+      String providedWord) async {
+    VietnameseToEnglishDictionaryRepository searchingEngine =
+        VietnameseToEnglishDictionaryRepositoryImpl();
     Word? wordResult = await searchingEngine.getDefinition(providedWord);
     if (wordResult != Word.empty()) {
       if (kDebugMode) {

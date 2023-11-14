@@ -3,21 +3,21 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
-class LocalDictionaryBubble extends StatefulWidget {
-  const LocalDictionaryBubble({
+class ClassicBubble extends StatefulWidget {
+  const ClassicBubble({
     super.key,
     required this.word,
-    this.onWordTap,
+    required this.onWordTap,
   });
 
   final Word word;
-  final Function(String)? onWordTap;
+  final Function(String) onWordTap;
 
   @override
-  State<LocalDictionaryBubble> createState() => _LocalDictionaryBubbleState();
+  State<ClassicBubble> createState() => _ClassicBubbleState();
 }
 
-class _LocalDictionaryBubbleState extends State<LocalDictionaryBubble> {
+class _ClassicBubbleState extends State<ClassicBubble> {
   final _showExpandButtonController = StreamController<bool>();
 
 

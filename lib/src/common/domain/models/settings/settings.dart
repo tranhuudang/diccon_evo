@@ -13,6 +13,7 @@ class Settings with _$Settings {
     required double readingFontSizeSliderValue,
     required String language,
     required String dictionaryResponseSelectedList,
+    required String translationLanguageTarget,
     required double windowsWidth,
     required double windowsHeight,
     required String translationChoice,

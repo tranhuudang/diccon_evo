@@ -30,7 +30,7 @@ class Properties {
     themeMode: 'ThemeMode.system',
     openAppCount: 0,
     themeColor: Colors.blue.value,
-    enableAdaptiveTheme: true,
+    enableAdaptiveTheme: true, translationLanguageTarget: 'autoDetect',
   );
 
   static void saveSettings(Settings newSetting) async {
@@ -45,6 +45,7 @@ class Properties {
     await prefs.setInt('numberOfAntonyms', newSetting.numberOfAntonyms);
     await prefs.setInt('openAppCount', newSetting.openAppCount);
     await prefs.setString('language', newSetting.language);
+    await prefs.setString('translationLanguageTarget', newSetting.translationLanguageTarget);
     await prefs.setString('dictionaryResponseSelectedList',
         newSetting.dictionaryResponseSelectedList);
     await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
@@ -70,6 +71,8 @@ class Properties {
       openAppCount: prefs.getInt("openAppCount") ?? defaultSetting.openAppCount,
       dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
           defaultSetting.dictionaryResponseType,
+      translationLanguageTarget: prefs.getString('translationLanguageTarget') ??
+          defaultSetting.translationLanguageTarget,
       readingFontSizeSliderValue:
           prefs.getDouble('readingFontSizeSliderValue') ??
               defaultSetting.readingFontSizeSliderValue,

@@ -19,7 +19,7 @@ class _DictionaryViewState extends State<DictionaryView> {
   final ImageHandler _imageProvider = ImageHandler();
   final suggestionWordListDb = SuggestionDatabase.instance;
 
-  final DictionaryRepository dictionaryRepository = DictionaryRepositoryImpl();
+  final EnglishToVietnameseDictionaryRepository dictionaryRepository = EnglishToVietnameseDictionaryRepositoryImpl();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
   bool _hasImages = false;

@@ -12,7 +12,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  DictionaryDatabase.initialize();
+  EnglishToVietnameseDictionaryDatabase.initialize();
   Properties.getSettings();
   /// Initial Firebase
   if (Platform.isAndroid) {

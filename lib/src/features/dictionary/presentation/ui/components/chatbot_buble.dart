@@ -9,14 +9,16 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChatbotBubble extends StatefulWidget {
-  const ChatbotBubble({
+class ChatBotBubble extends StatefulWidget {
+  const ChatBotBubble({
     super.key,
     this.onWordTap,
     required this.word,
     required this.chatListController,
     required this.index,
-    required this.listChatGptRepository, this.isParagraph = false,
+    required this.listChatGptRepository,
+    this.isParagraph = false,
+    required this.request,
   });
 
   final Function(String)? onWordTap;
@@ -25,12 +27,13 @@ class ChatbotBubble extends StatefulWidget {
   final int index;
   final List<ChatGptRepository> listChatGptRepository;
   final bool isParagraph;
+  final ChatCompletionRequest request;
 
   @override
-  State<ChatbotBubble> createState() => _ChatbotBubbleState();
+  State<ChatBotBubble> createState() => _ChatBotBubbleState();
 }
 
-class _ChatbotBubbleState extends State<ChatbotBubble>
+class _ChatBotBubbleState extends State<ChatBotBubble>
     with AutomaticKeepAliveClientMixin {
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
 
@@ -50,7 +53,7 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
               // Only add definition of a word to firebase database when it not a paragraph
-              if(defaultTargetPlatform.isAndroid()) {
+              if (defaultTargetPlatform.isAndroid()) {
                 if (!widget.isParagraph) {
                   _createFirebaseDatabaseItem();
                 }
@@ -101,23 +104,22 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   void _getGptResponse() async {
     if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
         .isEmpty) {
-      var request = await _getQuestionRequest();
-        // create md5 from question to compare to see if that md5 is already exist in database
-        var answer = _composeMd5IdForFirebaseDb(
-            word: widget.word,
-            options: Properties.defaultSetting.dictionaryResponseSelectedList);
-        final docUser =
-        FirebaseFirestore.instance.collection("Dictionary").doc(answer);
-        await docUser.get().then((snapshot) async {
-          if (snapshot.exists) {
-            widget.listChatGptRepository[widget.index].singleQuestionAnswer
-                .answer
-                .write(snapshot.data()?['answer'].toString());
-            setState(() {});
-          } else {
-            _chatStreamResponse(request);
-          }
-        });
+      var request = widget.request;
+      // create md5 from question to compare to see if that md5 is already exist in database
+      var answer = _composeMd5IdForFirebaseDb(
+          word: widget.word,
+          options: Properties.defaultSetting.dictionaryResponseSelectedList);
+      final docUser =
+          FirebaseFirestore.instance.collection("Dictionary").doc(answer);
+      await docUser.get().then((snapshot) async {
+        if (snapshot.exists) {
+          widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
+              .write(snapshot.data()?['answer'].toString());
+          setState(() {});
+        } else {
+          _chatStreamResponse(request);
+        }
+      });
     }
   }
 
@@ -135,26 +137,8 @@ class _ChatbotBubbleState extends State<ChatbotBubble>
   void _reGetGptResponse() async {
     widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
         .clear();
-    var request = await _getQuestionRequest();
+    var request = widget.request;
     _chatStreamResponse(request);
-  }
-
-  Future<ChatCompletionRequest> _getQuestionRequest() async {
-    if (widget.isParagraph) {
-      customQuestion =
-      'Hãy giúp tôi dịch đoạn văn sau sang tiếng Việt: ${widget.word}';
-    }
-    else {
-      customQuestion =
-      'Hãy giúp tôi dịch chữ "${widget.word
-          .trim()}" từ tiếng Anh sang tiếng Việt với các chủ đề lần lượt là: ${Properties
-          .defaultSetting
-          .dictionaryResponseSelectedList}. Hãy chia câu trả lời thành các chủ đề vừa liệt kê, và dịch sang tiếng Việt các chủ đề đó, bắt buộc phải dịch sang tiếng Việt những câu bằng tiếng Anh ngay sau từng câu tiếng Anh (ngay liền kề mỗi câu). Bất cứ sự giải thích nào trong câu trả lời đều phải dùng tiếng Việt';
-
-    }
-    var request = await widget.listChatGptRepository[widget.index]
-        .createSingleQuestionRequest(customQuestion);
-    return request;
   }
 
   @override

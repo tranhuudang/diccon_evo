@@ -6,16 +6,16 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
 
-class DictionaryDatabase {
-  DictionaryDatabase._privateConstructor();
+class VietnameseToEnglishDictionaryDatabase {
+  VietnameseToEnglishDictionaryDatabase._privateConstructor();
   static Future<void> initialize() async {
     if (instance._database == null) {
       await instance._initDB();
     }
   }
 
-  static final DictionaryDatabase instance =
-      DictionaryDatabase._privateConstructor();
+  static final VietnameseToEnglishDictionaryDatabase instance =
+      VietnameseToEnglishDictionaryDatabase._privateConstructor();
   Database? _database;
 
   Future<Database> get database async {
@@ -32,7 +32,7 @@ class DictionaryDatabase {
     // Set the db file to proper directory depend on system specific.
     String databasesPath = await DirectoryHandler.getLocalResourcePath();
 
-    String path = join(databasesPath, "en_vi.db");
+    String path = join(databasesPath, "vi_en.db");
     if (kDebugMode) {
       print("[Database Directory] $path");
     }
@@ -45,7 +45,7 @@ class DictionaryDatabase {
       if (kDebugMode) {
         print("Copying database from assets to $path");
       }
-      ByteData data = await rootBundle.load("assets/dictionary/en_vi.db");
+      ByteData data = await rootBundle.load("assets/dictionary/vi_en.db");
       List<int> bytes = data.buffer.asUint8List();
       await File(path).writeAsBytes(bytes, flush: true);
     }
@@ -60,6 +60,6 @@ class DictionaryDatabase {
 
   Future<List<Map<String, dynamic>>> queryDictionary(String word) async {
     final db = await instance.database;
-    return await db.query('en_vi', where: 'word = ?', whereArgs: [word.toLowerCase().trim()]);
+    return await db.query('vi_en', where: 'word = ?', whereArgs: [word.toLowerCase().trim()]);
   }
 }

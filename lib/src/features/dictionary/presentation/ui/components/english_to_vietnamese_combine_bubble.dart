@@ -6,25 +6,25 @@ import 'package:flutter/foundation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter/material.dart';
 
-class CombineBubble extends StatefulWidget {
+class EnglishToVietnameseCombineBubble extends StatefulWidget {
   final Word wordObjectForLocal;
-  final String wordForChatbot;
+  final String wordForChatBot;
   final ScrollController chatListController;
   final int index;
   final List<ChatGptRepository> listChatGptRepository;
-  const CombineBubble(
+  const EnglishToVietnameseCombineBubble(
       {super.key,
       required this.wordObjectForLocal,
-      required this.wordForChatbot,
+      required this.wordForChatBot,
       required this.chatListController,
       required this.index,
       required this.listChatGptRepository});
 
   @override
-  State<CombineBubble> createState() => _CombineBubbleState();
+  State<EnglishToVietnameseCombineBubble> createState() => _EnglishToVietnameseCombineBubbleState();
 }
 
-class _CombineBubbleState extends State<CombineBubble> {
+class _EnglishToVietnameseCombineBubbleState extends State<EnglishToVietnameseCombineBubble> {
   final translationModeStreamController =
       StreamController<TranslationChoices>();
   final listResponseController = PageController();
@@ -42,9 +42,9 @@ class _CombineBubbleState extends State<CombineBubble> {
   @override
   Widget build(BuildContext context) {
     var listResponseOptions = [
-      LocalDictionaryBubble(word: widget.wordObjectForLocal),
-      ChatbotBubble(
-          word: widget.wordForChatbot,
+      EnglishToVietnameseClassicBubble(word: widget.wordObjectForLocal),
+      EnglishToVietnameseChatBotBubble(
+          word: widget.wordForChatBot,
           chatListController: widget.chatListController,
           index: widget.index,
           listChatGptRepository: widget.listChatGptRepository)
@@ -81,10 +81,10 @@ class _CombineBubbleState extends State<CombineBubble> {
                   if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.explain){
                     listResponseOptions = listResponseOptions.reversed.toList();
                   }
-                  if (widget.wordForChatbot.numberOfWord() > 3) {
-                    return ChatbotBubble(
+                  if (widget.wordForChatBot.numberOfWord() > 3) {
+                    return EnglishToVietnameseChatBotBubble(
                         isParagraph: true,
-                        word: widget.wordForChatbot,
+                        word: widget.wordForChatBot,
                         chatListController: widget.chatListController,
                         index: widget.index,
                         listChatGptRepository: widget.listChatGptRepository);
@@ -115,7 +115,7 @@ class _CombineBubbleState extends State<CombineBubble> {
                 },
               ),
             ),
-            if (!(widget.wordForChatbot.numberOfWord() >= 3))
+            if (!(widget.wordForChatBot.numberOfWord() >= 3))
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SmoothPageIndicator(

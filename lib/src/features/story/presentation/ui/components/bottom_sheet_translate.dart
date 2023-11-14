@@ -74,7 +74,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   }
 
   _getLocalDefinition() async {
-    DictionaryRepository searchingEngine = DictionaryRepositoryImpl();
+    EnglishToVietnameseDictionaryRepository searchingEngine = EnglishToVietnameseDictionaryRepositoryImpl();
     _wordResult = await searchingEngine.getDefinition(widget.searchWord);
     setState(() {
       _isLoading = false;

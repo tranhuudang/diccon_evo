@@ -1,12 +1,12 @@
 export 'brick_wall_buttons.dart';
-export 'chatbot_buble.dart';
+export 'english_to_vietnamese_chatbot_bubble.dart';
 export 'chatbot_buble_preview.dart';
-export 'combine_bubble.dart';
+export 'english_to_vietnamese_combine_bubble.dart';
 export 'dictionary_menu.dart';
 export 'dictionary_welcome_box.dart';
 export 'history_tile.dart';
 export 'image_buble.dart';
-export 'local_dictionary_bubble.dart';
+export 'english_to_vietnamese_classic_bubble.dart';
 export '../../../../shared/presentation/ui/components/pageview_navigator.dart';
 export 'user_bubble.dart';
 export 'user_bubble_preview.dart';

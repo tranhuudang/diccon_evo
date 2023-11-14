@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-abstract class DictionaryRepository {
+abstract class EnglishToVietnameseDictionaryRepository {
   Future<Word> getDefinition(String word);
   Future<List<String>> getSynonyms(String word);
   Future<List<String>> getAntonyms(String word);
 }
 
-class DictionaryRepositoryImpl implements DictionaryRepository {
+class EnglishToVietnameseDictionaryRepositoryImpl implements EnglishToVietnameseDictionaryRepository {
   @override
   Future<List<String>> getSynonyms(String word) async {
     var thesaurus = ThesaurusDatabase.instance;
@@ -47,7 +47,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   Future<Word> _getResultFromSQLiteDatabase(String refinedWord) async {
-    final dbHelper = DictionaryDatabase.instance;
+    final dbHelper = EnglishToVietnameseDictionaryDatabase.instance;
     var result = await dbHelper.queryDictionary(refinedWord);
     if (result.isNotEmpty) {
       final definition = result[0]['definition'];
