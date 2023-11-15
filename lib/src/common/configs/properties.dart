@@ -26,16 +26,6 @@ class Properties {
     instance._defaultSetting = settings;
   }
 
-  /// Manually change this version base on commit count
-
-  static UserInfo userInfo = UserInfo.empty();
-
-  // Focus of this textField cause a lot of trouble as the keyboard keep open up
-  // when focus still in the textField, so we move it here to make it static to
-  // control focus
-  static FocusNode textFieldFocusNode = FocusNode();
-
-  // All view in application
   Settings _defaultSetting = Settings(
     dictionaryResponseType: DictionaryResponseType.short.title(),
     translationChoice: TranslationChoices.translate.title(),

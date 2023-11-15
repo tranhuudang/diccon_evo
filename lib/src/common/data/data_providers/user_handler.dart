@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/common/common.dart';
 class UserHandler {
   Future uploadUserDataFile(String fileName) async {
-    final onlinePath = "users/${Properties.userInfo.uid}/$fileName";
+    final onlinePath = "users/${UserInfoProperties.userInfo.uid}/$fileName";
     final localFilePath =
         await DirectoryHandler.getLocalUserDataFilePath(fileName);
     final fileToUpload = File(localFilePath);
@@ -26,7 +26,7 @@ class UserHandler {
   /// Download all founded user data file in Firebase
   Future downloadUserDataFile() async {
     ListResult futureFiles = await FirebaseStorage.instance
-        .ref("users/${Properties.userInfo.uid}")
+        .ref("users/${UserInfoProperties.userInfo.uid}")
         .listAll();
     List<Reference> files = futureFiles.items;
     for (Reference ref in files) {
@@ -126,7 +126,7 @@ class UserHandler {
   /// Delete all founded user data file in Firebase
   Future deleteUserDataFile() async {
     Future<ListResult> futureFiles =
-        FirebaseStorage.instance.ref("/${Properties.userInfo.uid}").listAll();
+        FirebaseStorage.instance.ref("/${UserInfoProperties.userInfo.uid}").listAll();
     await futureFiles.then((ListResult fileObjects) {
       List<Reference> references = fileObjects.items;
       for (Reference ref in references) {

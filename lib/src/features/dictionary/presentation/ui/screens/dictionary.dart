@@ -69,13 +69,13 @@ class _DictionaryViewState extends State<DictionaryView> {
       /// When a word can't be found. It'll show a message to notify that error.
       chatListBloc.add(AddSorryMessage());
     }
-
+    FocusNode textFieldFocusNode = FocusNode();
     if (defaultTargetPlatform.isMobile()) {
       // Remove focus out of TextField in DictionaryView
-      Properties.textFieldFocusNode.unfocus();
+       textFieldFocusNode.unfocus();
     } else {
       // On desktop we request focus, not on mobile
-      Properties.textFieldFocusNode.requestFocus();
+      textFieldFocusNode.requestFocus();
     }
 
     /// Find image to show

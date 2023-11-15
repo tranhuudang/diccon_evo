@@ -48,7 +48,7 @@ class HomeMenuButton extends StatelessWidget {
                       context.pushNamed('user-settings');
                     },
                   ),
-                if (Properties.userInfo != UserInfo.empty())
+                if (UserInfoProperties.userInfo != UserInfo.empty())
                   PopupMenuItem(
                     child: Row(
                       children: [
@@ -64,7 +64,7 @@ class HomeMenuButton extends StatelessWidget {
                     onTap: () {
                       context
                           .read<UserBloc>()
-                          .add(UserSyncEvent(userInfo: Properties.userInfo));
+                          .add(UserSyncEvent(userInfo: UserInfoProperties.userInfo));
                     },
                   ),
                 PopupMenuItem(

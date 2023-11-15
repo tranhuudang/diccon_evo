@@ -102,13 +102,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
     var currentLoggedInUser = _currentLoggedInUser();
     if (currentLoggedInUser != null) {
-      Properties.userInfo = Properties.userInfo.copyWith(
+      UserInfoProperties.userInfo = UserInfoProperties.userInfo.copyWith(
         uid: currentLoggedInUser.uid,
         displayName: currentLoggedInUser.displayName ?? '',
         photoURL: currentLoggedInUser.photoURL ?? '',
         email: currentLoggedInUser.email ?? '',
       );
-      emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+      emit(UserLoginState(userInfo: UserInfoProperties.userInfo, isSyncing: false));
     } else {
       // Check internet connection
       bool isInternetConnected =
@@ -119,16 +119,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (isInternetConnected) {
         AuthService authService = AuthService();
         User? user = await authService.googleSignIn();
-        Properties.userInfo = Properties.userInfo.copyWith(
+        UserInfoProperties.userInfo = UserInfoProperties.userInfo.copyWith(
           uid: user!.uid,
           displayName: user.displayName ?? '',
           photoURL: user.photoURL ?? '',
           email: user.email ?? '',
         );
-        emit(UserLoginState(userInfo: Properties.userInfo, isSyncing: false));
+        emit(UserLoginState(userInfo: UserInfoProperties.userInfo, isSyncing: false));
         emit(UserLoggedInSuccessfulState());
         // Sync user data right after log in successful
-        add(UserSyncEvent(userInfo: Properties.userInfo));
+        add(UserSyncEvent(userInfo: UserInfoProperties.userInfo));
       } else {
         emit(NoInternetState());
       }
@@ -157,7 +157,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .deleteOnUserData();
 
     /// Reset properties
-    Properties.userInfo = user_model.UserInfo.empty();
+    UserInfoProperties.userInfo = user_model.UserInfo.empty();
     await Future.delayed(const Duration(seconds: 2));
     emit(UserLogoutCompletedState());
     emit(UserUninitialized());
