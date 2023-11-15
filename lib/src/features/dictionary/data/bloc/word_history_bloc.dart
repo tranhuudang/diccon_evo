@@ -94,7 +94,7 @@ class WordHistoryBloc extends Bloc<WordHistoryEvent, WordHistoryState> {
 
   void _clearAllWordHistory(
       ClearAllWordHistory event, Emitter<WordHistoryState> emit) {
-    FileHandler(PropertiesConstants.wordHistoryFileName).deleteOnUserData();
+    FileHandler(Constants.wordHistoryFileName).deleteOnUserData();
     state.words.clear();
     emit(WordHistoryUpdated(words: state.words));
   }

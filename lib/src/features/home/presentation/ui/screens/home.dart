@@ -26,11 +26,11 @@ class _HomeViewState extends State<HomeView> with WindowListener {
 
   _loadUpData() async {
     /// Inscease count number to count the how many time user open app
-    Properties.saveSettings(Properties.defaultSetting
-        .copyWith(openAppCount: Properties.defaultSetting.openAppCount + 1));
+    Properties.instance.saveSettings(Properties.instance.settings
+        .copyWith(openAppCount: Properties.instance.settings.openAppCount + 1));
     if (kDebugMode) {
       print(
-          " Current Properties.defaultSetting.openAppCount value: ${Properties.defaultSetting.openAppCount.toString()}");
+          " Current Properties.instance.settings.openAppCount value: ${Properties.instance.settings.openAppCount.toString()}");
     }
   }
 
@@ -39,9 +39,9 @@ class _HomeViewState extends State<HomeView> with WindowListener {
   void onWindowResize() async {
     Size windowsSize = await WindowManager.instance.getSize();
     // Save windows size to setting
-    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+    final newSettings = Properties.instance.settings.copyWith(
         windowsWidth: windowsSize.width, windowsHeight: windowsSize.height);
-    Properties.saveSettings(Properties.defaultSetting);
+    Properties.instance.saveSettings(newSettings);
   }
 
   @override

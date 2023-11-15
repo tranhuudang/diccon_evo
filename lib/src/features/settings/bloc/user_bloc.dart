@@ -63,15 +63,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await UserHandler().deleteUserDataFile();
 
     /// Remove local file
-    await FileHandler(PropertiesConstants.wordHistoryFileName)
+    await FileHandler(Constants.wordHistoryFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.storyHistoryFileName)
+    await FileHandler(Constants.storyHistoryFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.storyBookmarkFileName)
+    await FileHandler(Constants.storyBookmarkFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.topicHistoryFileName)
+    await FileHandler(Constants.topicHistoryFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.essentialFavouriteFileName)
+    await FileHandler(Constants.essentialFavouriteFileName)
         .deleteOnUserData();
     await Future.delayed(const Duration(seconds: 2));
   }
@@ -81,15 +81,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserLoginState(isSyncing: true, userInfo: sync.userInfo));
     await UserHandler().downloadUserDataFile();
     await UserHandler()
-        .uploadUserDataFile(PropertiesConstants.wordHistoryFileName);
+        .uploadUserDataFile(Constants.wordHistoryFileName);
     await UserHandler()
-        .uploadUserDataFile(PropertiesConstants.storyHistoryFileName);
+        .uploadUserDataFile(Constants.storyHistoryFileName);
     await UserHandler()
-        .uploadUserDataFile(PropertiesConstants.storyBookmarkFileName);
+        .uploadUserDataFile(Constants.storyBookmarkFileName);
     await UserHandler()
-        .uploadUserDataFile(PropertiesConstants.topicHistoryFileName);
+        .uploadUserDataFile(Constants.topicHistoryFileName);
     await UserHandler()
-        .uploadUserDataFile(PropertiesConstants.essentialFavouriteFileName);
+        .uploadUserDataFile(Constants.essentialFavouriteFileName);
     emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
     emit(UserSyncCompleted());
     if (kDebugMode) {
@@ -145,15 +145,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     authService.googleSignOut();
 
     /// Remove local file
-    await FileHandler(PropertiesConstants.wordHistoryFileName)
+    await FileHandler(Constants.wordHistoryFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.storyHistoryFileName)
+    await FileHandler(Constants.storyHistoryFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.storyBookmarkFileName)
+    await FileHandler(Constants.storyBookmarkFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.topicHistoryFileName)
+    await FileHandler(Constants.topicHistoryFileName)
         .deleteOnUserData();
-    await FileHandler(PropertiesConstants.essentialFavouriteFileName)
+    await FileHandler(Constants.essentialFavouriteFileName)
         .deleteOnUserData();
 
     /// Reset properties

@@ -87,9 +87,10 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
   }
 
   Future<void> _createFirebaseDatabaseItem() async {
+    final currentSettings = Properties.instance.settings;
     final answerId = _composeMd5IdForFirebaseDb(
         word: widget.word,
-        options: Properties.defaultSetting
+        options: currentSettings
             .dictionaryResponseSelectedListVietnamese); // Generate the MD5 hash
     final databaseRow =
         FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
@@ -102,13 +103,14 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
   }
 
   void _getGptResponse() async {
+    final currentSettings = Properties.instance.settings;
     if (widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer
         .isEmpty) {
       var request = widget.request;
       // create md5 from question to compare to see if that md5 is already exist in database
       var answer = _composeMd5IdForFirebaseDb(
           word: widget.word,
-          options: Properties.defaultSetting.dictionaryResponseSelectedListVietnamese);
+          options: currentSettings.dictionaryResponseSelectedListVietnamese);
       final docUser =
           FirebaseFirestore.instance.collection("Dictionary").doc(answer);
       await docUser.get().then((snapshot) async {

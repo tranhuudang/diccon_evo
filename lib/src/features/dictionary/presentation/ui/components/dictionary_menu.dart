@@ -22,9 +22,10 @@ class _DictionaryMenuState extends State<DictionaryMenu> {
   }
   @override
   Widget build(BuildContext context) {
+    final currentSettings = Properties.instance.settings;
     return StreamBuilder<TranslationChoices>(
       initialData:
-          Properties.defaultSetting.translationChoice.toTranslationChoice(),
+      currentSettings.translationChoice.toTranslationChoice(),
       stream: _streamController.stream,
       builder: (context, snapshot) {
         return PopupMenuButton(
@@ -47,9 +48,9 @@ class _DictionaryMenuState extends State<DictionaryMenu> {
                     ),
               onTap: () {
                 _streamController.sink.add(TranslationChoices.explain);
-                Properties.defaultSetting = Properties.defaultSetting
+                final newSettings = currentSettings
                     .copyWith(translationChoice: TranslationChoices.explain.title());
-                Properties.saveSettings(Properties.defaultSetting);
+                Properties.instance.saveSettings(newSettings);
                 if (kDebugMode) {
                   print("Enable prefer chatbot dictionary");
                 }
@@ -64,9 +65,9 @@ class _DictionaryMenuState extends State<DictionaryMenu> {
                   : Text("Prefer Classic".i18n),
               onTap: () {
                 _streamController.sink.add(TranslationChoices.translate);
-                Properties.defaultSetting = Properties.defaultSetting.copyWith(
+                final newSettings = currentSettings.copyWith(
                     translationChoice: TranslationChoices.translate.title());
-                Properties.saveSettings(Properties.defaultSetting);
+                Properties.instance.saveSettings(newSettings);
                 if (kDebugMode) {
                   print("Enable prefer classic dictionary");
                 }

@@ -87,12 +87,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   Future<void> _addTranslation(
       AddTranslation event, Emitter<ChatListState> emit) async {
+    Settings currentSetting = Properties.instance.settings;
     // Check internet connection before create request to chat-bot
     bool isInternetConnected = await InternetConnectionChecker().hasConnection;
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if (Properties.defaultSetting.translationChoice.toTranslationChoice() ==
+    if (currentSetting.translationChoice.toTranslationChoice() ==
             TranslationChoices.explain &&
         !isInternetConnected &&
         !_isReportedAboutDisconnection) {
@@ -101,23 +102,28 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       _isReportedAboutDisconnection = true;
     }
     var newChatGptRepository = ChatGptRepositoryImplement(
-        chatGpt: ChatGpt(apiKey: PropertiesConstants.dictionaryKey));
+        chatGpt: ChatGpt(apiKey: Constants.dictionaryKey));
     _listChatGptRepository.add(newChatGptRepository);
     var chatGptRepositoryIndex = _listChatGptRepository.length - 1;
+
     /// Detect language if auto detect language mode enable
     final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
     String autoDetectResult = languageIdentifier.undeterminedLanguageCode;
-    if (Properties.defaultSetting.translationLanguageTarget == TranslationLanguageTarget.autoDetect.title()){
-      final String detectedLanguage = await languageIdentifier.identifyLanguage(event.providedWord);
+    if (currentSetting.translationLanguageTarget ==
+        TranslationLanguageTarget.autoDetect.title()) {
+      final String detectedLanguage =
+          await languageIdentifier.identifyLanguage(event.providedWord);
       if (detectedLanguage == 'en' || detectedLanguage == 'vi') {
         autoDetectResult = detectedLanguage;
       } else {
         autoDetectResult = 'en';
       }
     }
+
     /// Check if setting force to translate from english to vietnamese
-    if (autoDetectResult == 'en' || Properties.defaultSetting.translationLanguageTarget ==
-        TranslationLanguageTarget.englishToVietnamese.title()) {
+    if (autoDetectResult == 'en' ||
+        currentSetting.translationLanguageTarget ==
+            TranslationLanguageTarget.englishToVietnamese.title()) {
       var wordResult =
           await _getLocalEnglishToVietnameseTranslation(event.providedWord);
       _chatList.add(EnglishToVietnameseCombineBubble(
@@ -127,8 +133,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           index: chatGptRepositoryIndex,
           listChatGptRepository: _listChatGptRepository));
     }
-    if (autoDetectResult == 'vi' || Properties.defaultSetting.translationLanguageTarget ==
-        TranslationLanguageTarget.vietnameseToEnglish.title()) {
+    if (autoDetectResult == 'vi' ||
+        currentSetting.translationLanguageTarget ==
+            TranslationLanguageTarget.vietnameseToEnglish.title()) {
       var wordResult =
           await _getLocalVietnameseToEnglishTranslation(event.providedWord);
       _chatList.add(VietnameseToEnglishCombineBubble(

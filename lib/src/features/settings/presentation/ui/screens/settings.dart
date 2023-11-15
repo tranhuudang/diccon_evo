@@ -64,7 +64,7 @@ class _SettingsViewState extends State<SettingsView> {
                 width: 170,
                 child: StreamBuilder<String>(
                     stream: languageStreamController.stream,
-                    initialData: Properties.defaultSetting.language,
+                    initialData: Properties.instance.settings.language,
                     builder: (context, languageState) {
                       return DropdownButtonHideUnderline(
                         child: DropdownButton<String>(

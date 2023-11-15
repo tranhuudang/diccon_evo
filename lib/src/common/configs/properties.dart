@@ -5,6 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
 class Properties {
+  // Ensures end-users cannot initialize the class
+  Properties._();
+  static final Properties _instance = Properties._();
+  static Properties get instance => _instance;
+
+  static Future<void> initialize() async {
+    instance._defaultSetting = await instance._getSettings();
+  }
+
+  Future<void> saveSettings(Settings settings) async {
+    instance._saveSettings(settings);
+  }
+
+  Settings get settings {
+    return instance._defaultSetting;
+  }
+
+  set settings(Settings settings) {
+    instance._defaultSetting = settings;
+  }
+
   /// Manually change this version base on commit count
 
   static UserInfo userInfo = UserInfo.empty();
@@ -15,7 +36,7 @@ class Properties {
   static FocusNode textFieldFocusNode = FocusNode();
 
   // All view in application
-  static Settings defaultSetting = Settings(
+  Settings _defaultSetting = Settings(
     dictionaryResponseType: DictionaryResponseType.short.title(),
     translationChoice: TranslationChoices.translate.title(),
     numberOfSynonyms: 10,
@@ -31,10 +52,11 @@ class Properties {
     themeMode: 'ThemeMode.system',
     openAppCount: 0,
     themeColor: Colors.blue.value,
-    enableAdaptiveTheme: true, translationLanguageTarget: 'autoDetect',
+    enableAdaptiveTheme: true,
+    translationLanguageTarget: 'autoDetect',
   );
 
-  static void saveSettings(Settings newSetting) async {
+  Future<void> _saveSettings(Settings newSetting) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('readingFontSize', newSetting.readingFontSize);
     await prefs.setString(
@@ -46,7 +68,8 @@ class Properties {
     await prefs.setInt('numberOfAntonyms', newSetting.numberOfAntonyms);
     await prefs.setInt('openAppCount', newSetting.openAppCount);
     await prefs.setString('language', newSetting.language);
-    await prefs.setString('translationLanguageTarget', newSetting.translationLanguageTarget);
+    await prefs.setString(
+        'translationLanguageTarget', newSetting.translationLanguageTarget);
     await prefs.setString('dictionaryResponseSelectedListEnglish',
         newSetting.dictionaryResponseSelectedListEnglish);
     await prefs.setString('dictionaryResponseSelectedListVietnamese',
@@ -62,63 +85,65 @@ class Properties {
     }
   }
 
-  static Future<bool> getSettings() async {
+  Future<Settings> _getSettings() async {
     Completer complete = Completer();
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
-    defaultSetting = defaultSetting.copyWith(
+    var savedSetting = _defaultSetting.copyWith(
       readingFontSize:
-          prefs.getDouble('readingFontSize') ?? defaultSetting.readingFontSize,
+          prefs.getDouble('readingFontSize') ?? _defaultSetting.readingFontSize,
       translationChoice: prefs.getString('translationChoice') ??
-          defaultSetting.translationChoice,
-      openAppCount: prefs.getInt("openAppCount") ?? defaultSetting.openAppCount,
+          _defaultSetting.translationChoice,
+      openAppCount:
+          prefs.getInt("openAppCount") ?? _defaultSetting.openAppCount,
       dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
-          defaultSetting.dictionaryResponseType,
+          _defaultSetting.dictionaryResponseType,
       translationLanguageTarget: prefs.getString('translationLanguageTarget') ??
-          defaultSetting.translationLanguageTarget,
+          _defaultSetting.translationLanguageTarget,
       readingFontSizeSliderValue:
           prefs.getDouble('readingFontSizeSliderValue') ??
-              defaultSetting.readingFontSizeSliderValue,
+              _defaultSetting.readingFontSizeSliderValue,
       numberOfSynonyms:
-          prefs.getInt('numberOfSynonyms') ?? defaultSetting.numberOfSynonyms,
+          prefs.getInt('numberOfSynonyms') ?? _defaultSetting.numberOfSynonyms,
       numberOfAntonyms:
-          prefs.getInt('numberOfAntonyms') ?? defaultSetting.numberOfAntonyms,
-      language: prefs.getString('language') ?? defaultSetting.language,
+          prefs.getInt('numberOfAntonyms') ?? _defaultSetting.numberOfAntonyms,
+      language: prefs.getString('language') ?? _defaultSetting.language,
       dictionaryResponseSelectedListVietnamese:
           prefs.getString('dictionaryResponseSelectedListVietnamese') ??
-              defaultSetting.dictionaryResponseSelectedListVietnamese,
+              _defaultSetting.dictionaryResponseSelectedListVietnamese,
       dictionaryResponseSelectedListEnglish:
           prefs.getString('dictionaryResponseSelectedListEnglish') ??
-              defaultSetting.dictionaryResponseSelectedListEnglish,
-      numberOfEssentialLeft:
-          prefs.getInt('essentialLeft') ?? defaultSetting.numberOfEssentialLeft,
+              _defaultSetting.dictionaryResponseSelectedListEnglish,
+      numberOfEssentialLeft: prefs.getInt('essentialLeft') ??
+          _defaultSetting.numberOfEssentialLeft,
       windowsWidth:
-          prefs.getDouble("widthOfWindowSize") ?? defaultSetting.windowsWidth,
-      windowsHeight:
-          prefs.getDouble("heightOfWindowSize") ?? defaultSetting.windowsHeight,
-      themeMode: prefs.getString("themeMode") ?? defaultSetting.themeMode,
-      themeColor: prefs.getInt("themeColor") ?? defaultSetting.themeColor,
+          prefs.getDouble("widthOfWindowSize") ?? _defaultSetting.windowsWidth,
+      windowsHeight: prefs.getDouble("heightOfWindowSize") ??
+          _defaultSetting.windowsHeight,
+      themeMode: prefs.getString("themeMode") ?? _defaultSetting.themeMode,
+      themeColor: prefs.getInt("themeColor") ?? _defaultSetting.themeColor,
       enableAdaptiveTheme: prefs.getBool("enableAdaptiveTheme") ??
-          defaultSetting.enableAdaptiveTheme,
+          _defaultSetting.enableAdaptiveTheme,
     );
     if (kDebugMode) {
       print("New setting is saved with these bellow customs:");
-      print("numberOfSynonyms: ${Properties.defaultSetting.numberOfSynonyms}");
-      print("numberOfAntonyms: ${Properties.defaultSetting.numberOfAntonyms}");
+      print("numberOfSynonyms: ${_defaultSetting.numberOfSynonyms}");
+      print("numberOfAntonyms: ${_defaultSetting.numberOfAntonyms}");
+      print("numberOfEssentialLeft: ${_defaultSetting.numberOfEssentialLeft}");
+      print("readingFontSize: ${_defaultSetting.readingFontSize}");
       print(
-          "numberOfEssentialLeft: ${Properties.defaultSetting.numberOfEssentialLeft}");
-      print("readingFontSize: ${Properties.defaultSetting.readingFontSize}");
+          "readingFontSizeSliderValue: ${_defaultSetting.readingFontSizeSliderValue}");
+      print("language: ${_defaultSetting.language}");
       print(
-          "readingFontSizeSliderValue: ${Properties.defaultSetting.readingFontSizeSliderValue}");
-      print("language: ${Properties.defaultSetting.language}");
-      print("dictionaryResponseSelectedListVietnamese: ${Properties.defaultSetting.dictionaryResponseSelectedListVietnamese}");
-      print("dictionaryResponseSelectedListEnglish: ${Properties.defaultSetting.dictionaryResponseSelectedListEnglish}");
-      print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
-      print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");
-      print("themeMode: ${Properties.defaultSetting.themeMode}");
-      print("language: ${Properties.defaultSetting.language}");
-      print("themeColor: ${Properties.defaultSetting.themeColor}");
+          "dictionaryResponseSelectedListVietnamese: ${_defaultSetting.dictionaryResponseSelectedListVietnamese}");
+      print(
+          "dictionaryResponseSelectedListEnglish: ${_defaultSetting.dictionaryResponseSelectedListEnglish}");
+      print("windowsWidth: ${_defaultSetting.windowsWidth}");
+      print("windowsHeight: ${_defaultSetting.windowsHeight}");
+      print("themeMode: ${_defaultSetting.themeMode}");
+      print("language: ${_defaultSetting.language}");
+      print("themeColor: ${_defaultSetting.themeColor}");
     }
-    return true;
+    return savedSetting;
   }
 }

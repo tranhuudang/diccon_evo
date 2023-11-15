@@ -26,7 +26,7 @@ class ReadingBottomAppBar extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   var brightness =
-                      Properties.defaultSetting.themeMode.toThemeMode();
+                      Properties.instance.settings.themeMode.toThemeMode();
                   if (brightness == ThemeMode.light) {
                     settingBloc
                         .add(ChangeThemeModeEvent(themeMode: ThemeMode.dark));
@@ -35,7 +35,7 @@ class ReadingBottomAppBar extends StatelessWidget {
                         .add(ChangeThemeModeEvent(themeMode: ThemeMode.light));
                   }
                 },
-                icon: Properties.defaultSetting.themeMode.toThemeMode() ==
+                icon: Properties.instance.settings.themeMode.toThemeMode() ==
                         ThemeMode.light
                     ? const Icon(Icons.light_mode_outlined)
                     : const Icon(Icons.dark_mode_outlined)),

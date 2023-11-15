@@ -93,7 +93,7 @@ MaterialApp buildMaterialApp(
       useMaterial3: true,
       colorScheme: darkColorScheme,
     ),
-    title: PropertiesConstants.diccon,
+    title: Constants.diccon,
     debugShowCheckedModeBanner: false,
     routerConfig: router,
   );

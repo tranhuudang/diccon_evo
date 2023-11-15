@@ -34,7 +34,7 @@ class SettingBlocParams {
   }
 
   static SettingBlocParams init() {
-    final defaultData = Properties.defaultSetting;
+    final defaultData = Properties.instance.settings;
     return SettingBlocParams(
         themeMode: defaultData.themeMode.toThemeMode(),
         accentColor: Color(defaultData.themeColor),
@@ -100,18 +100,18 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
 
   FutureOr<void> _languageChanged(
       ChangeLanguageEvent event, Emitter<SettingState> emit) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(language: event.language);
-    Properties.saveSettings(Properties.defaultSetting);
+    final newSettings =
+        Properties.instance.settings.copyWith(language: event.language);
+    Properties.instance.saveSettings(newSettings);
     emit(SettingUpdated(
         params: state.params.copyWith(language: event.language)));
   }
 
   FutureOr<void> _userChangeThemeColor(
       ChangeThemeColorEvent event, Emitter<SettingState> emit) {
-    Properties.defaultSetting = Properties.defaultSetting
+    final newSettings = Properties.instance.settings
         .copyWith(themeColor: event.color.value, enableAdaptiveTheme: false);
-    Properties.saveSettings(Properties.defaultSetting);
+    Properties.instance.saveSettings(newSettings);
     emit(SettingUpdated(
         params: state.params
             .copyWith(accentColor: event.color, enableAdaptiveTheme: false)));
@@ -119,28 +119,28 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
 
   FutureOr<void> _enableAdaptiveThemeColor(
       EnableAdaptiveThemeColorEvent event, Emitter<SettingState> emit) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(enableAdaptiveTheme: true);
-    Properties.saveSettings(Properties.defaultSetting);
+    final newSettings =
+        Properties.instance.settings.copyWith(enableAdaptiveTheme: true);
+    Properties.instance.saveSettings(newSettings);
     emit(SettingUpdated(
         params: state.params.copyWith(enableAdaptiveTheme: true)));
   }
 
   FutureOr<void> _themeModeChanged(
       ChangeThemeModeEvent event, Emitter<SettingState> emit) {
-    Properties.defaultSetting = Properties.defaultSetting
+    final newSettings = Properties.instance.settings
         .copyWith(themeMode: event.themeMode.toString());
-    Properties.saveSettings(Properties.defaultSetting);
+    Properties.instance.saveSettings(newSettings);
     emit(SettingUpdated(
         params: state.params.copyWith(themeMode: event.themeMode)));
   }
 
   FutureOr<void> _autoDetectLanguage(
       AutoDetectLanguage event, Emitter<SettingState> emit) {
-    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+    final newSettings = Properties.instance.settings.copyWith(
         translationLanguageTarget:
             TranslationLanguageTarget.autoDetect.title());
-    Properties.saveSettings(Properties.defaultSetting);
+    Properties.instance.saveSettings(newSettings);
     emit(SettingUpdated(
         params: state.params.copyWith(
             translationLanguageTarget: TranslationLanguageTarget.autoDetect)));
@@ -148,10 +148,10 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
 
   FutureOr<void> _forceTranslateEnglishToVietnamese(
       ForceTranslateEnglishToVietnamese event, Emitter<SettingState> emit) {
-    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+    final newSettings = Properties.instance.settings.copyWith(
         translationLanguageTarget:
             TranslationLanguageTarget.englishToVietnamese.title());
-    Properties.saveSettings(Properties.defaultSetting);
+    Properties.instance.saveSettings(newSettings);
     emit(SettingUpdated(
         params: state.params.copyWith(
             translationLanguageTarget:
@@ -160,10 +160,10 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
 
   FutureOr<void> _forceTranslateVietnameseToEnglish(
       ForceTranslateVietnameseToEnglish event, Emitter<SettingState> emit) {
-    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+    final newSettings = Properties.instance.settings.copyWith(
         translationLanguageTarget:
             TranslationLanguageTarget.vietnameseToEnglish.title());
-    Properties.saveSettings(Properties.defaultSetting);
+    Properties.instance.saveSettings(newSettings);
     emit(SettingUpdated(
         params: state.params.copyWith(
             translationLanguageTarget:

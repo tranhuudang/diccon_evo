@@ -18,7 +18,7 @@ class ToEssentialWordButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            Properties.defaultSetting.numberOfEssentialLeft.toString(),
+            Properties.instance.settings.numberOfEssentialLeft.toString(),
             style: context.theme.textTheme.headlineLarge?.copyWith(color: context.theme.colorScheme.primary, fontWeight: FontWeight.w500),
           ),
           Text(

@@ -93,15 +93,13 @@ class _LearningViewState extends State<LearningView> {
                             onPageChanged: (index) {
                               _learningBloc
                                   .add(OnPageChanged(currentPageIndex: index));
-                              Properties.saveSettings(Properties.defaultSetting
+                              Properties.instance.saveSettings(Properties.instance.settings
                                   .copyWith(
-                                      numberOfEssentialLeft: Properties
-                                              .defaultSetting
+                                      numberOfEssentialLeft: Properties.instance.settings
                                               .numberOfEssentialLeft -
                                           1));
                               if (kDebugMode) {
-                                print(Properties
-                                    .defaultSetting.numberOfEssentialLeft);
+                                print(Properties.instance.settings.numberOfEssentialLeft);
                               }
                               currentIndex = index;
                             },

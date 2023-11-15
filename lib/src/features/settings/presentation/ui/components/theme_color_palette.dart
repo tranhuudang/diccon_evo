@@ -26,7 +26,7 @@ class ThemeColorPalette extends StatefulWidget {
 class _ThemeColorPaletteState extends State<ThemeColorPalette> {
   final _selectController = StreamController<ColorPaletteSelector>();
   var _colorPaletteSelector = ColorPaletteSelector(
-      selectedColor: Color(Properties.defaultSetting.themeColor),
+      selectedColor: Color(Properties.instance.settings.themeColor),
       onHover: Colors.black54);
   @override
   Widget build(BuildContext context) {

@@ -9,29 +9,39 @@ abstract class DictionaryPreferencesState {
   List<String> listSelectedVietnamese;
   List<String> listSelectedEnglish;
   DictionaryPreferencesState(
-      {required this.listSelectedVietnamese, required this.listSelectedEnglish});
+      {required this.listSelectedVietnamese,
+      required this.listSelectedEnglish});
 }
 
 abstract class DictionaryPreferencesActionState
     extends DictionaryPreferencesState {
   DictionaryPreferencesActionState(
-      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
+      {required super.listSelectedVietnamese,
+      required super.listSelectedEnglish});
 }
 
 class DictionaryPreferencesNotifyAboutLimitChoices
     extends DictionaryPreferencesActionState {
   DictionaryPreferencesNotifyAboutLimitChoices(
-      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
+      {required super.listSelectedVietnamese,
+      required super.listSelectedEnglish});
 }
 
 class DictionaryPreferencesInitial extends DictionaryPreferencesState {
-  DictionaryPreferencesInitial(
-      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
+  DictionaryPreferencesInitial()
+      : super(
+            listSelectedVietnamese: Properties
+                .instance.settings.dictionaryResponseSelectedListVietnamese
+                .split(Constants.splitCharacter),
+            listSelectedEnglish: Properties
+                .instance.settings.dictionaryResponseSelectedListEnglish
+                .split(Constants.splitCharacter));
 }
 
 class DictionaryPreferencesUpdated extends DictionaryPreferencesState {
   DictionaryPreferencesUpdated(
-      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
+      {required super.listSelectedVietnamese,
+      required super.listSelectedEnglish});
 }
 
 /// Events
@@ -51,13 +61,7 @@ class RemoveItemInList extends DictionaryPreferencesEvent {
 class DictionaryPreferencesBloc
     extends Bloc<DictionaryPreferencesEvent, DictionaryPreferencesState> {
   DictionaryPreferencesBloc()
-      : super(DictionaryPreferencesInitial(
-      listSelectedVietnamese: Properties
-                .defaultSetting.dictionaryResponseSelectedListVietnamese
-                .split(", "),
-            listSelectedEnglish: Properties
-                .defaultSetting.dictionaryResponseSelectedListEnglish
-                .split(", "))) {
+      : super(DictionaryPreferencesInitial()) {
     on<AddItemToSelectedList>(_addItemToSelectedList);
     on<RemoveItemInList>(_removeItemInList);
   }
@@ -89,18 +93,18 @@ class DictionaryPreferencesBloc
     }
   }
 
-  void _saveListSelected() {
+  void _saveListSelected() async {
+    Settings currentSettings = Properties.instance.settings;
     final convertedString =
         state.listSelectedVietnamese.join(", "); // Joins the items with a space
     final convertedStringEnglish =
-        state.listSelectedEnglish.join(", "); // Joins the items with a space
-    Properties.saveSettings(Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedListVietnamese: convertedString));
-    Properties.defaultSetting = Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedListVietnamese: convertedString);
-    Properties.saveSettings(Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedListEnglish: convertedStringEnglish));
-    Properties.defaultSetting = Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedListEnglish: convertedStringEnglish);
+        state.listSelectedEnglish.join(", ");
+    // Save changes in listSelectedOptions
+    currentSettings = currentSettings.copyWith(
+        dictionaryResponseSelectedListVietnamese: convertedString,
+        dictionaryResponseSelectedListEnglish: convertedStringEnglish
+    );
+    Properties.instance.saveSettings(currentSettings);
+
   }
 }

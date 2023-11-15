@@ -13,7 +13,8 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   EnglishToVietnameseDictionaryDatabase.initialize();
-  Properties.getSettings();
+  Properties.initialize();
+
   /// Initial Firebase
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
@@ -29,17 +30,18 @@ void main() async {
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
     await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform ,
+      options: DefaultFirebaseOptions.currentPlatform,
     );
     // Initialize FFI
     sqfliteFfiInit();
 
-    /// register player first
-    WindowManager.instance.setSize(Size(Properties.defaultSetting.windowsWidth,
-        Properties.defaultSetting.windowsHeight));
-    WindowManager.instance.setMinimumSize(PropertiesConstants.minWindowsSize);
-    WindowManager.instance.setMaximumSize(PropertiesConstants.maxWindowsSize);
-    WindowManager.instance.setTitle(PropertiesConstants.diccon);
+    /// Get setting and set default value for windows size, title
+    Size savedWindowsSize = Size(Properties.instance.settings.windowsWidth,
+        Properties.instance.settings.windowsHeight);
+    WindowManager.instance.setSize(savedWindowsSize);
+    WindowManager.instance.setMinimumSize(Constants.minWindowsSize);
+    WindowManager.instance.setMaximumSize(Constants.maxWindowsSize);
+    WindowManager.instance.setTitle(Constants.diccon);
   }
   databaseFactory = databaseFactoryFfi;
   runApp(const App());

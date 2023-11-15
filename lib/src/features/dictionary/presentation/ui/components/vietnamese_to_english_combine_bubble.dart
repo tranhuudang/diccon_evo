@@ -75,10 +75,10 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
               ),
               child: StreamBuilder<TranslationChoices>(
                 stream: translationModeStreamController.stream,
-                initialData: Properties.defaultSetting.translationChoice
+                initialData: Properties.instance.settings.translationChoice
                     .toTranslationChoice(),
                 builder: (context, translationChoice) {
-                  if (Properties.defaultSetting.translationChoice.toTranslationChoice() == TranslationChoices.explain){
+                  if (Properties.instance.settings.translationChoice.toTranslationChoice() == TranslationChoices.explain){
                     listResponseOptions = listResponseOptions.reversed.toList();
                   }
                   if (widget.wordForChatBot.numberOfWord() > 3) {

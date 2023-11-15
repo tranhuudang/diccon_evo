@@ -18,7 +18,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
   Widget build(BuildContext context) {
     final settingBloc = context.read<SettingBloc>();
     return StreamBuilder<ThemeMode>(
-        initialData: Properties.defaultSetting.themeMode.toThemeMode(),
+        initialData: Properties.instance.settings.themeMode.toThemeMode(),
         stream: _streamController.stream,
         builder: (context, snapshot) {
           return Row(

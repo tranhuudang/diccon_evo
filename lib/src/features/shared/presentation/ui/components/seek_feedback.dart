@@ -6,9 +6,9 @@ import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 class SeekFeedback {
   static void showFeedbackBottomSheet(BuildContext context) {
-    if ((Properties.defaultSetting.openAppCount == 10) ||
-        (Properties.defaultSetting.openAppCount == 50) ||
-        (Properties.defaultSetting.openAppCount == 100)) {
+    if ((Properties.instance.settings.openAppCount == 10) ||
+        (Properties.instance.settings.openAppCount == 50) ||
+        (Properties.instance.settings.openAppCount == 100)) {
       showModalBottomSheet(
         backgroundColor: context.theme.colorScheme.secondaryContainer,
         context: context,
@@ -41,12 +41,12 @@ class SeekFeedback {
                           backgroundColor:
                               context.theme.colorScheme.primary,
                           onTap: () {
-                            Properties.defaultSetting =
-                                Properties.defaultSetting.copyWith(
+                            Properties.instance.settings =
+                                Properties.instance.settings.copyWith(
                                     openAppCount:
-                                        Properties.defaultSetting.openAppCount +
+                                        Properties.instance.settings.openAppCount +
                                             1);
-                            Properties.saveSettings(Properties.defaultSetting);
+                            Properties.instance.saveSettings(Properties.instance.settings);
                             goToStoreListing();
                           },
                           title: "Give feedbacks".i18n),
@@ -58,12 +58,12 @@ class SeekFeedback {
                           backgroundColor:
                               context.theme.colorScheme.secondaryContainer,
                           onTap: () {
-                            Properties.defaultSetting =
-                                Properties.defaultSetting.copyWith(
+                            Properties.instance.settings =
+                                Properties.instance.settings.copyWith(
                                     openAppCount:
-                                        Properties.defaultSetting.openAppCount +
+                                        Properties.instance.settings.openAppCount +
                                             1);
-                            Properties.saveSettings(Properties.defaultSetting);
+                            Properties.instance.saveSettings(Properties.instance.settings);
                             context.pop();
                           },
                           title: "Later".i18n),

@@ -8,7 +8,7 @@ class HistoryManager {
   ///
   /// Returns a [Boolean] value as true if the process is completed without error.
   static Future<bool> saveWordToHistory(String word) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.wordHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Constants.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -43,7 +43,7 @@ class HistoryManager {
 
   static Future<bool> removeWordOutOfHistory(String providedWord) async {
 
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.wordHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Constants.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -72,7 +72,7 @@ class HistoryManager {
   }
 
   static Future<List<String>> readWordHistory() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.wordHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Constants.wordHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -96,7 +96,7 @@ class HistoryManager {
     }
   }
   static Future<bool> saveTopicToHistory(String topic) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.topicHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Constants.topicHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -130,7 +130,7 @@ class HistoryManager {
   }
 
   static Future<List<String>> readTopicHistory() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(PropertiesConstants.topicHistoryFileName);
+    final filePath = await DirectoryHandler.getLocalUserDataFilePath(Constants.topicHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {

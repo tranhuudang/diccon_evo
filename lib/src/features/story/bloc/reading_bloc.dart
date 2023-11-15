@@ -11,7 +11,7 @@ class ReadingState {
 
   factory ReadingState.init() {
     return ReadingState(
-        fontSize: Properties.defaultSetting.readingFontSize,
+        fontSize: Properties.instance.settings.readingFontSize,
         isBottomAppBarVisible: true);
   }
 }
@@ -42,27 +42,27 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
   }
   FutureOr<void> _increaseFontSize(
       IncreaseFontSize event, Emitter<ReadingState> emit) {
-    double currentReadingFontSize = Properties.defaultSetting.readingFontSize;
+    double currentReadingFontSize = Properties.instance.settings.readingFontSize;
     if (currentReadingFontSize < 70) {
       emit(ReadingUpdatedState(
           fontSize: state.fontSize + 1,
           isBottomAppBarVisible: state.isBottomAppBarVisible));
-      Properties.defaultSetting = Properties.defaultSetting.copyWith(
-          readingFontSize: Properties.defaultSetting.readingFontSize + 1);
-      Properties.saveSettings(Properties.defaultSetting);
+      Properties.instance.settings = Properties.instance.settings.copyWith(
+          readingFontSize: Properties.instance.settings.readingFontSize + 1);
+      Properties.instance.saveSettings(Properties.instance.settings);
     }
   }
 
   FutureOr<void> _decreaseFontSize(
       DecreaseFontSize event, Emitter<ReadingState> emit) {
-    double currentReadingFontSize = Properties.defaultSetting.readingFontSize;
+    double currentReadingFontSize = Properties.instance.settings.readingFontSize;
     if (currentReadingFontSize > 8) {
       emit(ReadingUpdatedState(
           fontSize: state.fontSize - 1,
           isBottomAppBarVisible: state.isBottomAppBarVisible));
-      Properties.defaultSetting = Properties.defaultSetting.copyWith(
-          readingFontSize: Properties.defaultSetting.readingFontSize - 1);
-      Properties.saveSettings(Properties.defaultSetting);
+      Properties.instance.settings = Properties.instance.settings.copyWith(
+          readingFontSize: Properties.instance.settings.readingFontSize - 1);
+      Properties.instance.saveSettings(Properties.instance.settings);
     }
   }
 

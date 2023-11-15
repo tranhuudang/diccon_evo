@@ -68,7 +68,7 @@ class _InfosViewState extends State<InfosView> {
                   context.pushNamed(RouterConstants.releaseNotes);
                 },
                 child: Text(
-                  "v${PropertiesConstants.version}",
+                  "v${Constants.version}",
                   style: context.theme.textTheme.titleSmall,
                 ),
               ),
@@ -115,7 +115,7 @@ class _InfosViewState extends State<InfosView> {
                 FilledButton.tonal(
                     onPressed: () async {
                       final Uri url =
-                          Uri.parse(PropertiesConstants.privacyPolicyURL);
+                          Uri.parse(Constants.privacyPolicyURL);
                       if (!await launchUrl(url,
                           mode: LaunchMode.externalApplication)) {
                         throw Exception('Could not launch $url');

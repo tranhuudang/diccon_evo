@@ -13,7 +13,7 @@ class EnglishToVietnameseDictionaryRepositoryImpl implements EnglishToVietnamese
     var thesaurus = ThesaurusDatabase.instance;
     var thesaurusDb = await thesaurus.sysnonymsDatabase;
     List<String> synonyms = thesaurusDb[word] ?? [];
-    return synonyms.take(Properties.defaultSetting.numberOfSynonyms).toList();
+    return synonyms.take(Properties.instance.settings.numberOfSynonyms).toList();
   }
 
   @override
@@ -21,7 +21,7 @@ class EnglishToVietnameseDictionaryRepositoryImpl implements EnglishToVietnamese
     var thesaurus = ThesaurusDatabase.instance;
     var thesaurusDb = await thesaurus.antonymsDatabase;
     List<String> synonyms = thesaurusDb[word] ?? [];
-    return synonyms.take(Properties.defaultSetting.numberOfAntonyms).toList();
+    return synonyms.take(Properties.instance.settings.numberOfAntonyms).toList();
   }
 
   @override

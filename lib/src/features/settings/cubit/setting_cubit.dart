@@ -2,47 +2,47 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/common/common.dart';
 class SettingCubit extends Cubit<Settings> {
-  SettingCubit() : super(Properties.defaultSetting);
+  SettingCubit() : super(Properties.instance.settings);
 
   void setNumberOfSynonyms(int num) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(numberOfSynonyms: num);
-    emit(Properties.defaultSetting);
+    Properties.instance.settings =
+        Properties.instance.settings.copyWith(numberOfSynonyms: num);
+    emit(Properties.instance.settings);
   }
 
   void setNumberOfAntonyms(int num) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(numberOfAntonyms: num);
-    emit(Properties.defaultSetting);
+    Properties.instance.settings =
+        Properties.instance.settings.copyWith(numberOfAntonyms: num);
+    emit(Properties.instance.settings);
   }
 
   void setReadingFontSize(double num) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(readingFontSize: num);
-    emit(Properties.defaultSetting);
+    Properties.instance.settings =
+        Properties.instance.settings.copyWith(readingFontSize: num);
+    emit(Properties.instance.settings);
   }
 
   void setEssentialLeftMinusOne(int num) {
-    Properties.defaultSetting =
-        Properties.defaultSetting.copyWith(numberOfEssentialLeft: num - 1);
-    emit(Properties.defaultSetting);
+    Properties.instance.settings =
+        Properties.instance.settings.copyWith(numberOfEssentialLeft: num - 1);
+    emit(Properties.instance.settings);
   }
 
   void saveSettings() {
-    Properties.saveSettings(Properties.defaultSetting);
+    Properties.instance.saveSettings(Properties.instance.settings);
     if (kDebugMode) {
       print("New setting is saved with these bellow customs:");
-      print("numberOfSynonyms: ${Properties.defaultSetting.numberOfSynonyms}");
-      print("numberOfAntonyms: ${Properties.defaultSetting.numberOfAntonyms}");
+      print("numberOfSynonyms: ${Properties.instance.settings.numberOfSynonyms}");
+      print("numberOfAntonyms: ${Properties.instance.settings.numberOfAntonyms}");
       print(
-          "numberOfEssentialLeft: ${Properties.defaultSetting.numberOfEssentialLeft}");
-      print("readingFontSize: ${Properties.defaultSetting.readingFontSize}");
+          "numberOfEssentialLeft: ${Properties.instance.settings.numberOfEssentialLeft}");
+      print("readingFontSize: ${Properties.instance.settings.readingFontSize}");
       print(
-          "readingFontSizeSliderValue: ${Properties.defaultSetting.readingFontSizeSliderValue}");
-      print("language: ${Properties.defaultSetting.language}");
-      print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
-      print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");
-      print("themeMode: ${Properties.defaultSetting.themeMode}");
+          "readingFontSizeSliderValue: ${Properties.instance.settings.readingFontSizeSliderValue}");
+      print("language: ${Properties.instance.settings.language}");
+      print("windowsWidth: ${Properties.instance.settings.windowsWidth}");
+      print("windowsHeight: ${Properties.instance.settings.windowsHeight}");
+      print("themeMode: ${Properties.instance.settings.themeMode}");
     }
   }
 }

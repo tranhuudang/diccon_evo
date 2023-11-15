@@ -23,7 +23,7 @@ class ThesaurusDatabase {
 
   Future<Map<String, List<String>>> loadSynonymsData() async {
     String jsonString =
-        await rootBundle.loadString(PropertiesConstants.enSynonymsPath);
+        await rootBundle.loadString(Constants.enSynonymsPath);
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     return jsonData.map((key, value) {
       return MapEntry<String, List<String>>(key, List<String>.from(value));
@@ -32,7 +32,7 @@ class ThesaurusDatabase {
 
   Future<Map<String, List<String>>> loadAntonymsData() async {
     String jsonString =
-        await rootBundle.loadString(PropertiesConstants.enAntonymsPath);
+        await rootBundle.loadString(Constants.enAntonymsPath);
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     return jsonData.map((key, value) {
       return MapEntry<String, List<String>>(key, List<String>.from(value));
