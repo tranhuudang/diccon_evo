@@ -90,7 +90,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
     final answerId = _composeMd5IdForFirebaseDb(
         word: widget.word,
         options: Properties.defaultSetting
-            .dictionaryResponseSelectedList); // Generate the MD5 hash
+            .dictionaryResponseSelectedListVietnamese); // Generate the MD5 hash
     final databaseRow =
         FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
     final json = {
@@ -108,7 +108,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
       // create md5 from question to compare to see if that md5 is already exist in database
       var answer = _composeMd5IdForFirebaseDb(
           word: widget.word,
-          options: Properties.defaultSetting.dictionaryResponseSelectedList);
+          options: Properties.defaultSetting.dictionaryResponseSelectedListVietnamese);
       final docUser =
           FirebaseFirestore.instance.collection("Dictionary").doc(answer);
       await docUser.get().then((snapshot) async {

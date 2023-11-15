@@ -97,7 +97,7 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                         Wrap(
                           spacing: 3,
                           runSpacing: 3,
-                          children: state.listSelected
+                          children: state.listSelectedVietnamese
                               .map((item) => ActionChip(
                                     backgroundColor:
                                         context.theme.colorScheme.secondary,
@@ -123,14 +123,14 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                           runSpacing: 3,
                           children: listChoices.map((item) {
                             bool isSelected = false;
-                            if (state.listSelected.contains(item)) {
+                            if (state.listSelectedVietnamese.contains(item)) {
                               isSelected = true;
                             }
                             return ChoiceChip(
                               label: Text(item.i18n),
                               selected: isSelected,
                               onSelected: (selected) {
-                                if (state.listSelected.contains(item)) {
+                                if (state.listSelectedVietnamese.contains(item)) {
                                   dictionaryPreferencesBloc.add(
                                       RemoveItemInList(itemToRemove: item));
                                 } else {
@@ -151,14 +151,14 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                           runSpacing: 3,
                           children: listSpecializedFields.map((item) {
                             bool isSelected = false;
-                            if (state.listSelected.contains(item)) {
+                            if (state.listSelectedVietnamese.contains(item)) {
                               isSelected = true;
                             }
                             return ChoiceChip(
                               label: Text(item.i18n),
                               selected: isSelected,
                               onSelected: (selected) {
-                                if (state.listSelected.contains(item)) {
+                                if (state.listSelectedVietnamese.contains(item)) {
                                   dictionaryPreferencesBloc.add(
                                       RemoveItemInList(itemToRemove: item));
                                 } else {

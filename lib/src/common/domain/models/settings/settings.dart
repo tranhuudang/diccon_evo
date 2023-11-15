@@ -12,7 +12,7 @@ class Settings with _$Settings {
     required int numberOfEssentialLeft,
     required double readingFontSizeSliderValue,
     required String language,
-    required String dictionaryResponseSelectedList,
+    required String dictionaryResponseSelectedListVietnamese,
     required String dictionaryResponseSelectedListEnglish,
     required String translationLanguageTarget,
     required double windowsWidth,

@@ -23,7 +23,7 @@ class Properties {
     readingFontSize: 16,
     numberOfEssentialLeft: 1848,
     language: 'System default',
-    dictionaryResponseSelectedList: 'Phiên âm, Định nghĩa, Ví dụ',
+    dictionaryResponseSelectedListVietnamese: 'Phiên âm, Định nghĩa, Ví dụ',
     dictionaryResponseSelectedListEnglish: 'Pronunciation, Definition, Example',
     readingFontSizeSliderValue: 0.2,
     windowsWidth: 400,
@@ -48,8 +48,9 @@ class Properties {
     await prefs.setString('language', newSetting.language);
     await prefs.setString('translationLanguageTarget', newSetting.translationLanguageTarget);
     await prefs.setString('dictionaryResponseSelectedListEnglish',
-        newSetting.dictionaryResponseSelectedListEnglish);await prefs.setString('dictionaryResponseSelectedList',
-        newSetting.dictionaryResponseSelectedList);
+        newSetting.dictionaryResponseSelectedListEnglish);
+    await prefs.setString('dictionaryResponseSelectedListVietnamese',
+        newSetting.dictionaryResponseSelectedListVietnamese);
     await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
     await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
     await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
@@ -83,9 +84,10 @@ class Properties {
       numberOfAntonyms:
           prefs.getInt('numberOfAntonyms') ?? defaultSetting.numberOfAntonyms,
       language: prefs.getString('language') ?? defaultSetting.language,
-      dictionaryResponseSelectedList:
-          prefs.getString('dictionaryResponseSelectedList') ??
-              defaultSetting.dictionaryResponseSelectedList,dictionaryResponseSelectedListEnglish:
+      dictionaryResponseSelectedListVietnamese:
+          prefs.getString('dictionaryResponseSelectedListVietnamese') ??
+              defaultSetting.dictionaryResponseSelectedListVietnamese,
+      dictionaryResponseSelectedListEnglish:
           prefs.getString('dictionaryResponseSelectedListEnglish') ??
               defaultSetting.dictionaryResponseSelectedListEnglish,
       numberOfEssentialLeft:
@@ -109,7 +111,7 @@ class Properties {
       print(
           "readingFontSizeSliderValue: ${Properties.defaultSetting.readingFontSizeSliderValue}");
       print("language: ${Properties.defaultSetting.language}");
-      print("dictionaryResponseSelectedList: ${Properties.defaultSetting.dictionaryResponseSelectedList}");
+      print("dictionaryResponseSelectedListVietnamese: ${Properties.defaultSetting.dictionaryResponseSelectedListVietnamese}");
       print("dictionaryResponseSelectedListEnglish: ${Properties.defaultSetting.dictionaryResponseSelectedListEnglish}");
       print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
       print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");

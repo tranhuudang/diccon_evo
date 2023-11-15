@@ -25,7 +25,7 @@ mixin _$Settings {
   int get numberOfEssentialLeft => throw _privateConstructorUsedError;
   double get readingFontSizeSliderValue => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
-  String get dictionaryResponseSelectedList =>
+  String get dictionaryResponseSelectedListVietnamese =>
       throw _privateConstructorUsedError;
   String get dictionaryResponseSelectedListEnglish =>
       throw _privateConstructorUsedError;
@@ -56,7 +56,7 @@ abstract class $SettingsCopyWith<$Res> {
       int numberOfEssentialLeft,
       double readingFontSizeSliderValue,
       String language,
-      String dictionaryResponseSelectedList,
+      String dictionaryResponseSelectedListVietnamese,
       String dictionaryResponseSelectedListEnglish,
       String translationLanguageTarget,
       double windowsWidth,
@@ -88,7 +88,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? numberOfEssentialLeft = null,
     Object? readingFontSizeSliderValue = null,
     Object? language = null,
-    Object? dictionaryResponseSelectedList = null,
+    Object? dictionaryResponseSelectedListVietnamese = null,
     Object? dictionaryResponseSelectedListEnglish = null,
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
@@ -134,9 +134,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String,
-      dictionaryResponseSelectedList: null == dictionaryResponseSelectedList
-          ? _value.dictionaryResponseSelectedList
-          : dictionaryResponseSelectedList // ignore: cast_nullable_to_non_nullable
+      dictionaryResponseSelectedListVietnamese: null ==
+              dictionaryResponseSelectedListVietnamese
+          ? _value.dictionaryResponseSelectedListVietnamese
+          : dictionaryResponseSelectedListVietnamese // ignore: cast_nullable_to_non_nullable
               as String,
       dictionaryResponseSelectedListEnglish: null ==
               dictionaryResponseSelectedListEnglish
@@ -188,7 +189,7 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       int numberOfEssentialLeft,
       double readingFontSizeSliderValue,
       String language,
-      String dictionaryResponseSelectedList,
+      String dictionaryResponseSelectedListVietnamese,
       String dictionaryResponseSelectedListEnglish,
       String translationLanguageTarget,
       double windowsWidth,
@@ -218,7 +219,7 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? numberOfEssentialLeft = null,
     Object? readingFontSizeSliderValue = null,
     Object? language = null,
-    Object? dictionaryResponseSelectedList = null,
+    Object? dictionaryResponseSelectedListVietnamese = null,
     Object? dictionaryResponseSelectedListEnglish = null,
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
@@ -264,9 +265,10 @@ class __$$SettingImplCopyWithImpl<$Res>
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String,
-      dictionaryResponseSelectedList: null == dictionaryResponseSelectedList
-          ? _value.dictionaryResponseSelectedList
-          : dictionaryResponseSelectedList // ignore: cast_nullable_to_non_nullable
+      dictionaryResponseSelectedListVietnamese: null ==
+              dictionaryResponseSelectedListVietnamese
+          ? _value.dictionaryResponseSelectedListVietnamese
+          : dictionaryResponseSelectedListVietnamese // ignore: cast_nullable_to_non_nullable
               as String,
       dictionaryResponseSelectedListEnglish: null ==
               dictionaryResponseSelectedListEnglish
@@ -314,7 +316,7 @@ class _$SettingImpl implements _Setting {
       required this.numberOfEssentialLeft,
       required this.readingFontSizeSliderValue,
       required this.language,
-      required this.dictionaryResponseSelectedList,
+      required this.dictionaryResponseSelectedListVietnamese,
       required this.dictionaryResponseSelectedListEnglish,
       required this.translationLanguageTarget,
       required this.windowsWidth,
@@ -342,7 +344,7 @@ class _$SettingImpl implements _Setting {
   @override
   final String language;
   @override
-  final String dictionaryResponseSelectedList;
+  final String dictionaryResponseSelectedListVietnamese;
   @override
   final String dictionaryResponseSelectedListEnglish;
   @override
@@ -360,7 +362,7 @@ class _$SettingImpl implements _Setting {
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedList: $dictionaryResponseSelectedList, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, dictionaryResponseType: $dictionaryResponseType, themeColor: $themeColor)';
+    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, dictionaryResponseType: $dictionaryResponseType, themeColor: $themeColor)';
   }
 
   @override
@@ -388,10 +390,10 @@ class _$SettingImpl implements _Setting {
                     readingFontSizeSliderValue) &&
             (identical(other.language, language) ||
                 other.language == language) &&
-            (identical(other.dictionaryResponseSelectedList,
-                    dictionaryResponseSelectedList) ||
-                other.dictionaryResponseSelectedList ==
-                    dictionaryResponseSelectedList) &&
+            (identical(other.dictionaryResponseSelectedListVietnamese,
+                    dictionaryResponseSelectedListVietnamese) ||
+                other.dictionaryResponseSelectedListVietnamese ==
+                    dictionaryResponseSelectedListVietnamese) &&
             (identical(other.dictionaryResponseSelectedListEnglish,
                     dictionaryResponseSelectedListEnglish) ||
                 other.dictionaryResponseSelectedListEnglish ==
@@ -422,7 +424,7 @@ class _$SettingImpl implements _Setting {
       numberOfEssentialLeft,
       readingFontSizeSliderValue,
       language,
-      dictionaryResponseSelectedList,
+      dictionaryResponseSelectedListVietnamese,
       dictionaryResponseSelectedListEnglish,
       translationLanguageTarget,
       windowsWidth,
@@ -449,7 +451,7 @@ abstract class _Setting implements Settings {
       required final int numberOfEssentialLeft,
       required final double readingFontSizeSliderValue,
       required final String language,
-      required final String dictionaryResponseSelectedList,
+      required final String dictionaryResponseSelectedListVietnamese,
       required final String dictionaryResponseSelectedListEnglish,
       required final String translationLanguageTarget,
       required final double windowsWidth,
@@ -477,7 +479,7 @@ abstract class _Setting implements Settings {
   @override
   String get language;
   @override
-  String get dictionaryResponseSelectedList;
+  String get dictionaryResponseSelectedListVietnamese;
   @override
   String get dictionaryResponseSelectedListEnglish;
   @override

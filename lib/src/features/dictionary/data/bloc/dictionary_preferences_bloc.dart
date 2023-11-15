@@ -6,32 +6,32 @@ import '../../../../common/common.dart';
 
 /// States
 abstract class DictionaryPreferencesState {
-  List<String> listSelected;
+  List<String> listSelectedVietnamese;
   List<String> listSelectedEnglish;
   DictionaryPreferencesState(
-      {required this.listSelected, required this.listSelectedEnglish});
+      {required this.listSelectedVietnamese, required this.listSelectedEnglish});
 }
 
 abstract class DictionaryPreferencesActionState
     extends DictionaryPreferencesState {
   DictionaryPreferencesActionState(
-      {required super.listSelected, required super.listSelectedEnglish});
+      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
 }
 
 class DictionaryPreferencesNotifyAboutLimitChoices
     extends DictionaryPreferencesActionState {
   DictionaryPreferencesNotifyAboutLimitChoices(
-      {required super.listSelected, required super.listSelectedEnglish});
+      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
 }
 
 class DictionaryPreferencesInitial extends DictionaryPreferencesState {
   DictionaryPreferencesInitial(
-      {required super.listSelected, required super.listSelectedEnglish});
+      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
 }
 
 class DictionaryPreferencesUpdated extends DictionaryPreferencesState {
   DictionaryPreferencesUpdated(
-      {required super.listSelected, required super.listSelectedEnglish});
+      {required super.listSelectedVietnamese, required super.listSelectedEnglish});
 }
 
 /// Events
@@ -52,8 +52,8 @@ class DictionaryPreferencesBloc
     extends Bloc<DictionaryPreferencesEvent, DictionaryPreferencesState> {
   DictionaryPreferencesBloc()
       : super(DictionaryPreferencesInitial(
-            listSelected: Properties
-                .defaultSetting.dictionaryResponseSelectedList
+      listSelectedVietnamese: Properties
+                .defaultSetting.dictionaryResponseSelectedListVietnamese
                 .split(", "),
             listSelectedEnglish: Properties
                 .defaultSetting.dictionaryResponseSelectedListEnglish
@@ -63,41 +63,41 @@ class DictionaryPreferencesBloc
   }
   FutureOr<void> _addItemToSelectedList(
       AddItemToSelectedList event, Emitter<DictionaryPreferencesState> emit) {
-    if (state.listSelected.length >= 7) {
+    if (state.listSelectedVietnamese.length >= 7) {
       emit(DictionaryPreferencesNotifyAboutLimitChoices(
-          listSelected: state.listSelected,
+          listSelectedVietnamese: state.listSelectedVietnamese,
           listSelectedEnglish: state.listSelectedEnglish));
     } else {
-      state.listSelected.add(event.itemToAdd);
+      state.listSelectedVietnamese.add(event.itemToAdd);
       state.listSelectedEnglish.add(event.itemToAdd.i18nEnglish);
       _saveListSelected();
       emit(DictionaryPreferencesUpdated(
-          listSelected: state.listSelected,
+          listSelectedVietnamese: state.listSelectedVietnamese,
           listSelectedEnglish: state.listSelectedEnglish));
     }
   }
 
   FutureOr<void> _removeItemInList(
       RemoveItemInList event, Emitter<DictionaryPreferencesState> emit) {
-    if (state.listSelected.length >= 2) {
-      state.listSelected.remove(event.itemToRemove);
-      state.listSelected.remove(event.itemToRemove.i18nEnglish);
+    if (state.listSelectedVietnamese.length >= 2) {
+      state.listSelectedVietnamese.remove(event.itemToRemove);
+      state.listSelectedEnglish.remove(event.itemToRemove.i18nEnglish);
       _saveListSelected();
       emit(DictionaryPreferencesUpdated(
-          listSelected: state.listSelected,
+          listSelectedVietnamese: state.listSelectedVietnamese,
           listSelectedEnglish: state.listSelectedEnglish));
     }
   }
 
   void _saveListSelected() {
     final convertedString =
-        state.listSelected.join(", "); // Joins the items with a space
+        state.listSelectedVietnamese.join(", "); // Joins the items with a space
     final convertedStringEnglish =
         state.listSelectedEnglish.join(", "); // Joins the items with a space
     Properties.saveSettings(Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedList: convertedString));
+        .copyWith(dictionaryResponseSelectedListVietnamese: convertedString));
     Properties.defaultSetting = Properties.defaultSetting
-        .copyWith(dictionaryResponseSelectedList: convertedString);
+        .copyWith(dictionaryResponseSelectedListVietnamese: convertedString);
     Properties.saveSettings(Properties.defaultSetting
         .copyWith(dictionaryResponseSelectedListEnglish: convertedStringEnglish));
     Properties.defaultSetting = Properties.defaultSetting
