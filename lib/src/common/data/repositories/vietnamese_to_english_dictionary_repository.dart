@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-import '../data_providers/vietnamese_to_english_dictionary_database.dart';
-
 abstract class VietnameseToEnglishDictionaryRepository {
   Future<Word> getDefinition(String word);
   // Future<List<String>> getSynonyms(String word);

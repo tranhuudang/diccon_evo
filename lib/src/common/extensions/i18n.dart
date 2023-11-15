@@ -308,6 +308,30 @@ extension Localization on String {
       "vi_vi":
           "Chuyển đổi hình ảnh thành văn bản nhanh chóng. Quét, dịch và trích xuất văn bản từ hình ảnh, phá vỡ rào cản ngôn ngữ.",
     },
+    "Auto detect language": {
+      "en_us": "Auto detect language",
+      "vi_vi": "Tự động nhận dạng ngôn ngữ",
+    },
+    "Force translate Vietnamese to English": {
+      "en_us": "Force translate Vietnamese to English",
+      "vi_vi": "Dịch từ tiếng Việt sang tiếng Anh",
+    },
+    "Force translate English to Vietnamese": {
+      "en_us": "Force translate English to Vietnamese",
+      "vi_vi": "Dịch từ tiếng Anh sang tiếng Việt",
+    },
+    "Clear all the bubbles in this translation session.": {
+      "en_us": "Clear all the bubbles in this translation session.",
+      "vi_vi": "Xóa tất cả nội dung trong cuộc trò chuyện này.",
+    },
+    "Create a new section": {
+      "en_us": "Create a new section",
+      "vi_vi": "Tạo cuộc trò chuyện mới",
+    },
+    "Close this session?": {
+      "en_us": "Close this session?",
+      "vi_vi": "Đóng cuộc trò chuyện hiện tại?",
+    },
     "Gallery": {
       "en_us": "Gallery",
       "vi_vi": "Bộ sưu tập",

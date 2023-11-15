@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:diccon_evo/src/common/common.dart';
 
 class WordTitle extends StatelessWidget {
   final String word;

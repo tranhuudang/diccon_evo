@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:diccon_evo/src/features/dictionary/presentation/ui/components/vietnamese_to_english_chatbot_bubble.dart';
-import 'package:diccon_evo/src/features/dictionary/presentation/ui/components/vietnamese_to_english_classic_bubble.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';

@@ -1,5 +1,3 @@
-import 'package:diccon_evo/src/common/data/enum/translate_language_target.dart';
-import 'package:diccon_evo/src/features/dictionary/data/bloc/bloc.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,9 +30,9 @@ class DictionaryBottomMenu extends StatelessWidget {
                           title: Text('Create a new section'.i18n),
                           onTap: () {
                             context.showAlertDialog(
-                              title: "Close this session?",
+                              title: "Close this session?".i18n,
                               content:
-                                  "Clear all the bubbles in this translation session.",
+                                  "Clear all the bubbles in this translation session.".i18n,
                               action: () {
                                 //resetSuggestion();
                                 chatListBloc.add(CreateNewChatList());

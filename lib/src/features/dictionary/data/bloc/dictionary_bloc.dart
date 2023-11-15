@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import 'package:diccon_evo/src/common/data/enum/translate_language_target.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -8,9 +7,6 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
-
-import '../../../../common/data/repositories/vietnamese_to_english_dictionary_repository.dart';
-import '../../presentation/ui/components/vietnamese_to_english_combine_bubble.dart';
 
 part 'dictionary_state.dart';
 part 'dictionary_event.dart';

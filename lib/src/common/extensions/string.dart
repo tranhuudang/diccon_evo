@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-import '../data/enum/translate_language_target.dart';
-
 extension StringExtenstion on String {
   DictionaryResponseType toDictionaryResponseType() {
     switch (this) {

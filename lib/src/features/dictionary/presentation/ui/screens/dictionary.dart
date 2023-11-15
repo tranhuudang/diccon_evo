@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -103,7 +102,7 @@ class _DictionaryViewState extends State<DictionaryView> {
   @override
   Widget build(BuildContext context) {
     final chatListBloc = context.read<ChatListBloc>();
-
+    final settingBloc = context.read<SettingBloc>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: context.theme.colorScheme.surface,
@@ -184,7 +183,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                           buildSuggestedList(context, chatListBloc),
 
                           /// TextField for user to enter their words
-                          buildTextField(context, chatListBloc),
+                          buildTextField(context, chatListBloc, settingBloc),
                         ],
                       ),
                     ],
@@ -278,7 +277,7 @@ class _DictionaryViewState extends State<DictionaryView> {
     );
   }
 
-  Container buildTextField(BuildContext context, ChatListBloc chatListBloc) {
+  Container buildTextField(BuildContext context, ChatListBloc chatListBloc, SettingBloc settingBloc) {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 16),
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -310,14 +309,16 @@ class _DictionaryViewState extends State<DictionaryView> {
                       listContains.add(element);
                     }
                   }
-
-                  _suggestionWords =
-                      [...listStartWith, ...listContains].toList();
-                  _suggestionWords.reversed;
+                  if (settingBloc.state.params.translationLanguageTarget !=
+                      TranslationLanguageTarget.vietnameseToEnglish) {
+                    _suggestionWords =
+                        [...listStartWith, ...listContains].toList();
+                    _suggestionWords.reversed;
+                  }
+                  setState(() {
+                    _hasSuggestionWords = true;
+                  });
                 }
-                setState(() {
-                  _hasSuggestionWords = true;
-                });
               },
             ),
           ),
