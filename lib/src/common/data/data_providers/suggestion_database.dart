@@ -15,7 +15,7 @@ class SuggestionDatabase {
   Future<List<String>> initDb() async {
     try {
       var content =
-          await rootBundle.loadString(PropertiesConstants.suggestionListPath);
+          await rootBundle.loadString(Constants.suggestionListPath);
       List<String> words = content.split('\n');
       return words;
     } catch (e) {
