@@ -27,6 +27,8 @@ mixin _$Settings {
   String get language => throw _privateConstructorUsedError;
   String get dictionaryResponseSelectedList =>
       throw _privateConstructorUsedError;
+  String get dictionaryResponseSelectedListEnglish =>
+      throw _privateConstructorUsedError;
   String get translationLanguageTarget => throw _privateConstructorUsedError;
   double get windowsWidth => throw _privateConstructorUsedError;
   double get windowsHeight => throw _privateConstructorUsedError;
@@ -55,6 +57,7 @@ abstract class $SettingsCopyWith<$Res> {
       double readingFontSizeSliderValue,
       String language,
       String dictionaryResponseSelectedList,
+      String dictionaryResponseSelectedListEnglish,
       String translationLanguageTarget,
       double windowsWidth,
       double windowsHeight,
@@ -86,6 +89,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? readingFontSizeSliderValue = null,
     Object? language = null,
     Object? dictionaryResponseSelectedList = null,
+    Object? dictionaryResponseSelectedListEnglish = null,
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
     Object? windowsHeight = null,
@@ -134,6 +138,11 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.dictionaryResponseSelectedList
           : dictionaryResponseSelectedList // ignore: cast_nullable_to_non_nullable
               as String,
+      dictionaryResponseSelectedListEnglish: null ==
+              dictionaryResponseSelectedListEnglish
+          ? _value.dictionaryResponseSelectedListEnglish
+          : dictionaryResponseSelectedListEnglish // ignore: cast_nullable_to_non_nullable
+              as String,
       translationLanguageTarget: null == translationLanguageTarget
           ? _value.translationLanguageTarget
           : translationLanguageTarget // ignore: cast_nullable_to_non_nullable
@@ -180,6 +189,7 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       double readingFontSizeSliderValue,
       String language,
       String dictionaryResponseSelectedList,
+      String dictionaryResponseSelectedListEnglish,
       String translationLanguageTarget,
       double windowsWidth,
       double windowsHeight,
@@ -209,6 +219,7 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? readingFontSizeSliderValue = null,
     Object? language = null,
     Object? dictionaryResponseSelectedList = null,
+    Object? dictionaryResponseSelectedListEnglish = null,
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
     Object? windowsHeight = null,
@@ -257,6 +268,11 @@ class __$$SettingImplCopyWithImpl<$Res>
           ? _value.dictionaryResponseSelectedList
           : dictionaryResponseSelectedList // ignore: cast_nullable_to_non_nullable
               as String,
+      dictionaryResponseSelectedListEnglish: null ==
+              dictionaryResponseSelectedListEnglish
+          ? _value.dictionaryResponseSelectedListEnglish
+          : dictionaryResponseSelectedListEnglish // ignore: cast_nullable_to_non_nullable
+              as String,
       translationLanguageTarget: null == translationLanguageTarget
           ? _value.translationLanguageTarget
           : translationLanguageTarget // ignore: cast_nullable_to_non_nullable
@@ -299,6 +315,7 @@ class _$SettingImpl implements _Setting {
       required this.readingFontSizeSliderValue,
       required this.language,
       required this.dictionaryResponseSelectedList,
+      required this.dictionaryResponseSelectedListEnglish,
       required this.translationLanguageTarget,
       required this.windowsWidth,
       required this.windowsHeight,
@@ -327,6 +344,8 @@ class _$SettingImpl implements _Setting {
   @override
   final String dictionaryResponseSelectedList;
   @override
+  final String dictionaryResponseSelectedListEnglish;
+  @override
   final String translationLanguageTarget;
   @override
   final double windowsWidth;
@@ -341,7 +360,7 @@ class _$SettingImpl implements _Setting {
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedList: $dictionaryResponseSelectedList, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, dictionaryResponseType: $dictionaryResponseType, themeColor: $themeColor)';
+    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedList: $dictionaryResponseSelectedList, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, dictionaryResponseType: $dictionaryResponseType, themeColor: $themeColor)';
   }
 
   @override
@@ -373,8 +392,11 @@ class _$SettingImpl implements _Setting {
                     dictionaryResponseSelectedList) ||
                 other.dictionaryResponseSelectedList ==
                     dictionaryResponseSelectedList) &&
-            (identical(other.translationLanguageTarget,
-                    translationLanguageTarget) ||
+            (identical(other.dictionaryResponseSelectedListEnglish,
+                    dictionaryResponseSelectedListEnglish) ||
+                other.dictionaryResponseSelectedListEnglish ==
+                    dictionaryResponseSelectedListEnglish) &&
+            (identical(other.translationLanguageTarget, translationLanguageTarget) ||
                 other.translationLanguageTarget == translationLanguageTarget) &&
             (identical(other.windowsWidth, windowsWidth) ||
                 other.windowsWidth == windowsWidth) &&
@@ -401,6 +423,7 @@ class _$SettingImpl implements _Setting {
       readingFontSizeSliderValue,
       language,
       dictionaryResponseSelectedList,
+      dictionaryResponseSelectedListEnglish,
       translationLanguageTarget,
       windowsWidth,
       windowsHeight,
@@ -427,6 +450,7 @@ abstract class _Setting implements Settings {
       required final double readingFontSizeSliderValue,
       required final String language,
       required final String dictionaryResponseSelectedList,
+      required final String dictionaryResponseSelectedListEnglish,
       required final String translationLanguageTarget,
       required final double windowsWidth,
       required final double windowsHeight,
@@ -454,6 +478,8 @@ abstract class _Setting implements Settings {
   String get language;
   @override
   String get dictionaryResponseSelectedList;
+  @override
+  String get dictionaryResponseSelectedListEnglish;
   @override
   String get translationLanguageTarget;
   @override

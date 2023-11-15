@@ -3,26 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
+import '../../../common/data/enum/translate_language_target.dart';
+
 class SettingBlocParams {
   final ThemeMode themeMode;
   final Color accentColor;
   final String language;
   final bool enableAdaptiveTheme;
-  SettingBlocParams(
-      {required this.themeMode,
-      required this.accentColor,
-      required this.language,
-      required this.enableAdaptiveTheme});
-  SettingBlocParams copyWith(
-      {ThemeMode? themeMode,
-      Color? accentColor,
-      String? language,
-      bool? enableAdaptiveTheme}) {
+  final TranslationLanguageTarget translationLanguageTarget;
+  SettingBlocParams({
+    required this.themeMode,
+    required this.accentColor,
+    required this.language,
+    required this.enableAdaptiveTheme,
+    required this.translationLanguageTarget,
+  });
+  SettingBlocParams copyWith({
+    ThemeMode? themeMode,
+    Color? accentColor,
+    String? language,
+    bool? enableAdaptiveTheme,
+    TranslationLanguageTarget? translationLanguageTarget,
+  }) {
     return SettingBlocParams(
       themeMode: themeMode ?? this.themeMode,
       accentColor: accentColor ?? this.accentColor,
       language: language ?? this.language,
       enableAdaptiveTheme: enableAdaptiveTheme ?? this.enableAdaptiveTheme,
+      translationLanguageTarget:
+          translationLanguageTarget ?? this.translationLanguageTarget,
     );
   }
 
@@ -32,7 +41,9 @@ class SettingBlocParams {
         themeMode: defaultData.themeMode.toThemeMode(),
         accentColor: Color(defaultData.themeColor),
         language: defaultData.language,
-        enableAdaptiveTheme: false);
+        enableAdaptiveTheme: false,
+        translationLanguageTarget: defaultData.translationLanguageTarget
+            .toTranslationLanguageTarget());
   }
 }
 
@@ -56,6 +67,12 @@ class ChangeThemeColorEvent extends SettingEvent {
   ChangeThemeColorEvent({required this.color});
 }
 
+class ForceTranslateVietnameseToEnglish extends SettingEvent {}
+
+class ForceTranslateEnglishToVietnamese extends SettingEvent {}
+
+class AutoDetectLanguage extends SettingEvent {}
+
 /// States
 abstract class SettingState {
   final SettingBlocParams params;
@@ -78,6 +95,9 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     on<EnableAdaptiveThemeColorEvent>(_enableAdaptiveThemeColor);
     on<ChangeThemeModeEvent>(_themeModeChanged);
     on<ChangeLanguageEvent>(_languageChanged);
+    on<AutoDetectLanguage>(_autoDetectLanguage);
+    on<ForceTranslateEnglishToVietnamese>(_forceTranslateEnglishToVietnamese);
+    on<ForceTranslateVietnameseToEnglish>(_forceTranslateVietnameseToEnglish);
   }
 
   FutureOr<void> _languageChanged(
@@ -115,5 +135,40 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     Properties.saveSettings(Properties.defaultSetting);
     emit(SettingUpdated(
         params: state.params.copyWith(themeMode: event.themeMode)));
+  }
+
+  FutureOr<void> _autoDetectLanguage(
+      AutoDetectLanguage event, Emitter<SettingState> emit) {
+    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+        translationLanguageTarget:
+            TranslationLanguageTarget.autoDetect.title());
+    Properties.saveSettings(Properties.defaultSetting);
+    emit(SettingUpdated(
+        params: state.params.copyWith(
+            translationLanguageTarget: TranslationLanguageTarget.autoDetect)));
+  }
+
+  FutureOr<void> _forceTranslateEnglishToVietnamese(
+      ForceTranslateEnglishToVietnamese event, Emitter<SettingState> emit) {
+    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+        translationLanguageTarget:
+            TranslationLanguageTarget.englishToVietnamese.title());
+    Properties.saveSettings(Properties.defaultSetting);
+    emit(SettingUpdated(
+        params: state.params.copyWith(
+            translationLanguageTarget:
+                TranslationLanguageTarget.englishToVietnamese)));
+  }
+
+  FutureOr<void> _forceTranslateVietnameseToEnglish(
+      ForceTranslateVietnameseToEnglish event, Emitter<SettingState> emit) {
+    Properties.defaultSetting = Properties.defaultSetting.copyWith(
+        translationLanguageTarget:
+            TranslationLanguageTarget.vietnameseToEnglish.title());
+    Properties.saveSettings(Properties.defaultSetting);
+    emit(SettingUpdated(
+        params: state.params.copyWith(
+            translationLanguageTarget:
+                TranslationLanguageTarget.vietnameseToEnglish)));
   }
 }

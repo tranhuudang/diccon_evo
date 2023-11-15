@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
+import '../data/enum/translate_language_target.dart';
+
 extension StringExtenstion on String {
   DictionaryResponseType toDictionaryResponseType() {
     switch (this) {
@@ -30,6 +32,20 @@ extension StringExtenstion on String {
         return WidgetsBinding.instance.platformDispatcher.locale;
       default:
         return WidgetsBinding.instance.platformDispatcher.locale;
+    }
+  }
+
+  TranslationLanguageTarget toTranslationLanguageTarget() {
+    switch (this) {
+      case 'autoDetect':
+        return TranslationLanguageTarget.autoDetect;
+      case 'vietnameseToEnglish':
+        return TranslationLanguageTarget.vietnameseToEnglish;
+      case 'englishToVietnamese':
+        return TranslationLanguageTarget.englishToVietnamese;
+      default:
+        throw FormatException(
+            "$this is not have a valid value to convert to TranslationLanguageTarget");
     }
   }
 

@@ -184,7 +184,8 @@ extension Localization on String {
     "Listening to you...": {
       "en_us": "Listening to you...",
       "vi_vi": "Đang lắng nghe...",
-    },"Report Errors": {
+    },
+    "Report Errors": {
       "en_us": "Report Errors",
       "vi_vi": "Báo lỗi",
     },
@@ -923,6 +924,7 @@ extension Localization on String {
   });
 
   String get i18n => localize(this, _t);
+  String get i18nEnglish => localize(this, _t, locale: 'en_us');
 
   String fill(List<Object> params) => localizeFill(this, params);
 

@@ -37,7 +37,4 @@ class AddSorryMessage extends ChatListEvent{
 
 class ScrollToBottom extends ChatListEvent{}
 class CreateNewChatList extends ChatListEvent{}
-class ForceTranslateVietnameseToEnglish extends ChatListEvent{}
-class ForceTranslateEnglishToVietnamese extends ChatListEvent{}
-class AutoDetectLanguage extends ChatListEvent{}
 

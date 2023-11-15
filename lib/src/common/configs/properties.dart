@@ -24,6 +24,7 @@ class Properties {
     numberOfEssentialLeft: 1848,
     language: 'System default',
     dictionaryResponseSelectedList: 'Phiên âm, Định nghĩa, Ví dụ',
+    dictionaryResponseSelectedListEnglish: 'Pronunciation, Definition, Example',
     readingFontSizeSliderValue: 0.2,
     windowsWidth: 400,
     windowsHeight: 700,
@@ -46,7 +47,8 @@ class Properties {
     await prefs.setInt('openAppCount', newSetting.openAppCount);
     await prefs.setString('language', newSetting.language);
     await prefs.setString('translationLanguageTarget', newSetting.translationLanguageTarget);
-    await prefs.setString('dictionaryResponseSelectedList',
+    await prefs.setString('dictionaryResponseSelectedListEnglish',
+        newSetting.dictionaryResponseSelectedListEnglish);await prefs.setString('dictionaryResponseSelectedList',
         newSetting.dictionaryResponseSelectedList);
     await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
     await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
@@ -83,7 +85,9 @@ class Properties {
       language: prefs.getString('language') ?? defaultSetting.language,
       dictionaryResponseSelectedList:
           prefs.getString('dictionaryResponseSelectedList') ??
-              defaultSetting.dictionaryResponseSelectedList,
+              defaultSetting.dictionaryResponseSelectedList,dictionaryResponseSelectedListEnglish:
+          prefs.getString('dictionaryResponseSelectedListEnglish') ??
+              defaultSetting.dictionaryResponseSelectedListEnglish,
       numberOfEssentialLeft:
           prefs.getInt('essentialLeft') ?? defaultSetting.numberOfEssentialLeft,
       windowsWidth:
@@ -106,6 +110,7 @@ class Properties {
           "readingFontSizeSliderValue: ${Properties.defaultSetting.readingFontSizeSliderValue}");
       print("language: ${Properties.defaultSetting.language}");
       print("dictionaryResponseSelectedList: ${Properties.defaultSetting.dictionaryResponseSelectedList}");
+      print("dictionaryResponseSelectedListEnglish: ${Properties.defaultSetting.dictionaryResponseSelectedListEnglish}");
       print("windowsWidth: ${Properties.defaultSetting.windowsWidth}");
       print("windowsHeight: ${Properties.defaultSetting.windowsHeight}");
       print("themeMode: ${Properties.defaultSetting.themeMode}");
