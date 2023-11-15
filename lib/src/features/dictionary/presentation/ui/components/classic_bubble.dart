@@ -7,10 +7,11 @@ class ClassicBubble extends StatefulWidget {
   const ClassicBubble({
     super.key,
     required this.word,
-    required this.onWordTap,
+    required this.onWordTap, required this.language,
   });
 
   final Word word;
+  final String language;
   final Function(String) onWordTap;
 
   @override
@@ -63,7 +64,7 @@ class _ClassicBubbleState extends State<ClassicBubble> {
                       Row(
                         children: [
                           WordTitle(
-                            message: widget.word,
+                            word: widget.word.word,
                             titleColor: context.theme.colorScheme.onSecondary,
                           ),
                           const SizedBox(
@@ -71,8 +72,8 @@ class _ClassicBubbleState extends State<ClassicBubble> {
                           ),
                           WordPronunciation(
                             color: context.theme.colorScheme.onSecondary,
-                              message: widget.word),
-                          PlaybackButton(message: widget.word.word),
+                              pronunciation: widget.word.pronunciation),
+                          PlaybackButton(message: widget.word.word, languageCode: widget.language,),
                         ],
                       ),
                       Row(

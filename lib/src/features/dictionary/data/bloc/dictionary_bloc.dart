@@ -26,9 +26,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddImage>(_addImage);
     on<ScrollToBottom>(_scrollToBottom);
     on<CreateNewChatList>(_createNewChatList);
-    on<AutoDetectLanguage>(_autoDetectLanguage);
-    on<ForceTranslateVietnameseToEnglish>(_forceTranslateVietnameseToEnglish);
-    on<ForceTranslateEnglishToVietnamese>(_forceTranslateEnglishToVietnamese);
   }
   List<ChatGptRepository> _listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
@@ -121,7 +118,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       } else {
         autoDetectResult = 'en';
       }
-      print('------------------------------$autoDetectResult');
     }
     /// Check if setting force to translate from english to vietnamese
     if (autoDetectResult == 'en' || Properties.defaultSetting.translationLanguageTarget ==
@@ -162,19 +158,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       ScrollToBottom event, Emitter<ChatListState> emit) {
     _scrollChatListToBottom();
   }
-
-  FutureOr<void> _autoDetectLanguage(
-      AutoDetectLanguage event, Emitter<ChatListState> emit) async {
-    // final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
-    // final String response = await languageIdentifier.identifyLanguage(text);
-    //
-    // final List<IdentifiedLanguage> possibleLanguages = await languageIdentifier.identifyPossibleLanguages(text);
-    //
-  }
-  FutureOr<void> _forceTranslateVietnameseToEnglish(
-      ForceTranslateVietnameseToEnglish event, Emitter<ChatListState> emit) {}
-  FutureOr<void> _forceTranslateEnglishToVietnamese(
-      ForceTranslateEnglishToVietnamese event, Emitter<ChatListState> emit) {}
 
   Future<Word> _getLocalEnglishToVietnameseTranslation(
       String providedWord) async {

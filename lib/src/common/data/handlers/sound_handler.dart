@@ -6,13 +6,14 @@ import 'package:audioplayers/audioplayers.dart';
 
 class SoundHandler {
   final String providedWordToPlay;
-  SoundHandler(this.providedWordToPlay);
+  final String languageCode;
+  SoundHandler({ required this.providedWordToPlay, required this.languageCode});
 
   void playTts() => _playTts(providedWordToPlay);
 
   void _playTts(String word) async {
     FlutterTts tts = FlutterTts();
-    await tts.setLanguage('en-US');
+    await tts.setLanguage(languageCode);
     await tts.setPitch(1.0);
     await tts.setSpeechRate(0.5);
     await tts.speak(word);

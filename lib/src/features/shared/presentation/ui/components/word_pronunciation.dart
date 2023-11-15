@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 class WordPronunciation extends StatelessWidget {
   const WordPronunciation({
     super.key,
-    required this.message, this.color,
+    required this.pronunciation, this.color,
   });
 
-  final Word message;
+  final String? pronunciation;
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      message.pronunciation != "" ? "/${message.pronunciation}/" : "",
+    return
+      pronunciation != null ?
+      Text( "/$pronunciation/",
       style: TextStyle(
         color: color?? context.theme.colorScheme.onSurface,
         fontStyle: FontStyle.italic,
       ),
-    );
+    ) :const SizedBox.shrink();
   }
 }

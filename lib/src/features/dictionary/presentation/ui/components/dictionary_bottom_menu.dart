@@ -14,7 +14,7 @@ class DictionaryBottomMenu extends StatelessWidget {
     final chatListBloc = context.read<ChatListBloc>();
     return IconButton(onPressed: (){
       showModalBottomSheet(context: context, builder: (context){
-        return Container(
+        return SizedBox(
           height: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,6 +48,6 @@ class DictionaryBottomMenu extends StatelessWidget {
           ),
         );
       });
-    }, icon: Icon(Icons.add_circle_outline));
+    }, icon: const Icon(Icons.add_circle_outline));
   }
 }

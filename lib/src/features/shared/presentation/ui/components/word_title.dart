@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-
 class WordTitle extends StatelessWidget {
-  final Word message;
+  final String word;
   final Color? titleColor;
 
   const WordTitle({
     super.key,
-    required this.message,
+    required this.word,
     this.titleColor,
   });
 
@@ -16,7 +15,7 @@ class WordTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       child: Text(
-        message.word,
+        word,
         style: TextStyle(
           color: titleColor ?? Colors.black,
           fontWeight: FontWeight.bold,

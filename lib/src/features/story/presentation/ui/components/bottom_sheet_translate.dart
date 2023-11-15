@@ -190,14 +190,14 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                 Row(
                                   children: [
                                     WordTitle(
-                                      message: _wordResult,
+                                      word: _wordResult.word,
                                       titleColor:
                                           context.theme.colorScheme.onSurface,
                                     ),
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                    WordPronunciation(message: _wordResult),
+                                    WordPronunciation(pronunciation: _wordResult.pronunciation),
                                     PlaybackButton(
                                         buttonColor:
                                             context.theme.colorScheme.onSurface,

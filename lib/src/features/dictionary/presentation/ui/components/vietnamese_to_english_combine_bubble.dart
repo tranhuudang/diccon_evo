@@ -84,7 +84,7 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
                     listResponseOptions = listResponseOptions.reversed.toList();
                   }
                   if (widget.wordForChatBot.numberOfWord() > 3) {
-                    return EnglishToVietnameseChatBotBubble(
+                    return VietnameseToEnglishChatBotBubble(
                         isParagraph: true,
                         word: widget.wordForChatBot,
                         chatListController: widget.chatListController,

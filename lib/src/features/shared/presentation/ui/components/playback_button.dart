@@ -4,9 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PlaybackButton extends StatefulWidget {
-  const PlaybackButton({super.key, required this.message, this.buttonColor});
+  const PlaybackButton({super.key, required this.message, this.buttonColor,  this.languageCode = 'en-US' });
   final String message;
   final Color? buttonColor;
+  final String languageCode;
   @override
   State<PlaybackButton> createState() => _PlaybackButtonState();
 }
@@ -43,7 +44,7 @@ class _PlaybackButtonState extends State<PlaybackButton> {
                   ),
                   onPressed: () {
                     final progressStream =
-                        SoundHandler(widget.message).playAnyway();
+                        SoundHandler(providedWordToPlay: widget.message, languageCode: widget.languageCode).playAnyway();
                     listenToProgress(progressStream);
                   },
                   iconSize: 20,

@@ -39,7 +39,7 @@ class _VietnameseToEnglishChatBotBubbleState
           'Help me translate this paragraph to English: ${widget.word}';
     } else {
       customQuestion =
-          'Help me translate this word: "${widget.word.trim()}" from Vietnamese to English: ${Properties.defaultSetting.dictionaryResponseSelectedList}. Hãy chia câu trả lời thành các chủ đề vừa liệt kê, và dịch sang tiếng Việt các chủ đề đó, bắt buộc phải dịch sang tiếng Việt những câu bằng tiếng Anh ngay sau từng câu tiếng Anh (ngay liền kề mỗi câu). Bất cứ sự giải thích nào trong câu trả lời đều phải dùng tiếng Việt';
+          'Help me translate this word: "${widget.word.trim()}" from Vietnamese to English: ${Properties.defaultSetting.dictionaryResponseSelectedList}. Please divide the answer into listed topics, and translate those topics into Vietnamese, ensuring that the English sentences are immediately followed by their Vietnamese translations. Any explanations within the answer must be in Vietnamese.';
     }
     var request = await widget.listChatGptRepository[widget.index]
         .createSingleQuestionRequest(customQuestion);

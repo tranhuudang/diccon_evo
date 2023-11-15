@@ -17,6 +17,7 @@ class EnglishToVietnameseClassicBubble extends StatelessWidget {
     return ClassicBubble(
       word: word,
       onWordTap: onWordTap ?? (value) {},
+      language: 'en-US',
     );
   }
 }
