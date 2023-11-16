@@ -54,7 +54,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   final _chatGptRepository = ChatGptRepositoryImplement(
-      chatGpt: ChatGpt(apiKey: Constants.conversationKey));
+      chatGpt: ChatGpt(apiKey: '${Constants.conversationKey}F'));
   List<Widget> listConversations = [const ConversationWelcome()];
   final ScrollController conversationScrollController = ScrollController();
   final TextEditingController textController = TextEditingController();

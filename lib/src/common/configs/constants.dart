@@ -4,10 +4,9 @@ class Constants {
   static int version = 487;
 
   static String conversationKey =
-      //"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";
-  "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";
+  "sk-tNyYMFGgGq52m1g0cIUbT3BlbkFJwQAVyb4VvDmKnwL1GdG";
   static String dictionaryKey =
-      "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";
+      "sk-GwS6Ac0lCvnxi2wLyrPUT3BlbkFJMNBVXeCBjJzGmuhOc9V";
 
 
   static const Size minWindowsSize = Size(400, 600);
