@@ -4,7 +4,7 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 
-GoRouter router = GoRouter(
+GoRouter routerConfig = GoRouter(
   routes: [
     /// Login
     GoRoute(name: "login",path: '/',pageBuilder: (context, state){

@@ -115,7 +115,6 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
                 },
               ),
             ),
-            if (!(widget.wordForChatBot.numberOfWord() >= 3))
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SmoothPageIndicator(

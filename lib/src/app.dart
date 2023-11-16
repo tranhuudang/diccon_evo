@@ -95,6 +95,6 @@ MaterialApp buildMaterialApp(
     ),
     title: Constants.diccon,
     debugShowCheckedModeBanner: false,
-    routerConfig: router,
+    routerConfig: routerConfig,
   );
 }

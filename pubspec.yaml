@@ -90,9 +90,7 @@ dependencies:
   wavy_slider: ^0.0.3
   # this package help me create a somple way to add search view in searching stories
   search_page: ^2.3.0
-  # nortification for new update
-  upgrader: ^8.2.0
-
+  metaballs: ^1.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -212,11 +212,12 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                         color: context.theme.colorScheme.onBackground,
                       ),
                       onWordTap: (String word, String sentence) {
+                        final refineWord = word.removeSpecialCharacters();
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
                               return BottomSheetTranslation(
-                                searchWord: word,
+                                searchWord: refineWord,
                                 sentenceContainWord: sentence,
                               );
                             });

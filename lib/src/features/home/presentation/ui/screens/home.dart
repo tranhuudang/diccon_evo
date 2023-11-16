@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:upgrader/upgrader.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -15,17 +14,20 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with WindowListener {
   final List<Widget> _listPrimaryFunction = const [
     ToDictionaryButton(),
-    ToConversationButton(),
+    ToReadingChamberButton(),
+
   ];
   final List<Widget> _listSubFunction = const [
-    ToReadingChamberButton(),
+    ToConversationButton(),
+
     ToEssentialWordButton(),
+
   ];
 
   DateTime _backPressedTime = DateTime.now();
 
   _loadUpData() async {
-    /// Inscease count number to count the how many time user open app
+    /// Increase count number to count the how many time user open app
     Properties.instance.saveSettings(Properties.instance.settings
         .copyWith(openAppCount: Properties.instance.settings.openAppCount + 1));
     if (kDebugMode) {
@@ -71,25 +73,21 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         }
       },
       child: SafeArea(
-        child: UpgradeAlert(
-          upgrader: Upgrader(shouldPopScope: () =>  true),
-          navigatorKey: router.routerDelegate.navigatorKey,
-          child: Scaffold(
-            backgroundColor: context.theme.colorScheme.surface,
-            body: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  /// Menu button
-                  const HomeMenuButton(),
+        child: Scaffold(
+          backgroundColor: context.theme.colorScheme.surface,
+          body: SingleChildScrollView(
+            child: Stack(
+              children: [
+                /// Menu button
+                const HomeMenuButton(),
 
-                  /// Body
-                  Responsive(
-                    smallSizeDevice: smallSizeBody(),
-                    mediumSizeDevice: smallSizeBody(),
-                    largeSizeDevice: largeSizeBody(),
-                  ),
-                ],
-              ),
+                /// Body
+                Responsive(
+                  smallSizeDevice: smallSizeBody(),
+                  mediumSizeDevice: smallSizeBody(),
+                  largeSizeDevice: largeSizeBody(),
+                ),
+              ],
             ),
           ),
         ),
@@ -202,8 +200,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
             ),
             children: const [
               ToDictionaryButton(),
-              ToConversationButton(),
               ToReadingChamberButton(),
+              ToConversationButton(),
               ToEssentialWordButton(),
             ],
           ),

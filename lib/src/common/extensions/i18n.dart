@@ -28,6 +28,16 @@ extension Localization on String {
       "en_us": "You're not connected",
       "vi_vi": "Không có kết nối mạng",
     },
+    "Short stories in": {
+      "en_us": "Short stories in",
+      "vi_vi": "Học qua truyện",
+    },
+    "WordNotFoundInLocalDictionary": {
+      "en_us":
+          "Local dictionary not have this word, please swipe right/left to see AI Dictionary",
+      "vi_vi":
+          "Không tìm thấy định nghĩa của từ này trong từ điển offline, vuốt sang trái/ phải để dùng từ điển AI",
+    },
     "We'd love to hear your feedback!": {
       "en_us": "We'd love to hear your feedback!",
       "vi_vi": "Chúng tôi rất muốn nghe phản hồi của bạn!",
