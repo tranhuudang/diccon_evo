@@ -23,10 +23,10 @@ OPENAI_API_KEY = your-open-api-key-here
 ### Step 2:
 Clean and get packages dependency:
 ```bash
-dart clean
+flutter clean
 ```
 ```bash
-dart pub get
+flutter pub get
 ```
 Run the following command to make sure models are generated:
 ```bash
@@ -35,7 +35,7 @@ dart run build_runner build --delete-conflicting-outputs
 Now everything should work !
 Run the following command to build project:
 ```bash
-dart run
+flutter run
 ```
 ## Support
 You can support us by downloading the application & leave us feedback. Optionally, you can purchase add-ons in Spooky to try different features as well as support us.
