@@ -1,5 +1,5 @@
-# Diccon Dictionary ☃️
-Welcome to our immersive chat-based dictionary! Dive into a world of words where learning is engaging and interactive. 
+# Diccon Dictionary (Vietnamese - English) ☃️
+Welcome to our immersive chat-based vietnamese - english dictionary! Dive into a world of words where learning is engaging and interactive. 
 
 Our chat bot is here to assist you in discovering new words, meanings, and contexts. 
 Explore our reading room to expand your vocabulary and comprehension, then head over to our practice room to reinforce your learning through interactive exercises. 
