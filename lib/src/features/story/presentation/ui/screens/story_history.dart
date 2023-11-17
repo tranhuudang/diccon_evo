@@ -25,7 +25,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
           listenWhen: (previous, current) => current is StoryHistoryActionState,
           builder: (context, state) {
             switch (state.runtimeType) {
-              case StoryHistoryUpdated _:
+              case StoryHistoryUpdated :
                 var data = state as StoryHistoryUpdated;
                 return Stack(
                   children: [
@@ -132,7 +132,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                     ),
                   ],
                 );
-              case StoryHistoryEmptyState _:
+              case StoryHistoryEmptyState :
                 return Stack(
                   children: [
                     Center(
@@ -167,7 +167,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                     ),
                   ],
                 );
-              case StoryHistoryErrorState _:
+              case StoryHistoryErrorState :
                 return Stack(
                   children: [
                     Center(

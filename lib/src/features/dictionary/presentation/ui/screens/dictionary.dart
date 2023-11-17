@@ -131,7 +131,7 @@ class _DictionaryViewState extends State<DictionaryView> {
               builder: (context, state) {
                 {
                   switch (state.runtimeType) {
-                    case ChatListUpdated _:
+                    case ChatListUpdated:
                       final data = state as ChatListUpdated;
                       return ListView.builder(
                         padding: const EdgeInsets.only(top: 80, bottom: 130),
