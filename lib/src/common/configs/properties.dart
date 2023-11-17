@@ -11,22 +11,16 @@ class Properties {
   static Properties get instance => _instance;
 
   static Future<void> initialize() async {
-    instance._defaultSetting = await instance._getSettings();
+    instance.settings = await instance._getSettings();
   }
 
   Future<void> saveSettings(Settings settings) async {
-    instance._saveSettings(settings);
+    await instance._saveSettings(settings);
+    // Reload setting after saving new value;
+    settings = settings;
   }
 
-  Settings get settings {
-    return instance._defaultSetting;
-  }
-
-  set settings(Settings settings) {
-    instance._defaultSetting = settings;
-  }
-
-  Settings _defaultSetting = Settings(
+  Settings settings = Settings(
     dictionaryResponseType: DictionaryResponseType.short.title(),
     translationChoice: TranslationChoices.translate.title(),
     numberOfSynonyms: 10,
@@ -79,60 +73,60 @@ class Properties {
     Completer complete = Completer();
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
-    var savedSetting = _defaultSetting.copyWith(
+    var savedSetting = settings.copyWith(
       readingFontSize:
-          prefs.getDouble('readingFontSize') ?? _defaultSetting.readingFontSize,
+          prefs.getDouble('readingFontSize') ?? settings.readingFontSize,
       translationChoice: prefs.getString('translationChoice') ??
-          _defaultSetting.translationChoice,
+          settings.translationChoice,
       openAppCount:
-          prefs.getInt("openAppCount") ?? _defaultSetting.openAppCount,
+          prefs.getInt("openAppCount") ?? settings.openAppCount,
       dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
-          _defaultSetting.dictionaryResponseType,
+          settings.dictionaryResponseType,
       translationLanguageTarget: prefs.getString('translationLanguageTarget') ??
-          _defaultSetting.translationLanguageTarget,
+          settings.translationLanguageTarget,
       readingFontSizeSliderValue:
           prefs.getDouble('readingFontSizeSliderValue') ??
-              _defaultSetting.readingFontSizeSliderValue,
+              settings.readingFontSizeSliderValue,
       numberOfSynonyms:
-          prefs.getInt('numberOfSynonyms') ?? _defaultSetting.numberOfSynonyms,
+          prefs.getInt('numberOfSynonyms') ?? settings.numberOfSynonyms,
       numberOfAntonyms:
-          prefs.getInt('numberOfAntonyms') ?? _defaultSetting.numberOfAntonyms,
-      language: prefs.getString('language') ?? _defaultSetting.language,
+          prefs.getInt('numberOfAntonyms') ?? settings.numberOfAntonyms,
+      language: prefs.getString('language') ?? settings.language,
       dictionaryResponseSelectedListVietnamese:
           prefs.getString('dictionaryResponseSelectedListVietnamese') ??
-              _defaultSetting.dictionaryResponseSelectedListVietnamese,
+              settings.dictionaryResponseSelectedListVietnamese,
       dictionaryResponseSelectedListEnglish:
           prefs.getString('dictionaryResponseSelectedListEnglish') ??
-              _defaultSetting.dictionaryResponseSelectedListEnglish,
+              settings.dictionaryResponseSelectedListEnglish,
       numberOfEssentialLeft: prefs.getInt('essentialLeft') ??
-          _defaultSetting.numberOfEssentialLeft,
+          settings.numberOfEssentialLeft,
       windowsWidth:
-          prefs.getDouble("widthOfWindowSize") ?? _defaultSetting.windowsWidth,
+          prefs.getDouble("widthOfWindowSize") ?? settings.windowsWidth,
       windowsHeight: prefs.getDouble("heightOfWindowSize") ??
-          _defaultSetting.windowsHeight,
-      themeMode: prefs.getString("themeMode") ?? _defaultSetting.themeMode,
-      themeColor: prefs.getInt("themeColor") ?? _defaultSetting.themeColor,
+          settings.windowsHeight,
+      themeMode: prefs.getString("themeMode") ?? settings.themeMode,
+      themeColor: prefs.getInt("themeColor") ?? settings.themeColor,
       enableAdaptiveTheme: prefs.getBool("enableAdaptiveTheme") ??
-          _defaultSetting.enableAdaptiveTheme,
+          settings.enableAdaptiveTheme,
     );
     if (kDebugMode) {
       print("New setting is saved with these bellow customs:");
-      print("numberOfSynonyms: ${_defaultSetting.numberOfSynonyms}");
-      print("numberOfAntonyms: ${_defaultSetting.numberOfAntonyms}");
-      print("numberOfEssentialLeft: ${_defaultSetting.numberOfEssentialLeft}");
-      print("readingFontSize: ${_defaultSetting.readingFontSize}");
+      print("numberOfSynonyms: ${settings.numberOfSynonyms}");
+      print("numberOfAntonyms: ${settings.numberOfAntonyms}");
+      print("numberOfEssentialLeft: ${settings.numberOfEssentialLeft}");
+      print("readingFontSize: ${settings.readingFontSize}");
       print(
-          "readingFontSizeSliderValue: ${_defaultSetting.readingFontSizeSliderValue}");
-      print("language: ${_defaultSetting.language}");
+          "readingFontSizeSliderValue: ${settings.readingFontSizeSliderValue}");
+      print("language: ${settings.language}");
       print(
-          "dictionaryResponseSelectedListVietnamese: ${_defaultSetting.dictionaryResponseSelectedListVietnamese}");
+          "dictionaryResponseSelectedListVietnamese: ${settings.dictionaryResponseSelectedListVietnamese}");
       print(
-          "dictionaryResponseSelectedListEnglish: ${_defaultSetting.dictionaryResponseSelectedListEnglish}");
-      print("windowsWidth: ${_defaultSetting.windowsWidth}");
-      print("windowsHeight: ${_defaultSetting.windowsHeight}");
-      print("themeMode: ${_defaultSetting.themeMode}");
-      print("language: ${_defaultSetting.language}");
-      print("themeColor: ${_defaultSetting.themeColor}");
+          "dictionaryResponseSelectedListEnglish: ${settings.dictionaryResponseSelectedListEnglish}");
+      print("windowsWidth: ${settings.windowsWidth}");
+      print("windowsHeight: ${settings.windowsHeight}");
+      print("themeMode: ${settings.themeMode}");
+      print("language: ${settings.language}");
+      print("themeColor: ${settings.themeColor}");
     }
     return savedSetting;
   }

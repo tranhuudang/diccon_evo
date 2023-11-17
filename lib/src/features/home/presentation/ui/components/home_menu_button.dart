@@ -101,7 +101,7 @@ class HomeMenuButton extends StatelessWidget {
                   ),
                   onTap: () async {
                     final Uri url = Uri.parse(
-                        'https://github.com/tranhuudang');
+                        'https://github.com/tranhuudang/diccon_evo/issues');
                     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
                     throw Exception('Could not launch $url');
                     }

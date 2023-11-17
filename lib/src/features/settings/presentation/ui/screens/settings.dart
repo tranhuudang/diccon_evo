@@ -213,14 +213,15 @@ class _SettingsViewState extends State<SettingsView> {
                   padding: const EdgeInsets.all(8.0),
                   child: WavySlider(
                     value: .5,
-                    width: 150,
+                    width: 180,
                     waveHeight: 10,
-                    waveWidth: 15,
+                    waveWidth: 17,
                     strokeWidth: 5,
                     onChanged: (value) {
                       settingCubit.setReadingFontSize(value * 70);
                     },
                     color: context.theme.colorScheme.primary,
+                    backgroundColor: context.theme.dividerColor.withOpacity(.5),
                   ),
                 ),
               ],
