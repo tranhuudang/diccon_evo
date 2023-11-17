@@ -14,10 +14,10 @@ class Properties {
     instance.settings = await instance._getSettings();
   }
 
-  Future<void> saveSettings(Settings settings) async {
-    await instance._saveSettings(settings);
+  Future<void> saveSettings(Settings newSettings) async {
+    await instance._saveSettings(newSettings);
     // Reload setting after saving new value;
-    settings = settings;
+    settings = newSettings;
   }
 
   Settings settings = Settings(

@@ -17,7 +17,7 @@ Make sure to have a OpenAI API key to get chat-bot and AI dictionary working as 
 
 You can have a free try API key by go to their website at: https://platform.openai.com/api-keys 
 
-Once you have your key, create a ``.env`` file (with no name, just .env) in project and put the key in the file with format:
+Once you have your key, create a ``openai_api.env`` file in project and put the key in the file with format:
 ```bash
 OPENAI_API_KEY = your-open-api-key-here
 ```
@@ -33,7 +33,9 @@ Run the following command to make sure models are generated:
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
-Now everything should work !
+Everything should work now.
+
+
 Run the following command to build project:
 ```bash
 flutter run
