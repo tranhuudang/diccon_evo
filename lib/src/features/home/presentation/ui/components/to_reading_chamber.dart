@@ -23,11 +23,6 @@ class ToReadingChamberButton extends StatelessWidget {
           children: [
             Metaballs(
                 color: Theme.of(context).colorScheme.primary,
-                effect: MetaballsEffect.follow(
-                  growthFactor: 1,
-                  smoothing: 1,
-                  radius: 0.5,
-                ),
                 gradient: LinearGradient(
                     colors: [
                       Theme.of(context).colorScheme.primary,
@@ -41,7 +36,7 @@ class ToReadingChamberButton extends StatelessWidget {
                 speedMultiplier: 1,
                 bounceStiffness: 3,
                 minBallRadius: 40,
-                maxBallRadius: 60,
+                maxBallRadius: 90,
                 glowRadius: .8,
                 glowIntensity: 0.9,
             ),

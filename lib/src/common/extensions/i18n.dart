@@ -312,6 +312,10 @@ extension Localization on String {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
     },
+    "Practice your communication skills": {
+      "en_us": "Practice your communication skills",
+      "vi_vi": "Cải thiện kĩ năng giao tiếp",
+    },
     "SubSentenceInImageRecognizer": {
       "en_us":
           "Instantly convert images into text. Scan, translate, and extract text from photos, making language barriers a thing of the past.",
