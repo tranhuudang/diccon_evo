@@ -6,7 +6,7 @@ Let's embark on a linguistic journey together!
 
 [![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo)
 ## 2 steps before running the project
-# Step 1:
+### Step 1:
 Make sure to have a OpenAI API key to get chat-bot and AI dictionary working as expected.
 You can have a free try API key by go to their website at: https://platform.openai.com/api-keys 
 Once you have your key, create a ``.env`` file (with no name, just .env) in project and put the key in the file with format:
@@ -14,7 +14,7 @@ Once you have your key, create a ``.env`` file (with no name, just .env) in proj
 OPENAI_API_KEY = your-open-api-key-here
 ```
 ![Screenshot](https://github.com/tranhuudang/diccon_evo/blob/master/assets/readme_assets/env_in_project.png?raw=true)
-# Step 2:
+### Step 2:
 Clean and get packages dependency:
 ```bash
 dart clean
