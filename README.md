@@ -1,4 +1,5 @@
 # Diccon Dictionary (Vietnamese - English) ☃️
+![cover](https://github.com/tranhuudang/diccon_evo/blob/master/assets/readme_assets/diccon_full_size_introduction.png?raw=true)
 Welcome to our immersive chat-based vietnamese - english dictionary! Dive into a world of words where learning is engaging and interactive. 
 
 Our chat bot is here to assist you in discovering new words, meanings, and contexts. 
