@@ -1,7 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:metaballs/metaballs.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';

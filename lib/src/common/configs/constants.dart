@@ -3,12 +3,6 @@ import 'package:flutter/material.dart';
 class Constants {
   static int version = 487;
 
-  static String conversationKey =
-  "sk-tNyYMFGgGq52m1g0cIUbT3BlbkFJwQAVyb4VvDmKnwL1GdG";
-  static String dictionaryKey =
-      "sk-GwS6Ac0lCvnxi2wLyrPUT3BlbkFJMNBVXeCBjJzGmuhOc9V";
-
-
   static const Size minWindowsSize = Size(400, 600);
   static const Size maxWindowsSize = Size(5000, 10000);
   static const double overflowHeight = 745;

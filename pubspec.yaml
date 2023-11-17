@@ -2,10 +2,10 @@ name: diccon_evo
 description: A new Diccon that work on many platforms.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.0.1+59
+version: 3.0.1+60
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -91,6 +91,8 @@ dependencies:
   # this package help me create a somple way to add search view in searching stories
   search_page: ^2.3.0
   metaballs: ^1.5.0
+  # handle external varialble - key
+  envied: ^0.5.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -98,6 +100,7 @@ dev_dependencies:
   build_runner: ^2.4.6
   freezed: ^2.4.5
   json_serializable: ^6.7.1
+  envied_generator: ^0.5.1
 
 # The following section is specific to Flutter packages.
 flutter:

@@ -80,7 +80,7 @@ class _LearningViewState extends State<LearningView> {
             bloc: _learningBloc,
             builder: (context, state) {
               switch (state.runtimeType) {
-                case LearningUpdatedState:
+                case LearningUpdatedState _:
                   var data = state as LearningUpdatedState;
                   return Column(
                     children: [

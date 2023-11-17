@@ -28,7 +28,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
               current is StoryBookmarkActionState,
           builder: (context, state) {
             switch (state.runtimeType) {
-              case StoryBookmarkUpdated:
+              case StoryBookmarkUpdated _:
                 var data = state as StoryBookmarkUpdated;
                 return Stack(
                   children: [
@@ -143,7 +143,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                     ),
                   ],
                 );
-              case StoryBookmarkEmptyState:
+              case StoryBookmarkEmptyState _:
                 return Stack(
                   children: [
                     Center(
@@ -182,7 +182,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                     ),
                   ],
                 );
-              case StoryBookmarkErrorState:
+              case StoryBookmarkErrorState _:
                 return Stack(
                   children: [
                     Center(

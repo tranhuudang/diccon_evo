@@ -24,7 +24,7 @@ class ConversationView extends StatelessWidget {
               builder: (context, state) {
                 {
                   switch (state.runtimeType) {
-                    case ConversationInitial:
+                    case ConversationInitial _:
                       final data = state as ConversationInitial;
                       return ListView.builder(
                         itemCount: data.conversation.length,
@@ -34,7 +34,7 @@ class ConversationView extends StatelessWidget {
                           return state.conversation[index];
                         },
                       );
-                    case ConversationUpdated:
+                    case ConversationUpdated _:
                       final data = state as ConversationUpdated;
                       return Stack(
                         children: [

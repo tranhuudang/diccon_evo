@@ -146,7 +146,7 @@ class StoryListView extends StatelessWidget {
           bloc: storyListBloc,
           builder: (context, state) {
             switch (state.runtimeType) {
-              case StoryListUpdatedState:
+              case StoryListUpdatedState _:
                 var data = state as StoryListUpdatedState;
                 return Column(
                   children: [
@@ -195,7 +195,7 @@ class StoryListView extends StatelessWidget {
                     )
                   ],
                 );
-              case StoryListErrorState:
+              case StoryListErrorState _:
                 return Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
