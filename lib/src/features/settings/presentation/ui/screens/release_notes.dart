@@ -17,6 +17,14 @@ class ReleaseNotes extends StatelessWidget {
               shrinkWrap: true,
               children: const [
                 ReleaseNotesItem(
+                  version: '520',
+                  date: '18-11-2023',
+                  changesNote: [
+                    'Dự án chính thức thành dự án mã nguồn mở',
+                    'Sửa lỗi và cải thiện hiệu năng',
+                  ],
+                ),
+                ReleaseNotesItem(
                   version: '487',
                   date: '15-11-2023',
                   changesNote: [

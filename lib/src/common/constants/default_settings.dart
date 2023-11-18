@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class DefaultSettings{
   static const String appName = "Diccon";
-  static const int version = 487;
+  static const int version = 520;
   static const Size minWindowsSize = Size(400, 600);
   static const Size maxWindowsSize = Size(5000, 10000);
   static const double overflowHeight = 745;
