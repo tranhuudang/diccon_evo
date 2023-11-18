@@ -39,7 +39,7 @@ class SoundHandler {
       }
       String fileName = "$refinedWord.mp3";
       final soundFilePath =
-          await DirectoryHandler.getLocalResourceFilePath(fileName);
+          await DirectoryHandler.getLocalResourcesFilePath(fileName);
       File file = File(soundFilePath);
       try {
         if (file.existsSync()) {
@@ -48,7 +48,7 @@ class SoundHandler {
         }
         if (!file.existsSync()) {
           yield false;
-          await FileHandler(fileName).downloadToResource(url);
+          await FileHandler(fileName).downloadToResources(url);
           yield true;
           _playLocal(fileName);
         }
@@ -65,7 +65,7 @@ class SoundHandler {
 
   Future<bool> _playLocal(String fileName) async {
     try {
-      var filePath = await DirectoryHandler.getLocalResourceFilePath(fileName);
+      var filePath = await DirectoryHandler.getLocalResourcesFilePath(fileName);
       AudioPlayer audioPlayer = AudioPlayer();
       await audioPlayer.play(UrlSource(filePath));
       return true;

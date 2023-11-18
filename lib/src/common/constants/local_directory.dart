@@ -10,4 +10,7 @@ class LocalDirectory {
   static const String storyBookmarkFileName = 'story_bookmark.json';
   static const String essentialFavouriteFileName = 'essential_favourite.json';
   static const String extendStoryFileName = 'extend_story.json';
+  static const String rootFolderName = 'Diccon';
+  static const String userDataFolderName = 'UserData';
+  static const String resourcesDataFolderName = 'Resources';
 }

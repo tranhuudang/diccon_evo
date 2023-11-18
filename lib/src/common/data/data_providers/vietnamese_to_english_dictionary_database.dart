@@ -30,7 +30,7 @@ class VietnameseToEnglishDictionaryDatabase {
     if (_database != null) return _database!;
     // Get the path to the database file in the assets folder
     // Set the db file to proper directory depend on system specific.
-    String databasesPath = await DirectoryHandler.getLocalResourcePath();
+    String databasesPath = await DirectoryHandler.getLocalResourcesPath();
 
     String path = join(databasesPath, "vi_en.db");
     if (kDebugMode) {

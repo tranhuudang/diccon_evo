@@ -18,5 +18,4 @@ class FileHelper{
   static Future<String> getAssetFile(String filePath) async {
     return await rootBundle.loadString(filePath);
   }
-
 }

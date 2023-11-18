@@ -7,10 +7,10 @@ class FileHandler {
   final String fileName;
   FileHandler(this.fileName);
 
-  Future<bool> downloadToResource(String url) async {
+  Future<bool> downloadToResources(String url) async {
     try {
       var response = await http.get(Uri.parse(url));
-      var filePath = await DirectoryHandler.getLocalResourceFilePath(fileName);
+      var filePath = await DirectoryHandler.getLocalResourcesFilePath(fileName);
       var file = File(filePath);
       await file.writeAsBytes(response.bodyBytes);
       return true;
@@ -18,8 +18,8 @@ class FileHandler {
       return false;
     }
   }
-  Future<bool> deleteOnResource() async {
-    final filePath = await DirectoryHandler.getLocalResourceFilePath(fileName);
+  Future<bool> deleteOnResources() async {
+    final filePath = await DirectoryHandler.getLocalResourcesFilePath(fileName);
     try {
       final file = File(filePath);
       if (file.existsSync()) {
