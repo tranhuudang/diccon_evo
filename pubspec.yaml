@@ -91,8 +91,10 @@ dependencies:
   # this package help me create a somple way to add search view in searching stories
   search_page: ^2.3.0
   metaballs: ^1.5.0
-  # handle external varialble - key
+  # handle external variable - key
   envied: ^0.5.1
+  # animation
+  animations: ^2.0.8
 dev_dependencies:
   flutter_test:
     sdk: flutter

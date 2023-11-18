@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
 class SeekFeedback {
   static void showFeedbackBottomSheet(BuildContext context) {
     if ((Properties.instance.settings.openAppCount == 10) ||
@@ -20,17 +21,22 @@ class SeekFeedback {
               height: 320,
               child: Column(
                 children: [
-                   Expanded(
-                    child: Image(
-                      image: AssetImage(LocalDirectory.getRandomIllustrationImage()),
+                  Expanded(
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                          context.theme.colorScheme.primary, BlendMode.srcIn),
+                      child: Image(
+                        image: AssetImage(
+                            LocalDirectory.getRandomIllustrationImage()),
+                      ),
                     ),
                   ),
+                  const VerticalSpacing.medium(),
                   Center(
                     child: Text("We'd love to hear your feedback!".i18n,
                         style: context.theme.textTheme.titleLarge?.copyWith(
-                            color: context.theme
-                                .colorScheme
-                                .onSecondaryContainer)),
+                            color: context
+                                .theme.colorScheme.onSecondaryContainer)),
                   ),
                   const VerticalSpacing.large(),
                   Row(
@@ -38,32 +44,31 @@ class SeekFeedback {
                     children: [
                       PillButton(
                           color: context.theme.colorScheme.onPrimary,
-                          backgroundColor:
-                              context.theme.colorScheme.primary,
+                          backgroundColor: context.theme.colorScheme.primary,
                           onTap: () {
                             Properties.instance.settings =
                                 Properties.instance.settings.copyWith(
-                                    openAppCount:
-                                        Properties.instance.settings.openAppCount +
-                                            1);
-                            Properties.instance.saveSettings(Properties.instance.settings);
+                                    openAppCount: Properties
+                                            .instance.settings.openAppCount +
+                                        1);
+                            Properties.instance
+                                .saveSettings(Properties.instance.settings);
                             goToStoreListing();
                           },
                           title: "Give feedbacks".i18n),
                       const HorizontalSpacing.large(),
                       PillButton(
-                          color: context.theme
-                              .colorScheme
-                              .onSecondaryContainer,
+                          color: context.theme.colorScheme.onSecondaryContainer,
                           backgroundColor:
                               context.theme.colorScheme.secondaryContainer,
                           onTap: () {
                             Properties.instance.settings =
                                 Properties.instance.settings.copyWith(
-                                    openAppCount:
-                                        Properties.instance.settings.openAppCount +
-                                            1);
-                            Properties.instance.saveSettings(Properties.instance.settings);
+                                    openAppCount: Properties
+                                            .instance.settings.openAppCount +
+                                        1);
+                            Properties.instance
+                                .saveSettings(Properties.instance.settings);
                             context.pop();
                           },
                           title: "Later".i18n),

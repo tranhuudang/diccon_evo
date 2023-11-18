@@ -29,7 +29,7 @@ class ConversationWelcome extends StatelessWidget {
                 style: context.theme.textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
-              const VerticalSpacing.medium(),
+              const VerticalSpacing.large(),
               Opacity(
                 opacity: 0.5,
                 child: Text(

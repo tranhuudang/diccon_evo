@@ -24,7 +24,7 @@ class DictionaryWelcome extends StatelessWidget {
                   height: 180,
                 ),
               ),
-              const VerticalSpacing.medium(),
+              const VerticalSpacing.large(),
               Text(
                 "TitleWordInDictionaryWelcomeBox".i18n,
                 style: context.theme.textTheme.titleMedium,
