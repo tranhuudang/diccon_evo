@@ -56,7 +56,7 @@ GoRouter routerConfig = GoRouter(
             name: RouterConstants.infos,
             path: 'infos',
             pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const InfosView()));
+              return MaterialPage(child: I18n(child: const InfoView()));
             },
           ),
           GoRoute(

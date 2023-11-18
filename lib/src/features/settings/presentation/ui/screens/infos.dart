@@ -4,16 +4,14 @@ import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 
-import 'licenses.dart';
-
-class InfosView extends StatefulWidget {
-  const InfosView({super.key});
+class InfoView extends StatefulWidget {
+  const InfoView({super.key});
 
   @override
-  State<InfosView> createState() => _InfosViewState();
+  State<InfoView> createState() => _InfoViewState();
 }
 
-class _InfosViewState extends State<InfosView> {
+class _InfoViewState extends State<InfoView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

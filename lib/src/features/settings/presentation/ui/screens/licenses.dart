@@ -1,12 +1,8 @@
 import 'package:diccon_evo/src/common/constants/licences.dart';
-import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
-
 import 'license_reading.dart';
-import 'licenses.dart';
 
 class LicensesView extends StatefulWidget {
   const LicensesView({super.key});
