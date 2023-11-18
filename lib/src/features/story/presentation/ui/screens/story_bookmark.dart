@@ -165,8 +165,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                           ),
                           Text(
                             "TitleBookmarkEmptyBox".i18n,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                            style: context.theme.textTheme.titleMedium,
                           ),
                           const VerticalSpacing.medium(),
                           Opacity(
@@ -176,7 +175,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                               child: Text(
                                 textAlign: TextAlign.center,
                                 "SubSentenceInBookmarkEmptyList".i18n,
-                                style: const TextStyle(fontSize: 18),
+                                style: context.theme.textTheme.bodyMedium,
                               ),
                             ),
                           ),

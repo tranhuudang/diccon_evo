@@ -93,8 +93,7 @@ dependencies:
   metaballs: ^1.5.0
   # handle external variable - key
   envied: ^0.5.1
-  # animation
-  animations: ^2.0.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -103,6 +102,8 @@ dev_dependencies:
   freezed: ^2.4.5
   json_serializable: ^6.7.1
   envied_generator: ^0.5.1
+  # use to gather licenses
+  flutter_oss_licenses: ^2.0.1
 
 # The following section is specific to Flutter packages.
 flutter:

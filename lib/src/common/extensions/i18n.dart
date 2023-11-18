@@ -455,6 +455,13 @@ extension Localization on String {
       "en_us": "Maximum Choices Reached",
       "vi_vi": "Giới hạn 7 sự lựa chọn"
     },
+    "Licenses": {"en_us": "Licenses", "vi_vi": "Giấy phép"},
+    "DescriptionTextForLicenses": {
+      "en_us":
+          "Our app utilizes various open-source libraries. Here, you can view the licenses and attributions for the third-party software integrated into our product.",
+      "vi_vi":
+          "Ứng dụng của chúng tôi sử dụng nhiều thư viện mã nguồn mở. Tại đây, bạn có thể xem các giấy phép và sự ghi nhận cho phần mềm của bên thứ ba được tích hợp vào sản phẩm của chúng tôi."
+    },
     "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding":
         {
       "en_us":

@@ -44,15 +44,14 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                             ),
                             Text(
                               "History is empty".i18n,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
+                              style: context.theme.textTheme.titleMedium,
                             ),
                             const VerticalSpacing.medium(),
                             Opacity(
                               opacity: 0.5,
                               child: Text(
                                 "SubSentenceInWordHistory".i18n,
-                                style: const TextStyle(fontSize: 18),
+                                style: context.theme.textTheme.bodyMedium,
                               ),
                             ),
                           ],

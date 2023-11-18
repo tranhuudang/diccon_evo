@@ -24,6 +24,7 @@ class ConversationWelcome extends StatelessWidget {
                   height: 180,
                 ),
               ),
+              const VerticalSpacing.large(),
               Text(
                 "Enhance your communication skills with our advanced bot.".i18n,
                 style: context.theme.textTheme.titleMedium,

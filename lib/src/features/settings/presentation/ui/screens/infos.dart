@@ -3,6 +3,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
+import 'licenses.dart';
+
 class InfosView extends StatefulWidget {
   const InfosView({super.key});
 
@@ -47,32 +50,29 @@ class _InfosViewState extends State<InfosView> {
             Column(
               children: [
                 const Image(
-                  image: AssetImage("assets/diccon-256.png"),
+                  image: AssetImage(LocalDirectory.dicconLogo256),
                   height: 90,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text(
-                    "Diccon Dictionary",
-                    style: context.theme.textTheme.titleLarge?.copyWith(
-                        color: context.theme.colorScheme.onSurface,
-                        fontWeight: FontWeight.bold),
-                  ),
+                const VerticalSpacing.medium(),
+                Text(
+                  "Diccon Dictionary",
+                  style: context.theme.textTheme.titleLarge?.copyWith(
+                      color: context.theme.colorScheme.onSurface,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: OutlinedButton(
-                onPressed: () {
-                  context.pushNamed(RouterConstants.releaseNotes);
-                },
-                child: Text(
-                  "v${DefaultSettings.version}",
-                  style: context.theme.textTheme.titleSmall,
-                ),
+            const VerticalSpacing.medium(),
+            FilledButton.tonal(
+              onPressed: () {
+                context.pushNamed(RouterConstants.releaseNotes);
+              },
+              child: Text(
+                "v${DefaultSettings.version}",
+                style: context.theme.textTheme.titleSmall,
               ),
             ),
+            const VerticalSpacing.medium(),
             Row(
               children: [
                 Text(
@@ -80,7 +80,7 @@ class _InfosViewState extends State<InfosView> {
                   style: context.theme.textTheme.bodyMedium?.copyWith(
                       color: context.theme.colorScheme.onSurfaceVariant),
                 ),
-                const SizedBox(width: 5),
+                const HorizontalSpacing.small(),
                 Text(
                   "All rights reserved.".i18n,
                   style: context.theme.textTheme.bodyMedium?.copyWith(
@@ -91,25 +91,37 @@ class _InfosViewState extends State<InfosView> {
           ],
         ),
         Section(
+          title: 'Licenses'.i18n,
+          children: [
+            Text(
+              "DescriptionTextForLicenses".i18n,
+              style: context.theme.textTheme.bodyMedium
+                  ?.copyWith(color: context.theme.colorScheme.onSurface),
+            ),
+            const VerticalSpacing.medium(),
+            FilledButton.tonal(
+                onPressed: () {
+                  context.pushNamed(RouterConstants.licenses);
+                },
+                child: Text("Licenses".i18n)),
+          ],
+        ),
+        Section(
           title: "Privacy Policy".i18n,
           children: [
             Text(
               "DesciptionTextForPrivacyPolicy".i18n,
-              style: context.theme
-                  .textTheme
-                  .bodyMedium
+              style: context.theme.textTheme.bodyMedium
                   ?.copyWith(color: context.theme.colorScheme.onSurface),
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            const VerticalSpacing.small(),
             Column(
               children: [
                 Text(
                   "For more information about our privacy policy, please visit:"
                       .i18n,
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                      color: context.theme.colorScheme.onSurface),
+                  style: context.theme.textTheme.bodyMedium
+                      ?.copyWith(color: context.theme.colorScheme.onSurface),
                 ),
                 const VerticalSpacing.medium(),
                 FilledButton.tonal(

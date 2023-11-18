@@ -154,15 +154,13 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                           ),
                           Text(
                             "History is empty".i18n,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          ),
+                            style: context.theme.textTheme.titleMedium),
                           const VerticalSpacing.medium(),
                           Opacity(
                             opacity: 0.5,
                             child: Text(
                               "SubSentenceInStoryHistory".i18n,
-                              style: const TextStyle(fontSize: 18),
+                              style: context.theme.textTheme.bodyMedium,
                             ),
                           ),
                         ],

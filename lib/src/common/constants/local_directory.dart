@@ -5,6 +5,7 @@ class LocalDirectory {
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
   static const String suggestionListPath = 'assets/dictionary/109k.txt';
+  static const String dicconLogo256 = 'assets/diccon-256.png';
 
   // illustrations
   static const List<String> illustrations = [

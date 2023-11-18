@@ -15,4 +15,6 @@ class RouterConstants{
   static const String essential1848 ="essential-1848";
   static const String learningFlashCard ="learning-flash-card";
   static const String learningFavourite ="learning-favourite";
+  static const String licenses ="licenses";
+  static const String licenseReading ="licenseReading";
 }

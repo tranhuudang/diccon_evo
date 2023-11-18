@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/features/settings/presentation/ui/screens/licenses.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/features/features.dart';
@@ -56,6 +57,13 @@ GoRouter routerConfig = GoRouter(
             path: 'infos',
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const InfosView()));
+            },
+          ),
+          GoRoute(
+            name: RouterConstants.licenses,
+            path: 'licenses',
+            pageBuilder: (context, state) {
+              return MaterialPage(child: I18n(child: const LicensesView()));
             },
           ),
         ]),
