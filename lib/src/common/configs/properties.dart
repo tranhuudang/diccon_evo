@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
 class Properties {
@@ -20,50 +19,43 @@ class Properties {
     settings = newSettings;
   }
 
-  Settings settings = Settings(
-    dictionaryResponseType: DictionaryResponseType.short.title(),
-    translationChoice: TranslationChoices.translate.title(),
-    numberOfSynonyms: 10,
-    numberOfAntonyms: 10,
-    readingFontSize: 16,
-    numberOfEssentialLeft: 1848,
-    language: 'System default',
-    dictionaryResponseSelectedListVietnamese: 'Phiên âm, Định nghĩa, Ví dụ',
-    dictionaryResponseSelectedListEnglish: 'Pronunciation, Definition, Example',
-    readingFontSizeSliderValue: 0.2,
-    windowsWidth: 400,
-    windowsHeight: 700,
-    themeMode: 'ThemeMode.system',
-    openAppCount: 0,
-    themeColor: Colors.blue.value,
-    enableAdaptiveTheme: true,
-    translationLanguageTarget: 'autoDetect',
-  );
+  Settings settings = DefaultSettings.settings;
 
   Future<void> _saveSettings(Settings newSetting) async {
     var prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('readingFontSize', newSetting.readingFontSize);
-    await prefs.setString(
-        'dictionaryResponseType', newSetting.dictionaryResponseType);
-    await prefs.setString('translationChoice', newSetting.translationChoice);
     await prefs.setDouble(
-        'readingFontSizeSliderValue', newSetting.readingFontSizeSliderValue);
-    await prefs.setInt('numberOfSynonyms', newSetting.numberOfSynonyms);
-    await prefs.setInt('numberOfAntonyms', newSetting.numberOfAntonyms);
-    await prefs.setInt('openAppCount', newSetting.openAppCount);
-    await prefs.setString('language', newSetting.language);
+        SharedPreferencesKey.readingFontSize, newSetting.readingFontSize);
+    await prefs.setString(SharedPreferencesKey.dictionaryResponseType,
+        newSetting.dictionaryResponseType);
     await prefs.setString(
-        'translationLanguageTarget', newSetting.translationLanguageTarget);
-    await prefs.setString('dictionaryResponseSelectedListEnglish',
+        SharedPreferencesKey.translationChoice, newSetting.translationChoice);
+    await prefs.setDouble(SharedPreferencesKey.readingFontSizeSliderValue,
+        newSetting.readingFontSizeSliderValue);
+    await prefs.setInt(
+        SharedPreferencesKey.numberOfSynonyms, newSetting.numberOfSynonyms);
+    await prefs.setInt(
+        SharedPreferencesKey.numberOfAntonyms, newSetting.numberOfAntonyms);
+    await prefs.setInt(
+        SharedPreferencesKey.openAppCount, newSetting.openAppCount);
+    await prefs.setString(SharedPreferencesKey.language, newSetting.language);
+    await prefs.setString(SharedPreferencesKey.translationLanguageTarget,
+        newSetting.translationLanguageTarget);
+    await prefs.setString(
+        SharedPreferencesKey.dictionaryResponseSelectedListEnglish,
         newSetting.dictionaryResponseSelectedListEnglish);
-    await prefs.setString('dictionaryResponseSelectedListVietnamese',
+    await prefs.setString(
+        SharedPreferencesKey.dictionaryResponseSelectedListVietnamese,
         newSetting.dictionaryResponseSelectedListVietnamese);
-    await prefs.setInt('essentialLeft', newSetting.numberOfEssentialLeft);
-    await prefs.setDouble('widthOfWindowSize', newSetting.windowsWidth);
-    await prefs.setDouble('heightOfWindowSize', newSetting.windowsHeight);
-    await prefs.setString('themeMode', newSetting.themeMode);
-    await prefs.setInt('themeColor', newSetting.themeColor);
-    await prefs.setBool('enableAdaptiveTheme', newSetting.enableAdaptiveTheme);
+    await prefs.setInt(
+        SharedPreferencesKey.essentialLeft, newSetting.numberOfEssentialLeft);
+    await prefs.setDouble(
+        SharedPreferencesKey.widthOfWindowSize, newSetting.windowsWidth);
+    await prefs.setDouble(
+        SharedPreferencesKey.heightOfWindowSize, newSetting.windowsHeight);
+    await prefs.setString(SharedPreferencesKey.themeMode, newSetting.themeMode);
+    await prefs.setInt(SharedPreferencesKey.themeColor, newSetting.themeColor);
+    await prefs.setBool(SharedPreferencesKey.enableAdaptiveTheme,
+        newSetting.enableAdaptiveTheme);
     if (kDebugMode) {
       print("Setting saved");
     }
@@ -74,40 +66,47 @@ class Properties {
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
     var savedSetting = settings.copyWith(
-      readingFontSize:
-          prefs.getDouble('readingFontSize') ?? settings.readingFontSize,
-      translationChoice: prefs.getString('translationChoice') ??
-          settings.translationChoice,
-      openAppCount:
-          prefs.getInt("openAppCount") ?? settings.openAppCount,
-      dictionaryResponseType: prefs.getString('dictionaryResponseType') ??
-          settings.dictionaryResponseType,
-      translationLanguageTarget: prefs.getString('translationLanguageTarget') ??
-          settings.translationLanguageTarget,
+      readingFontSize: prefs.getDouble(SharedPreferencesKey.readingFontSize) ??
+          settings.readingFontSize,
+      translationChoice:
+          prefs.getString(SharedPreferencesKey.translationChoice) ??
+              settings.translationChoice,
+      openAppCount: prefs.getInt(SharedPreferencesKey.openAppCount) ??
+          settings.openAppCount,
+      dictionaryResponseType:
+          prefs.getString(SharedPreferencesKey.dictionaryResponseType) ??
+              settings.dictionaryResponseType,
+      translationLanguageTarget:
+          prefs.getString(SharedPreferencesKey.translationLanguageTarget) ??
+              settings.translationLanguageTarget,
       readingFontSizeSliderValue:
-          prefs.getDouble('readingFontSizeSliderValue') ??
+          prefs.getDouble(SharedPreferencesKey.readingFontSizeSliderValue) ??
               settings.readingFontSizeSliderValue,
-      numberOfSynonyms:
-          prefs.getInt('numberOfSynonyms') ?? settings.numberOfSynonyms,
-      numberOfAntonyms:
-          prefs.getInt('numberOfAntonyms') ?? settings.numberOfAntonyms,
-      language: prefs.getString('language') ?? settings.language,
-      dictionaryResponseSelectedListVietnamese:
-          prefs.getString('dictionaryResponseSelectedListVietnamese') ??
-              settings.dictionaryResponseSelectedListVietnamese,
-      dictionaryResponseSelectedListEnglish:
-          prefs.getString('dictionaryResponseSelectedListEnglish') ??
-              settings.dictionaryResponseSelectedListEnglish,
-      numberOfEssentialLeft: prefs.getInt('essentialLeft') ??
+      numberOfSynonyms: prefs.getInt(SharedPreferencesKey.numberOfSynonyms) ??
+          settings.numberOfSynonyms,
+      numberOfAntonyms: prefs.getInt(SharedPreferencesKey.numberOfAntonyms) ??
+          settings.numberOfAntonyms,
+      language:
+          prefs.getString(SharedPreferencesKey.language) ?? settings.language,
+      dictionaryResponseSelectedListVietnamese: prefs.getString(
+              SharedPreferencesKey.dictionaryResponseSelectedListVietnamese) ??
+          settings.dictionaryResponseSelectedListVietnamese,
+      dictionaryResponseSelectedListEnglish: prefs.getString(
+              SharedPreferencesKey.dictionaryResponseSelectedListEnglish) ??
+          settings.dictionaryResponseSelectedListEnglish,
+      numberOfEssentialLeft: prefs.getInt(SharedPreferencesKey.essentialLeft) ??
           settings.numberOfEssentialLeft,
-      windowsWidth:
-          prefs.getDouble("widthOfWindowSize") ?? settings.windowsWidth,
-      windowsHeight: prefs.getDouble("heightOfWindowSize") ??
+      windowsWidth: prefs.getDouble(SharedPreferencesKey.widthOfWindowSize) ??
+          settings.windowsWidth,
+      windowsHeight: prefs.getDouble(SharedPreferencesKey.heightOfWindowSize) ??
           settings.windowsHeight,
-      themeMode: prefs.getString("themeMode") ?? settings.themeMode,
-      themeColor: prefs.getInt("themeColor") ?? settings.themeColor,
-      enableAdaptiveTheme: prefs.getBool("enableAdaptiveTheme") ??
-          settings.enableAdaptiveTheme,
+      themeMode:
+          prefs.getString(SharedPreferencesKey.themeMode) ?? settings.themeMode,
+      themeColor:
+          prefs.getInt(SharedPreferencesKey.themeColor) ?? settings.themeColor,
+      enableAdaptiveTheme:
+          prefs.getBool(SharedPreferencesKey.enableAdaptiveTheme) ??
+              settings.enableAdaptiveTheme,
     );
     if (kDebugMode) {
       print("New setting is saved with these bellow customs:");

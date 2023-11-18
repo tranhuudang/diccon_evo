@@ -39,9 +39,9 @@ void main() async {
     Size savedWindowsSize = Size(Properties.instance.settings.windowsWidth,
         Properties.instance.settings.windowsHeight);
     WindowManager.instance.setSize(savedWindowsSize);
-    WindowManager.instance.setMinimumSize(Constants.minWindowsSize);
-    WindowManager.instance.setMaximumSize(Constants.maxWindowsSize);
-    WindowManager.instance.setTitle(Constants.diccon);
+    WindowManager.instance.setMinimumSize(DefaultSettings.minWindowsSize);
+    WindowManager.instance.setMaximumSize(DefaultSettings.maxWindowsSize);
+    WindowManager.instance.setTitle(DefaultSettings.appName);
   }
   databaseFactory = databaseFactoryFfi;
   runApp(const App());

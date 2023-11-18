@@ -15,7 +15,7 @@ class EssentialWordRepositoryImpl implements EssentialWordRepository {
   @override
   Future<List<EssentialWord>> loadEssentialData(String topic) async {
     final jsonString =
-        await rootBundle.loadString(Constants.essentialWordFileName);
+        await rootBundle.loadString(LocalDirectory.essentialWordFileName);
     final jsonData = json.decode(jsonString);
     List<EssentialWord> essentialWords = [];
 
@@ -28,7 +28,7 @@ class EssentialWordRepositoryImpl implements EssentialWordRepository {
   @override
   Future<List<EssentialWord>> readFavouriteEssential() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.essentialFavouriteFileName);
+        LocalDirectory.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -57,7 +57,7 @@ class EssentialWordRepositoryImpl implements EssentialWordRepository {
   @override
   Future<bool> saveEssentialWordToFavourite(EssentialWord word) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.essentialFavouriteFileName);
+        LocalDirectory.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -100,7 +100,7 @@ class EssentialWordRepositoryImpl implements EssentialWordRepository {
   @override
   Future<void> removeEssentialWordOutOfFavourite(EssentialWord word) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.essentialFavouriteFileName);
+        LocalDirectory.essentialFavouriteFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {

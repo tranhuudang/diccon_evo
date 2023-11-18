@@ -24,7 +24,7 @@ class SoundHandler {
     String firstLetter = providedWordToPlay.getFirstLetter().toUpperCase();
     String word = providedWordToPlay.upperCaseFirstLetter();
     String url =
-        "https://github.com/zeroclubvn/US-Pronunciation/raw/main/$firstLetter/us/$word.mp3";
+        "${OnlineDirectory.audioURL}+$firstLetter/us/$word.mp3";
     return url;
   }
 

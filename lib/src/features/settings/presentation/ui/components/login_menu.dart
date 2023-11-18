@@ -35,7 +35,7 @@ class LoginMenu extends StatelessWidget {
             ),
             onTap: () async {
               final Uri url = Uri.parse(
-                  Constants.privacyPolicyURL);
+                  OnlineDirectory.privacyPolicyURL);
               if (!await launchUrl(url,
                   mode: LaunchMode.externalApplication)) {
                 throw Exception('Could not launch $url');

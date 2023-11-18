@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,7 +7,7 @@ class ImageHandler {
   Future<String> getImageFromPixabay(String word) async {
     try {
       final response = await http.get(Uri.parse(
-          'https://pixabay.com/api/?key=25829393-af32bf17ec8386b5941fb5f8f&q=$word&image_type=photo'));
+          '${ApiEndpoints.pixabayURL}?key=25829393-af32bf17ec8386b5941fb5f8f&q=$word&image_type=photo'));
       if (response.statusCode == 200) {
         // If the server returns a 200 OK response, parse the JSON
         var jsonData = json.decode(response.body);

@@ -37,7 +37,7 @@ class StoryRepositoryImpl implements StoryRepository{
   Future<List<Story>> getOnlineStoryList() async {
     try {
       String filePath = await DirectoryHandler.getLocalUserDataFilePath(
-          Constants.extendStoryFileName);
+          LocalDirectory.extendStoryFileName);
       File file = File(filePath);
       if (!file.existsSync()) {
         if (kDebugMode) {
@@ -98,7 +98,7 @@ class StoryRepositoryImpl implements StoryRepository{
   @override
   Future<List<Story>> readStoryHistory() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.storyHistoryFileName);
+        LocalDirectory.storyHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -125,7 +125,7 @@ class StoryRepositoryImpl implements StoryRepository{
   @override
   Future<List<Story>> readStoryBookmark() async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.storyBookmarkFileName);
+        LocalDirectory.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -152,7 +152,7 @@ class StoryRepositoryImpl implements StoryRepository{
   @override
   Future<bool> saveReadStoryToHistory(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.storyHistoryFileName);
+        LocalDirectory.storyHistoryFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -188,7 +188,7 @@ class StoryRepositoryImpl implements StoryRepository{
   @override
   Future<bool> saveReadStoryToBookmark(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.storyBookmarkFileName);
+        LocalDirectory.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -220,7 +220,7 @@ class StoryRepositoryImpl implements StoryRepository{
   @override
   Future<bool> removeAStoryInBookmark(Story story) async {
     final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        Constants.storyBookmarkFileName);
+        LocalDirectory.storyBookmarkFileName);
     try {
       final file = File(filePath);
       if (await file.exists()) {
@@ -235,7 +235,7 @@ class StoryRepositoryImpl implements StoryRepository{
             final encoded = jsonEncode(json);
             await file.writeAsString(encoded);
             if (kDebugMode) {
-              print("Remove a story out of ${Constants.storyBookmarkFileName}");
+              print("Remove a story out of ${LocalDirectory.storyBookmarkFileName}");
             }
         }
       }
@@ -244,7 +244,7 @@ class StoryRepositoryImpl implements StoryRepository{
     } catch (e) {
       if (kDebugMode) {
         print(
-            "Can't remove to story ${Constants.storyBookmarkFileName}. Error detail: $e");
+            "Can't remove to story ${LocalDirectory.storyBookmarkFileName}. Error detail: $e");
       }
       return false;
     }
@@ -252,13 +252,13 @@ class StoryRepositoryImpl implements StoryRepository{
 
   @override
   Future<bool> deleteAllStoryHistory() async {
-    return await FileHandler(Constants.storyHistoryFileName)
+    return await FileHandler(LocalDirectory.storyHistoryFileName)
         .deleteOnUserData();
   }
 
   @override
   Future<bool> deleteAllStoryBookmark() async {
-    return await FileHandler(Constants.storyBookmarkFileName)
+    return await FileHandler(LocalDirectory.storyBookmarkFileName)
         .deleteOnUserData();
   }
 }

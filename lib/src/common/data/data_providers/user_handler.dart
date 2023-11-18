@@ -56,8 +56,8 @@ class UserHandler {
           jsonDecode(File(file.path).readAsStringSync());
 
       /// Syncing story history and bookmark
-      if (ref.name == Constants.storyHistoryFileName ||
-          ref.name == Constants.storyBookmarkFileName) {
+      if (ref.name == LocalDirectory.storyHistoryFileName ||
+          ref.name == LocalDirectory.storyBookmarkFileName) {
         for (var story in cloudJsonFile) {
           bool isArticleExist = localJsonFile
               .any((storyInLocal) => storyInLocal['title'] == story["title"]);
@@ -71,7 +71,7 @@ class UserHandler {
         }
 
         /// Syncing word history in dictionary
-        if (ref.name == Constants.wordHistoryFileName) {
+        if (ref.name == LocalDirectory.wordHistoryFileName) {
           for (var word in cloudJsonFile) {
             bool isWordExist = localJsonFile
                 .any((storyInLocal) => storyInLocal['word'] == word["word"]);
@@ -86,7 +86,7 @@ class UserHandler {
         }
 
         /// Syncing topic history in 1848 essential
-        if (ref.name == Constants.topicHistoryFileName) {
+        if (ref.name == LocalDirectory.topicHistoryFileName) {
           for (var topic in cloudJsonFile) {
             bool isTopicExist =
                 localJsonFile.any((topicInLocal) => topicInLocal == topic);
@@ -101,7 +101,7 @@ class UserHandler {
         }
 
         /// Syncing word history in dictionary
-        if (ref.name == Constants.essentialFavouriteFileName) {
+        if (ref.name == LocalDirectory.essentialFavouriteFileName) {
           for (var word in cloudJsonFile) {
             bool isWordExist = localJsonFile.any(
                 (storyInLocal) => storyInLocal['english'] == word["english"]);
