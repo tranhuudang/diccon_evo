@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
 class StoryListBookmarkView extends StatefulWidget {
   const StoryListBookmarkView({super.key});
 
@@ -28,7 +29,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
               current is StoryBookmarkActionState,
           builder: (context, state) {
             switch (state.runtimeType) {
-              case StoryBookmarkUpdated :
+              case StoryBookmarkUpdated:
                 var data = state as StoryBookmarkUpdated;
                 return Stack(
                   children: [
@@ -91,8 +92,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             icon: const Icon(Icons.sort_by_alpha)),
                         PopupMenuButton(
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: context.theme.dividerColor),
+                            side: BorderSide(color: context.theme.dividerColor),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
                           itemBuilder: (context) => [
@@ -143,16 +143,22 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                     ),
                   ],
                 );
-              case StoryBookmarkEmptyState :
+              case StoryBookmarkEmptyState:
                 return Stack(
                   children: [
                     Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Image(
-                            image: AssetImage('assets/stickers/bookmark.png'),
-                            height: 200,
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                                context.theme.colorScheme.primary,
+                                BlendMode.srcIn),
+                            child: Image(
+                              image: AssetImage(
+                                  LocalDirectory.getRandomIllustrationImage()),
+                              height: 200,
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
@@ -182,7 +188,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                     ),
                   ],
                 );
-              case StoryBookmarkErrorState :
+              case StoryBookmarkErrorState:
                 return Stack(
                   children: [
                     Center(

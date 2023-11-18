@@ -20,9 +20,9 @@ class SeekFeedback {
               height: 320,
               child: Column(
                 children: [
-                  const Expanded(
+                   Expanded(
                     child: Image(
-                      image: AssetImage("assets/stickers/geography.png"),
+                      image: AssetImage(LocalDirectory.getRandomIllustrationImage()),
                     ),
                   ),
                   Center(

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/features/features.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
+
 class StoryListHistoryView extends StatefulWidget {
   const StoryListHistoryView({super.key});
 
@@ -25,7 +26,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
           listenWhen: (previous, current) => current is StoryHistoryActionState,
           builder: (context, state) {
             switch (state.runtimeType) {
-              case StoryHistoryUpdated :
+              case StoryHistoryUpdated:
                 var data = state as StoryHistoryUpdated;
                 return Stack(
                   children: [
@@ -80,8 +81,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                         PopupMenuButton(
                           //splashRadius: 10.0,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: context.theme.dividerColor),
+                            side: BorderSide(color: context.theme.dividerColor),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
                           itemBuilder: (context) => [
@@ -132,16 +132,22 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                     ),
                   ],
                 );
-              case StoryHistoryEmptyState :
+              case StoryHistoryEmptyState:
                 return Stack(
                   children: [
                     Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Image(
-                            image: AssetImage('assets/stickers/history.png'),
-                            height: 200,
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                                context.theme.colorScheme.primary,
+                                BlendMode.srcIn),
+                            child: Image(
+                              image: AssetImage(
+                                  LocalDirectory.getRandomIllustrationImage()),
+                              height: 200,
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
@@ -167,7 +173,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                     ),
                   ],
                 );
-              case StoryHistoryErrorState :
+              case StoryHistoryErrorState:
                 return Stack(
                   children: [
                     Center(

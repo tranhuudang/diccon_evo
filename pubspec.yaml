@@ -115,10 +115,10 @@ flutter:
     - assets/badges/
     - assets/essential/
     - assets/stories/
-    - assets/stickers/
     - assets/theme/
     - assets/conversation_support/
-    - assets/stickers/listening.png
+    - assets/illustrations/
+    - assets/fonts/
 msix_config:
   display_name: Diccon Evo
   publisher_display_name: Zeroboy

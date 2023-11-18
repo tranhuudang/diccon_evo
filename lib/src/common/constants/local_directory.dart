@@ -1,7 +1,34 @@
+import 'dart:math';
+
 class LocalDirectory {
+  // data
   static const String enSynonymsPath = 'assets/thesaurus/english_synonyms.json';
   static const String enAntonymsPath = 'assets/thesaurus/english_antonyms.json';
   static const String suggestionListPath = 'assets/dictionary/109k.txt';
+
+  // illustrations
+  static const List<String> illustrations = [
+    'assets/illustrations/absurd.design - Chapter 1 - 01.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 02.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 03.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 04.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 05.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 06.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 07.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 08.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 09.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 10.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 11.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 31.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 32.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 33.png',
+    'assets/illustrations/absurd.design - Chapter 1 - 34.png',
+  ];
+  static String getRandomIllustrationImage() {
+    int randomIndex = Random().nextInt(illustrations.length);
+    return illustrations[randomIndex];
+  }
+  //
   static const String essentialWordFileName =
       "assets/essential/3000_essential_words.json";
   static const String wordHistoryFileName = 'dictionary_history.json';

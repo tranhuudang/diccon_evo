@@ -146,7 +146,7 @@ class StoryListView extends StatelessWidget {
           bloc: storyListBloc,
           builder: (context, state) {
             switch (state.runtimeType) {
-              case StoryListUpdatedState :
+              case StoryListUpdatedState:
                 var data = state as StoryListUpdatedState;
                 return Column(
                   children: [
@@ -195,7 +195,7 @@ class StoryListView extends StatelessWidget {
                     )
                   ],
                 );
-              case StoryListErrorState :
+              case StoryListErrorState:
                 return Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -203,9 +203,14 @@ class StoryListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const VerticalSpacing.medium(),
-                      const Image(
-                        image: AssetImage('assets/stickers/error.png'),
-                        width: 200,
+                      ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                            context.theme.colorScheme.primary, BlendMode.srcIn),
+                        child: Image(
+                          image: AssetImage(
+                              LocalDirectory.getRandomIllustrationImage()),
+                          width: 200,
+                        ),
                       ),
                       const VerticalSpacing.medium(),
                       Text(
@@ -267,9 +272,7 @@ class StoryListView extends StatelessWidget {
         builder: (story) => ListTile(
           title: Text(story.title),
           titleTextStyle: context.theme.textTheme.titleMedium,
-          subtitle: Opacity(
-              opacity: .5,
-              child: Text(story.shortDescription)),
+          subtitle: Opacity(opacity: .5, child: Text(story.shortDescription)),
           subtitleTextStyle: context.theme.textTheme.bodyMedium,
           onTap: () {
             context.pushNamed(RouterConstants.readingSpace, extra: story);

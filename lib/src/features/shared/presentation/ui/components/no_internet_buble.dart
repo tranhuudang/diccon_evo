@@ -32,12 +32,12 @@ class NoInternetBubble extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image(
                         height: 200,
-                        image: AssetImage("assets/stickers/disconnect.png"),
+                        image: AssetImage(LocalDirectory.getRandomIllustrationImage()),
                       ),
                     ],
                   ),

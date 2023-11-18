@@ -30,9 +30,14 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Image(
-                              image: AssetImage('assets/stickers/history.png'),
-                              height: 200,
+                            ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                  context.theme.colorScheme.primary,
+                                  BlendMode.srcIn),
+                              child:  Image(
+                                image: AssetImage(LocalDirectory.getRandomIllustrationImage()),
+                                height: 200,
+                              ),
                             ),
                             const SizedBox(
                               height: 8,

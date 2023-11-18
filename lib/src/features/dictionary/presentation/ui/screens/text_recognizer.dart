@@ -39,9 +39,15 @@ class TextRecognizerView extends StatelessWidget {
                           width: 400,
                           child: Image.file(File(state.params.filePath)),
                         )
-                      : const Image(
-                          image: AssetImage('assets/stickers/learn.png'),
-                          height: 200,
+                      : ColorFiltered(
+                          colorFilter: ColorFilter.mode(
+                              context.theme.colorScheme.primary,
+                              BlendMode.srcIn),
+                          child: Image(
+                            image: AssetImage(
+                                LocalDirectory.getRandomIllustrationImage()),
+                            height: 200,
+                          ),
                         ),
 
                   /// Take picture button and gallery

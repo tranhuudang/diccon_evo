@@ -15,9 +15,14 @@ class DictionaryWelcome extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
-              const Image(
-                image: AssetImage('assets/stickers/book.png'),
-                height: 180,
+              ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                    context.theme.colorScheme.primary,
+                    BlendMode.srcIn),
+                child: Image(
+                  image: AssetImage(LocalDirectory.getRandomIllustrationImage()),
+                  height: 180,
+                ),
               ),
               const VerticalSpacing.medium(),
               Text(
