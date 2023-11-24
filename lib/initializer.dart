@@ -1,9 +1,9 @@
 part of 'main.dart';
 
 class _Initializer {
-  static Future<void> load({FirebaseOptions? firebaseOptions}) async {
+  static Future<void> start() async {
     // core
-    await _initialFirebase(firebaseOptions);
+    await _initialFirebase();
     await _appCheckActivate();
 
     // ui
@@ -30,10 +30,15 @@ class _Initializer {
     databaseFactory = databaseFactoryFfi;
   }
 
-  static Future<void> _initialFirebase(FirebaseOptions? firebaseOptions) async {
+  static Future<void> _initialFirebase() async {
     if (Platform.isAndroid) {
       await Firebase.initializeApp(
-        options: firebaseOptions,
+        options: DefaultFirebaseOptions.android,
+      );
+    }
+    if (Platform.isIOS) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.ios,
       );
     }
   }
@@ -43,6 +48,9 @@ class _Initializer {
       await FirebaseAppCheck.instance.activate(
         androidProvider: AndroidProvider.debug,
       );
+    }
+    if (Platform.isIOS){
+       // Currently not implement 
     }
   }
 }

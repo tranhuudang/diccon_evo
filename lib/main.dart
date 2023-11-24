@@ -13,7 +13,7 @@ part 'initializer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _Initializer.load(firebaseOptions: DefaultFirebaseOptions.currentPlatform);
+  await _Initializer.start();
   runApp(
     const BlocProviderScope(
         child: App(),
