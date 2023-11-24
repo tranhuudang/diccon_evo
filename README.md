@@ -41,7 +41,7 @@ Run the following command to build project:
 flutter run
 ```
 ## Support
-You can support us by downloading the application & leave us feedback. Optionally, you can purchase add-ons in Spooky to try different features as well as support us.
+You can support us by downloading the application & leave us feedback.
 
 ## License
 Spooky is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
