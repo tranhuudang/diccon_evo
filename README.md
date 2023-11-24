@@ -44,4 +44,4 @@ flutter run
 You can support us by downloading the application & leave us feedback.
 
 ## License
-Spooky is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+Diccon is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
