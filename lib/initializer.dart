@@ -25,9 +25,9 @@ class _Initializer {
       WindowManager.instance.setTitle(DefaultSettings.appName);
     }
     // database
+    databaseFactory = databaseFactoryFfi;
     await EnglishToVietnameseDictionaryDatabase.initialize();
     await VietnameseToEnglishDictionaryDatabase.initialize();
-    databaseFactory = databaseFactoryFfi;
   }
 
   static Future<void> _initialFirebase() async {

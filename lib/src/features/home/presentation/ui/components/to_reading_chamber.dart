@@ -73,8 +73,8 @@ class ToReadingChamberButton extends StatelessWidget {
                 ],
               ),
             ),
-            if (Properties.instance.settings.themeMode.toThemeMode() ==
-                ThemeMode.dark)
+            if (Properties.instance.settings.themeMode.toThemeMode() !=
+                ThemeMode.light)
               Opacity(
                 opacity: .5,
                 child: WaveWidget(

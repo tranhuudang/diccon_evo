@@ -184,7 +184,7 @@ class _SettingsViewState extends State<SettingsView> {
             ),
             const WaveDivider(
               thickness: .3,
-              verticalPadding: 16,
+              padding: EdgeInsets.symmetric(vertical: 16),
             ),
             Column(
               //crossAxisAlignment: CrossAxisAlignment.start,
