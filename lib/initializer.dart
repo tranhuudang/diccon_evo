@@ -30,6 +30,7 @@ class _Initializer {
     await VietnameseToEnglishDictionaryDatabase.initialize();
   }
 
+  /// Initialize Firebase for specific platform
   static Future<void> _initialFirebase() async {
     if (Platform.isAndroid) {
       await Firebase.initializeApp(
@@ -39,6 +40,13 @@ class _Initializer {
     if (Platform.isIOS) {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.ios,
+      );
+    }
+    // Windows currently not supported, so we use Android options for windows as
+    // a temporary solution to get it working.
+    if (Platform.isWindows) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.android,
       );
     }
   }

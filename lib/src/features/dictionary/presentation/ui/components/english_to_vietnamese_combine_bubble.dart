@@ -107,6 +107,9 @@ class _EnglishToVietnameseCombineBubbleState extends State<EnglishToVietnameseCo
                       ),
                       if (defaultTargetPlatform.isDesktop())
                         PageViewNavigator(
+                            height: 158,
+                            backgroundColor: context.theme.colorScheme.onPrimary,
+
                             controller: listResponseController,
                             itemCount: listResponseOptions.length)
                     ],
