@@ -1,4 +1,5 @@
-import 'package:diccon_evo/src/common/common.dart';
+
+import '../../../core/core.dart';
 
 class ChatPreview{
   final DictionaryResponseType responseType;

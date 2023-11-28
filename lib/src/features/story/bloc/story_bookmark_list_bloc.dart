@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
+import '../../../core/core.dart';
+
 /// States
 abstract class StoryBookmarkState {}
 

@@ -1,6 +1,8 @@
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
+
 class DefaultSettings{
   static const String appName = "Diccon";
   static const int version = 520;

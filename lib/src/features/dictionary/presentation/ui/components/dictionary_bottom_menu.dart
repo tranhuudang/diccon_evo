@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wave_divider/wave_divider.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
+import '../../../../../core/core.dart';
+
 class DictionaryBottomMenu extends StatelessWidget {
   const DictionaryBottomMenu({
     super.key,

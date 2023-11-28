@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
+import '../../../core/core.dart';
+
 class SettingBlocParams {
   final ThemeMode themeMode;
   final Color accentColor;

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import '../../../common/domain/models/user_info/user_info.dart' as user_model;
+import '../../../common/domain/entities/user_info/user_info.dart' as user_model;
 import 'package:diccon_evo/src/common/common.dart';
 import '../../../common/data/services/auth_service.dart';
 

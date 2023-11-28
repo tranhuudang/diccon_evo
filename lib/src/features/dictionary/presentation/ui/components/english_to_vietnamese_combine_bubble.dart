@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/core.dart';
+
 class EnglishToVietnameseCombineBubble extends StatefulWidget {
   final Word wordObjectForLocal;
   final String wordForChatBot;

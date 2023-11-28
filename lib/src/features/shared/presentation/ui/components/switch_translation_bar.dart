@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/core.dart';
+
 class SwitchTranslationBar extends StatefulWidget {
   final Function(Set<StoryTranslationChoices> selectedItemSet) selectedItemSet;
   final StoryTranslationChoices? currentValue;

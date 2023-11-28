@@ -4,13 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:diccon_evo/src/common/common.dart';
 
-abstract class EssentialWordRepository {
-  Future<List<EssentialWord>> loadEssentialData(String topic);
-  Future<List<EssentialWord>> readFavouriteEssential();
-  Future<bool> saveEssentialWordToFavourite(EssentialWord word);
-  Future<void> removeEssentialWordOutOfFavourite(EssentialWord word);
-}
-
 class EssentialWordRepositoryImpl implements EssentialWordRepository {
   @override
   Future<List<EssentialWord>> loadEssentialData(String topic) async {

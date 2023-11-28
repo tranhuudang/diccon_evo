@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:diccon_evo/src/common/common.dart';
+
+import '../../core/core.dart';
 
 extension StringExtenstion on String {
   DictionaryResponseType toDictionaryResponseType() {

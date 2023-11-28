@@ -1,5 +1,7 @@
 import 'package:diccon_evo/src/common/common.dart';
 
+import '../../../core/core.dart';
+
 List<ChatPreview> listChatPreviewContent = [
   ChatPreview(
     responseType: DictionaryResponseType.shortWithOutPronunciation,

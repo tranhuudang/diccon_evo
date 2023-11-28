@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/common/common.dart';
 import 'package:wave_divider/wave_divider.dart';
 
+import '../../../../../core/core.dart';
+
 class DictionaryMenu extends StatefulWidget {
   const DictionaryMenu({super.key});
 
