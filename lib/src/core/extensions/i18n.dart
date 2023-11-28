@@ -114,8 +114,8 @@ extension Localization on String {
       "vi_vi": "Từ điển",
     },
     "Images": {
-      "en_us": "Images",
-      "vi_vi": "Hình ảnh",
+      "en_us": "Images (BETA)",
+      "vi_vi": "Hình ảnh (Thử nghiệm)",
     },
     "Antonyms": {
       "en_us": "Antonyms",
