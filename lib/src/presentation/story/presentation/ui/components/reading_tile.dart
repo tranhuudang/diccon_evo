@@ -3,7 +3,7 @@ import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
 
-class ReadingTile extends StatefulWidget {
+class ReadingTile extends StatelessWidget {
   final String? tag;
   final Story story;
   final VoidCallback onTap;
@@ -14,13 +14,7 @@ class ReadingTile extends StatefulWidget {
   });
 
   @override
-  State<ReadingTile> createState() => _ReadingTileState();
-}
-
-class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClientMixin{
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     final storyHistoryBloc = StoryHistoryBloc();
     TextTheme textTheme = context.theme.primaryTextTheme;
     return Card(
@@ -32,8 +26,8 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         onTap: (){
-          storyHistoryBloc.add(StoryHistoryAdd(story: widget.story));
-          widget.onTap();
+          storyHistoryBloc.add(StoryHistoryAdd(story: story));
+          onTap();
         },
         child: Container(
           padding: const EdgeInsets.all(8),
@@ -41,7 +35,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Hero(
-                tag: widget.tag ?? widget.story.title,
+                tag: tag ?? story.title,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
@@ -58,7 +52,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
                       //   backgroundColor: Colors.black45,
                       //   color: Colors.black54,
                       // ),
-                      imageUrl: widget.story.imageUrl ?? '',
+                      imageUrl: story.imageUrl ?? '',
                       height: 100.0,
                       width: 100.0,
                       fit: BoxFit.cover,
@@ -86,7 +80,7 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.story.title,
+                        story.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: textTheme.titleMedium?.copyWith(color: context.theme.colorScheme.onSurfaceVariant),
@@ -95,14 +89,14 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
                       Expanded(
                         child: Text(
                           maxLines: 2,
-                          widget.story.shortDescription,
+                          story.shortDescription,
                           textAlign: TextAlign.start,
                           style: textTheme.bodySmall?.copyWith(color: context.theme.colorScheme.onSurfaceVariant.withOpacity(.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       LevelIcon(
-                        level: widget.story.level ?? Level.intermediate.toLevelNameString(),
+                        level: story.level ?? Level.intermediate.toLevelNameString(),
                       ),
                     ],
                   ),
@@ -114,7 +108,4 @@ class _ReadingTileState extends State<ReadingTile> with AutomaticKeepAliveClient
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

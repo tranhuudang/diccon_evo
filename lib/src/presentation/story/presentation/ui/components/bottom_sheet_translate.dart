@@ -29,7 +29,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
   final _isLoadingStreamController = StreamController();
-  final _tabSwicherStreamController = StreamController<StoryTranslationChoices>();
+  final _tabSwitcherStreamController = StreamController<StoryTranslationChoices>();
   Word _wordResult = Word.empty();
   bool _isLoading = true;
   final _pageController = PageController();
@@ -128,7 +128,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   @override
   void dispose() {
     super.dispose();
-    _tabSwicherStreamController.close();
+    _tabSwitcherStreamController.close();
     _isLoadingStreamController.close();
     _chatStreamSubscription?.cancel();
   }
@@ -149,7 +149,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                 padding: const EdgeInsets.all(12.0),
                 child: StreamBuilder<StoryTranslationChoices>(
                   initialData: StoryTranslationChoices.translate,
-                  stream: _tabSwicherStreamController.stream,
+                  stream: _tabSwitcherStreamController.stream,
                   builder: (context, tabSwitcher) {
                     return Column(
                       children: [
@@ -157,7 +157,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           currentValue: tabSwitcher.data,
                           selectedItemSet:
                               (Set<StoryTranslationChoices> selectedItemSet) {
-                            _tabSwicherStreamController
+                            _tabSwitcherStreamController
                                 .add(selectedItemSet.first);
                             if (selectedItemSet.first ==
                                 StoryTranslationChoices.translate) {
@@ -177,11 +177,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           controller: _pageController,
                           onPageChanged: (index) {
                             if (index == 0) {
-                              _tabSwicherStreamController
+                              _tabSwitcherStreamController
                                   .add(StoryTranslationChoices.translate);
                             }
                             if (index == 1) {
-                              _tabSwicherStreamController
+                              _tabSwitcherStreamController
                                   .add(StoryTranslationChoices.explain);
                             }
                           },

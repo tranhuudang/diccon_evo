@@ -1,7 +1,7 @@
 ### Update licences file
 You might want to update licences file in `common/constant/licenses.dart` by the following command:
 ```bash
-flutter pub run flutter_oss_licenses:generate.dart -o %cd%/lib/src/common/constants/licences.dart
+flutter pub run flutter_oss_licenses:generate.dart -o %cd%/lib/src/core/constants/licences.dart
 ```
 ### Creating an MSIX Package for Windows
 

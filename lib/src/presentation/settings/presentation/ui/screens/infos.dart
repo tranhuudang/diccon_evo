@@ -3,14 +3,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 
-class InfoView extends StatefulWidget {
+class InfoView extends StatelessWidget {
   const InfoView({super.key});
 
-  @override
-  State<InfoView> createState() => _InfoViewState();
-}
-
-class _InfoViewState extends State<InfoView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,9 +16,9 @@ class _InfoViewState extends State<InfoView> {
             SingleChildScrollView(
               padding: const EdgeInsets.only(top: 60),
               child: Responsive(
-                smallSizeDevice: body(),
-                mediumSizeDevice: body(),
-                largeSizeDevice: body(),
+                smallSizeDevice: body(context),
+                mediumSizeDevice: body(context),
+                largeSizeDevice: body(context),
               ),
             ),
 
@@ -37,7 +32,7 @@ class _InfoViewState extends State<InfoView> {
     );
   }
 
-  Column body() {
+  Column body(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

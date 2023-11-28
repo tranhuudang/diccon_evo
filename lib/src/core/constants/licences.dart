@@ -46,7 +46,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://firebase.google.com/docs/firestore',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/_flutterfire_internals',
     authors: [],
-    version: '1.3.12',
+    version: '1.3.13',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -1439,7 +1439,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://firebase.google.com/docs/firestore',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/cloud_firestore/cloud_firestore',
     authors: [],
-    version: '4.13.1',
+    version: '4.13.2',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -1476,7 +1476,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/cloud_firestore/cloud_firestore_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/cloud_firestore/cloud_firestore_platform_interface',
     authors: [],
-    version: '6.0.5',
+    version: '6.0.6',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -1513,7 +1513,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/cloud_firestore/cloud_firestore_web',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/cloud_firestore/cloud_firestore_web',
     authors: [],
-    version: '3.8.5',
+    version: '3.8.6',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2084,7 +2084,7 @@ SOFTWARE.''',
     homepage: 'https://github.com/petercinibulk/envied',
     repository: 'https://github.com/petercinibulk/envied',
     authors: [],
-    version: '0.5.1',
+    version: '0.5.2',
     license: '''The MIT License (MIT)
 
 Copyright © 2022 Peter Cinibulk
@@ -2104,7 +2104,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
     homepage: 'https://github.com/petercinibulk/envied',
     repository: 'https://github.com/petercinibulk/envied',
     authors: [],
-    version: '0.5.1',
+    version: '0.5.2',
     license: '''The MIT License (MIT)
 
 Copyright © 2022 Peter Cinibulk
@@ -2611,7 +2611,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://firebase.google.com/docs/app-check',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_app_check/firebase_app_check',
     authors: [],
-    version: '0.2.1+4',
+    version: '0.2.1+5',
     license: '''// Copyright 2021 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2648,7 +2648,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     description: 'A common platform interface for the firebase_app_check plugin.',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_app_check/firebase_app_check_platform_interface',
     authors: [],
-    version: '0.1.0+6',
+    version: '0.1.0+7',
     license: '''// Copyright 2021 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2685,7 +2685,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     description: 'The web implementation of firebase_auth',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_app_check/firebase_app_check_web',
     authors: [],
-    version: '0.1.0+6',
+    version: '0.1.0+7',
     license: '''// Copyright 2021 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2723,7 +2723,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://firebase.google.com/docs/auth',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth',
     authors: [],
-    version: '4.14.0',
+    version: '4.14.1',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2761,7 +2761,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth_platform_interface',
     authors: [],
-    version: '7.0.4',
+    version: '7.0.5',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2799,7 +2799,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth_web',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth_web',
     authors: [],
-    version: '5.8.7',
+    version: '5.8.8',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2837,7 +2837,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://firebase.google.com/docs/flutter/setup',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_core/firebase_core',
     authors: [],
-    version: '2.22.0',
+    version: '2.23.0',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2951,7 +2951,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://firebase.google.com/docs/storage/flutter/start',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage',
     authors: [],
-    version: '11.5.1',
+    version: '11.5.2',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -2989,7 +2989,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage_platform_interface',
     authors: [],
-    version: '5.0.2',
+    version: '5.1.0',
     license: '''Copyright 2020, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -3026,7 +3026,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     homepage: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage_web',
     repository: 'https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage_web',
     authors: [],
-    version: '3.6.13',
+    version: '3.6.14',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -3279,7 +3279,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.''',
     isMarkdown: false,
     isSdk: false,
-    isDirectDependency: true,
+    isDirectDependency: false,
   ),
   Package(
     name: 'flutter_plugin_android_lifecycle',
@@ -3350,7 +3350,7 @@ SOFTWARE.''',
     description: 'A flutter plugin for Text to Speech.  This plugin is supported on iOS, Android, Web, & macOS.',
     homepage: 'https://github.com/dlutton/flutter_tts',
     authors: [],
-    version: '3.8.3',
+    version: '3.8.4',
     license: '''MIT License
 
 Copyright (c) 2018 Daniel Lutton
@@ -3685,7 +3685,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     description: 'A Flutter plugin with commons files to implement google\'s standalone ml kit made for mobile platform.',
     homepage: 'https://github.com/flutter-ml/google_ml_kit_flutter',
     authors: [],
-    version: '0.5.0',
+    version: '0.6.1',
     license: '''MIT License
 
 Copyright (c) 2022 Francisco Bernal and Bharat Biradar.
@@ -3712,42 +3712,11 @@ SOFTWARE.''',
     isDirectDependency: false,
   ),
   Package(
-    name: 'google_mlkit_language_id',
-    description: 'A Flutter plugin to use Google\'s ML Kit Language Identification to determine the language of a string of text.',
-    homepage: 'https://github.com/flutter-ml/google_ml_kit_flutter',
-    authors: [],
-    version: '0.9.0',
-    license: '''MIT License
-
-Copyright (c) 2022 Francisco Bernal and Bharat Biradar.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.''',
-    isMarkdown: false,
-    isSdk: false,
-    isDirectDependency: true,
-  ),
-  Package(
     name: 'google_mlkit_text_recognition',
     description: 'A Flutter plugin to use Google\'s ML Kit Text Recognition to recognize text in any Chinese, Devanagari, Japanese, Korean and Latin character set.',
     homepage: 'https://github.com/flutter-ml/google_ml_kit_flutter',
     authors: [],
-    version: '0.10.0',
+    version: '0.11.0',
     license: '''MIT License
 
 Copyright (c) 2022 Francisco Bernal and Bharat Biradar.
@@ -4101,7 +4070,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     description: 'Translation and Internationalization (i18n) for Flutter. Easy to use for both large and small projects. Uses Dart extensions to reduce boilerplate.',
     homepage: 'https://github.com/marcglasberg/i18n_extension',
     authors: [],
-    version: '9.0.2',
+    version: '10.0.1',
     license: '''i18n_extension Package License (22 Oct 2019):
 https://github.com/marcglasberg/i18n_extension/blob/master/LICENSE
 
@@ -6857,6 +6826,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.''',
+    isMarkdown: false,
+    isSdk: false,
+    isDirectDependency: false,
+  ),
+  Package(
+    name: 'recase',
+    description: 'Changes the case of the input text to the desire case convention.',
+    homepage: 'https://github.com/techniboogie-dart/recase',
+    authors: [],
+    version: '4.1.0',
+    license: '''Copyright 2017 Keith Elliott
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isMarkdown: false,
     isSdk: false,
     isDirectDependency: false,
@@ -9686,7 +9674,7 @@ SOFTWARE.''',
     description: 'Enhance your Flutter UI with elegant wave dividers using wave_divider package.',
     homepage: 'https://github.com/tranhuudang/wave_divider',
     authors: [],
-    version: '0.0.2',
+    version: '0.0.3',
     license: '''MIT License
 
 Copyright (c) 2023 Tran Huu Dang
@@ -9717,7 +9705,7 @@ SOFTWARE.''',
     description: 'Enhance your Flutter UI with elegant wave slider using wavy_slider package.',
     homepage: 'https://github.com/tranhuudang/wavy_slider',
     authors: [],
-    version: '0.0.3',
+    version: '0.0.4',
     license: '''MIT License
 
 Copyright (c) 2023 Tran Huu Dang

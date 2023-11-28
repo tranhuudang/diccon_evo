@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../../../../data/data.dart';
 import '../../../../../domain/domain.dart';
+
 class EssentialView extends StatefulWidget {
   const EssentialView({super.key});
 
@@ -13,69 +14,6 @@ class EssentialView extends StatefulWidget {
 }
 
 class _EssentialViewState extends State<EssentialView> {
-  final List<String> _listTopic = [
-    "School-supplies",
-    "Actions",
-    "Everyday activities",
-    "Sea",
-    "The number",
-    "Shopping",
-    "Bedroom",
-    "Friendship",
-    "Kitchen",
-    "Jewelry",
-    "Environment",
-    "Living room",
-    "Hospital",
-    "Computer",
-    "Housework",
-    "The shops",
-    "Entertainment",
-    "Traveling",
-    "Hometown",
-    "Mid-autumn",
-    "Wedding",
-    "Airport",
-    "Health",
-    "Vegetable",
-    "Transport",
-    "Time",
-    "Emotions",
-    "Character",
-    "Drinks",
-    "Flowers",
-    "Movies",
-    "Soccer",
-    "Christmas",
-    "Foods",
-    "Sport",
-    "Music",
-    "Love",
-    "Restaurant-Hotel",
-    "School",
-    "Colors",
-    "Weather",
-    "Clothes",
-    "Body parts",
-    "Education",
-    "Family",
-    "Fruits",
-    "Animal",
-    "Insect",
-    "Study",
-    "Plants",
-    "Country",
-    "Seafood",
-    "Energy",
-    "Jobs",
-    "Diet",
-    "Natural disaster",
-    "Asking the way",
-    "A hotel room",
-    "At the post office",
-    "At the bank"
-  ];
-
   late Future<List<String>> _listTopicHistory;
   final EssentialWordRepository _essentialWordRepository =
       EssentialWordRepositoryImpl();
@@ -83,7 +21,7 @@ class _EssentialViewState extends State<EssentialView> {
   @override
   initState() {
     _listTopicHistory = HistoryManager.readTopicHistory();
-    _selectedTopic = _listTopic[createRandomValue()];
+    _selectedTopic = Strings.list3000EssentialTopic[createRandomValue()];
     super.initState();
   }
 
@@ -91,7 +29,7 @@ class _EssentialViewState extends State<EssentialView> {
 
   int createRandomValue() {
     Random random = Random();
-    return random.nextInt(_listTopic.length);
+    return random.nextInt(Strings.list3000EssentialTopic.length);
   }
 
   @override
@@ -208,7 +146,7 @@ class _EssentialViewState extends State<EssentialView> {
                           horizontal: 8, vertical: 8),
                       underline: null,
                       borderRadius: BorderRadius.circular(16),
-                      items: _listTopic.map((topic) {
+                      items: Strings.list3000EssentialTopic.map((topic) {
                         return DropdownMenuItem(
                           value: topic,
                           child: Text(
