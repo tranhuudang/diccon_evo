@@ -1,5 +1,6 @@
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../../core/core.dart';
 
@@ -35,6 +36,7 @@ class DictionaryBottomMenu extends StatelessWidget {
                               action: () {
                                 //resetSuggestion();
                                 chatListBloc.add(CreateNewChatList());
+                                context.pop();
                               },
                             );
                           },
@@ -50,6 +52,8 @@ class DictionaryBottomMenu extends StatelessWidget {
                           title: Text('Auto detect language'.i18n),
                           onTap: () {
                             settingBloc.add(AutoDetectLanguage());
+                            context.pop();
+
                           },
                           trailing: state.params.translationLanguageTarget ==
                                   TranslationLanguageTarget.autoDetect
@@ -62,6 +66,8 @@ class DictionaryBottomMenu extends StatelessWidget {
                           onTap: () {
                             settingBloc
                                 .add(ForceTranslateVietnameseToEnglish());
+                            context.pop();
+
                           },
                           trailing: state.params.translationLanguageTarget ==
                               TranslationLanguageTarget.vietnameseToEnglish
@@ -74,6 +80,8 @@ class DictionaryBottomMenu extends StatelessWidget {
                           onTap: () {
                             settingBloc
                                 .add(ForceTranslateEnglishToVietnamese());
+                            context.pop();
+                            
                           },
                           trailing: state.params.translationLanguageTarget ==
                               TranslationLanguageTarget.englishToVietnamese

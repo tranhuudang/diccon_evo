@@ -118,9 +118,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     }
 
     /// Check if setting force to translate from english to vietnamese
-    if (identifyLanguageResult == languageIdentifier.englishLanguageCode ||
-        currentSetting.translationLanguageTarget ==
-            TranslationLanguageTarget.englishToVietnamese.title()) {
+    // If autodetect is english or english to vietnamese mode enable
+    if ((identifyLanguageResult == languageIdentifier.englishLanguageCode &&
+            currentSetting.translationLanguageTarget ==
+                TranslationLanguageTarget.englishToVietnamese.title()) ||
+        (identifyLanguageResult == languageIdentifier.englishLanguageCode &&
+            currentSetting.translationLanguageTarget ==
+                TranslationLanguageTarget.autoDetect.title())) {
       var wordResult =
           await _getLocalEnglishToVietnameseTranslation(event.providedWord);
       _chatList.add(EnglishToVietnameseCombineBubble(
@@ -130,9 +134,12 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           index: chatGptRepositoryIndex,
           listChatGptRepository: _listChatGptRepository));
     }
-    if (identifyLanguageResult == languageIdentifier.vietnameseLanguageCode ||
-        currentSetting.translationLanguageTarget ==
-            TranslationLanguageTarget.vietnameseToEnglish.title()) {
+    // If autodetect is vietnamese or vietnamese to english mode enable
+    if (currentSetting.translationLanguageTarget ==
+                TranslationLanguageTarget.vietnameseToEnglish.title() ||
+        (identifyLanguageResult == languageIdentifier.vietnameseLanguageCode &&
+            currentSetting.translationLanguageTarget ==
+                TranslationLanguageTarget.autoDetect.title())) {
       var wordResult =
           await _getLocalVietnameseToEnglishTranslation(event.providedWord);
       _chatList.add(VietnameseToEnglishCombineBubble(
