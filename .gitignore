@@ -43,4 +43,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 openai_api.env
-lib/src/common/configs/env.g.dart
+lib/src/core/configs/env.g.dart

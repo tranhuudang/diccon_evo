@@ -1,6 +1,6 @@
-import 'package:diccon_evo/src/features/features.dart';
+import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
+
 
 class BlocProviderScope extends StatelessWidget {
   final Widget child;

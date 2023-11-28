@@ -1,8 +1,7 @@
-import 'package:diccon_evo/src/common/common.dart';
-import 'package:diccon_evo/src/features/features.dart';
+import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

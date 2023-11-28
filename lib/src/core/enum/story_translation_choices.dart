@@ -1,4 +1,4 @@
-import 'package:diccon_evo/src/common/common.dart';
+import 'package:diccon_evo/src/core/core.dart';
 
 enum StoryTranslationChoices{
   translate,
