@@ -32,7 +32,8 @@ class DictionaryBottomMenu extends StatelessWidget {
                             context.showAlertDialog(
                               title: "Close this session?".i18n,
                               content:
-                                  "Clear all the bubbles in this translation session.".i18n,
+                                  "Clear all the bubbles in this translation session."
+                                      .i18n,
                               action: () {
                                 //resetSuggestion();
                                 chatListBloc.add(CreateNewChatList());
@@ -53,7 +54,6 @@ class DictionaryBottomMenu extends StatelessWidget {
                           onTap: () {
                             settingBloc.add(AutoDetectLanguage());
                             context.pop();
-
                           },
                           trailing: state.params.translationLanguageTarget ==
                                   TranslationLanguageTarget.autoDetect
@@ -67,10 +67,9 @@ class DictionaryBottomMenu extends StatelessWidget {
                             settingBloc
                                 .add(ForceTranslateVietnameseToEnglish());
                             context.pop();
-
                           },
                           trailing: state.params.translationLanguageTarget ==
-                              TranslationLanguageTarget.vietnameseToEnglish
+                                  TranslationLanguageTarget.vietnameseToEnglish
                               ? const Icon(Icons.check)
                               : const SizedBox.shrink(),
                         ),
@@ -81,10 +80,9 @@ class DictionaryBottomMenu extends StatelessWidget {
                             settingBloc
                                 .add(ForceTranslateEnglishToVietnamese());
                             context.pop();
-                            
                           },
                           trailing: state.params.translationLanguageTarget ==
-                              TranslationLanguageTarget.englishToVietnamese
+                                  TranslationLanguageTarget.englishToVietnamese
                               ? const Icon(Icons.check)
                               : const SizedBox.shrink(),
                         ),

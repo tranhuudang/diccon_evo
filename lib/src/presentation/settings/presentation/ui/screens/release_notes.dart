@@ -16,6 +16,14 @@ class ReleaseNotes extends StatelessWidget {
               shrinkWrap: true,
               children: const [
                 ReleaseNotesItem(
+                  version: '532',
+                  date: '28-11-2023',
+                  changesNote: [
+                    'Sửa lỗi bong bóng chat xuất hiện hai lần trong Từ điển',
+                    'Tái cấu trúc dự án',
+                  ],
+                ),
+                ReleaseNotesItem(
                   version: '520',
                   date: '18-11-2023',
                   changesNote: [
