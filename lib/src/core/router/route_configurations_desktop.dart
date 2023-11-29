@@ -6,42 +6,62 @@ import '../../domain/domain.dart';
 import '../../presentation/nested_navigation.dart';
 import '../../presentation/settings/presentation/ui/screens/licenses.dart';
 import '../core.dart';
+
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorSettingKey = GlobalKey<NavigatorState>(debugLabel: 'shellSetting');
-final _shellNavigatorDictionaryKey = GlobalKey<NavigatorState>(debugLabel: 'shellDictionary');
-final _shellNavigatorLibraryKey = GlobalKey<NavigatorState>(debugLabel: 'shellLibrary');
-final _shellNavigatorConversationKey = GlobalKey<NavigatorState>(debugLabel: 'shellConversation');
-final _shellNavigatorAboutKey = GlobalKey<NavigatorState>(debugLabel: 'shellAbout');
+final _shellNavigatorSettingKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellSetting');
+final _shellNavigatorDictionaryKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellDictionary');
+final _shellNavigatorLibraryKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellLibrary');
+final _shellNavigatorConversationKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellConversation');
+final _shellNavigatorAboutKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellAbout');
 
 GoRouter routerConfigDesktop = GoRouter(
-  initialLocation: defaultTargetPlatform.isAndroid() ? '/' : '/story',
+  initialLocation: defaultTargetPlatform.isAndroid() ? '/' : '/reading-chamber',
   navigatorKey: _rootNavigatorKey,
   routes: [
     /// Login
-    // GoRoute(name: "login",path: '/',pageBuilder: (context, state){
-    //   return MaterialPage(child: I18n(child: const LoginView(),));
-    // }),
+    GoRoute(
+        name: "login",
+        path: '/',
+        pageBuilder: (context, state) {
+          return NoTransitionPage(
+              child: I18n(
+            child: const LoginView(),
+          ));
+        }),
 
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         // the UI shell
-        return ScaffoldWithNestedNavigation(
-            navigationShell: navigationShell);
+        return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
       },
       branches: [
-
         // dictionary branch
         StatefulShellBranch(
           navigatorKey: _shellNavigatorDictionaryKey,
           routes: [
             // top route inside branch
             GoRoute(
+              name: RouterConstants.dictionary,
               path: '/dictionary',
               pageBuilder: (context, state) {
-                return MaterialPage(child: I18n(child:  const DictionaryView()));
+                return NoTransitionPage(child: I18n(child: const DictionaryView()));
               },
-              routes: const [],
+              routes: [
+                GoRoute(
+                  name: RouterConstants.wordHistory,
+                  path: 'history',
+                  pageBuilder: (context, state) {
+                    return NoTransitionPage(
+                        child: I18n(child: const WordHistoryView()));
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -51,9 +71,47 @@ GoRouter routerConfigDesktop = GoRouter(
           routes: [
             // top route inside branch
             GoRoute(
-              path: '/story',
-              pageBuilder: (context, state) { return MaterialPage(child: I18n(child: const StoryListView()));},
-              routes: const [
+              name: RouterConstants.readingChamber,
+              path: '/reading-chamber',
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: I18n(child: const StoryListView()));
+              },
+              routes: [
+                // Reading chamber's reading space
+                GoRoute(
+                    name: RouterConstants.readingSpace,
+                    path: 'reading-space',
+                    pageBuilder: (context, state) {
+                      return NoTransitionPage(
+                          child: I18n(
+                        child: StoryReadingView(
+                          story: state.extra as Story,
+                        ),
+                      ));
+                    }),
+                // Reading history
+                GoRoute(
+                  name: RouterConstants.readingChamberHistory,
+                  path: 'history',
+                  pageBuilder: (context, state) {
+                    return NoTransitionPage(
+                        child: I18n(
+                      child: const StoryListHistoryView(),
+                    ));
+                  },
+                ),
+                // Reading bookmarks
+                GoRoute(
+                  name: RouterConstants.readingChamberBookmark,
+                  path: 'bookmarks',
+                  pageBuilder: (context, state) {
+                    return NoTransitionPage(
+                      child: I18n(
+                        child: const StoryListBookmarkView(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ],
@@ -64,12 +122,13 @@ GoRouter routerConfigDesktop = GoRouter(
           routes: [
             // top route inside branch
             GoRoute(
+              name: RouterConstants.conversation,
               path: '/conversation',
               pageBuilder: (context, state) {
-                return MaterialPage(child: I18n(child:  const ConversationView()));
+                return NoTransitionPage(
+                    child: I18n(child: const ConversationView()));
               },
-              routes: const [
-              ],
+              routes: const [],
             ),
           ],
         ),
@@ -79,9 +138,20 @@ GoRouter routerConfigDesktop = GoRouter(
           routes: [
             // top route inside branch
             GoRoute(
+              name: RouterConstants.commonSettings,
               path: '/settings',
-              pageBuilder: (context, state) { return MaterialPage(child: I18n(child: const SettingsView()));},
-              routes: const [
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: I18n(child: const SettingsView()));
+              },
+              routes: [
+                GoRoute(
+                  name: RouterConstants.dictionaryPreferences,
+                  path: 'dictionary-preferences',
+                  pageBuilder: (context, state) {
+                    return NoTransitionPage(
+                        child: I18n(child: const DictionaryPreferences()));
+                  },
+                ),
               ],
             ),
           ],
@@ -92,180 +162,86 @@ GoRouter routerConfigDesktop = GoRouter(
           routes: [
             // top route inside branch
             GoRoute(
-              path: '/about',
+              name: RouterConstants.infos,
+              path: '/infos',
               pageBuilder: (context, state) {
-                return MaterialPage(child: I18n(child:  const InfoView()));
-              },
-              routes: const [
-              ],
-            ),
-          ],
-        ),
-      ],
-    ),
-    /// Home
-    GoRoute(
-        name: RouterConstants.home,
-        path: '/home',
-        pageBuilder: (context, state) {
-          return MaterialPage(child: I18n(child: const HomeView()));
-        },
-        routes: [
-          // Settings
-          GoRoute(
-              name: RouterConstants.commonSettings,
-              path: 'settings',
-              pageBuilder: (context, state) {
-                return MaterialPage(child: I18n(child: const SettingsView()));
+                return NoTransitionPage(child: I18n(child: const InfoView()));
               },
               routes: [
                 GoRoute(
-                  name: RouterConstants.dictionaryPreferences,
-                  path: 'dictionary-preferences',
+                  name: RouterConstants.licenses,
+                  path: 'licenses',
                   pageBuilder: (context, state) {
-                    return MaterialPage(child: I18n(child: const DictionaryPreferences()));
+                    return NoTransitionPage(
+                        child: I18n(child: const LicensesView()));
                   },
                 ),
                 GoRoute(
                   name: RouterConstants.releaseNotes,
                   path: 'release-notes',
                   pageBuilder: (context, state) {
-                    return MaterialPage(child: I18n(child: const ReleaseNotes()));
+                    return NoTransitionPage(
+                        child: I18n(child: const ReleaseNotes()));
                   },
                 ),
-              ]
-          ),
-          // Settings
-          GoRoute(
-            name: RouterConstants.userSettings,
-            path: 'user-settings',
-            pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const UserSettingsView()));
-            },
-          ),
-          // Settings
-          GoRoute(
-            name: RouterConstants.infos,
-            path: 'infos',
-            pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const InfoView()));
-            },
-          ),
-          GoRoute(
-            name: RouterConstants.licenses,
-            path: 'licenses',
-            pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const LicensesView()));
-            },
-          ),
-        ]),
-
-    /// Dictionary
-    GoRoute(
-        name: RouterConstants.dictionary,
-        path: '/dictionary',
-        pageBuilder: (context, state) {
-          return MaterialPage(child: I18n(child: const DictionaryView()));
-        },
-        routes: [
-          GoRoute(
-            name: RouterConstants.wordHistory,
-            path: 'history',
-            pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child:  const WordHistoryView()));
-            },
-          ),
-
-        ]),
-
-    /// Reading-chamber
-    GoRoute(
-      name: RouterConstants.readingChamber,
-      path: '/reading-chamber',
-      pageBuilder: (context, state) {
-        return MaterialPage(child: I18n(child: const StoryListView()));
-      },
-      routes: [
-        // Reading chamber's reading space
-        GoRoute(
-            name: RouterConstants.readingSpace,
-            path: 'reading-space',
-            pageBuilder: (context, state) {
-              return MaterialPage(
-                  child: I18n(
-                    child: StoryReadingView(
-                      story: state.extra as Story,
-                    ),
-                  ));
-            }),
-        // Reading history
-        GoRoute(
-          name: RouterConstants.readingChamberHistory,
-          path: 'history',
-          pageBuilder: (context, state) {
-            return MaterialPage(
-                child: I18n(
-                  child: const StoryListHistoryView(),
-                ));
-          },
-        ),
-        // Reading bookmarks
-        GoRoute(
-          name: RouterConstants.readingChamberBookmark,
-          path: 'bookmarks',
-          pageBuilder: (context, state) {
-            return MaterialPage(
-              child: I18n(
-                child: const StoryListBookmarkView(),
-              ),
-            );
-          },
+              ],
+            ),
+          ],
         ),
       ],
     ),
-    /// Conversation
-    GoRoute(
-      name: RouterConstants.conversation,
-      path: '/conversation',
-      pageBuilder: (context, state) {
-        return MaterialPage(child: I18n(child: const ConversationView()));
-      },
-    ),
 
-
-    /// Essential 1848
-    GoRoute(
-        name: RouterConstants.essential1848,
-        path: '/essential-1848',
-        pageBuilder: (context, state) {
-          return MaterialPage(child: I18n(child: const EssentialView()));
-        },
-        routes: [
-          GoRoute(
-            name: RouterConstants.learningFlashCard,
-            path: 'flash-card',
-            pageBuilder: (context, state) {
-              var params = state.extra as LearningView;
-              return MaterialPage(
-                  child: I18n(
-                      child: LearningView(
-                        topic: params.topic,
-                        listEssentialWord: params.listEssentialWord,
-                      )));
-            },
-          ),
-          GoRoute(
-            name: RouterConstants.learningFavourite,
-            path: 'favourite',
-            pageBuilder: (context, state) {
-              var params = state.extra as FavouriteReviewView;
-              return MaterialPage(
-                  child: I18n(
-                      child: FavouriteReviewView(
-                        listEssentialWord: params.listEssentialWord,
-                      )));
-            },
-          ),
-        ]),
+  //   /// Home
+  //   GoRoute(
+  //       name: RouterConstants.home,
+  //       path: '/home',
+  //       pageBuilder: (context, state) {
+  //         return NoTransitionPage(child: I18n(child: const HomeView()));
+  //       },
+  //       routes: [
+  //         // Settings
+  //         GoRoute(
+  //           name: RouterConstants.userSettings,
+  //           path: 'user-settings',
+  //           pageBuilder: (context, state) {
+  //             return NoTransitionPage(child: I18n(child: const UserSettingsView()));
+  //           },
+  //         ),
+  //       ]),
+  //
+  //   /// Essential 1848
+  //   GoRoute(
+  //       name: RouterConstants.essential1848,
+  //       path: '/essential-1848',
+  //       pageBuilder: (context, state) {
+  //         return NoTransitionPage(child: I18n(child: const EssentialView()));
+  //       },
+  //       routes: [
+  //         GoRoute(
+  //           name: RouterConstants.learningFlashCard,
+  //           path: 'flash-card',
+  //           pageBuilder: (context, state) {
+  //             var params = state.extra as LearningView;
+  //             return NoTransitionPage(
+  //                 child: I18n(
+  //                     child: LearningView(
+  //               topic: params.topic,
+  //               listEssentialWord: params.listEssentialWord,
+  //             )));
+  //           },
+  //         ),
+  //         GoRoute(
+  //           name: RouterConstants.learningFavourite,
+  //           path: 'favourite',
+  //           pageBuilder: (context, state) {
+  //             var params = state.extra as FavouriteReviewView;
+  //             return NoTransitionPage(
+  //                 child: I18n(
+  //                     child: FavouriteReviewView(
+  //               listEssentialWord: params.listEssentialWord,
+  //             )));
+  //           },
+  //         ),
+  //       ]),
   ],
 );

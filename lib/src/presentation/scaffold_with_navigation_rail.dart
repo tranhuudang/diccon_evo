@@ -1,5 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:go_router/go_router.dart';
 
 class ScaffoldWithNavigationRail extends StatelessWidget {
   const ScaffoldWithNavigationRail({
@@ -55,19 +56,21 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
                       IconButton(
                           icon: const Icon(Icons.info_outline),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const InfoView()));
+                            context.pushNamed(RouterConstants.infos);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const InfoView()));
                           }),
                       IconButton(
                           icon: const Icon(Icons.settings),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SettingsView()));
+                            context.pushNamed(RouterConstants.commonSettings);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             const SettingsView()));
                           }),
                     ],
                   ),
