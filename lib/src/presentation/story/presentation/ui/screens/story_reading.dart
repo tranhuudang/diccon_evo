@@ -213,13 +213,14 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                         color: context.theme.colorScheme.onBackground,
                       ),
                       onWordTap: (String word, String sentence) {
-                        final refineWord = word.removeSpecialCharacters();
+                        final refinedWord = word.removeSpecialCharacters();
+                        final refinedSentence = sentence.trim();
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
                               return BottomSheetTranslation(
-                                searchWord: refineWord,
-                                sentenceContainWord: sentence,
+                                searchWord: refinedWord,
+                                sentenceContainWord: refinedSentence,
                               );
                             });
                       }),

@@ -25,11 +25,12 @@ class BottomSheetTranslation extends StatefulWidget {
 }
 
 class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
-  final _chatGptRepository = ChatGptRepositoryImplement(
-      chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
+  final _chatGptRepository =
+      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
   final _isLoadingStreamController = StreamController();
-  final _tabSwitcherStreamController = StreamController<StoryTranslationChoices>();
+  final _tabSwitcherStreamController =
+      StreamController<StoryTranslationChoices>();
   Word _wordResult = Word.empty();
   bool _isLoading = true;
   final _pageController = PageController();
@@ -75,7 +76,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   }
 
   _getLocalDefinition() async {
-    EnglishToVietnameseDictionaryRepository searchingEngine = EnglishToVietnameseDictionaryRepositoryImpl();
+    EnglishToVietnameseDictionaryRepository searchingEngine =
+        EnglishToVietnameseDictionaryRepositoryImpl();
     _wordResult = await searchingEngine.getDefinition(widget.searchWord);
     setState(() {
       _isLoading = false;
@@ -87,12 +89,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       print("widget.message.word : ${widget.searchWord}");
     }
     var request = await _chatGptRepository.createSingleQuestionRequest(
-        'Nghĩa của từ "${widget.searchWord}" trong câu "${widget.sentenceContainWord}" là gì ? Sau đó xuống dòng và dịch hết câu văn đó (Lưu ý: chỉ dịch và không giải thích gì thêm).');
+        'Nghĩa của câu "${widget.sentenceContainWord}" là gì ? (Lưu ý: chỉ dịch và không giải thích gì thêm).');
     // create md5 from question to compare to see if that md5 is already exist in database
-    var answer = _composeMd5IdForFirebaseDb(
-        word: widget.searchWord, options: widget.sentenceContainWord);
-    final docUser =
-        FirebaseFirestore.instance.collection("Story").doc(answer);
+    var answer =
+        _composeMd5IdForFirebaseDb(sentence: widget.sentenceContainWord);
+    final docUser = FirebaseFirestore.instance.collection("Story").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepository.singleQuestionAnswer.answer
@@ -104,19 +105,17 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     });
   }
 
-  String _composeMd5IdForFirebaseDb(
-      {required String word, required String options}) {
-    word = word.trim().toLowerCase();
-    options = options.trim();
-    var composeString = word + options;
+  String _composeMd5IdForFirebaseDb({required String sentence}) {
+    sentence = sentence.toLowerCase().trim();
+    var composeString = sentence;
     var bytes = utf8.encode(composeString);
     var resultMd5 = md5.convert(bytes);
     return resultMd5.toString();
   }
 
   Future<void> _createFirebaseDatabaseItem() async {
-    final answerId = _composeMd5IdForFirebaseDb(
-        word: widget.searchWord, options: widget.sentenceContainWord);
+    final answerId =
+        _composeMd5IdForFirebaseDb(sentence: widget.sentenceContainWord);
     final databaseRow =
         FirebaseFirestore.instance.collection("Story").doc(answerId);
     final json = {
@@ -198,7 +197,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                    WordPronunciation(pronunciation: _wordResult.pronunciation),
+                                    WordPronunciation(
+                                        pronunciation:
+                                            _wordResult.pronunciation),
                                     PlaybackButton(
                                         buttonColor:
                                             context.theme.colorScheme.onSurface,
@@ -224,17 +225,15 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 16),
+                                  padding: const EdgeInsets.only(top: 16),
                                   child: Text(
                                     widget.sentenceContainWord,
                                     style: context.theme.textTheme.titleMedium
                                         ?.copyWith(
-                                        color: context
-                                            .theme.colorScheme.onSurface),
+                                            color: context
+                                                .theme.colorScheme.onSurface),
                                   ),
-                                )
-                                ,
+                                ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 16),

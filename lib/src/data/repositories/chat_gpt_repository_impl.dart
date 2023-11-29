@@ -47,6 +47,7 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
       stream: true,
       maxTokens: 2000,
       messages: [
+        Message(role: Role.system.name, content: "Pretend you are an expert language translator"),
         Message(role: Role.user.name, content: singleQuestionAnswer.question)
       ],
       model: ChatGptModel.gpt35Turbo,
