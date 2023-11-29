@@ -82,135 +82,59 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                 const HomeMenuButton(),
 
                 /// Body
-                Responsive(
-                  smallSizeDevice: smallSizeBody(),
-                  mediumSizeDevice: smallSizeBody(),
-                  largeSizeDevice: largeSizeBody(),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Head welcome to essential tab
+                    const HeadSentence(
+                        listText: ["Empower", "Your English", "Proficiency"]),
+                    const VerticalSpacing.medium(),
+                    const PlanButton(),
+                    const VerticalSpacing.large(),
+
+                    /// TextField for user to enter their words
+                    SearchBox(
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: "Search in dictionary".i18n,
+                      onSubmitted: (enteredString) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DictionaryView(
+                                    word: enteredString, buildContext: context)));
+                      },
+                    ),
+                    const VerticalSpacing.large(),
+
+                    /// Two big brother button
+                    GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: _listPrimaryFunction.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisExtent: 180,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          crossAxisCount: 2,
+                        ),
+                        itemBuilder: (context, index) {
+                          return _listPrimaryFunction[index];
+                        }),
+                    const VerticalSpacing.medium(),
+
+                    /// Other functions
+                    SubFunctionBox(height: 180, listSubFunction: _listSubFunction),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-
-  Column smallSizeBody() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        /// Head welcome to essential tab
-        const HeadSentence(
-            listText: ["Empower", "Your English", "Proficiency"]),
-        const VerticalSpacing.medium(),
-        const PlanButton(),
-        const VerticalSpacing.large(),
-
-        /// TextField for user to enter their words
-        SearchBox(
-          prefixIcon: const Icon(Icons.search),
-          hintText: "Search in dictionary".i18n,
-          onSubmitted: (enteredString) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DictionaryView(
-                        word: enteredString, buildContext: context)));
-          },
-        ),
-        const VerticalSpacing.large(),
-
-        /// Two big brother button
-        GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: _listPrimaryFunction.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisExtent: 180,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              crossAxisCount: 2,
-            ),
-            itemBuilder: (context, index) {
-              return _listPrimaryFunction[index];
-            }),
-        const VerticalSpacing.medium(),
-
-        /// Other functions
-        SubFunctionBox(height: 180, listSubFunction: _listSubFunction),
-        const SizedBox(
-          height: 16,
-        ),
-      ],
-    );
-  }
-
-  Column largeSizeBody() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        /// Head welcome to essential tab
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 30),
-          child: Center(
-              child: Column(
-            children: [
-              Text(
-                "Diccon Dictionary",
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-              ),
-              Opacity(
-                  opacity: 0.5,
-                  child: Text(
-                    "Empower Your English Proficiency",
-                    style: TextStyle(fontSize: 40),
-                  )),
-            ],
-          )),
-        ),
-        const VerticalSpacing.medium(),
-        const PlanButton(),
-        const VerticalSpacing.large(),
-
-        /// TextField for user to enter their words
-        SearchBox(
-          prefixIcon: const Icon(Icons.search),
-          hintText: "Search in dictionary".i18n,
-          onSubmitted: (enteredString) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DictionaryView(
-                        word: enteredString, buildContext: context)));
-          },
-        ),
-        const VerticalSpacing.large(),
-
-        /// List Funtions
-        SizedBox(
-          height: 220,
-          child: GridView(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              mainAxisExtent: 220,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-            ),
-            children: const [
-              ToDictionaryButton(),
-              ToReadingChamberButton(),
-              ToConversationButton(),
-              ToEssentialWordButton(),
-            ],
-          ),
-        ),
-
-        const SizedBox(
-          height: 16,
-        ),
-      ],
     );
   }
 }

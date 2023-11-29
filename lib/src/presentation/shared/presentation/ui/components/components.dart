@@ -8,7 +8,6 @@ export 'horizontal_spacing.dart';
 export 'no_internet_buble.dart';
 export 'pill_button.dart';
 export 'rectangle_button.dart';
-export 'responsive.dart';
 export 'search_box.dart';
 export 'section.dart';
 export 'shared.dart';

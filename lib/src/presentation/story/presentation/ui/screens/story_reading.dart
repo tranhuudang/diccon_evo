@@ -75,13 +75,80 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                   children: [
                     SingleChildScrollView(
                       controller: _controller,
-                      child: Responsive(
-                        smallSizeDevice:
-                            readingSpaceBody(context: context, state: state),
-                        mediumSizeDevice:
-                            readingSpaceBody(context: context, state: state),
-                        largeSizeDevice:
-                            readingSpaceBody(context: context, state: state),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// Header
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 16, top: 56),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.story.title,
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  widget.story.source!,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          /// Image
+                          Center(
+                            child: CachedNetworkImage(
+                              //height: 380,
+                              placeholder: (context, url) => const LinearProgressIndicator(
+                                backgroundColor: Colors.black45,
+                                color: Colors.black54,
+                              ),
+                              imageUrl: widget.story.imageUrl ?? "",
+                              fit: BoxFit.cover,
+                              errorWidget: (context, String exception, dynamic stackTrace) {
+                                return const SizedBox.shrink();
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+
+                          /// Content
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: widget.story.content.split('\n').map((paragraph) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (paragraph.isNotEmpty)
+                                    StoryClickableWords(
+                                        text: paragraph,
+                                        style: context.theme.textTheme.bodyMedium?.copyWith(
+                                          fontSize: state.fontSize,
+                                          color: context.theme.colorScheme.onBackground,
+                                        ),
+                                        onWordTap: (String word, String sentence) {
+                                          final refinedWord = word.removeSpecialCharacters();
+                                          final refinedSentence = sentence.trim();
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (context) {
+                                                return BottomSheetTranslation(
+                                                  searchWord: refinedWord,
+                                                  sentenceContainWord: refinedSentence,
+                                                );
+                                              });
+                                        }),
+                                  const SizedBox(
+                                    height: 5,
+                                  )
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ],
                       ),
                     ),
 
@@ -154,84 +221,5 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                 ),
               );
             }));
-  }
-
-  Column readingSpaceBody(
-      {required BuildContext context, required ReadingState state}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        /// Header
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16, top: 56),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.story.title,
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                widget.story.source!,
-                style: const TextStyle(fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-
-        /// Image
-        Center(
-          child: CachedNetworkImage(
-            //height: 380,
-            placeholder: (context, url) => const LinearProgressIndicator(
-              backgroundColor: Colors.black45,
-              color: Colors.black54,
-            ),
-            imageUrl: widget.story.imageUrl ?? "",
-            fit: BoxFit.cover,
-            errorWidget: (context, String exception, dynamic stackTrace) {
-              return const SizedBox.shrink();
-            },
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-
-        /// Content
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: widget.story.content.split('\n').map((paragraph) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (paragraph.isNotEmpty)
-                  StoryClickableWords(
-                      text: paragraph,
-                      style: context.theme.textTheme.bodyMedium?.copyWith(
-                        fontSize: state.fontSize,
-                        color: context.theme.colorScheme.onBackground,
-                      ),
-                      onWordTap: (String word, String sentence) {
-                        final refinedWord = word.removeSpecialCharacters();
-                        final refinedSentence = sentence.trim();
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return BottomSheetTranslation(
-                                searchWord: refinedWord,
-                                sentenceContainWord: refinedSentence,
-                              );
-                            });
-                      }),
-                const SizedBox(
-                  height: 5,
-                )
-              ],
-            );
-          }).toList(),
-        ),
-      ],
-    );
   }
 }
