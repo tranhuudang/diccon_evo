@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/shared/presentation/ui/screens/page_error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
@@ -153,6 +154,7 @@ GoRouter routerConfigDesktop = GoRouter(
                   name: RouterConstants.learningFlashCard,
                   path: 'flash-card',
                   pageBuilder: (context, state) {
+                    if (state.extra == null) return NoTransitionPage(child: I18n(child: const PageErrorView()));
                     var params = state.extra as LearningView;
                     return NoTransitionPage(
                         child: I18n(
@@ -257,4 +259,8 @@ GoRouter routerConfigDesktop = GoRouter(
     //       ]),
     //
   ],
+  errorBuilder: (context, state){
+    return
+         I18n(child: const PageErrorView());
+  }
 );

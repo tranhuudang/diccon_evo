@@ -716,6 +716,18 @@ extension Localization on String {
       "en_us": "Practice",
       "vi_vi": "Luyện tập",
     },
+    "The page is broken, please try to reload again.": {
+      "en_us": "The page is broken, please try to reload again.",
+      "vi_vi": "Trang này đã bị hỏng, vui lòng tải lại trang.",
+    },
+    "Uninvited guest": {
+      "en_us": "Uninvited guest",
+      "vi_vi": "Lỗi tải trang",
+    },
+    "Oops, something went wrong": {
+      "en_us": "Oops, something went wrong",
+      "vi_vi": "Oops, có gì đó sai sai",
+    },
     "Start your journey exploring new words.": {
       "en_us": "Start your journey exploring new words.",
       "vi_vi": "Bắt đầu cuộc hành trình khám phá từ mới.",
