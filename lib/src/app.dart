@@ -1,9 +1,11 @@
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/core/router/route_configurations_desktop.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -43,31 +45,58 @@ class App extends StatelessWidget {
     );
   }
 
-  MaterialApp buildMaterialApp(SettingState state, ColorScheme lightColorScheme,
-      ColorScheme darkColorScheme) {
-    return MaterialApp.router(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', "US"),
-        Locale('vi', "VI"),
-      ],
-      locale: state.params.language.toLocale(),
-      themeMode: state.params.themeMode,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: lightColorScheme,
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorScheme: darkColorScheme,
-      ),
-      title: DefaultSettings.appName,
-      debugShowCheckedModeBanner: false,
-      routerConfig: routerConfig,
-    );
+  ScreenTypeLayout buildMaterialApp(SettingState state,
+      ColorScheme lightColorScheme, ColorScheme darkColorScheme) {
+    return ScreenTypeLayout.builder(mobile: (context) {
+      return MaterialApp.router(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', "US"),
+          Locale('vi', "VI"),
+        ],
+        locale: state.params.language.toLocale(),
+        themeMode: state.params.themeMode,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: lightColorScheme,
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: darkColorScheme,
+        ),
+        title: DefaultSettings.appName,
+        debugShowCheckedModeBanner: false,
+        routerConfig: routerConfig,
+      );
+    }, tablet: (context) {
+      return MaterialApp.router(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', "US"),
+          Locale('vi', "VI"),
+        ],
+        locale: state.params.language.toLocale(),
+        themeMode: state.params.themeMode,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: lightColorScheme,
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: darkColorScheme,
+        ),
+        title: DefaultSettings.appName,
+        debugShowCheckedModeBanner: false,
+        routerConfig: routerConfigDesktop,
+      );
+    });
   }
 }

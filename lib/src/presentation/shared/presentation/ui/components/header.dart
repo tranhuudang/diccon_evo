@@ -8,22 +8,24 @@ class Header extends StatelessWidget {
     this.actions,
     this.title,
     this.childOfStack = true,
+    this.enableBackButton = true,
   });
 
   final List<Widget>? actions;
   final String? title;
   final bool? childOfStack;
+  final bool? enableBackButton;
 
   @override
   Widget build(BuildContext context) {
     return childOfStack!
         ? Column(
             children: [
-              HeaderWithBlurEffect(title: title, actions: actions),
+              HeaderWithBlurEffect(title: title, actions: actions, enableBackButton: enableBackButton!,),
               const Spacer(),
             ],
           )
-        : HeaderWithBlurEffect(title: title, actions: actions);
+        : HeaderWithBlurEffect(title: title, actions: actions, enableBackButton: enableBackButton!,);
   }
 }
 
@@ -32,10 +34,12 @@ class HeaderWithBlurEffect extends StatelessWidget {
     super.key,
     required this.title,
     required this.actions,
+    required this.enableBackButton,
   });
 
   final String? title;
   final List<Widget>? actions;
+  final bool enableBackButton;
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +69,16 @@ class HeaderWithBlurEffect extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleButton(
-                    backgroundColor: context.theme.colorScheme.surfaceVariant
-                        .withOpacity(.5),
-                    iconData: Icons.arrow_back,
-                    onTap: () {
-                      Navigator.pop(context);
-                    }),
-                const HorizontalSpacing.large(),
+                if (enableBackButton) ...[
+                  CircleButton(
+                      backgroundColor: context.theme.colorScheme.surfaceVariant
+                          .withOpacity(.5),
+                      iconData: Icons.arrow_back,
+                      onTap: () {
+                        Navigator.pop(context);
+                      }),
+                  const HorizontalSpacing.large(),
+                ],
                 if (title != null)
                   Text(
                     title!,

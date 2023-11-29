@@ -15,7 +15,7 @@ class InfoView extends StatelessWidget {
         body: Stack(
           children: [
             SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 60),
+              padding: const EdgeInsets.only(top: 60, left: 16, right: 16, bottom: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -62,8 +62,8 @@ class InfoView extends StatelessWidget {
                               icon: const Icon(UniconsLine.github)),
                           IconButton(
                               onPressed: () async {
-                                final Uri url =
-                                Uri.parse('mailto:tranhuudang148@gmail.com');
+                                final Uri url = Uri.parse(
+                                    'mailto:tranhuudang148@gmail.com');
                                 if (!await launchUrl(url,
                                     mode: LaunchMode.externalApplication)) {
                                   throw Exception('Could not launch $url');
@@ -75,8 +75,8 @@ class InfoView extends StatelessWidget {
                       const VerticalSpacing.medium(),
                       Text(
                         "© 2023 Tran Huu Dang. ${"All rights reserved.".i18n}",
-                        style: context.theme.textTheme.bodyMedium
-                            ?.copyWith(color: context.theme.colorScheme.onSurfaceVariant),
+                        style: context.theme.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.colorScheme.onSurfaceVariant),
                       ),
                     ],
                   ),
@@ -85,8 +85,8 @@ class InfoView extends StatelessWidget {
                     children: [
                       Text(
                         "DescriptionTextForLicenses".i18n,
-                        style: context.theme.textTheme.bodyMedium
-                            ?.copyWith(color: context.theme.colorScheme.onSurface),
+                        style: context.theme.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.colorScheme.onSurface),
                       ),
                       const VerticalSpacing.medium(),
                       FilledButton.tonal(
@@ -101,8 +101,8 @@ class InfoView extends StatelessWidget {
                     children: [
                       Text(
                         "DesciptionTextForPrivacyPolicy".i18n,
-                        style: context.theme.textTheme.bodyMedium
-                            ?.copyWith(color: context.theme.colorScheme.onSurface),
+                        style: context.theme.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.colorScheme.onSurface),
                       ),
                       const VerticalSpacing.small(),
                       Column(
@@ -110,14 +110,14 @@ class InfoView extends StatelessWidget {
                           Text(
                             "For more information about our privacy policy, please visit:"
                                 .i18n,
-                            style: context.theme.textTheme.bodyMedium
-                                ?.copyWith(color: context.theme.colorScheme.onSurface),
+                            style: context.theme.textTheme.bodyMedium?.copyWith(
+                                color: context.theme.colorScheme.onSurface),
                           ),
                           const VerticalSpacing.medium(),
                           FilledButton.tonal(
                               onPressed: () async {
                                 final Uri url =
-                                Uri.parse(OnlineDirectory.privacyPolicyURL);
+                                    Uri.parse(OnlineDirectory.privacyPolicyURL);
                                 if (!await launchUrl(url,
                                     mode: LaunchMode.externalApplication)) {
                                   throw Exception('Could not launch $url');
@@ -163,9 +163,10 @@ class InfoView extends StatelessWidget {
             ),
 
             /// Header
-            Header(
-              title: "About".i18n,
-            ),
+               Header(
+                title: "About".i18n,
+              ),
+
           ],
         ),
       ),

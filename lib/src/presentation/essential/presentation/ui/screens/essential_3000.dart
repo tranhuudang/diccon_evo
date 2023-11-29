@@ -3,6 +3,7 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../../data/data.dart';
 import '../../../../../domain/domain.dart';
 
@@ -47,16 +48,22 @@ class _EssentialViewState extends State<EssentialView> {
                     children: [
                       /// Head sentence
                       const HeadSentence(
-                        listText: ["Nothing", "Worth Doing", "Ever", "Came Easy"],
+                        listText: [
+                          "Nothing",
+                          "Worth Doing",
+                          "Ever",
+                          "Came Easy"
+                        ],
                       ),
 
                       /// Sub sentence
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 18),
                         child: Text(
                           "SubSentenceInEssentialWord".i18n,
-                          style: context.theme.textTheme.bodyLarge
-                              ?.copyWith(color: context.theme.colorScheme.onSurface),
+                          style: context.theme.textTheme.bodyLarge?.copyWith(
+                              color: context.theme.colorScheme.onSurface),
                         ),
                       ),
                       Row(
@@ -68,23 +75,26 @@ class _EssentialViewState extends State<EssentialView> {
                                 iconData: FontAwesomeIcons.play,
                                 onTap: () async {
                                   /// Add topic to history
-                                  HistoryManager.saveTopicToHistory(_selectedTopic);
+                                  HistoryManager.saveTopicToHistory(
+                                      _selectedTopic);
 
                                   /// Load essential word based on provided topic
                                   await _essentialWordRepository
                                       .loadEssentialData(_selectedTopic)
                                       .then(
                                         (listEssential) => {
-                                      context.pushNamed(
-                                          RouterConstants.learningFlashCard,
-                                          extra: LearningView(
-                                            topic: _selectedTopic,
-                                            listEssentialWord: listEssential,
-                                          ))
-                                    },
-                                  );
+                                          context.pushNamed(
+                                              RouterConstants.learningFlashCard,
+                                              extra: LearningView(
+                                                topic: _selectedTopic,
+                                                listEssentialWord:
+                                                    listEssential,
+                                              ))
+                                        },
+                                      );
                                 },
-                                backgroundColor: context.theme.colorScheme.primary,
+                                backgroundColor:
+                                    context.theme.colorScheme.primary,
                               ),
 
                               /// Favourite button
@@ -94,23 +104,26 @@ class _EssentialViewState extends State<EssentialView> {
                                   await _essentialWordRepository
                                       .readFavouriteEssential()
                                       .then((listFavourite) => {
-                                    if (listFavourite.isNotEmpty)
-                                      {
-                                        context.pushNamed(
-                                            RouterConstants.learningFavourite,
-                                            extra: FavouriteReviewView(
-                                              listEssentialWord: listFavourite,
-                                            ))
-                                      }
-                                    else
-                                      {
-                                        context.showAlertDialogWithoutAction(
-                                            title:
-                                            "Favourite Chamber is empty".i18n,
-                                            content:
-                                            "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
-                                      },
-                                  });
+                                            if (listFavourite.isNotEmpty)
+                                              {
+                                                context.pushNamed(
+                                                    RouterConstants
+                                                        .learningFavourite,
+                                                    extra: FavouriteReviewView(
+                                                      listEssentialWord:
+                                                          listFavourite,
+                                                    ))
+                                              }
+                                            else
+                                              {
+                                                context.showAlertDialogWithoutAction(
+                                                    title:
+                                                        "Favourite Chamber is empty"
+                                                            .i18n,
+                                                    content:
+                                                        "You have the option to include newly learned words in your \"Favorite Chamber\" as you begin the process of learning them.")
+                                              },
+                                          });
                                 },
                               ),
                             ],
@@ -123,7 +136,8 @@ class _EssentialViewState extends State<EssentialView> {
                             child: Container(
                               height: 50,
                               decoration: BoxDecoration(
-                                  color: context.theme.colorScheme.surfaceVariant,
+                                  color:
+                                      context.theme.colorScheme.surfaceVariant,
                                   borderRadius: BorderRadius.circular(16)),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
@@ -133,12 +147,14 @@ class _EssentialViewState extends State<EssentialView> {
                                       horizontal: 8, vertical: 8),
                                   underline: null,
                                   borderRadius: BorderRadius.circular(16),
-                                  items: Strings.list3000EssentialTopic.map((topic) {
+                                  items: Strings.list3000EssentialTopic
+                                      .map((topic) {
                                     return DropdownMenuItem(
                                       value: topic,
                                       child: Text(
                                         topic.i18n,
-                                        style: context.theme.textTheme.labelLarge,
+                                        style:
+                                            context.theme.textTheme.labelLarge,
                                       ),
                                     );
                                   }).toList(),
@@ -168,7 +184,8 @@ class _EssentialViewState extends State<EssentialView> {
                               children: [
                                 const Icon(FontAwesomeIcons.play, size: 16),
                                 const HorizontalSpacing.medium(),
-                                Text("Start your journey exploring new words.".i18n),
+                                Text("Start your journey exploring new words."
+                                    .i18n),
                               ],
                             ),
                           ),
@@ -202,24 +219,26 @@ class _EssentialViewState extends State<EssentialView> {
                                     runSpacing: 8,
                                     children: snapshot.data!.map((topic) {
                                       return PillButton(
-                                          color: context
-                                              .theme.colorScheme.onSecondaryContainer,
-                                          backgroundColor:
-                                          context.theme.colorScheme.secondaryContainer,
+                                          color: context.theme.colorScheme
+                                              .onSecondaryContainer,
+                                          backgroundColor: context.theme
+                                              .colorScheme.secondaryContainer,
                                           onTap: () async {
                                             /// Load essential word based on provided topic
                                             await _essentialWordRepository
                                                 .loadEssentialData(topic)
                                                 .then(
                                                   (listEssential) => {
-                                                context.pushNamed(
-                                                    RouterConstants.learningFlashCard,
-                                                    extra: LearningView(
-                                                      topic: topic,
-                                                      listEssentialWord: listEssential,
-                                                    ))
-                                              },
-                                            );
+                                                    context.pushNamed(
+                                                        RouterConstants
+                                                            .learningFlashCard,
+                                                        extra: LearningView(
+                                                          topic: topic,
+                                                          listEssentialWord:
+                                                              listEssential,
+                                                        ))
+                                                  },
+                                                );
                                           },
                                           title: topic);
                                     }).toList(),
@@ -234,7 +253,13 @@ class _EssentialViewState extends State<EssentialView> {
                   ),
                 ),
               ),
-              const Header(),
+              ScreenTypeLayout.builder(mobile: (context) {
+                return const Header();
+              }, tablet: (context) {
+                return const Header(
+                  enableBackButton: false,
+                );
+              }),
             ],
           )),
     );

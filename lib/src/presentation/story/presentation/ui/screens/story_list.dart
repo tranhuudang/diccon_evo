@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
 
@@ -24,7 +25,8 @@ class StoryListView extends StatelessWidget {
                 storyListBloc.add(StoryListReload());
               },
               child: SingleChildScrollView(
-                padding:  const EdgeInsets.only(top: 60, bottom: 16, left: 16, right: 16),
+                padding: const EdgeInsets.only(
+                    top: 60, bottom: 16, left: 16, right: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -38,11 +40,13 @@ class StoryListView extends StatelessWidget {
 
                         /// Sub sentence
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 26),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 26),
                           child: Text(
                             "SubSentenceInStoryList".i18n,
                             style: context.theme.textTheme.titleMedium
-                                ?.copyWith(color: context.theme.colorScheme.onSurface),
+                                ?.copyWith(
+                                    color: context.theme.colorScheme.onSurface),
                           ),
                         ),
 
@@ -54,12 +58,14 @@ class StoryListView extends StatelessWidget {
                                 CircleButton(
                                     iconData: Icons.bookmark_border,
                                     onTap: () {
-                                      context.pushNamed('reading-chamber-bookmark');
+                                      context.pushNamed(
+                                          'reading-chamber-bookmark');
                                     }),
                                 CircleButton(
                                     iconData: Icons.history,
                                     onTap: () {
-                                      context.pushNamed('reading-chamber-history');
+                                      context
+                                          .pushNamed('reading-chamber-history');
                                     }),
                               ],
                             ),
@@ -85,35 +91,40 @@ class StoryListView extends StatelessWidget {
                             return Column(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
                                   child: GridView.builder(
                                     cacheExtent: 500,
                                     findChildIndexCallback: (Key key) {
                                       var valueKey = key as ValueKey;
                                       var index = data.articleList.indexWhere(
-                                              (element) => element == valueKey.value);
+                                          (element) =>
+                                              element == valueKey.value);
                                       if (index == -1) return null;
                                       return index;
                                     },
                                     shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemCount: 9, //data.articleList.length,
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
                                       mainAxisSpacing: 8,
                                       crossAxisSpacing: 8,
                                       crossAxisCount: 1,
                                       mainAxisExtent: 125,
-                                      childAspectRatio:
-                                      7 / 3, // Adjust the aspect ratio as needed
+                                      childAspectRatio: 7 /
+                                          3, // Adjust the aspect ratio as needed
                                     ),
                                     itemBuilder: (context, index) {
                                       return ReadingTile(
                                         key: ValueKey(data.articleList[index]),
                                         tag:
-                                        "fromStoryListToPage${data.articleList[index].title}Tag",
+                                            "fromStoryListToPage${data.articleList[index].title}Tag",
                                         story: data.articleList[index],
                                         onTap: () {
-                                          context.pushNamed(RouterConstants.readingSpace,
+                                          context.pushNamed(
+                                              RouterConstants.readingSpace,
                                               extra: data.articleList[index]);
                                         },
                                       );
@@ -139,10 +150,11 @@ class StoryListView extends StatelessWidget {
                                   const VerticalSpacing.medium(),
                                   ColorFiltered(
                                     colorFilter: ColorFilter.mode(
-                                        context.theme.colorScheme.primary, BlendMode.srcIn),
+                                        context.theme.colorScheme.primary,
+                                        BlendMode.srcIn),
                                     child: Image(
-                                      image: AssetImage(
-                                          LocalDirectory.getRandomIllustrationImage()),
+                                      image: AssetImage(LocalDirectory
+                                          .getRandomIllustrationImage()),
                                       width: 200,
                                     ),
                                   ),
@@ -150,7 +162,8 @@ class StoryListView extends StatelessWidget {
                                   Text(
                                     "I'm tired. I guess I'm getting old.".i18n,
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.bold, fontSize: 20),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
                                   ),
                                   const VerticalSpacing.medium(),
                                   Opacity(
@@ -191,46 +204,92 @@ class StoryListView extends StatelessWidget {
                 ),
               ),
             ),
-            Header(
-              actions: [
-                IconButton(
-                    onPressed: () => showSearchPage(context),
-                    icon: const Icon(Icons.search)),
-                PopupMenuButton(
-                  //splashRadius: 10.0,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: context.theme.dividerColor),
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      child: Text("Elementary".i18n),
-                      onTap: () => storyListBloc.add(StoryListSortElementary()),
+            ScreenTypeLayout.builder(mobile: (context) {
+              return Header(
+                actions: [
+                  IconButton(
+                      onPressed: () => showSearchPage(context),
+                      icon: const Icon(Icons.search)),
+                  PopupMenuButton(
+                    //splashRadius: 10.0,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: context.theme.dividerColor),
+                      borderRadius: BorderRadius.circular(16.0),
                     ),
-                    PopupMenuItem(
-                      child: Text("Intermediate".i18n),
-                      onTap: () =>
-                          storyListBloc.add(StoryListSortIntermediate()),
-                    ),
-                    PopupMenuItem(
-                      child: Text("Advanced".i18n),
-                      onTap: () => storyListBloc.add(StoryListSortAdvanced()),
-                    ),
-                    const PopupMenuItem(
-                      enabled: false,
-                      height: 0,
-                      child: WaveDivider(
-                        thickness: .3,
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: Text("Elementary".i18n),
+                        onTap: () =>
+                            storyListBloc.add(StoryListSortElementary()),
                       ),
+                      PopupMenuItem(
+                        child: Text("Intermediate".i18n),
+                        onTap: () =>
+                            storyListBloc.add(StoryListSortIntermediate()),
+                      ),
+                      PopupMenuItem(
+                        child: Text("Advanced".i18n),
+                        onTap: () => storyListBloc.add(StoryListSortAdvanced()),
+                      ),
+                      const PopupMenuItem(
+                        enabled: false,
+                        height: 0,
+                        child: WaveDivider(
+                          thickness: .3,
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: Text("All".i18n),
+                        onTap: () => storyListBloc.add(StoryListSortAll()),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            }, tablet: (context) {
+              return Header(
+                enableBackButton: false,
+                actions: [
+                  IconButton(
+                      onPressed: () => showSearchPage(context),
+                      icon: const Icon(Icons.search)),
+                  PopupMenuButton(
+                    //splashRadius: 10.0,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: context.theme.dividerColor),
+                      borderRadius: BorderRadius.circular(16.0),
                     ),
-                    PopupMenuItem(
-                      child: Text("All".i18n),
-                      onTap: () => storyListBloc.add(StoryListSortAll()),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: Text("Elementary".i18n),
+                        onTap: () =>
+                            storyListBloc.add(StoryListSortElementary()),
+                      ),
+                      PopupMenuItem(
+                        child: Text("Intermediate".i18n),
+                        onTap: () =>
+                            storyListBloc.add(StoryListSortIntermediate()),
+                      ),
+                      PopupMenuItem(
+                        child: Text("Advanced".i18n),
+                        onTap: () => storyListBloc.add(StoryListSortAdvanced()),
+                      ),
+                      const PopupMenuItem(
+                        enabled: false,
+                        height: 0,
+                        child: WaveDivider(
+                          thickness: .3,
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: Text("All".i18n),
+                        onTap: () => storyListBloc.add(StoryListSortAll()),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            }),
           ],
         ),
       ),

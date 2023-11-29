@@ -1,6 +1,7 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class ConversationView extends StatelessWidget {
   const ConversationView({super.key});
@@ -22,7 +23,7 @@ class ConversationView extends StatelessWidget {
               builder: (context, state) {
                 {
                   switch (state.runtimeType) {
-                    case ConversationInitial :
+                    case ConversationInitial:
                       final data = state as ConversationInitial;
                       return ListView.builder(
                         itemCount: data.conversation.length,
@@ -32,7 +33,7 @@ class ConversationView extends StatelessWidget {
                           return state.conversation[index];
                         },
                       );
-                    case ConversationUpdated :
+                    case ConversationUpdated:
                       final data = state as ConversationUpdated;
                       return Stack(
                         children: [
@@ -78,9 +79,16 @@ class ConversationView extends StatelessWidget {
             Column(
               children: [
                 Expanded(
-                  child: Header(
-                    title: "Conversation".i18n,
-                  ),
+                  child: ScreenTypeLayout.builder(mobile: (context) {
+                    return Header(
+                      title: "Conversation".i18n,
+                    );
+                  }, tablet: (context) {
+                    return Header(
+                      enableBackButton: false,
+                      title: "Conversation".i18n,
+                    );
+                  }),
                 ),
 
                 /// Text field
@@ -95,14 +103,11 @@ class ConversationView extends StatelessWidget {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                context.theme
-                                    .scaffoldBackgroundColor
+                                context.theme.scaffoldBackgroundColor
                                     .withOpacity(0.0),
-                                context.theme
-                                    .scaffoldBackgroundColor
+                                context.theme.scaffoldBackgroundColor
                                     .withOpacity(0.3),
-                                context.theme
-                                    .scaffoldBackgroundColor
+                                context.theme.scaffoldBackgroundColor
                                     .withOpacity(0.9),
                                 context.theme.scaffoldBackgroundColor,
                                 context.theme.scaffoldBackgroundColor,
@@ -144,9 +149,8 @@ class ConversationView extends StatelessWidget {
                                     },
                                     icon: Icon(
                                       Icons.add_circle_outline,
-                                      color: context.theme
-                                          .colorScheme
-                                          .onSurface,
+                                      color:
+                                          context.theme.colorScheme.onSurface,
                                     ),
                                   ),
                                   Expanded(
@@ -155,9 +159,12 @@ class ConversationView extends StatelessWidget {
                                         builder: (context, state) {
                                       if (state is ConversationUpdated) {
                                         return SearchBox(
-                                          searchTextController: conversationBloc.textController,
+                                          searchTextController:
+                                              conversationBloc.textController,
                                           enableCamera: false,
-                                          hintText: "Send a message for practice".i18n,
+                                          hintText:
+                                              "Send a message for practice"
+                                                  .i18n,
                                           enabled: !state.isResponding,
                                           onSubmitted: (providedWord) {
                                             //_handleSubmitted(providedWord, context);
@@ -174,10 +181,11 @@ class ConversationView extends StatelessWidget {
                                       }
 
                                       return SearchBox(
-
-                                        searchTextController: conversationBloc.textController,
+                                        searchTextController:
+                                            conversationBloc.textController,
                                         enableCamera: false,
-                                        hintText: "Send a message for practice".i18n,
+                                        hintText:
+                                            "Send a message for practice".i18n,
                                         onSubmitted: (providedWord) {
                                           //_handleSubmitted(providedWord, context);
                                           conversationBloc.add(AskAQuestion(

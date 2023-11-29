@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../../core/core.dart';
 import '../../../../../data/data.dart';
 import '../../../../../domain/domain.dart';
@@ -19,7 +20,8 @@ class _DictionaryViewState extends State<DictionaryView> {
   final ImageHandler _imageProvider = ImageHandler();
   final suggestionWordListDb = SuggestionDatabase.instance;
 
-  final EnglishToVietnameseDictionaryRepository dictionaryRepository = EnglishToVietnameseDictionaryRepositoryImpl();
+  final EnglishToVietnameseDictionaryRepository dictionaryRepository =
+      EnglishToVietnameseDictionaryRepositoryImpl();
   List<String> _suggestionWords = [];
   String _imageUrl = '';
   bool _hasImages = false;
@@ -74,7 +76,7 @@ class _DictionaryViewState extends State<DictionaryView> {
     FocusNode textFieldFocusNode = FocusNode();
     if (defaultTargetPlatform.isMobile()) {
       // Remove focus out of TextField in DictionaryView
-       textFieldFocusNode.unfocus();
+      textFieldFocusNode.unfocus();
     } else {
       // On desktop we request focus, not on mobile
       textFieldFocusNode.requestFocus();
@@ -159,18 +161,35 @@ class _DictionaryViewState extends State<DictionaryView> {
               children: [
                 /// Dictionary header
                 Expanded(
-                  child: Header(
-                    title: "Dictionary".i18n,
-                    actions: [
-                      IconButton(
-                        icon: const Icon(Icons.history),
-                        onPressed: () {
-                          context.pushNamed('word-history');
-                        },
-                      ),
-                      const DictionaryMenu(),
-                    ],
-                  ),
+                  child: ScreenTypeLayout.builder(mobile: (context) {
+                    return Header(
+                      enableBackButton: true,
+                      title: "Dictionary".i18n,
+                      actions: [
+                        IconButton(
+                          icon: const Icon(Icons.history),
+                          onPressed: () {
+                            context.pushNamed('word-history');
+                          },
+                        ),
+                        const DictionaryMenu(),
+                      ],
+                    );
+                  }, tablet: (context) {
+                    return Header(
+                      enableBackButton: false,
+                      title: "Dictionary".i18n,
+                      actions: [
+                        IconButton(
+                          icon: const Icon(Icons.history),
+                          onPressed: () {
+                            context.pushNamed('word-history');
+                          },
+                        ),
+                        const DictionaryMenu(),
+                      ],
+                    );
+                  }),
                 ),
 
                 SizedBox(
@@ -279,13 +298,14 @@ class _DictionaryViewState extends State<DictionaryView> {
     );
   }
 
-  Container buildTextField(BuildContext context, ChatListBloc chatListBloc, SettingBloc settingBloc) {
+  Container buildTextField(BuildContext context, ChatListBloc chatListBloc,
+      SettingBloc settingBloc) {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 16),
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: <Widget>[
-        const DictionaryBottomMenu(),
+          const DictionaryBottomMenu(),
           Expanded(
             child: SearchBox(
               searchTextController: chatListBloc.textController,
