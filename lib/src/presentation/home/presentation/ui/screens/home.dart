@@ -76,6 +76,7 @@ class _HomeViewState extends State<HomeView> with WindowListener {
         child: Scaffold(
           backgroundColor: context.theme.colorScheme.surface,
           body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
             child: Stack(
               children: [
                 /// Menu button

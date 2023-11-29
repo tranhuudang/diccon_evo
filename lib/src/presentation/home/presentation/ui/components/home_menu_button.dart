@@ -15,8 +15,8 @@ class HomeMenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 16,
-      top: 16,
+      right: 0,
+      top: 0,
       child: SizedBox(
         height: 50,
         width: 50,

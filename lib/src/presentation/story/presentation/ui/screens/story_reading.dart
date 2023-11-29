@@ -74,6 +74,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                 body: Stack(
                   children: [
                     SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
                       controller: _controller,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

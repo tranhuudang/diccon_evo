@@ -24,7 +24,7 @@ class StoryListView extends StatelessWidget {
                 storyListBloc.add(StoryListReload());
               },
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(top: 60),
+                padding:  const EdgeInsets.only(top: 60, bottom: 16, left: 16, right: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
