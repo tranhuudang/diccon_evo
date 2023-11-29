@@ -92,24 +92,6 @@ class HomeMenuButton extends StatelessWidget {
                 PopupMenuItem(
                   child: Row(
                     children: [
-                      const Icon(UniconsLine.github),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text("Report Errors".i18n),
-                    ],
-                  ),
-                  onTap: () async {
-                    final Uri url = Uri.parse(
-                        'https://github.com/tranhuudang/diccon_evo/issues');
-                    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                    }
-                  },
-                ),
-                PopupMenuItem(
-                  child: Row(
-                    children: [
                       const Icon(Icons.feedback_outlined),
                       const SizedBox(
                         width: 8,

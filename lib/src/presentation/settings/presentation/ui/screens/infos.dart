@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
@@ -64,21 +65,36 @@ class InfoView extends StatelessWidget {
                 style: context.theme.textTheme.titleSmall,
               ),
             ),
-            const VerticalSpacing.medium(),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "© 2023 Zeroboy.",
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                      color: context.theme.colorScheme.onSurfaceVariant),
-                ),
-                const HorizontalSpacing.small(),
-                Text(
-                  "All rights reserved.".i18n,
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                      color: context.theme.colorScheme.onSurfaceVariant),
-                ),
+                IconButton(
+                    onPressed: () async {
+                      final Uri url = Uri.parse(
+                          'https://github.com/tranhuudang/diccon_evo');
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw Exception('Could not launch $url');
+                      }
+                    },
+                    icon: const Icon(UniconsLine.github)),
+                IconButton(
+                    onPressed: () async {
+                      final Uri url =
+                          Uri.parse('mailto:tranhuudang148@gmail.com');
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw Exception('Could not launch $url');
+                      }
+                    },
+                    icon: const Icon(Icons.mail)),
               ],
+            ),
+            const VerticalSpacing.medium(),
+            Text(
+              "© 2023 Tran Huu Dang. ${"All rights reserved.".i18n}",
+              style: context.theme.textTheme.bodyMedium
+                  ?.copyWith(color: context.theme.colorScheme.onSurfaceVariant),
             ),
           ],
         ),
