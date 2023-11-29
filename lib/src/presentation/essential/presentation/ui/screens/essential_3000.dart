@@ -42,30 +42,59 @@ class _EssentialViewState extends State<EssentialView> {
             children: [
               SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 50),
+                  padding: const EdgeInsets.only(top: 60, left: 16, right: 16, bottom: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       /// Head sentence
-                      const HeadSentence(
-                        listText: [
-                          "Nothing",
-                          "Worth Doing",
-                          "Ever",
-                          "Came Easy"
-                        ],
+                      ScreenTypeLayout.builder(
+                        mobile: (context) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const HeadSentence(
+                                listText: [
+                                  "Nothing",
+                                  "Worth Doing",
+                                  "Ever",
+                                  "Came Easy"
+                                ],
+                              ),
+                              /// Sub sentence
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 32, vertical: 18),
+                                child: Text(
+                                  "SubSentenceInEssentialWord".i18n,
+                                  style: context.theme.textTheme.bodyLarge?.copyWith(
+                                      color: context.theme.colorScheme.onSurface),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                          tablet: (context) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                /// Sub sentence
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 32, vertical: 18),
+                                  child: Text(
+                                    "SubSentenceInEssentialWord".i18n,
+                                    style: context.theme.textTheme.bodyLarge?.copyWith(
+                                        color: context.theme.colorScheme.onSurface),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
                       ),
 
-                      /// Sub sentence
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 32, vertical: 18),
-                        child: Text(
-                          "SubSentenceInEssentialWord".i18n,
-                          style: context.theme.textTheme.bodyLarge?.copyWith(
-                              color: context.theme.colorScheme.onSurface),
-                        ),
-                      ),
+
                       Row(
                         children: [
                           /// Function bar
@@ -256,7 +285,8 @@ class _EssentialViewState extends State<EssentialView> {
               ScreenTypeLayout.builder(mobile: (context) {
                 return const Header();
               }, tablet: (context) {
-                return const Header(
+                return Header(
+                  title: 'Practice'.i18n,
                   enableBackButton: false,
                 );
               }),

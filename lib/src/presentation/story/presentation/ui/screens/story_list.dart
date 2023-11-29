@@ -30,56 +30,86 @@ class StoryListView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// Head sentence
-                        const HeadSentence(
-                          listText: ["Library of", "Infinite Adventures"],
-                        ),
-
-                        /// Sub sentence
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 26),
-                          child: Text(
-                            "SubSentenceInStoryList".i18n,
-                            style: context.theme.textTheme.titleMedium
-                                ?.copyWith(
-                                    color: context.theme.colorScheme.onSurface),
+                    ScreenTypeLayout.builder(mobile: (context) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// Head sentence
+                          const HeadSentence(
+                            listText: ["Library of", "Infinite Adventures"],
                           ),
-                        ),
 
-                        /// Function button
-                        Row(
-                          children: [
-                            CircleButtonBar(
-                              children: [
-                                CircleButton(
-                                    iconData: Icons.bookmark_border,
-                                    onTap: () {
-                                      context.pushNamed(
-                                          'reading-chamber-bookmark');
-                                    }),
-                                CircleButton(
-                                    iconData: Icons.history,
-                                    onTap: () {
-                                      context
-                                          .pushNamed('reading-chamber-history');
-                                    }),
-                              ],
+                          /// Sub sentence
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 32, vertical: 26),
+                            child: Text(
+                              "SubSentenceInStoryList".i18n,
+                              style: context.theme.textTheme.titleMedium
+                                  ?.copyWith(
+                                      color:
+                                          context.theme.colorScheme.onSurface),
                             ),
-                            const Spacer(),
-                            FilledButton.tonalIcon(
-                                onPressed: () {
-                                  storyListBloc.add(StoryListReload());
-                                },
-                                icon: const Icon(Icons.auto_fix_high_outlined),
-                                label: Text('Suggestion'.i18n)),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+
+                          /// Function button
+                          Row(
+                            children: [
+                              CircleButtonBar(
+                                children: [
+                                  CircleButton(
+                                      iconData: Icons.bookmark_border,
+                                      onTap: () {
+                                        context.pushNamed(
+                                            'reading-chamber-bookmark');
+                                      }),
+                                  CircleButton(
+                                      iconData: Icons.history,
+                                      onTap: () {
+                                        context.pushNamed(
+                                            'reading-chamber-history');
+                                      }),
+                                ],
+                              ),
+                              const Spacer(),
+                              FilledButton.tonalIcon(
+                                  onPressed: () {
+                                    storyListBloc.add(StoryListReload());
+                                  },
+                                  icon:
+                                      const Icon(Icons.auto_fix_high_outlined),
+                                  label: Text('Suggestion'.i18n)),
+                            ],
+                          ),
+                        ],
+                      );
+                    }, tablet: (context) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// Sub sentence
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 32, vertical: 26),
+                            child: Text(
+                              "SubSentenceInStoryList".i18n,
+                              style: context.theme.textTheme.titleMedium
+                                  ?.copyWith(
+                                      color:
+                                          context.theme.colorScheme.onSurface),
+                            ),
+                          ),
+
+                          /// Suggestion story button
+                          FilledButton.tonalIcon(
+                              onPressed: () {
+                                storyListBloc.add(StoryListReload());
+                              },
+                              icon: const Icon(Icons.auto_fix_high_outlined),
+                              label: Text('Suggestion'.i18n)),
+                        ],
+                      );
+                    }),
 
                     /// List article
                     BlocBuilder<StoryListBloc, StoryListState>(
@@ -248,11 +278,23 @@ class StoryListView extends StatelessWidget {
               );
             }, tablet: (context) {
               return Header(
+                title: 'Library'.i18n,
                 enableBackButton: false,
                 actions: [
                   IconButton(
                       onPressed: () => showSearchPage(context),
                       icon: const Icon(Icons.search)),
+                  const VerticalDivider(),
+                  IconButton(
+                      icon: const Icon(Icons.bookmark_border),
+                      onPressed: () {
+                        context.pushNamed('reading-chamber-bookmark');
+                      }),
+                  IconButton(
+                      icon: const Icon(Icons.history),
+                      onPressed: () {
+                        context.pushNamed('reading-chamber-history');
+                      }),
                   PopupMenuButton(
                     //splashRadius: 10.0,
                     shape: RoundedRectangleBorder(

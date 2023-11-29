@@ -712,6 +712,10 @@ extension Localization on String {
       "en_us": "School-supplies",
       "vi_vi": "Vật dụng học tập",
     },
+    "Practice": {
+      "en_us": "Practice",
+      "vi_vi": "Luyện tập",
+    },
     "Start your journey exploring new words.": {
       "en_us": "Start your journey exploring new words.",
       "vi_vi": "Bắt đầu cuộc hành trình khám phá từ mới.",

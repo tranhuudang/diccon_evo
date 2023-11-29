@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/nested_navigation.dart';
+import '../../presentation/scaffold_with_nested_navigation.dart';
 import '../../presentation/settings/presentation/ui/screens/licenses.dart';
 import '../core.dart';
 
@@ -17,6 +17,8 @@ final _shellNavigatorLibraryKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellLibrary');
 final _shellNavigatorConversationKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellConversation');
+final _shellNavigatorEssentialKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellEssential');
 final _shellNavigatorAboutKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellAbout');
 
@@ -50,7 +52,8 @@ GoRouter routerConfigDesktop = GoRouter(
               name: RouterConstants.dictionary,
               path: '/dictionary',
               pageBuilder: (context, state) {
-                return NoTransitionPage(child: I18n(child: const DictionaryView()));
+                return NoTransitionPage(
+                    child: I18n(child: const DictionaryView()));
               },
               routes: [
                 GoRoute(
@@ -74,7 +77,8 @@ GoRouter routerConfigDesktop = GoRouter(
               name: RouterConstants.readingChamber,
               path: '/reading-chamber',
               pageBuilder: (context, state) {
-                return NoTransitionPage(child: I18n(child: const StoryListView()));
+                return NoTransitionPage(
+                    child: I18n(child: const StoryListView()));
               },
               routes: [
                 // Reading chamber's reading space
@@ -132,6 +136,48 @@ GoRouter routerConfigDesktop = GoRouter(
             ),
           ],
         ),
+        // essential branch
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorEssentialKey,
+          routes: [
+            // top route inside branch
+            GoRoute(
+              name: RouterConstants.essential1848,
+              path: '/essential-1848',
+              pageBuilder: (context, state) {
+                return NoTransitionPage(
+                    child: I18n(child: const EssentialView()));
+              },
+              routes: [
+                GoRoute(
+                  name: RouterConstants.learningFlashCard,
+                  path: 'flash-card',
+                  pageBuilder: (context, state) {
+                    var params = state.extra as LearningView;
+                    return NoTransitionPage(
+                        child: I18n(
+                            child: LearningView(
+                      topic: params.topic,
+                      listEssentialWord: params.listEssentialWord,
+                    )));
+                  },
+                ),
+                GoRoute(
+                  name: RouterConstants.learningFavourite,
+                  path: 'favourite',
+                  pageBuilder: (context, state) {
+                    var params = state.extra as FavouriteReviewView;
+                    return NoTransitionPage(
+                        child: I18n(
+                            child: FavouriteReviewView(
+                      listEssentialWord: params.listEssentialWord,
+                    )));
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
         // setting branch
         StatefulShellBranch(
           navigatorKey: _shellNavigatorSettingKey,
@@ -141,7 +187,8 @@ GoRouter routerConfigDesktop = GoRouter(
               name: RouterConstants.commonSettings,
               path: '/settings',
               pageBuilder: (context, state) {
-                return NoTransitionPage(child: I18n(child: const SettingsView()));
+                return NoTransitionPage(
+                    child: I18n(child: const SettingsView()));
               },
               routes: [
                 GoRoute(
@@ -191,57 +238,23 @@ GoRouter routerConfigDesktop = GoRouter(
       ],
     ),
 
-  //   /// Home
-  //   GoRoute(
-  //       name: RouterConstants.home,
-  //       path: '/home',
-  //       pageBuilder: (context, state) {
-  //         return NoTransitionPage(child: I18n(child: const HomeView()));
-  //       },
-  //       routes: [
-  //         // Settings
-  //         GoRoute(
-  //           name: RouterConstants.userSettings,
-  //           path: 'user-settings',
-  //           pageBuilder: (context, state) {
-  //             return NoTransitionPage(child: I18n(child: const UserSettingsView()));
-  //           },
-  //         ),
-  //       ]),
-  //
-  //   /// Essential 1848
-  //   GoRoute(
-  //       name: RouterConstants.essential1848,
-  //       path: '/essential-1848',
-  //       pageBuilder: (context, state) {
-  //         return NoTransitionPage(child: I18n(child: const EssentialView()));
-  //       },
-  //       routes: [
-  //         GoRoute(
-  //           name: RouterConstants.learningFlashCard,
-  //           path: 'flash-card',
-  //           pageBuilder: (context, state) {
-  //             var params = state.extra as LearningView;
-  //             return NoTransitionPage(
-  //                 child: I18n(
-  //                     child: LearningView(
-  //               topic: params.topic,
-  //               listEssentialWord: params.listEssentialWord,
-  //             )));
-  //           },
-  //         ),
-  //         GoRoute(
-  //           name: RouterConstants.learningFavourite,
-  //           path: 'favourite',
-  //           pageBuilder: (context, state) {
-  //             var params = state.extra as FavouriteReviewView;
-  //             return NoTransitionPage(
-  //                 child: I18n(
-  //                     child: FavouriteReviewView(
-  //               listEssentialWord: params.listEssentialWord,
-  //             )));
-  //           },
-  //         ),
-  //       ]),
+    //   /// Home
+    //   GoRoute(
+    //       name: RouterConstants.home,
+    //       path: '/home',
+    //       pageBuilder: (context, state) {
+    //         return NoTransitionPage(child: I18n(child: const HomeView()));
+    //       },
+    //       routes: [
+    //         // Settings
+    //         GoRoute(
+    //           name: RouterConstants.userSettings,
+    //           path: 'user-settings',
+    //           pageBuilder: (context, state) {
+    //             return NoTransitionPage(child: I18n(child: const UserSettingsView()));
+    //           },
+    //         ),
+    //       ]),
+    //
   ],
 );
