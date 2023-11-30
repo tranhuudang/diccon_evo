@@ -139,9 +139,9 @@ class ConversationView extends StatelessWidget {
                                   IconButton(
                                     onPressed: () {
                                       context.showAlertDialog(
-                                          title: "Close this session?",
+                                          title: "Close this session?".i18n,
                                           content:
-                                              "Clear all the bubbles in this translation session.",
+                                              "Clear all the bubbles in this translation session.".i18n,
                                           action: () {
                                             conversationBloc
                                                 .add(ResetConversation());
