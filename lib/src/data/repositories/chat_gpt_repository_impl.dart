@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import '../../core/constants/constants.dart';
 import '../../domain/domain.dart';
 
 class ChatGptRepositoryImplement implements ChatGptRepository {
@@ -27,7 +28,7 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
 
     final request = ChatCompletionRequest(
       stream: true,
-      maxTokens: 2000,
+      maxTokens: 1500,
       messages: messages,
       model: ChatGptModel.gpt35Turbo,
       temperature: 1,
@@ -45,9 +46,11 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
     );
     final request = ChatCompletionRequest(
       stream: true,
-      maxTokens: 2000,
+      maxTokens: 1000,
       messages: [
-        Message(role: Role.system.name, content: "Pretend you are an expert language translator"),
+        Message(
+            role: Role.system.name,
+            content: InAppStrings.languageExpertTranslatorRole),
         Message(role: Role.user.name, content: singleQuestionAnswer.question)
       ],
       model: ChatGptModel.gpt35Turbo,
@@ -60,7 +63,8 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
   List<Message> createMessageListFromQuestionAnswers(
       List<QuestionAnswer> questionAnswers) {
     final List<Message> messages = [];
-
+    messages.add(Message(
+        role: Role.system.name, content: InAppStrings.languageTeacherRole));
     for (var qa in questionAnswers) {
       // Add a user message for the question
       messages.add(Message(role: Role.user.name, content: qa.question));

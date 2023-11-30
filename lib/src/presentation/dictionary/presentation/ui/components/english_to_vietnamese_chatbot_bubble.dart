@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import '../../../../../core/configs/configs.dart';
+import 'package:diccon_evo/src/core/constants/constants.dart';
 import '../../../../../domain/domain.dart';
 import '../../../../presentation.dart';
 
@@ -36,10 +36,10 @@ class _EnglishToVietnameseChatBotBubbleState
   Future<ChatCompletionRequest> _getQuestionRequest() async {
     if (widget.isParagraph) {
       customQuestion =
-          'Hãy giúp tôi dịch đoạn văn sau sang tiếng Việt: ${widget.word}';
+          InAppStrings.getEnToViParagraphTranslateQuestion(widget.word);
     } else {
       customQuestion =
-      'Help me translate the word: "${widget.word.trim()}" from English to Vietnamese covering these topics: ${Properties.instance.settings.dictionaryResponseSelectedListVietnamese}. Make sure that each english sentences are immediately followed by their vietnamese translations, translated be put in (). Any explanations within the answer must be in vietnamese. Make the answer as short as possible.';
+          InAppStrings.getEnToViSingleWordTranslateQuestion(widget.word);
     }
     var request = await widget.listChatGptRepository[widget.index]
         .createSingleQuestionRequest(customQuestion);

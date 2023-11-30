@@ -423,7 +423,7 @@ extension Localization on String {
     },
     "Enhance your communication skills with our advanced bot.": {
       "en_us": "Enhance your communication skills with our advanced bot",
-      "vi_vi": "Cải thiện kĩ năng giao tiếp cùng với Javis",
+      "vi_vi": "Cải thiện kĩ năng giao tiếp cùng với Diccon",
     },
     "Conversation": {
       "en_us": "Conversation",

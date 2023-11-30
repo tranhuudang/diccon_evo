@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -15,7 +16,8 @@ class InfoView extends StatelessWidget {
         body: Stack(
           children: [
             SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 60, left: 16, right: 16, bottom: 16),
+              padding: const EdgeInsets.only(
+                  top: 60, left: 16, right: 16, bottom: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -47,6 +49,7 @@ class InfoView extends StatelessWidget {
                           style: context.theme.textTheme.titleSmall,
                         ),
                       ),
+                      const VerticalSpacing.medium(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -163,10 +166,16 @@ class InfoView extends StatelessWidget {
             ),
 
             /// Header
-               Header(
+            ScreenTypeLayout.builder(mobile: (context) {
+              return Header(
                 title: "About".i18n,
-              ),
-
+              );
+            }, tablet: (context) {
+              return Header(
+                enableBackButton: false,
+                title: "About".i18n,
+              );
+            }),
           ],
         ),
       ),

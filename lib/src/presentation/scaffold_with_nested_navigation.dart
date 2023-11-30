@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:unicons/unicons.dart';
 import 'package:wave_divider/wave_divider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ScaffoldWithNestedNavigation extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -45,8 +46,8 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
                     selectedIcon: const Icon(UniconsLine.book_open),
                     label: Text('Library'.i18n)),
                 NavigationRailDestination(
-                  icon: const Icon(Icons.chat_outlined),
-                  selectedIcon: const Icon(Icons.chat),
+                  icon: const FaIcon(FontAwesomeIcons.comments),
+                  selectedIcon: const FaIcon(FontAwesomeIcons.solidComments),
                   label: Text('Conversation'.i18n),
                 ),
                 NavigationRailDestination(

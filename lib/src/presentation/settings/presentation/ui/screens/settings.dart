@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:wave_divider/wave_divider.dart';
 import 'package:wavy_slider/wavy_slider.dart';
 
@@ -29,7 +30,8 @@ class _SettingsViewState extends State<SettingsView> {
               return Stack(
                 children: [
                   SingleChildScrollView(
-                      padding: const EdgeInsets.only(top: 60, left: 16, right: 16, bottom: 16),
+                      padding: const EdgeInsets.only(
+                          top: 60, left: 16, right: 16, bottom: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -246,7 +248,12 @@ class _SettingsViewState extends State<SettingsView> {
                       )),
 
                   /// Header
-                   Header(title: "Settings".i18n),
+                  ScreenTypeLayout.builder(mobile: (context) {
+                    return Header(title: "Settings".i18n);
+                  }, tablet: (context) {
+                    return Header(
+                        enableBackButton: false, title: "Settings".i18n);
+                  }),
                 ],
               );
             }),

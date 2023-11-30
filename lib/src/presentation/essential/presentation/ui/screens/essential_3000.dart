@@ -22,7 +22,7 @@ class _EssentialViewState extends State<EssentialView> {
   @override
   initState() {
     _listTopicHistory = HistoryManager.readTopicHistory();
-    _selectedTopic = Strings.list3000EssentialTopic[createRandomValue()];
+    _selectedTopic = InAppStrings.list3000EssentialTopic[createRandomValue()];
     super.initState();
   }
 
@@ -30,7 +30,7 @@ class _EssentialViewState extends State<EssentialView> {
 
   int createRandomValue() {
     Random random = Random();
-    return random.nextInt(Strings.list3000EssentialTopic.length);
+    return random.nextInt(InAppStrings.list3000EssentialTopic.length);
   }
 
   @override
@@ -178,7 +178,7 @@ class _EssentialViewState extends State<EssentialView> {
                                       horizontal: 8, vertical: 8),
                                   underline: null,
                                   borderRadius: BorderRadius.circular(16),
-                                  items: Strings.list3000EssentialTopic
+                                  items: InAppStrings.list3000EssentialTopic
                                       .map((topic) {
                                     return DropdownMenuItem(
                                       value: topic,

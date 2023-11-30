@@ -31,10 +31,10 @@ class DictionaryPreferencesInitial extends DictionaryPreferencesState {
       : super(
             listSelectedVietnamese: Properties
                 .instance.settings.dictionaryResponseSelectedListVietnamese
-                .split(Strings.splitCharacter),
+                .split(InAppStrings.splitCharacter),
             listSelectedEnglish: Properties
                 .instance.settings.dictionaryResponseSelectedListEnglish
-                .split(Strings.splitCharacter));
+                .split(InAppStrings.splitCharacter));
 }
 
 class DictionaryPreferencesUpdated extends DictionaryPreferencesState {
