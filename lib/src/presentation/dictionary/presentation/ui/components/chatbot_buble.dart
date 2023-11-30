@@ -96,6 +96,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
     final databaseRow =
         FirebaseFirestore.instance.collection("Dictionary").doc(answerId);
     final json = {
+      'question': widget.word,
       'answer': widget
           .listChatGptRepository[widget.index].singleQuestionAnswer.answer
           .toString(),

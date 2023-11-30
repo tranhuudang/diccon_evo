@@ -15,7 +15,7 @@ class WordPronunciation extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       pronunciation != null ?
-      Text( "/$pronunciation/",
+      Text( "/$pronunciation/" == '//' ? '': "/$pronunciation/",
       style: TextStyle(
         color: color?? context.theme.colorScheme.onSurface,
         fontStyle: FontStyle.italic,

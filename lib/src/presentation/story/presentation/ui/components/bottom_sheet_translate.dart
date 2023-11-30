@@ -89,7 +89,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       print("widget.message.word : ${widget.searchWord}");
     }
     var request = await _chatGptRepository.createSingleQuestionRequest(
-        'Nghĩa của câu "${widget.sentenceContainWord}" là gì ? (Lưu ý: chỉ dịch và không giải thích gì thêm).');
+        'Translate this sentence: "${widget.sentenceContainWord}" to Vietnamese (Only return the translation)');
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer =
         _composeMd5IdForFirebaseDb(sentence: widget.sentenceContainWord);
@@ -119,6 +119,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final databaseRow =
         FirebaseFirestore.instance.collection("Story").doc(answerId);
     final json = {
+      'question': widget.sentenceContainWord,
       'answer': _chatGptRepository.singleQuestionAnswer.answer.toString(),
     };
     await databaseRow.set(json);
@@ -142,7 +143,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                 height: 50, width: 50, child: CircularProgressIndicator()),
           )
         : Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -190,7 +191,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                 Row(
                                   children: [
                                     WordTitle(
-                                      word: _wordResult.word,
+                                      word: widget.searchWord.trim().upperCaseFirstLetter(),
                                       titleColor:
                                           context.theme.colorScheme.onSurface,
                                     ),
