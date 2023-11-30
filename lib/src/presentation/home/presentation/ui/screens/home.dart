@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
@@ -11,51 +9,17 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with WindowListener {
+class _HomeViewState extends State<HomeView> {
   final List<Widget> _listPrimaryFunction = const [
     ToDictionaryButton(),
     ToReadingChamberButton(),
-
   ];
   final List<Widget> _listSubFunction = const [
     ToConversationButton(),
-
     ToEssentialWordButton(),
-
   ];
 
   DateTime _backPressedTime = DateTime.now();
-
-  _loadUpData() async {
-    /// Increase count number to count the how many time user open app
-    Properties.instance.saveSettings(Properties.instance.settings
-        .copyWith(openAppCount: Properties.instance.settings.openAppCount + 1));
-    if (kDebugMode) {
-      print(
-          " Current Properties.instance.settings.openAppCount value: ${Properties.instance.settings.openAppCount.toString()}");
-    }
-  }
-
-  /// Detect when windows is changing size
-  @override
-  void onWindowResize() async {
-    Size windowsSize = await WindowManager.instance.getSize();
-    // Save windows size to setting
-    final newSettings = Properties.instance.settings.copyWith(
-        windowsWidth: windowsSize.width, windowsHeight: windowsSize.height);
-    Properties.instance.saveSettings(newSettings);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WindowManager.instance.addListener(this);
-    // Other loading steps
-    _loadUpData();
-    if (kDebugMode) {
-      print("Data is loaded");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +67,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DictionaryView(
-                                    word: enteredString, buildContext: context)));
+                                    word: enteredString,
+                                    buildContext: context)));
                       },
                     ),
                     const VerticalSpacing.large(),
@@ -113,7 +78,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: _listPrimaryFunction.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           mainAxisExtent: 180,
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,
@@ -125,7 +91,8 @@ class _HomeViewState extends State<HomeView> with WindowListener {
                     const VerticalSpacing.medium(),
 
                     /// Other functions
-                    SubFunctionBox(height: 180, listSubFunction: _listSubFunction),
+                    SubFunctionBox(
+                        height: 180, listSubFunction: _listSubFunction),
                     const SizedBox(
                       height: 16,
                     ),

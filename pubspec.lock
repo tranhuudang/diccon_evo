@@ -678,7 +678,7 @@ packages:
     source: hosted
     version: "8.2.4"
   font_awesome_flutter:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: font_awesome_flutter
       sha256: "52671aea66da73b58d42ec6d0912b727a42248dd9a7c76d6c20f275783c48c08"
@@ -1508,7 +1508,7 @@ packages:
     source: hosted
     version: "1.3.2"
   unicons:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: unicons
       sha256: dbfcf93ff4d4ea19b324113857e358e4882115ab85db04417a4ba1c72b17a670

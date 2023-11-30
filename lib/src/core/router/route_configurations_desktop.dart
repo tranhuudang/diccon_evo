@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/scaffold_with_nested_navigation.dart';
+import '../../presentation/navigation_switch.dart';
 import '../../presentation/settings/presentation/ui/screens/licenses.dart';
 import '../core.dart';
 
@@ -41,7 +41,7 @@ GoRouter routerConfigDesktop = GoRouter(
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         // the UI shell
-        return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
+        return NavigationSwitchView(navigationShell: navigationShell);
       },
       branches: [
         // dictionary branch
