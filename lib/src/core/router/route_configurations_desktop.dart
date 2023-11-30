@@ -24,7 +24,7 @@ final _shellNavigatorAboutKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellAbout');
 
 GoRouter routerConfigDesktop = GoRouter(
-  initialLocation: defaultTargetPlatform.isAndroid() ? '/' : '/reading-chamber',
+  initialLocation: '/reading-chamber',
   navigatorKey: _rootNavigatorKey,
   routes: [
     /// Login

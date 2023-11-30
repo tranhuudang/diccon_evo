@@ -202,7 +202,7 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: _isTabletExpanded ? 20 : 4),
+                  padding: EdgeInsets.only(left: _isTabletExpanded ? 20 : 2),
                   child: Row(
                     children: [
                       IconButton(
@@ -226,7 +226,7 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                       thickness: .3,
                     )),
                 Padding(
-                  padding: EdgeInsets.only(left: _isTabletExpanded ? 20 : 4),
+                  padding: EdgeInsets.only(left: _isTabletExpanded ? 20 : 2),
                   child: Row(
                     children: [
                       IconButton(
