@@ -44,7 +44,7 @@ class TextRecognizerView extends StatelessWidget {
                               BlendMode.srcIn),
                           child: Image(
                             image: AssetImage(
-                                LocalDirectory.getRandomIllustrationImage()),
+                                LocalDirectory.textRecognizerIllustration),
                             height: 200,
                           ),
                         ),

@@ -36,7 +36,7 @@ class NoInternetBubble extends StatelessWidget {
                     children: [
                       Image(
                         height: 200,
-                        image: AssetImage(LocalDirectory.getRandomIllustrationImage()),
+                        image: AssetImage(LocalDirectory.commonIllustration),
                       ),
                     ],
                   ),

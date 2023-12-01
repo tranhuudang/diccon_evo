@@ -1,10 +1,7 @@
-import 'package:diccon_evo/src/presentation/shared/presentation/ui/screens/page_error.dart';
-import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/navigation_switch.dart';
 import '../../presentation/settings/presentation/ui/screens/licenses.dart';
 import '../core.dart';
 

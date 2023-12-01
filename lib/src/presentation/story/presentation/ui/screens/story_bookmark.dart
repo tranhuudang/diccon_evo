@@ -155,7 +155,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                                 BlendMode.srcIn),
                             child: Image(
                               image: AssetImage(
-                                  LocalDirectory.getRandomIllustrationImage()),
+                                  LocalDirectory.commonIllustration),
                               height: 200,
                             ),
                           ),

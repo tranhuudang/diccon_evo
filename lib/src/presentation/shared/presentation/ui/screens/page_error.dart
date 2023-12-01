@@ -20,7 +20,7 @@ class PageErrorView extends StatelessWidget {
                         context.theme.colorScheme.primary, BlendMode.srcIn),
                     child: Image(
                       image: AssetImage(
-                          LocalDirectory.getRandomIllustrationImage()),
+                          LocalDirectory.commonIllustration),
                       height: 180,
                     ),
                   ),

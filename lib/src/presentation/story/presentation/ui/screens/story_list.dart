@@ -184,7 +184,7 @@ class StoryListView extends StatelessWidget {
                                         BlendMode.srcIn),
                                     child: Image(
                                       image: AssetImage(LocalDirectory
-                                          .getRandomIllustrationImage()),
+                                          .commonIllustration),
                                       width: 200,
                                     ),
                                   ),

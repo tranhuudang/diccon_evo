@@ -144,7 +144,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                                 BlendMode.srcIn),
                             child: Image(
                               image: AssetImage(
-                                  LocalDirectory.getRandomIllustrationImage()),
+                                  LocalDirectory.historyIllustration),
                               height: 200,
                             ),
                           ),

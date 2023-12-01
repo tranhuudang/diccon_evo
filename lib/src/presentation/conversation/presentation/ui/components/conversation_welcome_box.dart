@@ -19,7 +19,7 @@ class ConversationWelcome extends StatelessWidget {
                     context.theme.colorScheme.primary, BlendMode.srcIn),
                 child: Image(
                   image: AssetImage(
-                      LocalDirectory.getRandomIllustrationImage()),
+                      LocalDirectory.conversationIllustration),
                   height: 180,
                 ),
               ),

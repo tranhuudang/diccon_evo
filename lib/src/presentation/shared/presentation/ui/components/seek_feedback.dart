@@ -26,7 +26,7 @@ class SeekFeedback {
                           context.theme.colorScheme.primary, BlendMode.srcIn),
                       child: Image(
                         image: AssetImage(
-                            LocalDirectory.getRandomIllustrationImage()),
+                            LocalDirectory.commonIllustration),
                       ),
                     ),
                   ),

@@ -20,7 +20,7 @@ class DictionaryWelcome extends StatelessWidget {
                     context.theme.colorScheme.primary,
                     BlendMode.srcIn),
                 child: Image(
-                  image: AssetImage(LocalDirectory.getRandomIllustrationImage()),
+                  image: AssetImage(LocalDirectory.dictionaryIllustration),
                   height: 180,
                 ),
               ),

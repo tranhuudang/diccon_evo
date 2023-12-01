@@ -25,6 +25,11 @@ class LocalDirectory {
     'assets/illustrations/absurd.design - Chapter 1 - 33.png',
     'assets/illustrations/absurd.design - Chapter 1 - 34.png',
   ];
+  static final String historyIllustration = getRandomIllustrationImage();
+  static final String dictionaryIllustration = getRandomIllustrationImage();
+  static final String conversationIllustration = getRandomIllustrationImage();
+  static final String textRecognizerIllustration = getRandomIllustrationImage();
+  static final String commonIllustration = getRandomIllustrationImage();
   static String getRandomIllustrationImage() {
     int randomIndex = Random().nextInt(illustrations.length);
     return illustrations[randomIndex];
