@@ -17,7 +17,7 @@ class SoundHandler {
     FlutterTts tts = FlutterTts();
     await tts.setLanguage(languageCode);
     await tts.setPitch(1.0);
-    await tts.setSpeechRate(0.5);
+    await tts.setSpeechRate(0.34);
     await tts.speak(word);
   }
 
@@ -26,7 +26,7 @@ class SoundHandler {
     String firstLetter = providedWordToPlay.getFirstLetter().toUpperCase();
     String word = providedWordToPlay.upperCaseFirstLetter();
     String url =
-        "${OnlineDirectory.audioURL}+$firstLetter/us/$word.mp3";
+        "${OnlineDirectory.audioURL}$firstLetter/us/$word.mp3";
     return url;
   }
 
