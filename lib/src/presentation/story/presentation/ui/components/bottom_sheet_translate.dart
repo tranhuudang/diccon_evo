@@ -226,13 +226,19 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 16),
-                                  child: Text(
-                                    widget.sentenceContainWord,
-                                    style: context.theme.textTheme.titleMedium
-                                        ?.copyWith(
-                                            color: context
-                                                .theme.colorScheme.onSurface),
+                                  padding: const EdgeInsets.only(top: 0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      PlaybackButton(message: widget.sentenceContainWord, buttonColor: context.theme.colorScheme.onBackground,),
+                                      Text(
+                                        widget.sentenceContainWord,
+                                        style: context.theme.textTheme.titleMedium
+                                            ?.copyWith(
+                                                color: context
+                                                    .theme.colorScheme.onSurface),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Padding(

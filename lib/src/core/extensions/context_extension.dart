@@ -25,7 +25,7 @@ extension BuildContextExtension on BuildContext {
                 action();
                 Navigator.of(context).pop();
               },
-              child: Text('OK'.i18n),
+              child: Text('OK'),
             ),
             TextButton(
               onPressed: () {

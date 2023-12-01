@@ -335,16 +335,16 @@ extension Localization on String {
       "vi_vi": "Dịch từ tiếng Anh sang tiếng Việt",
     },
     "Clear all the bubbles in this translation session.": {
-      "en_us": "Clear all the bubbles in this translation session.",
-      "vi_vi": "Xóa tất cả nội dung trong cuộc trò chuyện này.",
+      "en_us": "Clear all the bubbles in this translation session and create a new one.",
+      "vi_vi": "Xóa tất cả nội dung trong cuộc trò chuyện này và tạo cuộc trò chuyện mới.",
     },
     "Create a new section": {
       "en_us": "Create a new section",
       "vi_vi": "Tạo cuộc trò chuyện mới",
     },
     "Close this session?": {
-      "en_us": "Close this session?",
-      "vi_vi": "Đóng cuộc trò chuyện hiện tại?",
+      "en_us": "Create a new session",
+      "vi_vi": "Tạo cuộc trò chuyện mới",
     },
     "Gallery": {
       "en_us": "Gallery",
