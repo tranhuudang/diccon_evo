@@ -101,13 +101,15 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                           Center(
                             child: CachedNetworkImage(
                               //height: 380,
-                              placeholder: (context, url) => const LinearProgressIndicator(
+                              placeholder: (context, url) =>
+                                  const LinearProgressIndicator(
                                 backgroundColor: Colors.black45,
                                 color: Colors.black54,
                               ),
                               imageUrl: widget.story.imageUrl ?? "",
                               fit: BoxFit.cover,
-                              errorWidget: (context, String exception, dynamic stackTrace) {
+                              errorWidget: (context, String exception,
+                                  dynamic stackTrace) {
                                 return const SizedBox.shrink();
                               },
                             ),
@@ -119,26 +121,35 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                           /// Content
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: widget.story.content.split('\n').map((paragraph) {
+                            children: widget.story.content
+                                .split('\n')
+                                .map((paragraph) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   if (paragraph.isNotEmpty)
                                     StoryClickableWords(
                                         text: paragraph,
-                                        style: context.theme.textTheme.bodyMedium?.copyWith(
+                                        style: context
+                                            .theme.textTheme.bodyMedium
+                                            ?.copyWith(
                                           fontSize: state.fontSize,
-                                          color: context.theme.colorScheme.onBackground,
+                                          color: context
+                                              .theme.colorScheme.onBackground,
                                         ),
-                                        onWordTap: (String word, String sentence) {
-                                          final refinedWord = word.removeSpecialCharacters();
-                                          final refinedSentence = sentence.trim();
+                                        onWordTap:
+                                            (String word, String sentence) {
+                                          final refinedWord =
+                                              word.removeSpecialCharacters();
+                                          final refinedSentence =
+                                              sentence.trim();
                                           showModalBottomSheet(
                                               context: context,
                                               builder: (context) {
                                                 return BottomSheetTranslation(
                                                   searchWord: refinedWord,
-                                                  sentenceContainWord: refinedSentence,
+                                                  sentenceContainWord:
+                                                      refinedSentence,
                                                 );
                                               });
                                         }),
@@ -154,65 +165,70 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                     ),
 
                     /// Menu with close and bookmark button
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 16, left: 16, right: 16),
-                      child: StreamBuilder<bool>(
-                          initialData: false,
-                          stream: _streamIsBookmarkController.stream,
-                          builder: (context, isBookmark) {
-                            return Row(
-                              children: [
-                                const Spacer(),
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 200),
+                      opacity: state.isBottomAppBarVisible ? 1 : 0,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 16, left: 16, right: 16),
+                        child: StreamBuilder<bool>(
+                            initialData: false,
+                            stream: _streamIsBookmarkController.stream,
+                            builder: (context, isBookmark) {
+                              return Row(
+                                children: [
+                                  const Spacer(),
 
-                                /// Bookmark button
-                                isBookmark.data ?? false
-                                    ? CircleButton(
-                                        backgroundColor: context.theme
-                                            .colorScheme.secondaryContainer,
-                                        iconData: Icons.bookmark_border,
-                                        onTap: () {
-                                          _isListStoriesShouldChanged = true;
-                                          _streamIsBookmarkController.sink
-                                              .add(false);
-                                          _storyBookmarkBloc.add(
-                                              StoryBookmarkRemove(
-                                                  story: widget.story));
-                                          context.showSnackBar(
-                                              content:
-                                                  "Bookmark is removed".i18n);
-                                        })
-                                    : CircleButton(
-                                        backgroundColor: context
-                                            .theme.colorScheme.surfaceVariant
-                                            .withOpacity(.5),
-                                        iconData: Icons.bookmark_border,
-                                        onTap: () {
-                                          _isListStoriesShouldChanged = true;
+                                  /// Bookmark button
+                                  isBookmark.data ?? false
+                                      ? CircleButton(
+                                          backgroundColor: context.theme
+                                              .colorScheme.secondaryContainer,
+                                          iconData: Icons.bookmark_border,
+                                          onTap: () {
+                                            _isListStoriesShouldChanged = true;
+                                            _streamIsBookmarkController.sink
+                                                .add(false);
+                                            _storyBookmarkBloc.add(
+                                                StoryBookmarkRemove(
+                                                    story: widget.story));
+                                            context.showSnackBar(
+                                                content:
+                                                    "Bookmark is removed".i18n);
+                                          })
+                                      : CircleButton(
+                                          backgroundColor: context
+                                              .theme.colorScheme.surfaceVariant
+                                              .withOpacity(.5),
+                                          iconData: Icons.bookmark_border,
+                                          onTap: () {
+                                            _isListStoriesShouldChanged = true;
 
-                                          _streamIsBookmarkController.sink
-                                              .add(true);
-                                          _storyBookmarkBloc.add(
-                                              StoryBookmarkAdd(
-                                                  stories: widget.story));
-                                          context.showSnackBar(
-                                              content:
-                                                  "Bookmark is added".i18n);
-                                        }),
-                                const HorizontalSpacing.medium(),
+                                            _streamIsBookmarkController.sink
+                                                .add(true);
+                                            _storyBookmarkBloc.add(
+                                                StoryBookmarkAdd(
+                                                    stories: widget.story));
+                                            context.showSnackBar(
+                                                content:
+                                                    "Bookmark is added".i18n);
+                                          }),
+                                  const HorizontalSpacing.medium(),
 
-                                /// CLose button
-                                CircleButton(
-                                    backgroundColor: context
-                                        .theme.colorScheme.surfaceVariant
-                                        .withOpacity(.5),
-                                    iconData: Icons.close,
-                                    onTap: () {
-                                      context.pop(_isListStoriesShouldChanged);
-                                    }),
-                              ],
-                            );
-                          }),
+                                  /// CLose button
+                                  CircleButton(
+                                      backgroundColor: context
+                                          .theme.colorScheme.surfaceVariant
+                                          .withOpacity(.5),
+                                      iconData: Icons.close,
+                                      onTap: () {
+                                        context
+                                            .pop(_isListStoriesShouldChanged);
+                                      }),
+                                ],
+                              );
+                            }),
+                      ),
                     ),
                   ],
                 ),
