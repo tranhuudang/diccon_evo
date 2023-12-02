@@ -22,8 +22,8 @@ class _WordHistoryViewState extends State<WordHistoryView> {
             BlocBuilder<WordHistoryBloc, WordHistoryState>(
               bloc: _wordHistoryBloc,
               builder: (context, state) {
-                switch (state.runtimeType) {
-                  case WordHistoryUpdated :
+                switch (state) {
+                  case WordHistoryUpdated _:
                     if (state.words.isEmpty) {
                       return Center(
                         child: Column(

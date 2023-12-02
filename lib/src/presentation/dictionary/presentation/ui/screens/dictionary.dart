@@ -134,12 +134,11 @@ class _DictionaryViewState extends State<DictionaryView> {
               },
               builder: (context, state) {
                 {
-                  switch (state.runtimeType) {
-                    case ChatListUpdated:
-                      final data = state as ChatListUpdated;
+                  switch (state) {
+                    case ChatListUpdated _:
                       return ListView.builder(
                         padding: const EdgeInsets.only(top: 80, bottom: 130),
-                        itemCount: data.chatList.length,
+                        itemCount: state.chatList.length,
                         addAutomaticKeepAlives: true,
                         controller: chatListBloc.chatListController,
                         itemBuilder: (BuildContext context, int index) {

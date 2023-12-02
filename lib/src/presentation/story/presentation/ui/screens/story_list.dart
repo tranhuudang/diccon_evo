@@ -115,9 +115,8 @@ class StoryListView extends StatelessWidget {
                     BlocBuilder<StoryListBloc, StoryListState>(
                       bloc: storyListBloc,
                       builder: (context, state) {
-                        switch (state.runtimeType) {
-                          case StoryListUpdatedState:
-                            var data = state as StoryListUpdatedState;
+                        switch (state) {
+                          case StoryListUpdatedState _:
                             return Column(
                               children: [
                                 Container(
@@ -127,7 +126,7 @@ class StoryListView extends StatelessWidget {
                                     cacheExtent: 500,
                                     findChildIndexCallback: (Key key) {
                                       var valueKey = key as ValueKey;
-                                      var index = data.articleList.indexWhere(
+                                      var index = state.articleList.indexWhere(
                                           (element) =>
                                               element == valueKey.value);
                                       if (index == -1) return null;
@@ -148,14 +147,14 @@ class StoryListView extends StatelessWidget {
                                     ),
                                     itemBuilder: (context, index) {
                                       return ReadingTile(
-                                        key: ValueKey(data.articleList[index]),
+                                        key: ValueKey(state.articleList[index]),
                                         tag:
-                                            "fromStoryListToPage${data.articleList[index].title}Tag",
-                                        story: data.articleList[index],
+                                            "fromStoryListToPage${state.articleList[index].title}Tag",
+                                        story: state.articleList[index],
                                         onTap: () {
                                           context.pushNamed(
                                               RouterConstants.readingSpace,
-                                              extra: data.articleList[index]);
+                                              extra: state.articleList[index]);
                                         },
                                       );
                                     },
@@ -170,7 +169,7 @@ class StoryListView extends StatelessWidget {
                                 )
                               ],
                             );
-                          case StoryListErrorState:
+                          case StoryListErrorState _:
                             return Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,

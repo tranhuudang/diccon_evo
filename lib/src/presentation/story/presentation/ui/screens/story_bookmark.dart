@@ -27,9 +27,8 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
           listenWhen: (previous, current) =>
               current is StoryBookmarkActionState,
           builder: (context, state) {
-            switch (state.runtimeType) {
-              case StoryBookmarkUpdated:
-                var data = state as StoryBookmarkUpdated;
+            switch (state) {
+              case StoryBookmarkUpdated _:
                 return Stack(
                   children: [
                     LayoutBuilder(
@@ -50,7 +49,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                         }
                         return GridView.builder(
                           padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
-                          itemCount: data.stories.length,
+                          itemCount: state.stories.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             mainAxisSpacing: 8,
@@ -62,11 +61,11 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                           ),
                           itemBuilder: (context, index) {
                             return ReadingTile(
-                              story: data.stories[index],
+                              story: state.stories[index],
                               onTap: () async {
                                 bool? isBookmarkChanged = await context
                                     .pushNamed(RouterConstants.readingSpace,
-                                        extra: data.stories[index]);
+                                        extra: state.stories[index]);
                                 if (isBookmarkChanged != null) {
                                   if (isBookmarkChanged == true) {
                                     _storyBookmarkBloc.add(StoryBookmarkLoad());
@@ -87,7 +86,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                         IconButton(
                             onPressed: () => _storyBookmarkBloc.add(
                                 StoryBookmarkSortAlphabet(
-                                    stories: data.stories)),
+                                    stories: state.stories)),
                             icon: const Icon(Icons.sort_by_alpha)),
                         PopupMenuButton(
                           shape: RoundedRectangleBorder(
@@ -129,7 +128,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                               child: Text("Reverse List".i18n),
                               onTap: () => _storyBookmarkBloc.add(
                                   StoryBookmarkSortReverse(
-                                      stories: data.stories)),
+                                      stories: state.stories)),
                             ),
                             PopupMenuItem(
                               child: Text("Clear all".i18n),
@@ -142,7 +141,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                     ),
                   ],
                 );
-              case StoryBookmarkEmptyState:
+              case StoryBookmarkEmptyState _:
                 return Stack(
                   children: [
                     Center(
@@ -186,7 +185,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                     ),
                   ],
                 );
-              case StoryBookmarkErrorState:
+              case StoryBookmarkErrorState _:
                 return Stack(
                   children: [
                     Center(

@@ -22,25 +22,23 @@ class ConversationView extends StatelessWidget {
               listener: (BuildContext context, ConversationState state) {},
               builder: (context, state) {
                 {
-                  switch (state.runtimeType) {
-                    case ConversationInitial:
-                      final data = state as ConversationInitial;
+                  switch (state) {
+                    case ConversationInitial _:
                       return ListView.builder(
-                        itemCount: data.conversation.length,
+                        itemCount: state.conversation.length,
                         controller:
                             conversationBloc.conversationScrollController,
                         itemBuilder: (BuildContext context, int index) {
                           return state.conversation[index];
                         },
                       );
-                    case ConversationUpdated:
-                      final data = state as ConversationUpdated;
+                    case ConversationUpdated _:
                       return Stack(
                         children: [
                           ListView.builder(
                             padding:
                                 const EdgeInsets.only(top: 80, bottom: 120),
-                            itemCount: data.conversation.length,
+                            itemCount: state.conversation.length,
                             controller:
                                 conversationBloc.conversationScrollController,
                             itemBuilder: (BuildContext context, int index) {

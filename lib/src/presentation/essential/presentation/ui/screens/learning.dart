@@ -64,9 +64,8 @@ class _LearningViewState extends State<LearningView> {
                     BlocBuilder<LearningBloc, LearningState>(
                         bloc: _learningBloc,
                         builder: (context, state) {
-                          switch (state.runtimeType) {
-                            case LearningUpdatedState :
-                              var data = state as LearningUpdatedState;
+                          switch (state) {
+                            case  LearningUpdatedState _ :
                               return Column(
                                 children: [
                                   /// List page word
@@ -159,12 +158,12 @@ class _LearningViewState extends State<LearningView> {
                                       /// Heart button
                                       CircleButton(
 
-                                        backgroundColor: data.isCurrentWordFavourite
+                                        backgroundColor: state.isCurrentWordFavourite
                                             ? context.theme.colorScheme.primary
                                             : context.theme.highlightColor,
                                         iconData: FontAwesomeIcons.heart,
                                         onTap: () {
-                                          if (data.isCurrentWordFavourite) {
+                                          if (state.isCurrentWordFavourite) {
                                             _learningBloc.add(RemoveFromFavourite(
                                                 word: widget
                                                     .listEssentialWord[currentIndex]));

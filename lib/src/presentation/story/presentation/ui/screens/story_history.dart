@@ -24,9 +24,8 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
           buildWhen: (previous, current) => current is! StoryHistoryActionState,
           listenWhen: (previous, current) => current is StoryHistoryActionState,
           builder: (context, state) {
-            switch (state.runtimeType) {
-              case StoryHistoryUpdated:
-                var data = state as StoryHistoryUpdated;
+            switch (state) {
+              case StoryHistoryUpdated _:
                 return Stack(
                   children: [
                     LayoutBuilder(
@@ -47,7 +46,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                         }
                         return GridView.builder(
                           padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
-                          itemCount: data.stories.length,
+                          itemCount: state.stories.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             mainAxisSpacing: 8,
@@ -59,10 +58,10 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                           ),
                           itemBuilder: (context, index) {
                             return ReadingTile(
-                              story: data.stories[index],
+                              story: state.stories[index],
                               onTap: () {
                                 context.pushNamed(RouterConstants.readingSpace,
-                                    extra: data.stories[index]);
+                                    extra: state.stories[index]);
                               },
                             );
                           },
@@ -75,7 +74,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                         IconButton(
                             onPressed: () => _storyHistoryBloc.add(
                                 StoryHistorySortAlphabet(
-                                    stories: data.stories)),
+                                    stories: state.stories)),
                             icon: const Icon(Icons.sort_by_alpha)),
                         PopupMenuButton(
                           //splashRadius: 10.0,
@@ -118,7 +117,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                               child: Text("Reverse List".i18n),
                               onTap: () => _storyHistoryBloc.add(
                                   StoryHistorySortReverse(
-                                      stories: data.stories)),
+                                      stories: state.stories)),
                             ),
                             PopupMenuItem(
                               child: Text("Clear all".i18n),
@@ -131,7 +130,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                     ),
                   ],
                 );
-              case StoryHistoryEmptyState:
+              case StoryHistoryEmptyState _:
                 return Stack(
                   children: [
                     Center(
@@ -170,7 +169,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                     ),
                   ],
                 );
-              case StoryHistoryErrorState:
+              case StoryHistoryErrorState _:
                 return Stack(
                   children: [
                     Center(
