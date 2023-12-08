@@ -1,8 +1,13 @@
 import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
-  /// Step to localization using flutter_i18n package:
-  /// 1: install package flutter_i18n and flutter_localization
+  /// Step to localization using i18n_extension package:
+  /// 1: install package i18n_extension and flutter_localization
+  ///   # localization
+  ///   flutter_localization: ^0.1.14
+  ///   flutter_localizations:
+  ///     sdk: flutter
+  ///   i18n_extension: ^10.0.1
   /// 2: in main.dart, setup localizationDelegates and supportedLocales:
   /// MaterialApp(
   ///       localizationsDelegates: const [
