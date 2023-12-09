@@ -1,5 +1,6 @@
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+
 class ReleaseNotes extends StatelessWidget {
   const ReleaseNotes({super.key});
 
@@ -15,6 +16,13 @@ class ReleaseNotes extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children: const [
+                ReleaseNotesItem(
+                  version: '562',
+                  date: '09-12-2023',
+                  changesNote: [
+                    'Mở khóa tốc độ trả lời AI trên windows',
+                  ],
+                ),
                 ReleaseNotesItem(
                   version: '552',
                   date: '30-11-2023',
@@ -125,15 +133,13 @@ class ReleaseNotes extends StatelessWidget {
                   changesNote: [
                     'Thêm nút bấm "Dừng trả lời" trong mục trò chuyện, cho phép dừng câu trả lời của AI.',
                     'Thay đổi cách tùy chỉnh câu trả lời trong mục Từ điển.'
-                    'Thêm trang Release notes'
+                        'Thêm trang Release notes'
                   ],
                 ),
                 ReleaseNotesItem(
                   version: '358',
                   date: '23-10-2023',
-                  changesNote: [
-                    'Tối ưu hóa hiệu năng'
-                  ],
+                  changesNote: ['Tối ưu hóa hiệu năng'],
                 ),
                 ReleaseNotesItem(
                   version: '346',
@@ -224,9 +230,7 @@ class ReleaseNotes extends StatelessWidget {
                 ReleaseNotesItem(
                   version: '143',
                   date: '12-09-2023',
-                  changesNote: [
-                    'Tái cấu trúc lại chương trình'
-                  ],
+                  changesNote: ['Tái cấu trúc lại chương trình'],
                 ),
                 ReleaseNotesItem(
                   version: '135',
@@ -246,9 +250,7 @@ class ReleaseNotes extends StatelessWidget {
                 ReleaseNotesItem(
                   version: '112',
                   date: '24-08-2023',
-                  changesNote: [
-                    'Gỡ bỏ truyện đọc và video'
-                  ],
+                  changesNote: ['Gỡ bỏ truyện đọc và video'],
                 ),
                 ReleaseNotesItem(
                   version: '109',
@@ -263,9 +265,7 @@ class ReleaseNotes extends StatelessWidget {
                 ReleaseNotesItem(
                   version: '93',
                   date: '14-08-2023',
-                  changesNote: [
-                    'Hỗ trợ Dark Mode trên thiết bị Android'
-                  ],
+                  changesNote: ['Hỗ trợ Dark Mode trên thiết bị Android'],
                 ),
                 ReleaseNotesItem(
                   version: '88',
@@ -341,7 +341,8 @@ class ReleaseNotesItem extends StatelessWidget {
       title: Row(
         children: [
           Text(
-            version, style: const TextStyle(fontWeight: FontWeight.bold),
+            version,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           Text(date),
