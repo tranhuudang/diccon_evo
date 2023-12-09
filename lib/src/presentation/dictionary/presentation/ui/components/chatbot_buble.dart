@@ -54,10 +54,9 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
               // Only add definition of a word to firebase database when it not a paragraph
-              if (defaultTargetPlatform.isAndroid()) {
-                if (!widget.isParagraph) {
-                  _createFirebaseDatabaseItem();
-                }
+
+              if (!widget.isParagraph) {
+                _createFirebaseDatabaseItem();
               }
             } else {
               return widget.listChatGptRepository[widget.index]

@@ -46,9 +46,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
             if (event.streamMessageEnd) {
               _chatStreamSubscription?.cancel();
               _isLoadingStreamController.sink.add(false);
-              if (defaultTargetPlatform.isAndroid()) {
-                _createFirebaseDatabaseItem();
-              }
+              // Add translated paragraph to firebase
+              _createFirebaseDatabaseItem();
             } else {
               return _chatGptRepository.singleQuestionAnswer.answer.write(
                 event.choices?.first.delta?.content,
@@ -191,7 +190,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                 Row(
                                   children: [
                                     WordTitle(
-                                      word: widget.searchWord.trim().upperCaseFirstLetter(),
+                                      word: widget.searchWord
+                                          .trim()
+                                          .upperCaseFirstLetter(),
                                       titleColor:
                                           context.theme.colorScheme.onSurface,
                                     ),
@@ -228,15 +229,21 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      PlaybackButton(message: widget.sentenceContainWord, buttonColor: context.theme.colorScheme.onBackground,),
+                                      PlaybackButton(
+                                        message: widget.sentenceContainWord,
+                                        buttonColor: context
+                                            .theme.colorScheme.onBackground,
+                                      ),
                                       Text(
                                         widget.sentenceContainWord,
-                                        style: context.theme.textTheme.titleMedium
+                                        style: context
+                                            .theme.textTheme.titleMedium
                                             ?.copyWith(
-                                                color: context
-                                                    .theme.colorScheme.onSurface),
+                                                color: context.theme.colorScheme
+                                                    .onSurface),
                                       ),
                                     ],
                                   ),

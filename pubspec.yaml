@@ -18,12 +18,12 @@ dependencies:
   # A Flutter plugin for finding commonly used locations on the filesystem
   path_provider: ^2.1.1
   # using firebase_core: ^2.10.0 get windows build without error
-  firebase_core: ^2.24.0
-  firebase_auth: ^4.15.0
-  firebase_storage: ^11.5.3
-  cloud_firestore: ^4.13.3
-  firebase_app_check: ^0.2.1+6
-  google_sign_in: ^6.1.6
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.2
+  firebase_storage: ^11.5.5
+  cloud_firestore: ^4.13.5
+  firebase_app_check: ^0.2.1+8
+  google_sign_in: ^6.2.0
   cached_network_image: ^3.2.3
   flutter_cache_manager: ^3.3.1
   # Save settings
