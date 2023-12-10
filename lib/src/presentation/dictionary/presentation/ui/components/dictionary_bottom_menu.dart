@@ -20,74 +20,78 @@ class DictionaryBottomMenu extends StatelessWidget {
               builder: (context) {
                 return SingleChildScrollView(
                   child: SizedBox(
-                    height: 300,
+                    height: 240,
                     child: BlocBuilder<SettingBloc, SettingState>(
                         builder: (context, state) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ListTile(
-                            leading: const Icon(Icons.add_circle_outline),
-                            title: Text('Create a new section'.i18n),
-                            onTap: () {
-                              context.showAlertDialog(
-                                title: "Close this session?".i18n,
-                                content:
-                                    "Clear all the bubbles in this translation session."
-                                        .i18n,
-                                action: () {
-                                  //resetSuggestion();
-                                  chatListBloc.add(CreateNewChatList());
-                                  context.pop();
-                                },
-                              );
-                            },
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: WaveDivider(
-                              thickness: .3,
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.add_circle_outline),
+                              title: Text('Create a new section'.i18n),
+                              onTap: () {
+                                context.showAlertDialog(
+                                  title: "Close this session?".i18n,
+                                  content:
+                                      "Clear all the bubbles in this translation session."
+                                          .i18n,
+                                  action: () {
+                                    // TODO: we should clear suggestion resetSuggestion();
+                                    chatListBloc.add(CreateNewChatList());
+                                    // We using Navigator.pop instead of context.pop as it causing error
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              },
                             ),
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.auto_awesome_outlined),
-                            title: Text('Auto detect language'.i18n),
-                            onTap: () {
-                              settingBloc.add(AutoDetectLanguage());
-                              context.pop();
-                            },
-                            trailing: state.params.translationLanguageTarget ==
-                                    TranslationLanguageTarget.autoDetect
-                                ? const Icon(Icons.check)
-                                : const SizedBox.shrink(),
-                          ),
-                          ListTile(
-                            title: Text(
-                                'Force translate Vietnamese to English'.i18n),
-                            onTap: () {
-                              settingBloc
-                                  .add(ForceTranslateVietnameseToEnglish());
-                              context.pop();
-                            },
-                            trailing: state.params.translationLanguageTarget ==
-                                    TranslationLanguageTarget.vietnameseToEnglish
-                                ? const Icon(Icons.check)
-                                : const SizedBox.shrink(),
-                          ),
-                          ListTile(
-                            title: Text(
-                                'Force translate English to Vietnamese'.i18n),
-                            onTap: () {
-                              settingBloc
-                                  .add(ForceTranslateEnglishToVietnamese());
-                              context.pop();
-                            },
-                            trailing: state.params.translationLanguageTarget ==
-                                    TranslationLanguageTarget.englishToVietnamese
-                                ? const Icon(Icons.check)
-                                : const SizedBox.shrink(),
-                          ),
-                        ],
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: WaveDivider(
+                                thickness: .3,
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.auto_awesome_outlined),
+                              title: Text('Auto detect language'.i18n),
+                              onTap: () {
+                                settingBloc.add(AutoDetectLanguage());
+                                context.pop();
+                              },
+                              trailing: state.params.translationLanguageTarget ==
+                                      TranslationLanguageTarget.autoDetect
+                                  ? const Icon(Icons.check)
+                                  : const SizedBox.shrink(),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Force translate Vietnamese to English'.i18n),
+                              onTap: () {
+                                settingBloc
+                                    .add(ForceTranslateVietnameseToEnglish());
+                                context.pop();
+                              },
+                              trailing: state.params.translationLanguageTarget ==
+                                      TranslationLanguageTarget.vietnameseToEnglish
+                                  ? const Icon(Icons.check)
+                                  : const SizedBox.shrink(),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Force translate English to Vietnamese'.i18n),
+                              onTap: () {
+                                settingBloc
+                                    .add(ForceTranslateEnglishToVietnamese());
+                                context.pop();
+                              },
+                              trailing: state.params.translationLanguageTarget ==
+                                      TranslationLanguageTarget.englishToVietnamese
+                                  ? const Icon(Icons.check)
+                                  : const SizedBox.shrink(),
+                            ),
+                          ],
+                        ),
                       );
                     }),
                   ),

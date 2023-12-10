@@ -33,8 +33,9 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                               colorFilter: ColorFilter.mode(
                                   context.theme.colorScheme.primary,
                                   BlendMode.srcIn),
-                              child:  Image(
-                                image: AssetImage(LocalDirectory.commonIllustration),
+                              child: Image(
+                                image: AssetImage(
+                                    LocalDirectory.commonIllustration),
                                 height: 200,
                               ),
                             ),
@@ -63,7 +64,9 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                         itemBuilder: (context, index) {
                           final word = state.words[index];
                           return HistoryTile(
-                              word: word, onEdit: state.isEdit!, wordHistoryBloc : _wordHistoryBloc);
+                              word: word,
+                              onEdit: state.isEdit!,
+                              wordHistoryBloc: _wordHistoryBloc);
                         },
                       );
                     }
@@ -94,8 +97,9 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                     ),
                     const PopupMenuItem(
                       height: 0,
-                      child:  WaveDivider(thickness: .3,),
-
+                      child: WaveDivider(
+                        thickness: .3,
+                      ),
                     ),
                     PopupMenuItem(
                       child: Text("Edit".i18n),
@@ -110,37 +114,39 @@ class _WordHistoryViewState extends State<WordHistoryView> {
         bottomNavigationBar: BlocBuilder<WordHistoryBloc, WordHistoryState>(
             bloc: _wordHistoryBloc,
             builder: (context, state) {
-          if (state.isEdit == true) {
-            return BottomAppBar(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    FilledButton.icon(onPressed: (){
-                      context.showAlertDialog(
-                          title: "Delete History".i18n,
-                          content:
-                          "AskQuestionBeforeDelete".i18n,
-                          action: () {
-                            _wordHistoryBloc.add(ClearAllWordHistory());
-                            _wordHistoryBloc.add(CloseWordHistoryEditMode());
-
-                          });
-                    }, icon: const Icon(Icons.delete_outline), label: Text("Clear all".i18n)),
-                    const Spacer(),
-                    CircleButton(
-                        iconData: Icons.close,
-                        onTap: () {
-                          _wordHistoryBloc.add(CloseWordHistoryEditMode());
-                        })
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return const SizedBox.shrink();
-          }
-        }),
+              if (state.isEdit == true) {
+                return BottomAppBar(
+                  child: Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        FilledButton.tonal(
+                            onPressed: () {
+                              context.showAlertDialog(
+                                  title: "Delete History".i18n,
+                                  content: "AskQuestionBeforeDelete".i18n,
+                                  action: () {
+                                    _wordHistoryBloc.add(ClearAllWordHistory());
+                                    _wordHistoryBloc
+                                        .add(CloseWordHistoryEditMode());
+                                  });
+                            },
+                            child: Text("Clear all".i18n)),
+                        const HorizontalSpacing.medium(),
+                        FilledButton.tonal(
+                            onPressed: () {
+                              _wordHistoryBloc.add(CloseWordHistoryEditMode());
+                            },
+                            child: Text("Close".i18n)),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            }),
       ),
     );
   }

@@ -68,7 +68,7 @@ class _EssentialViewState extends State<EssentialView> {
                                   horizontal: 32, vertical: 18),
                               child: Text(
                                 "SubSentenceInEssentialWord".i18n,
-                                style: context.theme.textTheme.titleMedium
+                                style: context.theme.textTheme.bodyLarge
                                     ?.copyWith(
                                         color: context
                                             .theme.colorScheme.onSurface),
@@ -87,7 +87,7 @@ class _EssentialViewState extends State<EssentialView> {
                                   horizontal: 32, vertical: 18),
                               child: Text(
                                 "SubSentenceInEssentialWord".i18n,
-                                style: context.theme.textTheme.titleMedium
+                                style: context.theme.textTheme.bodyLarge
                                     ?.copyWith(
                                         color: context
                                             .theme.colorScheme.onSurface),

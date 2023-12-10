@@ -333,11 +333,11 @@ extension Localization on String {
     },
     "Force translate Vietnamese to English": {
       "en_us": "Force translate Vietnamese to English",
-      "vi_vi": "Dịch từ tiếng Việt sang tiếng Anh",
+      "vi_vi": "Dịch tiếng Việt sang tiếng Anh",
     },
     "Force translate English to Vietnamese": {
       "en_us": "Force translate English to Vietnamese",
-      "vi_vi": "Dịch từ tiếng Anh sang tiếng Việt",
+      "vi_vi": "Dịch tiếng Anh sang tiếng Việt",
     },
     "Clear all the bubbles in this translation session.": {
       "en_us": "Clear all the bubbles in this translation session and create a new one.",
