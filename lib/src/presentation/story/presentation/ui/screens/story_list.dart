@@ -124,59 +124,60 @@ class StoryListView extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 16),
                                   child: LayoutBuilder(
                                       builder: (context, constraints) {
-                                        final maxWidth = constraints.maxWidth;
-                                        int crossAxisCount;
-                                        // Adjust the number of columns based on the available width
-                                        if (maxWidth >= 1600) {
-                                          crossAxisCount = 5;
-                                        } else if (maxWidth >= 1300) {
-                                          crossAxisCount = 4;
-                                        } else if (maxWidth >= 1000) {
-                                          crossAxisCount = 3;
-                                        } else if (maxWidth >= 700) {
-                                          crossAxisCount = 2;
-                                        } else {
-                                          crossAxisCount = 1;
-                                        }
-                                      return GridView.builder(
-                                        cacheExtent: 500,
-                                        findChildIndexCallback: (Key key) {
-                                          var valueKey = key as ValueKey;
-                                          var index = state.articleList.indexWhere(
-                                              (element) =>
-                                                  element == valueKey.value);
-                                          if (index == -1) return null;
-                                          return index;
-                                        },
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: 9, //data.articleList.length,
-                                        gridDelegate:
-                                             SliverGridDelegateWithFixedCrossAxisCount(
-                                          mainAxisSpacing: 8,
-                                          crossAxisSpacing: 8,
-                                          crossAxisCount: crossAxisCount,
-                                          mainAxisExtent: 125,
-                                          childAspectRatio: 7 /
-                                              3, // Adjust the aspect ratio as needed
-                                        ),
-                                        itemBuilder: (context, index) {
-                                          return ReadingTile(
-                                            key: ValueKey(state.articleList[index]),
-                                            tag:
-                                                "fromStoryListToPage${state.articleList[index].title}Tag",
-                                            story: state.articleList[index],
-                                            onTap: () {
-                                              context.pushNamed(
-                                                  RouterConstants.readingSpace,
-                                                  extra: state.articleList[index]);
-                                            },
-                                          );
-                                        },
-                                      );
+                                    final maxWidth = constraints.maxWidth;
+                                    int crossAxisCount;
+                                    // Adjust the number of columns based on the available width
+                                    if (maxWidth >= 1600) {
+                                      crossAxisCount = 5;
+                                    } else if (maxWidth >= 1300) {
+                                      crossAxisCount = 4;
+                                    } else if (maxWidth >= 1000) {
+                                      crossAxisCount = 3;
+                                    } else if (maxWidth >= 700) {
+                                      crossAxisCount = 2;
+                                    } else {
+                                      crossAxisCount = 1;
                                     }
-                                  ),
+                                    return GridView.builder(
+                                      cacheExtent: 500,
+                                      findChildIndexCallback: (Key key) {
+                                        var valueKey = key as ValueKey;
+                                        var index = state.articleList
+                                            .indexWhere((element) =>
+                                                element == valueKey.value);
+                                        if (index == -1) return null;
+                                        return index;
+                                      },
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: 9, //data.articleList.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        mainAxisSpacing: 8,
+                                        crossAxisSpacing: 8,
+                                        crossAxisCount: crossAxisCount,
+                                        mainAxisExtent: 125,
+                                        childAspectRatio: 7 /
+                                            3, // Adjust the aspect ratio as needed
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return ReadingTile(
+                                          key: ValueKey(
+                                              state.articleList[index]),
+                                          tag:
+                                              "fromStoryListToPage${state.articleList[index].title}Tag",
+                                          story: state.articleList[index],
+                                          onTap: () {
+                                            context.pushNamed(
+                                                RouterConstants.readingSpace,
+                                                extra:
+                                                    state.articleList[index]);
+                                          },
+                                        );
+                                      },
+                                    );
+                                  }),
                                 ),
 
                                 /// Go to search
@@ -200,8 +201,8 @@ class StoryListView extends StatelessWidget {
                                         context.theme.colorScheme.primary,
                                         BlendMode.srcIn),
                                     child: Image(
-                                      image: AssetImage(LocalDirectory
-                                          .commonIllustration),
+                                      image: AssetImage(
+                                          LocalDirectory.commonIllustration),
                                       width: 200,
                                     ),
                                   ),
