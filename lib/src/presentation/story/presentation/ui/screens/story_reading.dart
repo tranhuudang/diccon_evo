@@ -184,7 +184,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                       ? CircleButton(
                                           backgroundColor: context.theme
                                               .colorScheme.secondaryContainer,
-                                          iconData: Icons.bookmark_border,
+                                          icon: const Icon(Icons.bookmark_border),
                                           onTap: () {
                                             _isListStoriesShouldChanged = true;
                                             _streamIsBookmarkController.sink
@@ -200,7 +200,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                           backgroundColor: context
                                               .theme.colorScheme.surfaceVariant
                                               .withOpacity(.5),
-                                          iconData: Icons.bookmark_border,
+                                          icon: const Icon(Icons.bookmark_border),
                                           onTap: () {
                                             _isListStoriesShouldChanged = true;
 
@@ -220,7 +220,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                       backgroundColor: context
                                           .theme.colorScheme.surfaceVariant
                                           .withOpacity(.5),
-                                      iconData: Icons.close,
+                                      icon: const Icon(Icons.close),
                                       onTap: () {
                                         context
                                             .pop(_isListStoriesShouldChanged);

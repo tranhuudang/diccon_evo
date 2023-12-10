@@ -40,7 +40,7 @@ class _LearningViewState extends State<LearningView> {
                 Align(
                   alignment: Alignment.topRight,
                   child: CircleButton(
-                      iconData: Icons.close,
+                      icon: const Icon(Icons.close),
                       onTap: () {
                         context.pop();
                       }),
@@ -128,13 +128,13 @@ class _LearningViewState extends State<LearningView> {
                                         CircleButtonBar(
                                           children: [
                                             CircleButton(
-                                              iconData: FontAwesomeIcons.chevronLeft,
+                                              icon: const Icon(FontAwesomeIcons.chevronLeft),
                                               onTap: () {
                                                 _learningBloc.add(GoToPreviousCard());
                                               },
                                             ),
                                             CircleButton(
-                                              iconData: FontAwesomeIcons.chevronRight,
+                                              icon: const Icon(FontAwesomeIcons.chevronRight),
                                               onTap: () {
                                                 _learningBloc.add(GoToNextCard());
                                               },
@@ -161,7 +161,7 @@ class _LearningViewState extends State<LearningView> {
                                         backgroundColor: state.isCurrentWordFavourite
                                             ? context.theme.colorScheme.primary
                                             : context.theme.highlightColor,
-                                        iconData: FontAwesomeIcons.heart,
+                                        icon: const Icon(FontAwesomeIcons.heart),
                                         onTap: () {
                                           if (state.isCurrentWordFavourite) {
                                             _learningBloc.add(RemoveFromFavourite(

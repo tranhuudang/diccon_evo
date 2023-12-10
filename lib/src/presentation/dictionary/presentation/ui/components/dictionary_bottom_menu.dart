@@ -20,13 +20,13 @@ class DictionaryBottomMenu extends StatelessWidget {
               builder: (context) {
                 return SingleChildScrollView(
                   child: SizedBox(
-                    height: 240,
+                    height: 280,
                     child: BlocBuilder<SettingBloc, SettingState>(
                         builder: (context, state) {
                       return Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        child: ListView(
+                          //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             ListTile(
                               leading: const Icon(Icons.add_circle_outline),
@@ -57,7 +57,8 @@ class DictionaryBottomMenu extends StatelessWidget {
                               title: Text('Auto detect language'.i18n),
                               onTap: () {
                                 settingBloc.add(AutoDetectLanguage());
-                                context.pop();
+                                // We using Navigator.pop instead of context.pop as it causing error
+                                Navigator.pop(context);
                               },
                               trailing: state.params.translationLanguageTarget ==
                                       TranslationLanguageTarget.autoDetect
@@ -70,7 +71,8 @@ class DictionaryBottomMenu extends StatelessWidget {
                               onTap: () {
                                 settingBloc
                                     .add(ForceTranslateVietnameseToEnglish());
-                                context.pop();
+                                // We using Navigator.pop instead of context.pop as it causing error
+                                Navigator.pop(context);
                               },
                               trailing: state.params.translationLanguageTarget ==
                                       TranslationLanguageTarget.vietnameseToEnglish
@@ -83,7 +85,8 @@ class DictionaryBottomMenu extends StatelessWidget {
                               onTap: () {
                                 settingBloc
                                     .add(ForceTranslateEnglishToVietnamese());
-                                context.pop();
+                                // We using Navigator.pop instead of context.pop as it causing error
+                                Navigator.pop(context);
                               },
                               trailing: state.params.translationLanguageTarget ==
                                       TranslationLanguageTarget.englishToVietnamese

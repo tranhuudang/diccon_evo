@@ -26,12 +26,12 @@ class CircleButtonBar extends StatelessWidget {
 }
 
 class CircleButton extends StatefulWidget {
-  final IconData iconData;
+  final Icon icon;
   final Color? backgroundColor;
   final VoidCallback onTap;
   const CircleButton(
       {super.key,
-      required this.iconData,
+      required this.icon,
       this.backgroundColor,
       required this.onTap});
 
@@ -72,7 +72,7 @@ class _CircleButtonState extends State<CircleButton> {
                     : widget.backgroundColor ?? defaultBackgroundColor,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: Icon(widget.iconData),
+              child: widget.icon,
             ),
           );
         });

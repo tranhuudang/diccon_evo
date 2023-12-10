@@ -22,7 +22,7 @@ class FavouriteReviewView extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: CircleButton(
-                      iconData: Icons.close,
+                      icon: const Icon(Icons.close),
                       onTap: () {
                         Navigator.pop(context);
                       }),
@@ -68,7 +68,7 @@ class FavouriteReviewView extends StatelessWidget {
                         CircleButtonBar(
                           children: [
                             CircleButton(
-                              iconData: FontAwesomeIcons.chevronLeft,
+                              icon: const Icon(FontAwesomeIcons.chevronLeft),
                               onTap: () {
                                 pageViewController.previousPage(
                                   duration: const Duration(milliseconds: 300),
@@ -80,7 +80,7 @@ class FavouriteReviewView extends StatelessWidget {
                             //   width: 8,
                             // ),
                             CircleButton(
-                              iconData: FontAwesomeIcons.chevronRight,
+                              icon: const Icon(FontAwesomeIcons.chevronRight),
                               onTap: () {
                                 pageViewController.nextPage(
                                   duration: const Duration(milliseconds: 300),

@@ -58,13 +58,13 @@ class StoryListView extends StatelessWidget {
                               CircleButtonBar(
                                 children: [
                                   CircleButton(
-                                      iconData: Icons.bookmark_border,
+                                      icon: const Icon(Icons.bookmark_border),
                                       onTap: () {
                                         context.pushNamed(
                                             'reading-chamber-bookmark');
                                       }),
                                   CircleButton(
-                                      iconData: Icons.history,
+                                      icon: const Icon(Icons.history),
                                       onTap: () {
                                         context.pushNamed(
                                             'reading-chamber-history');

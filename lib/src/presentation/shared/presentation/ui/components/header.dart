@@ -73,7 +73,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
                   CircleButton(
                       backgroundColor: context.theme.colorScheme.surfaceVariant
                           .withOpacity(.5),
-                      iconData: Icons.arrow_back,
+                      icon: const Icon(Icons.arrow_back),
                       onTap: () {
                         Navigator.pop(context);
                       }),

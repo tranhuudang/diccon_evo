@@ -103,7 +103,7 @@ class _EssentialViewState extends State<EssentialView> {
                           CircleButtonBar(
                             children: [
                               CircleButton(
-                                iconData: FontAwesomeIcons.play,
+                                icon: Icon(FontAwesomeIcons.play, color: context.theme.colorScheme.onPrimary,),
                                 onTap: () async {
                                   /// Add topic to history
                                   HistoryManager.saveTopicToHistory(
@@ -130,7 +130,7 @@ class _EssentialViewState extends State<EssentialView> {
 
                               /// Favourite button
                               CircleButton(
-                                iconData: FontAwesomeIcons.heart,
+                                icon: const Icon(FontAwesomeIcons.heart),
                                 onTap: () async {
                                   await _essentialWordRepository
                                       .readFavouriteEssential()

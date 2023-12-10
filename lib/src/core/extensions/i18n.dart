@@ -304,6 +304,14 @@ extension Localization on String {
       "en_us": "You're the one shaping history !",
       "vi_vi": "Bạn là người viết nên lịch sử !",
     },
+    "Library of": {
+      "en_us": "Library of",
+      "vi_vi": "Truyện ngắn",
+    },
+    "Infinite Adventures": {
+      "en_us": "Infinite Adventures",
+      "vi_vi": "song ngữ",
+    },
 
     /// Dictionary
 
@@ -316,6 +324,10 @@ extension Localization on String {
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
+    },
+    "Capture your text": {
+      "en_us": "Capture your text",
+      "vi_vi": "Dịch từ hình ảnh",
     },
     "Practice your communication skills": {
       "en_us": "Practice your communication skills",
@@ -340,8 +352,10 @@ extension Localization on String {
       "vi_vi": "Dịch tiếng Anh sang tiếng Việt",
     },
     "Clear all the bubbles in this translation session.": {
-      "en_us": "Clear all the bubbles in this translation session and create a new one.",
-      "vi_vi": "Xóa tất cả nội dung trong cuộc trò chuyện này và tạo cuộc trò chuyện mới.",
+      "en_us":
+          "Clear all the bubbles in this translation session and create a new one.",
+      "vi_vi":
+          "Xóa tất cả nội dung trong cuộc trò chuyện này và tạo cuộc trò chuyện mới.",
     },
     "Create a new section": {
       "en_us": "Create a new section",

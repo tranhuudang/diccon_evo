@@ -5,7 +5,6 @@ import 'package:diccon_evo/src/presentation/presentation.dart';
 extension BuildContextExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
   Size get screenSize => MediaQuery.sizeOf(this);
-  double get screenTextScaleFactor => MediaQuery.textScaleFactorOf(this);
   bool get isSmallScreen => screenSize.width < 800;
   bool get isMediumScreen => screenSize.width >= 800 && screenSize.width < 1300;
   bool get isLargeScreen => screenSize.width >= 1300;
