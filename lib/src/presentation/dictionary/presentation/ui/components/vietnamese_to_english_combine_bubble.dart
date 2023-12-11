@@ -4,6 +4,7 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:wave_divider/wave_divider.dart';
 import '../../../../../domain/domain.dart';
 
 class VietnameseToEnglishCombineBubble extends StatefulWidget {
@@ -103,20 +104,67 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
                             },
                             children: listResponseOptions,
                           ),
+                          WaveDivider(
+                            thickness: .3, color: context.theme.colorScheme.onSecondary,
+                          ),
+                          Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: context.theme.colorScheme.secondary,
+                              //color: Colors.red,
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(16.0),
+                                bottomRight: Radius.circular(16.0),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const HorizontalSpacing.large(),
+                                PlaybackButton(
+                                  message: widget.wordForChatBot.trim(),
+                                  buttonColor: context.theme.colorScheme.onSecondary,
+                                ),
+                                const Spacer(),
+                                IconButton(
+                                    onPressed: () {
+                                      listResponseController.previousPage(
+                                          duration:
+                                          const Duration(milliseconds: 200),
+                                          curve: Curves.easeIn);
+                                    },
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      color: context
+                                          .theme.colorScheme.onSecondary,
+                                    )),
+                                const HorizontalSpacing.medium(),
+                                IconButton(
+                                    onPressed: () {
+                                      listResponseController.nextPage(
+                                          duration:
+                                          const Duration(milliseconds: 200),
+                                          curve: Curves.easeIn);
+                                    },
+                                    icon: Icon(
+                                      Icons.arrow_forward,
+                                      color: context
+                                          .theme.colorScheme.onSecondary,
+                                    )),
+                                const HorizontalSpacing.large(),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                      if (defaultTargetPlatform.isDesktop())
-                        PageViewNavigator(
-                            backgroundColor: context.theme.colorScheme.onPrimary,
-                            height: 158,
-                            controller: listResponseController,
-                            itemCount: listResponseOptions.length)
                     ],
                   );
                   }
                 },
               ),
             ),
+            if (defaultTargetPlatform.isMobile())
+              if (!(widget.wordForChatBot.numberOfWord() >= 3))
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SmoothPageIndicator(

@@ -18,7 +18,7 @@ class WordPronunciation extends StatelessWidget {
       Text( "/$pronunciation/" == '//' ? '': "/$pronunciation/",
       style: TextStyle(
         color: color?? context.theme.colorScheme.onSurface,
-        fontStyle: FontStyle.italic,
+       // fontStyle: FontStyle.italic,
       ),
     ) :const SizedBox.shrink();
   }

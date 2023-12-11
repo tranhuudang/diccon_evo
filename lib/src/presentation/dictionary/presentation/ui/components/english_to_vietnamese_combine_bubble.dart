@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:wave_divider/wave_divider.dart';
 import '../../../../../domain/domain.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/foundation.dart';
@@ -21,10 +22,12 @@ class EnglishToVietnameseCombineBubble extends StatefulWidget {
       required this.listChatGptRepository});
 
   @override
-  State<EnglishToVietnameseCombineBubble> createState() => _EnglishToVietnameseCombineBubbleState();
+  State<EnglishToVietnameseCombineBubble> createState() =>
+      _EnglishToVietnameseCombineBubbleState();
 }
 
-class _EnglishToVietnameseCombineBubbleState extends State<EnglishToVietnameseCombineBubble> {
+class _EnglishToVietnameseCombineBubbleState
+    extends State<EnglishToVietnameseCombineBubble> {
   final translationModeStreamController =
       StreamController<TranslationChoices>();
   final listResponseController = PageController();
@@ -78,7 +81,9 @@ class _EnglishToVietnameseCombineBubbleState extends State<EnglishToVietnameseCo
                 initialData: Properties.instance.settings.translationChoice
                     .toTranslationChoice(),
                 builder: (context, translationChoice) {
-                  if (Properties.instance.settings.translationChoice.toTranslationChoice() == TranslationChoices.explain){
+                  if (Properties.instance.settings.translationChoice
+                          .toTranslationChoice() ==
+                      TranslationChoices.explain) {
                     listResponseOptions = listResponseOptions.reversed.toList();
                   }
                   if (widget.wordForChatBot.numberOfWord() > 3) {
@@ -90,49 +95,94 @@ class _EnglishToVietnameseCombineBubbleState extends State<EnglishToVietnameseCo
                         listChatGptRepository: widget.listChatGptRepository);
                   } else {
                     return Stack(
-                    children: [
-                      Column(
-                        children: [
-                          ExpandablePageView(
-                            controller: listResponseController,
-                            onPageChanged: (pageIndex) {
-                              if (widget.index >=
-                                  widget.listChatGptRepository.length - 1) {
-                                scrollToBottom();
-                              }
-                            },
-                            children: listResponseOptions,
-                          ),
-                        ],
-                      ),
-                      if (defaultTargetPlatform.isDesktop())
-                        PageViewNavigator(
-                            height: 158,
-                            backgroundColor: context.theme.colorScheme.onPrimary,
-
-                            controller: listResponseController,
-                            itemCount: listResponseOptions.length)
-                    ],
-                  );
+                      children: [
+                        Column(
+                          children: [
+                            ExpandablePageView(
+                              controller: listResponseController,
+                              onPageChanged: (pageIndex) {
+                                if (widget.index >=
+                                    widget.listChatGptRepository.length - 1) {
+                                  scrollToBottom();
+                                }
+                              },
+                              children: listResponseOptions,
+                            ),
+                             WaveDivider(
+                              thickness: .3, color: context.theme.colorScheme.onSecondary,
+                            ),
+                            Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: context.theme.colorScheme.secondary,
+                                //color: Colors.red,
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(16.0),
+                                  bottomRight: Radius.circular(16.0),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  const HorizontalSpacing.large(),
+                                  PlaybackButton(
+                                      message: widget.wordForChatBot.trim(),
+                                  buttonColor: context.theme.colorScheme.onSecondary,
+                                  ),
+                                  const Spacer(),
+                                  IconButton(
+                                      onPressed: () {
+                                        listResponseController.previousPage(
+                                            duration:
+                                                const Duration(milliseconds: 200),
+                                            curve: Curves.easeIn);
+                                      },
+                                      icon: Icon(
+                                        Icons.arrow_back,
+                                        color: context
+                                            .theme.colorScheme.onSecondary,
+                                      )),
+                                  const HorizontalSpacing.medium(),
+                                  IconButton(
+                                      onPressed: () {
+                                        listResponseController.nextPage(
+                                            duration:
+                                                const Duration(milliseconds: 200),
+                                            curve: Curves.easeIn);
+                                      },
+                                      icon: Icon(
+                                        Icons.arrow_forward,
+                                        color: context
+                                            .theme.colorScheme.onSecondary,
+                                      )),
+                                  HorizontalSpacing.large(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
                   }
                 },
               ),
             ),
-            if (!(widget.wordForChatBot.numberOfWord() >= 3))
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SmoothPageIndicator(
-                controller: listResponseController,
-                count: listResponseOptions.length,
-                effect: ScrollingDotsEffect(
-                  maxVisibleDots: 5,
-                  dotHeight: 8,
-                  dotWidth: 8,
-                  activeDotColor: context.theme.colorScheme.primary,
-                  dotColor: context.theme.highlightColor,
+            if (defaultTargetPlatform.isMobile())
+              if (!(widget.wordForChatBot.numberOfWord() >= 3))
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SmoothPageIndicator(
+                    controller: listResponseController,
+                    count: listResponseOptions.length,
+                    effect: ScrollingDotsEffect(
+                      maxVisibleDots: 5,
+                      dotHeight: 8,
+                      dotWidth: 8,
+                      activeDotColor: context.theme.colorScheme.primary,
+                      dotColor: context.theme.highlightColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
           ],
         ),
       ),

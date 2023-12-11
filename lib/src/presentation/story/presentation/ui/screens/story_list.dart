@@ -46,7 +46,7 @@ class StoryListView extends StatelessWidget {
                                 horizontal: 32, vertical: 26),
                             child: Text(
                               "SubSentenceInStoryList".i18n,
-                              style: context.theme.textTheme.bodyLarge
+                              style: context.theme.textTheme.bodyMedium
                                   ?.copyWith(
                                       color:
                                           context.theme.colorScheme.onSurface),
@@ -94,7 +94,7 @@ class StoryListView extends StatelessWidget {
                                 horizontal: 32, vertical: 26),
                             child: Text(
                               "SubSentenceInStoryList".i18n,
-                              style: context.theme.textTheme.bodyLarge
+                              style: context.theme.textTheme.bodyMedium
                                   ?.copyWith(
                                       color:
                                           context.theme.colorScheme.onSurface),

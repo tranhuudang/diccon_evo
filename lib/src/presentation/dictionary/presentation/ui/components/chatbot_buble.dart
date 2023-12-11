@@ -160,7 +160,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
         .trim();
     final chatListBloc = context.read<ChatListBloc>();
     return Padding(
-      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -170,7 +170,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
               builder: (context, snapshot) {
                 return Row(
                   children: [
-                    PlaybackButton(message: widget.word),
+                    //PlaybackButton(message: widget.word),
                     const Spacer(),
                     if (snapshot.data!)
                       IconButton(
@@ -207,7 +207,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
                 );
               }),
           ClickableWords(
-              style: context.theme.textTheme.titleMedium
+              style: context.theme.textTheme.bodyMedium
                   ?.copyWith(color: context.theme.colorScheme.onSecondary),
               onWordTap: (word) {
                 chatListBloc.add(AddUserMessage(providedWord: word));

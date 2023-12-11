@@ -33,7 +33,7 @@ class ConversationMachineBubble extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: SelectableText(
                   content,
-                  style: context.theme.textTheme.titleMedium?.copyWith(
+                  style: context.theme.textTheme.bodyMedium?.copyWith(
                       color: context.theme.colorScheme.onSecondary),
                 ),
               ):

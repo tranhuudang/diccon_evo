@@ -33,7 +33,7 @@ class ConversationUserBubble extends StatelessWidget {
             ),
             child: Text(
               message,
-              style: context.theme.textTheme.titleMedium?.copyWith(
+              style: context.theme.textTheme.bodyMedium?.copyWith(
                   color: context.theme.colorScheme.onSecondaryContainer),
             ),
           ),

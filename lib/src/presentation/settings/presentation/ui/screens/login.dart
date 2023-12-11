@@ -74,7 +74,7 @@ class _LoginViewState extends State<LoginView> {
                         child: Text(
                           "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window."
                               .i18n,
-                          style: context.theme.textTheme.bodyLarge?.copyWith(
+                          style: context.theme.textTheme.bodyMedium?.copyWith(
                               color: context.theme.colorScheme.onSurface),
                         ),
                       ),

@@ -324,6 +324,9 @@ extension Localization on String {
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
+    },"Pronunciation:": {
+      "en_us": "Pronunciation:",
+      "vi_vi": "Phiên âm:",
     },
     "Capture your text": {
       "en_us": "Capture your text",

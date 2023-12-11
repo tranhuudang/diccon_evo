@@ -6,7 +6,7 @@ class DefaultSettings{
   static const String appName = "Diccon";
   static const int version = 552;
   static const Size defaultWindowsSize = Size(400, 700);
-  static const Size minWindowsSize = Size(400, 600);
+  static const Size minWindowsSize = Size(620, 600);
   static const Size maxWindowsSize = Size(5000, 10000);
   static const double overflowHeight = 745;
   static final Settings settings = Settings(

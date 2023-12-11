@@ -43,7 +43,7 @@ class WordMeaning extends StatelessWidget {
                   ? ClickableWords(
                       style: TextStyle(
                         color: highlightColor ?? Colors.black,
-                        fontWeight: FontWeight.bold,
+                        //fontWeight: FontWeight.bold,
                       ),
                       text: "-$lineEnd",
                       onWordTap: onWordTap)
