@@ -14,12 +14,13 @@ class GetMoreButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding:
-        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
         decoration: BoxDecoration(
             color: context.theme.colorScheme.primary,
             borderRadius: BorderRadius.circular(32)),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Get more',
@@ -27,8 +28,9 @@ class GetMoreButton extends StatelessWidget {
                   color: context.theme.colorScheme.onPrimary,
                   fontWeight: FontWeight.bold),
             ),
+            const HorizontalSpacing.medium(),
             Icon(
-              Icons.chevron_right,
+              Icons.arrow_forward,
               color: context.theme.colorScheme.onPrimary,
             )
           ],

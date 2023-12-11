@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import '../../../bloc/story_bookmark_list_bloc.dart';
 
 class StoryListBookmarkView extends StatefulWidget {
   const StoryListBookmarkView({super.key});

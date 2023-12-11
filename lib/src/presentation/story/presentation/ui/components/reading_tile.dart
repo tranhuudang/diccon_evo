@@ -3,6 +3,8 @@ import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
 
+import '../../../bloc/story_history_list_bloc.dart';
+
 class ReadingTile extends StatelessWidget {
   final String? tag;
   final Story story;

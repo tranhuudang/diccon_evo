@@ -3,6 +3,7 @@ import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
 import '../../presentation/settings/presentation/ui/screens/licenses.dart';
+import '../../presentation/story/presentation/ui/screens/story_list_all.dart';
 import '../core.dart';
 
 // private navigators
@@ -90,6 +91,16 @@ GoRouter routerConfigDesktop = GoRouter(
                           story: state.extra as Story,
                         ),
                       ));
+                    }),
+                // All stories
+                GoRoute(
+                    name: RouterConstants.readingChamberAllList,
+                    path: 'reading-space-all-list',
+                    pageBuilder: (context, state) {
+                      return MaterialPage(
+                          child: I18n(
+                            child: const StoryListAllView(),
+                          ));
                     }),
                 // Reading history
                 GoRoute(

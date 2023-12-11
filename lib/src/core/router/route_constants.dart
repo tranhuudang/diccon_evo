@@ -9,6 +9,7 @@ class RouterConstants{
   static const String wordHistory ="word-history";
   static const String conversation ="conversation";
   static const String readingChamber ="reading-chamber";
+  static const String readingChamberAllList ="reading-chamber-all";
   static const String readingSpace ="reading-space";
   static const String readingChamberHistory ="reading-chamber-history";
   static const String readingChamberBookmark ="reading-chamber-bookmark";

@@ -1,6 +1,7 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../presentation.dart';
+import '../../../bloc/reading_bloc.dart';
 
 class ReadingBottomAppBar extends StatelessWidget {
   final ReadingBloc readingBloc;

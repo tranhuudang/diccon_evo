@@ -6,6 +6,7 @@ import 'package:diccon_evo/src/domain/domain.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
+import '../../../bloc/story_list_bloc.dart';
 
 class StoryListView extends StatelessWidget {
   const StoryListView({super.key});
@@ -183,7 +184,9 @@ class StoryListView extends StatelessWidget {
                                 /// Go to search
                                 Center(
                                   child: GetMoreButton(
-                                    onTap: () => showSearchPage(context),
+                                    onTap: () {
+                                      context.pushNamed(RouterConstants.readingChamberAllList);
+                                    },
                                   ),
                                 )
                               ],

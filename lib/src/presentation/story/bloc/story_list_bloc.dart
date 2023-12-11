@@ -72,8 +72,9 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
     emit(StoryListUpdatedState(articleList: state.articleList));
   }
 
-  void _sortElementary(
-      StoryListSortElementary event, Emitter<StoryListState> emit) {
+  Future<void> _sortElementary(
+      StoryListSortElementary event, Emitter<StoryListState> emit) async {
+    await _loadAll();
     var elementaryOnly = state.articleList
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
@@ -81,8 +82,9 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
     emit(StoryListUpdatedState(articleList: elementaryOnly));
   }
 
-  void _sortIntermediate(
-      StoryListSortIntermediate event, Emitter<StoryListState> emit) {
+  Future<void> _sortIntermediate(
+      StoryListSortIntermediate event, Emitter<StoryListState> emit) async {
+    await _loadAll();
     var intermediateOnly = state.articleList
         .where((element) =>
             element.level == Level.intermediate.toLevelNameString())
@@ -90,15 +92,17 @@ class StoryListBloc extends Bloc<StoryListEvent, StoryListState> {
     emit(StoryListUpdatedState(articleList: intermediateOnly));
   }
 
-  void _sortAdvanced(
-      StoryListSortAdvanced event, Emitter<StoryListState> emit) {
+  Future<void> _sortAdvanced(
+      StoryListSortAdvanced event, Emitter<StoryListState> emit) async {
+    await _loadAll();
     var advancedOnly = state.articleList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(StoryListUpdatedState(articleList: advancedOnly));
   }
 
-  void _sortAll(StoryListSortAll event, Emitter<StoryListState> emit) {
+  Future<void> _sortAll(StoryListSortAll event, Emitter<StoryListState> emit) async {
+    await _loadAll();
     var all = state.articleList;
     emit(StoryListUpdatedState(articleList: all));
   }

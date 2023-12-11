@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/story/presentation/ui/screens/story_list_all.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -113,6 +114,16 @@ GoRouter routerConfig = GoRouter(
                     child: StoryReadingView(
                       story: state.extra as Story,
                     ),
+                  ));
+            }),
+        // All stories
+        GoRoute(
+            name: RouterConstants.readingChamberAllList,
+            path: 'reading-space-all-list',
+            pageBuilder: (context, state) {
+              return MaterialPage(
+                  child: I18n(
+                    child: const StoryListAllView(),
                   ));
             }),
         // Reading history
