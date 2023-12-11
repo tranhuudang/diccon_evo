@@ -41,7 +41,7 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
     if (_saveWindowsSizeTimer?.isActive ?? false) {
       _saveWindowsSizeTimer?.cancel();
     }
-    _saveWindowsSizeTimer = Timer(const Duration(seconds: 0), () async {
+    _saveWindowsSizeTimer = Timer(const Duration(seconds: 3), () async {
       Size windowsSize = await WindowManager.instance.getSize();
       print(windowsSize.width);
 

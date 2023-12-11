@@ -23,7 +23,7 @@ class SuggestedItem extends StatelessWidget {
             color: backgroundColor ?? context.theme.scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(32),
             border: Border.all(
-              width: 2,
+              width: 1,
               color: context.theme.colorScheme.primary,
             )
           ),
