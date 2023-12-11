@@ -23,7 +23,6 @@ class _SettingsViewState extends State<SettingsView> {
     final settingBloc = context.read<SettingBloc>();
     return SafeArea(
       child: Scaffold(
-        //backgroundColor: context.theme.colorScheme.surface,
         body: BlocBuilder<SettingCubit, Settings>(
             bloc: settingCubit,
             builder: (context, state) {
@@ -31,7 +30,7 @@ class _SettingsViewState extends State<SettingsView> {
                 children: [
                   SingleChildScrollView(
                       padding: const EdgeInsets.only(
-                          top: 60, left: 16, right: 16, bottom: 16),
+                          top: 72, left: 16, right: 16, bottom: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
