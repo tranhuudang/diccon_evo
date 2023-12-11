@@ -43,8 +43,6 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
     }
     _saveWindowsSizeTimer = Timer(const Duration(seconds: 3), () async {
       Size windowsSize = await WindowManager.instance.getSize();
-      print(windowsSize.width);
-
       // Save windows size to setting
       final newSettings = Properties.instance.settings.copyWith(
           windowsWidth: windowsSize.width, windowsHeight: windowsSize.height);
