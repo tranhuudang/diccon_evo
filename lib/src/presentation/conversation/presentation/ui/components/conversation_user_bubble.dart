@@ -1,5 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class ConversationUserBubble extends StatelessWidget {
   const ConversationUserBubble({super.key, required this.message, required this.onTap});
@@ -8,37 +9,43 @@ class ConversationUserBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 8.0,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 32),
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: 600,
-            ),
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: context.theme.colorScheme.secondaryContainer,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(0.0),
-                topRight: Radius.circular(16.0),
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
+    return ResponsiveApp(
+      builder: (context) {
+        return InkWell(
+          onTap: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                ),
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: 86.sw,
+                    minWidth: 28.sw,
+                  ),
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    color: context.theme.colorScheme.secondaryContainer,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(0.0),
+                      topRight: Radius.circular(16.0),
+                      bottomLeft: Radius.circular(16.0),
+                      bottomRight: Radius.circular(16.0),
+                    ),
+                  ),
+                  child: Text(
+                    message,
+                    style: context.theme.textTheme.bodyMedium?.copyWith(
+                        color: context.theme.colorScheme.onSecondaryContainer),
+                  ),
+                ),
               ),
-            ),
-            child: Text(
-              message,
-              style: context.theme.textTheme.bodyMedium?.copyWith(
-                  color: context.theme.colorScheme.onSecondaryContainer),
-            ),
+            ],
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }

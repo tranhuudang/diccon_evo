@@ -155,7 +155,7 @@ class _EnglishToVietnameseCombineBubbleState
                                         color: context
                                             .theme.colorScheme.onSecondary,
                                       )),
-                                  HorizontalSpacing.large(),
+                                  const HorizontalSpacing.large(),
                                 ],
                               ),
                             ),

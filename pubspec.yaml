@@ -103,7 +103,6 @@ dependencies:
   # custom icon
   font_awesome_flutter: ^10.6.0
   unicons: ^2.1.1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

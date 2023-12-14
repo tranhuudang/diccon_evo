@@ -37,7 +37,7 @@ class ConversationView extends StatelessWidget {
                         children: [
                           ListView.builder(
                             padding:
-                                const EdgeInsets.only(top: 80, bottom: 120),
+                                const EdgeInsets.only(top: 80, bottom: 120, left: 16, right: 16),
                             itemCount: state.conversation.length,
                             controller:
                                 conversationBloc.conversationScrollController,
