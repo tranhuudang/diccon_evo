@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import '../../core/constants/api.dart';
+import '../../core/core.dart';
 
 class ImageHandler {
   Future<String> getImageFromPixabay(String word) async {
