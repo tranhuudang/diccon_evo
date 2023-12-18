@@ -203,8 +203,6 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                         pronunciation:
                                             _wordResult.pronunciation),
                                     PlaybackButton(
-                                        buttonColor:
-                                            context.theme.colorScheme.onSurface,
                                         message: _wordResult.word),
                                   ],
                                 ),
@@ -234,8 +232,6 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     children: [
                                       PlaybackButton(
                                         message: widget.sentenceContainWord,
-                                        buttonColor: context
-                                            .theme.colorScheme.onBackground,
                                       ),
                                       Text(
                                         widget.sentenceContainWord,

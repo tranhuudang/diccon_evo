@@ -23,10 +23,12 @@ class VietnameseToEnglishCombineBubble extends StatefulWidget {
       required this.listChatGptRepository});
 
   @override
-  State<VietnameseToEnglishCombineBubble> createState() => _VietnameseToEnglishCombineBubbleState();
+  State<VietnameseToEnglishCombineBubble> createState() =>
+      _VietnameseToEnglishCombineBubbleState();
 }
 
-class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCombineBubble> {
+class _VietnameseToEnglishCombineBubbleState
+    extends State<VietnameseToEnglishCombineBubble> {
   final translationModeStreamController =
       StreamController<TranslationChoices>();
   final listResponseController = PageController();
@@ -52,45 +54,47 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
           listChatGptRepository: widget.listChatGptRepository)
     ];
 
-    return ResponsiveApp(
-      builder: (context) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Column(
-              children: [
-                Container(
-                  constraints: BoxConstraints(
-                    maxWidth: 86.sw,
-                    minWidth: 28.sw,
+    return ResponsiveApp(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Column(
+            children: [
+              Container(
+                constraints: BoxConstraints(
+                  maxWidth: 86.sw,
+                  minWidth: 28.sw,
+                ),
+                //height: _isTooLarge ? 500 : null,
+                decoration: BoxDecoration(
+                  color: context.theme.colorScheme.secondary,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16.0),
+                    topRight: Radius.circular(0.0),
+                    bottomLeft: Radius.circular(16.0),
+                    bottomRight: Radius.circular(16.0),
                   ),
-                  //height: _isTooLarge ? 500 : null,
-                  decoration: BoxDecoration(
-                    color: context.theme.colorScheme.secondary,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      topRight: Radius.circular(0.0),
-                      bottomLeft: Radius.circular(16.0),
-                      bottomRight: Radius.circular(16.0),
-                    ),
-                  ),
-                  child: StreamBuilder<TranslationChoices>(
-                    stream: translationModeStreamController.stream,
-                    initialData: Properties.instance.settings.translationChoice
-                        .toTranslationChoice(),
-                    builder: (context, translationChoice) {
-                      if (Properties.instance.settings.translationChoice.toTranslationChoice() == TranslationChoices.explain){
-                        listResponseOptions = listResponseOptions.reversed.toList();
-                      }
-                      if (widget.wordForChatBot.numberOfWord() > 3) {
-                        return VietnameseToEnglishChatBotBubble(
-                            isParagraph: true,
-                            word: widget.wordForChatBot,
-                            chatListController: widget.chatListController,
-                            index: widget.index,
-                            listChatGptRepository: widget.listChatGptRepository);
-                      } else {
-                        return Stack(
+                ),
+                child: StreamBuilder<TranslationChoices>(
+                  stream: translationModeStreamController.stream,
+                  initialData: Properties.instance.settings.translationChoice
+                      .toTranslationChoice(),
+                  builder: (context, translationChoice) {
+                    if (Properties.instance.settings.translationChoice
+                            .toTranslationChoice() ==
+                        TranslationChoices.explain) {
+                      listResponseOptions =
+                          listResponseOptions.reversed.toList();
+                    }
+                    if (widget.wordForChatBot.numberOfWord() > 3) {
+                      return VietnameseToEnglishChatBotBubble(
+                          isParagraph: true,
+                          word: widget.wordForChatBot,
+                          chatListController: widget.chatListController,
+                          index: widget.index,
+                          listChatGptRepository: widget.listChatGptRepository);
+                    } else {
+                      return Stack(
                         children: [
                           Column(
                             children: [
@@ -105,7 +109,8 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
                                 children: listResponseOptions,
                               ),
                               WaveDivider(
-                                thickness: .3, color: context.theme.colorScheme.onSecondary,
+                                thickness: .3,
+                                color: context.theme.colorScheme.onSecondary,
                               ),
                               Container(
                                 height: 50,
@@ -123,14 +128,13 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
                                     const HorizontalSpacing.large(),
                                     PlaybackButton(
                                       message: widget.wordForChatBot.trim(),
-                                      buttonColor: context.theme.colorScheme.onSecondary,
                                     ),
                                     const Spacer(),
                                     IconButton(
                                         onPressed: () {
                                           listResponseController.previousPage(
-                                              duration:
-                                              const Duration(milliseconds: 200),
+                                              duration: const Duration(
+                                                  milliseconds: 200),
                                               curve: Curves.easeIn);
                                         },
                                         icon: Icon(
@@ -142,8 +146,8 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
                                     IconButton(
                                         onPressed: () {
                                           listResponseController.nextPage(
-                                              duration:
-                                              const Duration(milliseconds: 200),
+                                              duration: const Duration(
+                                                  milliseconds: 200),
                                               curve: Curves.easeIn);
                                         },
                                         icon: Icon(
@@ -159,31 +163,30 @@ class _VietnameseToEnglishCombineBubbleState extends State<VietnameseToEnglishCo
                           ),
                         ],
                       );
-                      }
-                    },
-                  ),
+                    }
+                  },
                 ),
-                if (defaultTargetPlatform.isMobile())
-                  if (!(widget.wordForChatBot.numberOfWord() >= 3))
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SmoothPageIndicator(
-                    controller: listResponseController,
-                    count: listResponseOptions.length,
-                    effect: ScrollingDotsEffect(
-                      maxVisibleDots: 5,
-                      dotHeight: 8,
-                      dotWidth: 8,
-                      activeDotColor: context.theme.colorScheme.primary,
-                      dotColor: context.theme.highlightColor,
+              ),
+              if (defaultTargetPlatform.isMobile())
+                if (!(widget.wordForChatBot.numberOfWord() >= 3))
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SmoothPageIndicator(
+                      controller: listResponseController,
+                      count: listResponseOptions.length,
+                      effect: ScrollingDotsEffect(
+                        maxVisibleDots: 5,
+                        dotHeight: 8,
+                        dotWidth: 8,
+                        activeDotColor: context.theme.colorScheme.primary,
+                        dotColor: context.theme.highlightColor,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        );
-      }
-    );
+            ],
+          ),
+        ],
+      );
+    });
   }
 }

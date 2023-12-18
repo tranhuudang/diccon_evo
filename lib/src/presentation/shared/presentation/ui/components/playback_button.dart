@@ -6,12 +6,9 @@ import '../../../../../data/data.dart';
 
 class PlaybackButton extends StatefulWidget {
   const PlaybackButton(
-      {super.key,
-      required this.message,
-      this.buttonColor,
-      this.languageCode = 'en-US'});
+      {super.key, required this.message, this.languageCode = 'en-US', this.icon});
   final String message;
-  final Color? buttonColor;
+  final Widget? icon;
   final String languageCode;
   @override
   State<PlaybackButton> createState() => _PlaybackButtonState();
@@ -42,10 +39,9 @@ class _PlaybackButtonState extends State<PlaybackButton> {
         builder: (context, snapshot) {
           return snapshot.data!
               ? IconButton(
-                  icon: Icon(
+                  icon: widget.icon ?? Icon(
                     Icons.volume_up_sharp,
-                    color: widget.buttonColor ??
-                        context.theme.colorScheme.onSecondary,
+                    color: context.theme.colorScheme.onSecondary,
                   ),
                   onPressed: () {
                     final progressStream = SoundHandler(
