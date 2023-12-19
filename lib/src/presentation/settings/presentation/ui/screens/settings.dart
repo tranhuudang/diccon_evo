@@ -90,10 +90,6 @@ class _SettingsViewState extends State<SettingsView> {
                               ],
                             ),
                             const VerticalSpacing.medium(),
-                            const WaveDivider(
-                              thickness: .3,
-                            ),
-                            const VerticalSpacing.medium(),
 
                             /// Theme switcher
                             Row(
@@ -145,9 +141,7 @@ class _SettingsViewState extends State<SettingsView> {
                                   ),
                                 ),
                               ]),
-                              const SizedBox(
-                                height: 4,
-                              ),
+                              const VerticalSpacing.small(),
                               Row(
                                 children: [
                                   Text("Number of antonyms".i18n),
