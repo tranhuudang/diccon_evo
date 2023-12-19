@@ -7,11 +7,10 @@ import 'package:audioplayers/audioplayers.dart';
 import '../data.dart';
 
 class SoundHandler {
-  final String providedWordToPlay;
-  final String languageCode;
-  SoundHandler({ required this.providedWordToPlay, required this.languageCode});
+  final audioPlayer = AudioPlayer();
+  final String languageCode = 'en-US';
 
-  void playTts() => _playTts(providedWordToPlay);
+  void playTts(String providedWordToPlay) => _playTts(providedWordToPlay);
 
   void _playTts(String word) async {
     FlutterTts tts = FlutterTts();
@@ -21,7 +20,7 @@ class SoundHandler {
     await tts.speak(word);
   }
 
-  String _onlineSoundUrlPath() {
+  String _onlineSoundUrlPath( String providedWordToPlay) {
     // Sample link's format: https://github.com/zeroclubvn/US-Pronunciation/raw/main/A/us/Affected.mp3
     String firstLetter = providedWordToPlay.getFirstLetter().toUpperCase();
     String word = providedWordToPlay.upperCaseFirstLetter();
@@ -30,9 +29,9 @@ class SoundHandler {
     return url;
   }
 
-  Stream<bool> playAnyway() async* {
+  Stream<bool> playAnyway(String providedWordToPlay) async* {
     if (providedWordToPlay.numberOfWord() == 1) {
-      String url = _onlineSoundUrlPath();
+      String url = _onlineSoundUrlPath(providedWordToPlay);
       // Okapi /'ou'kɑ:pi/
       String refinedWord = providedWordToPlay.upperCaseFirstLetter();
 
@@ -68,7 +67,6 @@ class SoundHandler {
   Future<bool> _playLocal(String fileName) async {
     try {
       var filePath = await DirectoryHandler.getLocalResourcesFilePath(fileName);
-      AudioPlayer audioPlayer = AudioPlayer();
       await audioPlayer.play(UrlSource(filePath));
       return true;
     } catch (e) {
@@ -76,5 +74,20 @@ class SoundHandler {
       _playTts(fileName.substring(0, fileName.indexOf('.')));
       return false;
     }
+  }
+
+   Future<bool> playFromPath(String filePath) async {
+    try {
+      print(filePath);
+
+      await audioPlayer.play(DeviceFileSource(filePath));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<void> pause() async {
+    await audioPlayer.pause();
   }
 }

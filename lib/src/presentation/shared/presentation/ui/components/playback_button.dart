@@ -44,10 +44,8 @@ class _PlaybackButtonState extends State<PlaybackButton> {
                     color: context.theme.colorScheme.onSecondary,
                   ),
                   onPressed: () {
-                    final progressStream = SoundHandler(
-                            providedWordToPlay: widget.message,
-                            languageCode: widget.languageCode)
-                        .playAnyway();
+                    final progressStream = SoundHandler()
+                        .playAnyway( widget.message);
                     listenToProgress(progressStream);
                   },
                   iconSize: 20,

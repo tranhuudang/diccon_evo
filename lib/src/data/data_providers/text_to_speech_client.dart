@@ -16,7 +16,7 @@ class TextToSpeechApiClient {
   ///
   /// Returns:
   /// void - The function doesn't return any data but saves the speech audio to a file.
-  Future<void> convertTextToSpeech({
+  Future<String> convertTextToSpeech({
     required String fromText,
     required String toFilePath,
   }) async {
@@ -29,7 +29,7 @@ class TextToSpeechApiClient {
     final body = jsonEncode({
       'model': SpeechModels.tts1,
       'input': fromText,
-      'voice': SupportedVoices.alloy.name,
+      'voice': SupportedVoices.onyx.name,
     });
 
     try {
@@ -46,9 +46,11 @@ class TextToSpeechApiClient {
       if (kDebugMode) {
         print('file is written to local storage');
       }
+      return toFilePath;
     } catch (e) {
       // Handle any errors or cancellations here
       print('Error occurred: $e');
+      return '';
     } finally {
       _client?.close(); // Close the client after the request is done
     }
