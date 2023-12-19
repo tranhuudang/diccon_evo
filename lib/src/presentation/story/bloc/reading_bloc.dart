@@ -10,16 +10,22 @@ import '../../../domain/domain.dart';
 /// Params
 class ReadingBlocParams {
   final bool isBottomAppBarVisible;
+  final bool isDownloading;
+  final bool isDownloaded;
   final double fontSize;
   final String audioFilePath;
   ReadingBlocParams({
     required this.isBottomAppBarVisible,
+    required this.isDownloading,
+    required this.isDownloaded,
     required this.fontSize,
     required this.audioFilePath,
   });
   static ReadingBlocParams init() {
     return ReadingBlocParams(
       isBottomAppBarVisible: true,
+      isDownloading: false,
+      isDownloaded: false,
       fontSize: Properties.instance.settings.readingFontSize,
       audioFilePath: '',
     );
@@ -27,12 +33,16 @@ class ReadingBlocParams {
 
   ReadingBlocParams copyWith({
     bool? isBottomAppBarVisible,
+    bool? isDownloading,
+    bool? isDownloaded,
     double? fontSize,
     String? audioFilePath,
   }) {
     return ReadingBlocParams(
       isBottomAppBarVisible:
           isBottomAppBarVisible ?? this.isBottomAppBarVisible,
+      isDownloading: isDownloading ?? this.isDownloading,
+      isDownloaded: isDownloaded ?? this.isDownloaded,
       fontSize: fontSize ?? this.fontSize,
       audioFilePath: audioFilePath ?? this.audioFilePath,
     );
@@ -49,16 +59,8 @@ class ReadingInitState extends ReadingState {
   ReadingInitState({required super.params});
 }
 
-class ReadingSettingsUpdatedState extends ReadingState {
-  ReadingSettingsUpdatedState({required super.params});
-}
-
-class AudioDownloadingState extends ReadingState {
-  AudioDownloadingState({required super.params});
-}
-
-class AudioDownloadedState extends ReadingState {
-  AudioDownloadedState({required super.params});
+class ReadingUpdatedState extends ReadingState {
+  ReadingUpdatedState({required super.params});
 }
 
 /// Events
@@ -85,8 +87,8 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     on<InitReadingBloc>(_initReadingBloc);
     on<IncreaseFontSize>(_increaseFontSize);
     on<DecreaseFontSize>(_decreaseFontSize);
-    on<PageScrollingDown>(_hideBottomAppBar);
-    on<PageScrollingUp>(_showBottomAppBar);
+    on<PageScrollingDown>(_pageScrollingDown);
+    on<PageScrollingUp>(_pageScrollingUp);
     on<DownloadAudio>(_downloadAudio);
   }
 
@@ -100,7 +102,7 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     double currentReadingFontSize =
         Properties.instance.settings.readingFontSize;
     if (currentReadingFontSize < 70) {
-      emit(ReadingSettingsUpdatedState(
+      emit(ReadingUpdatedState(
           params: state.params.copyWith(fontSize: state.params.fontSize + 2)));
       Properties.instance.settings = Properties.instance.settings.copyWith(
           readingFontSize: Properties.instance.settings.readingFontSize + 2);
@@ -113,7 +115,7 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     double currentReadingFontSize =
         Properties.instance.settings.readingFontSize;
     if (currentReadingFontSize > 10) {
-      emit(ReadingSettingsUpdatedState(
+      emit(ReadingUpdatedState(
           params: state.params.copyWith(
         fontSize: state.params.fontSize - 2,
       )));
@@ -123,30 +125,42 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     }
   }
 
-  FutureOr<void> _showBottomAppBar(
+  FutureOr<void> _pageScrollingUp(
       PageScrollingUp event, Emitter<ReadingState> emit) {
-    emit(ReadingSettingsUpdatedState(
+    emit(ReadingUpdatedState(
         params: state.params.copyWith(isBottomAppBarVisible: true)));
   }
 
-  FutureOr<void> _hideBottomAppBar(
+  FutureOr<void> _pageScrollingDown(
       PageScrollingDown event, Emitter<ReadingState> emit) {
-    emit(ReadingSettingsUpdatedState(
-        params: state.params.copyWith(isBottomAppBarVisible: false)));
+    emit(
+      ReadingUpdatedState(
+        params: state.params.copyWith(isBottomAppBarVisible: false),
+      ),
+    );
   }
 
   FutureOr<void> _downloadAudio(
       DownloadAudio event, Emitter<ReadingState> emit) async {
-    emit(AudioDownloadingState(params: state.params));
+    emit(
+      ReadingUpdatedState(
+        params: state.params.copyWith(isDownloading: true),
+      ),
+    );
     final tts = TextToSpeechApiClient();
     final dir = await getApplicationCacheDirectory();
     final filePath =
         join(dir.path, '${event.story.title.removeSpecialCharacters()}.mp3');
     await tts.convertTextToSpeech(
         fromText: event.story.content, toFilePath: filePath);
-    emit(AudioDownloadedState(
+    emit(
+      ReadingUpdatedState(
         params: state.params.copyWith(
-      audioFilePath: filePath,
-    )));
+          isDownloaded: true,
+          isDownloading: false,
+          audioFilePath: filePath,
+        ),
+      ),
+    );
   }
 }

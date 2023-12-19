@@ -35,31 +35,33 @@ class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
         child: Row(
           children: [
             if (widget.story.content.length < 4000)
-            BlocBuilder<ReadingBloc, ReadingState>(builder: (context, state) {
-              switch (state) {
-                case AudioDownloadedState _:
+              BlocBuilder<ReadingBloc, ReadingState>(builder: (context, state) {
+                if (state.params.isDownloaded == true) {
                   return PlayFileButton(filePath: state.params.audioFilePath);
-                case AudioDownloadingState _:
+                }
+                if (state.params.isDownloading == true) {
                   return SizedBox(
-                    height: 50, width: 50,
+                    height: 50,
+                    width: 50,
                     child: IconButton(
                       icon: const LinearProgressIndicator(),
                       onPressed: () {},
                     ),
                   );
-                default:
-                  return Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => readingBloc.add(DownloadAudio(story: widget.story)),
-                        icon: const Icon(Icons.cloud_download_outlined),
-                      ),
-                      const HorizontalSpacing.medium(),
-                      Text('Download audio'.i18n),
-                    ],
-                  );
-              }
-            }),
+                }
+
+                return Row(
+                  children: [
+                    IconButton(
+                      onPressed: () =>
+                          readingBloc.add(DownloadAudio(story: widget.story)),
+                      icon: const Icon(Icons.cloud_download_outlined),
+                    ),
+                    const HorizontalSpacing.medium(),
+                    Text('Download audio'.i18n),
+                  ],
+                );
+              }),
             const Spacer(),
             IconButton(
                 onPressed: () {
