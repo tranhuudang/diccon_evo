@@ -78,7 +78,9 @@ class SoundHandler {
 
    Future<bool> playFromPath(String filePath) async {
     try {
-      print(filePath);
+      if (kDebugMode) {
+        print(filePath);
+      }
 
       await audioPlayer.play(DeviceFileSource(filePath));
       return true;

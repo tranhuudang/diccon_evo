@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter/foundation.dart';
 import '../../../../../data/data.dart';
@@ -24,7 +23,9 @@ class _PlayFileButtonState extends State<PlayFileButton> {
           (isPlayingSnapshot.data! == false) ?
           IconButton(
             onPressed: () async {
-              print('Play file button');
+              if (kDebugMode) {
+                print('Play file button');
+              }
               isPlayingController.add(true);
               bool isPlayed = await player.playFromPath(widget.filePath);
               if (kDebugMode) {

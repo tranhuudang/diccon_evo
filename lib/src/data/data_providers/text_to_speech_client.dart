@@ -49,7 +49,9 @@ class TextToSpeechApiClient {
       return toFilePath;
     } catch (e) {
       // Handle any errors or cancellations here
-      print('Error occurred: $e');
+      if (kDebugMode) {
+        print('Error occurred: $e');
+      }
       return '';
     } finally {
       _client?.close(); // Close the client after the request is done

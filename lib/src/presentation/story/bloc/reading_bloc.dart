@@ -68,9 +68,9 @@ class IncreaseFontSize extends ReadingEvent {}
 
 class DecreaseFontSize extends ReadingEvent {}
 
-class ShowBottomAppBar extends ReadingEvent {}
+class PageScrollingUp extends ReadingEvent {}
 
-class HideBottomAppBar extends ReadingEvent {}
+class PageScrollingDown extends ReadingEvent {}
 
 class InitReadingBloc extends ReadingEvent {}
 
@@ -85,8 +85,8 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     on<InitReadingBloc>(_initReadingBloc);
     on<IncreaseFontSize>(_increaseFontSize);
     on<DecreaseFontSize>(_decreaseFontSize);
-    on<HideBottomAppBar>(_hideBottomAppBar);
-    on<ShowBottomAppBar>(_showBottomAppBar);
+    on<PageScrollingDown>(_hideBottomAppBar);
+    on<PageScrollingUp>(_showBottomAppBar);
     on<DownloadAudio>(_downloadAudio);
   }
 
@@ -124,13 +124,13 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
   }
 
   FutureOr<void> _showBottomAppBar(
-      ShowBottomAppBar event, Emitter<ReadingState> emit) {
+      PageScrollingUp event, Emitter<ReadingState> emit) {
     emit(ReadingSettingsUpdatedState(
         params: state.params.copyWith(isBottomAppBarVisible: true)));
   }
 
   FutureOr<void> _hideBottomAppBar(
-      HideBottomAppBar event, Emitter<ReadingState> emit) {
+      PageScrollingDown event, Emitter<ReadingState> emit) {
     emit(ReadingSettingsUpdatedState(
         params: state.params.copyWith(isBottomAppBarVisible: false)));
   }
