@@ -22,8 +22,6 @@ class StoryClickableWords extends StatefulWidget {
 }
 
 class _StoryClickableWordsState extends State<StoryClickableWords> {
-  final StreamController<int> _hoverIndexController = StreamController<int>();
-
   // New method to find the sentence containing the clicked word
   String getSentenceContainingWord(String clickedWord, List<String> words) {
     for (var i = 0; i < words.length; i++) {
@@ -46,19 +44,10 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
   }
 
   @override
-  void dispose() {
-    _hoverIndexController.close();
-    super.dispose();
-  }
-  @override
   Widget build(BuildContext context) {
     final List<String> words = widget.text.split(' ');
-
     return defaultTargetPlatform.isMobile()
-        ?
-        // We don't want to change cursor or underline text on mobile
-        // Which make the performance decrease a lot
-        RichText(
+        ? RichText(
             textAlign: TextAlign.start,
             text: TextSpan(
               children: [
@@ -68,11 +57,13 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           if (widget.onWordTap != null) {
-                            String sentence = getSentenceContainingWord(words[i], words);
+                            String sentence =
+                                getSentenceContainingWord(words[i], words);
                             widget.onWordTap!(words[i], sentence);
                             // New: Get the sentence and do something with it
                             if (kDebugMode) {
-                              print('Clicked word: ${words[i]}, Sentence: $sentence');
+                              print(
+                                  'Clicked word: ${words[i]}, Sentence: $sentence');
                             }
                           }
                         },
@@ -80,43 +71,28 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
               ],
             ),
           )
-        : StreamBuilder(
-      stream: _hoverIndexController.stream,
-      initialData: -1,
-      builder: (context, snapshot) {
-        return RichText(
-          text: TextSpan(
-            children: [
-              for (var i = 0; i < words.length; i++)
-                TextSpan(
-                  text: '${words[i]} ',
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      if (widget.onWordTap != null) {
-                        String sentence = getSentenceContainingWord(words[i], words);
-                        widget.onWordTap!(words[i], sentence);
-                        if (kDebugMode) {
-                          print('Clicked word: ${words[i]}, Sentence: $sentence');
+        : RichText(
+            text: TextSpan(
+              children: [
+                for (var i = 0; i < words.length; i++)
+                  TextSpan(
+                    text: '${words[i]} ',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        if (widget.onWordTap != null) {
+                          String sentence =
+                              getSentenceContainingWord(words[i], words);
+                          widget.onWordTap!(words[i], sentence);
+                          if (kDebugMode) {
+                            print(
+                                'Clicked word: ${words[i]}, Sentence: $sentence');
+                          }
                         }
-                      }
-                    },
-                  onEnter: (_) {
-                    _hoverIndexController.add(i);
-                  },
-                  onExit: (_) {
-                    _hoverIndexController.add(-1);
-                  },
-                  style: widget.style ??
-                      TextStyle(
-                        decoration: snapshot.data == i
-                            ? TextDecoration.underline
-                            : TextDecoration.none,
-                      ),
-                ),
-            ],
-          ),
-        );
-      },
-    );
+                      },
+                    style: widget.style ?? const TextStyle(),
+                  ),
+              ],
+            ),
+          );
   }
 }

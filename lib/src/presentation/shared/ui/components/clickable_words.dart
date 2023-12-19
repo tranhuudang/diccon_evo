@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
-class ClickableWords extends StatefulWidget {
+class ClickableWords extends StatelessWidget {
   final String text;
   final TextStyle? style;
   final Function(String)? onWordTap;
@@ -18,21 +18,8 @@ class ClickableWords extends StatefulWidget {
   });
 
   @override
-  State<ClickableWords> createState() => _ClickableWordsState();
-}
-
-class _ClickableWordsState extends State<ClickableWords> {
-  final StreamController<int> _hoverIndexController = StreamController<int>();
-
-  @override
-  void dispose() {
-    _hoverIndexController.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final List<String> words = widget.text.split(' ');
+    final List<String> words = text.split(' ');
 
     return defaultTargetPlatform.isMobile()
         ?
@@ -47,47 +34,30 @@ class _ClickableWordsState extends State<ClickableWords> {
                       text: '${words[i]} ',
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          if (widget.onWordTap != null) {
-                            widget.onWordTap!(words[i]);
+                          if (onWordTap != null) {
+                            onWordTap!(words[i]);
                           }
                         },
-                      style: widget.style),
+                      style: style),
               ],
             ),
           )
-        : StreamBuilder(
-            stream: _hoverIndexController.stream,
-            initialData: -1,
-            builder: (context, snapshot) {
-              return RichText(
-                text: TextSpan(
-                  children: [
-                    for (var i = 0; i < words.length; i++)
-                      TextSpan(
-                        text: '${words[i]} ',
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            if (widget.onWordTap != null) {
-                              widget.onWordTap!(words[i]);
-                            }
-                          },
-                        onEnter: (_) {
-                          _hoverIndexController.add(i);
-                        },
-                        onExit: (_) {
-                          _hoverIndexController.add(-1);
-                        },
-                        style: widget.style ??
-                            TextStyle(
-                              decoration: snapshot.data == i
-                                  ? TextDecoration.underline
-                                  : TextDecoration.none,
-                            ),
-                      ),
-                  ],
-                ),
-              );
-            },
+        : RichText(
+            text: TextSpan(
+              children: [
+                for (var i = 0; i < words.length; i++)
+                  TextSpan(
+                    text: '${words[i]} ',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        if (onWordTap != null) {
+                          onWordTap!(words[i]);
+                        }
+                      },
+                    style: style ?? const TextStyle(),
+                  ),
+              ],
+            ),
           );
   }
 }

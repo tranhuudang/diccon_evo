@@ -153,7 +153,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                     return Column(
                       children: [
                         SwitchTranslationBar(
-                          currentValue: tabSwitcher.data,
+                          currentValue: tabSwitcher.data!,
                           selectedItemSet:
                               (Set<StoryTranslationChoices> selectedItemSet) {
                             _tabSwitcherStreamController
@@ -203,7 +203,13 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                         pronunciation:
                                             _wordResult.pronunciation),
                                     PlaybackButton(
-                                        message: _wordResult.word),
+                                      message: _wordResult.word,
+                                      icon: Icon(
+                                        Icons.volume_up,
+                                        color: context.theme.colorScheme
+                                            .onSecondaryContainer,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(
@@ -232,6 +238,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     children: [
                                       PlaybackButton(
                                         message: widget.sentenceContainWord,
+                                        icon: Icon(
+                                          Icons.volume_up,
+                                          color: context.theme.colorScheme
+                                              .onSecondaryContainer,
+                                        ),
                                       ),
                                       Text(
                                         widget.sentenceContainWord,
