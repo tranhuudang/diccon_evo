@@ -1,9 +1,9 @@
-import 'package:diccon_evo/src/presentation/story/presentation/ui/screens/story_list_all.dart';
+import 'package:diccon_evo/src/presentation/story/ui/screens/story_list_all.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/settings/presentation/ui/screens/licenses.dart';
+import '../../presentation/settings/ui/screens/licenses.dart';
 import '../core.dart';
 
 GoRouter routerConfig = GoRouter(

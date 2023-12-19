@@ -2,8 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/settings/presentation/ui/screens/licenses.dart';
-import '../../presentation/story/presentation/ui/screens/story_list_all.dart';
+import '../../presentation/settings/ui/screens/licenses.dart';
+import '../../presentation/story/ui/screens/story_list_all.dart';
 import '../core.dart';
 
 // private navigators

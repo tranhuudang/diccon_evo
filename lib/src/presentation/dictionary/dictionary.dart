@@ -1,2 +1,2 @@
-export 'presentation/presentation.dart';
+export 'ui/ui.dart';
 export 'data/data.dart';
