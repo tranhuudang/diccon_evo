@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data_providers/text_to_speech_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'dart:io';
 import '../../../domain/domain.dart';
 
 /// Params
@@ -74,7 +75,10 @@ class PageScrollingUp extends ReadingEvent {}
 
 class PageScrollingDown extends ReadingEvent {}
 
-class InitReadingBloc extends ReadingEvent {}
+class InitReadingBloc extends ReadingEvent {
+  final Story story;
+  InitReadingBloc({required this.story});
+}
 
 class DownloadAudio extends ReadingEvent {
   final Story story;
@@ -93,8 +97,26 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
   }
 
   FutureOr<void> _initReadingBloc(
-      InitReadingBloc event, Emitter<ReadingState> emit) {
+      InitReadingBloc event, Emitter<ReadingState> emit) async {
     emit(ReadingInitState(params: ReadingBlocParams.init()));
+    // Check if audio file of this story is already downloaded before
+    final cacheDir = await getApplicationCacheDirectory();
+    String filePath =
+        join(cacheDir.path, '${event.story.title.removeSpecialCharacters()}.mp3');
+    File audioFile = File(filePath);
+    if (await audioFile.exists()) {
+      if (kDebugMode) {
+        print('Audio of "${event.story.title}" story is exist in cache folder');
+      }
+      emit(
+        ReadingUpdatedState(
+          params: state.params.copyWith(
+            isDownloaded: true,
+            audioFilePath: filePath,
+          ),
+        ),
+      );
+    }
   }
 
   FutureOr<void> _increaseFontSize(

@@ -233,9 +233,24 @@ extension Localization on String {
       "en_us": "Getting new stories..",
       "vi_vi": "Đang tải truyện mới..",
     },
+    "Play story": {
+      "en_us": "Play story",
+      "vi_vi": "Nghe truyện",
+    },
+    "Often less than 20 seconds": {
+      "en_us": "Often less than 20 seconds",
+      "vi_vi": "Thường mất khoảng 20 giây",
+    },
     "Increase": {
       "en_us": "Increase Font Size",
       "vi_vi": "Tăng phông chữ",
+    },
+    "Download audio": {
+      "en_us": "Download audio",
+      "vi_vi": "Tải âm thanh",
+    },"Audio": {
+      "en_us": "Audio",
+      "vi_vi": "Âm thanh",
     },
     "Decrease": {
       "en_us": "Decrease Font Size",
@@ -324,7 +339,8 @@ extension Localization on String {
     "TitleWordInDictionaryWelcomeBox": {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
-    },"Pronunciation:": {
+    },
+    "Pronunciation:": {
       "en_us": "Pronunciation:",
       "vi_vi": "Phiên âm:",
     },

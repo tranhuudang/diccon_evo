@@ -3,6 +3,7 @@ import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
 
+import '../../../../../core/constants/numbers.dart';
 import '../../../bloc/story_history_list_bloc.dart';
 
 class ReadingTile extends StatelessWidget {
@@ -11,8 +12,9 @@ class ReadingTile extends StatelessWidget {
   final VoidCallback onTap;
   const ReadingTile({
     super.key,
-    required this.story, this.tag, required this.onTap,
-
+    required this.story,
+    this.tag,
+    required this.onTap,
   });
 
   @override
@@ -23,11 +25,10 @@ class ReadingTile extends StatelessWidget {
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(32),
-
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
-        onTap: (){
+        onTap: () {
           storyHistoryBloc.add(StoryHistoryAdd(story: story));
           onTap();
         },
@@ -36,41 +37,38 @@ class ReadingTile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Hero(
-                tag: tag ?? story.title,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2.0,
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(22),
-                    child: CachedNetworkImage(
-                      // placeholder: (context, url) =>
-                      //     const LinearProgressIndicator(
-                      //   backgroundColor: Colors.black45,
-                      //   color: Colors.black54,
-                      // ),
-                      imageUrl: story.imageUrl ?? '',
-                      height: 100.0,
-                      width: 100.0,
-                      fit: BoxFit.cover,
-                      errorWidget:
-                          (context, String exception, dynamic stackTrace) {
-                        return Container(
-                          width: 100.0,
-                          height: 100.0,
-                          color: Colors
-                              .grey, // Display a placeholder color or image
-                          child: const Center(
-                            child: Text('No Image'),
-                          ),
-                        );
-                      },
-                    ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(22),
+                  child: CachedNetworkImage(
+                    // placeholder: (context, url) =>
+                    //     const LinearProgressIndicator(
+                    //   backgroundColor: Colors.black45,
+                    //   color: Colors.black54,
+                    // ),
+                    imageUrl: story.imageUrl ?? '',
+                    height: 100.0,
+                    width: 100.0,
+                    fit: BoxFit.cover,
+                    errorWidget:
+                        (context, String exception, dynamic stackTrace) {
+                      return Container(
+                        width: 100.0,
+                        height: 100.0,
+                        color: Colors
+                            .grey, // Display a placeholder color or image
+                        child: const Center(
+                          child: Text('No Image'),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -85,7 +83,8 @@ class ReadingTile extends StatelessWidget {
                         story.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
-                        style: textTheme.titleMedium?.copyWith(color: context.theme.colorScheme.onSurfaceVariant),
+                        style: textTheme.titleMedium?.copyWith(
+                            color: context.theme.colorScheme.onSurfaceVariant),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Expanded(
@@ -93,12 +92,27 @@ class ReadingTile extends StatelessWidget {
                           maxLines: 2,
                           story.shortDescription,
                           textAlign: TextAlign.start,
-                          style: textTheme.bodySmall?.copyWith(color: context.theme.colorScheme.onSurfaceVariant.withOpacity(.5)),
+                          style: textTheme.bodySmall?.copyWith(
+                              color: context.theme.colorScheme.onSurfaceVariant
+                                  .withOpacity(.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      LevelIcon(
-                        level: story.level ?? Level.intermediate.toLevelNameString(),
+                      Row(
+                        children: [
+                          Tag(
+                            title: story.level ??
+                                Level.intermediate.toLevelNameString(),
+                          ),
+                          const HorizontalSpacing.small(),
+                          if (story.content.length <
+                              NumberConstants.maximumLengthForTextToSpeech)
+                            Tag(
+                              title: 'Audio',
+                              color: context.theme.colorScheme.tertiary,
+                              textColor: context.theme.colorScheme.onTertiary,
+                            )
+                        ],
                       ),
                     ],
                   ),

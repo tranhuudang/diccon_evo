@@ -9,6 +9,8 @@ import '../data.dart';
 class SoundHandler {
   final audioPlayer = AudioPlayer();
   final String languageCode = 'en-US';
+  int audioLength = 0;
+  bool isPlaying = false;
 
   void playTts(String providedWordToPlay) => _playTts(providedWordToPlay);
 
@@ -20,12 +22,11 @@ class SoundHandler {
     await tts.speak(word);
   }
 
-  String _onlineSoundUrlPath( String providedWordToPlay) {
+  String _onlineSoundUrlPath(String providedWordToPlay) {
     // Sample link's format: https://github.com/zeroclubvn/US-Pronunciation/raw/main/A/us/Affected.mp3
     String firstLetter = providedWordToPlay.getFirstLetter().toUpperCase();
     String word = providedWordToPlay.upperCaseFirstLetter();
-    String url =
-        "${OnlineDirectory.audioURL}$firstLetter/us/$word.mp3";
+    String url = "${OnlineDirectory.audioURL}$firstLetter/us/$word.mp3";
     return url;
   }
 
@@ -76,20 +77,53 @@ class SoundHandler {
     }
   }
 
-   Future<bool> playFromPath(String filePath) async {
+  Future<bool> playFromPath(
+      {required String filePath,
+      required VoidCallback onFinished,
+      required Function(double) onPositionChanged}) async {
     try {
+      if (audioLength == 0) {
+        audioLength = await getAudioLength(filePath);
+      }
       if (kDebugMode) {
         print(filePath);
       }
-
       await audioPlayer.play(DeviceFileSource(filePath));
+      audioPlayer.onPlayerComplete.listen((event) {
+        onFinished();
+      });
+      audioPlayer.onPositionChanged.listen((Duration event) {
+        double currentPos = event.inMilliseconds / audioLength;
+        onPositionChanged(currentPos);
+      });
+
       return true;
     } catch (e) {
       return false;
     }
   }
 
+  /// Return audio length in milliseconds or return 0 if can't get the value
+  Future<int> getAudioLength(String filePath) async {
+    await audioPlayer.play(DeviceFileSource(filePath));
+    Duration duration =
+        await audioPlayer.getDuration() ?? const Duration(milliseconds: 1);
+    return duration.inMilliseconds;
+  }
+
+  /// Go to a specific point of audio with double value from 0 to 1
+  seek({required double seekPoint, required String filePath}) async {
+    if (audioLength == 0) {
+      audioLength = await getAudioLength(filePath);
+    }
+    audioPlayer.seek(Duration(milliseconds: (audioLength * seekPoint).floor()));
+  }
+
   Future<void> pause() async {
     await audioPlayer.pause();
+  }
+
+  Future<void> stop() async {
+    await audioPlayer.stop();
   }
 }

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
-class LevelIcon extends StatelessWidget {
-  final String level;
-  const LevelIcon({
+class Tag extends StatelessWidget {
+  final String title;
+  final Color? color;
+  final Color? textColor;
+  const Tag({
     super.key,
-    required this.level,
+    required this.title,
+    this.color,
+    this.textColor,
   });
 
   @override
@@ -15,9 +19,11 @@ class LevelIcon extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: context.theme.colorScheme.primary ),
+          color: color ?? context.theme.colorScheme.primary),
       child: Text(
-        level.upperCaseFirstLetter().i18n, style: TextStyle(color: context.theme.colorScheme.onPrimary),
+        title.upperCaseFirstLetter().i18n,
+        style:
+            TextStyle(color: textColor ?? context.theme.colorScheme.onPrimary),
       ),
     );
   }

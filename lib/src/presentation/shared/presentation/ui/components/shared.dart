@@ -19,4 +19,4 @@ export 'word_pronunciation.dart';
 export 'word_title.dart';
 export 'vertical_spacing.dart';
 export 'horizontal_spacing.dart';
-export 'play_file_button.dart';
+export '../../../../story/presentation/ui/components/play_file_button.dart';

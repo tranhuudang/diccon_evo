@@ -55,7 +55,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     _readingBloc = context.read<ReadingBloc>();
     _controller.addListener(_listen);
     getListStoryBookmark();
-    _readingBloc.add(InitReadingBloc());
+    _readingBloc.add(InitReadingBloc(story: widget.story));
   }
 
   @override
