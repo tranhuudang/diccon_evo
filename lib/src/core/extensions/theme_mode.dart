@@ -10,7 +10,7 @@ extension StringToThemeMode on String{
       case "ThemeMode.system":
         return ThemeMode.system;
       default:
-        throw ArgumentError("Unsupport themeMode value, can not convert this String to ThemeMode");
+        throw ArgumentError("Unsupported themeMode value, can not convert this String to ThemeMode");
     }
   }
 }

@@ -25,8 +25,6 @@ class Properties {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble(
         SharedPreferencesKey.readingFontSize, newSetting.readingFontSize);
-    await prefs.setString(SharedPreferencesKey.dictionaryResponseType,
-        newSetting.dictionaryResponseType);
     await prefs.setString(
         SharedPreferencesKey.translationChoice, newSetting.translationChoice);
     await prefs.setDouble(SharedPreferencesKey.readingFontSizeSliderValue,
@@ -73,9 +71,6 @@ class Properties {
               settings.translationChoice,
       openAppCount: prefs.getInt(SharedPreferencesKey.openAppCount) ??
           settings.openAppCount,
-      dictionaryResponseType:
-          prefs.getString(SharedPreferencesKey.dictionaryResponseType) ??
-              settings.dictionaryResponseType,
       translationLanguageTarget:
           prefs.getString(SharedPreferencesKey.translationLanguageTarget) ??
               settings.translationLanguageTarget,

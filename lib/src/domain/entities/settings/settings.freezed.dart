@@ -16,24 +16,59 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Settings {
+  /// Save current theme of this app in this param, it holds string value of [ThemeMode] with value:
+  /// ThemeMode.system, ThemeMode.dark, ThemeMode.light
   String get themeMode => throw _privateConstructorUsedError;
+
+  /// Number of Synonyms is the number of Synonyms displayed in dictionary
   int get numberOfSynonyms => throw _privateConstructorUsedError;
+
+  /// Number of Antonyms is the number of Antonyms displayed in dictionary
   int get numberOfAntonyms => throw _privateConstructorUsedError;
+
+  /// Adaptive theme use DynamicTheme package to generate colorScheme
   bool get enableAdaptiveTheme => throw _privateConstructorUsedError;
+
+  /// Open app count will trigger a specific function when user use app for a period of time
   int get openAppCount => throw _privateConstructorUsedError;
+
+  /// This reading font size used in story reading view
   double get readingFontSize => throw _privateConstructorUsedError;
+
+  /// Number of word when practice will be count down and save in this property
   int get numberOfEssentialLeft => throw _privateConstructorUsedError;
+
+  /// Hold slider value of reading font size in settings
   double get readingFontSizeSliderValue => throw _privateConstructorUsedError;
+
+  /// Language of app, those value : English, Tiếng Việt, System default will be convert
+  /// to [Locale('en', 'US')] to change value of the app
   String get language => throw _privateConstructorUsedError;
+
+  /// Custom for response in dictionary
   String get dictionaryResponseSelectedListVietnamese =>
       throw _privateConstructorUsedError;
+
+  /// Custom for response in dictionary
   String get dictionaryResponseSelectedListEnglish =>
       throw _privateConstructorUsedError;
+
+  /// Save target translate language with defined language in , currently support:
+  /// englishToVietnamese, vietnameseToEnglish, autoDetect
   String get translationLanguageTarget => throw _privateConstructorUsedError;
+
+  /// Hold windows size value
   double get windowsWidth => throw _privateConstructorUsedError;
+
+  /// Hold windows size value
   double get windowsHeight => throw _privateConstructorUsedError;
+
+  /// The app support two type of translation, using classic dictionary or use AI to
+  /// generate answer. That's include: AI, Classic.
   String get translationChoice => throw _privateConstructorUsedError;
-  String get dictionaryResponseType => throw _privateConstructorUsedError;
+
+  /// Hold primary color for the app, it can be generate to other colors later to
+  /// create colorScheme
   int get themeColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -62,7 +97,6 @@ abstract class $SettingsCopyWith<$Res> {
       double windowsWidth,
       double windowsHeight,
       String translationChoice,
-      String dictionaryResponseType,
       int themeColor});
 }
 
@@ -94,7 +128,6 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? windowsWidth = null,
     Object? windowsHeight = null,
     Object? translationChoice = null,
-    Object? dictionaryResponseType = null,
     Object? themeColor = null,
   }) {
     return _then(_value.copyWith(
@@ -160,10 +193,6 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.translationChoice
           : translationChoice // ignore: cast_nullable_to_non_nullable
               as String,
-      dictionaryResponseType: null == dictionaryResponseType
-          ? _value.dictionaryResponseType
-          : dictionaryResponseType // ignore: cast_nullable_to_non_nullable
-              as String,
       themeColor: null == themeColor
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
@@ -195,7 +224,6 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       double windowsWidth,
       double windowsHeight,
       String translationChoice,
-      String dictionaryResponseType,
       int themeColor});
 }
 
@@ -225,7 +253,6 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? windowsWidth = null,
     Object? windowsHeight = null,
     Object? translationChoice = null,
-    Object? dictionaryResponseType = null,
     Object? themeColor = null,
   }) {
     return _then(_$SettingImpl(
@@ -291,10 +318,6 @@ class __$$SettingImplCopyWithImpl<$Res>
           ? _value.translationChoice
           : translationChoice // ignore: cast_nullable_to_non_nullable
               as String,
-      dictionaryResponseType: null == dictionaryResponseType
-          ? _value.dictionaryResponseType
-          : dictionaryResponseType // ignore: cast_nullable_to_non_nullable
-              as String,
       themeColor: null == themeColor
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
@@ -322,47 +345,80 @@ class _$SettingImpl implements _Setting {
       required this.windowsWidth,
       required this.windowsHeight,
       required this.translationChoice,
-      required this.dictionaryResponseType,
       required this.themeColor});
 
+  /// Save current theme of this app in this param, it holds string value of [ThemeMode] with value:
+  /// ThemeMode.system, ThemeMode.dark, ThemeMode.light
   @override
   final String themeMode;
+
+  /// Number of Synonyms is the number of Synonyms displayed in dictionary
   @override
   final int numberOfSynonyms;
+
+  /// Number of Antonyms is the number of Antonyms displayed in dictionary
   @override
   final int numberOfAntonyms;
+
+  /// Adaptive theme use DynamicTheme package to generate colorScheme
   @override
   final bool enableAdaptiveTheme;
+
+  /// Open app count will trigger a specific function when user use app for a period of time
   @override
   final int openAppCount;
+
+  /// This reading font size used in story reading view
   @override
   final double readingFontSize;
+
+  /// Number of word when practice will be count down and save in this property
   @override
   final int numberOfEssentialLeft;
+
+  /// Hold slider value of reading font size in settings
   @override
   final double readingFontSizeSliderValue;
+
+  /// Language of app, those value : English, Tiếng Việt, System default will be convert
+  /// to [Locale('en', 'US')] to change value of the app
   @override
   final String language;
+
+  /// Custom for response in dictionary
   @override
   final String dictionaryResponseSelectedListVietnamese;
+
+  /// Custom for response in dictionary
   @override
   final String dictionaryResponseSelectedListEnglish;
+
+  /// Save target translate language with defined language in , currently support:
+  /// englishToVietnamese, vietnameseToEnglish, autoDetect
   @override
   final String translationLanguageTarget;
+
+  /// Hold windows size value
   @override
   final double windowsWidth;
+
+  /// Hold windows size value
   @override
   final double windowsHeight;
+
+  /// The app support two type of translation, using classic dictionary or use AI to
+  /// generate answer. That's include: AI, Classic.
   @override
   final String translationChoice;
-  @override
-  final String dictionaryResponseType;
+
+  /// Hold primary color for the app, it can be generate to other colors later to
+  /// create colorScheme
   @override
   final int themeColor;
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, dictionaryResponseType: $dictionaryResponseType, themeColor: $themeColor)';
+    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, themeColor: $themeColor)';
   }
 
   @override
@@ -398,7 +454,8 @@ class _$SettingImpl implements _Setting {
                     dictionaryResponseSelectedListEnglish) ||
                 other.dictionaryResponseSelectedListEnglish ==
                     dictionaryResponseSelectedListEnglish) &&
-            (identical(other.translationLanguageTarget, translationLanguageTarget) ||
+            (identical(other.translationLanguageTarget,
+                    translationLanguageTarget) ||
                 other.translationLanguageTarget == translationLanguageTarget) &&
             (identical(other.windowsWidth, windowsWidth) ||
                 other.windowsWidth == windowsWidth) &&
@@ -406,8 +463,6 @@ class _$SettingImpl implements _Setting {
                 other.windowsHeight == windowsHeight) &&
             (identical(other.translationChoice, translationChoice) ||
                 other.translationChoice == translationChoice) &&
-            (identical(other.dictionaryResponseType, dictionaryResponseType) ||
-                other.dictionaryResponseType == dictionaryResponseType) &&
             (identical(other.themeColor, themeColor) ||
                 other.themeColor == themeColor));
   }
@@ -430,7 +485,6 @@ class _$SettingImpl implements _Setting {
       windowsWidth,
       windowsHeight,
       translationChoice,
-      dictionaryResponseType,
       themeColor);
 
   @JsonKey(ignore: true)
@@ -457,42 +511,76 @@ abstract class _Setting implements Settings {
       required final double windowsWidth,
       required final double windowsHeight,
       required final String translationChoice,
-      required final String dictionaryResponseType,
       required final int themeColor}) = _$SettingImpl;
 
   @override
+
+  /// Save current theme of this app in this param, it holds string value of [ThemeMode] with value:
+  /// ThemeMode.system, ThemeMode.dark, ThemeMode.light
   String get themeMode;
   @override
+
+  /// Number of Synonyms is the number of Synonyms displayed in dictionary
   int get numberOfSynonyms;
   @override
+
+  /// Number of Antonyms is the number of Antonyms displayed in dictionary
   int get numberOfAntonyms;
   @override
+
+  /// Adaptive theme use DynamicTheme package to generate colorScheme
   bool get enableAdaptiveTheme;
   @override
+
+  /// Open app count will trigger a specific function when user use app for a period of time
   int get openAppCount;
   @override
+
+  /// This reading font size used in story reading view
   double get readingFontSize;
   @override
+
+  /// Number of word when practice will be count down and save in this property
   int get numberOfEssentialLeft;
   @override
+
+  /// Hold slider value of reading font size in settings
   double get readingFontSizeSliderValue;
   @override
+
+  /// Language of app, those value : English, Tiếng Việt, System default will be convert
+  /// to [Locale('en', 'US')] to change value of the app
   String get language;
   @override
+
+  /// Custom for response in dictionary
   String get dictionaryResponseSelectedListVietnamese;
   @override
+
+  /// Custom for response in dictionary
   String get dictionaryResponseSelectedListEnglish;
   @override
+
+  /// Save target translate language with defined language in , currently support:
+  /// englishToVietnamese, vietnameseToEnglish, autoDetect
   String get translationLanguageTarget;
   @override
+
+  /// Hold windows size value
   double get windowsWidth;
   @override
+
+  /// Hold windows size value
   double get windowsHeight;
   @override
+
+  /// The app support two type of translation, using classic dictionary or use AI to
+  /// generate answer. That's include: AI, Classic.
   String get translationChoice;
   @override
-  String get dictionaryResponseType;
-  @override
+
+  /// Hold primary color for the app, it can be generate to other colors later to
+  /// create colorScheme
   int get themeColor;
   @override
   @JsonKey(ignore: true)

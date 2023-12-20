@@ -2,24 +2,6 @@ import 'package:flutter/material.dart';
 import '../../core/core.dart';
 
 extension StringExtenstion on String {
-  DictionaryResponseType toDictionaryResponseType() {
-    switch (this) {
-      case "shortWithOutPronunciation":
-        return DictionaryResponseType.shortWithOutPronunciation;
-      case "short":
-        return DictionaryResponseType.short;
-      case "normal":
-        return DictionaryResponseType.normal;
-      case "normalWithOutExample":
-        return DictionaryResponseType.normalWithOutExample;
-      case "normalWithOutPronunciation":
-        return DictionaryResponseType.normalWithOutPronunciation;
-      default:
-        throw FormatException(
-            "$this is not have a valid value to convert to DictionaryResponseType");
-    }
-  }
-
   Locale toLocale() {
     switch (this) {
       case "English":

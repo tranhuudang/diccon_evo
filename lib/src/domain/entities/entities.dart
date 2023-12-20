@@ -5,4 +5,3 @@ export 'question_answer/question_answer.dart';
 export 'settings/settings.dart';
 export 'user_info/user_info.dart';
 export 'word/word.dart';
-export 'chat_preview.dart';
