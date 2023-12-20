@@ -26,5 +26,6 @@ class DefaultSettings{
     themeColor: Colors.blue.value,
     enableAdaptiveTheme: true,
     translationLanguageTarget: 'autoDetect',
+    selectedTab: RoutePath.readingChamber
   );
 }

@@ -71,6 +71,9 @@ mixin _$Settings {
   /// create colorScheme
   int get themeColor => throw _privateConstructorUsedError;
 
+  /// Save selected tab path for desktop device
+  String get selectedTab => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $SettingsCopyWith<Settings> get copyWith =>
       throw _privateConstructorUsedError;
@@ -97,7 +100,8 @@ abstract class $SettingsCopyWith<$Res> {
       double windowsWidth,
       double windowsHeight,
       String translationChoice,
-      int themeColor});
+      int themeColor,
+      String selectedTab});
 }
 
 /// @nodoc
@@ -129,6 +133,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? windowsHeight = null,
     Object? translationChoice = null,
     Object? themeColor = null,
+    Object? selectedTab = null,
   }) {
     return _then(_value.copyWith(
       themeMode: null == themeMode
@@ -197,6 +202,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
               as int,
+      selectedTab: null == selectedTab
+          ? _value.selectedTab
+          : selectedTab // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -224,7 +233,8 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       double windowsWidth,
       double windowsHeight,
       String translationChoice,
-      int themeColor});
+      int themeColor,
+      String selectedTab});
 }
 
 /// @nodoc
@@ -254,6 +264,7 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? windowsHeight = null,
     Object? translationChoice = null,
     Object? themeColor = null,
+    Object? selectedTab = null,
   }) {
     return _then(_$SettingImpl(
       themeMode: null == themeMode
@@ -322,6 +333,10 @@ class __$$SettingImplCopyWithImpl<$Res>
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
               as int,
+      selectedTab: null == selectedTab
+          ? _value.selectedTab
+          : selectedTab // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -345,7 +360,8 @@ class _$SettingImpl implements _Setting {
       required this.windowsWidth,
       required this.windowsHeight,
       required this.translationChoice,
-      required this.themeColor});
+      required this.themeColor,
+      required this.selectedTab});
 
   /// Save current theme of this app in this param, it holds string value of [ThemeMode] with value:
   /// ThemeMode.system, ThemeMode.dark, ThemeMode.light
@@ -416,9 +432,13 @@ class _$SettingImpl implements _Setting {
   @override
   final int themeColor;
 
+  /// Save selected tab path for desktop device
+  @override
+  final String selectedTab;
+
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, themeColor: $themeColor)';
+    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, themeColor: $themeColor, selectedTab: $selectedTab)';
   }
 
   @override
@@ -454,8 +474,7 @@ class _$SettingImpl implements _Setting {
                     dictionaryResponseSelectedListEnglish) ||
                 other.dictionaryResponseSelectedListEnglish ==
                     dictionaryResponseSelectedListEnglish) &&
-            (identical(other.translationLanguageTarget,
-                    translationLanguageTarget) ||
+            (identical(other.translationLanguageTarget, translationLanguageTarget) ||
                 other.translationLanguageTarget == translationLanguageTarget) &&
             (identical(other.windowsWidth, windowsWidth) ||
                 other.windowsWidth == windowsWidth) &&
@@ -464,7 +483,9 @@ class _$SettingImpl implements _Setting {
             (identical(other.translationChoice, translationChoice) ||
                 other.translationChoice == translationChoice) &&
             (identical(other.themeColor, themeColor) ||
-                other.themeColor == themeColor));
+                other.themeColor == themeColor) &&
+            (identical(other.selectedTab, selectedTab) ||
+                other.selectedTab == selectedTab));
   }
 
   @override
@@ -485,7 +506,8 @@ class _$SettingImpl implements _Setting {
       windowsWidth,
       windowsHeight,
       translationChoice,
-      themeColor);
+      themeColor,
+      selectedTab);
 
   @JsonKey(ignore: true)
   @override
@@ -511,7 +533,8 @@ abstract class _Setting implements Settings {
       required final double windowsWidth,
       required final double windowsHeight,
       required final String translationChoice,
-      required final int themeColor}) = _$SettingImpl;
+      required final int themeColor,
+      required final String selectedTab}) = _$SettingImpl;
 
   @override
 
@@ -582,6 +605,10 @@ abstract class _Setting implements Settings {
   /// Hold primary color for the app, it can be generate to other colors later to
   /// create colorScheme
   int get themeColor;
+  @override
+
+  /// Save selected tab path for desktop device
+  String get selectedTab;
   @override
   @JsonKey(ignore: true)
   _$$SettingImplCopyWith<_$SettingImpl> get copyWith =>

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/domain.dart';
 import '../constants/constants.dart';
+
 class Properties {
   // Ensures end-users cannot initialize the class
   Properties._();
@@ -54,6 +55,8 @@ class Properties {
     await prefs.setInt(SharedPreferencesKey.themeColor, newSetting.themeColor);
     await prefs.setBool(SharedPreferencesKey.enableAdaptiveTheme,
         newSetting.enableAdaptiveTheme);
+    await prefs.setString(
+        SharedPreferencesKey.selectedTab, newSetting.selectedTab);
     if (kDebugMode) {
       print("Setting saved");
     }
@@ -102,6 +105,8 @@ class Properties {
       enableAdaptiveTheme:
           prefs.getBool(SharedPreferencesKey.enableAdaptiveTheme) ??
               settings.enableAdaptiveTheme,
+      selectedTab: prefs.getString(SharedPreferencesKey.selectedTab) ??
+          settings.selectedTab,
     );
     if (kDebugMode) {
       print("New setting is saved with these bellow customs:");
@@ -121,6 +126,7 @@ class Properties {
       print("themeMode: ${settings.themeMode}");
       print("language: ${settings.language}");
       print("themeColor: ${settings.themeColor}");
+      print("selectedTab: ${settings.selectedTab}");
     }
     return savedSetting;
   }

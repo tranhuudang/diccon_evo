@@ -21,8 +21,10 @@ final _shellNavigatorEssentialKey =
 final _shellNavigatorAboutKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellAbout');
 
+
+
 GoRouter routerConfigDesktop = GoRouter(
-  initialLocation: '/reading-chamber',
+  initialLocation: Properties.instance.settings.selectedTab,
   navigatorKey: _rootNavigatorKey,
   routes: [
     /// Login
@@ -49,7 +51,7 @@ GoRouter routerConfigDesktop = GoRouter(
             // top route inside branch
             GoRoute(
               name: RouterConstants.dictionary,
-              path: '/dictionary',
+              path: RoutePath.dictionary,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                     child: I18n(child: const DictionaryView()));
@@ -74,7 +76,7 @@ GoRouter routerConfigDesktop = GoRouter(
             // top route inside branch
             GoRoute(
               name: RouterConstants.readingChamber,
-              path: '/reading-chamber',
+              path: RoutePath.readingChamber,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                     child: I18n(child: const StoryListView()));
@@ -136,7 +138,7 @@ GoRouter routerConfigDesktop = GoRouter(
             // top route inside branch
             GoRoute(
               name: RouterConstants.conversation,
-              path: '/conversation',
+              path: RoutePath.conversation,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                     child: I18n(child: const ConversationView()));
@@ -152,7 +154,7 @@ GoRouter routerConfigDesktop = GoRouter(
             // top route inside branch
             GoRoute(
               name: RouterConstants.essential1848,
-              path: '/essential-1848',
+              path: RoutePath.essential,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                     child: I18n(child: const EssentialView()));

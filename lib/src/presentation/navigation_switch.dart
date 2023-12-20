@@ -32,6 +32,10 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
       index,
       initialLocation: true,
     );
+    // Save selected tab to properties
+    final newSettings = Properties.instance.settings
+        .copyWith(selectedTab: RoutePath.fromIndex(index));
+    Properties.instance.saveSettings(newSettings);
   }
 
   // Detect when windows is changing size and save windows size

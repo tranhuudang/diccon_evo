@@ -40,5 +40,7 @@ class Settings with _$Settings {
     /// Hold primary color for the app, it can be generate to other colors later to
     /// create colorScheme
     required int themeColor,
+    /// Save selected tab path for desktop device
+    required String selectedTab,
   }) = _Setting;
 }
