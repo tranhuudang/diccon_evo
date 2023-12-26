@@ -23,13 +23,13 @@ class ConversationWelcome extends StatelessWidget {
                   height: 180,
                 ),
               ),
-              16.height,
+              const VerticalSpacing.large(),
               Text(
                 "Enhance your communication skills with our advanced bot.".i18n,
                 style: context.theme.textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
-              16.height,
+              const VerticalSpacing.large(),
               Opacity(
                 opacity: 0.5,
                 child: Text(

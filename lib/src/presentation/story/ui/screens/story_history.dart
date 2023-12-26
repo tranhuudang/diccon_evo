@@ -154,7 +154,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                           Text(
                             "History is empty".i18n,
                             style: context.theme.textTheme.titleMedium),
-                          8.height,
+                          const VerticalSpacing.medium(),
                           Opacity(
                             opacity: 0.5,
                             child: Text(

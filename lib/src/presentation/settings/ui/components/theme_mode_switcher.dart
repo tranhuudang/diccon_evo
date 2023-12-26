@@ -22,7 +22,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
         builder: (context, snapshot) {
           return Row(
             children: [
-              8.height,
+              const HorizontalSpacing.medium(),
 
               /// Light Mode
               InkWell(
@@ -53,7 +53,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                                 .onSecondaryContainer,
                       ),
                       if (snapshot.data == ThemeMode.light)
-                        8.height,
+                        const HorizontalSpacing.medium(),
                       if (snapshot.data == ThemeMode.light)
                         Text(
                           "Light mode".i18n,
@@ -100,7 +100,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                                 .onSecondaryContainer,
                       ),
                       if (snapshot.data == ThemeMode.dark)
-                        8.height,
+                        const HorizontalSpacing.medium(),
                       if (snapshot.data == ThemeMode.dark)
                         Text(
                           "Dark mode".i18n,

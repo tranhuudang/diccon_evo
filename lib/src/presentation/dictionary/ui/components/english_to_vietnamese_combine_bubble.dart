@@ -125,7 +125,7 @@ class _EnglishToVietnameseCombineBubbleState
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    16.height,
+                                    const HorizontalSpacing.large(),
                                     PlaybackButton(
                                       message: widget.wordForChatBot.trim(),
                                     ),
@@ -142,7 +142,7 @@ class _EnglishToVietnameseCombineBubbleState
                                           color: context
                                               .theme.colorScheme.onSecondary,
                                         )),
-                                    8.height,
+                                    const HorizontalSpacing.medium(),
                                     IconButton(
                                         onPressed: () {
                                           listResponseController.nextPage(
@@ -155,7 +155,7 @@ class _EnglishToVietnameseCombineBubbleState
                                           color: context
                                               .theme.colorScheme.onSecondary,
                                         )),
-                                    16.height,
+                                    const HorizontalSpacing.large(),
                                   ],
                                 ),
                               ),

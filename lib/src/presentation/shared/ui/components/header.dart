@@ -77,7 +77,7 @@ class HeaderWithBlurEffect extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       }),
-                  16.height,
+                  const HorizontalSpacing.large(),
                 ],
                 if (title != null)
                   Text(

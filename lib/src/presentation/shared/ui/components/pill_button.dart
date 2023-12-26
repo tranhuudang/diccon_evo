@@ -38,7 +38,7 @@ class PillButton extends StatelessWidget {
                 icon,
                 size: 18,
               ),
-            if (icon != null) 8.height,
+            if (icon != null) const HorizontalSpacing.medium(),
             Text(
               title.i18n,
               style: TextStyle(

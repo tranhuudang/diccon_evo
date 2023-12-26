@@ -57,7 +57,7 @@ class ToReadingChamberButton extends StatelessWidget {
                   ),
                   Icon(Icons.book,
                       size: 30, color: context.theme.colorScheme.onPrimary),
-                  4.height,
+                  const VerticalSpacing.small(),
                   Text(
                     "Short stories in".i18n,
                     style: context.theme.textTheme.labelSmall
@@ -68,7 +68,7 @@ class ToReadingChamberButton extends StatelessWidget {
                     style: context.theme.textTheme.titleLarge?.copyWith(
                         color: onPrimary, fontWeight: FontWeight.w500),
                   ),
-                  16.height,
+                  const VerticalSpacing.large(),
                 ],
               ),
             ),

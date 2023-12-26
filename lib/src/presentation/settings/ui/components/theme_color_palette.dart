@@ -35,7 +35,7 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
       children: [
         Align(
             alignment: Alignment.centerLeft, child: Text("Accent color".i18n)),
-        4.height,
+        const VerticalSpacing.small(),
         StreamBuilder<ColorPaletteSelector>(
           stream: _selectController.stream,
           initialData: _colorPaletteSelector,
@@ -114,7 +114,7 @@ class _ThemeColorPaletteState extends State<ThemeColorPalette> {
             );
           },
         ),
-        16.height,
+        const VerticalSpacing.large(),
         FilledButton.tonal(
             onPressed: () {
               settingBloc.add(EnableAdaptiveThemeColorEvent());

@@ -24,7 +24,7 @@ class Section extends StatelessWidget {
                 style: context.theme.textTheme.titleMedium?.copyWith(color: context.theme.colorScheme.primary),
               ),
             ),
-            16.height,
+            const VerticalSpacing.large(),
             Column(
               children: children,
             ),

@@ -72,7 +72,7 @@ extension BuildContextExtension on BuildContext {
             mainAxisSize: MainAxisSize.min,
             children: [
               const CircularProgressIndicator(),
-              8.height,
+              const VerticalSpacing.medium(),
               Text(content),
             ],
           ),

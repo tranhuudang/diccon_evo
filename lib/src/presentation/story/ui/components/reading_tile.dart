@@ -70,7 +70,7 @@ class ReadingTile extends StatelessWidget {
                   ),
                 ),
               ),
-              8.height,
+              const HorizontalSpacing.medium(),
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -102,7 +102,7 @@ class ReadingTile extends StatelessWidget {
                             title: story.level ??
                                 Level.intermediate.toLevelNameString(),
                           ),
-                          4.height,
+                          const HorizontalSpacing.small(),
                           if (story.content.length <
                               NumberConstants.maximumLengthForTextToSpeech)
                             Tag(

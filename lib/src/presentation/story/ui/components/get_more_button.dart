@@ -27,7 +27,7 @@ class GetMoreButton extends StatelessWidget {
                   color: context.theme.colorScheme.onPrimary,
                   fontWeight: FontWeight.bold),
             ),
-            8.height,
+            const HorizontalSpacing.medium(),
             Icon(
               Icons.arrow_forward,
               color: context.theme.colorScheme.onPrimary,

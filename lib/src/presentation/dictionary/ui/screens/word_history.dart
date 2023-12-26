@@ -46,7 +46,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                               "History is empty".i18n,
                               style: context.theme.textTheme.titleMedium,
                             ),
-                            8.height,
+                            const VerticalSpacing.medium(),
                             Opacity(
                               opacity: 0.5,
                               child: Text(
@@ -133,7 +133,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
                                   });
                             },
                             child: Text("Clear all".i18n)),
-                        8.height,
+                        const HorizontalSpacing.medium(),
                         FilledButton.tonal(
                             onPressed: () {
                               _wordHistoryBloc.add(CloseWordHistoryEditMode());

@@ -28,7 +28,7 @@ class ToDictionaryButton extends StatelessWidget {
                 Icons.search,
                 color: context.theme.colorScheme.surface,
               )),
-          8.height,
+          const VerticalSpacing.medium(),
           Text(
             "Diccon dual-mode",
             style: context.theme.textTheme.labelSmall,
@@ -38,7 +38,7 @@ class ToDictionaryButton extends StatelessWidget {
             style: context.theme.textTheme.titleLarge
                 ?.copyWith(fontWeight: FontWeight.w500),
           ),
-          16.height,
+          const VerticalSpacing.large(),
         ],
       ),
     );

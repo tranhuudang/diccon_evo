@@ -30,14 +30,14 @@ class SeekFeedback {
                       ),
                     ),
                   ),
-                  8.height,
+                  const VerticalSpacing.medium(),
                   Center(
                     child: Text("We'd love to hear your feedback!".i18n,
                         style: context.theme.textTheme.titleLarge?.copyWith(
                             color: context
                                 .theme.colorScheme.onSecondaryContainer)),
                   ),
-                  16.height,
+                  const VerticalSpacing.large(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -55,7 +55,7 @@ class SeekFeedback {
                             goToStoreListing();
                           },
                           title: "Give feedbacks".i18n),
-                      16.height,
+                      const HorizontalSpacing.large(),
                       PillButton(
                           color: context.theme.colorScheme.onSecondaryContainer,
                           backgroundColor:

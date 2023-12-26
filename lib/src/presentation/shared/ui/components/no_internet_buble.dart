@@ -41,7 +41,7 @@ class NoInternetBubble extends StatelessWidget {
                     ],
                   ),
                   Text("You're not connected".i18n, style: context.theme.textTheme.titleLarge,),
-                  8.height,
+                  const VerticalSpacing.medium(),
                   Text("SubSentenceInNoInternetBubble".i18n),
                 ],
               ),

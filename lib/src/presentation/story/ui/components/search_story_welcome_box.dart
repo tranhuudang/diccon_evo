@@ -22,13 +22,13 @@ class SearchStoryWelcome extends StatelessWidget {
               height: 180,
             ),
           ),
-          8.height,
+          const VerticalSpacing.medium(),
           Text(
             "Never miss out on your story ever again".i18n,
             style: context.theme.textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
-          8.height,
+          const VerticalSpacing.medium(),
           Opacity(
             opacity: 0.5,
             child: Text(

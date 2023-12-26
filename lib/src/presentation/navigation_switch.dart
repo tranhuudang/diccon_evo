@@ -215,7 +215,7 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                             context.pushNamed(RouterConstants.infos);
                           }),
                       if (_isTabletExpanded) ...[
-                        16.height,
+                        const HorizontalSpacing.large(),
                         Text(
                           'About'.i18n,
                           style: context.theme.textTheme.titleSmall,
@@ -239,7 +239,7 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                             context.pushNamed(RouterConstants.commonSettings);
                           }),
                       if (_isTabletExpanded) ...[
-                        16.height,
+                        const HorizontalSpacing.large(),
                         Text(
                           'Settings'.i18n,
                           style: context.theme.textTheme.titleSmall,
@@ -277,7 +277,7 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                             context.pushNamed(RouterConstants.infos);
                           }),
                       if (_isDesktopExpanded) ...[
-                        16.height,
+                        const HorizontalSpacing.large(),
                         Text(
                           'About'.i18n,
                           style: context.theme.textTheme.titleSmall,
@@ -301,7 +301,7 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                             context.pushNamed(RouterConstants.commonSettings);
                           }),
                       if (_isDesktopExpanded) ...[
-                        16.height,
+                        const HorizontalSpacing.large(),
                         Text(
                           'Settings'.i18n,
                           style: context.theme.textTheme.titleSmall,

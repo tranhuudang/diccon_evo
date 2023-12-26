@@ -39,7 +39,7 @@ class _SettingsViewState extends State<SettingsView> {
                             Row(
                               children: [
                                 Text("Language".i18n),
-                                8.height,
+                                const HorizontalSpacing.medium(),
                                 Container(
                                   decoration: BoxDecoration(
                                     color: context.theme.highlightColor,
@@ -89,7 +89,7 @@ class _SettingsViewState extends State<SettingsView> {
                                 ),
                               ],
                             ),
-                            8.height,
+                            const VerticalSpacing.medium(),
 
                             /// Theme switcher
                             Row(
@@ -98,11 +98,11 @@ class _SettingsViewState extends State<SettingsView> {
                                 const ThemeSwitcher(),
                               ],
                             ),
-                            8.height,
+                            const VerticalSpacing.medium(),
                             const WaveDivider(
                               thickness: .3,
                             ),
-                            8.height,
+                            const VerticalSpacing.medium(),
                             const ThemeColorPalette(),
                           ]),
                           Section(
@@ -110,7 +110,7 @@ class _SettingsViewState extends State<SettingsView> {
                             children: [
                               Row(children: [
                                 Text("Number of synonyms".i18n),
-                                8.height,
+                                const HorizontalSpacing.medium(),
                                 Container(
                                   decoration: BoxDecoration(
                                     color: context.theme.highlightColor,
@@ -141,11 +141,11 @@ class _SettingsViewState extends State<SettingsView> {
                                   ),
                                 ),
                               ]),
-                              4.height,
+                              const VerticalSpacing.small(),
                               Row(
                                 children: [
                                   Text("Number of antonyms".i18n),
-                                  8.height,
+                                  const HorizontalSpacing.medium(),
                                   Container(
                                     decoration: BoxDecoration(
                                       color: context.theme.highlightColor,
@@ -191,7 +191,7 @@ class _SettingsViewState extends State<SettingsView> {
                                       child: Text(
                                           "Customize dictionary responses"
                                               .i18n)),
-                                  8.height,
+                                  const VerticalSpacing.medium(),
                                   FilledButton.tonal(
                                       onPressed: () {
                                         context.pushNamed(RouterConstants
