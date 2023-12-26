@@ -54,9 +54,9 @@ class _HomeViewState extends State<HomeView> {
                     /// Head welcome to essential tab
                     const HeadSentence(
                         listText: ["Empower", "Your English", "Proficiency"]),
-                    const VerticalSpacing.medium(),
+                    8.height,
                     const PlanButton(),
-                    const VerticalSpacing.large(),
+                    16.height,
 
                     /// TextField for user to enter their words
                     SearchBox(
@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
                                     buildContext: context)));
                       },
                     ),
-                    const VerticalSpacing.large(),
+                    16.height,
 
                     /// Two big brother button
                     GridView.builder(
@@ -88,7 +88,7 @@ class _HomeViewState extends State<HomeView> {
                         itemBuilder: (context, index) {
                           return _listPrimaryFunction[index];
                         }),
-                    const VerticalSpacing.medium(),
+                    8.height,
 
                     /// Other functions
                     SubFunctionBox(

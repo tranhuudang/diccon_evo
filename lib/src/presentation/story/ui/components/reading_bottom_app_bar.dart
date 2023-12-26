@@ -49,7 +49,7 @@ class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
                               onPressed: () {},
                             ),
                           ),
-                          const HorizontalSpacing.medium(),
+                          8.height,
                           Text('Often less than 20 seconds'.i18n),
                         ],
                     );
@@ -62,7 +62,7 @@ class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
                             readingBloc.add(DownloadAudio(story: widget.story)),
                         icon: const Icon(Icons.cloud_download_outlined),
                       ),
-                      const HorizontalSpacing.medium(),
+                      8.height,
                       Text('Download audio'.i18n),
                     ],
                   );

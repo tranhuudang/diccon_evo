@@ -24,13 +24,13 @@ class DictionaryWelcome extends StatelessWidget {
                   height: 180,
                 ),
               ),
-              const VerticalSpacing.large(),
+              16.height,
               Text(
                 "TitleWordInDictionaryWelcomeBox".i18n,
                 style: context.theme.textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
-              const VerticalSpacing.medium(),
+              8.height,
               Opacity(
                 opacity: 0.5,
                 child: Text(

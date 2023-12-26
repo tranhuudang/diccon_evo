@@ -214,7 +214,7 @@ class _EssentialViewState extends State<EssentialView> {
                             child: Row(
                               children: [
                                 const Icon(FontAwesomeIcons.play, size: 16),
-                                const HorizontalSpacing.medium(),
+                                8.height,
                                 Text("Start your journey exploring new words."
                                     .i18n),
                               ],
@@ -223,7 +223,7 @@ class _EssentialViewState extends State<EssentialView> {
                           Row(
                             children: [
                               const Icon(FontAwesomeIcons.heart, size: 16),
-                              const HorizontalSpacing.medium(),
+                              8.height,
                               Text("Revise the words you enjoy.".i18n),
                             ],
                           ),

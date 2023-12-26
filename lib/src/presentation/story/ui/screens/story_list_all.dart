@@ -102,7 +102,7 @@ class StoryListAllView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const VerticalSpacing.medium(),
+                                8.height,
                                 ColorFiltered(
                                   colorFilter: ColorFilter.mode(
                                       context.theme.colorScheme.primary,
@@ -113,14 +113,14 @@ class StoryListAllView extends StatelessWidget {
                                     width: 200,
                                   ),
                                 ),
-                                const VerticalSpacing.medium(),
+                                8.height,
                                 Text(
                                   "I'm tired. I guess I'm getting old.".i18n,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
-                                const VerticalSpacing.medium(),
+                                8.height,
                                 Opacity(
                                   opacity: 0.5,
                                   child: SizedBox(
@@ -133,7 +133,7 @@ class StoryListAllView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                const VerticalSpacing.medium(),
+                                8.height,
                               ],
                             ),
                           );

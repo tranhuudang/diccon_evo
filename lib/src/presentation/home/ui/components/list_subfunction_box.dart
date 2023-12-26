@@ -47,7 +47,7 @@ class SubFunctionBox extends StatelessWidget {
                         height: height),
               ],
             ),
-            const VerticalSpacing.large(),
+            16.height,
             SmoothPageIndicator(
               controller: pageController,
               count: listSubFunction.length,

@@ -30,7 +30,7 @@ class InfoView extends StatelessWidget {
                             image: AssetImage(LocalDirectory.dicconLogo256),
                             height: 90,
                           ),
-                          const VerticalSpacing.medium(),
+                          8.height,
                           Text(
                             "Diccon Dictionary",
                             style: context.theme.textTheme.titleLarge?.copyWith(
@@ -39,7 +39,7 @@ class InfoView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const VerticalSpacing.medium(),
+                      8.height,
                       FilledButton.tonal(
                         onPressed: () {
                           context.pushNamed(RouterConstants.releaseNotes);
@@ -49,7 +49,7 @@ class InfoView extends StatelessWidget {
                           style: context.theme.textTheme.titleSmall,
                         ),
                       ),
-                      const VerticalSpacing.medium(),
+                      8.height,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -75,7 +75,7 @@ class InfoView extends StatelessWidget {
                               icon: const Icon(Icons.mail)),
                         ],
                       ),
-                      const VerticalSpacing.medium(),
+                      8.height,
                       Text(
                         "© 2023 Tran Huu Dang. ${"All rights reserved.".i18n}",
                         style: context.theme.textTheme.bodyMedium?.copyWith(
@@ -91,7 +91,7 @@ class InfoView extends StatelessWidget {
                         style: context.theme.textTheme.bodyMedium?.copyWith(
                             color: context.theme.colorScheme.onSurface),
                       ),
-                      const VerticalSpacing.medium(),
+                      8.height,
                       FilledButton.tonal(
                           onPressed: () {
                             context.pushNamed(RouterConstants.licenses);
@@ -107,7 +107,7 @@ class InfoView extends StatelessWidget {
                         style: context.theme.textTheme.bodyMedium?.copyWith(
                             color: context.theme.colorScheme.onSurface),
                       ),
-                      const VerticalSpacing.small(),
+                      4.height,
                       Column(
                         children: [
                           Text(
@@ -116,7 +116,7 @@ class InfoView extends StatelessWidget {
                             style: context.theme.textTheme.bodyMedium?.copyWith(
                                 color: context.theme.colorScheme.onSurface),
                           ),
-                          const VerticalSpacing.medium(),
+                          8.height,
                           FilledButton.tonal(
                               onPressed: () async {
                                 final Uri url =
