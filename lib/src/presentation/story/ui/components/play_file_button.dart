@@ -68,7 +68,7 @@ class _PlayFileButtonState extends State<PlayFileButton> {
                         ),
                       ],
                     ),
-              const HorizontalSpacing.medium(),
+              8.width,
               if (notPlayingAndNotPausing) Text('Play story'.i18n),
               // Audio progress
               Visibility(

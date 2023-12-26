@@ -5,6 +5,5 @@ export 'home/home.dart';
 export 'settings/settings.dart';
 export 'story/story.dart';
 export 'shared/shared.dart';
-export 'shared/ui/components/shared.dart';
 export 'package:flutter/material.dart';
 export 'navigation_switch.dart';

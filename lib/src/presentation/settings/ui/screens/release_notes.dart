@@ -17,6 +17,13 @@ class ReleaseNotes extends StatelessWidget {
               shrinkWrap: true,
               children: const [
                 ReleaseNotesItem(
+                  version: '590',
+                  date: '26-12-2023',
+                  changesNote: [
+                    'Cải thiện trải nghiệm người dùng trên Windows',
+                  ],
+                ),
+                ReleaseNotesItem(
                   version: '583',
                   date: '19-12-2023',
                   changesNote: [

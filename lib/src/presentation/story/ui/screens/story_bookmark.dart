@@ -166,7 +166,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             "TitleBookmarkEmptyBox".i18n,
                             style: context.theme.textTheme.titleMedium,
                           ),
-                          const VerticalSpacing.medium(),
+                          8.height,
                           Opacity(
                             opacity: 0.5,
                             child: SizedBox(

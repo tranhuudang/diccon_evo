@@ -220,7 +220,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                                   "Bookmark is added".i18n);
                                         },
                                       ),
-                                const HorizontalSpacing.medium(),
+                                8.width,
 
                                 /// CLose button
                                 CircleButton(

@@ -8,7 +8,6 @@ import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../../../core/core.dart';
 import '../../../../data/data.dart';
 import '../../../../domain/domain.dart';
-import '../../../../utils/utils.dart';
 
 part 'dictionary_state.dart';
 part 'dictionary_event.dart';
