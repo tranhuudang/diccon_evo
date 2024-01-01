@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';

@@ -1,7 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class ConversationView extends StatelessWidget {
   const ConversationView({super.key});
