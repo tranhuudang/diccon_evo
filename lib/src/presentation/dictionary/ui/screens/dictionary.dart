@@ -107,113 +107,90 @@ class _DictionaryViewState extends State<DictionaryView> {
   Widget build(BuildContext context) {
     final chatListBloc = context.read<ChatListBloc>();
     final settingBloc = context.read<SettingBloc>();
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: context.theme.colorScheme.surface,
-        body: Stack(
-          children: [
-            BlocConsumer<ChatListBloc, ChatListState>(
-              buildWhen: (previous, current) => current is! ChatListActionState,
-              listenWhen: (previous, current) => current is ChatListActionState,
-              listener: (BuildContext context, ChatListState state) {
-                if (state is ImageAdded) {
-                  setState(() {
-                    _hasImages = false;
-                  });
-                }
-                if (state is SynonymsAdded) {
-                  setState(() {
-                    _hasSynonyms = false;
-                  });
-                }
-                if (state is AntonymsAdded) {
-                  setState(() {
-                    _hasAntonyms = false;
-                  });
-                }
-              },
-              builder: (context, state) {
-                {
-                  switch (state) {
-                    case ChatListUpdated _:
-                      return ListView.builder(
-                        padding: const EdgeInsets.only(
-                            top: 80, bottom: 130, left: 16, right: 16),
-                        itemCount: state.chatList.length,
-                        addAutomaticKeepAlives: true,
-                        controller: chatListBloc.chatListController,
-                        itemBuilder: (BuildContext context, int index) {
-                          return state.chatList[index];
-                        },
-                      );
-                    default:
-                      return const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          DictionaryWelcome(),
-                        ],
-                      );
-                  }
-                }
-              },
-            ),
-            Column(
-              children: [
-                /// Dictionary header
-                Expanded(
-                  child: ScreenTypeLayout.builder(mobile: (context) {
-                    return Header(
-                      enableBackButton: true,
-                      title: "Dictionary".i18n,
-                      actions: [
-                        IconButton(
-                          icon: const Icon(Icons.history),
-                          onPressed: () {
-                            context.pushNamed('word-history');
-                          },
-                        ),
-                        const DictionaryMenu(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Dictionary".i18n,),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () {
+              context.pushNamed('word-history');
+            },
+          ),
+          const DictionaryMenu(),
+        ],
+      ),
+      body: Stack(
+        children: [
+          BlocConsumer<ChatListBloc, ChatListState>(
+            buildWhen: (previous, current) => current is! ChatListActionState,
+            listenWhen: (previous, current) => current is ChatListActionState,
+            listener: (BuildContext context, ChatListState state) {
+              if (state is ImageAdded) {
+                setState(() {
+                  _hasImages = false;
+                });
+              }
+              if (state is SynonymsAdded) {
+                setState(() {
+                  _hasSynonyms = false;
+                });
+              }
+              if (state is AntonymsAdded) {
+                setState(() {
+                  _hasAntonyms = false;
+                });
+              }
+            },
+            builder: (context, state) {
+              {
+                switch (state) {
+                  case ChatListUpdated _:
+                    return ListView.builder(
+                      padding: const EdgeInsets.only(
+                          top: 80, bottom: 130, left: 16, right: 16),
+                      itemCount: state.chatList.length,
+                      addAutomaticKeepAlives: true,
+                      controller: chatListBloc.chatListController,
+                      itemBuilder: (BuildContext context, int index) {
+                        return state.chatList[index];
+                      },
+                    );
+                  default:
+                    return const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DictionaryWelcome(),
                       ],
                     );
-                  }, tablet: (context) {
-                    return Header(
-                      enableBackButton: false,
-                      title: "Dictionary".i18n,
-                      actions: [
-                        IconButton(
-                          icon: const Icon(Icons.history),
-                          onPressed: () {
-                            context.pushNamed('word-history');
-                          },
-                        ),
-                        const DictionaryMenu(),
+                }
+              }
+            },
+          ),
+          Column(
+            children: [
+              const Spacer(),
+              SizedBox(
+                height: 138,
+                child: Stack(
+                  children: [
+                    buildBackgroundGradient(context),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        /// Suggested items list onTyping or onSubmit of TextField
+                        buildSuggestedList(context, chatListBloc),
+
+                        /// TextField for user to enter their words
+                        buildTextField(context, chatListBloc, settingBloc),
                       ],
-                    );
-                  }),
+                    ),
+                  ],
                 ),
-
-                SizedBox(
-                  height: 138,
-                  child: Stack(
-                    children: [
-                      buildBackgroundGradient(context),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          /// Suggested items list onTyping or onSubmit of TextField
-                          buildSuggestedList(context, chatListBloc),
-
-                          /// TextField for user to enter their words
-                          buildTextField(context, chatListBloc, settingBloc),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

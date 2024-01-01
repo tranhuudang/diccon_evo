@@ -111,8 +111,6 @@ dev_dependencies:
   freezed: ^2.4.5
   json_serializable: ^6.7.1
   envied_generator: ^0.5.2
-  # use to gather licenses
-  flutter_oss_licenses: ^2.0.1
 
 # The following section is specific to Flutter packages.
 flutter:

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/settings/ui/screens/licenses.dart';
 import '../core.dart';
 
 GoRouter routerConfig = GoRouter(
@@ -58,13 +57,6 @@ GoRouter routerConfig = GoRouter(
             path: 'infos',
             pageBuilder: (context, state) {
               return MaterialPage(child: I18n(child: const InfoView()));
-            },
-          ),
-          GoRoute(
-            name: RouterConstants.licenses,
-            path: 'licenses',
-            pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const LicensesView()));
             },
           ),
         ]),

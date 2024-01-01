@@ -14,15 +14,7 @@ class ConversationWelcome extends StatelessWidget {
           padding: const EdgeInsets.only(top: 110, bottom: 20),
           child: Column(
             children: [
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                    context.theme.colorScheme.primary, BlendMode.srcIn),
-                child: Image(
-                  image: AssetImage(
-                      LocalDirectory.conversationIllustration),
-                  height: 180,
-                ),
-              ),
+              Illustration(assetImage: LocalDirectory.conversationIllustration),
               16.height,
               Text(
                 "Enhance your communication skills with our advanced bot.".i18n,

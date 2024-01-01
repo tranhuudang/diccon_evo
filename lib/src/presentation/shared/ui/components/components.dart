@@ -19,3 +19,4 @@ export 'word_pronunciation.dart';
 export 'word_title.dart';
 export 'pageview_navigator.dart';
 export 'story_clickable_word.dart';
+export 'illustration.dart';

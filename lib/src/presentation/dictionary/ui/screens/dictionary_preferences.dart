@@ -64,122 +64,111 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: context.theme.colorScheme.surface,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: BlocConsumer<DictionaryPreferencesBloc,
-                  DictionaryPreferencesState>(
-                  bloc: dictionaryPreferencesBloc,
-                  listenWhen: (previous, current) => current is DictionaryPreferencesActionState,
-                  buildWhen: (previous, current) => current is !DictionaryPreferencesActionState,
-                  listener: (context, state) {
-                if (state is DictionaryPreferencesNotifyAboutLimitChoices) {
-                  context.showAlertDialogWithoutAction(
-                      title: "Maximum Choices Reached".i18n,
-                      content:
-                          "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding"
-                              .i18n);
-                }
-              }, builder: (context, state) {
-                return Column(
-                  children: [
-                    const SizedBox(
-                      height: 70,
-                    ),
-                    Section(
-                      title: "Customize the AI response format.".i18n,
-                      children: [
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: state.listSelectedVietnamese
-                              .map((item) => ActionChip(
-                                    backgroundColor:
-                                        context.theme.colorScheme.secondary,
-                                    label: Text(
-                                      item.i18n,
-                                      style: TextStyle(
-                                          color: context
-                                              .theme.colorScheme.onSecondary),
-                                    ),
-                                    onPressed: () => dictionaryPreferencesBloc
-                                        .add(RemoveItemInList(
-                                            itemToRemove: item)),
-                                  ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                    Section(
-                      title: "Available options".i18n,
-                      children: [
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: listChoices.map((item) {
-                            bool isSelected = false;
-                            if (state.listSelectedVietnamese.contains(item)) {
-                              isSelected = true;
-                            }
-                            return ChoiceChip(
-                              label: Text(item.i18n),
-                              selected: isSelected,
-                              onSelected: (selected) {
-                                if (state.listSelectedVietnamese.contains(item)) {
-                                  dictionaryPreferencesBloc.add(
-                                      RemoveItemInList(itemToRemove: item));
-                                } else {
-                                  dictionaryPreferencesBloc.add(
-                                      AddItemToSelectedList(itemToAdd: item));
-                                }
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    ),
-                    Section(
-                      title: "Specialized Meanings".i18n,
-                      children: [
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: listSpecializedFields.map((item) {
-                            bool isSelected = false;
-                            if (state.listSelectedVietnamese.contains(item)) {
-                              isSelected = true;
-                            }
-                            return ChoiceChip(
-                              label: Text(item.i18n),
-                              selected: isSelected,
-                              onSelected: (selected) {
-                                if (state.listSelectedVietnamese.contains(item)) {
-                                  dictionaryPreferencesBloc.add(
-                                      RemoveItemInList(itemToRemove: item));
-                                } else {
-                                  dictionaryPreferencesBloc.add(
-                                      AddItemToSelectedList(itemToAdd: item));
-                                }
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              }),
-            ),
-            Header(
-              title: "Preferences".i18n,
-              actions: const [],
-            ),
-          ],
-        ),
+    return Scaffold(
+      backgroundColor: context.theme.colorScheme.surface,
+      appBar: AppBar(
+        title: Text("Preferences".i18n),),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: BlocConsumer<DictionaryPreferencesBloc,
+            DictionaryPreferencesState>(
+            bloc: dictionaryPreferencesBloc,
+            listenWhen: (previous, current) => current is DictionaryPreferencesActionState,
+            buildWhen: (previous, current) => current is !DictionaryPreferencesActionState,
+            listener: (context, state) {
+          if (state is DictionaryPreferencesNotifyAboutLimitChoices) {
+            context.showAlertDialogWithoutAction(
+                title: "Maximum Choices Reached".i18n,
+                content:
+                    "You've reached the maximum limit of 7 choices in your selection. Please review your choices and make any necessary adjustments before proceeding"
+                        .i18n);
+          }
+        }, builder: (context, state) {
+          return Column(
+            children: [
+              Section(
+                title: "Customize the AI response format.".i18n,
+                children: [
+                  Wrap(
+                    spacing: 3,
+                    runSpacing: 3,
+                    children: state.listSelectedVietnamese
+                        .map((item) => ActionChip(
+                              backgroundColor:
+                                  context.theme.colorScheme.secondary,
+                              label: Text(
+                                item.i18n,
+                                style: TextStyle(
+                                    color: context
+                                        .theme.colorScheme.onSecondary),
+                              ),
+                              onPressed: () => dictionaryPreferencesBloc
+                                  .add(RemoveItemInList(
+                                      itemToRemove: item)),
+                            ))
+                        .toList(),
+                  ),
+                ],
+              ),
+              Section(
+                title: "Available options".i18n,
+                children: [
+                  Wrap(
+                    spacing: 3,
+                    runSpacing: 3,
+                    children: listChoices.map((item) {
+                      bool isSelected = false;
+                      if (state.listSelectedVietnamese.contains(item)) {
+                        isSelected = true;
+                      }
+                      return ChoiceChip(
+                        label: Text(item.i18n),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          if (state.listSelectedVietnamese.contains(item)) {
+                            dictionaryPreferencesBloc.add(
+                                RemoveItemInList(itemToRemove: item));
+                          } else {
+                            dictionaryPreferencesBloc.add(
+                                AddItemToSelectedList(itemToAdd: item));
+                          }
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+              Section(
+                title: "Specialized Meanings".i18n,
+                children: [
+                  Wrap(
+                    spacing: 3,
+                    runSpacing: 3,
+                    children: listSpecializedFields.map((item) {
+                      bool isSelected = false;
+                      if (state.listSelectedVietnamese.contains(item)) {
+                        isSelected = true;
+                      }
+                      return ChoiceChip(
+                        label: Text(item.i18n),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          if (state.listSelectedVietnamese.contains(item)) {
+                            dictionaryPreferencesBloc.add(
+                                RemoveItemInList(itemToRemove: item));
+                          } else {
+                            dictionaryPreferencesBloc.add(
+                                AddItemToSelectedList(itemToAdd: item));
+                          }
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
