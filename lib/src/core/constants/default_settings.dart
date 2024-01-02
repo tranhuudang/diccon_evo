@@ -4,7 +4,7 @@ import '../../core/core.dart';
 
 class DefaultSettings{
   static const String appName = "Diccon";
-  static const int version = 590;
+  static const int version = 596;
   static const Size defaultWindowsSize = Size(620, 670);
   static const Size minWindowsSize = Size(620, 600);
   static const Size maxWindowsSize = Size(5000, 10000);

@@ -15,6 +15,13 @@ class ReleaseNotes extends StatelessWidget {
       body: ListView(
         children: const [
           ReleaseNotesItem(
+            version: '596',
+            date: '02-01-2024',
+            changesNote: [
+              'Cải thiện trải nghiệm người dùng',
+            ],
+          ),
+          ReleaseNotesItem(
             version: '590',
             date: '26-12-2023',
             changesNote: [
