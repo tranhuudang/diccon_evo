@@ -9,7 +9,7 @@ class DictionaryWelcome extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container( 
+        Container(
           alignment: Alignment.center,
           width: 300,
           padding: const EdgeInsets.symmetric(vertical: 20),

@@ -39,12 +39,14 @@ class _EssentialViewState extends State<EssentialView> {
       child: Scaffold(
           backgroundColor: context.theme.colorScheme.surface,
           appBar: AppBar(
-            title: Text('Practice'.i18n,),
+            title: ScreenTypeLayout.builder(
+                mobile: (context) =>   const SizedBox.shrink(),
+                tablet: (context) => Text('Practice'.i18n,),
+            ),
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 60, left: 16, right: 16, bottom: 16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

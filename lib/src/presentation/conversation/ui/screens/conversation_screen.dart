@@ -10,7 +10,10 @@ class ConversationView extends StatelessWidget {
     final conversationBloc = context.read<ConversationBloc>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Conversation".i18n,),),
+        title: Text(
+          "Conversation".i18n,
+        ),
+      ),
       body: Stack(
         children: [
           BlocConsumer<ConversationBloc, ConversationState>(
@@ -25,8 +28,7 @@ class ConversationView extends StatelessWidget {
                   case ConversationInitial _:
                     return ListView.builder(
                       itemCount: state.conversation.length,
-                      controller:
-                          conversationBloc.conversationScrollController,
+                      controller: conversationBloc.conversationScrollController,
                       itemBuilder: (BuildContext context, int index) {
                         return state.conversation[index];
                       },
@@ -35,8 +37,9 @@ class ConversationView extends StatelessWidget {
                     return Stack(
                       children: [
                         ListView.builder(
-                          padding:
-                              const EdgeInsets.only(top: 80, bottom: 120, left: 16, right: 16),
+                          reverse: true,
+                          padding: const EdgeInsets.only(
+                              top: 80, bottom: 140, left: 16, right: 16),
                           itemCount: state.conversation.length,
                           controller:
                               conversationBloc.conversationScrollController,
@@ -76,6 +79,7 @@ class ConversationView extends StatelessWidget {
           Column(
             children: [
               const Spacer(),
+
               /// Text field
               ClipRect(
                 child: SizedBox(
@@ -126,7 +130,8 @@ class ConversationView extends StatelessWidget {
                                     context.showAlertDialog(
                                         title: "Close this session?".i18n,
                                         content:
-                                            "Clear all the bubbles in this translation session.".i18n,
+                                            "Clear all the bubbles in this translation session."
+                                                .i18n,
                                         action: () {
                                           conversationBloc
                                               .add(ResetConversation());
@@ -134,8 +139,7 @@ class ConversationView extends StatelessWidget {
                                   },
                                   icon: Icon(
                                     Icons.add_circle_outline,
-                                    color:
-                                        context.theme.colorScheme.onSurface,
+                                    color: context.theme.colorScheme.onSurface,
                                   ),
                                 ),
                                 Expanded(
@@ -148,8 +152,7 @@ class ConversationView extends StatelessWidget {
                                             conversationBloc.textController,
                                         enableCamera: false,
                                         hintText:
-                                            "Send a message for practice"
-                                                .i18n,
+                                            "Send a message for practice".i18n,
                                         enabled: !state.isResponding,
                                         onSubmitted: (providedWord) {
                                           //_handleSubmitted(providedWord, context);

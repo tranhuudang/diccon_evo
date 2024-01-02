@@ -149,7 +149,7 @@ class _DictionaryViewState extends State<DictionaryView> {
                       shrinkWrap: true,
                       reverse: true,
                       padding: const EdgeInsets.only(
-                          top: 80, bottom: 130, left: 16, right: 16),
+                          top: 80, bottom: 120, left: 16, right: 16),
                       itemCount: state.chatList.length,
                       addAutomaticKeepAlives: true,
                       controller: chatListBloc.chatListController,

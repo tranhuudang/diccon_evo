@@ -65,7 +65,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   Future<void> _addUserMessage(
       AskAQuestion event, Emitter<ConversationState> emit) async {
     currentResponseContent = "";
-    listConversations.add(ConversationUserBubble(
+    listConversations.insert(0, ConversationUserBubble(
       message: event.providedWord,
       onTap: () {
         textController.text = event.providedWord;
@@ -74,14 +74,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     textController.clear();
     emit(ConversationUpdated(
         conversation: listConversations, isResponding: true));
-    _scrollToBottom();
     // Check internet connection before create request to chatbot
     bool isInternetConnected = await InternetConnectionChecker().hasConnection;
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
     if (!isInternetConnected) {
-      listConversations.add(const NoInternetBubble());
+      listConversations.insert(0, const NoInternetBubble());
       emit(ConversationUpdated(
           conversation: listConversations, isResponding: false));
       isReportedAboutDisconnection = true;
@@ -92,12 +91,11 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       var request =
           await _chatGptRepository.createMultipleQuestionRequest(question);
       _chatStreamResponse(request);
-      listConversations.add(const ConversationMachineBubble(
+      listConversations.insert(0, const ConversationMachineBubble(
         content: "",
       ));
       emit(ConversationUpdated(
           conversation: listConversations, isResponding: true));
-      _scrollToBottom();
     }
   }
 
@@ -109,23 +107,10 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         conversation: listConversations, isResponding: false));
   }
 
-  void _scrollToBottom() {
-    /// Delay the scroll animation until after the list has been updated
-    if (conversationScrollController.position.userScrollDirection ==
-        ScrollDirection.idle) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        conversationScrollController.animateTo(
-          conversationScrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-        );
-      });
-    }
-  }
 
   FutureOr<void> _answeringAQuestion(
       AnsweringAQuestion event, Emitter<ConversationState> emit) {
-    listConversations.last = ConversationMachineBubble(content: event.answer);
+    listConversations.first = ConversationMachineBubble(content: event.answer);
 
     emit(ConversationUpdated(
         conversation: listConversations, isResponding: true));
@@ -146,11 +131,6 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         } else {
           currentResponseContent += event.choices!.first.delta!.content;
           add(AnsweringAQuestion(answer: currentResponseContent));
-          // Auto scroll down
-          // _scrollToBottom();
-          if (conversationScrollController.position.atEdge){
-            _scrollToBottom();
-          }
         }
       });
     } catch (error) {

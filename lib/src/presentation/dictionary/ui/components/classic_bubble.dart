@@ -54,7 +54,7 @@ class _ClassicBubbleState extends State<ClassicBubble> {
         stream: _showExpandButtonController.stream,
         builder: (context, shouldShowExpandButton) {
           return SizedBox(
-            height: shouldShowExpandButton.data! ? 500 : null,
+            height: shouldShowExpandButton.data! ? 400 : null,
             child: Stack(
               children: [
                 /// This widget contains meaning of the word
