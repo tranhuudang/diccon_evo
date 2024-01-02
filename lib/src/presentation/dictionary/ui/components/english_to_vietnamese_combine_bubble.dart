@@ -33,16 +33,6 @@ class _EnglishToVietnameseCombineBubbleState
       StreamController<TranslationChoices>();
   final listResponseController = PageController();
 
-  scrollToBottom() {
-    Future.delayed(const Duration(milliseconds: 300), () {
-      widget.chatListController.animateTo(
-        widget.chatListController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.linear,
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var listResponseOptions = [
@@ -100,12 +90,6 @@ class _EnglishToVietnameseCombineBubbleState
                             children: [
                               ExpandablePageView(
                                 controller: listResponseController,
-                                onPageChanged: (pageIndex) {
-                                  if (widget.index >=
-                                      widget.listChatGptRepository.length - 1) {
-                                    scrollToBottom();
-                                  }
-                                },
                                 children: listResponseOptions,
                               ),
                               WaveDivider(

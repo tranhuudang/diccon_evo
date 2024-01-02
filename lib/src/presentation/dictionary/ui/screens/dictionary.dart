@@ -146,6 +146,8 @@ class _DictionaryViewState extends State<DictionaryView> {
                 switch (state) {
                   case ChatListUpdated _:
                     return ListView.builder(
+                      shrinkWrap: true,
+                      reverse: true,
                       padding: const EdgeInsets.only(
                           top: 80, bottom: 130, left: 16, right: 16),
                       itemCount: state.chatList.length,

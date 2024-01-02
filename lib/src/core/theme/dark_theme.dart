@@ -1,4 +1,3 @@
-import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter/services.dart';
 

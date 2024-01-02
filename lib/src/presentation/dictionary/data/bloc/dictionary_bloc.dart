@@ -21,7 +21,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddSynonyms>(_addSynonymsList);
     on<AddAntonyms>(_addAntonymsList);
     on<AddImage>(_addImage);
-    on<ScrollToBottom>(_scrollToBottom);
     on<CreateNewChatList>(_createNewChatList);
   }
   List<ChatGptRepository> _listChatGptRepository = [];
@@ -35,55 +34,56 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   /// Implement Events and Callbacks
   Future<void> _addImage(AddImage event, Emitter<ChatListState> emit) async {
-    _chatList.add(ImageBubble(imageUrl: event.imageUrl));
+    _chatList.insert(0, ImageBubble(imageUrl: event.imageUrl));
     emit(ChatListUpdated(chatList: _chatList));
-    _scrollChatListToBottom();
     emit(ImageAdded());
   }
 
   void _addSynonymsList(AddSynonyms event, Emitter<ChatListState> emit) async {
     var listSynonyms =
         await dictionaryRepository.getSynonyms(event.providedWord);
-    _chatList.add(BrickWallButtons(listString: listSynonyms));
+    _chatList.insert(0, BrickWallButtons(listString: listSynonyms));
     emit(ChatListUpdated(chatList: _chatList));
-    _scrollChatListToBottom();
     emit(SynonymsAdded());
   }
 
   void _addAntonymsList(AddAntonyms event, Emitter<ChatListState> emit) async {
     var listAntonyms =
         await dictionaryRepository.getAntonyms(event.providedWord);
-    _chatList.add(BrickWallButtons(
-        textColor: Colors.orange,
-        borderColor: Colors.orangeAccent,
-        listString: listAntonyms));
+    _chatList.insert(
+        0,
+        BrickWallButtons(
+            textColor: Colors.orange,
+            borderColor: Colors.orangeAccent,
+            listString: listAntonyms));
     emit(ChatListUpdated(chatList: _chatList));
-    _scrollChatListToBottom();
 
     emit(AntonymsAdded());
   }
 
   void _addSorryMessage(AddSorryMessage event, Emitter<ChatListState> emit) {
-    _chatList.add(const Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text("Sorry, we couldn't find this word at this time.")],
-    ));
+    _chatList.insert(
+        0,
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Sorry, we couldn't find this word at this time.")],
+        ));
     emit(ChatListUpdated(chatList: _chatList));
-    _scrollChatListToBottom();
   }
 
   void _addUserMessage(AddUserMessage event, Emitter<ChatListState> emit) {
     final refinedWord = event.providedWord.trim().upperCaseFirstLetter();
-    _chatList.add(UserBubble(
-      message: refinedWord,
-      onTap: () {
-        textController.text = refinedWord;
-      },
-    ));
+    _chatList.insert(
+        0,
+        UserBubble(
+          message: refinedWord,
+          onTap: () {
+            textController.text = refinedWord;
+          },
+        ));
     // Add word to history
     _wordHistoryBloc.add(AddWordToHistory(providedWord: refinedWord));
     emit(ChatListUpdated(chatList: _chatList));
-    _scrollChatListToBottom();
   }
 
   Future<void> _addTranslation(
@@ -98,7 +98,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
             TranslationChoices.explain &&
         !isInternetConnected &&
         !_isReportedAboutDisconnection) {
-      _chatList.add(const NoInternetBubble());
+      _chatList.insert(0, const NoInternetBubble());
       emit(ChatListUpdated(chatList: _chatList));
       _isReportedAboutDisconnection = true;
     }
@@ -126,30 +126,33 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
                 TranslationLanguageTarget.autoDetect.title())) {
       var wordResult =
           await _getLocalEnglishToVietnameseTranslation(event.providedWord);
-      _chatList.add(EnglishToVietnameseCombineBubble(
-          wordObjectForLocal: wordResult,
-          wordForChatBot: event.providedWord,
-          chatListController: chatListController,
-          index: chatGptRepositoryIndex,
-          listChatGptRepository: _listChatGptRepository));
+      _chatList.insert(
+          0,
+          EnglishToVietnameseCombineBubble(
+              wordObjectForLocal: wordResult,
+              wordForChatBot: event.providedWord,
+              chatListController: chatListController,
+              index: chatGptRepositoryIndex,
+              listChatGptRepository: _listChatGptRepository));
     }
     // If autodetect is vietnamese or vietnamese to english mode enable
     if (currentSetting.translationLanguageTarget ==
-                TranslationLanguageTarget.vietnameseToEnglish.title() ||
+            TranslationLanguageTarget.vietnameseToEnglish.title() ||
         (identifyLanguageResult == languageIdentifier.vietnameseLanguageCode &&
             currentSetting.translationLanguageTarget ==
                 TranslationLanguageTarget.autoDetect.title())) {
       var wordResult =
           await _getLocalVietnameseToEnglishTranslation(event.providedWord);
-      _chatList.add(VietnameseToEnglishCombineBubble(
-          wordObjectForLocal: wordResult,
-          wordForChatBot: event.providedWord,
-          chatListController: chatListController,
-          index: chatGptRepositoryIndex,
-          listChatGptRepository: _listChatGptRepository));
+      _chatList.insert(
+          0,
+          VietnameseToEnglishCombineBubble(
+              wordObjectForLocal: wordResult,
+              wordForChatBot: event.providedWord,
+              chatListController: chatListController,
+              index: chatGptRepositoryIndex,
+              listChatGptRepository: _listChatGptRepository));
     }
     emit(ChatListUpdated(chatList: _chatList));
-    _scrollChatListToBottom();
   }
 
   FutureOr<void> _createNewChatList(
@@ -158,11 +161,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     textController.clear();
     _chatList = [const DictionaryWelcome()];
     emit(ChatListUpdated(chatList: _chatList));
-  }
-
-  FutureOr<void> _scrollToBottom(
-      ScrollToBottom event, Emitter<ChatListState> emit) {
-    _scrollChatListToBottom();
   }
 
   Future<Word> _getLocalEnglishToVietnameseTranslation(
@@ -195,16 +193,5 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     var badResult = Word(
         word: providedWord, definition: "WordNotFoundInLocalDictionary".i18n);
     return badResult;
-  }
-
-  void _scrollChatListToBottom() {
-    /// Delay the scroll animation until after the list has been updated
-    Future.delayed(const Duration(milliseconds: 300), () {
-      chatListController.animateTo(
-        chatListController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
   }
 }
