@@ -36,19 +36,17 @@ class _HomeViewState extends State<HomeView> {
           return true;
         }
       },
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: context.theme.colorScheme.surface,
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+      child: Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
             child: Stack(
               children: [
-                /// Menu button
-                const HomeMenuButton(),
+
 
                 /// Body
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  //mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// Head welcome to essential tab
@@ -71,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
                                     buildContext: context)));
                       },
                     ),
-                    16.height,
+                    //8.height,
 
                     /// Two big brother button
                     GridView.builder(
@@ -98,6 +96,8 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ],
                 ),
+                /// Menu button
+                const HomeMenuButton(),
               ],
             ),
           ),

@@ -60,20 +60,8 @@ class App extends StatelessWidget {
         ],
         locale: state.params.language.toLocale(),
         themeMode: state.params.themeMode,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            scrolledUnderElevation: 0,
-          ),
-          useMaterial3: true,
-          colorScheme: lightColorScheme,
-        ),
-        darkTheme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            scrolledUnderElevation: 0,
-          ),
-          useMaterial3: true,
-          colorScheme: darkColorScheme,
-        ),
+        theme: lightTheme(colorScheme: lightColorScheme),
+        darkTheme: darkTheme(colorScheme: darkColorScheme),
         title: DefaultSettings.appName,
         debugShowCheckedModeBanner: false,
         routerConfig: routerConfig,
@@ -91,20 +79,8 @@ class App extends StatelessWidget {
         ],
         locale: state.params.language.toLocale(),
         themeMode: state.params.themeMode,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            scrolledUnderElevation: 0,
-          ),
-          useMaterial3: true,
-          colorScheme: lightColorScheme,
-        ),
-        darkTheme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            scrolledUnderElevation: 0,
-          ),
-          useMaterial3: true,
-          colorScheme: darkColorScheme,
-        ),
+        theme: lightTheme(colorScheme: lightColorScheme),
+        darkTheme: darkTheme(colorScheme: darkColorScheme),
         title: DefaultSettings.appName,
         debugShowCheckedModeBanner: false,
         routerConfig: routerConfigDesktop,
