@@ -34,7 +34,7 @@ class StoriesTab extends StatelessWidget {
             context.pushNamed(RouterConstants.readingChamber);
           },
           label: Text('Reading Chamber'.i18n),
-          icon: Icon(UniconsLine.book_open),
+          icon: const Icon(UniconsLine.book_open),
         )),
       ],
     );

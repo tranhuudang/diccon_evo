@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
                       },
                     ),
                     28.height,
-                    Container(
+                    SizedBox(
                       height: 36,
                       child: ListView(
                           padding: const EdgeInsets.only(right: 18),
@@ -101,7 +101,7 @@ class _HomeViewState extends State<HomeView> {
                           }).toList()),
                     ),
                     8.height,
-                    Container(
+                    SizedBox(
                       height: 500,
                       child: PageView(
                           onPageChanged: (pageIndex) {
