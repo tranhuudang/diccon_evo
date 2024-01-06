@@ -27,6 +27,7 @@ class LocalDirectory {
   ];
   static final String historyIllustration = getRandomIllustrationImage();
   static final String dictionaryIllustration = getRandomIllustrationImage();
+  static final String storiesIllustration = getRandomIllustrationImage();
   static final String conversationIllustration = getRandomIllustrationImage();
   static final String textRecognizerIllustration = getRandomIllustrationImage();
   static final String commonIllustration = getRandomIllustrationImage();

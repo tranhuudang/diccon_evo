@@ -200,9 +200,69 @@ extension Localization on String {
       "en_us": "Listening to you...",
       "vi_vi": "Đang lắng nghe...",
     },
+    "Stories": {
+      "en_us": "Stories",
+      "vi_vi": "Truyện đọc",
+    },
+    "Open dictionary": {
+      "en_us": "Open dictionary",
+      "vi_vi": "Mở từ điển",
+    },
+    "Open conversation": {
+      "en_us": "Open conversation",
+      "vi_vi": "Mở trò chuyện",
+    },
+    "Flash Card 1848 Essential Words": {
+      "en_us": "Flash Card 1848 Essential Words",
+      "vi_vi": "Flash Card 1848 từ vựng thông dụng",
+    },
+    "Practice your vocabulary through simple tests. You'll find that sometimes the words you think you know are quickly forgotten.":
+        {
+      "en_us":
+          "Practice your vocabulary through simple tests. You'll find that sometimes the words you think you know are quickly forgotten.",
+      "vi_vi":
+          "Ôn luyện vốn từ vựng của mình thông qua những bài kiểm tra đơn giản. Bạn sẽ thấy rằng có thể những từ bạn tưởng chừng như đã biết lại bị lãng quên thật nhanh.",
+    },
+    "I can even tell you a story !": {
+      "en_us": "I can even tell you a story !",
+      "vi_vi": "Tôi còn có thể kể cho bạn nghe một câu chuyện thú vị!",
+    },
+    "In the premium version, you have the opportunity to chat with an AI specialized in language learning. Ready to answer any questions you have or become a conversational companion.":
+        {
+      "en_us":
+          "In the premium version, you have the opportunity to chat with an AI specialized in language learning. Ready to answer any questions you have or become a conversational companion.",
+      "vi_vi":
+          "Với phiên bản trả phí, bạn có cơ hội trò chuyện với trí tuệ nhân tạo dành riêng cho việc học ngôn ngữ. Sẵn sàng giải đáp bất kì thắc mắc nào của bạn hoặc trở thành một người bạn tâm giao.",
+    },
+    "Access an extensive dictionary repository offering advanced customizations tailored to best suit your needs.":
+        {
+      "en_us":
+          "Access an extensive dictionary repository offering advanced customizations tailored to best suit your needs.",
+      "vi_vi":
+          "Truy cập kho từ điển phong phú với những tùy tỉnh nâng cao, phù hợp với bạn nhất.",
+    },
+    "Don't forget to tap on the words for translations of the passage": {
+      "en_us":
+          "Don't forget to tap on the words for translations of the passage.",
+      "vi_vi": "Đừng quên chạm vào từ mà bạn không biết để dịch từ và câu.",
+    },
     "Report Errors": {
       "en_us": "Report Errors",
       "vi_vi": "Báo lỗi",
+    },
+    "Learning English through stories is a proven method that is particularly effective in enhancing vocabulary and sentence structure.":
+        {
+      "en_us":
+          "Learning English through stories is a proven method that is particularly effective in enhancing vocabulary and sentence structure.",
+      "vi_vi":
+          "Học tiếng Anh thông qua truyện là một trong những phương pháp học được chứng minh là đặc biệt hiệu quả để cải thiện vốn từ và cách dùng từ trong câu.",
+    },
+    "Here, you can discover a myriad of captivating stories tailored to various proficiency levels. Depending on your abilities, feel free to select stories that align with your learning objectives while providing entertainment.":
+        {
+      "en_us":
+          "Here, you can discover a myriad of captivating stories tailored to various proficiency levels. Depending on your abilities, feel free to select stories that align with your learning objectives while providing entertainment.",
+      "vi_vi":
+          "Ở đây, bạn có thể tìm thấy hàng trăm câu chuyện thú vị với nhiều mức độ khác nhau. Tùy vào khả năng của mình, bạn hãy chọn truyện đọc phù hợp để vừa học vừa giải trí nhé.",
     },
     "About": {
       "en_us": "About",
@@ -248,7 +308,8 @@ extension Localization on String {
     "Download audio": {
       "en_us": "Download audio",
       "vi_vi": "Tải âm thanh",
-    },"Audio": {
+    },
+    "Audio": {
       "en_us": "Audio",
       "vi_vi": "Âm thanh",
     },
@@ -361,6 +422,10 @@ extension Localization on String {
     "Auto detect language": {
       "en_us": "Auto detect language",
       "vi_vi": "Tự động nhận dạng ngôn ngữ",
+    },
+    "Translator options:": {
+      "en_us": "Translator options:",
+      "vi_vi": "Tùy chọn",
     },
     "Force translate Vietnamese to English": {
       "en_us": "Force translate Vietnamese to English",

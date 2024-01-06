@@ -11,9 +11,10 @@ class HeadSentence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle? textStyle = context.theme.textTheme.headlineLarge?.copyWith(
+    TextStyle? textStyle = context.theme.textTheme.headlineMedium?.copyWith(
     color: context.theme.colorScheme.onSurface);
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: listText.map((text) {
         return Text(text.i18n, style: textStyle,);

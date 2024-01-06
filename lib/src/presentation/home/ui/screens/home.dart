@@ -10,16 +10,19 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<Widget> _listPrimaryFunction = const [
-    ToDictionaryButton(),
-    ToReadingChamberButton(),
-  ];
-  final List<Widget> _listSubFunction = const [
-    ToConversationButton(),
-    ToEssentialWordButton(),
-  ];
 
   DateTime _backPressedTime = DateTime.now();
+
+  int currentTabIndex = 0;
+  int titleTabIndex = 0;
+  List<String> tabTitleList = [
+    'Dictionary',
+    'Stories',
+    'Conversation',
+    'Practice'
+  ];
+  final tabController = PageController();
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +40,15 @@ class _HomeViewState extends State<HomeView> {
         }
       },
       child: Scaffold(
-        body: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
-            child: Stack(
-              children: [
-
-
-                /// Body
-                Column(
-                  //mainAxisSize: MainAxisSize.min,
+        body: Padding(
+          padding:
+              const EdgeInsets.only(top: 44, right: 16, left: 16, bottom: 16),
+          child: Stack(
+            children: [
+              /// Body
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// Head welcome to essential tab
@@ -54,8 +56,8 @@ class _HomeViewState extends State<HomeView> {
                         listText: ["Empower", "Your English", "Proficiency"]),
                     8.height,
                     const PlanButton(),
-                    16.height,
-
+                    28.height,
+                
                     /// TextField for user to enter their words
                     SearchBox(
                       prefixIcon: const Icon(Icons.search),
@@ -65,44 +67,74 @@ class _HomeViewState extends State<HomeView> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DictionaryView(
-                                    word: enteredString,
-                                    buildContext: context)));
+                                    word: enteredString, buildContext: context)));
                       },
                     ),
-                    //8.height,
-
-                    /// Two big brother button
-                    GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _listPrimaryFunction.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: 180,
-                          mainAxisSpacing: 8,
-                          crossAxisSpacing: 8,
-                          crossAxisCount: 2,
-                        ),
-                        itemBuilder: (context, index) {
-                          return _listPrimaryFunction[index];
-                        }),
+                    28.height,
+                    Container(
+                      height: 36,
+                      child: ListView(
+                          padding: const EdgeInsets.only(right: 18),
+                          controller: scrollController,
+                          scrollDirection: Axis.horizontal,
+                          children: tabTitleList.map((title) {
+                            return GestureDetector(
+                              onTap: () {
+                                tabController.animateToPage(
+                                    tabTitleList.indexOf(title),
+                                    duration: const Duration(microseconds: 300),
+                                    curve: Curves.easeIn);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: Text(
+                                  title.i18n,
+                                  style: context.theme.textTheme.titleLarge
+                                      ?.copyWith(
+                                          color: currentTabIndex ==
+                                                  tabTitleList.indexOf(title)
+                                              ? Colors.white
+                                              : Colors.white12),
+                                ),
+                              ),
+                            );
+                          }).toList()),
+                    ),
                     8.height,
-
-                    /// Other functions
-                    SubFunctionBox(
-                        height: 180, listSubFunction: _listSubFunction),
-                    const SizedBox(
-                      height: 16,
+                    Container(
+                      height: 500,
+                      child: PageView(
+                          onPageChanged: (pageIndex) {
+                            // Scroll listTitleTab to current tab title
+                            scrollController.animateTo(
+                                pageIndex *
+                                    (scrollController.position.maxScrollExtent /
+                                        tabTitleList.length),
+                                duration: const Duration(microseconds: 300),
+                                curve: Curves.easeIn);
+                            setState(() {
+                              currentTabIndex = pageIndex;
+                            });
+                          },
+                          controller: tabController,
+                          children: const [
+                            DictionaryTab(),
+                            StoriesTab(),
+                            ConversationTab(),
+                            PracticeTab(),
+                          ]),
                     ),
                   ],
                 ),
-                /// Menu button
-                const HomeMenuButton(),
-              ],
-            ),
+              ),
+
+              /// Menu button
+              const HomeMenuButton(),
+            ],
           ),
         ),
       ),
     );
   }
 }
+
