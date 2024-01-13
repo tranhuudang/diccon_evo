@@ -1,6 +1,8 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wave_divider/wave_divider.dart';
@@ -28,8 +30,7 @@ class HomeMenuButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.0),
               ),
               itemBuilder: (context) => [
-                //if (defaultTargetPlatform.isMobile())
-                if (false)
+                if (defaultTargetPlatform.isMobile())
                   PopupMenuItem(
                     child: Row(
                       children: [
@@ -46,7 +47,7 @@ class HomeMenuButton extends StatelessWidget {
                       context.pushNamed('user-settings');
                     },
                   ),
-                if (UserInfoProperties.userInfo != UserInfo.empty())
+                if (FirebaseAuth.instance.currentUser != null)
                   PopupMenuItem(
                     child: Row(
                       children: [
@@ -62,7 +63,7 @@ class HomeMenuButton extends StatelessWidget {
                     onTap: () {
                       context
                           .read<UserBloc>()
-                          .add(UserSyncEvent(userInfo: UserInfoProperties.userInfo));
+                          .add(UserSyncEvent());
                     },
                   ),
                 PopupMenuItem(

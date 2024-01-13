@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../data/data.dart';
 import '../../../data/services/auth_service.dart';
-import '../../../domain/entities/user_info/user_info.dart' as user_model;
 import 'package:diccon_evo/src/core/core.dart';
 
 /// User Events
@@ -13,13 +12,12 @@ abstract class UserEvent {}
 
 class UserDeleteDateEvent extends UserEvent {}
 
-class UserLoginEvent extends UserEvent {}
+class GoogleLoginEvent extends UserEvent {}
 
 class UserLogoutEvent extends UserEvent {}
+class CheckIsSignedInEvent extends UserEvent {}
 
 class UserSyncEvent extends UserEvent {
-  user_model.UserInfo userInfo;
-  UserSyncEvent({required this.userInfo});
 }
 
 /// User State
@@ -31,7 +29,7 @@ class UserUninitialized extends UserState {}
 
 class NoInternetState extends UserActionState {}
 
-class UserLoggingoutState extends UserActionState {}
+class UserLoggingOutState extends UserActionState {}
 
 class UserLogoutCompletedState extends UserActionState {}
 
@@ -39,8 +37,7 @@ class UserLogoutErrorState extends UserActionState {}
 
 class UserLoginState extends UserState {
   bool isSyncing = false;
-  user_model.UserInfo userInfo;
-  UserLoginState({required this.userInfo, required this.isSyncing});
+  UserLoginState({required this.isSyncing});
 }
 
 class UserLoggedInSuccessfulState extends UserActionState {}
@@ -52,10 +49,11 @@ class UserSyncCompleted extends UserActionState {}
 /// Bloc
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserUninitialized()) {
-    on<UserLoginEvent>(_userLogin);
+    on<GoogleLoginEvent>(_googleLogin);
     on<UserLogoutEvent>(_userLogout);
     on<UserSyncEvent>(_userSyncData);
     on<UserDeleteDateEvent>(_deleteAllData);
+    on<CheckIsSignedInEvent>(_checkIsSignedIn);
   }
 
   FutureOr<void> _deleteAllData(
@@ -79,7 +77,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   FutureOr<void> _userSyncData(
       UserSyncEvent sync, Emitter<UserState> emit) async {
-    emit(UserLoginState(isSyncing: true, userInfo: sync.userInfo));
+    emit(UserLoginState(isSyncing: true,));
     await UserHandler().downloadUserDataFile();
     await UserHandler()
         .uploadUserDataFile(LocalDirectory.wordHistoryFileName);
@@ -91,7 +89,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .uploadUserDataFile(LocalDirectory.topicHistoryFileName);
     await UserHandler()
         .uploadUserDataFile(LocalDirectory.essentialFavouriteFileName);
-    emit(UserLoginState(isSyncing: false, userInfo: sync.userInfo));
+    emit(UserLoginState(isSyncing: false,));
     emit(UserSyncCompleted());
     if (kDebugMode) {
       print("Data is synced");
@@ -99,17 +97,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   /// --------------------------------------------------------------------------
-
-  Future _userLogin(UserLoginEvent login, Emitter<UserState> emit) async {
-    var currentLoggedInUser = _currentLoggedInUser();
-    if (currentLoggedInUser != null) {
-      UserInfoProperties.userInfo = UserInfoProperties.userInfo.copyWith(
-        uid: currentLoggedInUser.uid,
-        displayName: currentLoggedInUser.displayName ?? '',
-        photoURL: currentLoggedInUser.photoURL ?? '',
-        email: currentLoggedInUser.email ?? '',
-      );
-      emit(UserLoginState(userInfo: UserInfoProperties.userInfo, isSyncing: false));
+  Future _checkIsSignedIn(CheckIsSignedInEvent event, Emitter<UserState> emit) async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      emit(UserLoginState(isSyncing: false));
+    }
+  }
+  Future _googleLogin(GoogleLoginEvent login, Emitter<UserState> emit) async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      emit(UserLoginState(isSyncing: false));
     } else {
       // Check internet connection
       bool isInternetConnected =
@@ -119,17 +114,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
       if (isInternetConnected) {
         AuthService authService = AuthService();
-        User? user = await authService.googleSignIn();
-        UserInfoProperties.userInfo = UserInfoProperties.userInfo.copyWith(
-          uid: user!.uid,
-          displayName: user.displayName ?? '',
-          photoURL: user.photoURL ?? '',
-          email: user.email ?? '',
-        );
-        emit(UserLoginState(userInfo: UserInfoProperties.userInfo, isSyncing: false));
+        await authService.googleSignIn();
+        emit(UserLoginState(isSyncing: false));
         emit(UserLoggedInSuccessfulState());
         // Sync user data right after log in successful
-        add(UserSyncEvent(userInfo: UserInfoProperties.userInfo));
+        add(UserSyncEvent());
       } else {
         emit(NoInternetState());
       }
@@ -139,7 +128,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _userLogout(
       UserLogoutEvent logout, Emitter<UserState> emit) async {
     /// Reset User object
-    emit(UserLoggingoutState());
+    emit(UserLoggingOutState());
 
     /// Logout Auth services
     AuthService authService = AuthService();
@@ -158,27 +147,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .deleteOnUserData();
 
     /// Reset properties
-    UserInfoProperties.userInfo = user_model.UserInfo.empty();
     await Future.delayed(const Duration(seconds: 2));
     emit(UserLogoutCompletedState());
     emit(UserUninitialized());
-  }
-
-  User? _currentLoggedInUser() {
-    // Check if user still login to device
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      if (user.uid.isNotEmpty) {
-        if (kDebugMode) {
-          print("User.uid.isNotEmpty: ${user.uid}");
-        }
-      }
-      return user;
-    } else {
-      if (kDebugMode) {
-        print("No user logged in in this device.");
-      }
-      return null;
-    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/data/services/auth_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
@@ -10,7 +11,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   DateTime _backPressedTime = DateTime.now();
 
   int currentTabIndex = 0;
@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
                     8.height,
                     const PlanButton(),
                     28.height,
-                
+
                     /// TextField for user to enter their words
                     SearchBox(
                       prefixIcon: const Icon(Icons.search),
@@ -67,7 +67,8 @@ class _HomeViewState extends State<HomeView> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DictionaryView(
-                                    word: enteredString, buildContext: context)));
+                                    word: enteredString,
+                                    buildContext: context)));
                       },
                     ),
                     28.height,
@@ -137,4 +138,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-

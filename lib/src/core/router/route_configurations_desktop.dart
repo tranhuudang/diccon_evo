@@ -33,7 +33,7 @@ GoRouter routerConfigDesktop = GoRouter(
         pageBuilder: (context, state) {
           return NoTransitionPage(
               child: I18n(
-            child: const LoginView(),
+            child: const SignInView(),
           ));
         }),
 

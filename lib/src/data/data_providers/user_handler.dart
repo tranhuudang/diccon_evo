@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 
@@ -7,8 +8,9 @@ import '../../core/configs/configs.dart';
 import '../../core/constants/constants.dart';
 import '../data.dart';
 class UserHandler {
+  User? currentUser = FirebaseAuth.instance.currentUser;
   Future uploadUserDataFile(String fileName) async {
-    final onlinePath = "users/${UserInfoProperties.userInfo.uid}/$fileName";
+    final onlinePath = "users/${currentUser?.uid}/$fileName";
     final localFilePath =
         await DirectoryHandler.getLocalUserDataFilePath(fileName);
     final fileToUpload = File(localFilePath);
@@ -29,7 +31,7 @@ class UserHandler {
   /// Download all founded user data file in Firebase
   Future downloadUserDataFile() async {
     ListResult futureFiles = await FirebaseStorage.instance
-        .ref("users/${UserInfoProperties.userInfo.uid}")
+        .ref("users/${currentUser?.uid}")
         .listAll();
     List<Reference> files = futureFiles.items;
     for (Reference ref in files) {
@@ -129,7 +131,7 @@ class UserHandler {
   /// Delete all founded user data file in Firebase
   Future deleteUserDataFile() async {
     Future<ListResult> futureFiles =
-        FirebaseStorage.instance.ref("/${UserInfoProperties.userInfo.uid}").listAll();
+        FirebaseStorage.instance.ref("/${currentUser?.uid}").listAll();
     await futureFiles.then((ListResult fileObjects) {
       List<Reference> references = fileObjects.items;
       for (Reference ref in references) {

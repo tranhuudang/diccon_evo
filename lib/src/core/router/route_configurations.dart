@@ -9,7 +9,7 @@ GoRouter routerConfig = GoRouter(
   routes: [
     /// Login
     GoRoute(name: "login",path: '/',pageBuilder: (context, state){
-      return MaterialPage(child: I18n(child: const LoginView(),));
+      return MaterialPage(child: I18n(child: const SignInView(),));
     }),
     /// Home
     GoRoute(
