@@ -26,7 +26,7 @@ extension Localization on String {
   // "vi_vi": "",
   // },
 
-  static const _t = Translations.from("en_us", {
+  static final _t = Translations.byLocale("en_us") + {
     /// Common
     // NoInternetBubble
     "You're not connected": {
@@ -1085,7 +1085,7 @@ extension Localization on String {
       "en_us": "At the bank",
       "vi_vi": "Tại ngân hàng",
     },
-  });
+  };
 
   String get i18n => localize(this, _t);
   String get i18nEnglish => localize(this, _t, locale: 'en_us');

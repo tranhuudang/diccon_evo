@@ -30,7 +30,7 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
       stream: true,
       maxTokens: 1500,
       messages: messages,
-      model: ChatGptModel.gpt35Turbo,
+      model: ChatGptModel.gpt35Turbo.modelName,
       temperature: 1,
     );
     return request;
@@ -53,7 +53,7 @@ class ChatGptRepositoryImplement implements ChatGptRepository {
             content: InAppStrings.languageExpertTranslatorRole),
         Message(role: Role.user.name, content: singleQuestionAnswer.question)
       ],
-      model: ChatGptModel.gpt35Turbo,
+      model: ChatGptModel.gpt35Turbo.modelName,
       temperature: 0.2,
     );
     return request;

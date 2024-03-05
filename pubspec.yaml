@@ -13,10 +13,10 @@ dependencies:
 
   ## DATA HANDLE PACKAGES
   # This lib to set windows size on Windows.
-  window_manager: ^0.3.6
-  http: ^1.1.0
+  window_manager: ^0.3.8
+  http: ^1.2.0
   # A Flutter plugin for finding commonly used locations on the filesystem
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   # These firebase related version bellow working great
   #  firebase_core: ^2.24.2
   #  firebase_auth: ^4.15.2
@@ -26,48 +26,48 @@ dependencies:
   #  google_sign_in: ^6.2.0
   #  cached_network_image: ^3.2.3
   #  flutter_cache_manager: ^3.3.1
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.15.2
-  firebase_storage: ^11.5.5
-  cloud_firestore: ^4.13.5
-  firebase_app_check: ^0.2.1+8
-  google_sign_in: ^6.2.0
-  cached_network_image: ^3.2.3
+  firebase_core: ^2.25.5
+  firebase_auth: ^4.17.6
+  firebase_storage: ^11.6.7
+  cloud_firestore: ^4.15.6
+  firebase_app_check: ^0.2.1+15
+  google_sign_in: ^6.2.1
+  cached_network_image: ^3.3.1
   flutter_cache_manager: ^3.3.1
   # Save settings
-  shared_preferences: ^2.2.1
+  shared_preferences: ^2.2.2
   ##
   # Provide ability to speak a provided word.
   flutter_tts: ^3.8.5
-  audioplayers: ^5.2.0
+  audioplayers: ^5.2.1
   # Package for Packaging Windows App
-  msix: ^3.16.6
+  msix: ^3.16.7
   # State management combination
-  flutter_bloc: ^8.1.3
+  flutter_bloc: ^8.1.4
   # Open link
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.5
   # gpt
-  chat_gpt_flutter: ^1.0.15
+  chat_gpt_flutter: ^1.0.16
   # use to check internet connectivity
   internet_connection_checker: ^1.0.0+1
   # create route for application
-  go_router: ^12.0.1
-  collection: ^1.17.0
+  go_router: ^13.2.0
+  collection: ^1.18.0
   speech_to_text: ^6.4.0
   # local database
-  sqflite: ^2.3.0
+  sqflite: ^2.3.2
   # sql for windows
-  sqlite3_flutter_libs: ^0.5.18
-  sqflite_common_ffi: ^2.3.0+3
+  sqlite3_flutter_libs: ^0.5.20
+  sqflite_common_ffi: ^2.3.2+1
   # The path package provides common operations for manipulating paths: joining, splitting, normalizing, etc
-  path: ^1.8.3
+  path: ^1.9.0
   # i use this to create hash value for question asnwer
   crypto: ^3.0.3
   # combo to translate image
-  camera: ^0.10.5+5
+  camera: ^0.10.5+9
   # text recognition
   google_mlkit_text_recognition: ^0.11.0
-  image_picker: ^1.0.4
+  image_picker: ^1.0.7
   translator:
     git:
       url: https://github.com/tranhuudang/google-translator
@@ -77,7 +77,7 @@ dependencies:
   search_page: ^2.3.0
   metaballs: ^1.5.0
   # handle external variable - key
-  envied: ^0.5.2
+  envied: ^0.5.3
 
   ### UI PACKAGES
   responsive_builder: ^0.7.0
@@ -86,31 +86,31 @@ dependencies:
   wavy_slider: ^0.0.4
   loading_indicator: ^3.1.1
   # use for customizing theme
-  dynamic_color: ^1.6.8
+  dynamic_color: ^1.7.0
   #wave animation
   wave: ^0.2.2
   # create dotted indicator for pageview
   smooth_page_indicator: ^1.1.0
   # This package help us create a notification in the bottom app
-  fluttertoast: ^8.2.2
+  fluttertoast: ^8.2.4
   # Help us loaf svg image
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.0.10+1
   # localization
-  flutter_localization: ^0.1.14
+  flutter_localization: ^0.2.0
   flutter_localizations:
     sdk: flutter
-  i18n_extension: ^10.0.1
+  i18n_extension: ^11.0.12
   # custom icon
   font_awesome_flutter: ^10.6.0
   unicons: ^2.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
-  build_runner: ^2.4.6
-  freezed: ^2.4.5
+  flutter_lints: ^3.0.1
+  build_runner: ^2.4.8
+  freezed: ^2.4.7
   json_serializable: ^6.7.1
-  envied_generator: ^0.5.2
+  envied_generator: ^0.5.3
 
 # The following section is specific to Flutter packages.
 flutter:
