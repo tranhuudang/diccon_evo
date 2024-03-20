@@ -1,6 +1,6 @@
 import 'package:i18n_extension/i18n_extension.dart';
 
-extension Localization on String {
+extension Localization on Object {
   /// Step to localization using i18n_extension package:
   /// 1: install package i18n_extension and flutter_localization
   ///   # localization
@@ -26,7 +26,7 @@ extension Localization on String {
   // "vi_vi": "",
   // },
 
-  static final _t = Translations.byLocale("en_us") + {
+  static final _t = Translations.byId<Object>("en_us", {
     /// Common
     // NoInternetBubble
     "You're not connected": {
@@ -1085,7 +1085,7 @@ extension Localization on String {
       "en_us": "At the bank",
       "vi_vi": "Tại ngân hàng",
     },
-  };
+  });
 
   String get i18n => localize(this, _t);
   String get i18nEnglish => localize(this, _t, locale: 'en_us');
