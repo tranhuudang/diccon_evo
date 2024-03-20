@@ -49,115 +49,118 @@ class _UserSettingsViewState extends State<UserSettingsView> {
           }
         },
         builder: (context, state) {
-          if (state is UserLoginState) {
-            var userLoginState = state;
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Section(
-                    title: "User".i18n,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (currentUser?.photoURL != null)
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50.0),
-                              child: Image(
-                                height: 70,
-                                width: 70,
-                                image:
-                                    NetworkImage(currentUser!.photoURL ?? ''),
-                                fit: BoxFit
-                                    .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
-                              ),
-                            ),
-                          if (currentUser?.photoURL == null)
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  child: Container(
-                                    height: 70,
-                                    width: 70,
-                                    color: context.theme.colorScheme.tertiary,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 38,
-                                      color:
-                                          context.theme.colorScheme.onTertiary,
-                                    ),
-                                  )),
-                            ),
-                          if (currentUser?.displayName != null)
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                currentUser?.displayName ?? '',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+          switch (state) {
+            case UserLoginState _:
+              var userLoginState = state;
+              return SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Section(
+                      title: "User".i18n,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (currentUser?.photoURL != null)
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(50.0),
+                                child: Image(
+                                  height: 70,
+                                  width: 70,
+                                  image:
+                                  NetworkImage(currentUser!.photoURL ?? ''),
+                                  fit: BoxFit
+                                      .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
                                 ),
                               ),
-                            ),
-                        ],
-                      ),
-                      Text(
-                        currentUser?.email ?? '',
-                      ),
-                      8.height,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FilledButton(
-                              onPressed: () => userBloc.add(UserSyncEvent()),
-                              child: Text("Sync your data".i18n)),
-                          8.width,
-                          FilledButton.tonal(
-                              onPressed: () => userBloc.add(UserLogoutEvent()),
-                              child: Text("Log out".i18n)),
-                        ],
-                      ),
-                      30.height,
-                      const WaveDivider(),
-                      Column(
-                        children: [
-                          Text(
-                            "Delete all your data on cloud.".i18n,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          8.height,
-                          Text(
-                              "(This process once fired will never be undone. Please take it serious.)"
-                                  .i18n),
-                          8.height,
-                          FilledButton(
-                              onPressed: () {
-                                userBloc.add(UserDeleteDateEvent());
-                              },
-                              child: Text("Erase all".i18n)),
-                        ],
-                      ),
-
-                      /// Loading Indicator for syncing process
-                      if (userLoginState.isSyncing)
-                        Column(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: LinearProgressIndicator(),
-                            ),
-                            Text("Your data is syncing..".i18n),
-                            8.height,
+                            if (currentUser?.photoURL == null)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    child: Container(
+                                      height: 70,
+                                      width: 70,
+                                      color: context.theme.colorScheme.tertiary,
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 38,
+                                        color:
+                                        context.theme.colorScheme.onTertiary,
+                                      ),
+                                    )),
+                              ),
+                            if (currentUser?.displayName != null)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  currentUser?.displayName ?? '',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return UninitializedView(userBloc: userBloc);
+                        Text(
+                          currentUser?.email ?? '',
+                        ),
+                        8.height,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FilledButton(
+                                onPressed: () => userBloc.add(UserSyncEvent()),
+                                child: Text("Sync your data".i18n)),
+                            8.width,
+                            FilledButton.tonal(
+                                onPressed: () =>
+                                    userBloc.add(UserLogoutEvent()),
+                                child: Text("Log out".i18n)),
+                          ],
+                        ),
+                        30.height,
+                        const WaveDivider(),
+                        Column(
+                          children: [
+                            Text(
+                              "Delete all your data on cloud.".i18n,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            8.height,
+                            Text(
+                                "(This process once fired will never be undone. Please take it serious.)"
+                                    .i18n),
+                            8.height,
+                            FilledButton(
+                                onPressed: () {
+                                  userBloc.add(UserDeleteDateEvent());
+                                },
+                                child: Text("Erase all".i18n)),
+                          ],
+                        ),
+
+                        /// Loading Indicator for syncing process
+                        if (userLoginState.isSyncing)
+                          Column(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: LinearProgressIndicator(),
+                              ),
+                              Text("Your data is syncing..".i18n),
+                              8.height,
+                            ],
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            default:
+              return UninitializedView(userBloc: userBloc);
           }
         },
       ),
