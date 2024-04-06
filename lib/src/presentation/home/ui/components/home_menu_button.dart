@@ -31,6 +31,7 @@ class HomeMenuButton extends StatelessWidget {
               ),
               itemBuilder: (context) => [
                 if (defaultTargetPlatform.isMobile())
+                if (false)
                   PopupMenuItem(
                     child: Row(
                       children: [
