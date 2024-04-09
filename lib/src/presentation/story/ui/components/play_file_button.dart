@@ -25,6 +25,7 @@ class _PlayFileButtonState extends State<PlayFileButton> {
 
   @override
   void dispose() {
+    _player.dispose();
     _playerPositionController.close();
     super.dispose();
   }

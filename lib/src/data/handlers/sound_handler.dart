@@ -126,4 +126,8 @@ class SoundHandler {
   Future<void> stop() async {
     await audioPlayer.stop();
   }
+
+  void dispose(){
+    audioPlayer.dispose();
+  }
 }
