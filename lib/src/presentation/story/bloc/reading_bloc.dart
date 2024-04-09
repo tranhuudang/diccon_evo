@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data_providers/text_to_speech_client.dart';
+import 'package:diccon_evo/src/data/handlers/file_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
@@ -101,8 +102,8 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     emit(ReadingInitState(params: ReadingBlocParams.init()));
     // Check if audio file of this story is already downloaded before
     final cacheDir = await getApplicationCacheDirectory();
-    String filePath =
-        join(cacheDir.path, '${event.story.title.removeSpecialCharacters()}.mp3');
+    String filePath = join(
+        cacheDir.path, '${event.story.title.removeSpecialCharacters()}.mp3');
     File audioFile = File(filePath);
     if (await audioFile.exists()) {
       if (kDebugMode) {
@@ -171,10 +172,22 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     );
     final tts = TextToSpeechApiClient();
     final dir = await getApplicationCacheDirectory();
+    final fileName = '${event.story.title.removeSpecialCharacters()}.mp3';
     final filePath =
-        join(dir.path, '${event.story.title.removeSpecialCharacters()}.mp3');
-    await tts.convertTextToSpeech(
-        fromText: event.story.content, toFilePath: filePath);
+        join(dir.path, fileName);
+    try {
+      if (kDebugMode) {
+        print('Downloading audio from github');
+      }
+      await FileHandler(filePath).downloadToResources(
+          "${OnlineDirectory.storiesAudioURL}$fileName");
+    } catch (e) {
+      if (kDebugMode) {
+        print('[ERROR] Can not download audio file from github, try to convert text to speech using open ai api');
+      }
+      await tts.convertTextToSpeech(
+          fromText: event.story.content, toFilePath: filePath);
+    }
     emit(
       ReadingUpdatedState(
         params: state.params.copyWith(
