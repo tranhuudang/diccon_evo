@@ -27,14 +27,14 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
-    Color statusBarColor = systemBrightness == Brightness.light ? Colors.white : Colors.black;
+    Color statusBarColor = systemBrightness == Brightness.light ? Colors.white : Colors.transparent;
 
     // Set status bar color
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: statusBarColor,
       statusBarIconBrightness: systemBrightness == Brightness.light ? Brightness.dark : Brightness.light,
     ));
-    
+
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(_backPressedTime);
