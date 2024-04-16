@@ -30,11 +30,15 @@ class _SignInViewState extends State<SignInView> {
   @override
   void initState() {
     super.initState();
-
-    if (defaultTargetPlatform.isAndroid()) {
-      _loggedInUser = _currentLoggedInUser();
-      if (_loggedInUser != null) {
-        context.read<UserBloc>().add(GoogleLoginEvent());
+    // Go direct to home when user chose to not login in the past
+    if (Properties.instance.settings.continueWithoutLogin) {
+      context.pushReplacementNamed(RouterConstants.home);
+    } else {
+      if (defaultTargetPlatform.isAndroid()) {
+        _loggedInUser = _currentLoggedInUser();
+        if (_loggedInUser != null) {
+          context.read<UserBloc>().add(GoogleLoginEvent());
+        }
       }
     }
   }
@@ -70,6 +74,7 @@ class _SignInViewState extends State<SignInView> {
                           child: HeadSentence(
                               listText: ['Simplifying', 'Language Learning'])),
                       8.height,
+
                       /// Sub sentence
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -148,14 +153,16 @@ class _SignInViewState extends State<SignInView> {
                       FilledButton(
                           onPressed: () async {
                             if (_formKey.currentState?.validate() == true) {
-                              await FirebaseAuth.instance.signInWithEmailAndPassword(
-                                  email: _emailController.text,
-                                  password: _passwordController.text);
-                              if (FirebaseAuth.instance.currentUser != null && FirebaseAuth.instance.currentUser!.emailVerified ){
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: _emailController.text,
+                                      password: _passwordController.text);
+                              if (FirebaseAuth.instance.currentUser != null &&
+                                  FirebaseAuth
+                                      .instance.currentUser!.emailVerified) {
                                 if (widget.isFromAccountPage!) {
                                   context.pop();
-                                }
-                                else {
+                                } else {
                                   context.pushNamed(RouterConstants.home);
                                 }
                               }
@@ -201,6 +208,10 @@ class _SignInViewState extends State<SignInView> {
                       8.height,
                       FilledButton.tonal(
                           onPressed: () {
+                            Properties.instance.saveSettings(Properties
+                                .instance.settings
+                                .copyWith(continueWithoutLogin: true));
+
                             context.pushReplacementNamed(RouterConstants.home);
                           },
                           child: Text("Continue without login".i18n)),

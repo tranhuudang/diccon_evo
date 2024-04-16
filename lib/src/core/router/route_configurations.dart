@@ -8,14 +8,14 @@ import '../core.dart';
 GoRouter routerConfig = GoRouter(
   routes: [
     /// Login
-    // GoRoute(name: "login",path: '/',pageBuilder: (context, state){
-    //   return MaterialPage(child: I18n(child: const SignInView(),));
-    // }),
+    GoRoute(name: "login",path: '/',pageBuilder: (context, state){
+      return MaterialPage(child: I18n(child: const SignInView(),));
+    }),
     /// Home
     GoRoute(
         name: RouterConstants.home,
-        //path: '/home',
-        path: '/',
+        path: '/home',
+        //path: '/',
         pageBuilder: (context, state) {
           return MaterialPage(child: I18n(child: const HomeView()));
         },

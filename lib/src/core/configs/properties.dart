@@ -57,6 +57,8 @@ class Properties {
         newSetting.enableAdaptiveTheme);
     await prefs.setString(
         SharedPreferencesKey.selectedTab, newSetting.selectedTab);
+    await prefs.setBool(SharedPreferencesKey.continueWithoutLogin,
+        newSetting.continueWithoutLogin);
     if (kDebugMode) {
       print("Setting saved");
     }
@@ -107,6 +109,9 @@ class Properties {
               settings.enableAdaptiveTheme,
       selectedTab: prefs.getString(SharedPreferencesKey.selectedTab) ??
           settings.selectedTab,
+      continueWithoutLogin:
+          prefs.getBool(SharedPreferencesKey.continueWithoutLogin) ??
+              settings.continueWithoutLogin,
     );
     if (kDebugMode) {
       print("New setting is saved with these bellow customs:");

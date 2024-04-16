@@ -74,6 +74,9 @@ mixin _$Settings {
   /// Save selected tab path for desktop device
   String get selectedTab => throw _privateConstructorUsedError;
 
+  /// Working in login screen, it true when user decide to using the app without login
+  bool get continueWithoutLogin => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $SettingsCopyWith<Settings> get copyWith =>
       throw _privateConstructorUsedError;
@@ -101,7 +104,8 @@ abstract class $SettingsCopyWith<$Res> {
       double windowsHeight,
       String translationChoice,
       int themeColor,
-      String selectedTab});
+      String selectedTab,
+      bool continueWithoutLogin});
 }
 
 /// @nodoc
@@ -134,6 +138,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? translationChoice = null,
     Object? themeColor = null,
     Object? selectedTab = null,
+    Object? continueWithoutLogin = null,
   }) {
     return _then(_value.copyWith(
       themeMode: null == themeMode
@@ -206,6 +211,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.selectedTab
           : selectedTab // ignore: cast_nullable_to_non_nullable
               as String,
+      continueWithoutLogin: null == continueWithoutLogin
+          ? _value.continueWithoutLogin
+          : continueWithoutLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -234,7 +243,8 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       double windowsHeight,
       String translationChoice,
       int themeColor,
-      String selectedTab});
+      String selectedTab,
+      bool continueWithoutLogin});
 }
 
 /// @nodoc
@@ -265,6 +275,7 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? translationChoice = null,
     Object? themeColor = null,
     Object? selectedTab = null,
+    Object? continueWithoutLogin = null,
   }) {
     return _then(_$SettingImpl(
       themeMode: null == themeMode
@@ -337,6 +348,10 @@ class __$$SettingImplCopyWithImpl<$Res>
           ? _value.selectedTab
           : selectedTab // ignore: cast_nullable_to_non_nullable
               as String,
+      continueWithoutLogin: null == continueWithoutLogin
+          ? _value.continueWithoutLogin
+          : continueWithoutLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -361,7 +376,8 @@ class _$SettingImpl implements _Setting {
       required this.windowsHeight,
       required this.translationChoice,
       required this.themeColor,
-      required this.selectedTab});
+      required this.selectedTab,
+      required this.continueWithoutLogin});
 
   /// Save current theme of this app in this param, it holds string value of [ThemeMode] with value:
   /// ThemeMode.system, ThemeMode.dark, ThemeMode.light
@@ -436,9 +452,13 @@ class _$SettingImpl implements _Setting {
   @override
   final String selectedTab;
 
+  /// Working in login screen, it true when user decide to using the app without login
+  @override
+  final bool continueWithoutLogin;
+
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, themeColor: $themeColor, selectedTab: $selectedTab)';
+    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, themeColor: $themeColor, selectedTab: $selectedTab, continueWithoutLogin: $continueWithoutLogin)';
   }
 
   @override
@@ -485,7 +505,9 @@ class _$SettingImpl implements _Setting {
             (identical(other.themeColor, themeColor) ||
                 other.themeColor == themeColor) &&
             (identical(other.selectedTab, selectedTab) ||
-                other.selectedTab == selectedTab));
+                other.selectedTab == selectedTab) &&
+            (identical(other.continueWithoutLogin, continueWithoutLogin) ||
+                other.continueWithoutLogin == continueWithoutLogin));
   }
 
   @override
@@ -507,7 +529,8 @@ class _$SettingImpl implements _Setting {
       windowsHeight,
       translationChoice,
       themeColor,
-      selectedTab);
+      selectedTab,
+      continueWithoutLogin);
 
   @JsonKey(ignore: true)
   @override
@@ -534,7 +557,8 @@ abstract class _Setting implements Settings {
       required final double windowsHeight,
       required final String translationChoice,
       required final int themeColor,
-      required final String selectedTab}) = _$SettingImpl;
+      required final String selectedTab,
+      required final bool continueWithoutLogin}) = _$SettingImpl;
 
   @override
 
@@ -609,6 +633,10 @@ abstract class _Setting implements Settings {
 
   /// Save selected tab path for desktop device
   String get selectedTab;
+  @override
+
+  /// Working in login screen, it true when user decide to using the app without login
+  bool get continueWithoutLogin;
   @override
   @JsonKey(ignore: true)
   _$$SettingImplCopyWith<_$SettingImpl> get copyWith =>

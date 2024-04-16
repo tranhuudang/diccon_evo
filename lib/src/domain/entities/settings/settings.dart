@@ -42,5 +42,7 @@ class Settings with _$Settings {
     required int themeColor,
     /// Save selected tab path for desktop device
     required String selectedTab,
+    /// Working in login screen, it true when user decide to using the app without login
+    required bool continueWithoutLogin,
   }) = _Setting;
 }

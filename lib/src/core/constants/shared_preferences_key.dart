@@ -19,4 +19,5 @@ class SharedPreferencesKey {
   static String get themeColor => 'themeColor';
   static String get enableAdaptiveTheme => 'enableAdaptiveTheme';
   static String get selectedTab => 'selectedTab';
+  static String get continueWithoutLogin => 'continueWithoutLogin';
 }
