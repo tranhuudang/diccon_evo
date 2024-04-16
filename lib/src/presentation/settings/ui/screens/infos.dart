@@ -43,7 +43,7 @@ class InfoView extends StatelessWidget {
                   context.pushNamed(RouterConstants.releaseNotes);
                 },
                 child: Text(
-                  "v${DefaultSettings.version}",
+                  "v${NumberConstants.appVersion}",
                   style: context.theme.textTheme.titleSmall,
                 ),
               ),

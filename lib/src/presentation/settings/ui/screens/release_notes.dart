@@ -16,6 +16,15 @@ class ReleaseNotes extends StatelessWidget {
         children: const [
           ReleaseNotesItem(
             version: '607',
+            date: '16-04-2024',
+            changesNote: [
+              'Giảm thiểu lỗi quá tải khi sử dụng Conversation',
+              'Sửa tiêu đề không hiển thị trong Light mode',
+              'Mở khóa đăng nhập và sao lưu dữ liệu'
+            ],
+          ),
+          ReleaseNotesItem(
+            version: '607',
             date: '09-04-2024',
             changesNote: [
               'Cải thiện tốc độ tải âm thanh trong truyện',
