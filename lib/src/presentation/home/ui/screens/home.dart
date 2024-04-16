@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
@@ -25,6 +26,15 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
+    Color statusBarColor = systemBrightness == Brightness.light ? Colors.white : Colors.black;
+
+    // Set status bar color
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: statusBarColor,
+      statusBarIconBrightness: systemBrightness == Brightness.light ? Brightness.dark : Brightness.light,
+    ));
+    
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(_backPressedTime);
