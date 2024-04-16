@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wave_divider/wave_divider.dart';
 
 class UserSettingsView extends StatefulWidget {

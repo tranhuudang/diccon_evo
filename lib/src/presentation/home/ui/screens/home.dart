@@ -1,4 +1,3 @@
-import 'package:diccon_evo/src/data/services/auth_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';

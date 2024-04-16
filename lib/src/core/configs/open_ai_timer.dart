@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
 class OpenAiTimer {
   OpenAiTimer._();
 
@@ -37,12 +39,16 @@ class OpenAiTimer {
     // Check if the request limit has been reached
     if (_currentRPM > _limitRPM) {
       // Handle rate limit exceeded, you can throw an exception or handle it in some way
-      print('Rate limit exceeded. Please wait before making more requests.');
+      if (kDebugMode) {
+        print('Rate limit exceeded. Please wait before making more requests.');
+      }
       return false;
     }
 
     // Proceed with the request
-    print('Request successful. Requests made in this minute: $_currentRPM');
+    if (kDebugMode) {
+      print('Request successful. Requests made in this minute: $_currentRPM');
+    }
     return true;
   }
 

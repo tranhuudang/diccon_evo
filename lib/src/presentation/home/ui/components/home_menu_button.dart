@@ -1,5 +1,4 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/domain/domain.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';

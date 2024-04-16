@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-
-import '../../core/configs/configs.dart';
 import '../../core/constants/constants.dart';
 import '../data.dart';
 class UserHandler {
