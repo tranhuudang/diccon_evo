@@ -8,7 +8,7 @@ class OpenAiTimer {
   static final OpenAiTimer _instance = OpenAiTimer._();
 
   // Limit of requests per minute
-  final int _limitRPM = 2;
+  final int _limitRPM = 3;
 
   // Number of requests made in the current minute
   int _currentRPM = 0;
