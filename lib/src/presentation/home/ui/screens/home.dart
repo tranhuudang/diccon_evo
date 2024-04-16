@@ -87,14 +87,31 @@ class _HomeViewState extends State<HomeView> {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 8),
-                                child: Text(
-                                  title.i18n,
-                                  style: context.theme.textTheme.titleLarge
-                                      ?.copyWith(
-                                          color: currentTabIndex ==
-                                                  tabTitleList.indexOf(title)
-                                              ? Colors.white
-                                              : Colors.white12),
+                                child: Opacity(
+                                  opacity: currentTabIndex ==
+                                          tabTitleList.indexOf(title)
+                                      ? 1
+                                      : .5,
+                                  child: Text(
+                                    title.i18n,
+                                    style: context.theme.textTheme.titleLarge
+                                        ?.copyWith(
+                                      decoration: currentTabIndex ==
+                                              tabTitleList.indexOf(title)
+                                          ? TextDecoration.underline
+                                          : TextDecoration.none,
+                                      color: Colors.transparent,
+                                      decorationStyle:
+                                          TextDecorationStyle.dotted,
+                                      shadows: [
+                                        Shadow(
+                                            color: context.theme.textTheme
+                                                    .titleLarge?.color ??
+                                                Colors.black,
+                                            offset: const Offset(0, -5))
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
