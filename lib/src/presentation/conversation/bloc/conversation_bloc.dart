@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:diccon_evo/src/core/configs/open_ai_timer.dart';
+import 'package:diccon_evo/src/presentation/conversation/ui/components/conversation_wait_timer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -52,8 +54,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<StopResponse>(_stopResponse);
   }
 
-  final _chatGptRepository = ChatGptRepositoryImplement(
-      chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
+  final _chatGptRepository =
+      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
   List<Widget> listConversations = [const ConversationWelcome()];
   final ScrollController conversationScrollController = ScrollController();
   final TextEditingController textController = TextEditingController();
@@ -64,15 +66,39 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   Future<void> _addUserMessage(
       AskAQuestion event, Emitter<ConversationState> emit) async {
     currentResponseContent = "";
-    listConversations.insert(0, ConversationUserBubble(
-      message: event.providedWord,
-      onTap: () {
-        textController.text = event.providedWord;
-      },
-    ));
+    listConversations.insert(
+        0,
+        ConversationUserBubble(
+          message: event.providedWord,
+          onTap: () {
+            textController.text = event.providedWord;
+          },
+        ));
     textController.clear();
-    emit(ConversationUpdated(
-        conversation: listConversations, isResponding: true));
+    // Use timer to limit number of request per minute, so that open ai not break
+    var openAITimer = OpenAiTimer();
+    openAITimer.trackRequest();
+    var waitingSecondsLeft = openAITimer.secondsUntilNextRequest();
+    if (kDebugMode) {
+      print(
+        'Delay $waitingSecondsLeft second to wait open ai before continue');
+    }
+    bool needRemoveTimerWidget = false;
+    if (waitingSecondsLeft != 0){
+      needRemoveTimerWidget = true;
+      listConversations.insert(0, WaitTimerWidget(initialNumber: waitingSecondsLeft));
+      emit(ConversationUpdated(
+          conversation: listConversations, isResponding: true));
+    }
+
+    await Future.delayed(
+        Duration(seconds: openAITimer.secondsUntilNextRequest()));
+    if (needRemoveTimerWidget){
+      listConversations.removeAt(0);
+      emit(ConversationUpdated(
+          conversation: listConversations, isResponding: true));
+      needRemoveTimerWidget = false;
+    }
     // Check internet connection before create request to chatbot
     bool isInternetConnected = await InternetConnectionChecker().hasConnection;
     if (kDebugMode) {
@@ -90,9 +116,11 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       var request =
           await _chatGptRepository.createMultipleQuestionRequest(question);
       _chatStreamResponse(request);
-      listConversations.insert(0, const ConversationMachineBubble(
-        content: "",
-      ));
+      listConversations.insert(
+          0,
+          const ConversationMachineBubble(
+            content: "",
+          ));
       emit(ConversationUpdated(
           conversation: listConversations, isResponding: true));
     }
@@ -105,7 +133,6 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     emit(ConversationUpdated(
         conversation: listConversations, isResponding: false));
   }
-
 
   FutureOr<void> _answeringAQuestion(
       AnsweringAQuestion event, Emitter<ConversationState> emit) {

@@ -28,6 +28,8 @@ class _Initializer {
     databaseFactory = databaseFactoryFfi;
     await EnglishToVietnameseDictionaryDatabase.initialize();
     await VietnameseToEnglishDictionaryDatabase.initialize();
+    // open ai
+    OpenAiTimer();
   }
 
   /// Initialize Firebase for specific platform
