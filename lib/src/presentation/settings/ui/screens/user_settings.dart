@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:wave_divider/wave_divider.dart';
 
 class UserSettingsView extends StatefulWidget {
@@ -68,7 +70,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                   height: 70,
                                   width: 70,
                                   image:
-                                  NetworkImage(currentUser!.photoURL ?? ''),
+                                      NetworkImage(currentUser!.photoURL ?? ''),
                                   fit: BoxFit
                                       .cover, // Use BoxFit.cover to ensure the image fills the rounded rectangle
                                 ),
@@ -85,8 +87,8 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                       child: Icon(
                                         Icons.person,
                                         size: 38,
-                                        color:
-                                        context.theme.colorScheme.onTertiary,
+                                        color: context
+                                            .theme.colorScheme.onTertiary,
                                       ),
                                     )),
                               ),
@@ -106,6 +108,61 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                           currentUser?.email ?? '',
                         ),
                         8.height,
+                        if (kDebugMode)
+                          Container(
+                            width: 70.sw,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                16.height,
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Tokens: 200',
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          context.showAlertDialogWithoutAction(
+                                              title: 'Tokens'.i18n,
+                                              content:
+                                                  'This tokens will be used on Conversation or other premium functions.'
+                                                      .i18n);
+                                        },
+                                        icon: Icon(Icons.info_outline))
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'User type: ',
+                                    ),
+                                    Container(
+                                      height: 24,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      decoration: BoxDecoration(
+                                          color: false
+                                              ? Colors.amber
+                                              : context
+                                                  .theme.colorScheme.secondary
+                                                  .withOpacity(.5),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      child: Center(
+                                        child: Text(
+                                          false ? "Premium" : "Free Try",
+                                          style: TextStyle(
+                                              color: context.theme.colorScheme
+                                                  .onSecondary),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                16.height,
+                              ],
+                            ),
+                          ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -125,8 +182,8 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                           children: [
                             Text(
                               "Delete all your data on cloud.".i18n,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             8.height,
                             Text(
