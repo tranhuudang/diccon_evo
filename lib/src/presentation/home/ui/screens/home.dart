@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -27,12 +31,16 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
-    Color statusBarColor = systemBrightness == Brightness.light ? Colors.white : Colors.transparent;
+    Color statusBarColor = systemBrightness == Brightness.light
+        ? Colors.white
+        : Colors.transparent;
 
     // Set status bar color
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: statusBarColor,
-      statusBarIconBrightness: systemBrightness == Brightness.light ? Brightness.dark : Brightness.light,
+      statusBarIconBrightness: systemBrightness == Brightness.light
+          ? Brightness.dark
+          : Brightness.light,
     ));
 
     return WillPopScope(
@@ -144,11 +152,37 @@ class _HomeViewState extends State<HomeView> {
                             });
                           },
                           controller: tabController,
-                          children: const [
-                            DictionaryTab(),
-                            StoriesTab(),
-                            ConversationTab(),
-                            PracticeTab(),
+                          children: [
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              child: const DictionaryTab(),
+                              onTap: () {
+                                context.pushNamed(RouterConstants.dictionary);
+                              },
+                            ),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              child: const StoriesTab(),
+                              onTap: () {
+                                context
+                                    .pushNamed(RouterConstants.readingChamber);
+                              },
+                            ),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              child: const ConversationTab(),
+                              onTap: () {
+                                context.pushNamed(RouterConstants.conversation);
+                              },
+                            ),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              child: const PracticeTab(),
+                              onTap: () {
+                                context
+                                    .pushNamed(RouterConstants.essential1848);
+                              },
+                            ),
                           ]),
                     ),
                   ],

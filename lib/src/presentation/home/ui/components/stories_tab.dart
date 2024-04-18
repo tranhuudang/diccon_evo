@@ -15,10 +15,12 @@ class StoriesTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-            'Learning English through stories is a proven method that is particularly effective in enhancing vocabulary and sentence structure.'.i18n),
+            'Learning English through stories is a proven method that is particularly effective in enhancing vocabulary and sentence structure.'
+                .i18n),
         8.height,
         Text(
-            'Here, you can discover a myriad of captivating stories tailored to various proficiency levels. Depending on your abilities, feel free to select stories that align with your learning objectives while providing entertainment.'.i18n),
+            'Here, you can discover a myriad of captivating stories tailored to various proficiency levels. Depending on your abilities, feel free to select stories that align with your learning objectives while providing entertainment.'
+                .i18n),
         const WaveDivider(
           padding: EdgeInsets.symmetric(
             vertical: 16,
@@ -26,7 +28,12 @@ class StoriesTab extends StatelessWidget {
           thickness: .3,
         ),
         Text(
-            "Don't forget to tap on the words for translations of the passage".i18n),
+          "Don't forget to tap on the words for translations of the passage"
+              .i18n,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Colors.amber,
+              ),
+        ),
         16.height,
         Center(
             child: FilledButton.tonalIcon(

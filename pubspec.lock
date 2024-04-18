@@ -619,6 +619,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.17"
+  flutter_sizer:
+    dependency: "direct main"
+    description:
+      name: flutter_sizer
+      sha256: "8807183611c902697de0c07fc7f87051b25cf1d2cf6b0a7792260b2c47122735"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   flutter_svg:
     dependency: "direct main"
     description:

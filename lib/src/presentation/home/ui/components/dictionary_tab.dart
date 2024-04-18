@@ -37,65 +37,6 @@ class DictionaryTab extends StatelessWidget {
           ],
         ),
         8.height,
-        Text(
-          'Translator options:'.i18n,
-          style: context.theme.textTheme.bodyMedium,
-        ),
-        4.height,
-        InkWell(
-          onTap: () {
-            SeekFeedback.showFeedbackBottomSheet(context);
-            context.pushNamed(RouterConstants.dictionary);
-          },
-          child: Row(
-            children: [
-              const Icon(
-                Icons.circle,
-                size: 8,
-              ),
-              8.width,
-              Text('Auto detect language'.i18n),
-              8.width,
-              const Icon(Icons.arrow_forward)
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            SeekFeedback.showFeedbackBottomSheet(context);
-            context.pushNamed(RouterConstants.dictionary);
-          },
-          child: Row(
-            children: [
-              const Icon(
-                Icons.circle,
-                size: 8,
-              ),
-              8.width,
-              Text('Force translate English to Vietnamese'.i18n),
-              8.width,
-              const Icon(Icons.arrow_forward)
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            SeekFeedback.showFeedbackBottomSheet(context);
-            context.pushNamed(RouterConstants.dictionary);
-          },
-          child: Row(
-            children: [
-              const Icon(
-                Icons.circle,
-                size: 8,
-              ),
-              8.width,
-              Text('Force translate Vietnamese to English'.i18n),
-              8.width,
-              const Icon(Icons.arrow_forward)
-            ],
-          ),
-        ),
         const WaveDivider(
           padding: EdgeInsets.symmetric(
             vertical: 16,

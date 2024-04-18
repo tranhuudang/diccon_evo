@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:wave_divider/wave_divider.dart';
 
 class UserSettingsView extends StatefulWidget {
@@ -19,6 +19,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
     final userBloc = context.read<UserBloc>();
     userBloc.add(CheckIsSignedInEvent());
     final currentUser = FirebaseAuth.instance.currentUser;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
@@ -107,14 +108,12 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                         Text(
                           currentUser?.email ?? '',
                         ),
-                        8.height,
-                        if (kDebugMode)
-                          Container(
-                            width: 70.sw,
+                        16.height,
+                          SizedBox(
+                            width: 64.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                16.height,
                                 Row(
                                   children: [
                                     Text(
@@ -191,10 +190,13 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                     .i18n),
                             8.height,
                             FilledButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.red)
+                              ),
                                 onPressed: () {
                                   userBloc.add(UserDeleteDateEvent());
                                 },
-                                child: Text("Erase all".i18n)),
+                                child: Text("Erase all".i18n, style: context.theme.textTheme.bodyMedium?.copyWith(color: Colors.white),)),
                           ],
                         ),
 

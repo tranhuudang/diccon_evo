@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -45,46 +46,50 @@ class App extends StatelessWidget {
     );
   }
 
-  ScreenTypeLayout buildMaterialApp(SettingState state,
+  FlutterSizer buildMaterialApp(SettingState state,
       ColorScheme lightColorScheme, ColorScheme darkColorScheme) {
-    return ScreenTypeLayout.builder(mobile: (context) {
-      return MaterialApp.router(
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', "US"),
-          Locale('vi', "VI"),
-        ],
-        locale: state.params.language.toLocale(),
-        themeMode: state.params.themeMode,
-        theme: lightTheme(colorScheme: lightColorScheme),
-        darkTheme: darkTheme(colorScheme: darkColorScheme),
-        title: DefaultSettings.appName,
-        debugShowCheckedModeBanner: false,
-        routerConfig: routerConfig,
-      );
-    }, tablet: (context) {
-      return MaterialApp.router(
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', "US"),
-          Locale('vi', "VI"),
-        ],
-        locale: state.params.language.toLocale(),
-        themeMode: state.params.themeMode,
-        theme: lightTheme(colorScheme: lightColorScheme),
-        darkTheme: darkTheme(colorScheme: darkColorScheme),
-        title: DefaultSettings.appName,
-        debugShowCheckedModeBanner: false,
-        routerConfig: routerConfigDesktop,
-      );
-    });
+    return FlutterSizer(
+      builder: (context, orientation, screenType) {
+        return ScreenTypeLayout.builder(mobile: (context) {
+          return MaterialApp.router(
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', "US"),
+              Locale('vi', "VI"),
+            ],
+            locale: state.params.language.toLocale(),
+            themeMode: state.params.themeMode,
+            theme: lightTheme(colorScheme: lightColorScheme),
+            darkTheme: darkTheme(colorScheme: darkColorScheme),
+            title: DefaultSettings.appName,
+            debugShowCheckedModeBanner: false,
+            routerConfig: routerConfig,
+          );
+        }, tablet: (context) {
+          return MaterialApp.router(
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', "US"),
+              Locale('vi', "VI"),
+            ],
+            locale: state.params.language.toLocale(),
+            themeMode: state.params.themeMode,
+            theme: lightTheme(colorScheme: lightColorScheme),
+            darkTheme: darkTheme(colorScheme: darkColorScheme),
+            title: DefaultSettings.appName,
+            debugShowCheckedModeBanner: false,
+            routerConfig: routerConfigDesktop,
+          );
+        });
+      }
+    );
   }
 }
