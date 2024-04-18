@@ -116,7 +116,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Tokens: 200',
                                     ),
                                     IconButton(
@@ -127,12 +127,12 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                                   'This tokens will be used on Conversation or other premium functions.'
                                                       .i18n);
                                         },
-                                        icon: Icon(Icons.info_outline))
+                                        icon: const Icon(Icons.info_outline))
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       'User type: ',
                                     ),
                                     Container(

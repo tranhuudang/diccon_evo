@@ -24,7 +24,7 @@ class _WaitTimerWidgetState extends State<WaitTimerWidget> {
   }
 
   void startCountdown() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_currentNumber > 0) {
           _currentNumber--;

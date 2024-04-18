@@ -178,13 +178,13 @@ class _SignInViewState extends State<SignInView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignUpView()));
+                                        builder: (context) => const SignUpView()));
                               },
                               child: Text('Sign up'.i18n)),
                         ],
                       ),
                       10.height,
-                      WaveDivider(),
+                      const WaveDivider(),
                       BlocListener<UserBloc, UserState>(
                           listenWhen: (previous, current) =>
                               current is UserActionState,

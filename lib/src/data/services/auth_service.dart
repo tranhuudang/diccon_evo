@@ -20,12 +20,16 @@ class AuthService {
 
       if (!userCredential.user!.emailVerified) {
         await userCredential.user!.sendEmailVerification();
-        print('Verification email is sent');
+        if (kDebugMode) {
+          print('Verification email is sent');
+        }
       }
 
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      print('Error during sign up: ${e.message}');
+      if (kDebugMode) {
+        print('Error during sign up: ${e.message}');
+      }
       return null;
     }
   }
@@ -49,13 +53,19 @@ class AuthService {
     if (user != null) {
       try {
         await user.delete();
-        print('User account deleted successfully.');
+        if (kDebugMode) {
+          print('User account deleted successfully.');
+        }
       } catch (e) {
-        print('Failed to delete user account: $e');
+        if (kDebugMode) {
+          print('Failed to delete user account: $e');
+        }
         // Handle error: display a message to the user or perform additional actions
       }
     } else {
-      print('No user signed in.');
+      if (kDebugMode) {
+        print('No user signed in.');
+      }
       // Handle case where no user is currently signed in
     }
   }

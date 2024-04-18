@@ -86,7 +86,7 @@ class _SignUpViewState extends State<SignUpView> {
                       await FirebaseAuth.instance.currentUser
                           !.sendEmailVerification();
                     }
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => VerificationEmailView()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const VerificationEmailView()));
                   }
 
                 },
