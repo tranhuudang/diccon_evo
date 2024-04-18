@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:diccon_evo/bloc_provider_scope.dart';
-import 'package:diccon_evo/src/core/configs/open_ai_timer.dart';
+import 'package:diccon_evo/src/core/utils/open_ai_timer.dart';
 import 'package:diccon_evo/src/data/data.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -29,7 +29,8 @@ class _Initializer {
     await EnglishToVietnameseDictionaryDatabase.initialize();
     await VietnameseToEnglishDictionaryDatabase.initialize();
     // open ai
-    OpenAiTimer();
+    OpenAITimer.init();
+    await OpenAIKeySelector.init();
   }
 
   /// Initialize Firebase for specific platform

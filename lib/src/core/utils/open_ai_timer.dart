@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
-class OpenAiTimer {
-  OpenAiTimer._();
+class OpenAITimer {
+  OpenAITimer._();
 
-  static final OpenAiTimer _instance = OpenAiTimer._();
+  static final OpenAITimer _instance = OpenAITimer._();
 
   // Limit of requests per minute
   final int _limitRPM = 3;
@@ -20,21 +20,17 @@ class OpenAiTimer {
   late Timer _resetTimer;
 
   // Factory constructor to return the singleton instance
-  factory OpenAiTimer() {
-    // Start the timer to reset request count at the start of each minute
-    _instance._startResetTimer();
+  factory OpenAITimer() {
     return _instance;
+  }
+
+  static void init(){
+      _instance._startResetTimer();
   }
 
   // Method to track requests
   bool trackRequest() {
-    // Check if it's a new minute, if so, reset the request count
-    if (DateTime.now().difference(_currentMinuteStart).inSeconds > 60) {
-      _currentMinuteStart = DateTime.now();
-      _currentRPM = 1;
-    } else {
       _currentRPM++;
-    }
 
     // Check if the request limit has been reached
     if (_currentRPM > _limitRPM) {

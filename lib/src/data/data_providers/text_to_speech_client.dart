@@ -23,7 +23,7 @@ class TextToSpeechApiClient {
     _client = http.Client(); // Initialize the client
     final uri = Uri.parse(ApiEndpoints.speech);
     final headers = {
-      HttpHeaders.authorizationHeader: 'Bearer ${Env.openaiApiKey}',
+      HttpHeaders.authorizationHeader: 'Bearer ${ApiKeys.openAiKey}',
       HttpHeaders.contentTypeHeader: 'application/json',
     };
     final body = jsonEncode({

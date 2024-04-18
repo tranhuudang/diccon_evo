@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import 'package:diccon_evo/src/core/configs/open_ai_timer.dart';
+import 'package:diccon_evo/src/core/utils/open_ai_timer.dart';
 import 'package:diccon_evo/src/presentation/conversation/ui/components/conversation_wait_timer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +55,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   final _chatGptRepository =
-      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
+      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
   List<Widget> listConversations = [const ConversationWelcome()];
   final ScrollController conversationScrollController = ScrollController();
   final TextEditingController textController = TextEditingController();
@@ -76,7 +76,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         ));
     textController.clear();
     // Use timer to limit number of request per minute, so that open ai not break
-    var openAITimer = OpenAiTimer();
+    var openAITimer = OpenAITimer();
     openAITimer.trackRequest();
     var waitingSecondsLeft = openAITimer.secondsUntilNextRequest();
     if (kDebugMode) {

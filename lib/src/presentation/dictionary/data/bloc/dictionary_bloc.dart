@@ -103,7 +103,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       _isReportedAboutDisconnection = true;
     }
     var newChatGptRepository =
-        ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
+        ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
     _listChatGptRepository.add(newChatGptRepository);
     var chatGptRepositoryIndex = _listChatGptRepository.length - 1;
 

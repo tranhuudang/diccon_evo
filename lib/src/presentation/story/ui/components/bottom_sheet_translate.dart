@@ -26,7 +26,7 @@ class BottomSheetTranslation extends StatefulWidget {
 
 class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   final _chatGptRepository =
-      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: Env.openaiApiKey));
+      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
   final _isLoadingStreamController = StreamController();
   final _tabSwitcherStreamController =
