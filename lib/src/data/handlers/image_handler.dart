@@ -8,7 +8,7 @@ class ImageHandler {
   Future<String> getImageFromPixabay(String word) async {
     try {
       final response = await http.get(Uri.parse(
-          '${ApiEndpoints.pixabayURL}?key=25829393-af32bf17ec8386b5941fb5f8f&q=$word&image_type=photo'));
+          '${ApiEndpoints.pixabayURL}?key=${Env.pixabayApiKey}&q=$word&image_type=photo'));
       if (response.statusCode == 200) {
         // If the server returns a 200 OK response, parse the JSON
         var jsonData = json.decode(response.body);
