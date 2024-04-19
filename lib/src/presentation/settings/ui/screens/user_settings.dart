@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:wave_divider/wave_divider.dart';
 
 class UserSettingsView extends StatefulWidget {
@@ -14,6 +18,7 @@ class UserSettingsView extends StatefulWidget {
 }
 
 class _UserSettingsViewState extends State<UserSettingsView> {
+
   @override
   Widget build(BuildContext context) {
     final userBloc = context.read<UserBloc>();
@@ -109,59 +114,70 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                           currentUser?.email ?? '',
                         ),
                         16.height,
-                          SizedBox(
-                            width: 64.w,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'Tokens: 200',
-                                    ),
-                                    IconButton(
-                                        onPressed: () {
-                                          context.showAlertDialogWithoutAction(
-                                              title: 'Tokens'.i18n,
-                                              content:
-                                                  'This tokens will be used on Conversation or other premium functions.'
-                                                      .i18n);
-                                        },
-                                        icon: const Icon(Icons.info_outline))
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'User type: ',
-                                    ),
-                                    Container(
-                                      height: 24,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      decoration: BoxDecoration(
-                                          color: false
-                                              ? Colors.amber
-                                              : context
-                                                  .theme.colorScheme.secondary
-                                                  .withOpacity(.5),
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      child: Center(
-                                        child: Text(
-                                          false ? "Premium" : "Free Try",
-                                          style: TextStyle(
-                                              color: context.theme.colorScheme
-                                                  .onSecondary),
-                                        ),
+                        SizedBox(
+                          width: 64.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Tokens: 200',
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        context.showAlertDialogWithoutAction(
+                                            title: 'Tokens'.i18n,
+                                            content:
+                                                'This tokens will be used on Conversation or other premium functions.'
+                                                    .i18n);
+                                      },
+                                      icon: const Icon(Icons.info_outline))
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'User type: ',
+                                  ),
+                                  Container(
+                                    height: 24,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    decoration: BoxDecoration(
+                                        color: false
+                                            ? Colors.amber
+                                            : context
+                                                .theme.colorScheme.secondary
+                                                .withOpacity(.5),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: Center(
+                                      child: Text(
+                                        false ? "Premium" : "Free Try",
+                                        style: TextStyle(
+                                            color: context
+                                                .theme.colorScheme.onSecondary),
                                       ),
                                     ),
-                                  ],
-                                ),
-                                16.height,
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                              Center(
+                                child: FilledButton(
+                                    onPressed: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const InAppPurchaseView()));
+                                    },
+                                    child: Text('Upgrade'.i18n)),
+                              ),
+                              16.height,
+                            ],
                           ),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -190,13 +206,17 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                     .i18n),
                             8.height,
                             FilledButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.red)
-                              ),
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.red)),
                                 onPressed: () {
                                   userBloc.add(UserDeleteDateEvent());
                                 },
-                                child: Text("Erase all".i18n, style: context.theme.textTheme.bodyMedium?.copyWith(color: Colors.white),)),
+                                child: Text(
+                                  "Erase all".i18n,
+                                  style: context.theme.textTheme.bodyMedium
+                                      ?.copyWith(color: Colors.white),
+                                )),
                           ],
                         ),
 

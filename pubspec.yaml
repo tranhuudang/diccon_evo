@@ -2,7 +2,7 @@ name: diccon_evo
 description: A new Diccon that work on many platforms.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 5.0.1+83
+version: 5.0.1+84
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -104,6 +104,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   unicons: ^2.1.1
   flutter_sizer: ^1.0.5
+  in_app_purchase: ^3.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

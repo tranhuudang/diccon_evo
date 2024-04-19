@@ -1,5 +1,6 @@
 part of 'main.dart';
 
+
 class _Initializer {
   static Future<void> start() async {
     // core
@@ -28,10 +29,17 @@ class _Initializer {
     databaseFactory = databaseFactoryFfi;
     await EnglishToVietnameseDictionaryDatabase.initialize();
     await VietnameseToEnglishDictionaryDatabase.initialize();
-    // open ai
+    // OpenAI
     OpenAITimer.init();
     await OpenAIKeySelector.init();
+    // In-app Purchase
   }
+  /// Initialize In-app Purchase
+  static Future<void> _initializeInAppPurchase() async{
+    if (defaultTargetPlatform == TargetPlatform.android) {
+    }
+  }
+
 
   /// Initialize Firebase for specific platform
   static Future<void> _initialFirebase() async {
