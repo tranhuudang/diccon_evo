@@ -554,6 +554,42 @@ extension Localization on Object {
 
     /// Settings
 
+    "Free Try":{
+      "en_us":"Free Try",
+      "vi_vi":"Dùng thử",
+    },
+
+    "Upgrade":{
+      "en_us":"Upgrade",
+      "vi_vi":"Nâng cấp",
+    },
+    "This tokens will be used on Conversation or other premium functions.":{
+      "en_us":"This tokens will be used on Conversation or other premium functions.",
+      "vi_vi":"Các token này sẽ được sử dụng trong các chức năng Trò chuyện hoặc các chức năng cao cấp khác.",
+    },
+    "User type: ":{
+      "en_us":"User type: ",
+      "vi_vi":"Gói tài khoản: ",
+    },
+    "Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!":{
+      "en_us":"Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!",
+      "vi_vi":"Nâng cấp lên các tính năng cao cấp của chúng tôi để trải nghiệm từ điển tốt hơn. Mở khóa công cụ và tài nguyên độc quyền để làm phong phú hành trình học ngôn ngữ của bạn ngay hôm nay!",
+    },
+
+    // "":{
+    //   "en_us":"",
+    //   "vi_vi":"",
+    // },
+    // "":{
+    //   "en_us":"",
+    //   "vi_vi":"",
+    // },
+    // "":{
+    //   "en_us":"",
+    //   "vi_vi":"",
+    // },
+
+
     "Maximum Choices Reached": {
       "en_us": "Maximum Choices Reached",
       "vi_vi": "Giới hạn 7 sự lựa chọn"

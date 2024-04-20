@@ -2,7 +2,7 @@ name: diccon_evo
 description: A new Diccon that work on many platforms.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 5.0.1+84
+version: 5.0.1+86
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -18,14 +18,12 @@ dependencies:
   # A Flutter plugin for finding commonly used locations on the filesystem
   path_provider: ^2.1.2
   # These firebase related version bellow working great
-  #  firebase_core: ^2.24.2
-  #  firebase_auth: ^4.15.2
-  #  firebase_storage: ^11.5.5
-  #  cloud_firestore: ^4.13.5
-  #  firebase_app_check: ^0.2.1+8
-  #  google_sign_in: ^6.2.0
-  #  cached_network_image: ^3.2.3
-  #  flutter_cache_manager: ^3.3.1
+#  firebase_core: ^2.25.5
+#  firebase_auth: ^4.17.6
+#  firebase_storage: ^11.6.7
+#  cloud_firestore: ^4.15.6
+#  firebase_app_check: ^0.2.1+15
+#  google_sign_in: ^6.2.1
   firebase_core: ^2.25.5
   firebase_auth: ^4.17.6
   firebase_storage: ^11.6.7

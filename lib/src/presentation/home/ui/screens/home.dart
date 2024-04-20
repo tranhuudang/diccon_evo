@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -87,7 +89,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     28.height,
                     SizedBox(
-                      height: 36,
+                      height: 40,
                       child: ListView(
                           padding: const EdgeInsets.only(right: 18),
                           controller: scrollController,
@@ -101,7 +103,7 @@ class _HomeViewState extends State<HomeView> {
                                     curve: Curves.easeIn);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 8),
+                                padding: const EdgeInsets.only(right: 8, top: 8),
                                 child: Opacity(
                                   opacity: currentTabIndex ==
                                           tabTitleList.indexOf(title)

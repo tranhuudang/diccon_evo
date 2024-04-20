@@ -18,13 +18,11 @@ class UserSettingsView extends StatefulWidget {
 }
 
 class _UserSettingsViewState extends State<UserSettingsView> {
-
   @override
   Widget build(BuildContext context) {
     final userBloc = context.read<UserBloc>();
     userBloc.add(CheckIsSignedInEvent());
     final currentUser = FirebaseAuth.instance.currentUser;
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
@@ -137,8 +135,8 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                               ),
                               Row(
                                 children: [
-                                  const Text(
-                                    'User type: ',
+                                  Text(
+                                    'User type: '.i18n,
                                   ),
                                   Container(
                                     height: 24,
@@ -154,7 +152,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                             BorderRadius.circular(16)),
                                     child: Center(
                                       child: Text(
-                                        false ? "Premium" : "Free Try",
+                                        false ? "Premium" : "Free Try".i18n,
                                         style: TextStyle(
                                             color: context
                                                 .theme.colorScheme.onSecondary),
@@ -163,6 +161,11 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                   ),
                                 ],
                               ),
+                              8.height,
+                              Text(
+                                  'Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!'
+                                      .i18n),
+                              8.height,
                               Center(
                                 child: FilledButton(
                                     onPressed: () async {
@@ -174,10 +177,11 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                     },
                                     child: Text('Upgrade'.i18n)),
                               ),
-                              16.height,
+                              const Divider(),
                             ],
                           ),
                         ),
+                        8.height,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
