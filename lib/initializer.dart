@@ -32,7 +32,6 @@ class _Initializer {
     // OpenAI
     OpenAITimer.init();
     await OpenAIKeySelector.init();
-    // In-app Purchase
   }
   /// Initialize In-app Purchase
   static Future<void> _initializeInAppPurchase() async{

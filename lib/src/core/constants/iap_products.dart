@@ -1,4 +1,4 @@
 
 class IAPProducts {
-  static Set<String> productIds = {'stater_try', 'daily_use', 'life_time'};
+  static Set<String> productIds = {'starter_try', 'daily_use', 'life_time'};
 }

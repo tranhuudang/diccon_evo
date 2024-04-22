@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -20,6 +22,7 @@ class UserSettingsView extends StatefulWidget {
 class _UserSettingsViewState extends State<UserSettingsView> {
   @override
   Widget build(BuildContext context) {
+    var token = Tokens.token;
     final userBloc = context.read<UserBloc>();
     userBloc.add(CheckIsSignedInEvent());
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -119,8 +122,24 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                             children: [
                               Row(
                                 children: [
-                                  const Text(
-                                    'Tokens: 200',
+                                  Row(
+                                    children: [
+                                      const Text('Tokens: '),
+                                      FutureBuilder(
+                                          future: token,
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasData) {
+                                              return Text(
+                                                  snapshot.data.toString());
+                                            } else {
+                                              return const SizedBox(
+                                                  height: 20,
+                                                  width: 20,
+                                                  child:
+                                                      CircularProgressIndicator());
+                                            }
+                                          }),
+                                    ],
                                   ),
                                   IconButton(
                                       onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -73,7 +74,6 @@ class _HomeViewState extends State<HomeView> {
                     8.height,
                     const PlanButton(),
                     28.height,
-
                     /// TextField for user to enter their words
                     SearchBox(
                       prefixIcon: const Icon(Icons.search),

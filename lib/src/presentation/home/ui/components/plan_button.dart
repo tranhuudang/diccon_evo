@@ -21,7 +21,7 @@ class PlanButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(16)),
           child: Center(
             child: Text(
-              false ? "Premium" : "BETA",
+              false ? "Premium" : "BETA".i18n,
               style: TextStyle(color: context.theme.colorScheme.onSecondary),
             ),
           ),

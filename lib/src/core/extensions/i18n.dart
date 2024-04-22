@@ -576,10 +576,10 @@ extension Localization on Object {
       "vi_vi":"Nâng cấp lên các tính năng cao cấp của chúng tôi để trải nghiệm từ điển tốt hơn. Mở khóa công cụ và tài nguyên độc quyền để làm phong phú hành trình học ngôn ngữ của bạn ngay hôm nay!",
     },
 
-    // "":{
-    //   "en_us":"",
-    //   "vi_vi":"",
-    // },
+    "BETA":{
+      "en_us":"BETA",
+      "vi_vi":"Thử nghiệm",
+    },
     // "":{
     //   "en_us":"",
     //   "vi_vi":"",
