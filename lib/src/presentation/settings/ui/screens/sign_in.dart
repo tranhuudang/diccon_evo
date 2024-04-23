@@ -1,6 +1,8 @@
+import 'package:diccon_evo/src/core/exceptions/exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
@@ -143,9 +145,43 @@ class _SignInViewState extends State<SignInView> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Forgot Password?',
+                            onPressed: () {
+                              context.showAlertDialog(
+                                actionButtonTitle: 'Reset password'.i18n,
+                                title: 'Reset password'.i18n,
+                                content:
+                                    'We will send you a reset password link to your email. Kindly check both primary inbox and spams box.'
+                                        .i18n,
+                                action: () {
+                                  if (_emailController.text.isNotEmpty) {
+                                    FirebaseAuth.instance
+                                        .sendPasswordResetEmail(
+                                            email: _emailController.text)
+                                        .then(
+                                      (value) {
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                'An email is sent to your provided email.'
+                                                    .i18n);
+                                      },
+                                    ).catchError(
+                                      (e) {
+                                        final authStatus = AuthExceptionHandler
+                                            .handleAuthException(e);
+                                        final exceptionMessage =
+                                            AuthExceptionHandler
+                                                .generateErrorMessage(
+                                                    authStatus);
+                                        Fluttertoast.showToast(
+                                            msg: exceptionMessage);
+                                      },
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                            child: Text(
+                              'Forgot Password?'.i18n,
                             ),
                           )
                         ],
@@ -178,7 +214,8 @@ class _SignInViewState extends State<SignInView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const SignUpView()));
+                                        builder: (context) =>
+                                            const SignUpView()));
                               },
                               child: Text('Sign up'.i18n)),
                         ],

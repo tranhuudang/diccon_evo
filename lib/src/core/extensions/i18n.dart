@@ -554,6 +554,42 @@ extension Localization on Object {
 
     /// Settings
 
+    "Your email address appears to be malformed.":{
+      "en_us":"Your email address appears to be malformed.",
+      "vi_vi":"Địa chỉ email của bạn có vẻ không đúng cú pháp."
+    },
+    "Your password should be at least 6 characters.":{
+      "en_us":"Your password should be at least 6 characters.",
+      "vi_vi":"Mật khẩu của bạn phải có ít nhất 6 ký tự."
+    },
+    "Your email or password is wrong.":{
+      "en_us":"Your email or password is wrong.",
+      "vi_vi":"Email hoặc mật khẩu của bạn không đúng."
+    },
+    "The email address is already in use by another account.":{
+      "en_us":"The email address is already in use by another account.",
+      "vi_vi":"Địa chỉ email đã được sử dụng bởi tài khoản khác."
+    },
+    "An error occured. Please try again later.":{
+      "en_us":"An error occurred. Please try again later.",
+      "vi_vi":"Đã xảy ra lỗi. Vui lòng thử lại sau."
+    },
+    "An email is sent to your provided email.":{
+      "en_us":"An email is sent to your provided email.",
+      "vi_vi":"Một email đã được gửi đến địa chỉ email bạn cung cấp."
+    },
+    "Forgot Password?":{
+      "en_us":"Forgot Password?",
+      "vi_vi":"Quên mật khẩu?"
+    },
+    "We will send you a reset password link to your email. Kindly check both primary inbox and spams box.":{
+      "en_us":"We will send you a reset password link to your email. Kindly check both primary inbox and spams box.",
+      "vi_vi":"Chúng tôi sẽ gửi cho bạn một liên kết đặt lại mật khẩu đến email của bạn. Vui lòng kiểm tra cả hộp thư chính và hộp thư rác."
+    },
+    "Reset password":{
+      "en_us":"Reset password",
+      "vi_vi":"Đặt lại mật khẩu"
+    },
     "Free":{
       "en_us":"Free",
       "vi_vi":"Dùng thử",

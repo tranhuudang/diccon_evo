@@ -42,19 +42,22 @@ class Tokens {
 
   Future<int> _getToken() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
-    String premiumUserMD5 =
-        _composeMd5IdForFirebaseDbPremium(userEmail: currentUser!.email!);
-    final dataTrack =
-        FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
-    final documentSnapshot = await dataTrack.get();
+    if (currentUser != null) {
+      String premiumUserMD5 =
+          _composeMd5IdForFirebaseDbPremium(userEmail: currentUser.email!);
+      final dataTrack =
+          FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
+      final documentSnapshot = await dataTrack.get();
 
-    if (documentSnapshot.exists) {
-      var resultTokens = documentSnapshot.data()?["token"];
-      final result = int.parse(resultTokens);
-      return result;
-    } else {
-      return 0;
+      if (documentSnapshot.exists) {
+        var resultTokens = documentSnapshot.data()?["token"];
+        final result = int.parse(resultTokens);
+        return result;
+      } else {
+        return 0;
+      }
     }
+    return 0;
   }
 
   static Future<void> addTokenToNewUser() async {
