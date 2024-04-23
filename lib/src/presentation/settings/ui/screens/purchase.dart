@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
@@ -13,6 +15,49 @@ class InAppPurchaseView extends StatefulWidget {
 }
 
 class _InAppPurchaseViewState extends State<InAppPurchaseView> {
+
+  late StreamSubscription<List<PurchaseDetails>> _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    products = getProductsList();
+    final Stream<List<PurchaseDetails>> purchaseUpdated = InAppPurchase.instance.purchaseStream;
+    _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+
+      if (purchaseDetailsList.isNotEmpty){
+        print('Purchase Start:');
+        print(purchaseDetailsList.length);
+        purchaseDetailsList.forEach((element) {
+          print(element.status);
+          print(element.productID);});
+        print(purchaseDetailsList[0].status);
+        print(purchaseDetailsList[0].productID);
+        if (purchaseDetailsList[0].status == PurchaseStatus.purchased){
+          switch (purchaseDetailsList[0].productID){
+            case 'starter_try':
+              Tokens.addToken(withAdditionalValueOf: 200);
+            case 'daily_use':
+              Tokens.addToken(withAdditionalValueOf: 2000);
+            case 'life_time':
+              Tokens.addToken(withAdditionalValueOf: 50000);
+          }
+        }
+      }
+    }, onDone: () {
+      // Do nothing onDone as we're already canceling the subscription in dispose().
+    }, onError: (error) {
+      // Handle error here.
+    });
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel(); // Cancel subscription if it's not null.
+    super.dispose();
+  }
+
+
   late Future<List<ProductDetails>> products;
 
   Future<List<ProductDetails>> getProductsList() async {
@@ -25,15 +70,14 @@ class _InAppPurchaseViewState extends State<InAppPurchaseView> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    products = getProductsList();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Upgrade'.i18n)),
+      appBar: AppBar(title: Text('Upgrade'.i18n), actions: [
+        if (kDebugMode)
+        FilledButton(onPressed: (){
+          Tokens.addToken(withAdditionalValueOf: 500);
+        }, child: const Text('Add')),
+      ],),
       body: FutureBuilder(
           future: products,
           builder: (context, snapshot) {

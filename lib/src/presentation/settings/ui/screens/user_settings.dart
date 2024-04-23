@@ -115,91 +115,91 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                           currentUser?.email ?? '',
                         ),
                         16.height,
-                        SizedBox(
-                          width: 64.w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Row(
+                        FutureBuilder(
+                            future: token,
+                            builder: (context, tokenSnapshot) {
+                              if (tokenSnapshot.hasData) {
+                                return SizedBox(
+                                  width: 64.w,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Text('Tokens: '),
-                                      FutureBuilder(
-                                          future: token,
-                                          builder: (context, snapshot) {
-                                            if (snapshot.hasData) {
-                                              return Text(
-                                                  snapshot.data.toString());
-                                            } else {
-                                              return const SizedBox(
-                                                  height: 20,
-                                                  width: 20,
-                                                  child:
-                                                      CircularProgressIndicator());
-                                            }
-                                          }),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              'Tokens: ${tokenSnapshot.data.toString()}'),
+                                          IconButton(
+                                              onPressed: () {
+                                                context.showAlertDialogWithoutAction(
+                                                    title: 'Tokens'.i18n,
+                                                    content:
+                                                        'This tokens will be used on Conversation or other premium functions.'
+                                                            .i18n);
+                                              },
+                                              icon: const Icon(
+                                                  Icons.info_outline))
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'User type: '.i18n,
+                                          ),
+                                          Container(
+                                            height: 24,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                            decoration: BoxDecoration(
+                                                color: tokenSnapshot.data! > 200
+                                                    ? Colors.amber
+                                                    : context.theme.colorScheme
+                                                        .secondary
+                                                        .withOpacity(.5),
+                                                borderRadius:
+                                                    BorderRadius.circular(16)),
+                                            child: Center(
+                                              child: Text(
+                                                tokenSnapshot.data! > 200
+                                                    ? "Premium"
+                                                    : "Free Try".i18n,
+                                                style: TextStyle(
+                                                    color: context
+                                                        .theme
+                                                        .colorScheme
+                                                        .onSecondary),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      8.height,
+                                      Text(
+                                          'Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!'
+                                              .i18n),
+                                      8.height,
+                                      Center(
+                                        child: FilledButton(
+                                            onPressed: () async {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const InAppPurchaseView()));
+                                            },
+                                            child: Text('Upgrade'.i18n)),
+                                      ),
+                                      const Divider(),
                                     ],
                                   ),
-                                  IconButton(
-                                      onPressed: () {
-                                        context.showAlertDialogWithoutAction(
-                                            title: 'Tokens'.i18n,
-                                            content:
-                                                'This tokens will be used on Conversation or other premium functions.'
-                                                    .i18n);
-                                      },
-                                      icon: const Icon(Icons.info_outline))
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'User type: '.i18n,
-                                  ),
-                                  Container(
-                                    height: 24,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    decoration: BoxDecoration(
-                                        color: false
-                                            ? Colors.amber
-                                            : context
-                                                .theme.colorScheme.secondary
-                                                .withOpacity(.5),
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    child: Center(
-                                      child: Text(
-                                        false ? "Premium" : "Free Try".i18n,
-                                        style: TextStyle(
-                                            color: context
-                                                .theme.colorScheme.onSecondary),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              8.height,
-                              Text(
-                                  'Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!'
-                                      .i18n),
-                              8.height,
-                              Center(
-                                child: FilledButton(
-                                    onPressed: () async {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const InAppPurchaseView()));
-                                    },
-                                    child: Text('Upgrade'.i18n)),
-                              ),
-                              const Divider(),
-                            ],
-                          ),
-                        ),
+                                );
+                              } else {
+                                return const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: CircularProgressIndicator());
+                              }
+                            }),
                         8.height,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -10,18 +10,21 @@ class Tokens {
   Tokens._();
   static final Tokens _instance = Tokens._();
 
-  int _tokens = -1;
+  int _tokens = 0;
 
   static Future<int> get token async {
-    if (_instance._tokens == -1) {
-      await _instance._getToken();
-    }
+    _instance._tokens = await _instance._getToken();
     return _instance._tokens;
   }
 
   static setToken({required int toValue}) async {
     _instance._tokens = toValue;
     await _instance._setToken(toValue);
+  }
+
+  static addToken({required int withAdditionalValueOf}) async {
+    await _instance._addToken(withAdditionalValueOf);
+    _instance._tokens = await _instance._getToken();
   }
 
   String _composeMd5IdForFirebaseDbPremium({required String userEmail}) {
@@ -38,15 +41,15 @@ class Tokens {
         _composeMd5IdForFirebaseDbPremium(userEmail: currentUser!.email!);
     final dataTrack =
         FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
-    await dataTrack.get().then((snapshot) {
-      if (snapshot.exists) {
-        _tokens = snapshot.data()?["token"];
-        print('hihihihi');
-        print(_tokens);
-        return _tokens.toInt();
-      }
-    });
-    return -1;
+    final documentSnapshot = await dataTrack.get();
+
+    if (documentSnapshot.exists) {
+      var resultTokens = documentSnapshot.data()?["token"];
+      final result = int.parse(resultTokens);
+      return result;
+    } else {
+      return 0;
+    }
   }
 
   Future<void> _setToken(int token) async {
@@ -60,5 +63,11 @@ class Tokens {
       'token': token.toString(),
     };
     await dataTrack.set(tokenData);
+  }
+
+  Future<void> _addToken(int additionalValue) async {
+    var currentToken = await _getToken();
+    var newTokenValue = currentToken + additionalValue;
+    _setToken(newTokenValue);
   }
 }
