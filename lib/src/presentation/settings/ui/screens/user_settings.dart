@@ -1,15 +1,11 @@
-import 'dart:async';
 
 import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:wave_divider/wave_divider.dart';
 
 class UserSettingsView extends StatefulWidget {

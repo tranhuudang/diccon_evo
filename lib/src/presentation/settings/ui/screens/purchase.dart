@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
-import 'package:diccon_evo/src/domain/domain.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -28,9 +27,9 @@ class _InAppPurchaseViewState extends State<InAppPurchaseView> {
       if (purchaseDetailsList.isNotEmpty){
         print('Purchase Start:');
         print(purchaseDetailsList.length);
-        purchaseDetailsList.forEach((element) {
+        for (var element in purchaseDetailsList) {
           print(element.status);
-          print(element.productID);});
+          print(element.productID);}
         print(purchaseDetailsList[0].status);
         print(purchaseDetailsList[0].productID);
         if (purchaseDetailsList[0].status == PurchaseStatus.purchased){
@@ -53,7 +52,7 @@ class _InAppPurchaseViewState extends State<InAppPurchaseView> {
 
   @override
   void dispose() {
-    _subscription?.cancel(); // Cancel subscription if it's not null.
+    _subscription.cancel(); // Cancel subscription if it's not null.
     super.dispose();
   }
 

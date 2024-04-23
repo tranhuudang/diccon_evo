@@ -2,7 +2,6 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class PlanButton extends StatelessWidget {
@@ -21,7 +20,7 @@ class PlanButton extends StatelessWidget {
               if (tokenSnapshot.hasData) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => InAppPurchaseView()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const InAppPurchaseView()));
                   },
                   child: Container(
                   height: 24,

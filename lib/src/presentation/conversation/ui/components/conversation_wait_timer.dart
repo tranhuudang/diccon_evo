@@ -6,7 +6,7 @@ import 'package:wave_divider/wave_divider.dart';
 class WaitTimerWidget extends StatefulWidget {
   final int initialNumber;
 
-  WaitTimerWidget({required this.initialNumber});
+  const WaitTimerWidget({super.key, required this.initialNumber});
 
   @override
   _WaitTimerWidgetState createState() => _WaitTimerWidgetState();

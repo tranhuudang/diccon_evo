@@ -33,7 +33,7 @@ class ConversationView extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => InAppPurchaseView()));
+                              builder: (context) => const InAppPurchaseView()));
                     });
               }
             },
