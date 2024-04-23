@@ -25,16 +25,22 @@ class ConversationView extends StatelessWidget {
             listener: (BuildContext context, ConversationState state) {
               if (state is NotHaveEnoughToken) {
                 context.showAlertDialog(
-                    actionButtonTitle: 'Upgrade'.i18n,
-                    title: 'You have no tokens left',
-                    content:
-                        'Please consider purchase more to continue sending messages.',
-                    action: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InAppPurchaseView()));
-                    });
+                  actionButtonTitle: 'Upgrade'.i18n,
+                  title: 'You have no tokens left',
+                  content:
+                      'Please consider purchase more to continue sending messages.',
+                  action: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InAppPurchaseView()));
+                  },
+                );
+              }
+              if (state is RequiredLogIn) {
+                context.showAlertDialogWithoutAction(
+                    title: 'Login is required'.i18n,
+                    content: 'You need to login to use this function.'.i18n);
               }
             },
             builder: (context, state) {

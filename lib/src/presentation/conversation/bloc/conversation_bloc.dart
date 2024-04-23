@@ -3,6 +3,7 @@ import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/src/core/utils/open_ai_timer.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:diccon_evo/src/presentation/conversation/ui/components/conversation_wait_timer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -34,6 +35,7 @@ abstract class ConversationState {}
 abstract class ConversationActionState extends ConversationState {}
 
  class NotHaveEnoughToken extends ConversationActionState {}
+ class RequiredLogIn extends ConversationActionState {}
 
 class ConversationInitial extends ConversationState {
   List<Widget> conversation;
@@ -115,24 +117,29 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     } else {
       /// Process and return reply
       // Check if the amount of token is efficient to make the request
-      final numberOfTokenLeft = await Tokens.token;
-      if (numberOfTokenLeft > 0) {
-        final question = event.providedWord;
-        // create gpt request
-        var request =
-        await _chatGptRepository.createMultipleQuestionRequest(question);
-        _chatStreamResponse(request);
-        listConversations.insert(
-            0,
-            const ConversationMachineBubble(
-              content: "",
-            ));
-        emit(ConversationUpdated(
-            conversation: listConversations, isResponding: true));
-        Tokens.reduceToken(byValueOf: 1);
+      if (FirebaseAuth.instance.currentUser != null) {
+        final numberOfTokenLeft = await Tokens.token;
+        if (numberOfTokenLeft > 0) {
+          final question = event.providedWord;
+          // create gpt request
+          var request =
+          await _chatGptRepository.createMultipleQuestionRequest(question);
+          _chatStreamResponse(request);
+          listConversations.insert(
+              0,
+              const ConversationMachineBubble(
+                content: "",
+              ));
+          emit(ConversationUpdated(
+              conversation: listConversations, isResponding: true));
+          Tokens.reduceToken(byValueOf: 1);
+        }
+        else {
+          emit(NotHaveEnoughToken());
+        }
       }
       else {
-        emit(NotHaveEnoughToken());
+        emit(RequiredLogIn());
       }
     }
   }

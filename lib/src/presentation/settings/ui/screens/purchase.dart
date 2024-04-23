@@ -14,26 +14,18 @@ class InAppPurchaseView extends StatefulWidget {
 }
 
 class _InAppPurchaseViewState extends State<InAppPurchaseView> {
-
   late StreamSubscription<List<PurchaseDetails>> _subscription;
 
   @override
   void initState() {
     super.initState();
     products = getProductsList();
-    final Stream<List<PurchaseDetails>> purchaseUpdated = InAppPurchase.instance.purchaseStream;
+    final Stream<List<PurchaseDetails>> purchaseUpdated =
+        InAppPurchase.instance.purchaseStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
-
-      if (purchaseDetailsList.isNotEmpty){
-        print('Purchase Start:');
-        print(purchaseDetailsList.length);
-        for (var element in purchaseDetailsList) {
-          print(element.status);
-          print(element.productID);}
-        print(purchaseDetailsList[0].status);
-        print(purchaseDetailsList[0].productID);
-        if (purchaseDetailsList[0].status == PurchaseStatus.purchased){
-          switch (purchaseDetailsList[0].productID){
+      if (purchaseDetailsList.isNotEmpty) {
+        if (purchaseDetailsList[0].status == PurchaseStatus.purchased) {
+          switch (purchaseDetailsList[0].productID) {
             case 'starter_try':
               Tokens.addToken(withAdditionalValueOf: 200);
             case 'daily_use':
@@ -56,7 +48,6 @@ class _InAppPurchaseViewState extends State<InAppPurchaseView> {
     super.dispose();
   }
 
-
   late Future<List<ProductDetails>> products;
 
   Future<List<ProductDetails>> getProductsList() async {
@@ -71,12 +62,17 @@ class _InAppPurchaseViewState extends State<InAppPurchaseView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Upgrade'.i18n), actions: [
-        if (kDebugMode)
-        FilledButton(onPressed: (){
-          Tokens.addToken(withAdditionalValueOf: 500);
-        }, child: const Text('Add')),
-      ],),
+      appBar: AppBar(
+        title: Text('Upgrade'.i18n),
+        actions: [
+          if (kDebugMode)
+            FilledButton(
+                onPressed: () {
+                  Tokens.addToken(withAdditionalValueOf: 500);
+                },
+                child: const Text('Add')),
+        ],
+      ),
       body: FutureBuilder(
           future: products,
           builder: (context, snapshot) {
@@ -85,9 +81,11 @@ class _InAppPurchaseViewState extends State<InAppPurchaseView> {
                 return const Center(child: CircularProgressIndicator());
               default:
                 if (snapshot.hasError) {
-                  return Text("Product list is not available now, try again later.".i18n);
+                  return Text(
+                      "Product list is not available now, try again later."
+                          .i18n);
                 } else {
-                  snapshot.data?.sort((a,b) => a.price.compareTo(b.price));
+                  snapshot.data?.sort((a, b) => a.price.compareTo(b.price));
                   return ListView.builder(
                       itemCount: snapshot.data?.length,
                       itemBuilder: (context, index) {

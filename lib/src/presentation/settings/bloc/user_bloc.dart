@@ -135,7 +135,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     /// Logout Auth services
     AuthService authService = AuthService();
     authService.googleSignOut();
-
+    FirebaseAuth.instance.currentUser?.delete();
     /// Remove local file
     await FileHandler(LocalDirectory.wordHistoryFileName)
         .deleteOnUserData();

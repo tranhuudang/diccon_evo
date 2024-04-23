@@ -1,4 +1,4 @@
 class NumberConstants{
-  static const int appVersion = 621;
+  static const int appVersion = 630;
   static int maximumLengthForTextToSpeech = 4096;
 }

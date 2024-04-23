@@ -554,67 +554,82 @@ extension Localization on Object {
 
     /// Settings
 
-    "Your email address appears to be malformed.":{
-      "en_us":"Your email address appears to be malformed.",
-      "vi_vi":"Địa chỉ email của bạn có vẻ không đúng cú pháp."
+    "Your email address appears to be malformed.": {
+      "en_us": "Your email address appears to be malformed.",
+      "vi_vi": "Địa chỉ email của bạn có vẻ không đúng cú pháp."
     },
-    "Your password should be at least 6 characters.":{
-      "en_us":"Your password should be at least 6 characters.",
-      "vi_vi":"Mật khẩu của bạn phải có ít nhất 6 ký tự."
+    "Your password should be at least 6 characters.": {
+      "en_us": "Your password should be at least 6 characters.",
+      "vi_vi": "Mật khẩu của bạn phải có ít nhất 6 ký tự."
     },
-    "Your email or password is wrong.":{
-      "en_us":"Your email or password is wrong.",
-      "vi_vi":"Email hoặc mật khẩu của bạn không đúng."
+    "Your email or password is wrong.": {
+      "en_us": "Your email or password is wrong.",
+      "vi_vi": "Email hoặc mật khẩu của bạn không đúng."
     },
-    "The email address is already in use by another account.":{
-      "en_us":"The email address is already in use by another account.",
-      "vi_vi":"Địa chỉ email đã được sử dụng bởi tài khoản khác."
+    "The email address is already in use by another account.": {
+      "en_us": "The email address is already in use by another account.",
+      "vi_vi": "Địa chỉ email đã được sử dụng bởi tài khoản khác."
     },
-    "An error occured. Please try again later.":{
-      "en_us":"An error occurred. Please try again later.",
-      "vi_vi":"Đã xảy ra lỗi. Vui lòng thử lại sau."
+    "An error occured. Please try again later.": {
+      "en_us": "An error occurred. Please try again later.",
+      "vi_vi": "Đã xảy ra lỗi. Vui lòng thử lại sau."
     },
-    "An email is sent to your provided email.":{
-      "en_us":"An email is sent to your provided email.",
-      "vi_vi":"Một email đã được gửi đến địa chỉ email bạn cung cấp."
+    "An email is sent to your provided email.": {
+      "en_us": "An email is sent to your provided email.",
+      "vi_vi": "Một email đã được gửi đến địa chỉ email bạn cung cấp."
     },
-    "Forgot Password?":{
-      "en_us":"Forgot Password?",
-      "vi_vi":"Quên mật khẩu?"
+    "Forgot Password?": {
+      "en_us": "Forgot Password?",
+      "vi_vi": "Quên mật khẩu?"
     },
-    "We will send you a reset password link to your email. Kindly check both primary inbox and spams box.":{
-      "en_us":"We will send you a reset password link to your email. Kindly check both primary inbox and spams box.",
-      "vi_vi":"Chúng tôi sẽ gửi cho bạn một liên kết đặt lại mật khẩu đến email của bạn. Vui lòng kiểm tra cả hộp thư chính và hộp thư rác."
+    "We will send you a reset password link to your email. Kindly check both primary inbox and spams box.":
+        {
+      "en_us":
+          "We will send you a reset password link to your email. Kindly check both primary inbox and spams box.",
+      "vi_vi":
+          "Chúng tôi sẽ gửi cho bạn một liên kết đặt lại mật khẩu đến email của bạn. Vui lòng kiểm tra cả hộp thư chính và hộp thư rác."
     },
-    "Reset password":{
-      "en_us":"Reset password",
-      "vi_vi":"Đặt lại mật khẩu"
+    "Reset password": {"en_us": "Reset password", "vi_vi": "Đặt lại mật khẩu"},
+
+    "Login is required": {
+      "en_us": "Login is required",
+      "vi_vi": "Bạn cần đăng nhập",
     },
-    "Free":{
-      "en_us":"Free",
-      "vi_vi":"Dùng thử",
+    "You need to login to use this function.": {
+      "en_us": "You need to login to use this function.",
+      "vi_vi": "Tính năng này của ứng dụng cần bạn phải đăng nhập.",
     },
 
-    "Upgrade":{
-      "en_us":"Upgrade",
-      "vi_vi":"Nâng cấp",
-    },
-    "This tokens will be used on Conversation or other premium functions.":{
-      "en_us":"This tokens will be used on Conversation or other premium functions.",
-      "vi_vi":"Các token này sẽ được sử dụng trong các chức năng Trò chuyện hoặc các chức năng cao cấp khác.",
-    },
-    "User type: ":{
-      "en_us":"User type: ",
-      "vi_vi":"Gói tài khoản: ",
-    },
-    "Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!":{
-      "en_us":"Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!",
-      "vi_vi":"Nâng cấp lên các tính năng cao cấp của chúng tôi để trải nghiệm từ điển tốt hơn. Mở khóa công cụ và tài nguyên độc quyền để làm phong phú hành trình học ngôn ngữ của bạn ngay hôm nay!",
+    "Free": {
+      "en_us": "Free",
+      "vi_vi": "Dùng thử",
     },
 
-    "BETA":{
-      "en_us":"BETA",
-      "vi_vi":"Thử nghiệm",
+    "Upgrade": {
+      "en_us": "Upgrade",
+      "vi_vi": "Nâng cấp",
+    },
+    "This tokens will be used on Conversation or other premium functions.": {
+      "en_us":
+          "This tokens will be used on Conversation or other premium functions.",
+      "vi_vi":
+          "Các token này sẽ được sử dụng trong các chức năng Trò chuyện hoặc các chức năng cao cấp khác.",
+    },
+    "User type: ": {
+      "en_us": "User type: ",
+      "vi_vi": "Gói tài khoản: ",
+    },
+    "Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!":
+        {
+      "en_us":
+          "Upgrade to our premium features for an enhanced dictionary experience. Unlock exclusive tools and resources to enrich your language journey today!",
+      "vi_vi":
+          "Nâng cấp lên các tính năng cao cấp của chúng tôi để trải nghiệm từ điển tốt hơn. Mở khóa công cụ và tài nguyên độc quyền để làm phong phú hành trình học ngôn ngữ của bạn ngay hôm nay!",
+    },
+
+    "BETA": {
+      "en_us": "BETA",
+      "vi_vi": "Thử nghiệm",
     },
     // "":{
     //   "en_us":"",
@@ -624,7 +639,6 @@ extension Localization on Object {
     //   "en_us":"",
     //   "vi_vi":"",
     // },
-
 
     "Maximum Choices Reached": {
       "en_us": "Maximum Choices Reached",

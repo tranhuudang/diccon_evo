@@ -21,7 +21,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
     var token = Tokens.token;
     final userBloc = context.read<UserBloc>();
     userBloc.add(CheckIsSignedInEvent());
-    final currentUser = FirebaseAuth.instance.currentUser;
+    var currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
