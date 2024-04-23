@@ -1,4 +1,5 @@
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
@@ -21,7 +22,21 @@ class ConversationView extends StatelessWidget {
                 current is! ConversationActionState,
             listenWhen: (previous, current) =>
                 current is ConversationActionState,
-            listener: (BuildContext context, ConversationState state) {},
+            listener: (BuildContext context, ConversationState state) {
+              if (state is NotHaveEnoughToken) {
+                context.showAlertDialog(
+                    actionButtonTitle: 'Upgrade'.i18n,
+                    title: 'You have no tokens left',
+                    content:
+                        'Please consider purchase more to continue sending messages.',
+                    action: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InAppPurchaseView()));
+                    });
+              }
+            },
             builder: (context, state) {
               {
                 switch (state) {

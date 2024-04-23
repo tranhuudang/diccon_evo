@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,6 +116,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (isInternetConnected) {
         AuthService authService = AuthService();
         await authService.googleSignIn();
+        await Tokens.addTokenToNewUser();
         emit(UserLoginState(isSyncing: false));
         emit(UserLoggedInSuccessfulState());
         // Sync user data right after log in successful

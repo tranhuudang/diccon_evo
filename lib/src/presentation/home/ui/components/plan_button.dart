@@ -27,13 +27,13 @@ class PlanButton extends StatelessWidget {
                   height: 24,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
-                      color: tokenSnapshot.data! > 200
+                      color: tokenSnapshot.data! > 100
                           ? Colors.amber
                           : context.theme.colorScheme.secondary.withOpacity(.5),
                       borderRadius: BorderRadius.circular(16)),
                   child: Center(
                     child: Text(
-                      tokenSnapshot.data! > 200 ? "Premium" : "Free".i18n,
+                      tokenSnapshot.data! > 100 ? "Premium" : "Free".i18n,
                       style:
                           TextStyle(color: context.theme.colorScheme.onSecondary),
                     ),

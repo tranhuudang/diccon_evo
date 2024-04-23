@@ -1,7 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
-
 extension BuildContextExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
   Size get screenSize => MediaQuery.sizeOf(this);
@@ -11,6 +10,7 @@ extension BuildContextExtension on BuildContext {
   void showAlertDialog(
       {required String title,
       required String content,
+      String actionButtonTitle = 'OK',
       required VoidCallback action}) {
     showDialog(
       context: this,
@@ -24,7 +24,7 @@ extension BuildContextExtension on BuildContext {
                 action();
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: Text(actionButtonTitle),
             ),
             TextButton(
               onPressed: () {

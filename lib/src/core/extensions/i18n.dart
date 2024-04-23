@@ -554,8 +554,8 @@ extension Localization on Object {
 
     /// Settings
 
-    "Free Try":{
-      "en_us":"Free Try",
+    "Free":{
+      "en_us":"Free",
       "vi_vi":"Dùng thử",
     },
 

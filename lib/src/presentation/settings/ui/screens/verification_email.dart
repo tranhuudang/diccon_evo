@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class _VerificationEmailViewState extends State<VerificationEmailView> {
             if (kDebugMode) {
               print('Email is verified.');
             }
+            await Tokens.addTokenToNewUser();
             timer.cancel();
             context.pushNamed(RouterConstants.home);
           }

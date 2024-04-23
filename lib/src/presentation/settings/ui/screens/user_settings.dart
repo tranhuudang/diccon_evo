@@ -151,7 +151,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8),
                                             decoration: BoxDecoration(
-                                                color: tokenSnapshot.data! > 200
+                                                color: tokenSnapshot.data! > 100
                                                     ? Colors.amber
                                                     : context.theme.colorScheme
                                                         .secondary
@@ -160,9 +160,9 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                                     BorderRadius.circular(16)),
                                             child: Center(
                                               child: Text(
-                                                tokenSnapshot.data! > 200
+                                                tokenSnapshot.data! > 100
                                                     ? "Premium"
-                                                    : "Free Try".i18n,
+                                                    : "Free".i18n,
                                                 style: TextStyle(
                                                     color: context
                                                         .theme
