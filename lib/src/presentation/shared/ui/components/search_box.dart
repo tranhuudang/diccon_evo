@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:unicons/unicons.dart';
 
@@ -9,9 +10,10 @@ class SearchBox extends StatefulWidget {
   final Function(String)? onChanged;
   final bool? enabled;
   final String? hintText;
-
+  final VoidCallback? onTextFieldTap;
   final TextEditingController? searchTextController;
   final bool? enableCamera;
+  final bool autofocus;
 
   final Icon? prefixIcon;
   const SearchBox(
@@ -22,7 +24,9 @@ class SearchBox extends StatefulWidget {
       this.hintText,
       this.prefixIcon,
       this.enableCamera = true,
-      this.searchTextController});
+      this.searchTextController,
+      this.onTextFieldTap,
+      this.autofocus = false});
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
@@ -53,36 +57,44 @@ class _SearchBoxState extends State<SearchBox> {
         return Stack(
           children: [
             /// Input box
-            TextField(
-              enabled: widget.enabled,
-              controller:
-                  widget.searchTextController ?? _defaultSearchTextController,
-              onChanged: (currentValue) {
-                widget.onChanged != null
-                    ? widget.onChanged!(currentValue)
-                    : null;
-                // Whether to show close button or not
-                if (currentValue == "") {
+            GestureDetector(
+              onTap: widget.onTextFieldTap,
+              child: TextField(
+                autofocus: widget.autofocus,
+                enabled: widget.enabled,
+                controller:
+                    widget.searchTextController ?? _defaultSearchTextController,
+                onChanged: (currentValue) {
+                  widget.onChanged != null
+                      ? widget.onChanged!(currentValue)
+                      : null;
+                  // Whether to show close button or not
+                  if (currentValue == "") {
+                    _closeTextFieldController.add(false);
+                  } else {
+                    _closeTextFieldController.add(true);
+                  }
+                },
+                onSubmitted: (String enteredString) {
+                  widget.onSubmitted(enteredString);
+                  // Remove text in textfield
+                  _defaultSearchTextController.clear();
+                  if (widget.searchTextController != null) {
+                    widget.searchTextController!.clear();
+                  }
                   _closeTextFieldController.add(false);
-                } else {
-                  _closeTextFieldController.add(true);
-                }
-              },
-              onSubmitted: (String enteredString) {
-                widget.onSubmitted(enteredString);
-                // Remove text in textfield
-                _defaultSearchTextController.clear();
-                if (widget.searchTextController != null) {
-                  widget.searchTextController!.clear();
-                }
-                _closeTextFieldController.add(false);
-              },
-              decoration: InputDecoration(
-                prefixIcon: widget.prefixIcon,
-                contentPadding: const EdgeInsets.only(left: 16, right: 50),
-                hintText: widget.hintText,
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32)),
+                },
+                decoration: InputDecoration(
+                  prefixIcon: widget.prefixIcon,
+                  contentPadding: const EdgeInsets.only(left: 16, right: 50),
+                  hintText: widget.hintText,
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                  ),
+                  disabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                  ),
                 ),
               ),
             ),

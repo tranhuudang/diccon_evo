@@ -108,7 +108,9 @@ class _DictionaryViewState extends State<DictionaryView> {
     final settingBloc = context.read<SettingBloc>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dictionary".i18n,),
+        title: Text(
+          "Dictionary".i18n,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.history),
@@ -286,6 +288,7 @@ class _DictionaryViewState extends State<DictionaryView> {
           const DictionaryBottomMenu(),
           Expanded(
             child: SearchBox(
+              autofocus: true,
               searchTextController: chatListBloc.textController,
               hintText: "Send a message".i18n,
               onSubmitted: (providedWord) {

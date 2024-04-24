@@ -16,12 +16,7 @@ class _HomeViewState extends State<HomeView> {
 
   int currentTabIndex = 0;
   int titleTabIndex = 0;
-  List<String> tabTitleList = [
-    'Dictionary',
-    'Stories',
-    'Conversation',
-    'Practice'
-  ];
+  List<String> tabTitleList = ['Stories', 'Conversation', 'Practice'];
   final tabController = PageController();
   final scrollController = ScrollController();
 
@@ -71,18 +66,20 @@ class _HomeViewState extends State<HomeView> {
                     8.height,
                     const PlanButton(),
                     28.height,
+
                     /// TextField for user to enter their words
                     SearchBox(
+                      enabled: false,
                       prefixIcon: const Icon(Icons.search),
                       hintText: "Search in dictionary".i18n,
-                      onSubmitted: (enteredString) {
+                      onTextFieldTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DictionaryView(
-                                    word: enteredString,
-                                    buildContext: context)));
+                                    word: '', buildContext: context)));
                       },
+                      onSubmitted: (enteredString) {},
                     ),
                     28.height,
                     SizedBox(
@@ -100,7 +97,8 @@ class _HomeViewState extends State<HomeView> {
                                     curve: Curves.easeIn);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 8, top: 8),
+                                padding:
+                                    const EdgeInsets.only(right: 8, top: 8),
                                 child: Opacity(
                                   opacity: currentTabIndex ==
                                           tabTitleList.indexOf(title)
@@ -149,13 +147,6 @@ class _HomeViewState extends State<HomeView> {
                           },
                           controller: tabController,
                           children: [
-                            InkWell(
-                              highlightColor: Colors.transparent,
-                              child: const DictionaryTab(),
-                              onTap: () {
-                                context.pushNamed(RouterConstants.dictionary);
-                              },
-                            ),
                             InkWell(
                               highlightColor: Colors.transparent,
                               child: const StoriesTab(),
