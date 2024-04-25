@@ -3,6 +3,8 @@ import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wave_divider/wave_divider.dart';
@@ -112,6 +114,52 @@ class _VietnameseToEnglishCombineBubbleState
                                     16.width,
                                     PlaybackButton(
                                       message: widget.wordForChatBot.trim(),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        String translatedBotAnswer = widget
+                                            .listChatGptRepository[widget.index]
+                                            .singleQuestionAnswer
+                                            .answer
+                                            .toString();
+                                        String? translatedLocal = widget
+                                            .wordObjectForLocal.definition;
+                                        if (Properties.instance.settings
+                                            .translationChoice
+                                            .toTranslationChoice() ==
+                                            TranslationChoices.explain) {
+                                          if (listResponseController.page ==
+                                              0.0) {
+                                            Clipboard.setData(ClipboardData(
+                                                text: translatedBotAnswer));
+                                          } else {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                  text: translatedLocal ?? ''),
+                                            );
+                                          }
+                                        } else {
+                                          if (listResponseController.page ==
+                                              0.0) {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                  text: translatedLocal ?? ''),
+                                            );
+                                          } else {
+                                            Clipboard.setData(ClipboardData(
+                                                text: translatedBotAnswer));
+                                          }
+                                        }
+
+                                        Fluttertoast.showToast(
+                                            msg: 'Copied to clipboard'.i18n);
+                                      },
+                                      icon: Icon(
+                                        Icons.copy,
+                                        color: context
+                                            .theme.colorScheme.onSecondary,
+                                        size: 16,
+                                      ),
                                     ),
                                     const Spacer(),
                                     IconButton(

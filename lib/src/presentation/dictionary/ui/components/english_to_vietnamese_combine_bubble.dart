@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
@@ -113,9 +115,56 @@ class _EnglishToVietnameseCombineBubbleState
                                     PlaybackButton(
                                       message: widget.wordForChatBot.trim(),
                                     ),
+                                    IconButton(
+                                      onPressed: () {
+                                        String translatedBotAnswer = widget
+                                            .listChatGptRepository[widget.index]
+                                            .singleQuestionAnswer
+                                            .answer
+                                            .toString();
+                                        String? translatedLocal = widget
+                                            .wordObjectForLocal.definition;
+                                        if (Properties.instance.settings
+                                                .translationChoice
+                                                .toTranslationChoice() ==
+                                            TranslationChoices.explain) {
+                                          if (listResponseController.page ==
+                                              0.0) {
+                                            Clipboard.setData(ClipboardData(
+                                                text: translatedBotAnswer));
+                                          } else {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                  text: translatedLocal ?? ''),
+                                            );
+                                          }
+                                        } else {
+                                          if (listResponseController.page ==
+                                              0.0) {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                  text: translatedLocal ?? ''),
+                                            );
+                                          } else {
+                                            Clipboard.setData(ClipboardData(
+                                                text: translatedBotAnswer));
+                                          }
+                                        }
+
+                                        Fluttertoast.showToast(
+                                            msg: 'Copied to clipboard'.i18n);
+                                      },
+                                      icon: Icon(
+                                        Icons.copy,
+                                        color: context
+                                            .theme.colorScheme.onSecondary,
+                                        size: 16,
+                                      ),
+                                    ),
                                     const Spacer(),
                                     IconButton(
                                         onPressed: () {
+                                          print(listResponseController.page);
                                           listResponseController.previousPage(
                                               duration: const Duration(
                                                   milliseconds: 200),
@@ -129,6 +178,8 @@ class _EnglishToVietnameseCombineBubbleState
                                     8.width,
                                     IconButton(
                                         onPressed: () {
+                                          print(listResponseController.page);
+
                                           listResponseController.nextPage(
                                               duration: const Duration(
                                                   milliseconds: 200),

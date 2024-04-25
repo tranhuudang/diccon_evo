@@ -210,17 +210,17 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                   child: Row(
                     children: [
                       IconButton(
-                          icon: const Icon(Icons.info_outline),
+                          icon: const Icon(Icons.settings),
                           onPressed: () {
-                            context.pushNamed(RouterConstants.infos);
+                            context.pushNamed(RouterConstants.commonSettings);
                           }),
                       if (_isTabletExpanded) ...[
                         16.width,
                         Text(
-                          'About'.i18n,
+                          'Settings'.i18n,
                           style: context.theme.textTheme.titleSmall,
                         )
-                      ],
+                      ]
                     ],
                   ),
                 ),
@@ -234,17 +234,17 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                   child: Row(
                     children: [
                       IconButton(
-                          icon: const Icon(Icons.settings),
+                          icon: const Icon(Icons.info_outline),
                           onPressed: () {
-                            context.pushNamed(RouterConstants.commonSettings);
+                            context.pushNamed(RouterConstants.infos);
                           }),
                       if (_isTabletExpanded) ...[
                         16.width,
                         Text(
-                          'Settings'.i18n,
+                          'About'.i18n,
                           style: context.theme.textTheme.titleSmall,
                         )
-                      ]
+                      ],
                     ],
                   ),
                 ),
@@ -272,30 +272,6 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                   child: Row(
                     children: [
                       IconButton(
-                          icon: const Icon(Icons.info_outline),
-                          onPressed: () {
-                            context.pushNamed(RouterConstants.infos);
-                          }),
-                      if (_isDesktopExpanded) ...[
-                        16.width,
-                        Text(
-                          'About'.i18n,
-                          style: context.theme.textTheme.titleSmall,
-                        )
-                      ],
-                    ],
-                  ),
-                ),
-                SizedBox(
-                    width: _isDesktopExpanded ? 238 : 50,
-                    child: const WaveDivider(
-                      thickness: .3,
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(left: _isDesktopExpanded ? 20 : 4),
-                  child: Row(
-                    children: [
-                      IconButton(
                           icon: const Icon(Icons.settings),
                           onPressed: () {
                             context.pushNamed(RouterConstants.commonSettings);
@@ -307,6 +283,31 @@ class _NavigationSwitchViewState extends State<NavigationSwitchView>
                           style: context.theme.textTheme.titleSmall,
                         )
                       ]
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: _isDesktopExpanded ? 238 : 50,
+                  child: const WaveDivider(
+                    thickness: .3,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: _isDesktopExpanded ? 20 : 4),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          icon: const Icon(Icons.info_outline),
+                          onPressed: () {
+                            context.pushNamed(RouterConstants.infos);
+                          }),
+                      if (_isDesktopExpanded) ...[
+                        16.width,
+                        Text(
+                          'About'.i18n,
+                          style: context.theme.textTheme.titleSmall,
+                        )
+                      ],
                     ],
                   ),
                 ),
