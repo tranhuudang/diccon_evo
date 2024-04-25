@@ -8,14 +8,14 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:wave_divider/wave_divider.dart';
 
-class UserSettingsView extends StatefulWidget {
-  const UserSettingsView({super.key});
+class MobileUserSettingsView extends StatefulWidget {
+  const MobileUserSettingsView({super.key});
 
   @override
-  State<UserSettingsView> createState() => _UserSettingsViewState();
+  State<MobileUserSettingsView> createState() => _MobileUserSettingsViewState();
 }
 
-class _UserSettingsViewState extends State<UserSettingsView> {
+class _MobileUserSettingsViewState extends State<MobileUserSettingsView> {
   @override
   Widget build(BuildContext context) {
     var token = Tokens.token;

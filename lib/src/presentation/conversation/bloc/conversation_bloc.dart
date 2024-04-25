@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/src/core/utils/open_ai_timer.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
@@ -117,7 +118,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     } else {
       /// Process and return reply
       // Check if the amount of token is efficient to make the request
-      if (FirebaseAuth.instance.currentUser != null) {
+      if (FirebaseAuth.instance.currentUser != null || Platform.isWindows) {
         final numberOfTokenLeft = await Tokens.token;
         if (numberOfTokenLeft > 0) {
           final question = event.providedWord;

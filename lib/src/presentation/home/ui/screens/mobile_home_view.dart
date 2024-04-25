@@ -4,14 +4,14 @@ import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class MobileHomeView extends StatefulWidget {
+  const MobileHomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<MobileHomeView> createState() => _MobileHomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _MobileHomeViewState extends State<MobileHomeView> {
   DateTime _backPressedTime = DateTime.now();
 
   int currentTabIndex = 0;

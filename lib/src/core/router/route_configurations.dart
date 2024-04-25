@@ -17,7 +17,7 @@ GoRouter routerConfig = GoRouter(
         path: '/home',
         //path: '/',
         pageBuilder: (context, state) {
-          return MaterialPage(child: I18n(child: const HomeView()));
+          return MaterialPage(child: I18n(child: const MobileHomeView()));
         },
         routes: [
           // Settings
@@ -46,10 +46,10 @@ GoRouter routerConfig = GoRouter(
           ),
           // Settings
           GoRoute(
-            name: RouterConstants.userSettings,
+            name: RouterConstants.mobileUserSettings,
             path: 'user-settings',
             pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: const UserSettingsView()));
+              return MaterialPage(child: I18n(child: const MobileUserSettingsView()));
             },
           ),
           // Settings

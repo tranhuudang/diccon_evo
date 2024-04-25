@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../configs/configs.dart';
@@ -40,11 +42,34 @@ class Tokens {
     return resultMd5.toString();
   }
 
+  Future<String> _composeMd5IdForFirebaseDbDesktopLogin() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
+    var composeString = windowsInfo.deviceId;
+    print(composeString);
+    var bytes = utf8.encode(composeString);
+    var resultMd5 = md5.convert(bytes);
+    return resultMd5.toString();
+  }
+
+  Future<String> getEmailFromConnectedDevice() async {
+    final code = await _composeMd5IdForFirebaseDbDesktopLogin();
+    final dataTrack = FirebaseFirestore.instance.collection("Login").doc(code);
+    final documentSnapshot = await dataTrack.get();
+
+    if (documentSnapshot.exists) {
+      var userId = documentSnapshot.data()?["userEmail"];
+      return userId;
+    } else {
+      return '';
+    }
+  }
+
   Future<int> _getToken() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
+    String? email = await getUserEmail();
+    if (email.isNotEmpty) {
       String premiumUserMD5 =
-          _composeMd5IdForFirebaseDbPremium(userEmail: currentUser.email!);
+          _composeMd5IdForFirebaseDbPremium(userEmail: email);
       final dataTrack =
           FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
       final documentSnapshot = await dataTrack.get();
@@ -58,6 +83,18 @@ class Tokens {
       }
     }
     return 0;
+  }
+
+  Future<String> getUserEmail() async {
+    String email = '';
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      return currentUser.email!;
+    }
+    if (Platform.isWindows) {
+      return await getEmailFromConnectedDevice();
+    }
+    return email;
   }
 
   static Future<void> addTokenToNewUser() async {
@@ -74,16 +111,18 @@ class Tokens {
   }
 
   Future<void> _setToken(int token) async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    String premiumUserMD5 =
-        _composeMd5IdForFirebaseDbPremium(userEmail: currentUser!.email!);
+    String? email = await getUserEmail();
+    if (email.isNotEmpty) {
+      String premiumUserMD5 =
+          _composeMd5IdForFirebaseDbPremium(userEmail: email);
 
-    final dataTrack =
-        FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
-    final tokenData = {
-      'token': token.toString(),
-    };
-    await dataTrack.set(tokenData);
+      final dataTrack =
+          FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
+      final tokenData = {
+        'token': token.toString(),
+      };
+      await dataTrack.set(tokenData);
+    }
   }
 
   Future<void> _addToken(int additionalValue) async {
@@ -95,9 +134,7 @@ class Tokens {
   Future<void> _reduceToken(int byValue) async {
     var currentToken = await _getToken();
     var newTokenValue = 0;
-    if (currentToken < byValue) {
-      newTokenValue = 0;
-    } else {
+    if (currentToken > byValue) {
       newTokenValue = currentToken - byValue;
     }
     _setToken(newTokenValue);

@@ -51,10 +51,10 @@ class _SignInViewState extends State<SignInView> {
       if (_loggedInUser == null) {
         return buildUserNotLoginYetWidget(context);
       } else {
-        return const HomeView();
+        return const MobileHomeView();
       }
     } else {
-      return const HomeView();
+      return const MobileHomeView();
     }
   }
 
