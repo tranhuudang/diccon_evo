@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:diccon_evo/src/presentation/settings/bloc/user_bloc.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/connect_account.dart';
@@ -23,18 +25,10 @@ class DesktopUserSettingsView extends StatefulWidget {
 class _DesktopUserSettingsViewState extends State<DesktopUserSettingsView> {
   late Future<String> syncUserId;
 
-  Future<String> _composeMd5IdForFirebaseDbDesktopLogin() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
-    var composeString = windowsInfo.deviceId;
-    print(composeString);
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
-  }
+
 
   Future<String> checkIfConnectedWithMobile() async {
-    final code = await _composeMd5IdForFirebaseDbDesktopLogin();
+    final code = await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
     final dataTrack = FirebaseFirestore.instance.collection("Login").doc(code);
     final documentSnapshot = await dataTrack.get();
 

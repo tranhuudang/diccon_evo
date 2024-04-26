@@ -24,27 +24,25 @@ class OpenAITimer {
     return _instance;
   }
 
-  static void init(){
-      _instance._startResetTimer();
+  static void init() {
+    _instance._startResetTimer();
   }
 
   // Method to track requests
   bool trackRequest() {
-      _currentRPM++;
+    _currentRPM++;
 
     // Check if the request limit has been reached
     if (_currentRPM > _limitRPM) {
       // Handle rate limit exceeded, you can throw an exception or handle it in some way
-      if (kDebugMode) {
-        print('Rate limit exceeded. Please wait before making more requests.');
-      }
+      debugPrint(
+          'Rate limit exceeded. Please wait before making more requests.');
       return false;
     }
 
     // Proceed with the request
-    if (kDebugMode) {
-      print('Request successful. Requests made in this minute: $_currentRPM');
-    }
+    debugPrint(
+        'Request successful. Requests made in this minute: $_currentRPM');
     return true;
   }
 
@@ -60,9 +58,7 @@ class OpenAITimer {
   int secondsUntilNextRequest() {
     if (_currentRPM > _limitRPM) {
       var now = DateTime.now();
-      var secondsLeft = now
-          .difference(_currentMinuteStart)
-          .inSeconds;
+      var secondsLeft = now.difference(_currentMinuteStart).inSeconds;
       return secondsLeft;
     } else {
       return 0;

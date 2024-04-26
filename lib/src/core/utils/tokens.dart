@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../configs/configs.dart';
@@ -34,26 +35,8 @@ class Tokens {
     _instance._tokens = await _instance._getToken();
   }
 
-  String _composeMd5IdForFirebaseDbPremium({required String userEmail}) {
-    userEmail = userEmail.trim().toLowerCase();
-    var composeString = userEmail + Env.premiumToken;
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
-  }
-
-  Future<String> _composeMd5IdForFirebaseDbDesktopLogin() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
-    var composeString = windowsInfo.deviceId;
-    print(composeString);
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
-  }
-
   Future<String> getEmailFromConnectedDevice() async {
-    final code = await _composeMd5IdForFirebaseDbDesktopLogin();
+    final code = await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
     final dataTrack = FirebaseFirestore.instance.collection("Login").doc(code);
     final documentSnapshot = await dataTrack.get();
 
@@ -69,7 +52,7 @@ class Tokens {
     String? email = await getUserEmail();
     if (email.isNotEmpty) {
       String premiumUserMD5 =
-          _composeMd5IdForFirebaseDbPremium(userEmail: email);
+          Md5Generator.composeMd5IdForFirebaseDbPremium(userEmail: email);
       final dataTrack =
           FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
       final documentSnapshot = await dataTrack.get();
@@ -99,7 +82,7 @@ class Tokens {
 
   static Future<void> addTokenToNewUser() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
-    String premiumUserMD5 = _instance._composeMd5IdForFirebaseDbPremium(
+    String premiumUserMD5 = Md5Generator.composeMd5IdForFirebaseDbPremium(
         userEmail: currentUser!.email!);
     final dataTrack =
         FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
@@ -114,7 +97,7 @@ class Tokens {
     String? email = await getUserEmail();
     if (email.isNotEmpty) {
       String premiumUserMD5 =
-          _composeMd5IdForFirebaseDbPremium(userEmail: email);
+          Md5Generator.composeMd5IdForFirebaseDbPremium(userEmail: email);
 
       final dataTrack =
           FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);

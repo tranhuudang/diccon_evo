@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -25,7 +26,7 @@ class _ConnectAccountViewState extends State<ConnectAccountView> {
   bool isLoginSuccess = false;
 
   void waitingForScanQR() async {
-    final code = await _composeMd5IdForFirebaseDbDesktopLogin();
+    final code = await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
     timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
       print('Waiting for user scan QR');
       final dataTrack =
@@ -45,23 +46,13 @@ class _ConnectAccountViewState extends State<ConnectAccountView> {
     });
   }
 
-  Future<String> _composeMd5IdForFirebaseDbDesktopLogin() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
-    var composeString = windowsInfo.deviceId;
-    print(composeString);
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
-  }
-
   void createLoginRequest() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
     String productId = windowsInfo.productId;
     String computerName = windowsInfo.computerName;
     String os = windowsInfo.buildNumber > 10240 ? 'Windows 11' : 'Windows 10';
-    final code = await _composeMd5IdForFirebaseDbDesktopLogin();
+    final code = await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
     final dataTrack = FirebaseFirestore.instance.collection("Login").doc(code);
     final loginData = {
       'os': os,
@@ -76,7 +67,7 @@ class _ConnectAccountViewState extends State<ConnectAccountView> {
   @override
   void initState() {
     super.initState();
-    uniqueCode = _composeMd5IdForFirebaseDbDesktopLogin();
+    uniqueCode = Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
     createLoginRequest();
     waitingForScanQR();
   }
@@ -153,14 +144,18 @@ class _ConnectAccountViewState extends State<ConnectAccountView> {
                         50.height,
                         ColorFiltered(
                           colorFilter: ColorFilter.mode(
-                              context.theme.colorScheme.primary, BlendMode.srcIn),
+                              context.theme.colorScheme.primary,
+                              BlendMode.srcIn),
                           child: Image(
                             image: AssetImage(
                                 LocalDirectory.textRecognizerIllustration),
                             height: 200,
                           ),
                         ),
-                        Text('Login successful'.i18n, style: context.theme.textTheme.headlineMedium,),
+                        Text(
+                          'Login successful'.i18n,
+                          style: context.theme.textTheme.headlineMedium,
+                        ),
                         16.height,
                         Text(
                             'Congratulations! Your login was successful. You can now enjoy using the app on Windows just like you would on Android.'

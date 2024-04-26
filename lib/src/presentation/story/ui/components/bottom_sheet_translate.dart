@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -91,7 +92,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         'Translate this sentence: "${widget.sentenceContainWord}" to Vietnamese (Only return the translation)');
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer =
-        _composeMd5IdForFirebaseDb(sentence: widget.sentenceContainWord);
+    Md5Generator.composeMd5IdForStoryFirebaseDb(sentence: widget.sentenceContainWord);
     final docUser = FirebaseFirestore.instance.collection("Story").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
@@ -104,17 +105,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     });
   }
 
-  String _composeMd5IdForFirebaseDb({required String sentence}) {
-    sentence = sentence.toLowerCase().trim();
-    var composeString = sentence;
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
-  }
+
 
   Future<void> _createFirebaseDatabaseItem() async {
     final answerId =
-        _composeMd5IdForFirebaseDb(sentence: widget.sentenceContainWord);
+       Md5Generator.composeMd5IdForStoryFirebaseDb(sentence: widget.sentenceContainWord);
     final databaseRow =
         FirebaseFirestore.instance.collection("Story").doc(answerId);
     final json = {

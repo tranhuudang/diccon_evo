@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
@@ -88,7 +89,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
 
   Future<void> _createFirebaseDatabaseItem() async {
     final currentSettings = Properties.instance.settings;
-    final answerId = _composeMd5IdForFirebaseDb(
+    final answerId = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
         word: widget.word,
         options: currentSettings
             .dictionaryResponseSelectedListVietnamese); // Generate the MD5 hash
@@ -109,7 +110,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
         .isEmpty) {
       var request = widget.request;
       // create md5 from question to compare to see if that md5 is already exist in database
-      var answer = _composeMd5IdForFirebaseDb(
+      var answer = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
           word: widget.word,
           options: currentSettings.dictionaryResponseSelectedListVietnamese);
       final docUser =
@@ -124,16 +125,6 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
         }
       });
     }
-  }
-
-  String _composeMd5IdForFirebaseDb(
-      {required String word, required String options}) {
-    word = word.trim().toLowerCase();
-    options = options.trim();
-    var composeString = word + options;
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
   }
 
   // This function be used to resend the question to gpt to get new answer
