@@ -165,10 +165,9 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                     ),
                   );
                 } else {
-                  return const SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: CircularProgressIndicator());
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
               }),
           16.height,

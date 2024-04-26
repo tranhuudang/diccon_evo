@@ -163,6 +163,7 @@ class _DesktopHomeViewState extends State<DesktopHomeView> with WindowListener {
                     ],
                   ),
                 ),
+                8.height,
                 Padding(
                   padding: EdgeInsets.only(left: _isTabletExpanded ? 20 : 2),
                   child: Row(

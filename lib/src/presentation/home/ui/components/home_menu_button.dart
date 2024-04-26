@@ -1,5 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:diccon_evo/src/presentation/settings/ui/screens/scan_qr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,10 @@ class HomeMenuButton extends StatelessWidget {
         child: Row(
           children: [
             PopupMenuButton(
-              icon: Icon(Icons.menu, color: context.theme.colorScheme.primary,),
+              icon: Icon(
+                Icons.menu,
+                color: context.theme.colorScheme.primary,
+              ),
               //splashRadius: 10.0,
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: context.theme.dividerColor),
@@ -60,9 +64,7 @@ class HomeMenuButton extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      context
-                          .read<UserBloc>()
-                          .add(UserSyncEvent());
+                      context.read<UserBloc>().add(UserSyncEvent());
                     },
                   ),
                 PopupMenuItem(
@@ -81,11 +83,40 @@ class HomeMenuButton extends StatelessWidget {
                     context.pushNamed('common-settings');
                   },
                 ),
+                if (FirebaseAuth.instance.currentUser != null)
                 const PopupMenuItem(
                   enabled: false,
                   height: 0,
-                  child: WaveDivider(thickness: .3,),
-
+                  child: Divider(
+                    thickness: .3,
+                  ),
+                ),
+                if (FirebaseAuth.instance.currentUser != null)
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.qr_code,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text("Scan to login".i18n),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const QRScannerView()));
+                  },
+                ),
+                const PopupMenuItem(
+                  enabled: false,
+                  height: 0,
+                  child: WaveDivider(
+                    thickness: .3,
+                  ),
                 ),
                 PopupMenuItem(
                   child: Row(
