@@ -3,7 +3,6 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -68,9 +67,9 @@ class QRScannerView extends StatefulWidget {
 
 class _QRScannerViewState extends State<QRScannerView> {
   late QRViewController? qrViewController;
-  late Barcode? barcode = null;
+  late Barcode? barcode;
 
-  late LoginInfo? loginInfo = null;
+  late LoginInfo? loginInfo;
 
   Future<LoginInfo?> getLoginInfo(String code) async {
     final dataTrack = FirebaseFirestore.instance.collection("Login").doc(code);
@@ -125,8 +124,8 @@ class _QRScannerViewState extends State<QRScannerView> {
                       ),
                   ),
                   Container(child:
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, right: 16, left: 16, bottom: 50),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 20, right: 16, left: 16, bottom: 50),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

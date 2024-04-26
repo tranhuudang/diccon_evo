@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';

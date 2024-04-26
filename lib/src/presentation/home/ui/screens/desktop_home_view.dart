@@ -3,7 +3,6 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:unicons/unicons.dart';
 import 'package:wave_divider/wave_divider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

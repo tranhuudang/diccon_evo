@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
@@ -24,8 +20,6 @@ class DesktopUserSettingsView extends StatefulWidget {
 
 class _DesktopUserSettingsViewState extends State<DesktopUserSettingsView> {
   late Future<String> syncUserId;
-
-
 
   Future<String> checkIfConnectedWithMobile() async {
     final code = await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
@@ -57,13 +51,14 @@ class _DesktopUserSettingsViewState extends State<DesktopUserSettingsView> {
             } else {
               return const ConnectAccountView();
             }
-          }
-          else {
+          } else {
             return Scaffold(
                 appBar: AppBar(
                   title: Text('Account'.i18n),
                 ),
-                body: const Center(child: CircularProgressIndicator(),));
+                body: const Center(
+                  child: CircularProgressIndicator(),
+                ));
           }
         });
   }
@@ -97,23 +92,20 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                     child: SizedBox(
                       width: 70.w,
                       child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Text(
-                                  'Tokens: ${tokenSnapshot.data.toString()}'),
+                              Text('Tokens: ${tokenSnapshot.data.toString()}'),
                               IconButton(
                                   onPressed: () {
                                     context.showAlertDialogWithoutAction(
                                         title: 'Tokens'.i18n,
                                         content:
-                                        'This tokens will be used on Conversation or other premium functions.'
-                                            .i18n);
+                                            'This tokens will be used on Conversation or other premium functions.'
+                                                .i18n);
                                   },
-                                  icon: const Icon(
-                                      Icons.info_outline))
+                                  icon: const Icon(Icons.info_outline))
                             ],
                           ),
                           Row(
@@ -123,16 +115,14 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                               ),
                               Container(
                                 height: 24,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
                                 decoration: BoxDecoration(
                                     color: tokenSnapshot.data! > 100
                                         ? Colors.amber
-                                        : context.theme.colorScheme
-                                        .secondary
-                                        .withOpacity(.5),
-                                    borderRadius:
-                                    BorderRadius.circular(16)),
+                                        : context.theme.colorScheme.secondary
+                                            .withOpacity(.5),
+                                    borderRadius: BorderRadius.circular(16)),
                                 child: Center(
                                   child: Text(
                                     tokenSnapshot.data! > 100
@@ -140,9 +130,7 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                                         : "Free".i18n,
                                     style: TextStyle(
                                         color: context
-                                            .theme
-                                            .colorScheme
-                                            .onSecondary),
+                                            .theme.colorScheme.onSecondary),
                                   ),
                                 ),
                               ),
