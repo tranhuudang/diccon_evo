@@ -17,18 +17,12 @@ dependencies:
   http: ^1.2.0
   # A Flutter plugin for finding commonly used locations on the filesystem
   path_provider: ^2.1.2
-  # These firebase related version bellow working great
-#  firebase_core: ^2.25.5
-#  firebase_auth: ^4.17.6
-#  firebase_storage: ^11.6.7
-#  cloud_firestore: ^4.15.6
-#  firebase_app_check: ^0.2.1+15
-#  google_sign_in: ^6.2.1
-  firebase_core: ^2.25.5
-  firebase_auth: ^4.17.6
-  firebase_storage: ^11.6.7
-  cloud_firestore: ^4.15.6
-  firebase_app_check: ^0.2.1+15
+  # Firebase
+  firebase_core: 2.25.5
+  firebase_auth:
+  firebase_storage:
+  cloud_firestore:
+  firebase_app_check:
   google_sign_in: ^6.2.1
   cached_network_image: ^3.3.1
   flutter_cache_manager: ^3.3.1

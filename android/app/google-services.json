@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "867146042969-h9qpdg2m7evknam14lcbhjbg89knueq1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeroboy.diccon_evo",
+            "certificate_hash": "005b34762ee169171f4dc11f06e25018431f9ae9"
+          }
+        },
+        {
           "client_id": "867146042969-63mvbjllfa0nsl84u09lgdcl28pjn2m3.apps.googleusercontent.com",
           "client_type": 3
         }

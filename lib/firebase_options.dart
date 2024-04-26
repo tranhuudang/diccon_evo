@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -70,7 +67,7 @@ class DefaultFirebaseOptions {
     projectId: 'diccon-evo',
     databaseURL: 'https://diccon-evo-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'diccon-evo.appspot.com',
-    androidClientId: '867146042969-dljr3iq5q2udfklrfoucv63oimin9jbd.apps.googleusercontent.com',
+    androidClientId: '867146042969-61f24l6i1fmlrm67plgq83q3k8lb3jbs.apps.googleusercontent.com',
     iosClientId: '867146042969-4qtid0s8vu9gbpccsmhq6hpipm9eakmp.apps.googleusercontent.com',
     iosBundleId: 'com.zeroboy.dicconEvo',
   );
@@ -86,4 +83,16 @@ class DefaultFirebaseOptions {
     iosClientId: '867146042969-4qtid0s8vu9gbpccsmhq6hpipm9eakmp.apps.googleusercontent.com',
     iosBundleId: 'com.zeroboy.dicconEvo',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyD_T-4beO6q7jkcyyytcNCxv0QHZbnz8OQ',
+    appId: '1:867146042969:web:f3f4270612c20338246b48',
+    messagingSenderId: '867146042969',
+    projectId: 'diccon-evo',
+    authDomain: 'diccon-evo.firebaseapp.com',
+    databaseURL: 'https://diccon-evo-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'diccon-evo.appspot.com',
+    measurementId: 'G-DKZM4LW571',
+  );
+
 }
