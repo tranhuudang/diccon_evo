@@ -15,6 +15,14 @@ class ReleaseNotes extends StatelessWidget {
       body: ListView(
         children: const [
           ReleaseNotesItem(
+            version: '637',
+            date: '30-04-2024',
+            changesNote: [
+              'Hỗ trợ đăng nhập trên Windows bằng mã QR',
+              'Thêm nút bấm sao chép cho từ điển',
+            ],
+          ),
+          ReleaseNotesItem(
             version: '630',
             date: '23-04-2024',
             changesNote: [

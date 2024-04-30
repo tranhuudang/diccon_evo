@@ -116,7 +116,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (isInternetConnected) {
         AuthService authService = AuthService();
         await authService.googleSignIn();
-        await Tokens.addTokenToNewUser();
+        if (authService.gUser != null) {
+          await Tokens.addTokenToNewUser();
+        }
         emit(UserLoginState(isSyncing: false));
         emit(UserLoggedInSuccessfulState());
         // Sync user data right after log in successful

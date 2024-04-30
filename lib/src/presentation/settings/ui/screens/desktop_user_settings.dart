@@ -153,9 +153,20 @@ class _UserSettingsViewState extends State<UserSettingsView> {
                 }
               }),
           16.height,
-          FilledButton(
-              onPressed: () => userBloc.add(UserSyncEvent()),
-              child: Text("Sync your data".i18n)),
+          Row(
+            children: [
+              FilledButton(
+                  onPressed: () => userBloc.add(UserSyncEvent()),
+                  child: Text("Sync your data".i18n)),
+              8.width,
+              FilledButton.tonal(
+                  onPressed: () {
+                    userBloc.add(UserLogoutEvent());
+                  },
+                  child: Text("Log out".i18n)),
+            ],
+          ),
+
         ],
       ),
     );

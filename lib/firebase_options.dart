@@ -79,7 +79,7 @@ class DefaultFirebaseOptions {
     projectId: 'diccon-evo',
     databaseURL: 'https://diccon-evo-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'diccon-evo.appspot.com',
-    androidClientId: '867146042969-dljr3iq5q2udfklrfoucv63oimin9jbd.apps.googleusercontent.com',
+    androidClientId: '867146042969-61f24l6i1fmlrm67plgq83q3k8lb3jbs.apps.googleusercontent.com',
     iosClientId: '867146042969-4qtid0s8vu9gbpccsmhq6hpipm9eakmp.apps.googleusercontent.com',
     iosBundleId: 'com.zeroboy.dicconEvo',
   );
