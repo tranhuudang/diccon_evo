@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -11,15 +13,21 @@ import 'package:diccon_evo/src/core/core.dart';
 /// User Events
 abstract class UserEvent {}
 
+class UserActionEvent extends UserEvent {}
+
+class DesktopUserLogoutCompletedEvent extends UserActionEvent {}
+
 class UserDeleteDateEvent extends UserEvent {}
 
 class GoogleLoginEvent extends UserEvent {}
 
-class UserLogoutEvent extends UserEvent {}
+class MobileUserLogoutEvent extends UserEvent {}
+
+class DesktopUserLogoutEvent extends UserEvent {}
+
 class CheckIsSignedInEvent extends UserEvent {}
 
-class UserSyncEvent extends UserEvent {
-}
+class UserSyncEvent extends UserEvent {}
 
 /// User State
 abstract class UserState {}
@@ -51,7 +59,8 @@ class UserSyncCompleted extends UserActionState {}
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserUninitialized()) {
     on<GoogleLoginEvent>(_googleLogin);
-    on<UserLogoutEvent>(_userLogout);
+    on<DesktopUserLogoutEvent>(_desktopUserLogout);
+    on<MobileUserLogoutEvent>(_mobileUserLogout);
     on<UserSyncEvent>(_userSyncData);
     on<UserDeleteDateEvent>(_deleteAllData);
     on<CheckIsSignedInEvent>(_checkIsSignedIn);
@@ -63,14 +72,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await UserHandler().deleteUserDataFile();
 
     /// Remove local file
-    await FileHandler(LocalDirectory.wordHistoryFileName)
-        .deleteOnUserData();
-    await FileHandler(LocalDirectory.storyHistoryFileName)
-        .deleteOnUserData();
-    await FileHandler(LocalDirectory.storyBookmarkFileName)
-        .deleteOnUserData();
-    await FileHandler(LocalDirectory.topicHistoryFileName)
-        .deleteOnUserData();
+    await FileHandler(LocalDirectory.wordHistoryFileName).deleteOnUserData();
+    await FileHandler(LocalDirectory.storyHistoryFileName).deleteOnUserData();
+    await FileHandler(LocalDirectory.storyBookmarkFileName).deleteOnUserData();
+    await FileHandler(LocalDirectory.topicHistoryFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.essentialFavouriteFileName)
         .deleteOnUserData();
     await Future.delayed(const Duration(seconds: 2));
@@ -78,19 +83,20 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   FutureOr<void> _userSyncData(
       UserSyncEvent sync, Emitter<UserState> emit) async {
-    emit(UserLoginState(isSyncing: true,));
+    emit(UserLoginState(
+      isSyncing: true,
+    ));
     await UserHandler().downloadUserDataFile();
-    await UserHandler()
-        .uploadUserDataFile(LocalDirectory.wordHistoryFileName);
-    await UserHandler()
-        .uploadUserDataFile(LocalDirectory.storyHistoryFileName);
+    await UserHandler().uploadUserDataFile(LocalDirectory.wordHistoryFileName);
+    await UserHandler().uploadUserDataFile(LocalDirectory.storyHistoryFileName);
     await UserHandler()
         .uploadUserDataFile(LocalDirectory.storyBookmarkFileName);
-    await UserHandler()
-        .uploadUserDataFile(LocalDirectory.topicHistoryFileName);
+    await UserHandler().uploadUserDataFile(LocalDirectory.topicHistoryFileName);
     await UserHandler()
         .uploadUserDataFile(LocalDirectory.essentialFavouriteFileName);
-    emit(UserLoginState(isSyncing: false,));
+    emit(UserLoginState(
+      isSyncing: false,
+    ));
     emit(UserSyncCompleted());
     if (kDebugMode) {
       print("Data is synced");
@@ -98,11 +104,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   /// --------------------------------------------------------------------------
-  Future _checkIsSignedIn(CheckIsSignedInEvent event, Emitter<UserState> emit) async {
+  Future _checkIsSignedIn(
+      CheckIsSignedInEvent event, Emitter<UserState> emit) async {
     if (FirebaseAuth.instance.currentUser != null) {
       emit(UserLoginState(isSyncing: false));
     }
   }
+
   Future _googleLogin(GoogleLoginEvent login, Emitter<UserState> emit) async {
     if (FirebaseAuth.instance.currentUser != null) {
       emit(UserLoginState(isSyncing: false));
@@ -129,8 +137,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
-  FutureOr<void> _userLogout(
-      UserLogoutEvent logout, Emitter<UserState> emit) async {
+  FutureOr<void> _mobileUserLogout(
+      MobileUserLogoutEvent logout, Emitter<UserState> emit) async {
     /// Reset User object
     emit(UserLoggingOutState());
 
@@ -138,15 +146,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     AuthService authService = AuthService();
     authService.googleSignOut();
     FirebaseAuth.instance.currentUser?.delete();
+
     /// Remove local file
-    await FileHandler(LocalDirectory.wordHistoryFileName)
-        .deleteOnUserData();
-    await FileHandler(LocalDirectory.storyHistoryFileName)
-        .deleteOnUserData();
-    await FileHandler(LocalDirectory.storyBookmarkFileName)
-        .deleteOnUserData();
-    await FileHandler(LocalDirectory.topicHistoryFileName)
-        .deleteOnUserData();
+    await FileHandler(LocalDirectory.wordHistoryFileName).deleteOnUserData();
+    await FileHandler(LocalDirectory.storyHistoryFileName).deleteOnUserData();
+    await FileHandler(LocalDirectory.storyBookmarkFileName).deleteOnUserData();
+    await FileHandler(LocalDirectory.topicHistoryFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.essentialFavouriteFileName)
         .deleteOnUserData();
 
@@ -154,5 +159,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await Future.delayed(const Duration(seconds: 2));
     emit(UserLogoutCompletedState());
     emit(UserUninitialized());
+  }
+
+  FutureOr<void> _desktopUserLogout(
+      DesktopUserLogoutEvent logout, Emitter<UserState> emit) async {
+    final String code =
+        await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
+    await FirebaseFirestore.instance.collection("Login").doc(code).delete();
+    add(DesktopUserLogoutCompletedEvent());
   }
 }

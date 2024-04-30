@@ -206,7 +206,7 @@ class _MobileUserSettingsViewState extends State<MobileUserSettingsView> {
                             8.width,
                             FilledButton.tonal(
                                 onPressed: () =>
-                                    userBloc.add(UserLogoutEvent()),
+                                    userBloc.add(MobileUserLogoutEvent()),
                                 child: Text("Log out".i18n)),
                           ],
                         ),
