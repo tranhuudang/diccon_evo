@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FileHelper{
   static Future<dynamic> getJsonFromUrl(String url) async {
@@ -17,5 +20,15 @@ class FileHelper{
   /// Read default stories data
   static Future<String> getAssetFile(String filePath) async {
     return await rootBundle.loadString(filePath);
+  }
+
+  static Future<void> clearCache() async {
+    Directory cacheDir = await getTemporaryDirectory();
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+      if (kDebugMode) {
+        print('Cache cleared.');
+      }
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/conversation/ui/screens/voice_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wave_divider/wave_divider.dart';
 
@@ -47,12 +48,25 @@ class ConversationTab extends StatelessWidget {
           ),
           thickness: .3,
         ),
-        FilledButton.tonal(
-            onPressed: () {
-              SeekFeedback.showFeedbackBottomSheet(context);
-              context.pushNamed(RouterConstants.conversation);
-            },
-            child: Text('Open conversation'.i18n))
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FilledButton.tonalIcon(
+                onPressed: () {
+                  SeekFeedback.showFeedbackBottomSheet(context);
+                  context.pushNamed(RouterConstants.conversation);
+                },
+                icon: const Icon(Icons.chat),
+                label: Text('Text chat'.i18n)),
+            FilledButton.tonalIcon(
+                onPressed: () {
+                  SeekFeedback.showFeedbackBottomSheet(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const VoiceScreen()));
+                },
+                icon: const Icon(Icons.keyboard_voice),
+                label: Text('Voice only'.i18n)),
+          ],
+        )
       ],
     );
   }

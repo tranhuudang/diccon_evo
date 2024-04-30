@@ -1,6 +1,7 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/router/route_configurations_desktop.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:diccon_evo/src/presentation/settings/bloc/setting_bloc.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

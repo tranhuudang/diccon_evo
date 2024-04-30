@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../domain/domain.dart';
 import '../../../presentation.dart';
+import '../../../settings/bloc/setting_bloc.dart';
 import '../../bloc/reading_bloc.dart';
 
 class ReadingBottomAppBar extends StatefulWidget {

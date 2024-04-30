@@ -100,6 +100,15 @@ dependencies:
   qr_flutter: ^4.1.0
   device_info_plus: ^10.1.0
   qr_code_scanner: ^1.0.1
+  flutter_spinkit: ^5.2.0
+  avatar_glow: ^3.0.1
+  http_parser: ^4.0.2
+  flutter_sound: ^9.2.13
+  # This interface allows platform-specific implementations of the flutter_sound_record plugin,
+  # as well as the plugin itself, to ensure they are supporting the same interface.
+  flutter_sound_record_platform_interface: ^0.3.1
+  audio_session: ^0.1.18
+  permission_handler: ^11.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
