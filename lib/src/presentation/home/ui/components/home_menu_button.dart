@@ -83,34 +83,34 @@ class HomeMenuButton extends StatelessWidget {
                     context.pushNamed('common-settings');
                   },
                 ),
-                if (FirebaseAuth.instance.currentUser != null)
-                const PopupMenuItem(
-                  enabled: false,
-                  height: 0,
-                  child: Divider(
-                    thickness: .3,
+                if (FirebaseAuth.instance.currentUser != null) ...[
+                  const PopupMenuItem(
+                    enabled: false,
+                    height: 0,
+                    child: WaveDivider(
+                      thickness: .3,
+                    ),
                   ),
-                ),
-                if (FirebaseAuth.instance.currentUser != null)
-                PopupMenuItem(
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.qr_code,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text("Scan to login".i18n),
-                    ],
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.qr_code,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text("Scan to login".i18n),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QRScannerView()));
+                    },
                   ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const QRScannerView()));
-                  },
-                ),
+                ],
                 const PopupMenuItem(
                   enabled: false,
                   height: 0,
