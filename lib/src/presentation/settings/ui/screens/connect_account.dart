@@ -79,7 +79,7 @@ class _ConnectAccountViewState extends State<ConnectAccountView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Accounts'.i18n),
+        title: Text('Account'.i18n),
       ),
       body: Column(
         children: [
@@ -94,7 +94,7 @@ class _ConnectAccountViewState extends State<ConnectAccountView> {
                         child: Wrap(
                           children: [
                             Text(
-                                'Please use your phone and click at menu button:'
+                                'Please use Diccon on your Android phone and click at menu button:'
                                     .i18n),
                             const Icon(Icons.menu),
                             3.width,

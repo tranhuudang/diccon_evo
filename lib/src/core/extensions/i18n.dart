@@ -505,6 +505,64 @@ extension Localization on Object {
     },
 
     /// Conversation
+
+    "Touch to start": {"en_us": "Touch to start", "vi_vi": "Chạm để bắt đầu"},
+    "Listening from you": {
+      "en_us": "Listening from you",
+      "vi_vi": "Đang lắng nghe từ bạn"
+    },
+    "Bot is speaking": {"en_us": "Bot is speaking", "vi_vi": "Bot đang nói"},
+    "Bot is thinking": {
+      "en_us": "Bot is thinking",
+      "vi_vi": "Bot đang suy nghĩ"
+    },
+    "No Internet": {
+      "en_us": "No Internet",
+      "vi_vi": "Không có kết nối Internet"
+    },
+    "Permission Required": {
+      "en_us": "Permission Required",
+      "vi_vi": "Yêu cầu quyền"
+    },
+    "You must allow application to get access to microphone to able to record your voice":
+        {
+      "en_us":
+          "You must allow application to get access to microphone to able to record your voice",
+      "vi_vi":
+          "Bạn phải cho phép ứng dụng truy cập vào microphone để có thể ghi âm giọng nói của bạn"
+    },
+    "You not connected to the internet or the application having trouble while trying to connect to the network.":
+        {
+      "en_us":
+          "You not connected to the internet or the application having trouble while trying to connect to the network.",
+      "vi_vi":
+          "Bạn không kết nối với Internet hoặc ứng dụng gặp sự cố khi cố gắng kết nối với mạng."
+    },
+    "Voice only": {"en_us": "Voice only", "vi_vi": "Giọng nói"},
+    "Text chat": {"en_us": "Text chat", "vi_vi": "Văn bản"},
+
+    "Scan to login": {"en_us": "Scan to login", "vi_vi": "Quét để đăng nhập"},
+
+    "Login successful": {
+      "en_us": "Login successful",
+      "vi_vi": "Đăng nhập thành công"
+    },
+
+    "Congratulations! Your login was successful. You can now enjoy using the app on Windows just like you would on Android.":
+        {
+      "en_us":
+          "Congratulations! Your login was successful. You can now enjoy using the app on Windows just like you would on Android.",
+      "vi_vi":
+          "Chúc mừng! Đăng nhập của bạn đã thành công. Bây giờ bạn có thể thưởng thức việc sử dụng ứng dụng trên Windows giống như bạn đã làm trên Android."
+    },
+
+    "Please use Diccon on your Android phone and click at menu button:": {
+      "en_us":
+          "Please use Diccon on your Android phone and click at menu button:",
+      "vi_vi":
+          "Vui lòng sử dụng Diccon trên điện thoại Android của bạn và nhấn vào nút menu:"
+    },
+
     "Send a message for practice": {
       "en_us": "Send a message for practice",
       "vi_vi": "Viết để mở đầu cuộc trò chuyện",

@@ -18,7 +18,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
     final voiceBloc = context.read<VoiceBloc>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Voice Chat'),
+        title: Text('Voice Chat'.i18n),
       ),
       body: BlocConsumer<VoiceBloc, VoiceState>(
         buildWhen: (previous, current) => current is! VoiceActionState,
@@ -26,16 +26,16 @@ class _VoiceScreenState extends State<VoiceScreen> {
         listener: (context, state) {
           if (state is UserNotAllowRecordState) {
             context.showAlertDialogWithoutAction(
-              title: 'Permission Required',
+              title: 'Permission Required'.i18n,
               content:
-                  'You must allow application to get access to microphone to able to record your voice',
+                  'You must allow application to get access to microphone to able to record your voice'.i18n,
             );
           }
           if (state is NoInternetState) {
             context.showAlertDialogWithoutAction(
-              title: 'No Internet',
+              title: 'No Internet'.i18n,
               content:
-                  'You not connected to the internet or the application having trouble while trying to connect to the network.',
+                  'You not connected to the internet or the application having trouble while trying to connect to the network.'.i18n,
             );
           }
         },
@@ -70,18 +70,18 @@ class _VoiceScreenState extends State<VoiceScreen> {
                         ),
                       ),
                     ),
-                    const VoiceStopButton(
-                      title: 'Bot is thinking',
+                    VoiceStopButton(
+                      title: 'Bot is thinking'.i18n,
                     ),
                   ],
                 ),
               );
             case VoiceBotSpeakingState _:
-              return const Center(
+              return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: SizedBox(
                         height: 300,
                         width: 200,
@@ -89,7 +89,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                       ),
                     ),
                     VoiceStopButton(
-                      title: 'Bot is speaking',
+                      title: 'Bot is speaking'.i18n,
                     ),
                   ],
                 ),
@@ -113,8 +113,8 @@ class _VoiceScreenState extends State<VoiceScreen> {
                         ],
                       ),
                     ),
-                    const VoiceStopButton(
-                      title: 'Listening from you',
+                    VoiceStopButton(
+                      title: 'Listening from you'.i18n,
                     ),
                   ],
                 ),
@@ -133,7 +133,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                     ),
                     16.height,
                     Text(
-                      'Touch to start'.toUpperCase(),
+                      'Touch to start'.i18n.toUpperCase(),
                       style: context.theme.textTheme.titleLarge,
                     ),
                   ],
