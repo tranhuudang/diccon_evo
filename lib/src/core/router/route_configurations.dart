@@ -146,6 +146,7 @@ GoRouter routerConfig = GoRouter(
       ],
     ),
 
+
     /// Essential 1848
     GoRoute(
         name: RouterConstants.essential1848,

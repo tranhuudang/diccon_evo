@@ -29,6 +29,7 @@ class AnsweringAQuestion extends ConversationEvent {
 class ResetConversation extends ConversationEvent {}
 
 class StopResponse extends ConversationEvent {}
+class GoToUpgradeScreenEvent extends ConversationEvent {}
 
 /// State
 abstract class ConversationState {}
@@ -36,6 +37,7 @@ abstract class ConversationState {}
 abstract class ConversationActionState extends ConversationState {}
 
  class NotHaveEnoughToken extends ConversationActionState {}
+ class GoToUpgradeScreen extends ConversationActionState {}
  class RequiredLogIn extends ConversationActionState {}
 
 class ConversationInitial extends ConversationState {
@@ -58,6 +60,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<ResetConversation>(_resetConversation);
     on<AnsweringAQuestion>(_answeringAQuestion);
     on<StopResponse>(_stopResponse);
+    on<GoToUpgradeScreenEvent>(_goToUpgradeScreen);
   }
 
   final _chatGptRepository =
@@ -195,5 +198,10 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     _isLoadingStreamController.sink.add(false);
     emit(ConversationUpdated(
         conversation: listConversations, isResponding: false));
+  }
+
+  FutureOr<void> _goToUpgradeScreen(
+      GoToUpgradeScreenEvent event, Emitter<ConversationState> emit) {
+    emit(GoToUpgradeScreen());
   }
 }

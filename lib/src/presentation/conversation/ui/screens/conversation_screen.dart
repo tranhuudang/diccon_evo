@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
+import 'package:go_router/go_router.dart';
 
 class ConversationView extends StatelessWidget {
   const ConversationView({super.key});
@@ -24,23 +27,34 @@ class ConversationView extends StatelessWidget {
                 current is ConversationActionState,
             listener: (BuildContext context, ConversationState state) {
               if (state is NotHaveEnoughToken) {
-                context.showAlertDialog(
-                  actionButtonTitle: 'Upgrade'.i18n,
-                  title: 'You have no tokens left',
-                  content:
-                      'Please consider purchase more to continue sending messages.',
-                  action: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const InAppPurchaseView()));
-                  },
-                );
+                if (Platform.isWindows) {
+                  context.showAlertDialogWithoutAction(
+                    title: 'You have no tokens left',
+                    content:
+                    'Please consider purchase more to continue sending messages.',
+                  );
+                } else {
+                  context.showAlertDialog(
+                    actionButtonTitle: 'Upgrade'.i18n,
+                    title: 'You have no tokens left',
+                    content:
+                    'Please consider purchase more to continue sending messages.',
+                    action: () {
+                      conversationBloc.add(GoToUpgradeScreenEvent());
+                    },
+                  );
+                }
               }
               if (state is RequiredLogIn) {
                 context.showAlertDialogWithoutAction(
                     title: 'Login is required'.i18n,
                     content: 'You need to login to use this function.'.i18n);
+              }
+              if (state is GoToUpgradeScreen) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const InAppPurchaseView()));
               }
             },
             builder: (context, state) {
