@@ -15,8 +15,6 @@ abstract class UserEvent {}
 
 class UserActionEvent extends UserEvent {}
 
-class DesktopUserLogoutCompletedEvent extends UserActionEvent {}
-
 class UserDeleteDateEvent extends UserEvent {}
 
 class GoogleLoginEvent extends UserEvent {}
@@ -39,6 +37,9 @@ class UserUninitialized extends UserState {}
 class NoInternetState extends UserActionState {}
 
 class UserLoggingOutState extends UserActionState {}
+
+class DesktopUserLogoutCompletedState extends UserActionState {}
+
 
 class UserLogoutCompletedState extends UserActionState {}
 
@@ -166,6 +167,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     final String code =
         await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
     await FirebaseFirestore.instance.collection("Login").doc(code).delete();
-    add(DesktopUserLogoutCompletedEvent());
+    emit(DesktopUserLogoutCompletedState());
   }
 }

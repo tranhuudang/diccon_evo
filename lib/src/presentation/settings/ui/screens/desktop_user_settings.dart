@@ -81,9 +81,10 @@ class _UserSettingsViewState extends State<UserSettingsView> {
       appBar: AppBar(
         title: Text('Account'.i18n),
       ),
-      body: BlocListener(
+      body: BlocListener<UserBloc, UserState>(
+        listenWhen: (previous, current) => current is UserActionState,
         listener: (BuildContext context, state) {
-          if (state is DesktopUserLogoutCompletedEvent) {
+          if (state is DesktopUserLogoutCompletedState) {
             context.pop();
           }
         },
