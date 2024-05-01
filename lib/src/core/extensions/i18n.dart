@@ -212,9 +212,9 @@ extension Localization on Object {
       "en_us": "Open conversation",
       "vi_vi": "Mở trò chuyện",
     },
-    "Flash Card 1848 Essential Words": {
-      "en_us": "Flash Card 1848 Essential Words",
-      "vi_vi": "Flash Card 1848 từ vựng thông dụng",
+    "1848 Essential Words": {
+      "en_us": "1848 Essential Words",
+      "vi_vi": "1848 từ vựng thông dụng",
     },
     "Practice your vocabulary through simple tests. You'll find that sometimes the words you think you know are quickly forgotten.":
         {

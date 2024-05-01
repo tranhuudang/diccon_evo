@@ -61,8 +61,9 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// Head welcome to essential tab
+                    28.height,
                     const HeadSentence(
-                        listText: ["Empower", "Your English", "Proficiency"]),
+                        listText: ["Advanced AI", "English Dictionary"]),
                     8.height,
                     const PlanButton(),
                     28.height,

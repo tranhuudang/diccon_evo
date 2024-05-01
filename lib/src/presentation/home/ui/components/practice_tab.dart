@@ -24,7 +24,7 @@ class PracticeTab extends StatelessWidget {
             onPressed: () {
               context.pushNamed(RouterConstants.essential1848);
             },
-            child: Text('Flash Card 1848 Essential Words'.i18n))
+            child: Text("${'1848 Essential Words'.i18n} (BETA)"))
       ],
     );
   }
