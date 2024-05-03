@@ -6,11 +6,11 @@ import 'package:diccon_evo/src/data/data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:next_audio_recorder/next_audio_recorder.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../data/helpers/file_helper.dart';
-import '../../../data/repositories/audio_repository.dart';
 import '../../../data/repositories/speech_to_text_repository.dart';
 import '../../../data/repositories/text_to_speech_repository.dart';
 
@@ -86,7 +86,7 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
   // Repositories for speech-to-text, text-to-speech, and audio handling
   final _speechToTextRepository = SpeechToTextRepository();
   final _textToSpeechRepository = TextToSpeechRepository();
-  final _audioRepository = AudioRepository();
+  final _audioRepository = NextAudioRecorder();
 
   // Variables for managing conversation flow and audio analysis
   // _answerIndex grow by 1 over each question, this value will be used to name local audio file

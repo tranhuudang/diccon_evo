@@ -50,7 +50,7 @@ packages:
     source: hosted
     version: "2.11.0"
   audio_session:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: audio_session
       sha256: a49af9981eec5d7cd73b37bacb6ee73f8143a6a9f9bd5b6021e6c346b9b6cf4e
@@ -668,7 +668,7 @@ packages:
     source: hosted
     version: "1.0.5"
   flutter_sound:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_sound
       sha256: "090a4694b11ecc744c2010621c4ffc5fe7c3079d304ea014961a72c7b72cfe6c"
@@ -684,7 +684,7 @@ packages:
     source: hosted
     version: "9.2.13"
   flutter_sound_record_platform_interface:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_sound_record_platform_interface
       sha256: c1efe56e241a16db5a5adb7effce3100ca1ea97e45e8b045cea2fcd603a12892
@@ -1173,6 +1173,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  next_audio_recorder:
+    dependency: "direct main"
+    description:
+      name: next_audio_recorder
+      sha256: "768594ca8861b4e0e1ebdc037d23619c0a88520db74f5ec07f51daeea1e38dc3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   octo_image:
     dependency: transitive
     description:
@@ -1916,5 +1924,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.3.0 <4.0.0"
+  dart: ">=3.3.1 <4.0.0"
   flutter: ">=3.19.0"
