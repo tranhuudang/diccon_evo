@@ -53,11 +53,13 @@ abstract class VoiceState {}
 class VoiceActionState extends VoiceState {}
 
 class UserNotAllowRecordState extends VoiceActionState {}
+
 class VoiceChatNoInternetState extends VoiceActionState {}
 
 class VoiceInitState extends VoiceState {}
 
 class VoiceBotThinkingState extends VoiceState {}
+
 class VoiceBotSpeakingState extends VoiceState {}
 
 class VoiceUserSpeakingState extends VoiceState {
@@ -78,7 +80,8 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
   }
 
   // Repository for interacting with the ChatGPT API
-  final _chatGptRepository = ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
+  final _chatGptRepository =
+      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
 
   // Stream subscription for handling responses from ChatGPT
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
@@ -86,7 +89,7 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
   // Repositories for speech-to-text, text-to-speech, and audio handling
   final _speechToTextRepository = SpeechToTextRepository();
   final _textToSpeechRepository = TextToSpeechRepository();
-  final _audioRepository = NextAudioRecorder();
+  final _audioRecorder = NextAudioRecorder();
 
   // Variables for managing conversation flow and audio analysis
   // _answerIndex grow by 1 over each question, this value will be used to name local audio file
@@ -95,18 +98,12 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
   // When user do talk something, this value will increase to _maxDelayIndex and then when it reached the _maxDelayIndex
   // it mean that user delay talking and we should switch to bot turn to think and speak
   int _delayIndex = 0;
-  // 20 of _maxDelayIndex with _subscriptionDuration = 100 equal to 2 seconds of delay when user finished their speaking.
-  final int _maxDelayIndex = 20;
   bool _userHadSpeak = false;
   bool _isCancel = false;
   int _userHadSpeakIndex = 0;
   // Set _isContinuousConversation to false will stop the conversation in each question - answer
   final bool _isContinuousConversation = true;
-  final double _subscriptionDuration = 100;
   final int _silentDecibelThreshold = 42;
-  // When user talk something, with _userSpeakingLength = 3 and _subscriptionDuration = 100, it means that
-  // we only recognize 300 milliseconds length of talking is a valid question, those shorter will be ignored.
-  final int _userSpeakingLength = 3;
 
   /// Function to start recording audio
   ///
@@ -130,49 +127,13 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
         emit(VoiceChatNoInternetState());
       } else {
         emit(VoiceUserSpeakingState());
-        await _audioRepository.startRecorder('file$_answerIndex.mp4');
-        await _audioRepository.setSubscriptionDuration(_subscriptionDuration);
-        _audioRepository.startRecorderSubscriptions((e) async {
-          if (kDebugMode) {
-            print('[StartRecordEvent] Silent time: $_delayIndex');
-          }
-          // Let assume with sounds < 35 decibels is silent sounds
-          if (e.decibels! < _silentDecibelThreshold && _userHadSpeak) {
-            _delayIndex = _delayIndex + 1;
-          } else {
-            _delayIndex = 0;
-          }
-          // Detect that user do say something
-          if (e.decibels! > _silentDecibelThreshold) {
-            _userHadSpeakIndex = _userHadSpeakIndex + 1;
-            add(UserSpeakingEvent(decibelValue: e.decibels!));
-          }
-          if (_userHadSpeakIndex > _userSpeakingLength) {
-            _userHadSpeak = true;
-          }
-          // [5] [6]
-          if (_delayIndex >= _maxDelayIndex) {
-            if (kDebugMode) {
-              print('[StartRecordEvent] User stopped talking');
-            }
-            _audioRepository.cancelRecorderSubscriptions();
-            // Stop recorder and prepare to send result to Whisper
-            // [7] stt
-            String? outputFilePath = await _audioRepository.stopRecorder();
-            if (outputFilePath != null) {
+        await _audioRecorder.startRecorderWithAutoStop(
+            silentDecibelThreshold: _silentDecibelThreshold,
+            silentDurationSecond: 2,
+            targetFilePath: 'file$_answerIndex.mp4',
+            onFinished: (outputFilePath) {
               add(SpeechToTextEvent(recordedFilePath: outputFilePath));
-              if (kDebugMode) {
-                print(
-                  '[StartRecordEvent] Output recorded FilePath: $outputFilePath',
-                );
-              }
-            } else {
-              if (kDebugMode) {
-                print('[StartRecordEvent] No output file path found.');
-              }
-            }
-          }
-        });
+            });
       }
     } else {
       emit(UserNotAllowRecordState());
@@ -254,24 +215,27 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
   ) async {
     Directory fileDirectory = await getApplicationCacheDirectory();
     emit(VoiceBotSpeakingState());
-    _audioRepository
-        .startPlayer(join(fileDirectory.path, 'tts$_answerIndex.mp3'), () {
-      _answerIndex = _answerIndex + 1;
-      _delayIndex = 0;
-      _userHadSpeak = false;
-      _userHadSpeakIndex = 0;
-      if (_isContinuousConversation) {
-        if (kDebugMode) {
-          print('[StartBotSpeechEvent] Continue the conversation');
-        }
-        add(StartRecordEvent());
-      } else {
-        add(StopRecordEvent());
-      }
-      if (kDebugMode) {
-        print('[StartBotSpeechEvent] Bot completed speaking');
-      }
-    });
+    final soundHandler = SoundHandler();
+    soundHandler.playFromPath(
+        filePath: join(fileDirectory.path, 'tts$_answerIndex.mp3'),
+        onFinished: () {
+          _answerIndex = _answerIndex + 1;
+          _delayIndex = 0;
+          _userHadSpeak = false;
+          _userHadSpeakIndex = 0;
+          if (_isContinuousConversation) {
+            if (kDebugMode) {
+              print('[StartBotSpeechEvent] Continue the conversation');
+            }
+            add(StartRecordEvent());
+          } else {
+            add(StopRecordEvent());
+          }
+          if (kDebugMode) {
+            print('[StartBotSpeechEvent] Bot completed speaking');
+          }
+        },
+        onPositionChanged: (double) {});
   }
 
   /// Function to handle stopping the recording event
@@ -286,7 +250,7 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
     emit(VoiceInitState());
     await _removeTempVoiceCache();
     _isCancel = true;
-    _audioRepository.dispose();
+    _audioRecorder.dispose();
     await _chatStreamSubscription?.cancel();
     _chatGptRepository.reset();
     _resetVoiceIndexes();

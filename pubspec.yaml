@@ -75,7 +75,7 @@ dependencies:
   responsive_builder: ^0.7.0
   expandable_page_view: ^1.0.17
   wave_divider: ^0.0.3
-  wavy_slider: ^0.0.4
+  wavy_slider: ^1.0.0
   loading_indicator: ^3.1.1
   # use for customizing theme
   dynamic_color: ^1.7.0
@@ -104,7 +104,7 @@ dependencies:
   avatar_glow: ^3.0.1
   http_parser: ^4.0.2
   permission_handler: ^11.1.0
-  next_audio_recorder: 0.0.3
+  next_audio_recorder: ^1.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
