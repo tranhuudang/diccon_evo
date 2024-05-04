@@ -75,11 +75,12 @@ class _PlayFileButtonState extends State<PlayFileButton> {
               Visibility(
                 visible: isPlayingOrIsPausing ? true : false,
                 child: WavySlider(
+                  backgroundColor: Colors.black.withOpacity(.3),
                   width: 36.screenWidth,
                   value: currentPosition,
                   color: context.theme.colorScheme.primary,
-                  waveHeight: 10,
-                  waveWidth: 14,
+                  waveHeight: 8,
+                  waveWidth: 12,
                   onChanged: (value) {
                     _player.seek(seekPoint: value, filePath: widget.filePath);
                   },
