@@ -31,14 +31,15 @@ class ConversationView extends StatelessWidget {
                   context.showAlertDialogWithoutAction(
                     title: 'You have no tokens left',
                     content:
-                    'Please consider purchase more to continue sending messages.',
+                        'Please consider purchase more to continue sending messages.',
                   );
-                } else {
+                }
+                if (Platform.isAndroid) {
                   context.showAlertDialog(
                     actionButtonTitle: 'Upgrade'.i18n,
                     title: 'You have no tokens left',
                     content:
-                    'Please consider purchase more to continue sending messages.',
+                        'Please consider purchase more to continue sending messages.',
                     action: () {
                       conversationBloc.add(GoToUpgradeScreenEvent());
                     },

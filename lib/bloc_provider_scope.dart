@@ -25,6 +25,6 @@ class BlocProviderScope extends StatelessWidget {
           BlocProvider<ReadingBloc>(create: (context) => ReadingBloc()),
           BlocProvider<VoiceBloc>(create: (context) => VoiceBloc()),
         ],
-        child: child);
+        child: child,);
   }
 }

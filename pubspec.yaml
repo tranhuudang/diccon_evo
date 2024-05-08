@@ -18,7 +18,7 @@ dependencies:
   # A Flutter plugin for finding commonly used locations on the filesystem
   path_provider: ^2.1.2
   # Firebase
-  firebase_core: 2.30.1
+  firebase_core: 2.31.0
   firebase_auth:
   firebase_storage:
   cloud_firestore:
@@ -137,6 +137,6 @@ msix_config:
   publisher_display_name: Zeroboy
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
-  msix_version: 3.0.6.0
+  msix_version: 3.0.7.0
   logo_path: D:\Development\Github\diccon_evo\assets\icon.ico
   store: true
