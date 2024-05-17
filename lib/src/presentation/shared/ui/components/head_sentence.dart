@@ -12,7 +12,7 @@ class HeadSentence extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle? textStyle = context.theme.textTheme.headlineMedium?.copyWith(
-    color: context.theme.colorScheme.onSurface);
+    color: context.theme.colorScheme.onSurface, fontWeight: FontWeight.bold);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

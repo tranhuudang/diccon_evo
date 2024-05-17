@@ -56,7 +56,7 @@ class _Initializer {
     // a temporary solution to get it working.
     if (Platform.isWindows) {
       await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.android,
+        options: DefaultFirebaseOptions.windows,
       );
     }
   }
