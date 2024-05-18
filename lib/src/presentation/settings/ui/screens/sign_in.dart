@@ -61,7 +61,7 @@ class _SignInViewState extends State<SignInView> {
     final userBloc = context.read<UserBloc>();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: context.theme.colorScheme.surface,
+
         body: Stack(
           children: [
             Padding(

@@ -30,7 +30,7 @@ class _LearningViewState extends State<LearningView> {
     int currentIndex = 0;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: context.theme.colorScheme.surface,
+
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),

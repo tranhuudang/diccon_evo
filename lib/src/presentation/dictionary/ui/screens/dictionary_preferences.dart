@@ -65,7 +65,7 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.colorScheme.surface,
+
       appBar: AppBar(
         title: Text("Preferences".i18n),),
       body: SingleChildScrollView(

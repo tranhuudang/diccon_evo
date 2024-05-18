@@ -51,7 +51,7 @@ class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
                         ),
                       ),
                       8.width,
-                      Text('Often less than 20 seconds'.i18n),
+                      Text('Often less than 10 seconds'.i18n),
                     ],
                   );
                 }

@@ -73,7 +73,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
           switch (state) {
             default:
               return Scaffold(
-                backgroundColor: context.theme.colorScheme.surface,
+
                 body: Stack(
                   children: [
                     SingleChildScrollView(

@@ -19,32 +19,34 @@ class PlanButton extends StatelessWidget {
             builder: (context, tokenSnapshot) {
               if (tokenSnapshot.hasData) {
                 return GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const InAppPurchaseView()));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InAppPurchaseView()));
                   },
                   child: Container(
-                  height: 24,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                      color: tokenSnapshot.data! > 100
-                          ? Colors.amber
-                          : context.theme.colorScheme.secondary.withOpacity(.5),
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Center(
-                    child: Text(
-                      tokenSnapshot.data! > 100 ? "Premium" : "Free".i18n,
-                      style:
-                          TextStyle(color: context.theme.colorScheme.onSecondary),
+                    height: 24,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                        color: tokenSnapshot.data! > 100
+                            ? Colors.amber
+                            : context.theme.colorScheme.secondary
+                                .withOpacity(.5),
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Center(
+                      child: Text(
+                        tokenSnapshot.data! > 100 ? "Premium" : "Free".i18n,
+                        style: TextStyle(
+                            color: context.theme.colorScheme.onSecondary),
+                      ),
                     ),
                   ),
-                                ),
                 );
               } else {
                 return const Padding(
                   padding: EdgeInsets.all(2.0),
-                  child: SizedBox(
-                      height: 18, width: 18,
-                      child: CircularProgressIndicator()),
+                  child: SizedBox(height: 18, width: 18),
                 );
               }
             }),

@@ -10,7 +10,6 @@ class InfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
         title: Text(
           "About".i18n,

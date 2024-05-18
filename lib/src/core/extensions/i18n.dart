@@ -297,9 +297,9 @@ extension Localization on Object {
       "en_us": "Play story",
       "vi_vi": "Nghe truyện",
     },
-    "Often less than 20 seconds": {
-      "en_us": "Often less than 20 seconds",
-      "vi_vi": "Thường mất khoảng 20 giây",
+    "Often less than 10 seconds": {
+      "en_us": "Often less than 10 seconds",
+      "vi_vi": "Thường mất khoảng 10 giây",
     },
     "Increase": {
       "en_us": "Increase Font Size",

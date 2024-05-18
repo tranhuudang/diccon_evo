@@ -37,7 +37,7 @@ class _EssentialViewState extends State<EssentialView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: context.theme.colorScheme.surface,
+
           appBar: AppBar(
             title: ScreenTypeLayout.builder(
                 mobile: (context) =>   const SizedBox.shrink(),

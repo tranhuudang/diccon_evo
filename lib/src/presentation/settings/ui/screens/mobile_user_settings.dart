@@ -23,7 +23,6 @@ class _MobileUserSettingsViewState extends State<MobileUserSettingsView> {
     userBloc.add(CheckIsSignedInEvent());
     var currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
-      backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
         title: Text("Account".i18n),
       ),

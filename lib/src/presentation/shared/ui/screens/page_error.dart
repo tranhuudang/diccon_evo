@@ -8,7 +8,6 @@ class PageErrorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: context.theme.colorScheme.surface,
         body: Stack(
           children: [
             Center(

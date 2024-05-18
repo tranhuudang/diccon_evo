@@ -15,7 +15,7 @@ class _WordHistoryViewState extends State<WordHistoryView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.colorScheme.surface,
+
       appBar: AppBar(
         scrolledUnderElevation: 0,
         title: Text("History".i18n,),
