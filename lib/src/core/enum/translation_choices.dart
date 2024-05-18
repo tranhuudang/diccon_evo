@@ -1,13 +1,13 @@
 enum TranslationChoices{
-  translate,
-  explain
+  classic,
+  generative_ai
 }
 extension TranslationChoicesTitle on TranslationChoices{
   String title(){
     switch(this) {
-      case TranslationChoices.translate:
+      case TranslationChoices.classic:
         return "Classic";
-      case TranslationChoices.explain:
+      case TranslationChoices.generative_ai:
         return "AI";
     }
 

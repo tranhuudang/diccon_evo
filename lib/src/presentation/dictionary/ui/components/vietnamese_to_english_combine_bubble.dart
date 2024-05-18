@@ -74,7 +74,7 @@ class _VietnameseToEnglishCombineBubbleState
                   builder: (context, translationChoice) {
                     if (Properties.instance.settings.translationChoice
                             .toTranslationChoice() ==
-                        TranslationChoices.explain) {
+                        TranslationChoices.generative_ai) {
                       listResponseOptions =
                           listResponseOptions.reversed.toList();
                     }
@@ -127,7 +127,7 @@ class _VietnameseToEnglishCombineBubbleState
                                         if (Properties.instance.settings
                                             .translationChoice
                                             .toTranslationChoice() ==
-                                            TranslationChoices.explain) {
+                                            TranslationChoices.generative_ai) {
                                           if (listResponseController.page ==
                                               0.0) {
                                             Clipboard.setData(ClipboardData(

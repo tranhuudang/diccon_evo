@@ -37,7 +37,7 @@ class _DictionaryMenuState extends State<DictionaryMenu> {
           ),
           itemBuilder: (context) => [
             PopupMenuItem(
-              child: snapshot.data! == TranslationChoices.explain
+              child: snapshot.data! == TranslationChoices.generative_ai
                   ? Text(
                       "Prefer AI".i18n,
                       style: TextStyle(
@@ -48,9 +48,9 @@ class _DictionaryMenuState extends State<DictionaryMenu> {
                       "Prefer AI".i18n,
                     ),
               onTap: () {
-                _streamController.sink.add(TranslationChoices.explain);
+                _streamController.sink.add(TranslationChoices.generative_ai);
                 final newSettings = currentSettings
-                    .copyWith(translationChoice: TranslationChoices.explain.title());
+                    .copyWith(translationChoice: TranslationChoices.generative_ai.title());
                 Properties.instance.saveSettings(newSettings);
                 if (kDebugMode) {
                   print("Enable prefer chatbot dictionary");
@@ -58,16 +58,16 @@ class _DictionaryMenuState extends State<DictionaryMenu> {
               },
             ),
             PopupMenuItem(
-              child: snapshot.data! == TranslationChoices.translate
+              child: snapshot.data! == TranslationChoices.classic
                   ? Text("Prefer Classic".i18n,
                       style: TextStyle(
                         color: context.theme.colorScheme.primary,
                       ))
                   : Text("Prefer Classic".i18n),
               onTap: () {
-                _streamController.sink.add(TranslationChoices.translate);
+                _streamController.sink.add(TranslationChoices.classic);
                 final newSettings = currentSettings.copyWith(
-                    translationChoice: TranslationChoices.translate.title());
+                    translationChoice: TranslationChoices.classic.title());
                 Properties.instance.saveSettings(newSettings);
                 if (kDebugMode) {
                   print("Enable prefer classic dictionary");
