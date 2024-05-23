@@ -63,9 +63,9 @@ class _Initializer {
 
   static Future<void> _appCheckActivate() async {
     if (Platform.isAndroid) {
-      await FirebaseAppCheck.instance.activate(
-        androidProvider: AndroidProvider.debug,
-      );
+      // await FirebaseAppCheck.instance.activate(
+      //   androidProvider: AndroidProvider.debug,
+      // );
     }
     if (Platform.isIOS){
        // Currently not implement 
