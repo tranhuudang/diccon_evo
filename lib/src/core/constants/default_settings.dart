@@ -9,7 +9,6 @@ class DefaultSettings{
   static const Size maxWindowsSize = Size(5000, 10000);
   static const double overflowHeight = 745;
   static final Settings settings = Settings(
-    translationChoice: TranslationChoices.generative_ai.title(),
     numberOfSynonyms: 10,
     numberOfAntonyms: 10,
     readingFontSize: 16,

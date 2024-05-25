@@ -11,14 +11,12 @@ import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
 
 class VietnameseToEnglishCombineBubble extends StatefulWidget {
-  final Word wordObjectForLocal;
   final String wordForChatBot;
   final ScrollController chatListController;
   final int index;
   final List<ChatGptRepository> listChatGptRepository;
   const VietnameseToEnglishCombineBubble(
       {super.key,
-      required this.wordObjectForLocal,
       required this.wordForChatBot,
       required this.chatListController,
       required this.index,
@@ -31,14 +29,11 @@ class VietnameseToEnglishCombineBubble extends StatefulWidget {
 
 class _VietnameseToEnglishCombineBubbleState
     extends State<VietnameseToEnglishCombineBubble> {
-  final translationModeStreamController =
-      StreamController<TranslationChoices>();
   final listResponseController = PageController();
 
   @override
   Widget build(BuildContext context) {
     var listResponseOptions = [
-      VietnameseToEnglishClassicBubble(word: widget.wordObjectForLocal),
       VietnameseToEnglishChatBotBubble(
           word: widget.wordForChatBot,
           chatListController: widget.chatListController,
@@ -67,26 +62,14 @@ class _VietnameseToEnglishCombineBubbleState
                     bottomRight: Radius.circular(16.0),
                   ),
                 ),
-                child: StreamBuilder<TranslationChoices>(
-                  stream: translationModeStreamController.stream,
-                  initialData: Properties.instance.settings.translationChoice
-                      .toTranslationChoice(),
-                  builder: (context, translationChoice) {
-                    if (Properties.instance.settings.translationChoice
-                            .toTranslationChoice() ==
-                        TranslationChoices.generative_ai) {
-                      listResponseOptions =
-                          listResponseOptions.reversed.toList();
-                    }
-                    if (widget.wordForChatBot.numberOfWord() > 3) {
-                      return VietnameseToEnglishChatBotBubble(
-                          isParagraph: true,
-                          word: widget.wordForChatBot,
-                          chatListController: widget.chatListController,
-                          index: widget.index,
-                          listChatGptRepository: widget.listChatGptRepository);
-                    } else {
-                      return Stack(
+                child: widget.wordForChatBot.numberOfWord() > 3
+                    ? VietnameseToEnglishChatBotBubble(
+                        isParagraph: true,
+                        word: widget.wordForChatBot,
+                        chatListController: widget.chatListController,
+                        index: widget.index,
+                        listChatGptRepository: widget.listChatGptRepository)
+                    : Stack(
                         children: [
                           Column(
                             children: [
@@ -122,34 +105,8 @@ class _VietnameseToEnglishCombineBubbleState
                                             .singleQuestionAnswer
                                             .answer
                                             .toString();
-                                        String? translatedLocal = widget
-                                            .wordObjectForLocal.definition;
-                                        if (Properties.instance.settings
-                                            .translationChoice
-                                            .toTranslationChoice() ==
-                                            TranslationChoices.generative_ai) {
-                                          if (listResponseController.page ==
-                                              0.0) {
-                                            Clipboard.setData(ClipboardData(
-                                                text: translatedBotAnswer));
-                                          } else {
-                                            Clipboard.setData(
-                                              ClipboardData(
-                                                  text: translatedLocal ?? ''),
-                                            );
-                                          }
-                                        } else {
-                                          if (listResponseController.page ==
-                                              0.0) {
-                                            Clipboard.setData(
-                                              ClipboardData(
-                                                  text: translatedLocal ?? ''),
-                                            );
-                                          } else {
-                                            Clipboard.setData(ClipboardData(
-                                                text: translatedBotAnswer));
-                                          }
-                                        }
+                                        Clipboard.setData(ClipboardData(
+                                            text: translatedBotAnswer));
 
                                         Fluttertoast.showToast(
                                             msg: 'Copied to clipboard'.i18n);
@@ -194,27 +151,8 @@ class _VietnameseToEnglishCombineBubbleState
                             ],
                           ),
                         ],
-                      );
-                    }
-                  },
-                ),
-              ),
-              if (defaultTargetPlatform.isMobile())
-                if (!(widget.wordForChatBot.numberOfWord() >= 3))
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SmoothPageIndicator(
-                      controller: listResponseController,
-                      count: listResponseOptions.length,
-                      effect: ScrollingDotsEffect(
-                        maxVisibleDots: 5,
-                        dotHeight: 8,
-                        dotWidth: 8,
-                        activeDotColor: context.theme.colorScheme.primary,
-                        dotColor: context.theme.highlightColor,
                       ),
-                    ),
-                  ),
+              ),
             ],
           ),
         ],

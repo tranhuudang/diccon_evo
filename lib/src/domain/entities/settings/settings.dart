@@ -34,9 +34,6 @@ class Settings with _$Settings {
     required double windowsWidth,
     /// Hold windows size value
     required double windowsHeight,
-    /// The app support two type of translation, using classic dictionary or use AI to
-    /// generate answer. That's include: AI, Classic.
-    required String translationChoice,
     /// Hold primary color for the app, it can be generate to other colors later to
     /// create colorScheme
     required int themeColor,

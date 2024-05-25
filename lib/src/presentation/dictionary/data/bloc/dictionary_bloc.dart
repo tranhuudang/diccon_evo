@@ -94,10 +94,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     if (kDebugMode) {
       print("[Internet Connection] $isInternetConnected");
     }
-    if (currentSetting.translationChoice.toTranslationChoice() ==
-            TranslationChoices.generative_ai &&
-        !isInternetConnected &&
-        !_isReportedAboutDisconnection) {
+    if (!isInternetConnected && !_isReportedAboutDisconnection) {
       _chatList.insert(0, const NoInternetBubble());
       emit(ChatListUpdated(chatList: _chatList));
       _isReportedAboutDisconnection = true;
@@ -124,12 +121,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         (identifyLanguageResult == languageIdentifier.englishLanguageCode &&
             currentSetting.translationLanguageTarget ==
                 TranslationLanguageTarget.autoDetect.title())) {
-      var wordResult =
-          await _getLocalEnglishToVietnameseTranslation(event.providedWord);
       _chatList.insert(
           0,
           EnglishToVietnameseCombineBubble(
-              wordObjectForLocal: wordResult,
               wordForChatBot: event.providedWord,
               chatListController: chatListController,
               index: chatGptRepositoryIndex,
@@ -141,12 +135,9 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         (identifyLanguageResult == languageIdentifier.vietnameseLanguageCode &&
             currentSetting.translationLanguageTarget ==
                 TranslationLanguageTarget.autoDetect.title())) {
-      var wordResult =
-          await _getLocalVietnameseToEnglishTranslation(event.providedWord);
       _chatList.insert(
           0,
           VietnameseToEnglishCombineBubble(
-              wordObjectForLocal: wordResult,
               wordForChatBot: event.providedWord,
               chatListController: chatListController,
               index: chatGptRepositoryIndex,
@@ -161,37 +152,5 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     textController.clear();
     _chatList = [const DictionaryWelcome()];
     emit(ChatListUpdated(chatList: _chatList));
-  }
-
-  Future<Word> _getLocalEnglishToVietnameseTranslation(
-      String providedWord) async {
-    EnglishToVietnameseDictionaryRepository searchingEngine =
-        EnglishToVietnameseDictionaryRepositoryImpl();
-    Word? wordResult = await searchingEngine.getDefinition(providedWord);
-    if (wordResult != Word.empty()) {
-      if (kDebugMode) {
-        print("got result from local dictionary");
-      }
-      return wordResult;
-    }
-    var badResult = Word(
-        word: providedWord, definition: "WordNotFoundInLocalDictionary".i18n);
-    return badResult;
-  }
-
-  Future<Word> _getLocalVietnameseToEnglishTranslation(
-      String providedWord) async {
-    VietnameseToEnglishDictionaryRepository searchingEngine =
-        VietnameseToEnglishDictionaryRepositoryImpl();
-    Word? wordResult = await searchingEngine.getDefinition(providedWord);
-    if (wordResult != Word.empty()) {
-      if (kDebugMode) {
-        print("got result from local dictionary");
-      }
-      return wordResult;
-    }
-    var badResult = Word(
-        word: providedWord, definition: "WordNotFoundInLocalDictionary".i18n);
-    return badResult;
   }
 }

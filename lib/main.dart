@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/app.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'firebase_options.dart';
 import 'package:flutter/foundation.dart';
 part 'initializer.dart';

@@ -8,7 +8,6 @@ export 'vietnamese_to_english_classic_bubble.dart';
 export 'english_to_vietnamese_combine_bubble.dart';
 export 'english_to_vietnamese_chatbot_bubble.dart';
 export 'english_to_vietnamese_classic_bubble.dart';
-export 'dictionary_menu.dart';
 export 'dictionary_welcome_box.dart';
 export 'history_tile.dart';
 export 'image_buble.dart';

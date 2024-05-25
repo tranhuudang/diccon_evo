@@ -14,8 +14,6 @@ class _Initializer {
         Platform.isLinux ||
         Platform.isMacOS) {
       await windowManager.ensureInitialized();
-      // Initialize FFI
-      sqfliteFfiInit();
 
       // Get setting and set default value for windows size, title
       Size savedWindowsSize = Size(Properties.instance.settings.windowsWidth,
@@ -25,10 +23,6 @@ class _Initializer {
       WindowManager.instance.setMaximumSize(DefaultSettings.maxWindowsSize);
       WindowManager.instance.setTitle(DefaultSettings.appName);
     }
-    // database
-    databaseFactory = databaseFactoryFfi;
-    await EnglishToVietnameseDictionaryDatabase.initialize();
-    await VietnameseToEnglishDictionaryDatabase.initialize();
     // OpenAI
     OpenAITimer.init();
     await OpenAIKeySelector.init();

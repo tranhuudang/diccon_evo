@@ -28,11 +28,6 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
   StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
   final _isLoadingStreamController = StreamController();
-  final _tabSwitcherStreamController =
-      StreamController<StoryTranslationChoices>();
-  Word _wordResult = Word.empty();
-  bool _isLoading = true;
-  final _pageController = PageController();
   _chatStreamResponse(ChatCompletionRequest request) async {
     _chatStreamSubscription?.cancel();
     _isLoadingStreamController.sink.add(true);
@@ -47,6 +42,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
               _isLoadingStreamController.sink.add(false);
               // Add translated paragraph to firebase
               _createFirebaseDatabaseItem();
+              setState(() {});
             } else {
               return _chatGptRepository.singleQuestionAnswer.answer.write(
                 event.choices?.first.delta?.content,
@@ -69,17 +65,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   @override
   void initState() {
     super.initState();
-    _getLocalDefinition();
     _sendAndGetResponse();
-  }
-
-  _getLocalDefinition() async {
-    EnglishToVietnameseDictionaryRepository searchingEngine =
-        EnglishToVietnameseDictionaryRepositoryImpl();
-    _wordResult = await searchingEngine.getDefinition(widget.searchWord);
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   _sendAndGetResponse() async {
@@ -89,8 +75,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     var request = await _chatGptRepository.createSingleQuestionRequest(
         'Translate this sentence: "${widget.sentenceContainWord}" to Vietnamese (Only return the translation)');
     // create md5 from question to compare to see if that md5 is already exist in database
-    var answer =
-    Md5Generator.composeMd5IdForStoryFirebaseDb(sentence: widget.sentenceContainWord);
+    var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
+        sentence: widget.sentenceContainWord);
     final docUser = FirebaseFirestore.instance.collection("Story").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
@@ -103,11 +89,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     });
   }
 
-
-
   Future<void> _createFirebaseDatabaseItem() async {
-    final answerId =
-       Md5Generator.composeMd5IdForStoryFirebaseDb(sentence: widget.sentenceContainWord);
+    final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+        sentence: widget.sentenceContainWord);
     final databaseRow =
         FirebaseFirestore.instance.collection("Story").doc(answerId);
     final json = {
@@ -120,7 +104,6 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   @override
   void dispose() {
     super.dispose();
-    _tabSwitcherStreamController.close();
     _isLoadingStreamController.close();
     _chatStreamSubscription?.cancel();
   }
@@ -129,146 +112,46 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   Widget build(BuildContext context) {
     final questionAnswer = _chatGptRepository.singleQuestionAnswer;
     var answer = questionAnswer.answer.toString().trim();
-    return _isLoading
-        ? const Center(
-            child: SizedBox(
-                height: 50, width: 50, child: CircularProgressIndicator()),
-          )
-        : Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: StreamBuilder<StoryTranslationChoices>(
-                  initialData: StoryTranslationChoices.translate,
-                  stream: _tabSwitcherStreamController.stream,
-                  builder: (context, tabSwitcher) {
-                    return Column(
-                      children: [
-                        SwitchTranslationBar(
-                          currentValue: tabSwitcher.data!,
-                          selectedItemSet:
-                              (Set<StoryTranslationChoices> selectedItemSet) {
-                            _tabSwitcherStreamController
-                                .add(selectedItemSet.first);
-                            if (selectedItemSet.first ==
-                                StoryTranslationChoices.translate) {
-                              _pageController.previousPage(
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeIn);
-                            }
-                            if (selectedItemSet.first ==
-                                StoryTranslationChoices.explain) {
-                              _pageController.nextPage(
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeIn);
-                            }
-                          },
-                        ),
-                        ExpandablePageView(
-                          controller: _pageController,
-                          onPageChanged: (index) {
-                            if (index == 0) {
-                              _tabSwitcherStreamController
-                                  .add(StoryTranslationChoices.translate);
-                            }
-                            if (index == 1) {
-                              _tabSwitcherStreamController
-                                  .add(StoryTranslationChoices.explain);
-                            }
-                          },
-                          children: [
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    WordTitle(
-                                      word: widget.searchWord
-                                          .trim()
-                                          .upperCaseFirstLetter(),
-                                      titleColor:
-                                          context.theme.colorScheme.onSurface,
-                                    ),
-                                    const SizedBox(
-                                      width: 8.0,
-                                    ),
-                                    WordPronunciation(
-                                        pronunciation:
-                                            _wordResult.pronunciation),
-                                    PlaybackButton(
-                                      message: _wordResult.word,
-                                      icon: Icon(
-                                        Icons.volume_up,
-                                        color: context.theme.colorScheme
-                                            .onSecondaryContainer,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    WordMeaning(
-                                      message: _wordResult,
-                                      onWordTap: widget.onWordTap,
-                                      highlightColor:
-                                          context.theme.colorScheme.onSurface,
-                                      subColor: context
-                                          .theme.colorScheme.onSurface
-                                          .withOpacity(.8),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      PlaybackButton(
-                                        message: widget.sentenceContainWord,
-                                        icon: Icon(
-                                          Icons.volume_up,
-                                          color: context.theme.colorScheme
-                                              .onSecondaryContainer,
-                                        ),
-                                      ),
-                                      Text(
-                                        widget.sentenceContainWord,
-                                        style: context
-                                            .theme.textTheme.titleMedium
-                                            ?.copyWith(
-                                                color: context.theme.colorScheme
-                                                    .onSurface),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                  child: Text(
-                                    answer,
-                                    style: context.theme.textTheme.titleMedium
-                                        ?.copyWith(
-                                            color: context
-                                                .theme.colorScheme.onSurface),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    );
-                  },
+    return Container(
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PlaybackButton(
+                      message: widget.sentenceContainWord,
+                      icon: Icon(
+                        Icons.volume_up,
+                        color: context.theme.colorScheme.onSecondaryContainer,
+                      ),
+                    ),
+                    Text(
+                      widget.sentenceContainWord,
+                      style: context.theme.textTheme.titleMedium?.copyWith(
+                          color: context.theme.colorScheme.onSurface),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          );
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  answer,
+                  style: context.theme.textTheme.titleMedium
+                      ?.copyWith(color: context.theme.colorScheme.onSurface),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -118,7 +118,12 @@ class _DictionaryViewState extends State<DictionaryView> {
               context.pushNamed('word-history');
             },
           ),
-          const DictionaryMenu(),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: (){
+              context.pushNamed(RouterConstants.dictionaryPreferences);
+            },
+          ),
         ],
       ),
       body: Stack(

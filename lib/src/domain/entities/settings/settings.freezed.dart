@@ -63,10 +63,6 @@ mixin _$Settings {
   /// Hold windows size value
   double get windowsHeight => throw _privateConstructorUsedError;
 
-  /// The app support two type of translation, using classic dictionary or use AI to
-  /// generate answer. That's include: AI, Classic.
-  String get translationChoice => throw _privateConstructorUsedError;
-
   /// Hold primary color for the app, it can be generate to other colors later to
   /// create colorScheme
   int get themeColor => throw _privateConstructorUsedError;
@@ -102,7 +98,6 @@ abstract class $SettingsCopyWith<$Res> {
       String translationLanguageTarget,
       double windowsWidth,
       double windowsHeight,
-      String translationChoice,
       int themeColor,
       String selectedTab,
       bool continueWithoutLogin});
@@ -135,7 +130,6 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
     Object? windowsHeight = null,
-    Object? translationChoice = null,
     Object? themeColor = null,
     Object? selectedTab = null,
     Object? continueWithoutLogin = null,
@@ -199,10 +193,6 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.windowsHeight
           : windowsHeight // ignore: cast_nullable_to_non_nullable
               as double,
-      translationChoice: null == translationChoice
-          ? _value.translationChoice
-          : translationChoice // ignore: cast_nullable_to_non_nullable
-              as String,
       themeColor: null == themeColor
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
@@ -241,7 +231,6 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       String translationLanguageTarget,
       double windowsWidth,
       double windowsHeight,
-      String translationChoice,
       int themeColor,
       String selectedTab,
       bool continueWithoutLogin});
@@ -272,7 +261,6 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
     Object? windowsHeight = null,
-    Object? translationChoice = null,
     Object? themeColor = null,
     Object? selectedTab = null,
     Object? continueWithoutLogin = null,
@@ -336,10 +324,6 @@ class __$$SettingImplCopyWithImpl<$Res>
           ? _value.windowsHeight
           : windowsHeight // ignore: cast_nullable_to_non_nullable
               as double,
-      translationChoice: null == translationChoice
-          ? _value.translationChoice
-          : translationChoice // ignore: cast_nullable_to_non_nullable
-              as String,
       themeColor: null == themeColor
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
@@ -374,7 +358,6 @@ class _$SettingImpl implements _Setting {
       required this.translationLanguageTarget,
       required this.windowsWidth,
       required this.windowsHeight,
-      required this.translationChoice,
       required this.themeColor,
       required this.selectedTab,
       required this.continueWithoutLogin});
@@ -438,11 +421,6 @@ class _$SettingImpl implements _Setting {
   @override
   final double windowsHeight;
 
-  /// The app support two type of translation, using classic dictionary or use AI to
-  /// generate answer. That's include: AI, Classic.
-  @override
-  final String translationChoice;
-
   /// Hold primary color for the app, it can be generate to other colors later to
   /// create colorScheme
   @override
@@ -458,7 +436,7 @@ class _$SettingImpl implements _Setting {
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, translationChoice: $translationChoice, themeColor: $themeColor, selectedTab: $selectedTab, continueWithoutLogin: $continueWithoutLogin)';
+    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, themeColor: $themeColor, selectedTab: $selectedTab, continueWithoutLogin: $continueWithoutLogin)';
   }
 
   @override
@@ -500,8 +478,6 @@ class _$SettingImpl implements _Setting {
                 other.windowsWidth == windowsWidth) &&
             (identical(other.windowsHeight, windowsHeight) ||
                 other.windowsHeight == windowsHeight) &&
-            (identical(other.translationChoice, translationChoice) ||
-                other.translationChoice == translationChoice) &&
             (identical(other.themeColor, themeColor) ||
                 other.themeColor == themeColor) &&
             (identical(other.selectedTab, selectedTab) ||
@@ -527,7 +503,6 @@ class _$SettingImpl implements _Setting {
       translationLanguageTarget,
       windowsWidth,
       windowsHeight,
-      translationChoice,
       themeColor,
       selectedTab,
       continueWithoutLogin);
@@ -555,7 +530,6 @@ abstract class _Setting implements Settings {
       required final String translationLanguageTarget,
       required final double windowsWidth,
       required final double windowsHeight,
-      required final String translationChoice,
       required final int themeColor,
       required final String selectedTab,
       required final bool continueWithoutLogin}) = _$SettingImpl;
@@ -619,11 +593,6 @@ abstract class _Setting implements Settings {
 
   /// Hold windows size value
   double get windowsHeight;
-  @override
-
-  /// The app support two type of translation, using classic dictionary or use AI to
-  /// generate answer. That's include: AI, Classic.
-  String get translationChoice;
   @override
 
   /// Hold primary color for the app, it can be generate to other colors later to

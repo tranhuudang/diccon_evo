@@ -29,18 +29,6 @@ extension StringExtenstion on String {
     }
   }
 
-  TranslationChoices toTranslationChoice() {
-    switch (this) {
-      case "Classic":
-        return TranslationChoices.classic;
-      case "AI":
-        return TranslationChoices.generative_ai;
-      default:
-        throw FormatException(
-            "$this is not have a valid value to convert to TranslationChoice");
-    }
-  }
-
   int numberOfWord() {
     if (isEmpty) return 0;
     // Split the sentence into words using whitespace as the delimiter

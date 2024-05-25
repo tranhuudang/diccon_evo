@@ -5,7 +5,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 5.1.4+103
 
 environment:
-  sdk: ">=3.3.1 <4.0.0"
+  sdk: '>=3.4.1 <4.0.0'
 
 dependencies:
   flutter:
@@ -46,11 +46,6 @@ dependencies:
   go_router: ^13.2.0
   collection: ^1.18.0
   speech_to_text: ^6.4.0
-  # local database
-  sqflite: ^2.3.3+1
-  # sql for windows
-  sqlite3_flutter_libs: ^0.5.21
-  sqflite_common_ffi: ^2.3.3
   # The path package provides common operations for manipulating paths: joining, splitting, normalizing, etc
   path: ^1.9.0
   # i use this to create hash value for question asnwer
