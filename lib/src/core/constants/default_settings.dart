@@ -8,6 +8,8 @@ class DefaultSettings{
   static const Size minWindowsSize = Size(620, 600);
   static const Size maxWindowsSize = Size(5000, 10000);
   static const double overflowHeight = 745;
+  static const dictionaryResponseVietnameseConstant= 'Phiên âm, Định nghĩa, Ví dụ';
+  static const dictionaryResponseEnglishConstant = 'Pronunciation, Definition, Examples';
   static final Settings settings = Settings(
     numberOfSynonyms: 10,
     numberOfAntonyms: 10,
@@ -15,7 +17,7 @@ class DefaultSettings{
     numberOfEssentialLeft: 1848,
     language: 'System default',
     dictionaryResponseSelectedListVietnamese: 'Phiên âm, Định nghĩa, Ví dụ',
-    dictionaryResponseSelectedListEnglish: 'Pronunciation, Definition, Example',
+    dictionaryResponseSelectedListEnglish: 'Pronunciation, Definition, Examples',
     readingFontSizeSliderValue: 0.2,
     windowsWidth: defaultWindowsSize.width,
     windowsHeight: defaultWindowsSize.height,

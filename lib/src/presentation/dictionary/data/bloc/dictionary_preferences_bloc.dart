@@ -66,7 +66,7 @@ class DictionaryPreferencesBloc
   }
   FutureOr<void> _addItemToSelectedList(
       AddItemToSelectedList event, Emitter<DictionaryPreferencesState> emit) {
-    if (state.listSelectedVietnamese.length >= 7) {
+    if (state.listSelectedVietnamese.length >= 6) {
       emit(DictionaryPreferencesNotifyAboutLimitChoices(
           listSelectedVietnamese: state.listSelectedVietnamese,
           listSelectedEnglish: state.listSelectedEnglish));

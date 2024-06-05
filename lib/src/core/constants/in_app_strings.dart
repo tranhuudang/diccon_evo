@@ -1,3 +1,5 @@
+import 'package:diccon_evo/src/core/core.dart';
+
 import '../configs/configs.dart';
 
 class InAppStrings {
@@ -70,7 +72,39 @@ class InAppStrings {
   static const languageExpertTranslatorRole =
       "Pretend you are an expert language translator";
   static String getViToEnSingleWordTranslateQuestion(String word) {
-    return 'Help me translate the word: "${word.trim()}" from Vietnamese to English covering these topics: ${Properties.instance.settings.dictionaryResponseSelectedListEnglish}. Make sure that each vietnamese sentences are immediately followed by their english translations, translated be put in (). Any explanations within the answer must be in english. Make the answer as short as possible';
+    final listTopic1 = Properties
+        .instance.settings.dictionaryResponseSelectedListVietnamese
+        .replaceAll(DefaultSettings.dictionaryResponseVietnameseConstant, '');
+    final listTopic2 = listTopic1.replaceAll(
+        DefaultSettings.dictionaryResponseEnglishConstant, '');
+    var listString = '';
+    if (listTopic2.trim().replaceAll(',', '').length > 2) {
+      listTopic2.split(',').forEach((word) {
+        if (word.length > 2) {
+          listString += ''
+              '  ● ${word.trim()}'
+              ''
+              '  Definition: [definition in ${word.trim().i18nEnglish}] context in English]'
+              '  Example:'
+              ''
+              '1.  [Example sentence in ${word.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])'
+              '2.  [Example sentence in ${word.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])';
+        }
+      });
+    }
+    return '  Translate the Vietnamese word "[${word.trim()}]" to English and provide the response in the following format:'
+        ''
+        '  Phonetics: /[phonetic transcription]/'
+        '  Definition: [definition in English]'
+        '  Example:'
+        ''
+        '1.  [Example sentence in Vietnamese] ([Example sentence in English])'
+        '2.  [Example sentence in Vietnamese] ([Example sentence in English])'
+        '3.  [Example sentence in Vietnamese] ([Example sentence in English])'
+        '4.  [Example sentence in Vietnamese] ([Example sentence in English])'
+        '5.  [Example sentence in Vietnamese] ([Example sentence in English])'
+        ''
+        '$listString';
   }
 
   static String getViToEnParagraphTranslateQuestion(String word) {
@@ -78,7 +112,39 @@ class InAppStrings {
   }
 
   static String getEnToViSingleWordTranslateQuestion(String word) {
-    return 'Help me translate the word: "${word.trim()}" from English to Vietnamese covering these topics: ${Properties.instance.settings.dictionaryResponseSelectedListVietnamese}. Make sure that each english sentences are immediately followed by their vietnamese translations, translated be put in (). Any explanations within the answer must be in vietnamese. Make the answer as short as possible.';
+    final listTopic1 = Properties
+        .instance.settings.dictionaryResponseSelectedListVietnamese
+        .replaceAll(DefaultSettings.dictionaryResponseVietnameseConstant, '');
+    final listTopic2 = listTopic1.replaceAll(
+        DefaultSettings.dictionaryResponseEnglishConstant, '');
+    var listString = '';
+    if (listTopic2.trim().replaceAll(',', '').length > 2) {
+      listTopic2.split(',').forEach((word) {
+        if (word.length > 2) {
+          listString += ''
+              '  ● ${word.trim()}'
+              ''
+              '  Định nghĩa: [definition in ${word.trim().i18nEnglish}] context in Vietnamese]'
+              '  Ví dụ:'
+              ''
+              '1.  [Example sentence in ${word.trim().i18nEnglish} in English] ([Example sentence in Vietnamese])'
+              '2.  [Example sentence in ${word.trim().i18nEnglish} in English] ([Example sentence in Vietnamese])';
+        }
+      });
+    }
+    return '  Translate the English word "[${word.trim()}]" to Vietnamese and provide the response in the following format:'
+        ''
+        '  Phiên âm: /[phonetic transcription]/'
+        '  Định nghĩa: [definition in Vietnamese]'
+        '  Ví dụ:'
+        ''
+        '1.  [Example sentence in English] ([Example sentence in Vietnamese])'
+        '2.  [Example sentence in English] ([Example sentence in Vietnamese])'
+        '3.  [Example sentence in English] ([Example sentence in Vietnamese])'
+        '4.  [Example sentence in English] ([Example sentence in Vietnamese])'
+        '5.  [Example sentence in English] ([Example sentence in Vietnamese])'
+        ''
+        '$listString';
   }
 
   static String getEnToViParagraphTranslateQuestion(String word) {
