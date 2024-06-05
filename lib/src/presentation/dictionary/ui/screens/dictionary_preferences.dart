@@ -138,69 +138,75 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                   Section(
                     title: "Available options".i18n,
                     children: [
-                      Wrap(
-                        spacing: 3,
-                        runSpacing: 3,
-                        children: listChoices.map((item) {
-                          bool isSelected = false;
-                          if (state.listSelectedVietnamese.contains(item)) {
-                            isSelected = true;
-                          }
-                          if (DefaultSettings.dictionaryResponseEnglishConstant
-                                  .contains(item) ||
-                              DefaultSettings
-                                  .dictionaryResponseVietnameseConstant
-                                  .contains(item)) {
-                            return ChoiceChip(
-                              label: Text(item.i18n),
-                              selected: isSelected,
-                              onSelected: (selected) {},
-                            );
-                          } else {
-                            return ChoiceChip(
-                              label: Text(item.i18n),
-                              selected: isSelected,
-                              onSelected: (selected) {
-                                if (state.listSelectedVietnamese
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Wrap(
+                          spacing: 3,
+                          runSpacing: 3,
+                          children: listChoices.map((item) {
+                            bool isSelected = false;
+                            if (state.listSelectedVietnamese.contains(item)) {
+                              isSelected = true;
+                            }
+                            if (DefaultSettings.dictionaryResponseEnglishConstant
+                                    .contains(item) ||
+                                DefaultSettings
+                                    .dictionaryResponseVietnameseConstant
                                     .contains(item)) {
-                                  dictionaryPreferencesBloc.add(
-                                      RemoveItemInList(itemToRemove: item));
-                                } else {
-                                  dictionaryPreferencesBloc.add(
-                                      AddItemToSelectedList(itemToAdd: item));
-                                }
-                              },
-                            );
-                          }
-                        }).toList(),
+                              return ChoiceChip(
+                                label: Text(item.i18n),
+                                selected: isSelected,
+                                onSelected: (selected) {},
+                              );
+                            } else {
+                              return ChoiceChip(
+                                label: Text(item.i18n),
+                                selected: isSelected,
+                                onSelected: (selected) {
+                                  if (state.listSelectedVietnamese
+                                      .contains(item)) {
+                                    dictionaryPreferencesBloc.add(
+                                        RemoveItemInList(itemToRemove: item));
+                                  } else {
+                                    dictionaryPreferencesBloc.add(
+                                        AddItemToSelectedList(itemToAdd: item));
+                                  }
+                                },
+                              );
+                            }
+                          }).toList(),
+                        ),
                       ),
                     ],
                   ),
                   Section(
                     title: "Specialized Meanings".i18n,
                     children: [
-                      Wrap(
-                        spacing: 3,
-                        runSpacing: 3,
-                        children: listSpecializedFields.map((item) {
-                          bool isSelected = false;
-                          if (state.listSelectedVietnamese.contains(item)) {
-                            isSelected = true;
-                          }
-                          return ChoiceChip(
-                            label: Text(item.i18n),
-                            selected: isSelected,
-                            onSelected: (selected) {
-                              if (state.listSelectedVietnamese.contains(item)) {
-                                dictionaryPreferencesBloc
-                                    .add(RemoveItemInList(itemToRemove: item));
-                              } else {
-                                dictionaryPreferencesBloc.add(
-                                    AddItemToSelectedList(itemToAdd: item));
-                              }
-                            },
-                          );
-                        }).toList(),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Wrap(
+                          spacing: 3,
+                          runSpacing: 3,
+                          children: listSpecializedFields.map((item) {
+                            bool isSelected = false;
+                            if (state.listSelectedVietnamese.contains(item)) {
+                              isSelected = true;
+                            }
+                            return ChoiceChip(
+                              label: Text(item.i18n),
+                              selected: isSelected,
+                              onSelected: (selected) {
+                                if (state.listSelectedVietnamese.contains(item)) {
+                                  dictionaryPreferencesBloc
+                                      .add(RemoveItemInList(itemToRemove: item));
+                                } else {
+                                  dictionaryPreferencesBloc.add(
+                                      AddItemToSelectedList(itemToAdd: item));
+                                }
+                              },
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ],
                   ),
