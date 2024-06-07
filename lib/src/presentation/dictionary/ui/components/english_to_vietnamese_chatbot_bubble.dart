@@ -60,6 +60,7 @@ class _EnglishToVietnameseChatBotBubbleState
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return ChatBotBubble(
+            lang: "en to vi",
             word: widget.word,
             chatListController: widget.chatListController,
             index: widget.index,

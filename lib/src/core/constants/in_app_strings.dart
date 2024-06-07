@@ -94,7 +94,7 @@ class InAppStrings {
     }
     return '  Translate the Vietnamese word "[${word.trim()}]" to English and provide the response in the following format:'
         ''
-        '  Phonetics: /[phonetic transcription]/'
+        '  Phonetics: /[phonetic transcription in Vietnamese]/'
         '  Definition: [definition in English]'
         '  Example:'
         ''
@@ -134,7 +134,7 @@ class InAppStrings {
     }
     return '  Translate the English word "[${word.trim()}]" to Vietnamese and provide the response in the following format:'
         ''
-        '  Phiên âm: /[phonetic transcription]/'
+        '  Phiên âm: /[phonetic transcription in English]/'
         '  Định nghĩa: [definition in Vietnamese]'
         '  Ví dụ:'
         ''

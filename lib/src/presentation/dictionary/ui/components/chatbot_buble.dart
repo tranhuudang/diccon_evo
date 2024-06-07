@@ -18,11 +18,12 @@ class ChatBotBubble extends StatefulWidget {
     required this.index,
     required this.listChatGptRepository,
     this.isParagraph = false,
-    required this.request,
+    required this.request, required this.lang,
   });
 
   final Function(String)? onWordTap;
   final String word;
+  final String lang;
   final ScrollController chatListController;
   final int index;
   final List<ChatGptRepository> listChatGptRepository;
@@ -88,6 +89,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
   Future<void> _createFirebaseDatabaseItem() async {
     final currentSettings = Properties.instance.settings;
     final answerId = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
+        lang: widget.lang,
         word: widget.word,
         options: currentSettings
             .dictionaryResponseSelectedListVietnamese); // Generate the MD5 hash
@@ -109,6 +111,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
       var request = widget.request;
       // create md5 from question to compare to see if that md5 is already exist in database
       var answer = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
+          lang: widget.lang,
           word: widget.word,
           options: currentSettings.dictionaryResponseSelectedListVietnamese);
       final docUser =

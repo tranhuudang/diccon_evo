@@ -75,7 +75,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     var request = await _chatGptRepository.createSingleQuestionRequest(
             '  Translate the English word "[${widget.searchWord}]" in this sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
             ''
-            '  Phiên âm: /[phonetic transcription]/'
+            '  Phiên âm: /[phonetic transcription in English]/'
             '  Định nghĩa: [definition in Vietnamese]'
             ''
             '  Dịch câu: [translated sentence in Vietnamese]');
