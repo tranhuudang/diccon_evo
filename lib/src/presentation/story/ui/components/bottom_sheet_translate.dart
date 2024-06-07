@@ -73,11 +73,16 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       print("widget.message.word : ${widget.searchWord}");
     }
     var request = await _chatGptRepository.createSingleQuestionRequest(
-        'Translate this sentence: "${widget.sentenceContainWord}" to Vietnamese (Only return the translation)');
+            '  Translate the English word "[${widget.searchWord}]" in this sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
+            ''
+            '  Phiên âm: /[phonetic transcription]/'
+            '  Định nghĩa: [definition in Vietnamese]'
+            ''
+            '  Dịch câu: [translated sentence in Vietnamese]');
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
-        sentence: widget.sentenceContainWord);
-    final docUser = FirebaseFirestore.instance.collection("Story").doc(answer);
+        sentence: widget.sentenceContainWord + widget.searchWord);
+    final docUser = FirebaseFirestore.instance.collection("Story_v2").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepository.singleQuestionAnswer.answer
@@ -91,9 +96,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
 
   Future<void> _createFirebaseDatabaseItem() async {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
-        sentence: widget.sentenceContainWord);
+        sentence: widget.sentenceContainWord + widget.searchWord);
     final databaseRow =
-        FirebaseFirestore.instance.collection("Story").doc(answerId);
+        FirebaseFirestore.instance.collection("Story_v2").doc(answerId);
     final json = {
       'question': widget.sentenceContainWord,
       'answer': _chatGptRepository.singleQuestionAnswer.answer.toString(),
