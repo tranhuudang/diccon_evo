@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/dictionary/ui/components/translate_word_in_sentences_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -277,6 +278,13 @@ class _DictionaryViewState extends State<DictionaryView> {
                   chatListBloc.add(AddImage(imageUrl: _imageUrl));
                 },
               ),
+            SuggestedItem(
+              title: 'Translate word from sentence'.i18n,
+              onPressed: (String a) {
+                //chatListBloc.add(AddTranslateWordFromSentence());
+                showDialog(context: context, builder: (context) => TranslateWordInSentenceDialog());
+              },
+            ),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:diccon_evo/src/presentation/dictionary/ui/components/translate_word_in_sentences_dialog.dart';
+import 'package:diccon_evo/src/presentation/dictionary/ui/components/translated_word_in_sentence_result_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -22,6 +24,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddAntonyms>(_addAntonymsList);
     on<AddImage>(_addImage);
     on<CreateNewChatList>(_createNewChatList);
+    on<AddTranslateWordFromSentence>(_addTranslateWordFromSentence);
   }
   List<ChatGptRepository> _listChatGptRepository = [];
   final ScrollController chatListController = ScrollController();
@@ -45,6 +48,15 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     _chatList.insert(0, BrickWallButtons(listString: listSynonyms));
     emit(ChatListUpdated(chatList: _chatList));
     emit(SynonymsAdded());
+  }
+
+  void _addTranslateWordFromSentence(
+      AddTranslateWordFromSentence event, Emitter<ChatListState> emit) async {
+    _chatList.insert(
+        0,
+        TranslatedWordInSentenceBubble(
+            searchWord: event.word, sentenceContainWord: event.sentence));
+    emit(ChatListUpdated(chatList: _chatList));
   }
 
   void _addAntonymsList(AddAntonyms event, Emitter<ChatListState> emit) async {
