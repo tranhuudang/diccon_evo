@@ -68,7 +68,7 @@ class InAppStrings {
     "At the bank"
   ];
   static const languageTeacherRole =
-      "Pretend you are an expert language teacher named Mr.Diccon who know nothing but languages.";
+      "Pretend you are an expert language teacher named Mr.Diccon who know everything, especially English and Vietnamese.";
   static const languageExpertTranslatorRole =
       "Pretend you are an expert language translator";
   static String getViToEnSingleWordTranslateQuestion(String word) {
