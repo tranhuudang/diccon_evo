@@ -73,16 +73,17 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       print("widget.message.word : ${widget.searchWord}");
     }
     var request = await _chatGptRepository.createSingleQuestionRequest(
-            '  Translate the English word "[${widget.searchWord}]" in this sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
-            ''
-            '  Phiên âm: /[phonetic transcription in English]/'
-            '  Định nghĩa: [definition in Vietnamese]'
-            ''
-            '  Dịch câu: [translated sentence in Vietnamese]');
+        '  Translate the English word "[${widget.searchWord}]" in this sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
+        ''
+        '  Phiên âm: /[phonetic transcription in English]/'
+        '  Định nghĩa: [definition in Vietnamese]'
+        ''
+        '  Dịch câu: [translated sentence in Vietnamese]');
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
-    final docUser = FirebaseFirestore.instance.collection("Story_v2").doc(answer);
+    final docUser =
+        FirebaseFirestore.instance.collection("Story_v2").doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepository.singleQuestionAnswer.answer
@@ -104,6 +105,51 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       'answer': _chatGptRepository.singleQuestionAnswer.answer.toString(),
     };
     await databaseRow.set(json);
+  }
+
+  List<Widget> _highlightWord(String text, String wordToHighlight) {
+    List<Widget> spans = [];
+    final wordToHighlightRefined =
+        wordToHighlight.trim().toLowerCase().removeSpecialCharacters();
+    final words = text.split(' ');
+
+    for (final word in words) {
+      String wordInSentence =
+          word.trim().toLowerCase().removeSpecialCharacters();
+      if (wordInSentence == wordToHighlightRefined) {
+        spans.add(
+          Container(
+            margin: const EdgeInsets.symmetric(
+                horizontal: 2.0), // Adjust margin to control spacing
+            decoration: BoxDecoration(
+              color: context.theme.colorScheme.primary,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 4,
+              ),
+              child: Text(
+                word,
+                style: context.theme.textTheme.titleMedium
+                    ?.copyWith(color: context.theme.colorScheme.onPrimary),
+              ),
+            ),
+          ),
+        );
+      } else {
+        spans.add(
+          Text(
+            '$word ',
+            style: context.theme.textTheme.titleMedium?.copyWith(
+              color: context.theme.colorScheme.onSurface.withOpacity(.5),
+            ),
+          ),
+        );
+      }
+    }
+
+    return spans;
   }
 
   @override
@@ -130,17 +176,46 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PlaybackButton(
-                      message: widget.sentenceContainWord,
-                      icon: Icon(
-                        Icons.volume_up,
-                        color: context.theme.colorScheme.onSecondaryContainer,
-                      ),
+                    Row(
+                      children: [
+                        Row(
+                          children: [
+                            Text(widget.searchWord.upperCaseFirstLetter()),
+                            PlaybackButton(
+                              message: widget.searchWord,
+                              icon: Icon(
+                                Icons.volume_up,
+                                color: context
+                                    .theme.colorScheme.onSecondaryContainer,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "|",
+                          style: TextStyle(
+                              color: context.theme.colorScheme.onSurface
+                                  .withOpacity(.5)),
+                        ),
+                        16.width,
+                        Row(
+                          children: [
+                            Text('All'.i18n),
+                            PlaybackButton(
+                              message: widget.sentenceContainWord,
+                              icon: Icon(
+                                Icons.volume_up,
+                                color: context
+                                    .theme.colorScheme.onSecondaryContainer,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Text(
-                      widget.sentenceContainWord,
-                      style: context.theme.textTheme.titleMedium?.copyWith(
-                          color: context.theme.colorScheme.onSurface),
+                    Wrap(
+                      children: _highlightWord(
+                          widget.sentenceContainWord, widget.searchWord),
                     ),
                   ],
                 ),

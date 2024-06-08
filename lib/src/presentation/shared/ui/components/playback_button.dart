@@ -6,7 +6,10 @@ import '../../../../data/data.dart';
 
 class PlaybackButton extends StatefulWidget {
   const PlaybackButton(
-      {super.key, required this.message, this.languageCode = 'en-US', this.icon});
+      {super.key,
+      required this.message,
+      this.languageCode = 'en-US',
+      this.icon});
   final String message;
   final Widget? icon;
   final String languageCode;
@@ -39,13 +42,14 @@ class _PlaybackButtonState extends State<PlaybackButton> {
         builder: (context, snapshot) {
           return snapshot.data!
               ? IconButton(
-                  icon: widget.icon ?? Icon(
-                    Icons.volume_up_sharp,
-                    color: context.theme.colorScheme.onSecondary,
-                  ),
+                  icon: widget.icon ??
+                      Icon(
+                        Icons.volume_up_sharp,
+                        color: context.theme.colorScheme.onSecondary,
+                      ),
                   onPressed: () {
-                    final progressStream = SoundHandler()
-                        .playAnyway( widget.message);
+                    final progressStream =
+                        SoundHandler().playAnyway(widget.message);
                     listenToProgress(progressStream);
                   },
                   iconSize: 20,
@@ -53,11 +57,14 @@ class _PlaybackButtonState extends State<PlaybackButton> {
                 )
               : const Padding(
                   padding: EdgeInsets.only(left: 12),
-                  child: SizedBox(
-                    height: 15,
-                    width: 15,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 15,
+                      width: 15,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 );
