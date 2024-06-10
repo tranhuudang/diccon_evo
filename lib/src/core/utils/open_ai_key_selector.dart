@@ -1,61 +1,109 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/configs/configs.dart';
+import 'package:diccon_evo/src/core/utils/encrypt_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class OpenAIKeySelector {
   OpenAIKeySelector._();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static final OpenAIKeySelector _instance = OpenAIKeySelector._();
 
-  static Future<void> init() async {
-    await _instance.setPrimaryKey();
+  static Future<int> init() async {
+    return await _instance.setPrimaryKey();
   }
 
-  Future<void> setPrimaryKey() async {
-    bool isKeyValid = await checkApiKeyValidity();
-    if (isKeyValid) {
+  Future<int> setPrimaryKey() async {
+    // Primary local key
+    bool isPrimaryKeyValid = await checkApiKeyValidity(Env.openaiApiKey);
+    if (isPrimaryKeyValid) {
       print('Using Primary API Key');
       ApiKeys.openAiKey = Env.openaiApiKey;
-    } else {
+      return 1;
+    }
+    // Local backup key
+    bool isBackupKeyValid = await checkApiKeyValidity(Env.openaiApiKeyBackup);
+    if (isBackupKeyValid) {
       print('Using backup API Key');
       ApiKeys.openAiKey = Env.openaiApiKeyBackup;
+      return 2;
     }
+    print('Getting key from cloud...');
+    // Primary Cloud Key
+    String rawPrimaryKeyFromCloud =
+        await _getOpenApiKeyFromFirestore(from: 'primary');
+    String primaryKeyFromCloud =
+        EncryptApi.decode(encodedContent: rawPrimaryKeyFromCloud);
+    bool primaryKeyFromCloudValid =
+        await checkApiKeyValidity(primaryKeyFromCloud);
+    if (primaryKeyFromCloudValid) {
+      print('Using primary API Key from Cloud');
+      ApiKeys.openAiKey = primaryKeyFromCloud;
+      return 3;
+    }
+    // Backup Cloud Key
+    String rawBackupKeyFromCloud =
+        await _getOpenApiKeyFromFirestore(from: 'primary');
+    String backupKeyFromCloud =
+        EncryptApi.decode(encodedContent: rawBackupKeyFromCloud);
+    bool backupKeyFromCloudValid =
+        await checkApiKeyValidity(backupKeyFromCloud);
+    if (backupKeyFromCloudValid) {
+      print('Using backup API Key from Cloud');
+      ApiKeys.openAiKey = backupKeyFromCloud;
+      return 4;
+    }
+
+    ApiKeys.openAiKey = Env.openaiApiKey;
+    return 0;
   }
 
-  Future<bool> checkApiKeyValidity() async {
+  Future<String> _getOpenApiKeyFromFirestore({required String from}) async {
+    String value = '';
+    try {
+      DocumentSnapshot documentSnapshot =
+          await _firestore.collection('Api').doc('OpenApi').get();
+      if (documentSnapshot.exists) {
+        value = documentSnapshot[from].toString();
+      }
+    } catch (e) {
+      value = "Error retrieving document: $e";
+    }
+    return value;
+  }
+
+  Future<bool> checkApiKeyValidity(String key) async {
     try {
       final response = await http.post(
         Uri.parse('https://api.openai.com/v1/chat/completions'),
         headers: {
-          'Authorization': 'Bearer ${Env.openaiApiKey}',
+          'Authorization': 'Bearer $key',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
           'model': 'gpt-3.5-turbo',
-          'prompt': 'Hello, world!',
+          'messages': [
+            {'role': 'system', 'content': 'You are a helpful assistant.'},
+            {'role': 'user', 'content': 'Hello, world!'}
+          ],
           'max_tokens': 5,
         }),
       );
 
-      if (kDebugMode) {
-        print('Response status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
-        response.headers.forEach((key, value) {
-          print('$key: $value');
-        });
-      }
-
       if (response.statusCode == 200) {
         if (kDebugMode) {
           print('Primary OpenAI API key is valid.');
-          print('Rate Limit Remaining: ${response.headers['x-ratelimit-remaining']}');
+          print(
+              'Rate Limit Remaining: ${response.headers['x-ratelimit-remaining']}');
         }
         return true;
       } else if (response.statusCode == 401) {
         if (kDebugMode) {
-          print('Primary OpenAI API key is not valid, switch to use backup key.');
+          print(
+              'Primary OpenAI API key is not valid, switch to use backup key.');
         }
         return false;
       } else if (response.statusCode == 429) {
@@ -66,7 +114,8 @@ class OpenAIKeySelector {
         return false;
       } else {
         if (kDebugMode) {
-          print('Failed to check API key validity, unexpected status code: ${response.statusCode}');
+          print(
+              'Failed to check API key validity, unexpected status code: ${response.statusCode}');
         }
         return false;
       }

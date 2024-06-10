@@ -1,12 +1,19 @@
+import 'package:diccon_evo/src/presentation/settings/ui/screens/developer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 
-class InfoView extends StatelessWidget {
+class InfoView extends StatefulWidget {
   const InfoView({super.key});
 
+  @override
+  State<InfoView> createState() => _InfoViewState();
+}
+
+class _InfoViewState extends State<InfoView> {
+  int counting = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,67 +25,77 @@ class InfoView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Section(
-            title: "About".i18n,
-            children: [
-              Column(
-                children: [
-                  const Image(
-                    image: AssetImage(LocalDirectory.dicconLogo256),
-                    height: 90,
-                  ),
-                  8.height,
-                  Text(
-                    "Diccon Dictionary",
-                    style: context.theme.textTheme.titleLarge?.copyWith(
-                        color: context.theme.colorScheme.onSurface,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              8.height,
-              FilledButton.tonal(
-                onPressed: () {
-                  context.pushNamed(RouterConstants.releaseNotes);
-                },
-                child: Text(
-                  "v${NumberConstants.appVersion}",
-                  style: context.theme.textTheme.titleSmall,
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                counting++;
+              });
+              if (counting > 10){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const DeveloperScreen()));
+              }
+            },
+            child: Section(
+              title: "About".i18n,
+              children: [
+                Column(
+                  children: [
+                    const Image(
+                      image: AssetImage(LocalDirectory.dicconLogo256),
+                      height: 90,
+                    ),
+                    8.height,
+                    Text(
+                      "Diccon Dictionary",
+                      style: context.theme.textTheme.titleLarge?.copyWith(
+                          color: context.theme.colorScheme.onSurface,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-              ),
-              8.height,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                      onPressed: () async {
-                        final Uri url = Uri.parse(
-                            'https://github.com/tranhuudang/diccon_evo');
-                        if (!await launchUrl(url,
-                            mode: LaunchMode.externalApplication)) {
-                          throw Exception('Could not launch $url');
-                        }
-                      },
-                      icon: const Icon(UniconsLine.github)),
-                  IconButton(
-                      onPressed: () async {
-                        final Uri url =
-                            Uri.parse('mailto:tranhuudang148@gmail.com');
-                        if (!await launchUrl(url,
-                            mode: LaunchMode.externalApplication)) {
-                          throw Exception('Could not launch $url');
-                        }
-                      },
-                      icon: const Icon(Icons.mail)),
-                ],
-              ),
-              8.height,
-              Text(
-                "© 2023 Tran Huu Dang. ${"All rights reserved.".i18n}",
-                style: context.theme.textTheme.bodyMedium?.copyWith(
-                    color: context.theme.colorScheme.onSurfaceVariant),
-              ),
-            ],
+                8.height,
+                FilledButton.tonal(
+                  onPressed: () {
+                    context.pushNamed(RouterConstants.releaseNotes);
+                  },
+                  child: Text(
+                    "v${NumberConstants.appVersion}",
+                    style: context.theme.textTheme.titleSmall,
+                  ),
+                ),
+                8.height,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                        onPressed: () async {
+                          final Uri url = Uri.parse(
+                              'https://github.com/tranhuudang/diccon_evo');
+                          if (!await launchUrl(url,
+                              mode: LaunchMode.externalApplication)) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                        icon: const Icon(UniconsLine.github)),
+                    IconButton(
+                        onPressed: () async {
+                          final Uri url =
+                              Uri.parse('mailto:tranhuudang148@gmail.com');
+                          if (!await launchUrl(url,
+                              mode: LaunchMode.externalApplication)) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                        icon: const Icon(Icons.mail)),
+                  ],
+                ),
+                8.height,
+                Text(
+                  "© 2023 Tran Huu Dang. ${"All rights reserved.".i18n}",
+                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                      color: context.theme.colorScheme.onSurfaceVariant),
+                ),
+              ],
+            ),
           ),
           Section(
             title: 'Licenses'.i18n,
