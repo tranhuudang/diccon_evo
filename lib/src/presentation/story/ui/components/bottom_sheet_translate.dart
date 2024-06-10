@@ -2,11 +2,9 @@ import 'dart:async';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
-import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/domain/domain.dart';
 import '../../../../data/data.dart';
 
 class BottomSheetTranslation extends StatefulWidget {

@@ -4,7 +4,6 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
-import 'package:go_router/go_router.dart';
 
 class ConversationView extends StatelessWidget {
   const ConversationView({super.key});

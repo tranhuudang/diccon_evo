@@ -1,12 +1,9 @@
-import 'dart:async';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
 

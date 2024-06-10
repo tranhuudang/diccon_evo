@@ -282,7 +282,7 @@ class _DictionaryViewState extends State<DictionaryView> {
               title: 'Translate word from sentence'.i18n,
               onPressed: (String a) {
                 //chatListBloc.add(AddTranslateWordFromSentence());
-                showDialog(context: context, builder: (context) => TranslateWordInSentenceDialog());
+                showDialog(context: context, builder: (context) => const TranslateWordInSentenceDialog());
               },
             ),
           ],

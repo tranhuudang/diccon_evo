@@ -4,7 +4,7 @@ import 'dart:math';
 class Wave extends StatefulWidget {
   final double inputValue;
   final bool isAuto;
-  const Wave({Key? key, this.inputValue = 0, this.isAuto = false}) : super(key: key);
+  const Wave({super.key, this.inputValue = 0, this.isAuto = false});
 
   @override
   State<Wave> createState() => _WaveState();

@@ -100,6 +100,7 @@ dependencies:
   http_parser: ^4.0.2
   permission_handler: ^11.3.1
   next_audio_recorder: ^1.0.1
+  encrypt: ^5.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

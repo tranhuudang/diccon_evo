@@ -69,7 +69,7 @@ class _QRScannerViewState extends State<QRScannerView> {
   late QRViewController? qrViewController;
   late Barcode? barcode;
 
-  LoginInfo? loginInfo = null;
+  LoginInfo? loginInfo;
 
   Future<LoginInfo?> getLoginInfo(String code) async {
     final dataTrack = FirebaseFirestore.instance.collection("Login").doc(code);

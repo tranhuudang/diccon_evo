@@ -1,5 +1,4 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:flutter/foundation.dart';
 import '../../domain/domain.dart';
 import '../data.dart';
 

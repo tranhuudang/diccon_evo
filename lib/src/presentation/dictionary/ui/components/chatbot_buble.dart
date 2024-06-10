@@ -152,7 +152,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
         .trim();
     final chatListBloc = context.read<ChatListBloc>();
     return Container(
-      margin: EdgeInsets.only(top: 8),
+      margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

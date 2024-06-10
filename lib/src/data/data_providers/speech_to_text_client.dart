@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:diccon_evo/src/core/configs/configs.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/enum/transcription_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
-import '../../core/constants/api_endpoints.dart';
 
 // Handles API calls for speech-to-text conversion
 class SpeechToTextApiClient {

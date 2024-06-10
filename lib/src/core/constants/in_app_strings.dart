@@ -1,6 +1,5 @@
 import 'package:diccon_evo/src/core/core.dart';
 
-import '../configs/configs.dart';
 
 class InAppStrings {
   static const String blankSpace = ' ';
