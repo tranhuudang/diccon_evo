@@ -17,7 +17,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
   int currentTabIndex = 0;
   int titleTabIndex = 0;
-  List<String> tabTitleList = ['Stories', 'Conversation', 'AI Chatbot', 'Practice'];
+  List<String> tabTitleList = ['Stories', 'Dialogue', 'Conversation', 'Practice'];
   final tabController = PageController();
   final scrollController = ScrollController();
 
@@ -159,16 +159,16 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                             ),
                             InkWell(
                               highlightColor: Colors.transparent,
-                              child: const ConversationTab(),
+                              child: const DialogueTab(),
                               onTap: () {
-                                context.pushNamed(RouterConstants.soloConversation);
+                                context.pushNamed(RouterConstants.dialogue);
                               },
                             ),
                             InkWell(
                               highlightColor: Colors.transparent,
-                              child: const AIChatbotTab(),
+                              child: const ChatbotTab(),
                               onTap: () {
-                                context.pushNamed(RouterConstants.conversation);
+                                context.pushNamed(RouterConstants.chatbot);
                               },
                             ),
                             InkWell(

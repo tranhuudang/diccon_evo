@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/src/core/utils/open_ai_timer.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
-import 'package:diccon_evo/src/presentation/ai_chatbot/conversation.dart';
 import 'package:diccon_evo/src/presentation/ai_chatbot/ui/components/conversation_wait_timer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';

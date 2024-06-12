@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/presentation/ai_chatbot/bloc/bloc.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -15,7 +14,7 @@ class AIChatBotView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "AI Chatbot".i18n,
+          "Conversation".i18n,
         ),
       ),
       body: Stack(

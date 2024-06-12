@@ -1,9 +1,8 @@
-import 'package:diccon_evo/src/presentation/ai_chatbot/conversation.dart';
-import 'package:diccon_evo/src/presentation/solo_conversation/solo_conversation_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
+import '../../presentation/solo_conversation/ui/screens/list_dialogue.dart';
 import '../../presentation/story/ui/screens/story_list_all.dart';
 import '../core.dart';
 
@@ -140,11 +139,11 @@ GoRouter routerConfigDesktop = GoRouter(
           routes: [
             // top route inside branch
             GoRoute(
-              name: RouterConstants.soloConversation,
+              name: RouterConstants.dialogue,
               path: RoutePath.soloConversation,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
-                    child: I18n(child:  SoloConversationView()));
+                    child: I18n(child:  const ListDialogueView()));
               },
               routes: const [],
             ),
@@ -156,7 +155,7 @@ GoRouter routerConfigDesktop = GoRouter(
           routes: [
             // top route inside branch
             GoRoute(
-              name: RouterConstants.conversation,
+              name: RouterConstants.chatbot,
               path: RoutePath.conversation,
               pageBuilder: (context, state) {
                 return NoTransitionPage(

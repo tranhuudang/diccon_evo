@@ -1,5 +1,4 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/presentation/ai_chatbot/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../presentation.dart';

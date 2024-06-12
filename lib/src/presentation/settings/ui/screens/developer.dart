@@ -1,10 +1,7 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/utils/encrypt_api.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:wave_divider/wave_divider.dart';
 
 class DeveloperScreen extends StatefulWidget {
   const DeveloperScreen({super.key});
@@ -107,7 +104,7 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Check what key is working'),
+                    const Text('Check what key is working'),
                     FilledButton(
                         onPressed: () async {
                           _workingKeyNunber = await OpenAIKeySelector.init();

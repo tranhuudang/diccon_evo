@@ -1,13 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wave_divider/wave_divider.dart';
 
 import '../../../../core/core.dart';
-import '../../../ai_chatbot/ui/screens/voice_screen.dart';
 import '../../../presentation.dart';
 
-class ConversationTab extends StatelessWidget {
-  const ConversationTab({
+class DialogueTab extends StatelessWidget {
+  const DialogueTab({
     super.key,
   });
 
@@ -16,31 +14,32 @@ class ConversationTab extends StatelessWidget {
     return Column(
       children: [
         Text(
-            'In the premium version, you have the opportunity to chat with an AI specialized in language learning. Ready to answer any questions you have or become a conversational companion.'
+            'This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.'
                 .i18n),
         Row(
           children: [
-            Expanded(
-                flex: 2,
-                child: Opacity(
-                  opacity: .5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("I can even tell you a story !".i18n),
-                    ],
-                  ),
-                )),
             Expanded(
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
                     context.theme.colorScheme.primary, BlendMode.srcIn),
                 child: Image(
-                  image: AssetImage(LocalDirectory.storiesIllustration),
+                  image: AssetImage(LocalDirectory.historyIllustration),
                   height: 140,
                 ),
               ),
             ),
+            8.width,
+            Expanded(
+                flex: 3,
+                child: Opacity(
+                  opacity: .5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Enhance your language skills with practical dialogues.".i18n),
+                    ],
+                  ),
+                )),
           ],
         ),
         const WaveDivider(
@@ -55,10 +54,10 @@ class ConversationTab extends StatelessWidget {
             FilledButton.tonalIcon(
                 onPressed: () {
                   SeekFeedback.showFeedbackBottomSheet(context);
-                  context.pushNamed(RouterConstants.soloConversation);
+                  context.pushNamed(RouterConstants.dialogue);
                 },
-                icon: const Icon(Icons.chat),
-                label: Text('Open Conversation List'.i18n)),
+                icon: const Icon(Icons.language),
+                label: Text('Open Dialogue List'.i18n)),
           ],
         )
       ],

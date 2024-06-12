@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'solo_conversation.freezed.dart';
-part 'solo_conversation.g.dart';
+part 'dialogue.freezed.dart';
+part 'dialogue.g.dart';
 
 @freezed
 class Dialogue with _$Dialogue {

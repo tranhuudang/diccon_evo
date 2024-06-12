@@ -6,8 +6,8 @@ import '../../../../core/core.dart';
 import '../../../ai_chatbot/ui/screens/voice_screen.dart';
 import '../../../presentation.dart';
 
-class AIChatbotTab extends StatelessWidget {
-  const AIChatbotTab({
+class ChatbotTab extends StatelessWidget {
+  const ChatbotTab({
     super.key,
   });
 
@@ -55,7 +55,7 @@ class AIChatbotTab extends StatelessWidget {
             FilledButton.tonalIcon(
                 onPressed: () {
                   SeekFeedback.showFeedbackBottomSheet(context);
-                  context.pushNamed(RouterConstants.conversation);
+                  context.pushNamed(RouterConstants.chatbot);
                 },
                 icon: const Icon(Icons.chat),
                 label: Text('Text chat'.i18n)),

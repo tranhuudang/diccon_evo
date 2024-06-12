@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'solo_conversation.dart';
+part of 'dialogue.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

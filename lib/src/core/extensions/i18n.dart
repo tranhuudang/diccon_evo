@@ -504,6 +504,24 @@ extension Localization on Object {
           "Tác vụ này sẽ xóa tất cả lịch sử tra cứu của bạn. Bạn có muốn tiếp tục không?",
     },
 
+    /// Dialogue
+    "Dialogue": {
+      "en_us": "Dialogue",
+      "vi_vi": "Đối thoại",
+    },
+    "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.": {
+      "en_us": "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.",
+      "vi_vi": "Tab này cung cấp danh sách các đối thoại song ngữ Anh-Việt trên nhiều chủ đề khác nhau. Hãy thoải mái khám phá và sử dụng chúng cho việc luyện tập ngôn ngữ của bạn.",
+    },
+
+    "Open Dialogue List": {
+      "en_us": "Open Dialogue List",
+      "vi_vi": "Mở Danh Sách Đối Thoại",
+    },
+    "Enhance your language skills with practical dialogues.": {
+      "en_us": "Enhance your language skills with practical dialogues.",
+      "vi_vi": "Nâng cao kỹ năng ngôn ngữ của bạn với các đối thoại thực tế.",
+    },
     /// Conversation
 
     "Touch to start": {"en_us": "Touch to start", "vi_vi": "Chạm để bắt đầu"},
@@ -590,6 +608,8 @@ extension Localization on Object {
       "en_us": "Conversation",
       "vi_vi": "Trò chuyện",
     },
+
+
 
     "essential sentences to master": {
       "en_us": "essential sentences to master",

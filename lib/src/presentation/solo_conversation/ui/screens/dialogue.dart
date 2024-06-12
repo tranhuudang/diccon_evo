@@ -1,28 +1,32 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data.dart';
 import 'package:diccon_evo/src/data/repositories/solo_conversation_repository_impl.dart';
-import 'package:diccon_evo/src/domain/repositories/solo_conversation_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
-import '../../domain/entities/solo_conversation/solo_conversation.dart';
+import '../../../../domain/domain.dart';
 
-class DialogueScreen extends StatelessWidget {
+class DialogueView extends StatefulWidget {
+  final List<Conversation> listConversation;
   final Conversation conversation;
 
-  const DialogueScreen({Key? key, required this.conversation})
-      : super(key: key);
+  const DialogueView({super.key, required this.conversation, required this.listConversation});
 
   @override
+  State<DialogueView> createState() => _DialogueViewState();
+}
+
+class _DialogueViewState extends State<DialogueView> {
+  @override
   Widget build(BuildContext context) {
-    final _soloConversationRepository = SoloConversationRepositoryImpl();
-    final _player = SoundHandler();
+    final soloConversationRepository = SoloConversationRepositoryImpl();
+    final player = SoundHandler();
     return Scaffold(
       appBar: AppBar(
-        title: Text(conversation.title),
+        title: Text(widget.conversation.title),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,18 +34,21 @@ class DialogueScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(conversation.description),
-                Wrap(children: conversation.hashtags.map((item) => TextButton(onPressed: (){}, child: Text(item))).toList(),)
+                Text(widget.conversation.description),
+                Wrap(children: widget.conversation.hashtags.map((hashtag) => TextButton(onPressed: (){
+                  showSearchPageWithHashtag(context, hashtag);
+
+                }, child: Text(hashtag))).toList(),)
               ],
             ),
-            WaveDivider(thickness: .3,),
+            const WaveDivider(thickness: .3,),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: conversation.dialogue.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: widget.conversation.dialogue.length,
               itemBuilder: (context, index) {
-                var firstDialogue = conversation.dialogue[0];
-                var dialogue = conversation.dialogue[index];
+                var firstDialogue = widget.conversation.dialogue[0];
+                var dialogue = widget.conversation.dialogue[index];
                 return Column(
                   children: [
                     8.height,
@@ -62,7 +69,7 @@ class DialogueScreen extends StatelessWidget {
                                       ? context.theme.colorScheme.onPrimary
                                       : context.theme.colorScheme.onError),
                             )),
-                        Spacer(),
+                        const Spacer(),
                       ],
                     ),
                     4.height,
@@ -73,16 +80,16 @@ class DialogueScreen extends StatelessWidget {
                           children: [
                             IconButton(
                                 onPressed: () async {
-                                  final filePath = await _soloConversationRepository
+                                  final filePath = await soloConversationRepository
                                       .getAudio(dialogue.english);
                                   if (filePath != '') {
-                                    _player.playFromPath(
+                                    player.playFromPath(
                                         filePath: filePath,
                                         onFinished: () {},
                                         onPositionChanged: (position) {});
                                   }
                                 },
-                                icon: Icon(Icons.volume_up)),
+                                icon: const Icon(Icons.volume_up)),
                             Expanded(child: Text(dialogue.english)),
                           ],
                         ),
@@ -91,7 +98,9 @@ class DialogueScreen extends StatelessWidget {
                             Opacity(
                                 opacity: 0,
                                 child: IconButton(
-                                    onPressed: () {}, icon: Icon(Icons.volume_up))),
+                                    onPressed: () {
+
+                                    }, icon: const Icon(Icons.volume_up))),
                             Expanded(
                                 child: Text(
                               dialogue.vietnamese,
@@ -110,6 +119,43 @@ class DialogueScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void showSearchPageWithHashtag(BuildContext context, String hashtag) {
+    showSearch(
+      context: context,
+      delegate: SearchPage<Conversation>(
+        items: widget.listConversation,
+        searchLabel: 'Find a conversation'.i18n,
+        searchStyle: context.theme.textTheme.titleMedium,
+        suggestion: Center(child: Text('Search with hashtag: $hashtag')),
+        failure: Center(
+          child: Text('No matching conversation found'.i18n),
+        ),
+        filter: (conversation) =>
+        [conversation.title, conversation.hashtags.toString(), conversation.description],
+        builder: (conversation) => ListTile(
+          title: Text(conversation.title),
+          titleTextStyle: context.theme.textTheme.titleMedium,
+          subtitle: Opacity(
+              opacity: .5,
+              child: Text(
+                conversation.description,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              )),
+          subtitleTextStyle: context.theme.textTheme.bodyMedium,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        DialogueView(conversation: conversation, listConversation: widget.listConversation,)));
+          },
+        ),
+      ),
+      query: hashtag,
     );
   }
 }

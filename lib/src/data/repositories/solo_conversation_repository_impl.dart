@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 class SoloConversationRepositoryImpl implements SoloConversationRepository {
   final _firebaseStorageService = FirebaseStorageService('SoloConversation');
-  TextToSpeechRepository _textToSpeechRepository = TextToSpeechRepository();
+  final TextToSpeechRepository _textToSpeechRepository = TextToSpeechRepository();
   @override
   Future<String> getAudio(String sentence) async {
     final md5FileName = Md5Generator.composeMd5IdForSoloConversationFileName(
