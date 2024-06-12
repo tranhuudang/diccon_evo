@@ -1,3 +1,5 @@
+import 'package:diccon_evo/src/presentation/ai_chatbot/conversation.dart';
+import 'package:diccon_evo/src/presentation/solo_conversation/solo_conversation_view.dart';
 import 'package:diccon_evo/src/presentation/story/ui/screens/story_list_all.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_extension.dart';
@@ -79,13 +81,21 @@ GoRouter routerConfig = GoRouter(
           ),
 
         ]),
+    /// Solo Conversation
+    GoRoute(
+      name: RouterConstants.soloConversation,
+      path: '/solo-conversation',
+      pageBuilder: (context, state) {
+        return MaterialPage(child: I18n(child: SoloConversationView()));
+      },
+    ),
 
     /// Conversation
     GoRoute(
       name: RouterConstants.conversation,
       path: '/conversation',
       pageBuilder: (context, state) {
-        return MaterialPage(child: I18n(child: const ConversationView()));
+        return MaterialPage(child: I18n(child: const AIChatBotView()));
       },
     ),
 

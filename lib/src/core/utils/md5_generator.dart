@@ -41,4 +41,12 @@ class Md5Generator{
     var resultMd5 = md5.convert(bytes);
     return resultMd5.toString();
   }
+
+  static String composeMd5IdForSoloConversationFileName({required String sentence}) {
+    sentence = sentence.toLowerCase().trim();
+    var composeString = sentence;
+    var bytes = utf8.encode(composeString);
+    var resultMd5 = md5.convert(bytes);
+    return resultMd5.toString();
+  }
 }

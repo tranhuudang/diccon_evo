@@ -8,6 +8,7 @@ class RouterConstants{
   static const String dictionaryPreferences ="dictionary-preferences";
   static const String wordHistory ="word-history";
   static const String conversation ="conversation";
+  static const String soloConversation ="solo-conversation";
   static const String readingChamber ="reading-chamber";
   static const String readingChamberAllList ="reading-chamber-all";
   static const String readingSpace ="reading-space";

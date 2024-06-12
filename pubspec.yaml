@@ -127,6 +127,7 @@ flutter:
     - assets/conversation_support/
     - assets/illustrations/
     - assets/fonts/
+    - assets/solo_conversation/solo_conversation.json
 
 msix_config:
   display_name: Diccon Desktop

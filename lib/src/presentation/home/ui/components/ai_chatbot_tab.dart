@@ -6,8 +6,8 @@ import '../../../../core/core.dart';
 import '../../../ai_chatbot/ui/screens/voice_screen.dart';
 import '../../../presentation.dart';
 
-class ConversationTab extends StatelessWidget {
-  const ConversationTab({
+class AIChatbotTab extends StatelessWidget {
+  const AIChatbotTab({
     super.key,
   });
 
@@ -55,10 +55,21 @@ class ConversationTab extends StatelessWidget {
             FilledButton.tonalIcon(
                 onPressed: () {
                   SeekFeedback.showFeedbackBottomSheet(context);
-                  context.pushNamed(RouterConstants.soloConversation);
+                  context.pushNamed(RouterConstants.conversation);
                 },
                 icon: const Icon(Icons.chat),
-                label: Text('Open Conversation List'.i18n)),
+                label: Text('Text chat'.i18n)),
+            if (kDebugMode)
+              FilledButton.tonalIcon(
+                  onPressed: () {
+                    SeekFeedback.showFeedbackBottomSheet(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const VoiceScreen()));
+                  },
+                  icon: const Icon(Icons.keyboard_voice),
+                  label: Text('Voice only'.i18n)),
           ],
         )
       ],

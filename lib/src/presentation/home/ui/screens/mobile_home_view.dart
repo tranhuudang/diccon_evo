@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/home/ui/components/conversation_tab.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -16,7 +17,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
   int currentTabIndex = 0;
   int titleTabIndex = 0;
-  List<String> tabTitleList = ['Stories', 'Conversation', 'Practice'];
+  List<String> tabTitleList = ['Stories', 'Conversation', 'AI Chatbot', 'Practice'];
   final tabController = PageController();
   final scrollController = ScrollController();
 
@@ -159,6 +160,13 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                             InkWell(
                               highlightColor: Colors.transparent,
                               child: const ConversationTab(),
+                              onTap: () {
+                                context.pushNamed(RouterConstants.soloConversation);
+                              },
+                            ),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              child: const AIChatbotTab(),
                               onTap: () {
                                 context.pushNamed(RouterConstants.conversation);
                               },

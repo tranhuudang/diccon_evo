@@ -1,3 +1,5 @@
+import 'package:diccon_evo/src/presentation/ai_chatbot/conversation.dart';
+import 'package:diccon_evo/src/presentation/solo_conversation/solo_conversation_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -15,6 +17,8 @@ final _shellNavigatorLibraryKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellLibrary');
 final _shellNavigatorConversationKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellConversation');
+final _shellNavigatorSoloConversationKey =
+GlobalKey<NavigatorState>(debugLabel: 'shellSoloConversation');
 final _shellNavigatorEssentialKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellEssential');
 final _shellNavigatorAboutKey =
@@ -130,6 +134,22 @@ GoRouter routerConfigDesktop = GoRouter(
             ),
           ],
         ),
+        // solo conversation branch
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorSoloConversationKey,
+          routes: [
+            // top route inside branch
+            GoRoute(
+              name: RouterConstants.soloConversation,
+              path: RoutePath.soloConversation,
+              pageBuilder: (context, state) {
+                return NoTransitionPage(
+                    child: I18n(child:  SoloConversationView()));
+              },
+              routes: const [],
+            ),
+          ],
+        ),
         // conversation branch
         StatefulShellBranch(
           navigatorKey: _shellNavigatorConversationKey,
@@ -140,7 +160,7 @@ GoRouter routerConfigDesktop = GoRouter(
               path: RoutePath.conversation,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
-                    child: I18n(child: const ConversationView()));
+                    child: I18n(child: const AIChatBotView()));
               },
               routes: const [],
             ),

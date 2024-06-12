@@ -8,7 +8,7 @@ class TextToSpeechRepository {
   /// Parameters:
   /// - fromText: The text to be converted into speech.
   /// - toFilePath: The file path where the converted speech will be saved.
-  Future<void> convertTextToSpeech({
+  Future<String> convertTextToSpeech({
     required String fromText,
     required String toFilePath,
   }) {

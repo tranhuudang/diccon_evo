@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/presentation/ai_chatbot/bloc/bloc.dart';
 import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
-class ConversationView extends StatelessWidget {
-  const ConversationView({super.key});
+class AIChatBotView extends StatelessWidget {
+  const AIChatBotView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class ConversationView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Conversation".i18n,
+          "AI Chatbot".i18n,
         ),
       ),
       body: Stack(
