@@ -1,4 +1,4 @@
-import 'package:diccon_evo/src/presentation/home/ui/components/conversation_tab.dart';
+import 'package:diccon_evo/src/presentation/home/ui/components/dialogue_tab.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -17,7 +17,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
   int currentTabIndex = 0;
   int titleTabIndex = 0;
-  List<String> tabTitleList = ['Stories', 'Dialogue', 'Conversation', 'Practice'];
+  List<String> tabTitleList = ['Stories', 'Dialogue', 'Chatbot', 'Practice'];
   final tabController = PageController();
   final scrollController = ScrollController();
 
@@ -64,7 +64,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                     /// Head welcome to essential tab
                     48.height,
                     const HeadSentence(
-                        listText: ["Advanced AI", "English Dictionary"]),
+                        listText: ["Advanced ", "English Dictionary"]),
                     8.height,
                     const PlanButton(),
                     24.height,

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/solo_conversation/ui/screens/list_dialogue.dart';
+import '../../presentation/dialogue/ui/screens/list_dialogue.dart';
 import '../core.dart';
 
 GoRouter routerConfig = GoRouter(
@@ -83,7 +83,7 @@ GoRouter routerConfig = GoRouter(
     /// Solo Conversation
     GoRoute(
       name: RouterConstants.dialogue,
-      path: '/solo-conversation',
+      path: '/dialogue',
       pageBuilder: (context, state) {
         return MaterialPage(child: I18n(child: const ListDialogueView()));
       },
@@ -92,9 +92,9 @@ GoRouter routerConfig = GoRouter(
     /// Conversation
     GoRoute(
       name: RouterConstants.chatbot,
-      path: '/conversation',
+      path: '/chatbot',
       pageBuilder: (context, state) {
-        return MaterialPage(child: I18n(child: const AIChatBotView()));
+        return MaterialPage(child: I18n(child: const ChatBotView()));
       },
     ),
 

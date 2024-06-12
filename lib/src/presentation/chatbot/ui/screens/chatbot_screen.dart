@@ -5,26 +5,26 @@ import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
-class AIChatBotView extends StatelessWidget {
-  const AIChatBotView({super.key});
+class ChatBotView extends StatelessWidget {
+  const ChatBotView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final conversationBloc = context.read<ConversationBloc>();
+    final chatbotBloc = context.read<ChatbotBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Conversation".i18n,
+          "Chatbot",
         ),
       ),
       body: Stack(
         children: [
-          BlocConsumer<ConversationBloc, ConversationState>(
+          BlocConsumer<ChatbotBloc, ChatbotState>(
             buildWhen: (previous, current) =>
-                current is! ConversationActionState,
+                current is! ChatbotActionState,
             listenWhen: (previous, current) =>
-                current is ConversationActionState,
-            listener: (BuildContext context, ConversationState state) {
+                current is ChatbotActionState,
+            listener: (BuildContext context, ChatbotState state) {
               if (state is NotHaveEnoughToken) {
                 if (Platform.isWindows) {
                   context.showAlertDialogWithoutAction(
@@ -40,7 +40,7 @@ class AIChatBotView extends StatelessWidget {
                     content:
                         'Please consider purchase more to continue sending messages.',
                     action: () {
-                      conversationBloc.add(GoToUpgradeScreenEvent());
+                      chatbotBloc.add(GoToUpgradeScreenEvent());
                     },
                   );
                 }
@@ -60,15 +60,15 @@ class AIChatBotView extends StatelessWidget {
             builder: (context, state) {
               {
                 switch (state) {
-                  case ConversationInitial _:
+                  case ChatbotInitial _:
                     return ListView.builder(
                       itemCount: state.conversation.length,
-                      controller: conversationBloc.conversationScrollController,
+                      controller: chatbotBloc.conversationScrollController,
                       itemBuilder: (BuildContext context, int index) {
                         return state.conversation[index];
                       },
                     );
-                  case ConversationUpdated _:
+                  case ChatbotUpdated _:
                     return Stack(
                       children: [
                         ListView.builder(
@@ -77,7 +77,7 @@ class AIChatBotView extends StatelessWidget {
                               top: 80, bottom: 140, left: 16, right: 16),
                           itemCount: state.conversation.length,
                           controller:
-                              conversationBloc.conversationScrollController,
+                              chatbotBloc.conversationScrollController,
                           itemBuilder: (BuildContext context, int index) {
                             return state.conversation[index];
                           },
@@ -91,7 +91,7 @@ class AIChatBotView extends StatelessWidget {
                                 PillButton(
                                   icon: Icons.stop_circle_outlined,
                                   onTap: () {
-                                    conversationBloc.add(StopResponse());
+                                    chatbotBloc.add(StopResponse());
                                   },
                                   title: 'Stop Responding',
                                 ),
@@ -168,7 +168,7 @@ class AIChatBotView extends StatelessWidget {
                                             "Clear all the bubbles in this translation session."
                                                 .i18n,
                                         action: () {
-                                          conversationBloc
+                                          chatbotBloc
                                               .add(ResetConversation());
                                         });
                                   },
@@ -178,20 +178,20 @@ class AIChatBotView extends StatelessWidget {
                                   ),
                                 ),
                                 Expanded(
-                                  child: BlocBuilder<ConversationBloc,
-                                          ConversationState>(
+                                  child: BlocBuilder<ChatbotBloc,
+                                          ChatbotState>(
                                       builder: (context, state) {
-                                    if (state is ConversationUpdated) {
+                                    if (state is ChatbotUpdated) {
                                       return SearchBox(
                                         searchTextController:
-                                            conversationBloc.textController,
+                                            chatbotBloc.textController,
                                         enableCamera: false,
                                         hintText:
                                             "Send a message for practice".i18n,
                                         enabled: !state.isResponding,
                                         onSubmitted: (providedWord) {
                                           //_handleSubmitted(providedWord, context);
-                                          conversationBloc.add(AskAQuestion(
+                                          chatbotBloc.add(AskAQuestion(
                                               providedWord: providedWord));
                                           // Dismiss keyboard
                                           FocusScopeNode currentFocus =
@@ -205,13 +205,13 @@ class AIChatBotView extends StatelessWidget {
 
                                     return SearchBox(
                                       searchTextController:
-                                          conversationBloc.textController,
+                                          chatbotBloc.textController,
                                       enableCamera: false,
                                       hintText:
                                           "Send a message for practice".i18n,
                                       onSubmitted: (providedWord) {
                                         //_handleSubmitted(providedWord, context);
-                                        conversationBloc.add(AskAQuestion(
+                                        chatbotBloc.add(AskAQuestion(
                                             providedWord: providedWord));
                                         // Dismiss keyboard
                                         FocusScopeNode currentFocus =

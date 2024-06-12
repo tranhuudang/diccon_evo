@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/chatbot/bloc/bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/presentation/story/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +17,8 @@ class BlocProviderScope extends StatelessWidget {
           BlocProvider<ChatListBloc>(create: (context) => ChatListBloc()),
           BlocProvider<TextRecognizerBloc>(
               create: (context) => TextRecognizerBloc()),
-          BlocProvider<ConversationBloc>(
-              create: (context) => ConversationBloc()),
+          BlocProvider<ChatbotBloc>(
+              create: (context) => ChatbotBloc()),
           BlocProvider<StoryListBloc>(create: (context) => StoryListBloc()),
           BlocProvider<StoryListAllBloc>(create: (context) => StoryListAllBloc()),
           BlocProvider<ReadingBloc>(create: (context) => ReadingBloc()),

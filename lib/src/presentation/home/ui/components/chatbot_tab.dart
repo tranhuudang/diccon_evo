@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wave_divider/wave_divider.dart';
-
 import '../../../../core/core.dart';
-import '../../../ai_chatbot/ui/screens/voice_screen.dart';
+import '../../../chatbot/ui/screens/voice_screen.dart';
 import '../../../presentation.dart';
 
 class ChatbotTab extends StatelessWidget {

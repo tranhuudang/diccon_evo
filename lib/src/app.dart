@@ -21,17 +21,10 @@ class App extends StatelessWidget {
           ColorScheme darkColorScheme;
           if ((state.params.enableAdaptiveTheme) &&
               (lightDynamic != null && darkDynamic != null)) {
-            // If not set we use adaptive theme
-            if (kDebugMode) {
-              print("Adaptive theme available");
-            }
             lightColorScheme = lightDynamic.harmonized();
             darkColorScheme = darkDynamic.harmonized();
             return buildMaterialApp(state, lightColorScheme, darkColorScheme);
           } else {
-            if (kDebugMode) {
-              print("Manual create a new color scheme for theme");
-            }
             lightColorScheme = ColorScheme.fromSeed(
               seedColor: state.params.accentColor,
             );

@@ -1,8 +1,8 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
-class ConversationWelcome extends StatelessWidget {
-  const ConversationWelcome({super.key});
+class ChatbotWelcome extends StatelessWidget {
+  const ChatbotWelcome({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/data/repositories/text_to_speech_repository.dart';
 import 'package:diccon_evo/src/data/services/firebase_storage_service.dart';
-import 'package:diccon_evo/src/domain/repositories/solo_conversation_repository.dart';
+import 'package:diccon_evo/src/domain/repositories/dialogue_repository.dart';
 import 'package:path_provider/path_provider.dart';
 
-class SoloConversationRepositoryImpl implements SoloConversationRepository {
+class DialogueRepositoryImpl implements DialogueRepository {
   final _firebaseStorageService = FirebaseStorageService('SoloConversation');
   final TextToSpeechRepository _textToSpeechRepository = TextToSpeechRepository();
   @override

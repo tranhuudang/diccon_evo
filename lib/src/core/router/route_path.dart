@@ -1,8 +1,8 @@
 class RoutePath {
   static const String dictionary = '/dictionary';
   static const String readingChamber = '/reading-chamber';
-  static const String soloConversation = '/solo-conversation';
-  static const String conversation = '/conversation';
+  static const String dialogue = '/dialogue';
+  static const String chatbot = '/chatbot';
   static const String essential = '/essential-1848';
 
   /// Return corresponding [String] value of [RoutePath] base on index.
@@ -13,9 +13,9 @@ class RoutePath {
       case 1:
         return readingChamber;
       case 2:
-        return soloConversation;
+        return dialogue;
       case 3:
-        return conversation;
+        return chatbot;
       case 4:
         return essential;
       default:

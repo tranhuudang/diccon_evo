@@ -19,7 +19,7 @@ class DialogueView extends StatefulWidget {
 class _DialogueViewState extends State<DialogueView> {
   @override
   Widget build(BuildContext context) {
-    final soloConversationRepository = SoloConversationRepositoryImpl();
+    final dialogueRepo = DialogueRepositoryImpl();
     final player = SoundHandler();
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +38,7 @@ class _DialogueViewState extends State<DialogueView> {
                 Wrap(children: widget.conversation.hashtags.map((hashtag) => TextButton(onPressed: (){
                   showSearchPageWithHashtag(context, hashtag);
 
-                }, child: Text(hashtag))).toList(),)
+                }, child: Text(hashtag.toLowerCase()))).toList(),)
               ],
             ),
             const WaveDivider(thickness: .3,),
@@ -80,7 +80,7 @@ class _DialogueViewState extends State<DialogueView> {
                           children: [
                             IconButton(
                                 onPressed: () async {
-                                  final filePath = await soloConversationRepository
+                                  final filePath = await dialogueRepo
                                       .getAudio(dialogue.english);
                                   if (filePath != '') {
                                     player.playFromPath(

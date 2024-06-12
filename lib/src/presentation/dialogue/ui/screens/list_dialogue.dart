@@ -25,7 +25,7 @@ class _ListDialogueViewState extends State<ListDialogueView> {
   Future<void> _loadConversations() async {
     try {
       String data = await rootBundle
-          .loadString('assets/solo_conversation/solo_conversation.json');
+          .loadString('assets/dialogue/dialogue.json');
       List<dynamic> jsonList = jsonDecode(data);
       setState(() {
         conversations =

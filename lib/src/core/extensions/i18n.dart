@@ -29,6 +29,38 @@ extension Localization on Object {
   static final _t = Translations.byId<Object>("en_us", {
     /// Common
     // NoInternetBubble
+    // "": {
+    // "en_us": "",
+    // "vi_vi": "",
+    // },
+    // "": {
+    //   "en_us": "",
+    //   "vi_vi": "",
+    // },
+    // "": {
+    //   "en_us": "",
+    //   "vi_vi": "",
+    // },
+    "Sign up": {
+      "en_us": "Sign up",
+      "vi_vi": "Đăng ký",
+    },
+    "Don't have an account?": {
+      "en_us": "Don't have an account?",
+      "vi_vi": "Bạn chưa có tài khoản?",
+    },
+    "Continues": {
+      "en_us": "Continues",
+      "vi_vi": "Tiếp tục",
+    },
+    "Password": {
+      "en_us": "Password",
+      "vi_vi": "Mật khẩu",
+    },
+    "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window.": {
+      "en_us": "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window.",
+      "vi_vi": "Giới thiệu từ điển trò chuyện tiên tiến, người bạn đồng hành ngôn ngữ tức thì ngay trong tầm tay bạn! Khám phá thế giới từ ngữ và định nghĩa một cách dễ dàng, ngay trong cửa sổ trò chuyện của bạn.",
+    },
     "You're not connected": {
       "en_us": "You're not connected",
       "vi_vi": "Không có kết nối mạng",

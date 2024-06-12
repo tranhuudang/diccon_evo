@@ -112,13 +112,12 @@ class _DesktopHomeViewState extends State<DesktopHomeView> with WindowListener {
               NavigationRailDestination(
                 icon: const FaIcon(FontAwesomeIcons.comments),
                 selectedIcon: const FaIcon(FontAwesomeIcons.solidComments),
-                label: Text('Conversation'.i18n),
+                label: Text('Dialogue'.i18n),
               ),
               NavigationRailDestination(
-                icon: const FaIcon(FontAwesomeIcons.commentDots),
-                selectedIcon: const FaIcon(FontAwesomeIcons.commentDots),
-
-                label: Text('Conversation'.i18n),
+                icon: const FaIcon(FontAwesomeIcons.robot),
+                selectedIcon: const FaIcon(FontAwesomeIcons.robot),
+                label: Text('Chatbot'.i18n),
               ),
               NavigationRailDestination(
                 icon: const Icon(Icons.directions_run_outlined),
@@ -156,7 +155,11 @@ class _DesktopHomeViewState extends State<DesktopHomeView> with WindowListener {
                       IconButton(
                           icon: const Icon(Icons.account_circle_outlined),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const DesktopUserSettingsView()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DesktopUserSettingsView()));
                           }),
                       if (_isTabletExpanded) ...[
                         16.width,
@@ -176,7 +179,11 @@ class _DesktopHomeViewState extends State<DesktopHomeView> with WindowListener {
                       IconButton(
                           icon: const Icon(Icons.settings),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const SettingsView()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SettingsView()));
                           }),
                       if (_isTabletExpanded) ...[
                         16.width,
@@ -200,7 +207,10 @@ class _DesktopHomeViewState extends State<DesktopHomeView> with WindowListener {
                       IconButton(
                           icon: const Icon(Icons.info_outline),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const InfoView()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const InfoView()));
                           }),
                       if (_isTabletExpanded) ...[
                         16.width,

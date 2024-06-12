@@ -1,4 +1,4 @@
-export 'ai_chatbot/conversation.dart';
+export 'chatbot/chatbot.dart';
 export 'dictionary/dictionary.dart';
 export 'essential/essential.dart';
 export 'home/home.dart';

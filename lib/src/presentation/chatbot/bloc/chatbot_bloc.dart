@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/src/core/utils/open_ai_timer.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
-import 'package:diccon_evo/src/presentation/ai_chatbot/ui/components/conversation_wait_timer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,51 +10,52 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../../core/configs/configs.dart';
 import '../../../data/data.dart';
+import '../ui/components/conversation_wait_timer.dart';
 
 /// Events
 @immutable
-abstract class ConversationEvent {}
+abstract class ChatbotEvent {}
 
-class AskAQuestion extends ConversationEvent {
+class AskAQuestion extends ChatbotEvent {
   final String providedWord;
   AskAQuestion({required this.providedWord});
 }
 
-class AnsweringAQuestion extends ConversationEvent {
+class AnsweringAQuestion extends ChatbotEvent {
   final String answer;
   AnsweringAQuestion({required this.answer});
 }
 
-class ResetConversation extends ConversationEvent {}
+class ResetConversation extends ChatbotEvent {}
 
-class StopResponse extends ConversationEvent {}
-class GoToUpgradeScreenEvent extends ConversationEvent {}
+class StopResponse extends ChatbotEvent {}
+class GoToUpgradeScreenEvent extends ChatbotEvent {}
 
 /// State
-abstract class ConversationState {}
+abstract class ChatbotState {}
 
-abstract class ConversationActionState extends ConversationState {}
+abstract class ChatbotActionState extends ChatbotState {}
 
- class NotHaveEnoughToken extends ConversationActionState {}
- class GoToUpgradeScreen extends ConversationActionState {}
- class RequiredLogIn extends ConversationActionState {}
+ class NotHaveEnoughToken extends ChatbotActionState {}
+ class GoToUpgradeScreen extends ChatbotActionState {}
+ class RequiredLogIn extends ChatbotActionState {}
 
-class ConversationInitial extends ConversationState {
+class ChatbotInitial extends ChatbotState {
   List<Widget> conversation;
-  ConversationInitial({required this.conversation});
+  ChatbotInitial({required this.conversation});
 }
 
-class ConversationUpdated extends ConversationState {
+class ChatbotUpdated extends ChatbotState {
   List<Widget> conversation;
   bool isResponding;
-  ConversationUpdated({required this.conversation, required this.isResponding});
+  ChatbotUpdated({required this.conversation, required this.isResponding});
 }
 
 /// Bloc
-class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
-  ConversationBloc()
+class ChatbotBloc extends Bloc<ChatbotEvent, ChatbotState> {
+  ChatbotBloc()
       : super(
-            ConversationInitial(conversation: [const ConversationWelcome()])) {
+            ChatbotInitial(conversation: [const ChatbotWelcome()])) {
     on<AskAQuestion>(_addUserMessage);
     on<ResetConversation>(_resetConversation);
     on<AnsweringAQuestion>(_answeringAQuestion);
@@ -65,7 +65,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
 
   final _chatGptRepository =
       ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
-  List<Widget> listConversations = [const ConversationWelcome()];
+  List<Widget> listConversations = [const ChatbotWelcome()];
   final ScrollController conversationScrollController = ScrollController();
   final TextEditingController textController = TextEditingController();
   bool isReportedAboutDisconnection = false;
@@ -73,7 +73,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   String currentResponseContent = "";
 
   Future<void> _addUserMessage(
-      AskAQuestion event, Emitter<ConversationState> emit) async {
+      AskAQuestion event, Emitter<ChatbotState> emit) async {
     currentResponseContent = "";
     listConversations.insert(
         0,
@@ -96,7 +96,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     if (waitingSecondsLeft != 0){
       needRemoveTimerWidget = true;
       listConversations.insert(0, WaitTimerWidget(initialNumber: waitingSecondsLeft));
-      emit(ConversationUpdated(
+      emit(ChatbotUpdated(
           conversation: listConversations, isResponding: true));
     }
 
@@ -104,7 +104,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         Duration(seconds: openAITimer.secondsUntilNextRequest()));
     if (needRemoveTimerWidget){
       listConversations.removeAt(0);
-      emit(ConversationUpdated(
+      emit(ChatbotUpdated(
           conversation: listConversations, isResponding: true));
       needRemoveTimerWidget = false;
     }
@@ -115,7 +115,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     }
     if (!isInternetConnected) {
       listConversations.insert(0, const NoInternetBubble());
-      emit(ConversationUpdated(
+      emit(ChatbotUpdated(
           conversation: listConversations, isResponding: false));
       isReportedAboutDisconnection = true;
     } else {
@@ -134,7 +134,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
               const ConversationMachineBubble(
                 content: "",
               ));
-          emit(ConversationUpdated(
+          emit(ChatbotUpdated(
               conversation: listConversations, isResponding: true));
           Tokens.reduceToken(byValueOf: 1);
         }
@@ -149,18 +149,18 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   FutureOr<void> _resetConversation(
-      ResetConversation event, Emitter<ConversationState> emit) {
+      ResetConversation event, Emitter<ChatbotState> emit) {
     _chatGptRepository.reset();
-    listConversations = [const ConversationWelcome()];
-    emit(ConversationUpdated(
+    listConversations = [const ChatbotWelcome()];
+    emit(ChatbotUpdated(
         conversation: listConversations, isResponding: false));
   }
 
   FutureOr<void> _answeringAQuestion(
-      AnsweringAQuestion event, Emitter<ConversationState> emit) {
+      AnsweringAQuestion event, Emitter<ChatbotState> emit) {
     listConversations.first = ConversationMachineBubble(content: event.answer);
 
-    emit(ConversationUpdated(
+    emit(ChatbotUpdated(
         conversation: listConversations, isResponding: true));
   }
 
@@ -193,15 +193,15 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   FutureOr<void> _stopResponse(
-      StopResponse event, Emitter<ConversationState> emit) {
+      StopResponse event, Emitter<ChatbotState> emit) {
     _chatStreamSubscription?.cancel();
     _isLoadingStreamController.sink.add(false);
-    emit(ConversationUpdated(
+    emit(ChatbotUpdated(
         conversation: listConversations, isResponding: false));
   }
 
   FutureOr<void> _goToUpgradeScreen(
-      GoToUpgradeScreenEvent event, Emitter<ConversationState> emit) {
+      GoToUpgradeScreenEvent event, Emitter<ChatbotState> emit) {
     emit(GoToUpgradeScreen());
   }
 }

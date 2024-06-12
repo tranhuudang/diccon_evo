@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../domain/domain.dart';
-import '../../presentation/solo_conversation/ui/screens/list_dialogue.dart';
+import '../../presentation/dialogue/ui/screens/list_dialogue.dart';
 import '../../presentation/story/ui/screens/story_list_all.dart';
 import '../core.dart';
 
@@ -16,8 +16,8 @@ final _shellNavigatorLibraryKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellLibrary');
 final _shellNavigatorConversationKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellConversation');
-final _shellNavigatorSoloConversationKey =
-GlobalKey<NavigatorState>(debugLabel: 'shellSoloConversation');
+final _shellNavigatorDialogueKey =
+GlobalKey<NavigatorState>(debugLabel: 'shellDialogue');
 final _shellNavigatorEssentialKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellEssential');
 final _shellNavigatorAboutKey =
@@ -133,14 +133,14 @@ GoRouter routerConfigDesktop = GoRouter(
             ),
           ],
         ),
-        // solo conversation branch
+        // dialogue branch
         StatefulShellBranch(
-          navigatorKey: _shellNavigatorSoloConversationKey,
+          navigatorKey: _shellNavigatorDialogueKey,
           routes: [
             // top route inside branch
             GoRoute(
               name: RouterConstants.dialogue,
-              path: RoutePath.soloConversation,
+              path: RoutePath.dialogue,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                     child: I18n(child:  const ListDialogueView()));
@@ -156,10 +156,10 @@ GoRouter routerConfigDesktop = GoRouter(
             // top route inside branch
             GoRoute(
               name: RouterConstants.chatbot,
-              path: RoutePath.conversation,
+              path: RoutePath.chatbot,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
-                    child: I18n(child: const AIChatBotView()));
+                    child: I18n(child: const ChatBotView()));
               },
               routes: const [],
             ),
