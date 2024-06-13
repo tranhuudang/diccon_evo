@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/utils/encrypt_api.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -16,6 +17,31 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
   String _encodedContent = '';
   String _decodedContent = '';
   int _workingKeyNunber = 0;
+  int _documentCount = 0;
+  bool _isLoading = false;
+
+  Future<void> _countDocuments() async {
+    // Todo: fix this function, currently it not able to get the number of document in FirebaseStore
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      AggregateQuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Dictionary_V2').count().get();
+      setState(() {
+        _documentCount = querySnapshot.count ?? 1;
+        DebugLog.info("Dictionary_V2: $_documentCount");
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      print("Error getting documents: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +148,24 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
                     ' -3 is primary cloud key.\n'
                     ' -4 is cloud backup key.')
               ]),
-
+          Section(title: 'Document', children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Number of documents: $_documentCount',
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(height: 20),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: _countDocuments,
+                        child: Text('Check Document Count'),
+                      ),
+              ],
+            ),
+          ]),
         ],
       ),
     );
