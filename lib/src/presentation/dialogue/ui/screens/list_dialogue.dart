@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart'; // Import for rootBundle
 import 'package:path_provider/path_provider.dart';
 import 'package:search_page/search_page.dart';
+import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
 import 'dialogue.dart';
 
@@ -66,6 +67,26 @@ class _ListDialogueViewState extends State<ListDialogueView> {
           IconButton(
               onPressed: () => showSearchPage(context),
               icon: const Icon(Icons.search)),
+          PopupMenuButton(
+            //splashRadius: 10.0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: context.theme.dividerColor),
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(child: Text("Seen".i18n), onTap: () {}),
+              PopupMenuItem(child: Text("Most popular".i18n), onTap: () {}),
+              PopupMenuItem(child: Text("Newest".i18n), onTap: () {}),
+              const PopupMenuItem(
+                enabled: false,
+                height: 0,
+                child: WaveDivider(
+                  thickness: .3,
+                ),
+              ),
+              PopupMenuItem(child: Text("All".i18n), onTap: () {}),
+            ],
+          ),
         ],
       ),
       body: ListView.builder(
@@ -96,7 +117,10 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                           )));
             },
             trailing: isRead
-                ? Icon(Icons.check_circle_outline, color: context.theme.colorScheme.primary,)
+                ? Icon(
+                    Icons.check_circle_outline,
+                    color: context.theme.colorScheme.primary,
+                  )
                 : SizedBox.shrink(),
           );
         },

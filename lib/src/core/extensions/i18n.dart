@@ -541,6 +541,18 @@ extension Localization on Object {
       "en_us": "Dialogue",
       "vi_vi": "Đối thoại",
     },
+    "Newest": {
+      "en_us": "Newest",
+      "vi_vi": "Mới nhất",
+    },
+    "Most popular": {
+      "en_us": "Most popular",
+      "vi_vi": "Phổ biến nhất",
+    },
+    "Seen": {
+      "en_us": "Seen",
+      "vi_vi": "Đã xem",
+    },
     "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.": {
       "en_us": "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.",
       "vi_vi": "Tab này cung cấp danh sách các đối thoại song ngữ Anh-Việt trên nhiều chủ đề khác nhau. Hãy thoải mái khám phá và sử dụng chúng cho việc luyện tập ngôn ngữ của bạn.",
