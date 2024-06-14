@@ -5,7 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:diccon_evo/src/core/configs/configs.dart';
 
-class Md5Generator{
+class Md5Generator {
   static Future<String> composeMD5IdForFirebaseDbDesktopLogin() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
@@ -25,11 +25,11 @@ class Md5Generator{
   }
 
   static String composeMd5IdForStoryFirebaseDb({required String sentence}) {
-    sentence = sentence.toLowerCase().trim();
-    var composeString = sentence;
-    var bytes = utf8.encode(composeString);
-    var resultMd5 = md5.convert(bytes);
-    return resultMd5.toString();
+    return _composeMd5(fromString: sentence);
+  }
+
+  static String composeMd5IdForDialogueReadState({required String fromConversationDescription}) {
+    return _composeMd5(fromString: fromConversationDescription);
   }
 
   static String composeMd5IdForWordDefinitionFirebaseDb(
@@ -42,9 +42,14 @@ class Md5Generator{
     return resultMd5.toString();
   }
 
-  static String composeMd5IdForSoloConversationFileName({required String sentence}) {
-    sentence = sentence.toLowerCase().trim();
-    var composeString = sentence;
+  static String composeMd5IdForSoloConversationFileName(
+      {required String sentence}) {
+    return _composeMd5(fromString: sentence);
+  }
+
+  static String _composeMd5({required String fromString}) {
+    fromString = fromString.toLowerCase().trim();
+    var composeString = fromString;
     var bytes = utf8.encode(composeString);
     var resultMd5 = md5.convert(bytes);
     return resultMd5.toString();

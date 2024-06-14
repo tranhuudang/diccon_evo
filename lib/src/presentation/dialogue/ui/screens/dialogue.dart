@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data.dart';
 import 'package:diccon_evo/src/data/repositories/solo_conversation_repository_impl.dart';
@@ -9,14 +12,63 @@ import '../../../../domain/domain.dart';
 class DialogueView extends StatefulWidget {
   final List<Conversation> listConversation;
   final Conversation conversation;
+  final bool isRead;
 
-  const DialogueView({super.key, required this.conversation, required this.listConversation});
+  const DialogueView(
+      {super.key,
+      required this.conversation,
+      required this.listConversation,
+      required this.isRead});
 
   @override
   State<DialogueView> createState() => _DialogueViewState();
 }
 
 class _DialogueViewState extends State<DialogueView> {
+  late ScrollController _scrollController;
+  late File _readStateFile;
+  late bool _isRead = widget.isRead;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels != 0) {
+      // User scrolled to the bottom
+      _markAsRead();
+    }
+  }
+
+  Future<void> _markAsRead() async {
+    if (!_isRead) {
+      _readStateFile = await _getDialogueReadStateFile();
+      final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
+          fromConversationDescription: widget.conversation.description);
+      await _readStateFile.writeAsString('$conversationMd5\n',
+          mode: FileMode.append);
+      DebugLog.info("This dialogue is marked as read");
+    }
+    setState(() {
+      _isRead = true;
+    });
+  }
+
+  Future<File> _getDialogueReadStateFile() async {
+    final directory = await getApplicationCacheDirectory();
+    File file = File('${directory.path}/dialogue_read_state.txt');
+    return file;
+  }
+
   @override
   Widget build(BuildContext context) {
     final dialogueRepo = DialogueRepositoryImpl();
@@ -26,22 +78,29 @@ class _DialogueViewState extends State<DialogueView> {
         title: Text(widget.conversation.title),
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.conversation.description),
-                Wrap(children: widget.conversation.hashtags.map((hashtag) => TextButton(onPressed: (){
-                  showSearchPageWithHashtag(context, hashtag);
-
-                }, child: Text(hashtag.toLowerCase()))).toList(),)
+                Text(widget.conversation.description,),
+                Wrap(
+                  children: widget.conversation.hashtags
+                      .map((hashtag) => TextButton(
+                          onPressed: () {
+                            showSearchPageWithHashtag(context, hashtag);
+                          },
+                          child: Text(hashtag.toLowerCase())))
+                      .toList(),
+                )
               ],
             ),
-            const WaveDivider(thickness: .3,),
+            const WaveDivider(
+              thickness: .3,
+            ),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -64,10 +123,12 @@ class _DialogueViewState extends State<DialogueView> {
                                     : context.theme.colorScheme.error),
                             child: Text(
                               dialogue.speaker,
-                              style: context.theme.textTheme.bodyMedium?.copyWith(
-                                  color: firstDialogue.speaker != dialogue.speaker
-                                      ? context.theme.colorScheme.onPrimary
-                                      : context.theme.colorScheme.onError),
+                              style: context.theme.textTheme.bodyMedium
+                                  ?.copyWith(
+                                      color: firstDialogue.speaker !=
+                                              dialogue.speaker
+                                          ? context.theme.colorScheme.onPrimary
+                                          : context.theme.colorScheme.onError),
                             )),
                         const Spacer(),
                       ],
@@ -98,15 +159,16 @@ class _DialogueViewState extends State<DialogueView> {
                             Opacity(
                                 opacity: 0,
                                 child: IconButton(
-                                    onPressed: () {
-
-                                    }, icon: const Icon(Icons.volume_up))),
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.volume_up))),
                             Expanded(
                                 child: Text(
                               dialogue.vietnamese,
-                              style: context.theme.textTheme.bodyMedium?.copyWith(
-                                  color: context.theme.textTheme.bodyMedium?.color
-                                      ?.withOpacity(.5)),
+                              style: context.theme.textTheme.bodyMedium
+                                  ?.copyWith(
+                                      color: context
+                                          .theme.textTheme.bodyMedium?.color
+                                          ?.withOpacity(.5)),
                             )),
                           ],
                         ),
@@ -133,8 +195,11 @@ class _DialogueViewState extends State<DialogueView> {
         failure: Center(
           child: Text('No matching conversation found'.i18n),
         ),
-        filter: (conversation) =>
-        [conversation.title, conversation.hashtags.toString(), conversation.description],
+        filter: (conversation) => [
+          conversation.title,
+          conversation.hashtags.toString(),
+          conversation.description
+        ],
         builder: (conversation) => ListTile(
           title: Text(conversation.title),
           titleTextStyle: context.theme.textTheme.titleMedium,
@@ -150,8 +215,11 @@ class _DialogueViewState extends State<DialogueView> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        DialogueView(conversation: conversation, listConversation: widget.listConversation,)));
+                    builder: (context) => DialogueView(
+                          conversation: conversation,
+                          listConversation: widget.listConversation,
+                          isRead: false,
+                        )));
           },
         ),
       ),

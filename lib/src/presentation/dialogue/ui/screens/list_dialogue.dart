@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart'; // Import for rootBundle
+import 'package:path_provider/path_provider.dart';
 import 'package:search_page/search_page.dart';
 import '../../../../domain/domain.dart';
 import 'dialogue.dart';
@@ -15,17 +19,34 @@ class ListDialogueView extends StatefulWidget {
 
 class _ListDialogueViewState extends State<ListDialogueView> {
   List<Conversation> conversations = [];
+  String readStateFileContents = '';
+  late File _readStateFile;
 
   @override
   void initState() {
     super.initState();
     _loadConversations();
+    _loadDialogueReadState();
+  }
+
+  Future<void> _loadDialogueReadState() async {
+    _readStateFile = await _getDialogueReadStateFile();
+    if (await _readStateFile.exists()) {
+      readStateFileContents = await _readStateFile.readAsString();
+    }
+  }
+
+  Future<File> _getDialogueReadStateFile() async {
+    final directory = await getApplicationCacheDirectory();
+    File file = File('${directory.path}/dialogue_read_state.txt');
+    DebugLog.info('Read dialog read state file in ${file.path}');
+    return file;
   }
 
   Future<void> _loadConversations() async {
     try {
-      String data = await rootBundle
-          .loadString('assets/dialogue/dialogue.json');
+      String data =
+          await rootBundle.loadString('assets/dialogue/dialogue.json');
       List<dynamic> jsonList = jsonDecode(data);
       setState(() {
         conversations =
@@ -51,6 +72,9 @@ class _ListDialogueViewState extends State<ListDialogueView> {
         itemCount: conversations.length,
         itemBuilder: (context, index) {
           final conversation = conversations[index];
+          final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
+              fromConversationDescription: conversation.description);
+          bool isRead = readStateFileContents.contains(conversationMd5);
           return ListTile(
             title: Text(conversation.title),
             subtitle: Text(
@@ -68,8 +92,12 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                       builder: (context) => DialogueView(
                             conversation: conversation,
                             listConversation: conversations,
+                            isRead: isRead,
                           )));
             },
+            trailing: isRead
+                ? Icon(Icons.check_circle_outline, color: context.theme.colorScheme.primary,)
+                : SizedBox.shrink(),
           );
         },
       ),
@@ -104,12 +132,15 @@ class _ListDialogueViewState extends State<ListDialogueView> {
           subtitleTextStyle: context.theme.textTheme.bodyMedium,
           onTap: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DialogueView(
-                          conversation: conversation,
-                          listConversation: conversations,
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => DialogueView(
+                  conversation: conversation,
+                  listConversation: conversations,
+                  isRead: false,
+                ),
+              ),
+            );
           },
         ),
       ),
