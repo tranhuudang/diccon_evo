@@ -20,8 +20,10 @@ class ListDialogueView extends StatefulWidget {
 
 class _ListDialogueViewState extends State<ListDialogueView> {
   List<Conversation> conversations = [];
+  List<Conversation> backupConversations = [];
   String readStateFileContents = '';
   late File _readStateFile;
+  bool _isReversed = false;
 
   @override
   void initState() {
@@ -53,6 +55,7 @@ class _ListDialogueViewState extends State<ListDialogueView> {
         conversations =
             jsonList.map((json) => Conversation.fromJson(json)).toList();
       });
+      backupConversations = conversations;
     } catch (e) {
       print('Error loading conversation data: $e');
     }
@@ -74,9 +77,31 @@ class _ListDialogueViewState extends State<ListDialogueView> {
               borderRadius: BorderRadius.circular(16.0),
             ),
             itemBuilder: (context) => [
-              PopupMenuItem(child: Text("Seen".i18n), onTap: () {}),
-              PopupMenuItem(child: Text("Most popular".i18n), onTap: () {}),
-              PopupMenuItem(child: Text("Newest".i18n), onTap: () {}),
+              PopupMenuItem(
+                  child: Text("Seen".i18n),
+                  onTap: () {
+                    conversations = conversations.where((conversation) {
+                      final conversationMd5 =
+                          Md5Generator.composeMd5IdForDialogueReadState(
+                              fromConversationDescription:
+                                  conversation.description);
+                      return readStateFileContents.contains(conversationMd5);
+                    }).toList();
+                    setState(() {
+                      _isReversed = false;
+                    });
+                  }),
+              PopupMenuItem(child: Text("Most popular".i18n), onTap: () {
+
+              }),
+              PopupMenuItem(
+                  child: Text("Newest".i18n),
+                  onTap: () {
+                    setState(() {
+                      conversations = backupConversations;
+                      _isReversed = true;
+                    });
+                  }),
               const PopupMenuItem(
                 enabled: false,
                 height: 0,
@@ -84,12 +109,17 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                   thickness: .3,
                 ),
               ),
-              PopupMenuItem(child: Text("All".i18n), onTap: () {}),
+              PopupMenuItem(child: Text("All".i18n), onTap: () {
+                setState(() {
+                  conversations = backupConversations;
+                });
+              }),
             ],
           ),
         ],
       ),
       body: ListView.builder(
+        reverse: _isReversed,
         itemCount: conversations.length,
         itemBuilder: (context, index) {
           final conversation = conversations[index];

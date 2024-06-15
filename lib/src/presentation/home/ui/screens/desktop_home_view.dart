@@ -115,8 +115,8 @@ class _DesktopHomeViewState extends State<DesktopHomeView> with WindowListener {
                 label: Text('Dialogue'.i18n),
               ),
               NavigationRailDestination(
-                icon: const FaIcon(FontAwesomeIcons.robot),
-                selectedIcon: const FaIcon(FontAwesomeIcons.robot),
+                icon: const FaIcon(FontAwesomeIcons.lightbulb),
+                selectedIcon: const FaIcon(FontAwesomeIcons.solidLightbulb),
                 label: Text('Chatbot'.i18n),
               ),
               NavigationRailDestination(
