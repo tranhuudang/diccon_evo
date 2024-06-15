@@ -281,6 +281,6 @@ GoRouter routerConfigDesktop = GoRouter(
   ],
   errorBuilder: (context, state){
     return
-         I18n(child: const PageErrorView());
+         I18n(child: const DictionaryView());
   }
 );
