@@ -57,7 +57,7 @@ class _ListDialogueViewState extends State<ListDialogueView> {
       });
       backupConversations = conversations;
     } catch (e) {
-      print('Error loading conversation data: $e');
+      DebugLog.info('Error loading asset dialogue data: $e');
     }
   }
 
@@ -111,6 +111,7 @@ class _ListDialogueViewState extends State<ListDialogueView> {
               ),
               PopupMenuItem(child: Text("All".i18n), onTap: () {
                 setState(() {
+                  _isReversed = false;
                   conversations = backupConversations;
                 });
               }),

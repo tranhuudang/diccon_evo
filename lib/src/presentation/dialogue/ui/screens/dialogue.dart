@@ -32,12 +32,14 @@ class _DialogueViewState extends State<DialogueView> {
   late bool _isRead = widget.isRead;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   bool _isGivenFeedback = false;
+  int _numberOfLike = 0;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
+    _getNumberOfLike();
   }
 
   @override
@@ -111,6 +113,14 @@ class _DialogueViewState extends State<DialogueView> {
     DebugLog.info('Log like count to firebase');
   }
 
+  Future<void> _getNumberOfLike() async {
+    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+    DocumentSnapshot likeCountSnapshot = await dialogueAnalysisRef.get();
+    setState(() {
+      _numberOfLike = likeCountSnapshot['likeCount'];
+    });
+  }
+
   Future<void> _increaseDislikeCountDialogueStatistics() async {
     final dialogueAnalysisRef = await _getDialogueAnalysisRef();
     await dialogueAnalysisRef.update({
@@ -156,7 +166,8 @@ class _DialogueViewState extends State<DialogueView> {
                           },
                           child: Text(hashtag.toLowerCase())))
                       .toList(),
-                )
+                ),
+
               ],
             ),
             const WaveDivider(
@@ -239,7 +250,17 @@ class _DialogueViewState extends State<DialogueView> {
                 );
               },
             ),
-            16.height,
+            8.height,
+            WaveDivider(thickness: .3,),
+            8.height,
+            if (_numberOfLike > 1)
+              Text(
+                '$_numberOfLike people finds this dialogue helpful.',
+                style: context.theme.textTheme.bodyMedium?.copyWith(
+                    color: context.theme.textTheme.bodyMedium?.color
+                        ?.withOpacity(.5)),
+              ),
+            8.height,
             if (!_isGivenFeedback)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -255,14 +276,18 @@ class _DialogueViewState extends State<DialogueView> {
                             IconButton(
                               onPressed: () {
                                 _increaseLikeCountDialogueStatistics();
-                                context.showSnackBar(content: 'Thank you for your feedbacks!'.i18n);
+                                context.showSnackBar(
+                                    content:
+                                        'Thank you for your feedbacks!'.i18n);
                               },
                               icon: Icon(Icons.thumb_up_alt_outlined),
                             ),
                             IconButton(
                               onPressed: () {
                                 _increaseDislikeCountDialogueStatistics();
-                                context.showSnackBar(content: 'Thank you for your feedbacks!'.i18n);
+                                context.showSnackBar(
+                                    content:
+                                        'Thank you for your feedbacks!'.i18n);
                               },
                               icon: Icon(Icons.thumb_down_alt_outlined),
                             ),
