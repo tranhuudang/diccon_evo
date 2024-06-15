@@ -96,20 +96,19 @@ class OpenAIKeySelector {
       );
 
       if (response.statusCode == 200) {
-          DebugLog.info('Primary OpenAI API key is valid.');
+        DebugLog.info('OpenAI API key is valid.');
         return true;
       } else if (response.statusCode == 401) {
-          DebugLog.info(
-              'Primary OpenAI API key is not valid, switch to use backup key.');
+        DebugLog.info(
+            'Primary OpenAI API key is not valid, switch to use backup key.');
         return false;
       } else if (response.statusCode == 429) {
-          DebugLog.info('OpenAI API rate limit exceeded.');
+        DebugLog.info('OpenAI API rate limit exceeded.');
         return false;
       } else {
-        if (kDebugMode) {
-          print(
-              'Failed to check API key validity, unexpected status code: ${response.statusCode}');
-        }
+        DebugLog.error(
+            'Failed to check API key validity, unexpected status code: ${response.statusCode}');
+
         return false;
       }
     } catch (e) {

@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data.dart';
@@ -28,6 +30,8 @@ class _DialogueViewState extends State<DialogueView> {
   late ScrollController _scrollController;
   late File _readStateFile;
   late bool _isRead = widget.isRead;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  bool _isGivenFeedback = false;
 
   @override
   void initState() {
@@ -43,24 +47,79 @@ class _DialogueViewState extends State<DialogueView> {
   }
 
   void _scrollListener() {
-    if (_scrollController.position.pixels != 0) {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
       // User scrolled to the bottom
-      _markAsRead();
+      if (!_isRead) {
+        _markAsRead();
+        _increaseReadingCountDialogueStatistics();
+      }
     }
   }
 
   Future<void> _markAsRead() async {
-    if (!_isRead) {
-      _readStateFile = await _getDialogueReadStateFile();
-      final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
-          fromConversationDescription: widget.conversation.description);
-      await _readStateFile.writeAsString('$conversationMd5\n',
-          mode: FileMode.append);
-      DebugLog.info("This dialogue is marked as read");
-    }
+    _readStateFile = await _getDialogueReadStateFile();
+    final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
+        fromConversationDescription: widget.conversation.description);
+    await _readStateFile.writeAsString('$conversationMd5\n',
+        mode: FileMode.append);
+    DebugLog.info("This dialogue is marked as read");
     setState(() {
       _isRead = true;
     });
+  }
+
+  Future<DocumentReference<Map<String, dynamic>>>
+      _getDialogueAnalysisRef() async {
+    final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
+        fromConversationDescription: widget.conversation.description);
+    // Check if document exists and create it if it doesn't
+    final dialogRef = _firestore.collection('Dialogue').doc('Statistics');
+    final favouriteRef =
+        dialogRef.collection('DialogueAnalysis').doc(conversationMd5);
+    final favouriteSnapshot = await favouriteRef.get();
+    if (!favouriteSnapshot.exists) {
+      await favouriteRef.set({
+        'dialogTitle': widget.conversation.title,
+        'hashtag': widget.conversation.hashtags,
+        'readCount': 0,
+        'likeCount': 0,
+        'dislikeCount': 0
+      });
+    }
+    return favouriteRef;
+  }
+
+  Future<void> _increaseReadingCountDialogueStatistics() async {
+    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+
+    // Update Firestore
+    await dialogueAnalysisRef.update({
+      'readCount': FieldValue.increment(1),
+    });
+    DebugLog.info('Log reading count to firebase');
+  }
+
+  Future<void> _increaseLikeCountDialogueStatistics() async {
+    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+    await dialogueAnalysisRef.update({
+      'likeCount': FieldValue.increment(1),
+    });
+    setState(() {
+      _isGivenFeedback = true;
+    });
+    DebugLog.info('Log like count to firebase');
+  }
+
+  Future<void> _increaseDislikeCountDialogueStatistics() async {
+    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+    await dialogueAnalysisRef.update({
+      'dislikeCount': FieldValue.increment(1),
+    });
+    setState(() {
+      _isGivenFeedback = true;
+    });
+    DebugLog.info('Log dislike count to firebase');
   }
 
   Future<File> _getDialogueReadStateFile() async {
@@ -86,7 +145,9 @@ class _DialogueViewState extends State<DialogueView> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.conversation.description,),
+                Text(
+                  widget.conversation.description,
+                ),
                 Wrap(
                   children: widget.conversation.hashtags
                       .map((hashtag) => TextButton(
@@ -178,6 +239,40 @@ class _DialogueViewState extends State<DialogueView> {
                 );
               },
             ),
+            16.height,
+            if (!_isGivenFeedback)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text('Do you find this dialogue is helpful?'.i18n),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                _increaseLikeCountDialogueStatistics();
+                                context.showSnackBar(content: 'Thank you for your feedbacks!'.i18n);
+                              },
+                              icon: Icon(Icons.thumb_up_alt_outlined),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _increaseDislikeCountDialogueStatistics();
+                                context.showSnackBar(content: 'Thank you for your feedbacks!'.i18n);
+                              },
+                              icon: Icon(Icons.thumb_down_alt_outlined),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

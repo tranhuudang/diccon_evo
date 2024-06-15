@@ -57,9 +57,12 @@ extension Localization on Object {
       "en_us": "Password",
       "vi_vi": "Mật khẩu",
     },
-    "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window.": {
-      "en_us": "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window.",
-      "vi_vi": "Giới thiệu từ điển trò chuyện tiên tiến, người bạn đồng hành ngôn ngữ tức thì ngay trong tầm tay bạn! Khám phá thế giới từ ngữ và định nghĩa một cách dễ dàng, ngay trong cửa sổ trò chuyện của bạn.",
+    "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window.":
+        {
+      "en_us":
+          "Introducing a cutting-edge chat-based dictionary, your instant language companion at your fingertips! Explore the world of words and definitions with ease, right in your chat window.",
+      "vi_vi":
+          "Giới thiệu từ điển trò chuyện tiên tiến, người bạn đồng hành ngôn ngữ tức thì ngay trong tầm tay bạn! Khám phá thế giới từ ngữ và định nghĩa một cách dễ dàng, ngay trong cửa sổ trò chuyện của bạn.",
     },
     "You're not connected": {
       "en_us": "You're not connected",
@@ -553,19 +556,32 @@ extension Localization on Object {
       "en_us": "Seen",
       "vi_vi": "Đã xem",
     },
-    "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.": {
-      "en_us": "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.",
-      "vi_vi": "Tab này cung cấp danh sách các đối thoại song ngữ Anh-Việt trên nhiều chủ đề khác nhau. Hãy thoải mái khám phá và sử dụng chúng cho việc luyện tập ngôn ngữ của bạn.",
+    "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.":
+        {
+      "en_us":
+          "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.",
+      "vi_vi":
+          "Tab này cung cấp danh sách các đối thoại song ngữ Anh-Việt trên nhiều chủ đề khác nhau. Hãy thoải mái khám phá và sử dụng chúng cho việc luyện tập ngôn ngữ của bạn.",
     },
 
     "Open Dialogue List": {
       "en_us": "Open Dialogue List",
       "vi_vi": "Mở Danh Sách Đối Thoại",
     },
+    "Thank you for your feedbacks!": {
+      "en_us": "Thank you for your feedbacks!",
+      "vi_vi": "Cảm ơn những phản hồi từ bạn!",
+    },
+    "Do you find this dialogue is helpful?": {
+      "en_us": "Do you find this dialogue is helpful?",
+      "vi_vi": "Bạn có thấy đoạn đối thoại này hữu ích không?",
+    },
+
     "Enhance your language skills with practical dialogues.": {
       "en_us": "Enhance your language skills with practical dialogues.",
       "vi_vi": "Nâng cao kỹ năng ngôn ngữ của bạn với các đối thoại thực tế.",
     },
+
     /// Conversation
 
     "Touch to start": {"en_us": "Touch to start", "vi_vi": "Chạm để bắt đầu"},
@@ -652,8 +668,6 @@ extension Localization on Object {
       "en_us": "Conversation",
       "vi_vi": "Trò chuyện",
     },
-
-
 
     "essential sentences to master": {
       "en_us": "essential sentences to master",
