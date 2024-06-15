@@ -62,6 +62,7 @@ class _EnglishToVietnameseChatBotBubbleState
           return ChatBotBubble(
             lang: "en to vi",
             word: widget.word,
+            isParagraph: widget.isParagraph,
             chatListController: widget.chatListController,
             index: widget.index,
             listChatGptRepository: widget.listChatGptRepository,
