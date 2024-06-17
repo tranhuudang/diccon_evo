@@ -91,9 +91,10 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                       _isReversed = false;
                     });
                   }),
-              PopupMenuItem(child: Text("Most popular".i18n), onTap: () {
-
-              }),
+              // Todo: Create function to get most popular dialogue
+              // PopupMenuItem(child: Text("Most popular".i18n), onTap: () {
+              //
+              // }),
               PopupMenuItem(
                   child: Text("Newest".i18n),
                   onTap: () {

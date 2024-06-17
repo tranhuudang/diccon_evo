@@ -41,6 +41,30 @@ extension Localization on Object {
     //   "en_us": "",
     //   "vi_vi": "",
     // },
+    "Your feedback matters! Help us improve your learning experience by sharing your thoughts. We appreciate your input and use it to make our app better for you.": {
+      "en_us": "Your feedback matters! Help us improve your learning experience by sharing your thoughts. We appreciate your input and use it to make our app better for you.",
+      "vi_vi": "Đánh giá của bạn rất quan trọng đối với chúng tôi! Hãy giúp chúng tôi cải thiện trải nghiệm học tập của bạn bằng cách chia sẻ ý kiến của bạn. Chúng tôi rất coi trọng những góp ý của bạn và sử dụng nó để làm cho ứng dụng của chúng tôi tốt hơn đối với bạn.",
+    },
+    "Feedback": {
+      "en_us": "Feedback",
+      "vi_vi": "Góp ý",
+    },
+    "Submit": {
+      "en_us": "Submit",
+      "vi_vi": "Hoàn tất",
+    },
+    "Send": {
+      "en_us": "Send",
+      "vi_vi": "Gửi đi",
+    },
+    "Feedback submitted successfully!": {
+      "en_us": "Feedback submitted successfully!",
+      "vi_vi": "Góp ý của bạn đã được gửi!",
+    },
+    "Rate us": {
+      "en_us": "Rate us",
+      "vi_vi": "Đánh giá",
+    },
     "Sign up": {
       "en_us": "Sign up",
       "vi_vi": "Đăng ký",

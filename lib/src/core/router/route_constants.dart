@@ -3,6 +3,7 @@ class RouterConstants{
   static const String commonSettings ="common-settings";
   static const String mobileUserSettings ="user-settings";
   static const String infos ="infos";
+  static const String feedbacks ="feedbacks";
   static const String releaseNotes ="release-notes";
   static const String dictionary ="dictionary";
   static const String dictionaryPreferences ="dictionary-preferences";

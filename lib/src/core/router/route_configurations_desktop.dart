@@ -253,6 +253,14 @@ GoRouter routerConfigDesktop = GoRouter(
                         child: I18n(child: const ReleaseNotes()));
                   },
                 ),
+                GoRoute(
+                  name: RouterConstants.feedbacks,
+                  path: 'feedbacks',
+                  pageBuilder: (context, state) {
+                    return NoTransitionPage(
+                        child: I18n(child: const ReleaseNotes()));
+                  },
+                ),
               ],
             ),
           ],

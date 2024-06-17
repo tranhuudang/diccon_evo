@@ -128,6 +128,18 @@ class HomeMenuButton extends StatelessWidget {
                       Text("Feedbacks".i18n),
                     ],
                   ),
+                  onTap: () => context.pushNamed('feedbacks'),
+                ),
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.star_border),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text("Rate us".i18n),
+                    ],
+                  ),
                   onTap: () => SeekFeedback.goToStoreListing(),
                 ),
                 PopupMenuItem(

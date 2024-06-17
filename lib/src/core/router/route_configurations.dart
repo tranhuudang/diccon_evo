@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/shared/ui/screens/feedback_screen.dart';
 import 'package:diccon_evo/src/presentation/story/ui/screens/story_list_all.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_extension/i18n_extension.dart';
@@ -54,6 +55,13 @@ GoRouter routerConfig = GoRouter(
             },
           ),
           // Settings
+          GoRoute(
+            name: RouterConstants.feedbacks,
+            path: 'feedbacks',
+            pageBuilder: (context, state) {
+              return MaterialPage(child: I18n(child: FeedbackScreen()));
+            },
+          ),
           GoRoute(
             name: RouterConstants.infos,
             path: 'infos',
