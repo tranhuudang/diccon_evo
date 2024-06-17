@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
+import 'package:diccon_evo/src/presentation/dialogue/utils.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:diccon_evo/src/core/core.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
+import '../../../../core/enum/sex.dart';
 
 class DialogueView extends StatefulWidget {
   final List<Conversation> listConversation;
@@ -213,8 +215,9 @@ class _DialogueViewState extends State<DialogueView> {
                           children: [
                             IconButton(
                                 onPressed: () async {
+                                  final speakerSex = sexDetectorByName(dialogue.speaker);
                                   final filePath = await dialogueRepo
-                                      .getAudio(dialogue.english);
+                                      .getAudio(dialogue.english, sex: speakerSex);
                                   if (filePath != '') {
                                     player.playFromPath(
                                         filePath: filePath,

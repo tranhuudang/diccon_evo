@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:diccon_evo/src/core/enum/sex.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,6 +20,7 @@ class TextToSpeechApiClient {
   Future<String> convertTextToSpeech({
     required String fromText,
     required String toFilePath,
+     Sex withSex = Sex.men,
   }) async {
     _client = http.Client(); // Initialize the client
     final uri = Uri.parse(ApiEndpoints.speech);
@@ -29,7 +31,7 @@ class TextToSpeechApiClient {
     final body = jsonEncode({
       'model': SpeechModels.tts1,
       'input': fromText,
-      'voice': SupportedVoices.onyx.name,
+      'voice': withSex == Sex.men ? SupportedVoices.onyx.name : SupportedVoices.nova.name,
     });
 
     try {
