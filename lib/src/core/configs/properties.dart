@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/domain.dart';
@@ -12,6 +13,20 @@ class Properties {
 
   static Future<void> initialize() async {
     instance.settings = await instance._getSettings();
+    // Reset to default response format for some old version
+    instance._resetResponseFormat();
+  }
+
+  _resetResponseFormat() {
+    if (!instance.settings.dictionaryResponseSelectedListVietnamese
+        .startsWith(DefaultSettings.dictionaryResponseVietnameseConstant)) {
+      DebugLog.info('Reset dictionary response format.');
+      instance.saveSettings(instance.settings.copyWith(
+          dictionaryResponseSelectedListVietnamese:
+              DefaultSettings.dictionaryResponseVietnameseConstant,
+          dictionaryResponseSelectedListEnglish:
+              DefaultSettings.dictionaryResponseEnglishConstant));
+    }
   }
 
   Future<void> saveSettings(Settings newSettings) async {
