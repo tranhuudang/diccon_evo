@@ -9,7 +9,7 @@ class TranslateWordInSentenceDialog extends StatefulWidget {
   const TranslateWordInSentenceDialog({super.key});
 
   @override
-  _TranslateWordInSentenceDialogState createState() => _TranslateWordInSentenceDialogState();
+  State<TranslateWordInSentenceDialog> createState() => _TranslateWordInSentenceDialogState();
 }
 class _TranslateWordInSentenceDialogState extends State<TranslateWordInSentenceDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

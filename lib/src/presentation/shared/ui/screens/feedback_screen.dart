@@ -36,7 +36,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         os = windowsInfo.buildNumber > 10240 ? 'Windows 11' : 'Windows 10';
         device = windowsInfo.computerName;
       }
-      await FirebaseFirestore.instance.collection('Feedback').add({
+      await FirebaseFirestore.instance.collection(FirebaseConstant.firestore.feedback).add({
         'feedback': feedback,
         'email': currentUser?.email ?? '',
         'device': device,

@@ -235,7 +235,7 @@ class VoiceBloc extends Bloc<VoiceEvent, VoiceState> {
             print('[StartBotSpeechEvent] Bot completed speaking');
           }
         },
-        onPositionChanged: (double) {});
+        onPositionChanged: (double value) {});
   }
 
   /// Function to handle stopping the recording event

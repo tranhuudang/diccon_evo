@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../core.dart';
 
 class Tokens {
   Tokens._();
@@ -33,7 +34,9 @@ class Tokens {
 
   Future<String> getEmailFromConnectedDevice() async {
     final code = await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
-    final dataTrack = FirebaseFirestore.instance.collection("Login").doc(code);
+    final dataTrack = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.login)
+        .doc(code);
     final documentSnapshot = await dataTrack.get();
 
     if (documentSnapshot.exists) {
@@ -49,8 +52,9 @@ class Tokens {
     if (email.isNotEmpty) {
       String premiumUserMD5 =
           Md5Generator.composeMd5IdForFirebaseDbPremium(userEmail: email);
-      final dataTrack =
-          FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
+      final dataTrack = FirebaseFirestore.instance
+          .collection(FirebaseConstant.firestore.premium)
+          .doc(premiumUserMD5);
       final documentSnapshot = await dataTrack.get();
 
       if (documentSnapshot.exists) {
@@ -80,8 +84,9 @@ class Tokens {
     User? currentUser = FirebaseAuth.instance.currentUser;
     String premiumUserMD5 = Md5Generator.composeMd5IdForFirebaseDbPremium(
         userEmail: currentUser!.email!);
-    final dataTrack =
-        FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
+    final dataTrack = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.premium)
+        .doc(premiumUserMD5);
     final documentSnapshot = await dataTrack.get();
 
     if (!documentSnapshot.exists) {
@@ -95,8 +100,9 @@ class Tokens {
       String premiumUserMD5 =
           Md5Generator.composeMd5IdForFirebaseDbPremium(userEmail: email);
 
-      final dataTrack =
-          FirebaseFirestore.instance.collection("Premium").doc(premiumUserMD5);
+      final dataTrack = FirebaseFirestore.instance
+          .collection(FirebaseConstant.firestore.premium)
+          .doc(premiumUserMD5);
       final tokenData = {
         'token': token.toString(),
       };

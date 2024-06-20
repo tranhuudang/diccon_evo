@@ -94,7 +94,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
         options: currentSettings
             .dictionaryResponseSelectedListVietnamese); // Generate the MD5 hash
     final databaseRow =
-        FirebaseFirestore.instance.collection("Dictionary_v2").doc(answerId);
+        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.dictionary).doc(answerId);
     final json = {
       'question': widget.word,
       'answer': widget
@@ -115,7 +115,7 @@ class _ChatBotBubbleState extends State<ChatBotBubble>
           word: widget.word,
           options: currentSettings.dictionaryResponseSelectedListVietnamese);
       final docUser =
-          FirebaseFirestore.instance.collection("Dictionary_v2").doc(answer);
+          FirebaseFirestore.instance.collection(FirebaseConstant.firestore.dictionary).doc(answer);
       await docUser.get().then((snapshot) async {
         if (snapshot.exists) {
           widget.listChatGptRepository[widget.index].singleQuestionAnswer.answer

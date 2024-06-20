@@ -28,7 +28,7 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
 
     try {
       AggregateQuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('Dictionary_V2').count().get();
+          .collection(FirebaseConstant.firestore.dictionary).count().get();
       setState(() {
         _documentCount = querySnapshot.count ?? 1;
         DebugLog.info("Dictionary_V2: $_documentCount");
@@ -38,7 +38,7 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
       setState(() {
         _isLoading = false;
       });
-      print("Error getting documents: $e");
+      DebugLog.info("Error getting documents: $e");
     }
   }
 

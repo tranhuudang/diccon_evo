@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:diccon_evo/src/core/core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -24,9 +25,9 @@ class FirebaseStorageService {
       final file = File(filePath);
       await storageReference.putFile(file);
 
-      print('File uploaded successfully');
+      DebugLog.info('File uploaded successfully');
     } catch (e) {
-      print('Error uploading file: $e');
+      DebugLog.error('Error uploading file: $e');
     }
   }
 
@@ -55,14 +56,14 @@ class FirebaseStorageService {
         final file = File(filePath);
         await response.pipe(file.openWrite());
 
-        print('File downloaded successfully');
+        DebugLog.info('File downloaded successfully');
         return filePath;
       } else {
-        print('Error downloading file: ${response.statusCode}');
+        DebugLog.error('Error downloading file: ${response.statusCode}');
         return '';
       }
     } catch (e) {
-      print('Error downloading file: $e');
+      DebugLog.error('Error downloading file: $e');
       return '';
     }
   }
@@ -81,7 +82,7 @@ class FirebaseStorageService {
       if (e is FirebaseException && e.code == 'object-not-found') {
         return false;
       } else {
-        print('Error checking file existence: $e');
+        DebugLog.error('Error checking file existence: $e');
         return false;
       }
     }

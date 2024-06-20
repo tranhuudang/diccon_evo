@@ -43,7 +43,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final userId = Md5Generator.composeMd5IdForFirebaseDbPremium(
         userEmail: authUser?.email ?? '');
     final editorDoc =
-        await FirebaseFirestore.instance.collection("Editor").doc(userId).get();
+        await FirebaseFirestore.instance.collection(FirebaseConstant.firestore.editor).doc(userId).get();
 
     setState(() {
       _isEditor = editorDoc.exists;
@@ -131,7 +131,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
     final docUser =
-        FirebaseFirestore.instance.collection("Story_v3").doc(answer);
+        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepository.singleQuestionAnswer.answer
@@ -153,7 +153,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
     final docUser =
-        FirebaseFirestore.instance.collection("Story_v3").doc(answer);
+        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepositoryForSentence.singleQuestionAnswer.answer
@@ -169,7 +169,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
     final databaseRow =
-        FirebaseFirestore.instance.collection("Story_v3").doc(answerId);
+        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
     final json = {
       'question':
           "${widget.searchWord}- in the sentence: ${widget.sentenceContainWord}",
@@ -182,7 +182,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
     final databaseRow =
-        FirebaseFirestore.instance.collection("Story_v3").doc(answerId);
+        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
     final json = {
       'question': widget.sentenceContainWord,
       'answer':
@@ -195,7 +195,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
     final databaseRow =
-        FirebaseFirestore.instance.collection("Story_v3").doc(answerId);
+        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
     final json = {
       'question':
           "${widget.searchWord}- in the sentence: ${widget.sentenceContainWord}",
@@ -208,7 +208,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
     final databaseRow =
-        FirebaseFirestore.instance.collection("Story_v3").doc(answerId);
+        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
     final json = {
       'question': widget.sentenceContainWord,
       'answer': newAnswer,

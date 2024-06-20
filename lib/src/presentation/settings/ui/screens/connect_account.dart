@@ -25,14 +25,13 @@ class _ConnectAccountViewState extends State<ConnectAccountView> {
   void waitingForScanQR() async {
     final code = await Md5Generator.composeMD5IdForFirebaseDbDesktopLogin();
     timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
-      print('Waiting for user scan QR');
+      DebugLog.info('Waiting for user scan QR');
       final dataTrack =
           FirebaseFirestore.instance.collection("Login").doc(code);
       final documentSnapshot = await dataTrack.get();
 
       if (documentSnapshot.exists) {
         var userId = documentSnapshot.data()?["userEmail"];
-        print(userId);
         if (userId != '') {
           timer.cancel();
           setState(() {

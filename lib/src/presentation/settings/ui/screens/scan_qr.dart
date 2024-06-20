@@ -98,89 +98,90 @@ class _QRScannerViewState extends State<QRScannerView> {
         title: Text('QR login'.i18n),
       ),
       body: loginInfo == null
-              ? Column(
-                children: [
-                  Expanded(
-                    child: QRView(
-                        key: qrViewKey,
-                        onQRViewCreated: (QRViewController controller) {
-                          qrViewController = controller;
-                          // Flag to prevent multiple scans
-                          controller.scannedDataStream.listen((scanData) async {
-                            if (scanData.code != null) {
-                              qrViewController?.stopCamera();
-                              controller.dispose();
-                              setState(() {
-                                barcode = scanData;
-                              });
-                              print(scanData.code);
-                    
-                              loginInfo = await getLoginInfo(scanData.code!);
-                              // Update UI after loginInfo is fetched
-                              setState(() {});
-                            }
+          ? Column(
+              children: [
+                Expanded(
+                  child: QRView(
+                    key: qrViewKey,
+                    onQRViewCreated: (QRViewController controller) {
+                      qrViewController = controller;
+                      // Flag to prevent multiple scans
+                      controller.scannedDataStream.listen((scanData) async {
+                        if (scanData.code != null) {
+                          qrViewController?.stopCamera();
+                          controller.dispose();
+                          setState(() {
+                            barcode = scanData;
                           });
-                        },
-                      ),
+                          DebugLog.info(scanData.code ?? '');
+
+                          loginInfo = await getLoginInfo(scanData.code!);
+                          // Update UI after loginInfo is fetched
+                          setState(() {});
+                        }
+                      });
+                    },
                   ),
-                  Container(child:
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20, right: 16, left: 16, bottom: 50),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Instructions:'),
-                          Text('1: Point your device towards the QR code displayed on the Windows device screen.'),
-                        Text('2: Wait for the scanner to recognize and process the QR code.'),
-                          Text('3: Once the QR code is successfully scanned, you will able to get access to required-login function in Windows devices.'),
-                        ],
-                      ),
-                    ),)
-                ],
-              )
-              : Column(
-                  children: [
-                    ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                          context.theme.colorScheme.primary, BlendMode.srcIn),
-                      child: Image(
-                        image: AssetImage(
-                            LocalDirectory.textRecognizerIllustration),
-                        height: 200,
-                      ),
-                    ),
-                    Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          16.height,
-                          Text('Do you want to login to this device?'.i18n),
-                          Text(
-                              '${'Computer name'.i18n}: ${loginInfo!.computerName}',
-                              style: context.theme.textTheme.bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.bold)),
-                          Text(
-                            'OS: ${loginInfo?.os}',
-                            style: context.theme.textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-
-                        ],
-                      ),
-                    ),
-                    8.height,
-                    FilledButton(
-                        onPressed: () {
-                          if (barcode!.code != null) {
-                            setLoginData(barcode!.code!);
-                          }
-                          context.showSnackBar(content: "Login successful");
-                          context.pop();
-                        },
-                        child: Text('Log in'.i18n))
-                  ],
                 ),
-
+                const Padding(
+                  padding:
+                      EdgeInsets.only(top: 20, right: 16, left: 16, bottom: 50),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Instructions:'),
+                      Text(
+                          '1: Point your device towards the QR code displayed on the Windows device screen.'),
+                      Text(
+                          '2: Wait for the scanner to recognize and process the QR code.'),
+                      Text(
+                          '3: Once the QR code is successfully scanned, you will able to get access to required-login function in Windows devices.'),
+                    ],
+                  ),
+                )
+              ],
+            )
+          : Column(
+              children: [
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                      context.theme.colorScheme.primary, BlendMode.srcIn),
+                  child: Image(
+                    image:
+                        AssetImage(LocalDirectory.textRecognizerIllustration),
+                    height: 200,
+                  ),
+                ),
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      16.height,
+                      Text('Do you want to login to this device?'.i18n),
+                      Text(
+                          '${'Computer name'.i18n}: ${loginInfo!.computerName}',
+                          style: context.theme.textTheme.bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.bold)),
+                      Text(
+                        'OS: ${loginInfo?.os}',
+                        style: context.theme.textTheme.bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                8.height,
+                FilledButton(
+                    onPressed: () {
+                      if (barcode!.code != null) {
+                        setLoginData(barcode!.code!);
+                      }
+                      context.showSnackBar(content: "Login successful");
+                      context.pop();
+                    },
+                    child: Text('Log in'.i18n))
+              ],
+            ),
     );
   }
 }

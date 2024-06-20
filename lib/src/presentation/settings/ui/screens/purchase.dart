@@ -54,7 +54,7 @@ class _InAppPurchaseViewState extends State<InAppPurchaseView> {
     final ProductDetailsResponse response = await InAppPurchase.instance
         .queryProductDetails(IAPProducts.productIds);
     if (response.notFoundIDs.isNotEmpty) {
-      print('No products found.');
+      DebugLog.info('No products found.');
     }
     return response.productDetails;
   }

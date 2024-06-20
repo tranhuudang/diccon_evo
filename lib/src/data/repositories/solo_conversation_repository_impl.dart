@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:diccon_evo/src/core/constants/firebase_constant.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/data/repositories/text_to_speech_repository.dart';
 import 'package:diccon_evo/src/data/services/firebase_storage_service.dart';
@@ -8,7 +9,7 @@ import 'package:diccon_evo/src/core/enum/sex.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DialogueRepositoryImpl implements DialogueRepository {
-  final _firebaseStorageService = FirebaseStorageService('Dialogue');
+  final _firebaseStorageService = FirebaseStorageService(FirebaseConstant.firestore.dialogue);
   final TextToSpeechRepository _textToSpeechRepository = TextToSpeechRepository();
   @override
   Future<String> getAudio(String sentence, {Sex sex = Sex.men}) async {

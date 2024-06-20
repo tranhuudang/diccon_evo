@@ -21,18 +21,18 @@ class OpenAIKeySelector {
     // Primary local key
     bool isPrimaryKeyValid = await checkApiKeyValidity(Env.openaiApiKey);
     if (isPrimaryKeyValid) {
-      print('Using Primary API Key');
+      DebugLog.info('Using Primary API Key');
       ApiKeys.openAiKey = Env.openaiApiKey;
       return 1;
     }
     // Local backup key
     bool isBackupKeyValid = await checkApiKeyValidity(Env.openaiApiKeyBackup);
     if (isBackupKeyValid) {
-      print('Using backup API Key');
+      DebugLog.info('Using backup API Key');
       ApiKeys.openAiKey = Env.openaiApiKeyBackup;
       return 2;
     }
-    print('Getting key from cloud...');
+    DebugLog.info('Getting key from cloud...');
     // Primary Cloud Key
     String rawPrimaryKeyFromCloud =
         await _getOpenApiKeyFromFirestore(from: 'primary');
@@ -41,7 +41,7 @@ class OpenAIKeySelector {
     bool primaryKeyFromCloudValid =
         await checkApiKeyValidity(primaryKeyFromCloud);
     if (primaryKeyFromCloudValid) {
-      print('Using primary API Key from Cloud');
+      DebugLog.info('Using primary API Key from Cloud');
       ApiKeys.openAiKey = primaryKeyFromCloud;
       return 3;
     }
@@ -53,7 +53,7 @@ class OpenAIKeySelector {
     bool backupKeyFromCloudValid =
         await checkApiKeyValidity(backupKeyFromCloud);
     if (backupKeyFromCloudValid) {
-      print('Using backup API Key from Cloud');
+      DebugLog.info('Using backup API Key from Cloud');
       ApiKeys.openAiKey = backupKeyFromCloud;
       return 4;
     }
@@ -66,7 +66,7 @@ class OpenAIKeySelector {
     String value = '';
     try {
       DocumentSnapshot documentSnapshot =
-          await _firestore.collection('Api').doc('OpenApi').get();
+          await _firestore.collection(FirebaseConstant.firestore.api).doc(FirebaseConstant.firestore.openApi).get();
       if (documentSnapshot.exists) {
         value = documentSnapshot[from].toString();
       }

@@ -76,9 +76,9 @@ class _DialogueViewState extends State<DialogueView> {
     final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
         fromConversationDescription: widget.conversation.description);
     // Check if document exists and create it if it doesn't
-    final dialogRef = _firestore.collection('Dialogue').doc('Statistics');
+    final dialogRef = _firestore.collection(FirebaseConstant.firestore.dialogue).doc(FirebaseConstant.firestore.statistics);
     final favouriteRef =
-        dialogRef.collection('DialogueAnalysis').doc(conversationMd5);
+        dialogRef.collection(FirebaseConstant.firestore.dialogueAnalysis).doc(conversationMd5);
     final favouriteSnapshot = await favouriteRef.get();
     if (!favouriteSnapshot.exists) {
       await favouriteRef.set({

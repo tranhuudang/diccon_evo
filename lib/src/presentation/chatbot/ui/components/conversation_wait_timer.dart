@@ -9,7 +9,7 @@ class WaitTimerWidget extends StatefulWidget {
   const WaitTimerWidget({super.key, required this.initialNumber});
 
   @override
-  _WaitTimerWidgetState createState() => _WaitTimerWidgetState();
+  State<WaitTimerWidget> createState() => _WaitTimerWidgetState();
 }
 
 class _WaitTimerWidgetState extends State<WaitTimerWidget> {
