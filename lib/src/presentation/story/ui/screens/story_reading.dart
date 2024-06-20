@@ -147,6 +147,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                               sentence.trim();
                                           showModalBottomSheet(
                                             context: context,
+                                            isScrollControlled: true,
                                             builder: (context) {
                                               return BottomSheetTranslation(
                                                 searchWord: refinedWord,
