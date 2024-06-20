@@ -179,8 +179,12 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
       if (kDebugMode) {
         print('Downloading audio from github');
       }
-      await FileHandler(filePath).downloadToResources(
+      var isDownloadGithubSuccess = await FileHandler(filePath).downloadToResources(
           "${OnlineDirectory.storiesAudioURL}$fileName");
+      if (!isDownloadGithubSuccess){
+        await tts.convertTextToSpeech(
+            fromText: event.story.content, toFilePath: filePath);
+      }
     } catch (e) {
       if (kDebugMode) {
         print('[ERROR] Can not download audio file from github, try to convert text to speech using open ai api');

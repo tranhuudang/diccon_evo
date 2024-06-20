@@ -44,9 +44,8 @@ class TextToSpeechApiClient {
       final file = File(toFilePath);
       await file.writeAsBytes(response.bodyBytes);
 
-      if (kDebugMode) {
-        print('file is written to local storage');
-      }
+      DebugLog.info('Audio file is written to local storage $toFilePath');
+
       return toFilePath;
     } catch (e) {
       // Handle any errors or cancellations here
