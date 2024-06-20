@@ -36,14 +36,17 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   bool _isEditor = false;
 
   final TextEditingController _editingController = TextEditingController();
-  final TextEditingController _editingControllerForSentence = TextEditingController();
+  final TextEditingController _editingControllerForSentence =
+      TextEditingController();
 
   Future<void> _checkIfUserIsEditor() async {
     final authUser = FirebaseAuth.instance.currentUser;
     final userId = Md5Generator.composeMd5IdForFirebaseDbPremium(
         userEmail: authUser?.email ?? '');
-    final editorDoc =
-        await FirebaseFirestore.instance.collection(FirebaseConstant.firestore.editor).doc(userId).get();
+    final editorDoc = await FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.editor)
+        .doc(userId)
+        .get();
 
     setState(() {
       _isEditor = editorDoc.exists;
@@ -130,8 +133,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
-    final docUser =
-        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answer);
+    final docUser = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepository.singleQuestionAnswer.answer
@@ -152,8 +156,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
-    final docUser =
-        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answer);
+    final docUser = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         _chatGptRepositoryForSentence.singleQuestionAnswer.answer
@@ -168,8 +173,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   Future<void> _createFirebaseDatabaseItemForWord() async {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
-    final databaseRow =
-        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
+    final databaseRow = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answerId);
     final json = {
       'question':
           "${widget.searchWord}- in the sentence: ${widget.sentenceContainWord}",
@@ -181,8 +187,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   Future<void> _createFirebaseDatabaseItemForSentence() async {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
-    final databaseRow =
-        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
+    final databaseRow = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answerId);
     final json = {
       'question': widget.sentenceContainWord,
       'answer':
@@ -194,8 +201,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   Future<void> _updateFirebaseDatabaseItem(String newAnswer) async {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
-    final databaseRow =
-        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
+    final databaseRow = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answerId);
     final json = {
       'question':
           "${widget.searchWord}- in the sentence: ${widget.sentenceContainWord}",
@@ -207,8 +215,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   Future<void> _updateFirebaseDatabaseItemForSentence(String newAnswer) async {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
-    final databaseRow =
-        FirebaseFirestore.instance.collection(FirebaseConstant.firestore.story).doc(answerId);
+    final databaseRow = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answerId);
     final json = {
       'question': widget.sentenceContainWord,
       'answer': newAnswer,
@@ -284,170 +293,166 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         .replaceAll('[', '')
         .replaceAll(']', '');
 
-    return Container(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (_isEditing) ...[
-                      32.height,
-                      Text(
-                        'Editor Mode',
-                        style: context.theme.textTheme.titleMedium,
-                      ),
-                      const WaveDivider(
-                        thickness: .3,
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                      ),
-                    ],
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            Text(widget.searchWord.upperCaseFirstLetter()),
-                            PlaybackButton(
-                              message: widget.searchWord,
-                              icon: Icon(
-                                Icons.volume_up,
-                                color: context
-                                    .theme.colorScheme.onSecondaryContainer,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text("|",
-                            style: TextStyle(
-                                color: context.theme.colorScheme.onSurface
-                                    .withOpacity(.5))),
-                        16.width,
-                        Row(
-                          children: [
-                            Text('All'.i18n),
-                            PlaybackButton(
-                              message: widget.sentenceContainWord,
-                              icon: Icon(
-                                Icons.volume_up,
-                                color: context
-                                    .theme.colorScheme.onSecondaryContainer,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Wrap(
-                      children: _highlightWord(
-                          widget.sentenceContainWord, widget.searchWord),
-                    ),
-                  ],
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(left: 28, right: 28, bottom: 42),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (_isEditing) ...[
+                  32.height,
+                  Text(
+                    'Editor Mode',
+                    style: context.theme.textTheme.titleMedium,
+                  ),
+                  const WaveDivider(
+                    thickness: .3,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                  ),
+                ],
+                _buildHeader(context),
+                Wrap(
+                  children: _highlightWord(
+                      widget.sentenceContainWord, widget.searchWord),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: _isEditing
-                    ? Column(
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: _isEditing
+                ? Column(
+                    children: [
+                      TextField(
+                        controller: _editingController,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Edit Answer',
+                        ),
+                      ),
+                      16.height,
+                      TextField(
+                        controller: _editingControllerForSentence,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Edit Answer For Sentence',
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          TextField(
-                            controller: _editingController,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Edit Answer',
-                            ),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _isEditing = false;
+                              });
+                            },
+                            child: const Text('Cancel'),
                           ),
-                          16.height,
-                          TextField(
-                            controller: _editingControllerForSentence,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Edit Answer For Sentence',
-                            ),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _isEditing = false;
+                              });
+                              answer = _editingController.text.trim();
+                              _updateFirebaseDatabaseItem(answer);
+                              answerForSentence =
+                                  _editingControllerForSentence.text.trim();
+                              _updateFirebaseDatabaseItemForSentence(
+                                  answerForSentence);
+                            },
+                            child: const Text('Save'),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _isEditing = false;
-                                  });
-                                },
-                                child: const Text('Cancel'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _isEditing = false;
-                                  });
-                                  answer = _editingController.text.trim();
-                                  _updateFirebaseDatabaseItem(answer);
-                                  answerForSentence =
-                                      _editingControllerForSentence.text.trim();
-                                  _updateFirebaseDatabaseItemForSentence(
-                                      answerForSentence);
-                                },
-                                child: const Text('Save'),
-                              ),
-                            ],
-                          ),
-                          300.height,
-                        ],
-                      )
-                    : Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  answer,
-                                  style: context.theme.textTheme.titleMedium
-                                      ?.copyWith(
-                                          color: context
-                                              .theme.colorScheme.onSurface),
-                                ),
-                                Text(
-                                  answerForSentence,
-                                  style: context.theme.textTheme.titleMedium
-                                      ?.copyWith(
-                                          color: context
-                                              .theme.colorScheme.onSurface),
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (_isEditor)
-                            Column(
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.edit),
-                                  onPressed: () {
-                                    _editingController.text = answer;
-                                    _editingControllerForSentence.text =
-                                        answerForSentence;
-                                    setState(() {
-                                      _isEditing = true;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
                         ],
                       ),
-              ),
-            ],
+                      300.height,
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              answer,
+                              style: context.theme.textTheme.titleMedium
+                                  ?.copyWith(
+                                      color: context
+                                          .theme.colorScheme.onSurface),
+                            ),
+                            Text(
+                              answerForSentence,
+                              style: context.theme.textTheme.titleMedium
+                                  ?.copyWith(
+                                      color: context
+                                          .theme.colorScheme.onSurface),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (_isEditor)
+                        Column(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                _editingController.text = answer;
+                                _editingControllerForSentence.text =
+                                    answerForSentence;
+                                setState(() {
+                                  _isEditing = true;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
           ),
-        ),
+        ],
       ),
+    );
+  }
+
+  Row _buildHeader(BuildContext context) {
+    return Row(
+      children: [
+        Row(
+          children: [
+            Text(widget.searchWord.upperCaseFirstLetter()),
+            PlaybackButton(
+              message: widget.searchWord,
+              icon: Icon(
+                Icons.volume_up,
+                color: context.theme.colorScheme.onSecondaryContainer,
+              ),
+            ),
+          ],
+        ),
+        Text("|",
+            style: TextStyle(
+                color: context.theme.colorScheme.onSurface.withOpacity(.5))),
+        16.width,
+        Row(
+          children: [
+            Text('All'.i18n),
+            PlaybackButton(
+              message: widget.sentenceContainWord,
+              icon: Icon(
+                Icons.volume_up,
+                color: context.theme.colorScheme.onSecondaryContainer,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
