@@ -31,37 +31,35 @@ class _SignInViewState extends State<SignInView> {
   @override
   void initState() {
     super.initState();
-    // Go direct to home when user chose to not login in the past
-    if (Properties.instance.settings.continueWithoutLogin) {
-      context.pushReplacementNamed(RouterConstants.home);
-    } else {
-      if (defaultTargetPlatform.isAndroid()) {
-        _loggedInUser = _currentLoggedInUser();
-        if (_loggedInUser != null) {
-          context.read<UserBloc>().add(GoogleLoginEvent());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Go direct to home when user chose to not login in the past
+      if (Properties.instance.settings.continueWithoutLogin) {
+        context.pushReplacementNamed(RouterConstants.home);
+      } else {
+        if (defaultTargetPlatform == TargetPlatform.android) {
+          _loggedInUser = _currentLoggedInUser();
+          if (_loggedInUser != null) {
+            context.read<UserBloc>().add(GoogleLoginEvent());
+          }
         }
       }
-    }
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
-    if (defaultTargetPlatform.isAndroid()) {
-      if (_loggedInUser == null) {
-        return buildUserNotLoginYetWidget(context);
-      } else {
-        return const MobileHomeView();
-      }
+    if (defaultTargetPlatform.isAndroid() && _loggedInUser == null) {
+      return _buildUserNotLoginYetWidget(context);
     } else {
       return const MobileHomeView();
     }
   }
 
-  SafeArea buildUserNotLoginYetWidget(BuildContext context) {
+  SafeArea _buildUserNotLoginYetWidget(BuildContext context) {
     final userBloc = context.read<UserBloc>();
     return SafeArea(
       child: Scaffold(
-
         body: Stack(
           children: [
             Padding(
