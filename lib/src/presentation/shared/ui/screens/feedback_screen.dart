@@ -87,7 +87,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitFeedback,
                 child: Text('Send'.i18n),

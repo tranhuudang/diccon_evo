@@ -154,14 +154,14 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
               children: [
                 Text(
                   'Number of documents: $_documentCount',
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _isLoading
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : ElevatedButton(
                         onPressed: _countDocuments,
-                        child: Text('Check Document Count'),
+                        child: const Text('Check Document Count'),
                       ),
               ],
             ),

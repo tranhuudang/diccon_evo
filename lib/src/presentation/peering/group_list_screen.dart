@@ -6,13 +6,13 @@ import 'group_chat_screen.dart';
 class GroupListScreen extends StatelessWidget {
   final String userId;
 
-  GroupListScreen({required this.userId});
+  const GroupListScreen({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Groups'),
+        title: const Text('Groups'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -20,7 +20,7 @@ class GroupListScreen extends StatelessWidget {
             .where('members', arrayContains: userId)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
 
           List<DocumentSnapshot> docs = snapshot.data!.docs;
 
@@ -42,7 +42,7 @@ class GroupListScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           // Navigate to a screen to create a new group
         },

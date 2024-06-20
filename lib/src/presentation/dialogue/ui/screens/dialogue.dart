@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/presentation/dialogue/utils.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
-import '../../../../core/enum/sex.dart';
 
 class DialogueView extends StatefulWidget {
   final List<Conversation> listConversation;
@@ -254,7 +252,7 @@ class _DialogueViewState extends State<DialogueView> {
               },
             ),
             8.height,
-            WaveDivider(thickness: .3,),
+            const WaveDivider(thickness: .3,),
             8.height,
             if (_numberOfLike > 1)
               Text(
@@ -283,7 +281,7 @@ class _DialogueViewState extends State<DialogueView> {
                                     content:
                                         'Thank you for your feedbacks!'.i18n);
                               },
-                              icon: Icon(Icons.thumb_up_alt_outlined),
+                              icon: const Icon(Icons.thumb_up_alt_outlined),
                             ),
                             IconButton(
                               onPressed: () {
@@ -292,7 +290,7 @@ class _DialogueViewState extends State<DialogueView> {
                                     content:
                                         'Thank you for your feedbacks!'.i18n);
                               },
-                              icon: Icon(Icons.thumb_down_alt_outlined),
+                              icon: const Icon(Icons.thumb_down_alt_outlined),
                             ),
                           ],
                         )

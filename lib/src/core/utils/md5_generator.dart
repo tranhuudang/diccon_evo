@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:diccon_evo/src/core/configs/configs.dart';
 import 'package:diccon_evo/src/core/core.dart';
 
 class Md5Generator {

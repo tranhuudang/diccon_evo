@@ -13,7 +13,7 @@ class ChatBotView extends StatelessWidget {
     final chatbotBloc = context.read<ChatbotBloc>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Chatbot",
         ),
       ),

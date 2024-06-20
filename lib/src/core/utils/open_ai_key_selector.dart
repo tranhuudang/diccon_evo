@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diccon_evo/src/core/configs/configs.dart';
 import 'package:diccon_evo/src/core/utils/encrypt_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;

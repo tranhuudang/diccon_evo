@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:wave_divider/wave_divider.dart';
@@ -36,8 +35,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   bool _isEditing = false;
   bool _isEditor = false;
 
-  TextEditingController _editingController = TextEditingController();
-  TextEditingController _editingControllerForSentence = TextEditingController();
+  final TextEditingController _editingController = TextEditingController();
+  final TextEditingController _editingControllerForSentence = TextEditingController();
 
   Future<void> _checkIfUserIsEditor() async {
     final authUser = FirebaseAuth.instance.currentUser;
@@ -359,7 +358,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           TextField(
                             controller: _editingController,
                             maxLines: null,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Edit Answer',
                             ),
@@ -368,7 +367,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           TextField(
                             controller: _editingControllerForSentence,
                             maxLines: null,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Edit Answer For Sentence',
                             ),
@@ -382,7 +381,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                     _isEditing = false;
                                   });
                                 },
-                                child: Text('Cancel'),
+                                child: const Text('Cancel'),
                               ),
                               ElevatedButton(
                                 onPressed: () {
@@ -396,7 +395,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                   _updateFirebaseDatabaseItemForSentence(
                                       answerForSentence);
                                 },
-                                child: Text('Save'),
+                                child: const Text('Save'),
                               ),
                             ],
                           ),
@@ -430,7 +429,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                             Column(
                               children: [
                                 IconButton(
-                                  icon: Icon(Icons.edit),
+                                  icon: const Icon(Icons.edit),
                                   onPressed: () {
                                     _editingController.text = answer;
                                     _editingControllerForSentence.text =

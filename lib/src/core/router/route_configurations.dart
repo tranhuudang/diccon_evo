@@ -59,7 +59,7 @@ GoRouter routerConfig = GoRouter(
             name: RouterConstants.feedbacks,
             path: 'feedbacks',
             pageBuilder: (context, state) {
-              return MaterialPage(child: I18n(child: FeedbackScreen()));
+              return MaterialPage(child: I18n(child: const FeedbackScreen()));
             },
           ),
           GoRoute(

@@ -153,7 +153,7 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                     Icons.check_circle_outline,
                     color: context.theme.colorScheme.primary,
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
           );
         },
       ),

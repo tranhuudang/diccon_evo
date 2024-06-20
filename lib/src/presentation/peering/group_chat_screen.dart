@@ -6,13 +6,13 @@ class GroupChatScreen extends StatelessWidget {
   final String groupId;
   final TextEditingController messageController = TextEditingController();
 
-  GroupChatScreen({required this.groupId});
+  GroupChatScreen({super.key, required this.groupId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Group Chat'),
+        title: const Text('Group Chat'),
       ),
       body: Column(
         children: <Widget>[
@@ -24,7 +24,7 @@ class GroupChatScreen extends StatelessWidget {
                   .orderBy('timestamp', descending: true)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
 
                 List<DocumentSnapshot> docs = snapshot.data!.docs;
 
@@ -47,11 +47,11 @@ class GroupChatScreen extends StatelessWidget {
               Expanded(
                 child: TextField(
                   controller: messageController,
-                  decoration: InputDecoration(hintText: 'Enter a message'),
+                  decoration: const InputDecoration(hintText: 'Enter a message'),
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.send),
+                icon: const Icon(Icons.send),
                 onPressed: () async {
                   if (messageController.text.isNotEmpty) {
                     await sendMessage(groupId, messageController.text, 'User'); // Replace 'User' with actual user ID
@@ -71,7 +71,7 @@ class Message extends StatelessWidget {
   final String text;
   final String sender;
 
-  Message({required this.text, required this.sender});
+  const Message({super.key, required this.text, required this.sender});
 
   @override
   Widget build(BuildContext context) {
