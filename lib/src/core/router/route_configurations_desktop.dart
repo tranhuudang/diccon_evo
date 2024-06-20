@@ -182,7 +182,6 @@ GoRouter routerConfigDesktop = GoRouter(
                   name: RouterConstants.learningFlashCard,
                   path: 'flash-card',
                   pageBuilder: (context, state) {
-                    if (state.extra == null) return NoTransitionPage(child: I18n(child: const PageErrorView()));
                     var params = state.extra as LearningView;
                     return NoTransitionPage(
                         child: I18n(
