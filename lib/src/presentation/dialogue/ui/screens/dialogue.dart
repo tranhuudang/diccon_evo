@@ -27,9 +27,9 @@ class DialogueView extends StatefulWidget {
 }
 
 class _DialogueViewState extends State<DialogueView> {
-  late ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
   late File _readStateFile;
-  late bool _isRead = widget.isRead;
+  late bool _isRead;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   bool _isGivenFeedback = false;
   int _numberOfLike = 0;
@@ -37,9 +37,18 @@ class _DialogueViewState extends State<DialogueView> {
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
+    _isRead = widget.isRead;
     _scrollController.addListener(_scrollListener);
-    _getNumberOfLike();
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    try {
+      _readStateFile = await _getDialogueReadStateFile();
+      await _getNumberOfLike();
+    } catch (e) {
+      DebugLog.error('Initialization error: $e');
+    }
   }
 
   @override
@@ -60,25 +69,30 @@ class _DialogueViewState extends State<DialogueView> {
   }
 
   Future<void> _markAsRead() async {
-    _readStateFile = await _getDialogueReadStateFile();
-    final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
-        fromConversationDescription: widget.conversation.description);
-    await _readStateFile.writeAsString('$conversationMd5\n',
-        mode: FileMode.append);
-    DebugLog.info("This dialogue is marked as read");
-    setState(() {
-      _isRead = true;
-    });
+    try {
+      final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
+          fromConversationDescription: widget.conversation.description);
+      await _readStateFile.writeAsString('$conversationMd5\n',
+          mode: FileMode.append);
+      DebugLog.info("This dialogue is marked as read");
+      setState(() {
+        _isRead = true;
+      });
+    } catch (e) {
+      DebugLog.error('Error marking as read: $e');
+    }
   }
 
   Future<DocumentReference<Map<String, dynamic>>>
       _getDialogueAnalysisRef() async {
     final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
         fromConversationDescription: widget.conversation.description);
-    // Check if document exists and create it if it doesn't
-    final dialogRef = _firestore.collection(FirebaseConstant.firestore.dialogue).doc(FirebaseConstant.firestore.statistics);
-    final favouriteRef =
-        dialogRef.collection(FirebaseConstant.firestore.dialogueAnalysis).doc(conversationMd5);
+    final dialogRef = _firestore
+        .collection(FirebaseConstant.firestore.dialogue)
+        .doc(FirebaseConstant.firestore.statistics);
+    final favouriteRef = dialogRef
+        .collection(FirebaseConstant.firestore.dialogueAnalysis)
+        .doc(conversationMd5);
     final favouriteSnapshot = await favouriteRef.get();
     if (!favouriteSnapshot.exists) {
       await favouriteRef.set({
@@ -93,49 +107,57 @@ class _DialogueViewState extends State<DialogueView> {
   }
 
   Future<void> _increaseReadingCountDialogueStatistics() async {
-    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
-
-    // Update Firestore
-    await dialogueAnalysisRef.update({
-      'readCount': FieldValue.increment(1),
-    });
-    DebugLog.info('Log reading count to firebase');
+    try {
+      final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+      await dialogueAnalysisRef.update({'readCount': FieldValue.increment(1)});
+      DebugLog.info('Log reading count to firebase');
+    } catch (e) {
+      DebugLog.error('Error increasing reading count: $e');
+    }
   }
 
   Future<void> _increaseLikeCountDialogueStatistics() async {
-    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
-    await dialogueAnalysisRef.update({
-      'likeCount': FieldValue.increment(1),
-    });
-    setState(() {
-      _isGivenFeedback = true;
-    });
-    DebugLog.info('Log like count to firebase');
+    try {
+      final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+      await dialogueAnalysisRef.update({'likeCount': FieldValue.increment(1)});
+      setState(() {
+        _isGivenFeedback = true;
+      });
+      DebugLog.info('Log like count to firebase');
+    } catch (e) {
+      DebugLog.error('Error increasing like count: $e');
+    }
   }
 
   Future<void> _getNumberOfLike() async {
-    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
-    DocumentSnapshot likeCountSnapshot = await dialogueAnalysisRef.get();
-    setState(() {
-      _numberOfLike = likeCountSnapshot['likeCount'];
-    });
+    try {
+      final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+      DocumentSnapshot likeCountSnapshot = await dialogueAnalysisRef.get();
+      setState(() {
+        _numberOfLike = likeCountSnapshot['likeCount'];
+      });
+    } catch (e) {
+      DebugLog.error('Error getting number of likes: $e');
+    }
   }
 
   Future<void> _increaseDislikeCountDialogueStatistics() async {
-    final dialogueAnalysisRef = await _getDialogueAnalysisRef();
-    await dialogueAnalysisRef.update({
-      'dislikeCount': FieldValue.increment(1),
-    });
-    setState(() {
-      _isGivenFeedback = true;
-    });
-    DebugLog.info('Log dislike count to firebase');
+    try {
+      final dialogueAnalysisRef = await _getDialogueAnalysisRef();
+      await dialogueAnalysisRef
+          .update({'dislikeCount': FieldValue.increment(1)});
+      setState(() {
+        _isGivenFeedback = true;
+      });
+      DebugLog.info('Log dislike count to firebase');
+    } catch (e) {
+      DebugLog.error('Error increasing dislike count: $e');
+    }
   }
 
   Future<File> _getDialogueReadStateFile() async {
     final directory = await getApplicationCacheDirectory();
-    File file = File('${directory.path}/dialogue_read_state.txt');
-    return file;
+    return File('${directory.path}/dialogue_read_state.txt');
   }
 
   @override
@@ -155,9 +177,7 @@ class _DialogueViewState extends State<DialogueView> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.conversation.description,
-                ),
+                Text(widget.conversation.description),
                 Wrap(
                   children: widget.conversation.hashtags
                       .map((hashtag) => TextButton(
@@ -167,12 +187,9 @@ class _DialogueViewState extends State<DialogueView> {
                           child: Text(hashtag.toLowerCase())))
                       .toList(),
                 ),
-
               ],
             ),
-            const WaveDivider(
-              thickness: .3,
-            ),
+            const WaveDivider(thickness: .3),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -213,9 +230,11 @@ class _DialogueViewState extends State<DialogueView> {
                           children: [
                             IconButton(
                                 onPressed: () async {
-                                  final speakerSex = sexDetectorByName(dialogue.speaker);
-                                  final filePath = await dialogueRepo
-                                      .getAudio(dialogue.english, sex: speakerSex);
+                                  final speakerSex =
+                                      sexDetectorByName(dialogue.speaker);
+                                  final filePath = await dialogueRepo.getAudio(
+                                      dialogue.english,
+                                      sex: speakerSex);
                                   if (filePath != '') {
                                     player.playFromPath(
                                         filePath: filePath,
@@ -252,11 +271,11 @@ class _DialogueViewState extends State<DialogueView> {
               },
             ),
             8.height,
-            const WaveDivider(thickness: .3,),
+            const WaveDivider(thickness: .3),
             8.height,
             if (_numberOfLike > 1)
               Text(
-                '$_numberOfLike people finds this dialogue helpful.',
+                '$_numberOfLike people find this dialogue helpful.',
                 style: context.theme.textTheme.bodyMedium?.copyWith(
                     color: context.theme.textTheme.bodyMedium?.color
                         ?.withOpacity(.5)),
@@ -279,7 +298,7 @@ class _DialogueViewState extends State<DialogueView> {
                                 _increaseLikeCountDialogueStatistics();
                                 context.showSnackBar(
                                     content:
-                                        'Thank you for your feedbacks!'.i18n);
+                                        'Thank you for your feedback!'.i18n);
                               },
                               icon: const Icon(Icons.thumb_up_alt_outlined),
                             ),
@@ -288,7 +307,7 @@ class _DialogueViewState extends State<DialogueView> {
                                 _increaseDislikeCountDialogueStatistics();
                                 context.showSnackBar(
                                     content:
-                                        'Thank you for your feedbacks!'.i18n);
+                                        'Thank you for your feedback!'.i18n);
                               },
                               icon: const Icon(Icons.thumb_down_alt_outlined),
                             ),
@@ -313,9 +332,7 @@ class _DialogueViewState extends State<DialogueView> {
         searchLabel: 'Find a conversation'.i18n,
         searchStyle: context.theme.textTheme.titleMedium,
         suggestion: Center(child: Text('Search with hashtag: $hashtag')),
-        failure: Center(
-          child: Text('No matching conversation found'.i18n),
-        ),
+        failure: Center(child: Text('No matching conversation found'.i18n)),
         filter: (conversation) => [
           conversation.title,
           conversation.hashtags.toString(),
@@ -326,11 +343,8 @@ class _DialogueViewState extends State<DialogueView> {
           titleTextStyle: context.theme.textTheme.titleMedium,
           subtitle: Opacity(
               opacity: .5,
-              child: Text(
-                conversation.description,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              )),
+              child: Text(conversation.description,
+                  maxLines: 3, overflow: TextOverflow.ellipsis)),
           subtitleTextStyle: context.theme.textTheme.bodyMedium,
           onTap: () {
             Navigator.push(
