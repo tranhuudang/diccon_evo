@@ -136,11 +136,11 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                     ?.copyWith(color: context.theme.colorScheme.onSurface),
               ),
             ),
-            WaveDivider(
+            const WaveDivider(
               thickness: .3,
             ),
             ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               reverse: _isReversed,
               itemCount: conversations.length,

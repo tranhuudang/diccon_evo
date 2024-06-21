@@ -101,6 +101,7 @@ dependencies:
   permission_handler: ^11.3.1
   next_audio_recorder: ^1.0.1
   encrypt: ^5.0.3
+  flutter_gemini: ^2.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

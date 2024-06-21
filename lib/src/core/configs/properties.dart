@@ -3,7 +3,6 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/domain.dart';
-import '../constants/constants.dart';
 
 class Properties {
   // Ensures end-users cannot initialize the class

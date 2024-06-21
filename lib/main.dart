@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:diccon_evo/bloc_provider_scope.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'package:firebase_app_check/firebase_app_check.dart';
