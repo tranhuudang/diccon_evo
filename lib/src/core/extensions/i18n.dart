@@ -564,6 +564,10 @@ extension Localization on Object {
     },
 
     /// Dialogue
+    "dialogue_corner_welcoming": {
+      "en_us": "Welcome to our delightful English-Vietnamese dialogue corner! Dive in and discover a treasure trove of common phrases, beautifully translated between English and Vietnamese.",
+      "vi_vi": "Chào mừng bạn đến với góc đối thoại Anh-Việt thú vị của chúng tôi! Hãy khám phá kho tàng các cụm từ thông dụng, được dịch một cách hoàn hảo giữa tiếng Anh và tiếng Việt."
+    },
     "Dialogue": {
       "en_us": "Dialogue",
       "vi_vi": "Đối thoại",

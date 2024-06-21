@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
+import '../../../presentation.dart';
 import 'dialogue.dart';
 
 class ListDialogueView extends StatefulWidget {
@@ -110,52 +111,76 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                   thickness: .3,
                 ),
               ),
-              PopupMenuItem(child: Text("All".i18n), onTap: () {
-                setState(() {
-                  _isReversed = false;
-                  conversations = backupConversations;
-                });
-              }),
+              PopupMenuItem(
+                  child: Text("All".i18n),
+                  onTap: () {
+                    setState(() {
+                      _isReversed = false;
+                      conversations = backupConversations;
+                    });
+                  }),
             ],
           ),
         ],
       ),
-      body: ListView.builder(
-        reverse: _isReversed,
-        itemCount: conversations.length,
-        itemBuilder: (context, index) {
-          final conversation = conversations[index];
-          final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
-              fromConversationDescription: conversation.description);
-          bool isRead = readStateFileContents.contains(conversationMd5);
-          return ListTile(
-            title: Text(conversation.title),
-            subtitle: Text(
-              conversation.description,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: context.theme.textTheme.bodyMedium?.copyWith(
-                  color: context.theme.textTheme.bodyMedium?.color
-                      ?.withOpacity(.5)),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// Sub sentence
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: Text(
+                'dialogue_corner_welcoming'.i18n,
+                style: context.theme.textTheme.bodyMedium
+                    ?.copyWith(color: context.theme.colorScheme.onSurface),
+              ),
             ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DialogueView(
-                            conversation: conversation,
-                            listConversation: conversations,
-                            isRead: isRead,
-                          )));
-            },
-            trailing: isRead
-                ? Icon(
-                    Icons.check_circle_outline,
-                    color: context.theme.colorScheme.primary,
-                  )
-                : const SizedBox.shrink(),
-          );
-        },
+            WaveDivider(
+              thickness: .3,
+            ),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              reverse: _isReversed,
+              itemCount: conversations.length,
+              itemBuilder: (context, index) {
+                final conversation = conversations[index];
+                final conversationMd5 =
+                    Md5Generator.composeMd5IdForDialogueReadState(
+                        fromConversationDescription: conversation.description);
+                bool isRead = readStateFileContents.contains(conversationMd5);
+                return ListTile(
+                  title: Text(conversation.title),
+                  subtitle: Text(
+                    conversation.description,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: context.theme.textTheme.bodyMedium?.copyWith(
+                        color: context.theme.textTheme.bodyMedium?.color
+                            ?.withOpacity(.5)),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DialogueView(
+                                  conversation: conversation,
+                                  listConversation: conversations,
+                                  isRead: isRead,
+                                )));
+                  },
+                  trailing: isRead
+                      ? Icon(
+                          Icons.check_circle_outline,
+                          color: context.theme.colorScheme.primary,
+                        )
+                      : const SizedBox.shrink(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
