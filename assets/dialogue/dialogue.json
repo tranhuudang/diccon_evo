@@ -2535,6 +2535,1099 @@
         "vietnamese": "Thật tuyệt! Có lẽ chúng ta có thể nấu ăn cùng nhau một lúc nào đó và chia sẻ các món ăn yêu thích của mình."
       }
     ]
+  },
+  {
+    "title": "Family Dinner Outing",
+    "hashtags": ["#familytime", "#dinner", "#restaurant"],
+    "description": "A cheerful conversation among family members, Mark, Lisa, and their daughter Emma, as they discuss their dining experience at a new restaurant. They share their thoughts on the food, the ambiance, and their plans for the evening.",
+    "dialogue": [
+      {
+        "speaker": "Mark",
+        "english": "Hi everyone! I hope you’re all hungry. What do you think of this new restaurant?",
+        "vietnamese": "Xin chào mọi người! Hy vọng mọi người đang đói. Mọi người nghĩ sao về nhà hàng mới này?"
+      },
+      {
+        "speaker": "Lisa",
+        "english": "Hi, Mark! It looks lovely. The decor is so cozy. What do you think, Emma?",
+        "vietnamese": "Chào, Mark! Nó trông thật đáng yêu. Trang trí rất ấm cúng. Con nghĩ sao, Emma?"
+      },
+      {
+        "speaker": "Emma",
+        "english": "Hey, Mom! I love it here. Can we order some appetizers?",
+        "vietnamese": "Chào mẹ! Con thích nơi này. Chúng ta có thể gọi một số món khai vị không?"
+      },
+      {
+        "speaker": "Mark",
+        "english": "Sure, Emma. Let’s start with the spring rolls and the bruschetta.",
+        "vietnamese": "Chắc chắn rồi, Emma. Chúng ta hãy bắt đầu với món chả giò và bruschetta."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "Good choice. I’ve heard their mains are fantastic too. What are you thinking of getting, Mark?",
+        "vietnamese": "Lựa chọn tốt. Mẹ đã nghe nói các món chính của họ cũng rất tuyệt vời. Bố đang nghĩ đến món gì, Mark?"
+      },
+      {
+        "speaker": "Mark",
+        "english": "I’m leaning towards the grilled salmon. It sounds delicious.",
+        "vietnamese": "Bố đang nghiêng về món cá hồi nướng. Nghe có vẻ ngon."
+      },
+      {
+        "speaker": "Emma",
+        "english": "I want the spaghetti carbonara! It’s my favorite.",
+        "vietnamese": "Con muốn món mì Ý carbonara! Đó là món yêu thích của con."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "That’s a great choice, Emma. I think I’ll try the steak. It’s been a while since I had one.",
+        "vietnamese": "Lựa chọn tuyệt vời, Emma. Mẹ nghĩ mẹ sẽ thử món bít tết. Đã lâu rồi mẹ không ăn món này."
+      },
+      {
+        "speaker": "Mark",
+        "english": "Perfect! Let’s enjoy our meal and have a wonderful evening together.",
+        "vietnamese": "Hoàn hảo! Hãy thưởng thức bữa ăn và có một buổi tối tuyệt vời bên nhau."
+      }
+    ]
+  },
+  {
+    "title": "Friends' Night Out",
+    "hashtags": ["#friends", "#nightout", "#foodie"],
+    "description": "A fun conversation among friends, Alex, Jamie, and Taylor, as they explore a trendy new restaurant. They discuss their culinary preferences, share funny stories, and make plans for the rest of the night.",
+    "dialogue": [
+      {
+        "speaker": "Alex",
+        "english": "Hey, guys! This place looks amazing. What should we start with?",
+        "vietnamese": "Chào các bạn! Nơi này trông thật tuyệt vời. Chúng ta nên bắt đầu với món gì?"
+      },
+      {
+        "speaker": "Jamie",
+        "english": "Hi, Alex! I think we should try the calamari and the nachos. They look great on the menu.",
+        "vietnamese": "Chào, Alex! Tôi nghĩ chúng ta nên thử món mực chiên giòn và nachos. Chúng trông rất ngon trên thực đơn."
+      },
+      {
+        "speaker": "Taylor",
+        "english": "Hey, Jamie! Good call. I’m in the mood for something spicy too.",
+        "vietnamese": "Chào, Jamie! Quyết định tốt. Tôi cũng đang muốn ăn gì đó cay."
+      },
+      {
+        "speaker": "Alex",
+        "english": "Perfect! Let’s get those and maybe some buffalo wings. How was your day, Jamie?",
+        "vietnamese": "Hoàn hảo! Chúng ta hãy gọi những món đó và có thể là một ít cánh gà buffalo. Ngày của bạn thế nào, Jamie?"
+      },
+      {
+        "speaker": "Jamie",
+        "english": "It was good, Alex. Just busy with work. I’ve been looking forward to tonight. How about you, Taylor?",
+        "vietnamese": "Tốt, Alex. Chỉ bận rộn với công việc. Tôi đã mong chờ đến tối nay. Còn bạn, Taylor?"
+      },
+      {
+        "speaker": "Taylor",
+        "english": "Same here. It’s been a hectic week. This is just what I needed.",
+        "vietnamese": "Tôi cũng vậy. Đó là một tuần bận rộn. Đây chính là điều tôi cần."
+      },
+      {
+        "speaker": "Alex",
+        "english": "I hear you. Let’s make the most of it. What’s everyone getting for their main course?",
+        "vietnamese": "Tôi hiểu mà. Chúng ta hãy tận hưởng. Mọi người sẽ gọi món chính gì?"
+      },
+      {
+        "speaker": "Jamie",
+        "english": "I’m thinking of the seafood paella. It’s their specialty.",
+        "vietnamese": "Tôi đang nghĩ đến món cơm thập cẩm hải sản. Đó là đặc sản của họ."
+      },
+      {
+        "speaker": "Taylor",
+        "english": "I’m going for the burger. Can’t go wrong with that.",
+        "vietnamese": "Tôi sẽ gọi món burger. Không thể sai lầm với món đó."
+      },
+      {
+        "speaker": "Alex",
+        "english": "Great choices! I’ll try the risotto. Let’s dig in and enjoy!",
+        "vietnamese": "Lựa chọn tuyệt vời! Tôi sẽ thử món risotto. Hãy bắt đầu và thưởng thức nào!"
+      }
+    ]
+  },
+  {
+    "title": "Romantic Dinner Date",
+    "hashtags": ["#date", "#romanticdinner", "#couple"],
+    "description": "A romantic conversation between a couple, John and Emily, as they enjoy a dinner date at an elegant restaurant. They discuss their favorite dishes, share sweet moments, and talk about their future plans together.",
+    "dialogue": [
+      {
+        "speaker": "John",
+        "english": "I'm torn between the steak and the lamb chops. Both sound tempting.",
+        "vietnamese": "Anh đang phân vân giữa món bít tết và cánh cừu. Cả hai đều nghe hấp dẫn."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Why not get one of each? We can share. It'll be like our little tasting menu.",
+        "vietnamese": "Tại sao không chọn một ít từng món? Chúng ta có thể chia sẻ. Như một menu nhỏ của riêng chúng ta."
+      },
+      {
+        "speaker": "John",
+        "english": "That's a great idea. And maybe we should pair it with a bottle of that red wine we like.",
+        "vietnamese": "Ý tưởng tuyệt vời. Và có lẽ chúng ta nên kèm với một chai rượu vang đỏ mà chúng ta thích."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Perfect. I love how we always seem to be on the same page.",
+        "vietnamese": "Hoàn hảo. Em thích cách chúng ta luôn có cùng quan điểm với nhau."
+      },
+      {
+        "speaker": "John",
+        "english": "Me too. It makes every moment with you special. Have I told you how much I appreciate having you in my life?",
+        "vietnamese": "Anh cũng thế. Nó làm cho mỗi khoảnh khắc bên em đều đặc biệt. Anh có nói với em rằng anh đánh giá cao em đến thế nào chưa?"
+      },
+      {
+        "speaker": "Emily",
+        "english": "You have, but you can tell me again. I never get tired of hearing it.",
+        "vietnamese": "Anh đã nói rồi, nhưng anh có thể nói lại cho em nghe. Em chưa bao giờ chán nghe điều đó."
+      },
+      {
+        "speaker": "John",
+        "english": "I love you, Emily. Here's to many more beautiful evenings like this one.",
+        "vietnamese": "Anh yêu em, Emily. Chúng ta hãy cùng chúc cho nhiều buổi tối đẹp như thế này."
+      },
+      {
+        "speaker": "Emily",
+        "english": "I love you too, John. Cheers to us and our future together.",
+        "vietnamese": "Em cũng yêu anh, John. Chúng ta cùng chúc sức khỏe cho chúng ta và tương lai của chúng ta."
+      }
+    ]
+  },
+  {
+    "title": "Team Meeting at Work",
+    "hashtags": ["#teamwork", "#problemsolving", "#workplace"],
+    "description": "A focused discussion among team members, Sarah, Michael, and Lisa, as they address a critical issue at work. They brainstorm solutions, evaluate different perspectives, and strategize to overcome challenges.",
+    "dialogue": [
+      {
+        "speaker": "Sarah",
+        "english": "Good morning, team! Today, we need to address the issue with the project timeline. Any thoughts on how we can resolve this?",
+        "vietnamese": "Buổi sáng tốt lành, nhóm! Hôm nay, chúng ta cần giải quyết vấn đề về lịch trình dự án. Có ý kiến nào về cách chúng ta có thể giải quyết vấn đề này không?"
+      },
+      {
+        "speaker": "Michael",
+        "english": "Hi, Sarah. I think we should re-evaluate the task allocations and possibly bring in extra resources to meet the deadline.",
+        "vietnamese": "Chào, Sarah. Tôi nghĩ chúng ta nên đánh giá lại phân công công việc và có thể cần đưa thêm nguồn lực để đáp ứng thời hạn."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "That’s a good start, Michael. We also need to streamline our communication channels to avoid delays in decision-making.",
+        "vietnamese": "Đó là một bắt đầu tốt, Michael. Chúng ta cũng cần tối ưu hóa các kênh giao tiếp để tránh chậm trễ trong ra quyết định."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "Agreed. I’ll schedule a meeting with the stakeholders to align expectations and clarify deliverables. How do we ensure better coordination moving forward?",
+        "vietnamese": "Đồng ý. Tôi sẽ sắp xếp một cuộc họp với các bên liên quan để điều hòa kỳ vọng và làm rõ các sản phẩm cần đạt được. Làm thế nào để đảm bảo sự phối hợp tốt hơn trong tương lai?"
+      },
+      {
+        "speaker": "Michael",
+        "english": "Maybe we can implement weekly progress reviews to catch any potential issues early.",
+        "vietnamese": "Có lẽ chúng ta có thể thực hiện các cuộc đánh giá tiến độ hàng tuần để phát hiện sớm các vấn đề tiềm năng."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "That sounds like a proactive approach. Let’s also document action points from this meeting and assign responsibilities clearly.",
+        "vietnamese": "Nghe có vẻ là một cách tiếp cận tích cực. Hãy cũng ghi chép các điểm hành động từ cuộc họp này và phân công trách nhiệm một cách rõ ràng."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "Great ideas, everyone. Let’s put these plans into action and monitor progress closely. Thank you for your input!",
+        "vietnamese": "Ý tưởng tuyệt vời, mọi người. Hãy đưa những kế hoạch này vào thực hiện và theo dõi tiến độ một cách chặt chẽ. Cảm ơn mọi người đã đóng góp ý kiến!"
+      }
+    ]
+  },
+  {
+    "title": "Roommates' Discussion",
+    "hashtags": ["#roommates", "#communication", "#livingtogether"],
+    "description": "A candid conversation between roommates, Alex, Emma, and Chris, as they address a problem with household chores. They discuss their concerns, propose solutions, and aim to maintain a harmonious living environment.",
+    "dialogue": [
+      {
+        "speaker": "Alex",
+        "english": "Hey guys, I’ve noticed the kitchen has been messy lately. Can we talk about how we can keep it clean?",
+        "vietnamese": "Chào các bạn, tôi đã để ý rằng nhà bếp gần đây hơi bẩn. Chúng ta có thể nói về cách để giữ nó sạch sẽ không?"
+      },
+      {
+        "speaker": "Emma",
+        "english": "I agree, Alex. Maybe we can create a schedule for who cleans on which days?",
+        "vietnamese": "Tôi đồng ý, Alex. Có lẽ chúng ta có thể lập lịch ai dọn dẹp vào những ngày nào?"
+      },
+      {
+        "speaker": "Chris",
+        "english": "That sounds fair. We should also set clear expectations about doing dishes right after meals.",
+        "vietnamese": "Nghe có vẻ công bằng. Chúng ta cũng nên thiết lập rõ ràng kỳ vọng về việc rửa chén ngay sau khi ăn."
+      },
+      {
+        "speaker": "Alex",
+        "english": "Agreed. And perhaps we can designate specific areas for each person to tidy up regularly.",
+        "vietnamese": "Đồng ý. Và có thể chúng ta chỉ định các khu vực cụ thể mà mỗi người phải dọn dẹp thường xuyên."
+      },
+      {
+        "speaker": "Emma",
+        "english": "That’s a good idea. Let’s also address any issues as they come up, instead of letting them build up.",
+        "vietnamese": "Đó là một ý tưởng hay. Hãy cũng giải quyết các vấn đề khi chúng xuất hiện, thay vì để chúng tích tụ."
+      },
+      {
+        "speaker": "Chris",
+        "english": "Definitely. Communication is key here. Thanks for bringing this up, Alex.",
+        "vietnamese": "Chắc chắn. Giao tiếp là rất quan trọng. Cảm ơn đã đưa vấn đề này lên, Alex."
+      },
+      {
+        "speaker": "Alex",
+        "english": "No problem. Let’s commit to these changes and make our living space more enjoyable for everyone.",
+        "vietnamese": "Không vấn đề gì. Hãy cam kết với những thay đổi này và làm cho không gian sống của chúng ta trở nên dễ chịu hơn cho mọi người."
+      }
+    ]
+  },
+  {
+    "title": "Couple's Relationship Talk",
+    "hashtags": ["#relationship", "#communication", "#partnership"],
+    "description": "An open conversation between a couple, Laura and Tom, as they address a problem in their relationship. They discuss their feelings, listen to each other’s perspectives, and work towards a resolution that strengthens their bond.",
+    "dialogue": [
+      {
+        "speaker": "Laura",
+        "english": "Tom, I’ve been feeling like we don’t spend enough quality time together lately. Can we talk about how we can change that?",
+        "vietnamese": "Tom, em cảm thấy như chúng ta gần đây không dành đủ thời gian chất lượng bên nhau. Chúng ta có thể nói về cách thay đổi điều đó không?"
+      },
+      {
+        "speaker": "Tom",
+        "english": "I understand, Laura. Maybe we can set aside specific evenings for just the two of us without distractions.",
+        "vietnamese": "Anh hiểu, Laura. Có lẽ chúng ta có thể dành những buổi tối cụ thể chỉ dành cho hai ta mà không bị phân tâm."
+      },
+      {
+        "speaker": "Laura",
+        "english": "That sounds good. I also miss our deep conversations. How can we bring those back?",
+        "vietnamese": "Nghe có vẻ tốt. Em cũng nhớ những cuộc trò chuyện sâu sắc của chúng ta. Làm sao để chúng ta mang những cuộc trò chuyện đó trở lại?"
+      },
+      {
+        "speaker": "Tom",
+        "english": "Maybe we can schedule regular check-ins where we talk about our feelings and any concerns we have.",
+        "vietnamese": "Có lẽ chúng ta có thể lập lịch để kiểm tra định kỳ, nơi chúng ta nói về cảm xúc và bất kỳ mối quan tâm nào mà chúng ta có."
+      },
+      {
+        "speaker": "Laura",
+        "english": "That’s a great idea, Tom. I appreciate you being open to discussing this.",
+        "vietnamese": "Đó là một ý tưởng tuyệt vời, Tom. Em đánh giá cao anh đã sẵn sàng thảo luận về điều này."
+      },
+      {
+        "speaker": "Tom",
+        "english": "Of course, Laura. Let’s make sure we prioritize our relationship and make positive changes together.",
+        "vietnamese": "Tất nhiên rồi, Laura. Hãy đảm bảo rằng chúng ta ưu tiên mối quan hệ của chúng ta và cùng nhau thực hiện những thay đổi tích cực."
+      },
+      {
+        "speaker": "Laura",
+        "english": "Thank you, Tom. I feel better already knowing we’re on the same page.",
+        "vietnamese": "Cảm ơn anh, Tom. Em cảm thấy tốt hơn khi biết chúng ta có cùng quan điểm."
+      }
+    ]
+  },
+  {
+    "title": "Tutoring Session",
+    "hashtags": ["#math", "#tutoring", "#education"],
+    "description": "A tutoring session between a tutor, Mark, and his student, Anna, as they work through a math problem. Mark guides Anna through the steps, provides explanations, and helps build her confidence in solving similar problems.",
+    "dialogue": [
+      {
+        "speaker": "Mark",
+        "english": "Hi Anna! Today, let's go through how to solve equations with variables on both sides. Are you ready?",
+        "vietnamese": "Xin chào Anna! Hôm nay, chúng ta hãy làm thế nào để giải phương trình có biến ở cả hai bên. Bạn đã sẵn sàng chưa?"
+      },
+      {
+        "speaker": "Anna",
+        "english": "Hi Mark! Yes, I've been practicing. But I still get confused sometimes.",
+        "vietnamese": "Xin chào Mark! Vâng, tôi đã luyện tập. Nhưng đôi khi tôi vẫn bị lẫn lộn."
+      },
+      {
+        "speaker": "Mark",
+        "english": "No worries, Anna. Let's start with this example: 3x + 7 = 2x - 5. First, we'll isolate the variables on one side.",
+        "vietnamese": "Đừng lo, Anna. Hãy bắt đầu với ví dụ này: 3x + 7 = 2x - 5. Đầu tiên, chúng ta sẽ cô lập các biến số trên một bên."
+      },
+      {
+        "speaker": "Anna",
+        "english": "Okay, so we subtract 2x from both sides to get x + 7 = -5.",
+        "vietnamese": "Được rồi, vì vậy chúng ta trừ 2x từ cả hai bên để có được x + 7 = -5."
+      },
+      {
+        "speaker": "Mark",
+        "english": "Exactly! Now, subtract 7 from both sides to solve for x.",
+        "vietnamese": "Đúng vậy! Bây giờ, hãy trừ 7 từ cả hai bên để giải phương trình cho x."
+      },
+      {
+        "speaker": "Anna",
+        "english": "So x = -12. I got it!",
+        "vietnamese": "Vậy nên x = -12. Tôi đã làm được!"
+      },
+      {
+        "speaker": "Mark",
+        "english": "Well done, Anna! You're getting the hang of it. Let's try a couple more examples to reinforce the concept.",
+        "vietnamese": "Làm tốt lắm, Anna! Bạn đã bắt đầu làm quen với nó. Hãy thử một vài ví dụ nữa để củng cố khái niệm này."
+      },
+      {
+        "speaker": "Anna",
+        "english": "Thank you, Mark! I feel more confident already.",
+        "vietnamese": "Cảm ơn bạn, Mark! Tôi cảm thấy tự tin hơn rồi."
+      },
+      {
+        "speaker": "Mark",
+        "english": "That's great to hear. Practice makes perfect, Anna. Keep up the good work!",
+        "vietnamese": "Nghe vậy thật tuyệt. Luyện tập làm cho hoàn hảo, Anna. Tiếp tục nỗ lực nhé!"
+      }
+    ]
+  },
+  {
+    "title": "Math Club Discussion",
+    "hashtags": ["#mathclub", "#discussion", "#learning"],
+    "description": "A discussion among members of a math club, Alex, Sarah, and Emma, as they explore a new mathematical concept. They collaborate, ask questions, and share insights to deepen their understanding.",
+    "dialogue": [
+      {
+        "speaker": "Alex",
+        "english": "Hey everyone! Today, let's dive into understanding geometric sequences. Who wants to start?",
+        "vietnamese": "Xin chào mọi người! Hôm nay, hãy cùng tìm hiểu về các dãy số hình học. Ai muốn bắt đầu không?"
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I'll give it a shot. A geometric sequence is a sequence of numbers where each term after the first is found by multiplying the previous term by a fixed, non-zero number called the common ratio.",
+        "vietnamese": "Tôi sẽ thử. Một dãy số hình học là một dãy số trong đó mỗi số sau số đầu tiên được tìm thấy bằng cách nhân số trước đó với một hằng số không thay đổi gọi là tỉ số chung."
+      },
+      {
+        "speaker": "Emma",
+        "english": "That's right. So, for example, if we have a geometric sequence with the first term a and common ratio r, the terms would be a, ar, ar^2, ar^3, and so on.",
+        "vietnamese": "Đúng vậy. Vì vậy, ví dụ, nếu chúng ta có một dãy số hình học với số đầu tiên là a và tỉ số chung là r, các số sẽ là a, ar, ar^2, ar^3, và tiếp tục như vậy."
+      },
+      {
+        "speaker": "Alex",
+        "english": "Exactly. What are some real-life applications of geometric sequences that you can think of?",
+        "vietnamese": "Đúng vậy. Bạn có thể nghĩ đến một số ứng dụng thực tế của các dãy số hình học không?"
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I've read that they're used in finance for calculating compound interest and in physics for modeling exponential growth or decay.",
+        "vietnamese": "Tôi đã đọc rằng chúng được sử dụng trong tài chính để tính lãi kép và trong vật lý để mô hình hóa sự tăng trưởng hay suy giảm mũi tên."
+      },
+      {
+        "speaker": "Emma",
+        "english": "That's fascinating. I wonder how we could apply these concepts to solve real-world problems more effectively.",
+        "vietnamese": "Thật hấp dẫn. Tôi tự hỏi là làm thế nào chúng ta có thể áp dụng những khái niệm này để giải quyết các vấn đề thực tế một cách hiệu quả hơn."
+      },
+      {
+        "speaker": "Alex",
+        "english": "Great question, Emma. Let's brainstorm some scenarios where understanding geometric sequences could be beneficial.",
+        "vietnamese": "Câu hỏi tuyệt vời, Emma. Hãy cùng nảy ra một số tình huống mà việc hiểu các dãy số hình học có thể hữu ích."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I think applying it to population growth or investment portfolios would be interesting.",
+        "vietnamese": "Tôi nghĩ áp dụng vào sự tăng trưởng dân số hoặc danh mục đầu tư sẽ rất thú vị."
+      },
+      {
+        "speaker": "Emma",
+        "english": "Definitely. Let's explore those ideas further in our next meeting. Thanks for the discussion, everyone!",
+        "vietnamese": "Chắc chắn. Hãy khám phá những ý tưởng đó thêm trong cuộc họp kế tiếp của chúng ta. Cảm ơn mọi người đã thảo luận!"
+      }
+    ]
+  },
+  {
+    "title": "Parent Helping Child with Math Homework",
+    "hashtags": ["#parenting", "#mathhomework", "#learningathome"],
+    "description": "A conversation between a parent, Lisa, and her child, Jake, as they work on a math problem together. Lisa guides Jake through the steps, provides encouragement, and helps him understand the concept.",
+    "dialogue": [
+      {
+        "speaker": "Lisa",
+        "english": "Hey Jake! Let's tackle this math problem together. What's giving you trouble?",
+        "vietnamese": "Chào Jake! Hãy cùng giải quyết bài toán toán học này. Bạn gặp khó khăn ở chỗ nào?"
+      },
+      {
+        "speaker": "Jake",
+        "english": "Hi Mom. I don't get how to multiply fractions. It's confusing.",
+        "vietnamese": "Xin chào Mẹ. Con không hiểu cách nhân phân số. Nó rối rắm quá."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "No worries, Jake. Let's start with a simple example. How about multiplying 1/2 by 3/4?",
+        "vietnamese": "Đừng lo, Jake. Hãy bắt đầu với một ví dụ đơn giản. Sao nếu nhân 1/2 với 3/4?"
+      },
+      {
+        "speaker": "Jake",
+        "english": "Um, okay. So, we multiply the numerators and the denominators, right? So it's 3/8?",
+        "vietnamese": "Ừm, được rồi. Vậy là, chúng ta nhân tử số và mẫu số, phải không? Vậy nên là 3/8?"
+      },
+      {
+        "speaker": "Lisa",
+        "english": "That's correct, Jake! Great job. Now, let's try another one to make sure you've got it.",
+        "vietnamese": "Đúng vậy, Jake! Làm tốt lắm. Bây giờ, hãy thử một cái khác để chắc chắn rằng bạn đã hiểu rồi."
+      },
+      {
+        "speaker": "Jake",
+        "english": "Thanks, Mom. I think I understand it better now.",
+        "vietnamese": "Cảm ơn, Mẹ. Con nghĩ là con hiểu rõ hơn bây giờ."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "You're welcome, sweetie. Remember, practice makes perfect!",
+        "vietnamese": "Không có gì đâu, con yêu. Nhớ rằng, luyện tập làm cho hoàn hảo!"
+      },
+      {
+        "speaker": "Jake",
+        "english": "I will, Mom. Thanks for helping me.",
+        "vietnamese": "Con sẽ nhớ, Mẹ. Cảm ơn Mẹ đã giúp con."
+      }
+    ]
+  },
+  {
+    "title": "Jungle Expedition",
+    "hashtags": ["#adventure", "#jungle", "#exploration"],
+    "description": "A conversation between explorers, Mike and Sarah, as they navigate through a dense jungle, encountering wildlife and overcoming challenges. They share their excitement, observations, and plans for the expedition.",
+    "dialogue": [
+      {
+        "speaker": "Mike",
+        "english": "Sarah, this jungle is incredible! Look at the diversity of plants and animals around us.",
+        "vietnamese": "Sarah, rừng nầy tuyệt vời quá! Nhìn vào sự đa dạng của các loài thực vật và động vật xung quanh chúng ta đi."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I know, Mike! It's like stepping into another world. Did you hear that roar just now?",
+        "vietnamese": "Tôi biết, Mike! Cảm giác như bước vào một thế giới khác. Bạn có nghe tiếng gầm vừa rồi không?"
+      },
+      {
+        "speaker": "Mike",
+        "english": "Yeah, it must be a big cat. Let's stay alert. Our campsite should be just ahead.",
+        "vietnamese": "Ừ, có lẽ là một con mèo lớn. Hãy cảnh giác. Nơi cắm trại của chúng ta phải sắp đến rồi."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I hope our equipment is safe from those mischievous monkeys we saw earlier.",
+        "vietnamese": "Tôi hy vọng thiết bị của chúng ta an toàn khỏi những con khỉ tinh nghịch chúng ta đã thấy trước đó."
+      },
+      {
+        "speaker": "Mike",
+        "english": "They seemed curious but harmless. Ah, there's our tent. Let's set up and secure everything before nightfall.",
+        "vietnamese": "Chúng dường như toàn tò mà không có hại. À, nó đây rồi, nơi trại của chúng ta. Hãy cài đặt và bảo vệ mọi thứ trước khi trời tối."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "Agreed. Tomorrow, we'll explore further into the heart of the jungle. I can't wait!",
+        "vietnamese": "Đồng ý. Ngày mai, chúng ta sẽ khám phá sâu hơn vào lòng rừng. Tôi không thể chờ đợi được nữa!"
+      },
+      {
+        "speaker": "Mike",
+        "english": "Me neither, Sarah. This adventure is just beginning, and I'm loving every moment of it.",
+        "vietnamese": "Tôi cũng vậy, Sarah. Cuộc phiêu lưu này chỉ mới bắt đầu, và tôi thực sự thích mỗi khoảnh khắc của nó."
+      }
+    ]
+  },
+  {
+    "title": "Jungle Encounter with Indigenous People",
+    "hashtags": ["#jungle", "#indigenous", "#culture"],
+    "description": "A conversation between explorers, Jack and Emily, as they meet indigenous people in the jungle. They learn about their customs, traditions, and survival techniques, fostering a mutual exchange of knowledge and respect.",
+    "dialogue": [
+      {
+        "speaker": "Jack",
+        "english": "Emily, look! There's a village ahead. I wonder who lives here.",
+        "vietnamese": "Emily, nhìn kìa! Trước mắt là một ngôi làng. Tôi tự hỏi ai sống ở đây."
+      },
+      {
+        "speaker": "Emily",
+        "english": "It looks like an indigenous tribe. Let's approach respectfully and see if we can learn something about their culture.",
+        "vietnamese": "Có vẻ như là một bộ tộc bản địa. Hãy tiếp cận một cách tôn trọng và xem chúng ta có thể học hỏi được gì về văn hóa của họ không."
+      },
+      {
+        "speaker": "Jack",
+        "english": "Hello! We come in peace. Would you mind if we learn about your way of life?",
+        "vietnamese": "Xin chào! Chúng tôi đến với tâm niệm hòa bình. Bạn có phiền nếu chúng tôi tìm hiểu về cách sống của bạn không?"
+      },
+      {
+        "speaker": "Villager",
+        "english": "Welcome, travelers. Our ancestors have taught us to respect visitors. Come, sit with us. We'll share our stories and knowledge with you.",
+        "vietnamese": "Chào mừng các bạn du khách. Tổ tiên của chúng tôi đã dạy chúng tôi phải tôn trọng khách đến. Hãy ngồi cùng với chúng tôi. Chúng tôi sẽ chia sẻ câu chuyện và kiến thức của mình với các bạn."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Thank you so much. Your way of life is fascinating. How do you manage to thrive in such a dense jungle?",
+        "vietnamese": "Cảm ơn rất nhiều. Cách sống của bạn thật hấp dẫn. Làm thế nào bạn có thể sống sót và phát triển trong một khu rừng nhiệt đới dày đặc như vậy?"
+      },
+      {
+        "speaker": "Villager",
+        "english": "We have learned from nature and our ancestors. Our knowledge of plants, animals, and the land sustains us.",
+        "vietnamese": "Chúng tôi đã học hỏi từ thiên nhiên và tổ tiên của mình. Kiến thức về cây cối, động vật và đất đai giúp chúng tôi duy trì cuộc sống."
+      },
+      {
+        "speaker": "Jack",
+        "english": "It's incredible how much we can learn from each other. Thank you for sharing your wisdom with us.",
+        "vietnamese": "Thật là kỳ diệu khi chúng ta có thể học hỏi lẫn nhau như vậy. Cảm ơn bạn đã chia sẻ tri thức của mình với chúng tôi."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Indeed. This experience is enriching beyond words. I'm grateful for this opportunity.",
+        "vietnamese": "Đúng vậy. Kinh nghiệm này thực sự là một bài học không thể nào diễn tả hết. Tôi rất biết ơn cơ hội này."
+      }
+    ]
+  },
+  {
+    "title": "Jungle Survival Challenge",
+    "hashtags": ["#survival", "#jungle", "#challenge"],
+    "description": "A conversation between adventurers, Tom and Kate, as they face a survival challenge in the jungle. They discuss strategies for finding food, building shelter, and navigating through unknown terrain.",
+    "dialogue": [
+      {
+        "speaker": "Tom",
+        "english": "Kate, we need to find water soon. Do you see any signs of a river or stream nearby?",
+        "vietnamese": "Kate, chúng ta cần phải tìm nước sớm. Bạn có thấy dấu hiệu nào của một con sông hoặc suối gần đây không?"
+      },
+      {
+        "speaker": "Kate",
+        "english": "Not yet, Tom. Let's keep moving downhill. Rivers often flow through valleys.",
+        "vietnamese": "Chưa, Tom. Hãy tiếp tục di chuyển xuống dốc. Sông thường chảy qua các thung lũng."
+      },
+      {
+        "speaker": "Tom",
+        "english": "I hope we find some edible plants soon. We need to keep our energy up.",
+        "vietnamese": "Tôi hy vọng chúng ta sẽ sớm tìm thấy một số loại thực vật ăn được. Chúng ta cần giữ năng lượng lên."
+      },
+      {
+        "speaker": "Kate",
+        "english": "Look, Tom! Those berries over there look familiar. I think they're safe to eat.",
+        "vietnamese": "Nhìn kìa, Tom! Những quả dâu kia trông quen quen. Tôi nghĩ chúng an toàn để ăn."
+      },
+      {
+        "speaker": "Tom",
+        "english": "Let's take a few and test them first. Survival rule number one: never eat anything unless you're sure it's safe.",
+        "vietnamese": "Hãy lấy một vài quả và thử trước đã. Quy tắc sống còn số một: đừng bao giờ ăn bất cứ thứ gì trừ khi bạn chắc chắn nó an toàn."
+      },
+      {
+        "speaker": "Kate",
+        "english": "Good call, Tom. These berries are safe. They're giving me a burst of energy!",
+        "vietnamese": "Quyết định tốt, Tom. Những quả dâu này an toàn. Chúng đang giúp tôi có thêm năng lượng!"
+      },
+      {
+        "speaker": "Tom",
+        "english": "Now that we have some food and water, let's focus on building a shelter before nightfall.",
+        "vietnamese": "Bây giờ khi chúng ta có thức ăn và nước, hãy tập trung vào việc xây dựng một căn nhà tạm trước khi trời tối."
+      },
+      {
+        "speaker": "Kate",
+        "english": "Agreed. We'll need to gather leaves and branches. Teamwork will get us through this!",
+        "vietnamese": "Đồng ý. Chúng ta sẽ cần phải thu thập lá và cành cây. Công việc nhóm sẽ giúp chúng ta vượt qua khó khăn này!"
+      }
+    ]
+  },
+  {
+    "title": "Preparing for a Mission to Mars",
+    "hashtags": ["#space", "#Mars", "#exploration"],
+    "description": "A conversation between astronauts, Alex and Emma, as they prepare for a mission to Mars. They discuss training, mission objectives, and their excitement for the journey ahead.",
+    "dialogue": [
+      {
+        "speaker": "Alex",
+        "english": "Emma, can you believe we're finally getting ready for Mars? It's a dream come true!",
+        "vietnamese": "Emma, bạn có tin được là chúng ta cuối cùng cũng chuẩn bị sẵn sàng cho Mars không? Đó là một giấc mơ thành hiện thực!"
+      },
+      {
+        "speaker": "Emma",
+        "english": "I know, Alex! All those years of training are finally paying off. I can't wait to step foot on another planet.",
+        "vietnamese": "Tôi biết rồi, Alex! Những năm tháng huấn luyện cuối cùng đã được đền đáp. Tôi không thể chờ đợi được để đặt chân lên một hành tinh khác."
+      },
+      {
+        "speaker": "Alex",
+        "english": "The simulations have been intense, but I feel ready. What part of the mission are you most excited about?",
+        "vietnamese": "Các mô phỏng đã rất căng thẳng, nhưng tôi cảm thấy sẵn sàng. Bạn hào hứng nhất với phần nào của nhiệm vụ?"
+      },
+      {
+        "speaker": "Emma",
+        "english": "Exploring Mars' surface and conducting experiments in its atmosphere. Imagine the discoveries we'll make!",
+        "vietnamese": "Khám phá bề mặt của Mars và tiến hành các thí nghiệm trong không khí của nó. Hãy tưởng tượng những phát hiện chúng ta sẽ đạt được!"
+      },
+      {
+        "speaker": "Alex",
+        "english": "Absolutely! The scientific potential is enormous. Plus, being part of history is a privilege.",
+        "vietnamese": "Tuyệt vời! Tiềm năng khoa học là vô hạn. Ngoài ra, được là một phần của lịch sử là một đặc quyền."
+      },
+      {
+        "speaker": "Emma",
+        "english": "It's an honor to represent humanity in this endeavor. Let's make sure we're fully prepared for every scenario.",
+        "vietnamese": "Đây là một vinh dự để đại diện cho nhân loại trong nỗ lực này. Hãy đảm bảo rằng chúng ta đã chuẩn bị hoàn toàn cho mọi tình huống."
+      },
+      {
+        "speaker": "Alex",
+        "english": "Agreed, Emma. Our journey to Mars will be a milestone in human exploration of the universe.",
+        "vietnamese": "Đồng ý, Emma. Hành trình của chúng ta đến Mars sẽ là một cột mốc trong việc khám phá vũ trụ của con người."
+      }
+    ]
+  },
+  {
+    "title": "Lunar Colony Expansion Discussion",
+    "hashtags": ["#Moon", "#colony", "#expansion"],
+    "description": "A conversation among scientists, James and Sophia, as they discuss plans to expand a lunar colony. They talk about challenges, innovations, and the future of living on the Moon.",
+    "dialogue": [
+      {
+        "speaker": "James",
+        "english": "Sophia, expanding the lunar colony is a huge undertaking. How do you think we should approach it?",
+        "vietnamese": "Sophia, mở rộng khu định cư trên Mặt Trăng là một dự án lớn. Bạn nghĩ chúng ta nên tiếp cận vấn đề như thế nào?"
+      },
+      {
+        "speaker": "Sophia",
+        "english": "James, we need to focus on sustainable growth. Let's utilize lunar resources efficiently and plan for long-term habitation.",
+        "vietnamese": "James, chúng ta cần tập trung vào sự phát triển bền vững. Hãy sử dụng tài nguyên Mặt Trăng một cách hiệu quả và lên kế hoạch cho sự cư trú dài hạn."
+      },
+      {
+        "speaker": "James",
+        "english": "The new habitat designs are promising. I'm excited about integrating 3D printing for construction on the Moon.",
+        "vietnamese": "Các thiết kế khu cư trú mới hứa hẹn. Tôi hào hứng với việc tích hợp in 3D cho công trình xây dựng trên Mặt Trăng."
+      },
+      {
+        "speaker": "Sophia",
+        "english": "It's essential to address radiation exposure and gravity differences for long-term health and well-being.",
+        "vietnamese": "Việc giảm thiểu phơi nhiễm bức xạ và khác biệt về trọng lượng trên Mặt Trăng là rất quan trọng đối với sức khỏe và sự bền vững dài hạn."
+      },
+      {
+        "speaker": "James",
+        "english": "Agreed. Our advancements in lunar technology will pave the way for sustainable human presence on the Moon.",
+        "vietnamese": "Đồng ý. Các tiến bộ trong công nghệ Mặt Trăng của chúng ta sẽ mở đường cho sự hiện diện bền vững của con người trên Mặt Trăng."
+      },
+      {
+        "speaker": "Sophia",
+        "english": "I believe the Moon will be a stepping stone for future deep space exploration. Our efforts today will shape tomorrow's possibilities.",
+        "vietnamese": "Tôi tin rằng Mặt Trăng sẽ là một bước đệm cho việc khám phá vũ trụ sâu hơn trong tương lai. Những nỗ lực của chúng ta ngày hôm nay sẽ hình thành những cơ hội vào ngày mai."
+      },
+      {
+        "speaker": "James",
+        "english": "Absolutely, Sophia. The prospect of humans living and working on multiple celestial bodies is within our reach.",
+        "vietnamese": "Tuyệt vời, Sophia. Triển vọng về con người sống và làm việc trên nhiều hành tinh là hoàn toàn trong tầm với của chúng ta."
+      }
+    ]
+  },
+  {
+    "title": "Discussion on Interplanetary Travel",
+    "hashtags": ["#space", "#exploration", "#interplanetary"],
+    "description": "A conversation between space enthusiasts, Max and Lily, as they discuss the future of interplanetary travel. They explore advancements in propulsion, colonization, and the potential for human exploration beyond Mars.",
+    "dialogue": [
+      {
+        "speaker": "Max",
+        "english": "Lily, what do you think will be the next big leap in interplanetary travel?",
+        "vietnamese": "Lily, bạn nghĩ rằng bước tiến lớn tiếp theo trong du lịch liên hành tinh sẽ là gì?"
+      },
+      {
+        "speaker": "Lily",
+        "english": "Max, advancements in ion propulsion systems could significantly reduce travel time between planets.",
+        "vietnamese": "Max, các tiến bộ trong hệ thống đẩy ion có thể giảm thiểu đáng kể thời gian di chuyển giữa các hành tinh."
+      },
+      {
+        "speaker": "Max",
+        "english": "Imagine a future where we can visit Jupiter's moons or even Saturn's rings. It's mind-boggling!",
+        "vietnamese": "Hãy tưởng tượng một tương lai khi chúng ta có thể ghé thăm các mặt trăng của Sao Mộc hoặc thậm chí là những vòng xoáy của Sao Thổ. Đó là điều khiến người ta kinh ngạc!"
+      },
+      {
+        "speaker": "Lily",
+        "english": "And the potential for establishing sustainable colonies on other planets. It's a giant leap for humanity.",
+        "vietnamese": "Và tiềm năng để thành lập các định cư bền vững trên các hành tinh khác. Đó là một bước nhảy vọt cho nhân loại."
+      },
+      {
+        "speaker": "Max",
+        "english": "Do you think we'll see humans on another star system in our lifetime?",
+        "vietnamese": "Bạn có nghĩ rằng chúng ta sẽ thấy con người trên một hệ thống sao khác trong đời sống của chúng ta không?"
+      },
+      {
+        "speaker": "Lily",
+        "english": "It's possible with breakthroughs in faster-than-light travel or generation ships. The future is full of possibilities.",
+        "vietnamese": "Điều đó hoàn toàn có thể xảy ra với những đột phá trong du lịch vượt ánh sáng hoặc tàu thế hệ. Tương lai đang rộng mở trước mắt."
+      },
+      {
+        "speaker": "Max",
+        "english": "Indeed, Lily. Our journey into the cosmos is just beginning. I can't wait to see what lies ahead.",
+        "vietnamese": "Đúng vậy, Lily. Hành trình của chúng ta vào vũ trụ chỉ mới bắt đầu. Tôi không thể chờ đợi được để xem điều gì đang chờ đợi chúng ta."
+      }
+    ]
+  },
+  {
+    "title": "Reacting to a Minor Car Accident",
+    "hashtags": ["#caraccident", "#safety", "#response"],
+    "description": "A conversation between Mark and Sarah after experiencing a minor car accident. They discuss immediate steps, safety measures, and contacting authorities.",
+    "dialogue": [
+      {
+        "speaker": "Mark",
+        "english": "Sarah, are you okay? That was quite a jolt. Let's pull over and check the damage.",
+        "vietnamese": "Sarah, bạn okay không? Cú va chạm đó khá mạnh. Hãy dừng xe và kiểm tra sự hư hại."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I'm a bit shaken, but I think I'm fine. Let's make sure no one is hurt. Do you see any injuries?",
+        "vietnamese": "Tôi hơi rung, nhưng tôi nghĩ là mình vẫn ổn. Hãy đảm bảo không ai bị thương. Bạn thấy có ai bị thương không?"
+      },
+      {
+        "speaker": "Mark",
+        "english": "No visible injuries here. Let's put on our hazard lights and move our cars to the side of the road.",
+        "vietnamese": "Không có vấn đề gì nghiêm trọng ở đây. Hãy bật đèn cảnh báo và di chuyển xe sang lề đường."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "Should we call the police? I think it's necessary to report this.",
+        "vietnamese": "Chúng ta có nên gọi cảnh sát không? Tôi nghĩ là cần phải báo cáo sự việc này."
+      },
+      {
+        "speaker": "Mark",
+        "english": "Yes, let's call them. It's important to have an official record of the accident. Meanwhile, I'll take some photos of the damage.",
+        "vietnamese": "Đúng vậy, hãy gọi điện cho họ. Việc có một bản ghi chính thức về tai nạn là rất quan trọng. Trong khi đó, tôi sẽ chụp một vài hình ảnh về sự hư hại."
+      },
+      {
+        "speaker": "Sarah",
+        "english": "Good idea. I'll gather our insurance information and exchange it with the other driver.",
+        "vietnamese": "Ý kiến hay đó. Tôi sẽ thu thập thông tin bảo hiểm của chúng ta và trao đổi nó với tài xế khác."
+      },
+      {
+        "speaker": "Mark",
+        "english": "Let's stay calm and cooperative. Dealing with accidents can be stressful, but safety and proper procedure are key.",
+        "vietnamese": "Hãy giữ bình tĩnh và hợp tác. Xử lý tai nạn có thể gây căng thẳng, nhưng an toàn và thủ tục đúng đắn là chìa khóa."
+      }
+    ]
+  },
+  {
+    "title": "Assisting After Witnessing a Serious Traffic Accident",
+    "hashtags": ["#witness", "#accident", "#assistance"],
+    "description": "A conversation between Chris and Lisa after witnessing a serious traffic accident. They discuss providing immediate assistance, calling emergency services, and cooperating with authorities.",
+    "dialogue": [
+      {
+        "speaker": "Chris",
+        "english": "Lisa, did you see that accident? It looks serious. We need to help.",
+        "vietnamese": "Lisa, bạn có thấy vụ tai nạn đó không? Nó trông rất nghiêm trọng. Chúng ta cần phải giúp đỡ."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "Yes, I saw it. I'm calling emergency services right now. Can you check on the people involved?",
+        "vietnamese": "Vâng, tôi thấy nó. Tôi đang gọi dịch vụ cấp cứu ngay bây giờ. Bạn có thể kiểm tra những người liên quan không?"
+      },
+      {
+        "speaker": "Chris",
+        "english": "I'll check. It seems like there are injuries. We need to be careful not to move anyone unless it's absolutely necessary.",
+        "vietnamese": "Tôi sẽ kiểm tra. Dường như có người bị thương. Chúng ta cần phải cẩn thận và không di chuyển ai trừ khi thực sự cần thiết."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "Emergency services are on their way. We should direct traffic away from the scene and try to keep everyone calm.",
+        "vietnamese": "Dịch vụ cấp cứu đang đến. Chúng ta nên điều tiết giao thông ra xa hiện trường và cố gắng làm cho mọi người bình tĩnh."
+      },
+      {
+        "speaker": "Chris",
+        "english": "I hope they arrive quickly. This is stressful, but we're doing everything we can to help.",
+        "vietnamese": "Tôi hy vọng họ đến nhanh chóng. Điều này gây căng thẳng, nhưng chúng ta đang làm tất cả những gì có thể để giúp đỡ."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "Absolutely, Chris. Our quick response could make a difference in someone's life today.",
+        "vietnamese": "Hoàn toàn đúng, Chris. Phản ứng nhanh của chúng ta có thể làm thay đổi số phận của ai đó vào ngày hôm nay."
+      }
+    ]
+  },
+  {
+    "title": "Discussing Car Safety and Accident Prevention",
+    "hashtags": ["#carsafety", "#accidentprevention", "#awareness"],
+    "description": "A conversation between Mike and Emily about car safety and accident prevention. They discuss defensive driving techniques, vehicle maintenance, and raising awareness among friends and family.",
+    "dialogue": [
+      {
+        "speaker": "Mike",
+        "english": "Emily, with the increase in traffic, it's crucial to stay vigilant on the road. What safety measures do you prioritize?",
+        "vietnamese": "Emily, với sự gia tăng giao thông, việc giữ sự cảnh giác trên đường là rất quan trọng. Bạn ưu tiên những biện pháp an toàn nào?"
+      },
+      {
+        "speaker": "Emily",
+        "english": "Mike, I always maintain a safe following distance and avoid distractions while driving. Defensive driving is key.",
+        "vietnamese": "Mike, tôi luôn giữ khoảng cách an toàn và tránh các yếu tố gây phân tâm khi lái xe. Lái xe an toàn là quan trọng."
+      },
+      {
+        "speaker": "Mike",
+        "english": "Regular vehicle maintenance is crucial too. Checking brakes, tires, and lights can prevent many accidents.",
+        "vietnamese": "Bảo dưỡng xe định kỳ cũng rất quan trọng. Kiểm tra phanh, lốp và đèn có thể ngăn ngừa nhiều tai nạn."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Absolutely. We should also encourage others to follow traffic rules and emphasize the importance of seat belts.",
+        "vietnamese": "Hoàn toàn đúng. Chúng ta cũng nên khuyến khích người khác tuân theo luật giao thông và nhấn mạnh về tầm quan trọng của dây an toàn."
+      },
+      {
+        "speaker": "Mike",
+        "english": "Raising awareness among our friends and family about safe driving practices can make a significant impact.",
+        "vietnamese": "Nâng cao nhận thức của bạn bè và gia đình về các thói quen lái xe an toàn có thể có tác động đáng kể."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Let's continue to lead by example and prioritize safety on the road. Prevention is always better than dealing with accidents.",
+        "vietnamese": "Hãy tiếp tục làm mẫu và ưu tiên an toàn trên đường. Phòng ngừa luôn tốt hơn là xử lý tai nạn."
+      }
+    ]
+  },
+  {
+    "title": "Meeting at a Social Event",
+    "hashtags": ["#social", "#meeting", "#conversation"],
+    "description": "A conversation between Alex and Emma who meet for the first time at a social event. They discuss their interests, hobbies, and background.",
+    "dialogue": [
+      {
+        "speaker": "Alex",
+        "english": "Hi there! I'm Alex. Nice to meet you. Is this your first time at this event?",
+        "vietnamese": "Xin chào! Tôi là Alex. Rất vui được gặp bạn. Đây có phải là lần đầu tiên bạn đến sự kiện này không?"
+      },
+      {
+        "speaker": "Emma",
+        "english": "Hi Alex! Yes, it is. I'm Emma. I heard there would be interesting discussions here. What about you?",
+        "vietnamese": "Xin chào Alex! Đúng vậy, đó là lần đầu tiên của tôi ở đây. Tôi là Emma. Tôi nghe nói sẽ có những cuộc thảo luận thú vị ở đây. Còn bạn thì sao?"
+      },
+      {
+        "speaker": "Alex",
+        "english": "I'm here for the same reason. I'm passionate about technology and entrepreneurship. What do you do for work?",
+        "vietnamese": "Tôi ở đây vì cùng một lý do. Tôi đam mê công nghệ và khởi nghiệp. Bạn làm việc trong lĩnh vực gì?"
+      },
+      {
+        "speaker": "Emma",
+        "english": "I'm a graphic designer. I love creating visual concepts. How about you? What's your background?",
+        "vietnamese": "Tôi là một nhà thiết kế đồ họa. Tôi yêu thích việc tạo ra các khái niệm hình ảnh. Còn bạn thì sao? Bạn có kinh nghiệm gì?"
+      },
+      {
+        "speaker": "Alex",
+        "english": "That's interesting! I have a background in computer science and currently work at a startup. What are your hobbies outside of work?",
+        "vietnamese": "Thật thú vị! Tôi có kinh nghiệm trong lĩnh vực khoa học máy tính và hiện đang làm việc tại một công ty khởi nghiệp. Bạn có sở thích gì ngoài công việc?"
+      },
+      {
+        "speaker": "Emma",
+        "english": "I enjoy hiking and painting. Nature inspires my creativity. How about you, Alex?",
+        "vietnamese": "Tôi thích leo núi và vẽ tranh. Thiên nhiên là nguồn cảm hứng cho sự sáng tạo của tôi. Còn bạn thì sao, Alex?"
+      },
+      {
+        "speaker": "Alex",
+        "english": "I love traveling and playing the guitar in my free time. It's a great way to unwind. It's been great chatting with you, Emma.",
+        "vietnamese": "Tôi thích đi du lịch và chơi guitar vào những lúc rảnh rỗi. Đó là cách tuyệt vời để thư giãn. Rất vui được trò chuyện với bạn, Emma."
+      },
+      {
+        "speaker": "Emma",
+        "english": "Likewise, Alex! It's refreshing to meet someone with similar interests. Let's keep in touch.",
+        "vietnamese": "Tương tự như vậy, Alex! Thật là thú vị khi gặp được ai đó có những sở thích tương tự. Hãy giữ liên lạc nhé."
+      }
+    ]
+  },
+  {
+    "title": "Getting Acquainted at a Workplace",
+    "hashtags": ["#workplace", "#colleagues", "#introduction"],
+    "description": "A conversation between John and Sarah who are new colleagues at a workplace. They discuss their professional backgrounds, roles, and hobbies.",
+    "dialogue": [
+      {
+        "speaker": "John",
+        "english": "Hi Sarah, I'm John. Nice to meet you! How are you finding your first week here?",
+        "vietnamese": "Xin chào Sarah, tôi là John. Rất vui được gặp bạn! Bạn cảm thấy thế nào với tuần đầu tiên ở đây?"
+      },
+      {
+        "speaker": "Sarah",
+        "english": "Hi John! I'm Sarah. It's been busy but exciting. I'm getting to know everyone and learning a lot. What about you?",
+        "vietnamese": "Xin chào John! Tôi là Sarah. Tuần này khá bận rộn nhưng cũng thú vị. Tôi đang làm quen với mọi người và học hỏi nhiều. Còn bạn thì sao?"
+      },
+      {
+        "speaker": "John",
+        "english": "I've been here for a few months now. I'm in the marketing department, focusing on digital campaigns. What's your role here?",
+        "vietnamese": "Tôi ở đây được vài tháng rồi. Tôi làm trong phòng marketing, tập trung vào các chiến dịch kỹ thuật số. Bạn có vị trí gì ở đây?"
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I'm in HR, handling recruitment and employee relations. It's challenging but rewarding. What's your background, John?",
+        "vietnamese": "Tôi làm trong bộ phận Nhân sự, xử lý tuyển dụng và quan hệ nhân viên. Công việc này thách thức nhưng cũng đáng giá. John có kinh nghiệm như thế nào?"
+      },
+      {
+        "speaker": "John",
+        "english": "I have a background in business administration and worked in digital marketing before joining here. Outside of work, I enjoy photography and playing basketball. How about you?",
+        "vietnamese": "Tôi có kinh nghiệm trong quản trị kinh doanh và làm việc trong marketing kỹ thuật số trước khi đến đây. Ngoài công việc, tôi thích nhiếp ảnh và chơi bóng rổ. Sarah có sở thích gì ngoài công việc?"
+      },
+      {
+        "speaker": "Sarah",
+        "english": "I love traveling and exploring new cultures. It's fascinating to see different perspectives. It's nice getting to know you, John.",
+        "vietnamese": "Tôi thích đi du lịch và khám phá nền văn hóa mới. Thật thú vị được nhìn nhận từ những góc nhìn khác nhau. Rất vui được làm quen với bạn, John."
+      },
+      {
+        "speaker": "John",
+        "english": "Likewise, Sarah! We should grab coffee sometime and exchange more stories. I'm looking forward to working together.",
+        "vietnamese": "Tương tự như vậy, Sarah! Chúng ta nên gặp nhau uống cà phê và chia sẻ nhiều câu chuyện hơn. Tôi mong đợi được làm việc cùng bạn."
+      }
+    ]
+  },
+  {
+    "title": "Connecting at a Community Event",
+    "hashtags": ["#community", "#event", "#conversation"],
+    "description": "A conversation between Lisa and Mike at a local community event. They discuss their involvement in the community, shared interests, and future plans.",
+    "dialogue": [
+      {
+        "speaker": "Lisa",
+        "english": "Hi Mike! I'm Lisa. It's great to see so many people at this event. Have you been involved in the community long?",
+        "vietnamese": "Xin chào Mike! Tôi là Lisa. Thật tuyệt khi thấy nhiều người tham dự sự kiện này. Anh đã tham gia cộng đồng lâu chưa?"
+      },
+      {
+        "speaker": "Mike",
+        "english": "Hi Lisa! Nice to meet you. I moved here recently, so I'm just starting to get involved. What brings you to this event?",
+        "vietnamese": "Xin chào Lisa! Rất vui được gặp bạn. Tôi mới chuyển đến đây, vì vậy tôi mới chỉ bắt đầu tham gia. Lisa đến với sự kiện này vì lý do gì?"
+      },
+      {
+        "speaker": "Lisa",
+        "english": "I've been part of the community for a few years. I'm passionate about volunteering and meeting new people. What about you, Mike?",
+        "vietnamese": "Tôi đã là một phần của cộng đồng trong vài năm qua. Tôi đam mê công việc tình nguyện và gặp gỡ những người mới. Mike có thích làm gì không?"
+      },
+      {
+        "speaker": "Mike",
+        "english": "I enjoy outdoor activities like hiking and gardening. I'm also interested in local history and heritage preservation. What are your hobbies?",
+        "vietnamese": "Tôi thích các hoạt động ngoài trời như leo núi và làm vườn. Tôi cũng quan tâm đến lịch sử địa phương và bảo tồn di sản. Lisa thích làm gì?"
+      },
+      {
+        "speaker": "Lisa",
+        "english": "I love reading and attending art exhibitions. Exploring different cultures through literature fascinates me. What are your plans for the future, Mike?",
+        "vietnamese": "Tôi thích đọc sách và tham dự triển lãm nghệ thuật. Khám phá các nền văn hóa khác nhau qua văn học là điều rất thú vị đối với tôi. Mike có kế hoạch gì cho tương lai không?"
+      },
+      {
+        "speaker": "Mike",
+        "english": "I'm hoping to contribute more to community projects and learn more about the area's history. It's been wonderful talking to you, Lisa.",
+        "vietnamese": "Tôi hy vọng có thể đóng góp nhiều hơn cho các dự án cộng đồng và tìm hiểu thêm về lịch sử của khu vực. Rất vui được nói chuyện với bạn, Lisa."
+      },
+      {
+        "speaker": "Lisa",
+        "english": "Likewise, Mike! Let's exchange contact information and stay connected. Looking forward to seeing you at future events.",
+        "vietnamese": "Tương tự như vậy, Mike! Hãy trao đổi thông tin liên lạc và giữ liên lạc. Mong được gặp lại bạn ở các sự kiện sắp tới."
+      }
+    ]
+  },
+  {
+    "title": "Routine Check-Up",
+    "hashtags": ["#doctorvisit", "#healthcare", "#checkup"],
+    "description": "A conversation between James and Dr. Miller during a routine check-up. They discuss James's health, lifestyle, and general well-being.",
+    "dialogue": [
+      {
+        "speaker": "James",
+        "english": "Hi Dr. Miller! It's good to see you. How have you been?",
+        "vietnamese": "Xin chào Dr. Miller! Rất vui được gặp bạn. Bạn thế nào rồi?"
+      },
+      {
+        "speaker": "Dr. Miller",
+        "english": "Hello James! I'm well, thank you. How about yourself? How have you been feeling?",
+        "vietnamese": "Xin chào James! Tôi khỏe, cảm ơn bạn. Còn bạn thì sao? Bạn cảm thấy thế nào?"
+      },
+      {
+        "speaker": "James",
+        "english": "I've been okay, just a bit tired lately. Nothing serious, though.",
+        "vietnamese": "Tôi đã ổn, chỉ có chút mệt mỏi gần đây thôi. Không có gì nghiêm trọng."
+      },
+      {
+        "speaker": "Dr. Miller",
+        "english": "Let's check your vitals and discuss your recent blood work. How's your diet and exercise routine been?",
+        "vietnamese": "Hãy kiểm tra chỉ số cơ thể của bạn và thảo luận về kết quả xét nghiệm máu gần đây của bạn. Chế độ ăn uống và thể dục thể thao của bạn thế nào?"
+      },
+      {
+        "speaker": "James",
+        "english": "I've been trying to eat healthier and go for walks a few times a week. Could do better with the exercise, though.",
+        "vietnamese": "Tôi cố gắng ăn uống lành mạnh và đi bộ một vài lần mỗi tuần. Tuy nhiên, tôi có thể cải thiện hơn với việc tập luyện."
+      },
+      {
+        "speaker": "Dr. Miller",
+        "english": "That's good to hear. Let's review your test results now.",
+        "vietnamese": "Nghe vui lành. Bây giờ chúng ta hãy xem lại kết quả xét nghiệm của bạn."
+      },
+      {
+        "speaker": "James",
+        "english": "Sure, I'm curious to know how everything looks.",
+        "vietnamese": "Chắc chắn, tôi muốn biết mọi thứ như thế nào."
+      },
+      {
+        "speaker": "Dr. Miller",
+        "english": "Overall, your results are looking good. Keep up with the healthy habits and let's schedule a follow-up in six months.",
+        "vietnamese": "Tóm lại, kết quả của bạn trông rất tốt. Tiếp tục duy trì những thói quen lành mạnh và chúng ta sẽ hẹn tái khám trong sáu tháng tới."
+      },
+      {
+        "speaker": "James",
+        "english": "Thank you, Dr. Miller. I appreciate your advice.",
+        "vietnamese": "Cảm ơn bạn, Dr. Miller. Tôi rất đánh giá cao lời khuyên của bạn."
+      }
+    ]
+  },
+  {
+    "title": "Discussing Symptoms",
+    "hashtags": ["#symptoms", "#health", "#doctor"],
+    "description": "A conversation between Emily and Dr. Patel as Emily describes her symptoms and seeks advice.",
+    "dialogue": [
+      {
+        "speaker": "Emily",
+        "english": "Hi Dr. Patel. I've been having frequent headaches and feeling dizzy lately. Should I be concerned?",
+        "vietnamese": "Xin chào Dr. Patel. Gần đây tôi hay bị đau đầu và cảm thấy chóng mặt thường xuyên. Tôi nên lo lắng không?"
+      },
+      {
+        "speaker": "Dr. Patel",
+        "english": "Hello Emily. Let's discuss your symptoms in detail. When did these headaches start?",
+        "vietnamese": "Xin chào Emily. Hãy thảo luận chi tiết về các triệu chứng của bạn. Khi nào bạn bắt đầu cảm thấy đau đầu?"
+      },
+      {
+        "speaker": "Emily",
+        "english": "They've been happening on and off for the past month, and the dizziness started about two weeks ago.",
+        "vietnamese": "Chúng xảy ra vài lần trong tháng qua và cảm giác chóng mặt bắt đầu khoảng hai tuần trước đây."
+      },
+      {
+        "speaker": "Dr. Patel",
+        "english": "Have you noticed any triggers or patterns, like stress or certain foods?",
+        "vietnamese": "Bạn có nhận thấy bất kỳ nguyên nhân hoặc mẫu mực nào, như căng thẳng hay một số loại thực phẩm?"
+      },
+      {
+        "speaker": "Emily",
+        "english": "I think stress might be a factor, and I've been skipping meals due to work deadlines.",
+        "vietnamese": "Tôi nghĩ căng thẳng có thể là một yếu tố, và tôi đã bỏ bữa do các hạn chót công việc."
+      },
+      {
+        "speaker": "Dr. Patel",
+        "english": "Let's perform a physical exam and run some tests to rule out any underlying conditions. It's important to address these symptoms.",
+        "vietnamese": "Chúng ta hãy thực hiện một cuộc khám cơ thể và chạy một số xét nghiệm để loại trừ bất kỳ điều kiện nền nào. Việc giải quyết các triệu chứng này là rất quan trọng."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Okay, that sounds like a good plan. I want to make sure everything is okay.",
+        "vietnamese": "Được, nghe có vẻ là một kế hoạch tốt. Tôi muốn đảm bảo mọi thứ ổn."
+      },
+      {
+        "speaker": "Dr. Patel",
+        "english": "Absolutely. Let's get started with the tests and we'll discuss the results once they're in.",
+        "vietnamese": "Tất nhiên. Hãy bắt đầu với các xét nghiệm và chúng ta sẽ thảo luận về kết quả sau khi có kết quả."
+      },
+      {
+        "speaker": "Emily",
+        "english": "Thank you, Dr. Patel, for your help. I appreciate it.",
+        "vietnamese": "Cảm ơn bạn, Dr. Patel, về sự giúp đỡ của bạn. Tôi rất đánh giá cao điều đó."
+      }
+    ]
+  },
+  {
+    "title": "Follow-Up Appointment",
+    "hashtags": ["#followup", "#doctorappointment", "#healthcheck"],
+    "description": "A conversation between Michael and Dr. Thompson during a follow-up appointment to discuss treatment progress and next steps.",
+    "dialogue": [
+      {
+        "speaker": "Michael",
+        "english": "Hi Dr. Thompson. It's good to see you again. How have things been since my last visit?",
+        "vietnamese": "Xin chào Dr. Thompson. Rất vui được gặp lại bạn. Mọi thứ đã thế nào kể từ lần ghé thăm trước đây của tôi?"
+      },
+      {
+        "speaker": "Dr. Thompson",
+        "english": "Hello Michael. Let's review your treatment progress. Have you been experiencing any changes or improvements?",
+        "vietnamese": "Xin chào Michael. Hãy xem lại tiến trình điều trị của bạn. Bạn có cảm thấy bất kỳ thay đổi nào hoặc cải thiện nào không?"
+      },
+      {
+        "speaker": "Michael",
+        "english": "I've been feeling much better since starting the medication. The symptoms have reduced significantly.",
+        "vietnamese": "Từ khi bắt đầu uống thuốc, tôi cảm thấy khá hơn nhiều. Các triệu chứng đã giảm đáng kể."
+      },
+      {
+        "speaker": "Dr. Thompson",
+        "english": "That's great to hear. Any side effects or concerns we should address?",
+        "vietnamese": "Nghe tuyệt vời. Có hiện tượng phụ nào hoặc mối lo ngại chúng ta nên giải quyết không?"
+      },
+      {
+        "speaker": "Michael",
+        "english": "No major side effects, just some mild nausea initially. Overall, I've been managing well.",
+        "vietnamese": "Không có tác dụng phụ nghiêm trọng, chỉ có chút buồn nôn nhẹ ban đầu. Tổng thể, tôi đã quản lý được tốt."
+      },
+      {
+        "speaker": "Dr. Thompson",
+        "english": "Good to know. Let's schedule a follow-up blood test and discuss any adjustments to your treatment plan.",
+        "vietnamese": "Rất tốt. Chúng ta hãy đặt lịch xét nghiệm máu tái khám và thảo luận về bất kỳ điều chỉnh nào cho kế hoạch điều trị của bạn."
+      },
+      {
+        "speaker": "Michael",
+        "english": "Sure, I'll make sure to come in for that. Thank you, Dr. Thompson, for your ongoing support.",
+        "vietnamese": "Chắc chắn, tôi sẽ đến cho cuộc hẹn đó. Cảm ơn bạn, Dr. Thompson, về sự hỗ trợ liên tục của bạn."
+      },
+      {
+        "speaker": "Dr. Thompson",
+        "english": "You're welcome, Michael. I'm glad to hear you're doing well. See you at your next appointment.",
+        "vietnamese": "Không có gì, Michael. Tôi rất vui khi nghe bạn khỏe mạnh. Hẹn gặp lại bạn trong cuộc hẹn tới."
+      }
+    ]
   }
 
 ]
