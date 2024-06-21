@@ -72,11 +72,9 @@ class ChatbotBloc extends Bloc<ChatbotEvent, ChatbotState> {
   final gemini = Gemini.instance;
   String currentResponseContent = "";
   final _isLoadingStreamController = StreamController<bool>();
-  static final Content initContent = Content(parts: [
-    Parts(
-        text:
-            'Pretend you are a language teacher named Diccon.')
-  ], role: 'user');
+  static final Content initContent = Content(
+      parts: [Parts(text: 'Pretend you are a language teacher named Diccon.')],
+      role: 'user');
   List<Content> multiTurnConversation = [initContent];
 
   Future<void> _addUserMessage(
