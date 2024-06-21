@@ -138,8 +138,6 @@ class InAppStrings {
         '1.  [Example sentence in English] ([Example sentence in Vietnamese])'
         '2.  [Example sentence in English] ([Example sentence in Vietnamese])'
         '3.  [Example sentence in English] ([Example sentence in Vietnamese])'
-        '4.  [Example sentence in English] ([Example sentence in Vietnamese])'
-        '5.  [Example sentence in English] ([Example sentence in Vietnamese])'
         ''
         '$listString';
   }

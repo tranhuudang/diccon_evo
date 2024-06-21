@@ -15,6 +15,15 @@ class ReleaseNotes extends StatelessWidget {
       body: ListView(
         children: const [
           ReleaseNotesItem(
+            version: '709',
+            date: '21-06-2024',
+            changesNote: [
+              'Sửa lỗi dịch sai định dạng với phiên bản cũ',
+              'Khắc phục lỗi thoát ứng dụng khi vào Đối thoại trên Windows',
+              'Thêm truyện mới',
+            ],
+          ),
+          ReleaseNotesItem(
             version: '696',
             date: '17-06-2024',
             changesNote: [
