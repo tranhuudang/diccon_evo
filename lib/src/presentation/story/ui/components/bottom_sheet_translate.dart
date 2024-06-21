@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:wave_divider/wave_divider.dart';
-import '../../../../data/data.dart';
 
 class BottomSheetTranslation extends StatefulWidget {
   final String searchWord;
@@ -20,20 +18,18 @@ class BottomSheetTranslation extends StatefulWidget {
       required this.sentenceContainWord});
 
   @override
-  State<BottomSheetTranslation> createState() => _BottomSheetTranslationState();
+  State<BottomSheetTranslation> createState() =>
+      _BottomSheetTranslationState();
 }
 
-class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
-  final _chatGptRepository =
-      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
-  final _chatGptRepositoryForSentence =
-      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
-  StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
-  StreamSubscription<StreamCompletionResponse>?
-      _chatStreamSubscriptionForSentence;
+class _BottomSheetTranslationState
+    extends State<BottomSheetTranslation> {
   final _isLoadingStreamController = StreamController();
   bool _isEditing = false;
   bool _isEditor = false;
+  final gemini = Gemini.instance;
+  String wordDefinitionAnswer = '';
+  String sentenceTranslationAnswer = '';
 
   final TextEditingController _editingController = TextEditingController();
   final TextEditingController _editingControllerForSentence =
@@ -53,83 +49,15 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     });
   }
 
-  _chatStreamResponse(ChatCompletionRequest request) async {
-    _chatStreamSubscription?.cancel();
-    _isLoadingStreamController.sink.add(true);
-    try {
-      final stream =
-          await _chatGptRepository.chatGpt.createChatCompletionStream(request);
-      _chatStreamSubscription = stream?.listen((event) => setState(() {
-            if (event.streamMessageEnd) {
-              _chatStreamSubscription?.cancel();
-              _isLoadingStreamController.sink.add(false);
-              // Add translated paragraph to firebase
-              _createFirebaseDatabaseItemForWord();
-              setState(() {});
-            } else {
-              return _chatGptRepository.singleQuestionAnswer.answer
-                  .write(event.choices?.first.delta?.content);
-            }
-          }));
-    } catch (error) {
-      setState(() {
-        _chatGptRepository.singleQuestionAnswer.answer.write("");
-      });
-      if (kDebugMode) {
-        print("Error occurred: $error");
-      }
-    }
-  }
-
-  _chatStreamResponseForSentence(ChatCompletionRequest request) async {
-    _chatStreamSubscriptionForSentence?.cancel();
-    _isLoadingStreamController.sink.add(true);
-    try {
-      final stream = await _chatGptRepositoryForSentence.chatGpt
-          .createChatCompletionStream(request);
-      _chatStreamSubscriptionForSentence =
-          stream?.listen((event) => setState(() {
-                if (event.streamMessageEnd) {
-                  _chatStreamSubscriptionForSentence?.cancel();
-                  _isLoadingStreamController.sink.add(false);
-                  // Add translated paragraph to firebase
-                  _createFirebaseDatabaseItemForSentence();
-                  setState(() {});
-                } else {
-                  return _chatGptRepositoryForSentence
-                      .singleQuestionAnswer.answer
-                      .write(event.choices?.first.delta?.content);
-                }
-              }));
-    } catch (error) {
-      setState(() {
-        _chatGptRepositoryForSentence.singleQuestionAnswer.answer.write("");
-      });
-      if (kDebugMode) {
-        print("Error occurred: $error");
-      }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     _checkIfUserIsEditor();
-    _sendAndGetResponse();
+    _checkIfWordDefinitionOnFirestore();
+    _checkIfSentenceTranslationOnFirestore();
   }
 
-  _sendAndGetResponse() async {
-    await _sendAndGetResponseForWord();
-    await _sendAndGetResponseForSentence();
-  }
-
-  _sendAndGetResponseForWord() async {
-    var request = await _chatGptRepository.createSingleQuestionRequest(
-        '  Translate the English word "[${widget.searchWord}]" in this sentence "[${widget.sentenceContainWord}]" context to Vietnamese and provide the response in the following format:'
-        ''
-        '  Phiên âm: /[phonetic transcription in English]/'
-        '  Định nghĩa: [definition in Vietnamese]'
-        '');
+  _checkIfWordDefinitionOnFirestore() async{
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
@@ -138,21 +66,16 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         .doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
-        _chatGptRepository.singleQuestionAnswer.answer
-            .write(snapshot.data()?['answer'].toString());
-        setState(() {});
+        setState(() {
+          wordDefinitionAnswer = snapshot.data()?['answer'].toString() ?? '';
+        });
       } else {
-        _chatStreamResponse(request);
+        _getGeminiAnswerForWord();
       }
     });
   }
 
-  _sendAndGetResponseForSentence() async {
-    var request = await _chatGptRepositoryForSentence.createSingleQuestionRequest(
-        '  Translate the English sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
-        ''
-        ' Dịch câu: [translated sentence in Vietnamese]'
-        '');
+  _checkIfSentenceTranslationOnFirestore() async{
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
@@ -161,13 +84,56 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         .doc(answer);
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
-        _chatGptRepositoryForSentence.singleQuestionAnswer.answer
-            .write(snapshot.data()?['answer'].toString());
-        setState(() {});
+        setState(() {
+          sentenceTranslationAnswer = snapshot.data()?['answer'].toString() ?? '';
+        });
       } else {
-        _chatStreamResponseForSentence(request);
+        _getGeminiAnswerForSentence();
       }
     });
+  }
+
+  _getGeminiAnswerForWord() async {
+    final question =
+        'Translate the English word "[${widget.searchWord}]" in this sentence "[${widget.sentenceContainWord}]" context to Vietnamese and provide the response in the following format:'
+        'Phiên âm: /[pronunciation in English]/'
+        'Định nghĩa: [definition in Vietnamese]';
+
+    try {
+      gemini.streamGenerateContent(question).listen((value) {
+        setState(() {
+          wordDefinitionAnswer += value.output!;
+        });
+      }).onDone(() {
+        wordDefinitionAnswer =
+            wordDefinitionAnswer.replaceAll('[', '').replaceAll(']', '');
+        _createFirebaseDatabaseItemForWord();
+      });
+    } catch (e) {
+      print(e);
+      return '';
+    }
+  }
+
+  _getGeminiAnswerForSentence() async {
+    final question =
+        'Translate the English sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
+        '[translated sentence in Vietnamese]';
+    try {
+      gemini.streamGenerateContent(question).listen((value) {
+        setState(() {
+          sentenceTranslationAnswer += value.output!;
+        });
+      }).onDone(() {
+        sentenceTranslationAnswer = sentenceTranslationAnswer
+            .replaceAll('[', '')
+            .replaceAll(']', '');
+        _createFirebaseDatabaseItemForSentence();
+      });
+    } catch (e) {
+      print(e);
+      return '';
+    }
   }
 
   Future<void> _createFirebaseDatabaseItemForWord() async {
@@ -178,8 +144,8 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         .doc(answerId);
     final json = {
       'question':
-          "${widget.searchWord}- in the sentence: ${widget.sentenceContainWord}",
-      'answer': _chatGptRepository.singleQuestionAnswer.answer.toString(),
+          "${widget.searchWord.upperCaseFirstLetter()} - in the sentence: ${widget.sentenceContainWord}",
+      'answer': wordDefinitionAnswer,
     };
     await databaseRow.set(json);
   }
@@ -192,8 +158,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         .doc(answerId);
     final json = {
       'question': widget.sentenceContainWord,
-      'answer':
-          _chatGptRepositoryForSentence.singleQuestionAnswer.answer.toString(),
+      'answer': sentenceTranslationAnswer,
     };
     await databaseRow.set(json);
   }
@@ -271,28 +236,12 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   void dispose() {
     super.dispose();
     _isLoadingStreamController.close();
-    _chatStreamSubscription?.cancel();
-    _chatStreamSubscriptionForSentence?.cancel();
     _editingController.dispose();
     _editingControllerForSentence.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final questionAnswer = _chatGptRepository.singleQuestionAnswer;
-    final questionAnswerForSentence =
-        _chatGptRepositoryForSentence.singleQuestionAnswer;
-    var answer = questionAnswer.answer
-        .toString()
-        .trim()
-        .replaceAll('[', '')
-        .replaceAll(']', '');
-    var answerForSentence = questionAnswerForSentence.answer
-        .toString()
-        .trim()
-        .replaceAll('[', '')
-        .replaceAll(']', '');
-
     return SingleChildScrollView(
       padding: const EdgeInsets.only(left: 28, right: 28, bottom: 42),
       child: Column(
@@ -360,12 +309,12 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                               setState(() {
                                 _isEditing = false;
                               });
-                              answer = _editingController.text.trim();
-                              _updateFirebaseDatabaseItem(answer);
-                              answerForSentence =
+                              wordDefinitionAnswer = _editingController.text.trim();
+                              _updateFirebaseDatabaseItem(wordDefinitionAnswer);
+                              sentenceTranslationAnswer =
                                   _editingControllerForSentence.text.trim();
                               _updateFirebaseDatabaseItemForSentence(
-                                  answerForSentence);
+                                  sentenceTranslationAnswer);
                             },
                             child: const Text('Save'),
                           ),
@@ -381,18 +330,18 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              answer,
+                              wordDefinitionAnswer,
                               style: context.theme.textTheme.titleMedium
                                   ?.copyWith(
-                                      color: context
-                                          .theme.colorScheme.onSurface),
+                                      color:
+                                          context.theme.colorScheme.onSurface),
                             ),
                             Text(
-                              answerForSentence,
+                              sentenceTranslationAnswer,
                               style: context.theme.textTheme.titleMedium
                                   ?.copyWith(
-                                      color: context
-                                          .theme.colorScheme.onSurface),
+                                      color:
+                                          context.theme.colorScheme.onSurface),
                             ),
                           ],
                         ),
@@ -403,9 +352,9 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                             IconButton(
                               icon: const Icon(Icons.edit),
                               onPressed: () {
-                                _editingController.text = answer;
+                                _editingController.text = wordDefinitionAnswer;
                                 _editingControllerForSentence.text =
-                                    answerForSentence;
+                                    sentenceTranslationAnswer;
                                 setState(() {
                                   _isEditing = true;
                                 });
