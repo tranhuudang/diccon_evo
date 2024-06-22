@@ -39,15 +39,13 @@ class DictionaryBubbleDefinition extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12, top: 20, right: 12, bottom: 10),
-                              child: SelectableText(translation,style: context.theme.textTheme.bodyMedium
-                                       ?.copyWith(color: context.theme.colorScheme.onSecondary),),
-                            ),
-                          ],
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 12, top: 20, right: 12, bottom: 10),
+                            child: SelectableText(translation,style: context.theme.textTheme.bodyMedium
+                                     ?.copyWith(color: context.theme.colorScheme.onSecondary),),
+                          ),
                         ),
                         WaveDivider(
                           thickness: .3,

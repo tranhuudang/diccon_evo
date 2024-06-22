@@ -81,21 +81,21 @@ class InAppStrings {
       listTopic2.split(',').forEach((word) {
         if (word.length > 2) {
           listString += ''
-              '  ● ${word.trim()}'
+              '● ${word.trim()}'
               ''
-              '  Definition: [definition in ${word.trim().i18nEnglish}] context in English]'
-              '  Example:'
+              'Definition: [definition in ${word.trim().i18nEnglish}] context in English]'
+              'Example:'
               ''
               '1.  [Example sentence in ${word.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])'
               '2.  [Example sentence in ${word.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])';
         }
       });
     }
-    return '  Translate the Vietnamese word "[${word.trim()}]" to English and provide the response in the following format:'
+    return 'Translate the Vietnamese word "[${word.trim()}]" to English and provide the response in the exact following format:'
         ''
-        '  Phonetics: /[phonetic transcription in Vietnamese]/'
-        '  Definition: [definition in English]'
-        '  Example:'
+        'Pronunciation: /[pronunciation in Vietnamese]/'
+        'Definition: [definition in English]'
+        'Example:'
         ''
         '1.  [Example sentence in Vietnamese] ([Example sentence in English])'
         '2.  [Example sentence in Vietnamese] ([Example sentence in English])'
@@ -119,21 +119,22 @@ class InAppStrings {
       listTopic2.split(',').forEach((word) {
         if (word.length > 2) {
           listString += ''
-              '  ● ${word.trim()}'
+              '● ${word.trim()}'
               ''
-              '  Định nghĩa: [definition in ${word.trim().i18nEnglish}] context in Vietnamese]'
-              '  Ví dụ:'
+              'Định nghĩa: [definition in ${word.trim().i18nEnglish}] context in Vietnamese]'
+              'Ví dụ:'
               ''
               '1.  [Example sentence in ${word.trim().i18nEnglish} in English] ([Example sentence in Vietnamese])'
               '2.  [Example sentence in ${word.trim().i18nEnglish} in English] ([Example sentence in Vietnamese])';
         }
       });
     }
-    return '  Translate the English word "[${word.trim()}]" to Vietnamese and provide the response in the following format:'
+    return
+        'Translate the English word "[${word.trim()}]" to Vietnamese and provide the response in the exact following format:'
         ''
-        '  Phiên âm: /[phonetic transcription in English]/'
-        '  Định nghĩa: [definition in Vietnamese]'
-        '  Ví dụ:'
+        'Phiên âm: /[pronunciation in English]/'
+        'Định nghĩa: [definition in Vietnamese]'
+        'Ví dụ:'
         ''
         '1.  [Example sentence in English] ([Example sentence in Vietnamese])'
         '2.  [Example sentence in English] ([Example sentence in Vietnamese])'

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/dictionary_bubble_definition.dart';
+import 'package:diccon_evo/src/presentation/dictionary/ui/components/safety_bubble.dart';
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/translated_word_in_sentence_result_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +31,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<ChatBotResponding>(_chatBotResponding);
   }
   final gemini = Gemini.instance;
+
   final ScrollController chatListController = ScrollController();
   final TextEditingController textController = TextEditingController();
   List<Widget> _chatList = [const DictionaryWelcome()];
@@ -138,8 +140,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           (identifyLanguageResult == languageIdentifier.englishLanguageCode &&
               currentSetting.translationLanguageTarget ==
                   TranslationLanguageTarget.autoDetect.title())) {
-        question = InAppStrings.getEnToViSingleWordTranslateQuestion(
-            event.providedWord);
+        if (event.providedWord.split(' ').length > 2) {
+          question = InAppStrings.getEnToViParagraphTranslateQuestion(
+              event.providedWord);
+        } else {
+          question = InAppStrings.getEnToViSingleWordTranslateQuestion(
+              event.providedWord);
+        }
 
         _chatList.insert(
             0,
@@ -161,8 +168,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
                   languageIdentifier.vietnameseLanguageCode &&
               currentSetting.translationLanguageTarget ==
                   TranslationLanguageTarget.autoDetect.title())) {
-        question = InAppStrings.getViToEnSingleWordTranslateQuestion(
-            event.providedWord);
+        if (event.providedWord.split(' ').length > 2) {
+          question = InAppStrings.getViToEnParagraphTranslateQuestion(
+              event.providedWord);
+        } else {
+          question = InAppStrings.getViToEnSingleWordTranslateQuestion(
+              event.providedWord);
+        }
         _getGeminiResponse(
             requestQuestion: question,
             word: event.providedWord,
@@ -180,8 +192,22 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       {required String requestQuestion,
       required String word,
       required String lang}) {
-    gemini.streamGenerateContent(requestQuestion).listen((event) {
-      currentResponseContent += event.output ?? '';
+    gemini.streamGenerateContent(requestQuestion, safetySettings: [
+      SafetySetting(
+          category: SafetyCategory.dangerous,
+          threshold: SafetyThreshold.blockNone),
+      SafetySetting(
+          category: SafetyCategory.harassment,
+          threshold: SafetyThreshold.blockNone),
+      SafetySetting(
+          category: SafetyCategory.hateSpeech,
+          threshold: SafetyThreshold.blockNone),
+      SafetySetting(
+          category: SafetyCategory.sexuallyExplicit,
+          threshold: SafetyThreshold.blockNone)
+    ]).listen((event) {
+      DebugLog.info('Gemini finish reason: ${event.finishReason}');
+      currentResponseContent += event.output ?? ' ';
       add(ChatBotResponding(translation: currentResponseContent, word: word));
     }).onDone(() {
       _createFirebaseDatabaseItem(
