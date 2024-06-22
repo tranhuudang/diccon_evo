@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:diccon_evo/src/presentation/dictionary/ui/components/dictionary_bubble_definition.dart';
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/translated_word_in_sentence_result_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
@@ -24,13 +25,15 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<AddImage>(_addImage);
     on<CreateNewChatList>(_createNewChatList);
     on<AddTranslateWordFromSentence>(_addTranslateWordFromSentence);
+    on<ChatBotResponding>(_chatBotResponding);
   }
-  List<ChatGptRepository> _listChatGptRepository = [];
+  final gemini = Gemini.instance;
   final ScrollController chatListController = ScrollController();
   final TextEditingController textController = TextEditingController();
   List<Widget> _chatList = [const DictionaryWelcome()];
   bool _isReportedAboutDisconnection = false;
   final _wordHistoryBloc = WordHistoryBloc();
+  String currentResponseContent = '';
   final EnglishToVietnameseDictionaryRepository dictionaryRepository =
       EnglishToVietnameseDictionaryRepositoryImpl();
 
@@ -110,10 +113,6 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       emit(ChatListUpdated(chatList: _chatList));
       _isReportedAboutDisconnection = true;
     }
-    var newChatGptRepository =
-        ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
-    _listChatGptRepository.add(newChatGptRepository);
-    var chatGptRepositoryIndex = _listChatGptRepository.length - 1;
 
     /// Detect language if auto detect language mode enable
     final languageIdentifier = LanguageIdentifier();
@@ -124,6 +123,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           languageIdentifier.identifyLanguage(event.providedWord);
     }
 
+    String question = '';
+
     /// Check if setting force to translate from english to vietnamese
     // If autodetect is english or english to vietnamese mode enable
     if ((identifyLanguageResult == languageIdentifier.englishLanguageCode &&
@@ -132,13 +133,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         (identifyLanguageResult == languageIdentifier.englishLanguageCode &&
             currentSetting.translationLanguageTarget ==
                 TranslationLanguageTarget.autoDetect.title())) {
+      question =
+          InAppStrings.getEnToViSingleWordTranslateQuestion(event.providedWord);
+      _gettingTranslationResponse(question, event.providedWord);
       _chatList.insert(
           0,
-          EnglishToVietnameseCombineBubble(
-              wordForChatBot: event.providedWord,
-              chatListController: chatListController,
-              index: chatGptRepositoryIndex,
-              listChatGptRepository: _listChatGptRepository));
+          DictionaryBubbleDefinition(
+              word: event.providedWord, translation: ''));
     }
     // If autodetect is vietnamese or vietnamese to english mode enable
     if (currentSetting.translationLanguageTarget ==
@@ -146,20 +147,36 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         (identifyLanguageResult == languageIdentifier.vietnameseLanguageCode &&
             currentSetting.translationLanguageTarget ==
                 TranslationLanguageTarget.autoDetect.title())) {
+      question =
+          InAppStrings.getViToEnSingleWordTranslateQuestion(event.providedWord);
+      _gettingTranslationResponse(question, event.providedWord);
       _chatList.insert(
           0,
-          VietnameseToEnglishCombineBubble(
-              wordForChatBot: event.providedWord,
-              chatListController: chatListController,
-              index: chatGptRepositoryIndex,
-              listChatGptRepository: _listChatGptRepository));
+          DictionaryBubbleDefinition(
+              word: event.providedWord, translation: ''));
     }
+    emit(ChatListUpdated(chatList: _chatList));
+  }
+
+  _gettingTranslationResponse(String requestQuestion, String word) {
+    gemini.streamGenerateContent(requestQuestion).listen((event) {
+      currentResponseContent += event.output ?? '';
+      add(ChatBotResponding(translation: currentResponseContent, word: word));
+    }).onDone(() {
+      currentResponseContent = '';
+    });
+  }
+
+  FutureOr<void> _chatBotResponding(
+      ChatBotResponding event, Emitter<ChatListState> emit) {
+    _chatList.first = DictionaryBubbleDefinition(
+        word: event.word, translation: event.translation);
     emit(ChatListUpdated(chatList: _chatList));
   }
 
   FutureOr<void> _createNewChatList(
       CreateNewChatList event, Emitter<ChatListState> emit) {
-    _listChatGptRepository = [];
+    currentResponseContent = '';
     textController.clear();
     _chatList = [const DictionaryWelcome()];
     emit(ChatListUpdated(chatList: _chatList));

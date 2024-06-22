@@ -23,8 +23,5 @@ class ChatBotMessageAdded extends ChatListState{
   ChatBotMessageAdded({required this.chatList});
 }
 
-class ChatBotResponding extends ChatListState{
-  String text;
-  ChatBotResponding({required this.text});
-}
+
 

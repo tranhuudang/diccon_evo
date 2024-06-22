@@ -41,3 +41,9 @@ class AddTranslateWordFromSentence extends ChatListEvent {
   final String sentence;
   AddTranslateWordFromSentence({required this.word, required this.sentence});
 }
+
+class ChatBotResponding extends ChatListEvent{
+  final String word;
+  final String translation;
+  ChatBotResponding({required this.word, required this.translation});
+}
