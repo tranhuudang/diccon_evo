@@ -1,11 +1,4 @@
 export 'brick_wall_buttons.dart';
-export 'chatbot_buble_preview.dart';
-export 'chatbot_buble.dart';
-export 'classic_bubble.dart';
-export 'vietnamese_to_english_combine_bubble.dart';
-export 'vietnamese_to_english_chatbot_bubble.dart';
-export 'english_to_vietnamese_combine_bubble.dart';
-export 'english_to_vietnamese_chatbot_bubble.dart';
 export 'dictionary_welcome_box.dart';
 export 'history_tile.dart';
 export 'image_buble.dart';

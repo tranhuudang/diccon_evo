@@ -5,7 +5,6 @@ import 'package:diccon_evo/src/presentation/settings/ui/screens/purchase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 
-import '../../bloc/chatbot_bloc.dart';
 
 class ChatBotView extends StatelessWidget {
   const ChatBotView({super.key});

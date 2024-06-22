@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/core/utils/open_ai_timer.dart';
 import 'package:diccon_evo/src/core/utils/tokens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
