@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/dictionary_bubble_definition.dart';
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/translated_word_in_sentence_result_bubble.dart';
 import 'package:flutter/foundation.dart';
@@ -102,69 +104,135 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   Future<void> _addTranslation(
       AddTranslation event, Emitter<ChatListState> emit) async {
-    Settings currentSetting = Properties.instance.settings;
-    // Check internet connection before create request to chat-bot
-    bool isInternetConnected = await InternetConnectionChecker().hasConnection;
-    if (kDebugMode) {
-      print("[Internet Connection] $isInternetConnected");
-    }
-    if (!isInternetConnected && !_isReportedAboutDisconnection) {
-      _chatList.insert(0, const NoInternetBubble());
-      emit(ChatListUpdated(chatList: _chatList));
-      _isReportedAboutDisconnection = true;
-    }
+    {
+      Settings currentSetting = Properties.instance.settings;
+      // Check internet connection before create request to chat-bot
+      bool isInternetConnected =
+          await InternetConnectionChecker().hasConnection;
+      if (kDebugMode) {
+        print("[Internet Connection] $isInternetConnected");
+      }
+      if (!isInternetConnected && !_isReportedAboutDisconnection) {
+        _chatList.insert(0, const NoInternetBubble());
+        emit(ChatListUpdated(chatList: _chatList));
+        _isReportedAboutDisconnection = true;
+      }
 
-    /// Detect language if auto detect language mode enable
-    final languageIdentifier = LanguageIdentifier();
-    String identifyLanguageResult = languageIdentifier.undeterminedLanguageCode;
-    if (currentSetting.translationLanguageTarget ==
-        TranslationLanguageTarget.autoDetect.title()) {
-      identifyLanguageResult =
-          languageIdentifier.identifyLanguage(event.providedWord);
-    }
+      /// Detect language if auto detect language mode enable
+      final languageIdentifier = LanguageIdentifier();
+      String identifyLanguageResult =
+          languageIdentifier.undeterminedLanguageCode;
+      if (currentSetting.translationLanguageTarget ==
+          TranslationLanguageTarget.autoDetect.title()) {
+        identifyLanguageResult =
+            languageIdentifier.identifyLanguage(event.providedWord);
+      }
 
-    String question = '';
+      String question = '';
 
-    /// Check if setting force to translate from english to vietnamese
-    // If autodetect is english or english to vietnamese mode enable
-    if ((identifyLanguageResult == languageIdentifier.englishLanguageCode &&
-            currentSetting.translationLanguageTarget ==
-                TranslationLanguageTarget.englishToVietnamese.title()) ||
-        (identifyLanguageResult == languageIdentifier.englishLanguageCode &&
-            currentSetting.translationLanguageTarget ==
-                TranslationLanguageTarget.autoDetect.title())) {
-      question =
-          InAppStrings.getEnToViSingleWordTranslateQuestion(event.providedWord);
-      _gettingTranslationResponse(question, event.providedWord);
-      _chatList.insert(
-          0,
-          DictionaryBubbleDefinition(
-              word: event.providedWord, translation: ''));
-    }
-    // If autodetect is vietnamese or vietnamese to english mode enable
-    if (currentSetting.translationLanguageTarget ==
-            TranslationLanguageTarget.vietnameseToEnglish.title() ||
-        (identifyLanguageResult == languageIdentifier.vietnameseLanguageCode &&
-            currentSetting.translationLanguageTarget ==
-                TranslationLanguageTarget.autoDetect.title())) {
-      question =
-          InAppStrings.getViToEnSingleWordTranslateQuestion(event.providedWord);
-      _gettingTranslationResponse(question, event.providedWord);
-      _chatList.insert(
-          0,
-          DictionaryBubbleDefinition(
-              word: event.providedWord, translation: ''));
+      /// Check if setting force to translate from english to vietnamese
+      // If autodetect is english or english to vietnamese mode enable
+      if ((identifyLanguageResult == languageIdentifier.englishLanguageCode &&
+              currentSetting.translationLanguageTarget ==
+                  TranslationLanguageTarget.englishToVietnamese.title()) ||
+          (identifyLanguageResult == languageIdentifier.englishLanguageCode &&
+              currentSetting.translationLanguageTarget ==
+                  TranslationLanguageTarget.autoDetect.title())) {
+        question = InAppStrings.getEnToViSingleWordTranslateQuestion(
+            event.providedWord);
+
+        _chatList.insert(
+            0,
+            DictionaryBubbleDefinition(
+                word: event.providedWord, translation: ''));
+        final isHavingData =
+            await _getFirestoreData(word: event.providedWord, lang: 'en to vi');
+        if (!isHavingData) {
+          _getGeminiResponse(
+              requestQuestion: question,
+              word: event.providedWord,
+              lang: 'en to vi');
+        }
+      }
+      // If autodetect is vietnamese or vietnamese to english mode enable
+      if (currentSetting.translationLanguageTarget ==
+              TranslationLanguageTarget.vietnameseToEnglish.title() ||
+          (identifyLanguageResult ==
+                  languageIdentifier.vietnameseLanguageCode &&
+              currentSetting.translationLanguageTarget ==
+                  TranslationLanguageTarget.autoDetect.title())) {
+        question = InAppStrings.getViToEnSingleWordTranslateQuestion(
+            event.providedWord);
+        _getGeminiResponse(
+            requestQuestion: question,
+            word: event.providedWord,
+            lang: 'vi to en');
+        _chatList.insert(
+            0,
+            DictionaryBubbleDefinition(
+                word: event.providedWord, translation: ''));
+      }
     }
     emit(ChatListUpdated(chatList: _chatList));
   }
 
-  _gettingTranslationResponse(String requestQuestion, String word) {
+  _getGeminiResponse(
+      {required String requestQuestion,
+      required String word,
+      required String lang}) {
     gemini.streamGenerateContent(requestQuestion).listen((event) {
       currentResponseContent += event.output ?? '';
       add(ChatBotResponding(translation: currentResponseContent, word: word));
     }).onDone(() {
+      _createFirebaseDatabaseItem(
+          lang: lang, word: word, translation: currentResponseContent);
       currentResponseContent = '';
     });
+  }
+
+  /// lang accept value: vi to en, en to vi
+  Future<void> _createFirebaseDatabaseItem(
+      {required String lang,
+      required String word,
+      required String translation}) async {
+    final currentSettings = Properties.instance.settings;
+    final answerId = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
+        lang: lang,
+        word: word,
+        options: currentSettings
+            .dictionaryResponseSelectedListVietnamese); // Generate the MD5 hash
+    final databaseRow = firestore.FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.dictionary)
+        .doc(answerId);
+    final json = {
+      'question': word,
+      'answer': translation,
+    };
+    await databaseRow.set(json);
+  }
+
+  Future<bool> _getFirestoreData(
+      {required String word, required String lang}) async {
+    final currentSettings = Properties.instance.settings;
+    // create md5 from question to compare to see if that md5 is already exist in database
+    var answer = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
+        lang: lang,
+        word: word,
+        options: currentSettings.dictionaryResponseSelectedListVietnamese);
+    final docUser = firestore.FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.dictionary)
+        .doc(answer);
+    bool isHavingData = await docUser.get().then((snapshot) async {
+      if (snapshot.exists) {
+        add(ChatBotResponding(
+            word: word,
+            translation: snapshot.data()?['answer'].toString() ?? ''));
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return isHavingData;
   }
 
   FutureOr<void> _chatBotResponding(
