@@ -5,6 +5,7 @@ import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../data/data.dart';
@@ -26,41 +27,21 @@ class TranslatedWordInSentenceBubble extends StatefulWidget {
 
 class _TranslatedWordInSentenceBubbleState
     extends State<TranslatedWordInSentenceBubble> {
-  final _chatGptRepository =
-      ChatGptRepositoryImplement(chatGpt: ChatGpt(apiKey: ApiKeys.openAiKey));
-  StreamSubscription<StreamCompletionResponse>? _chatStreamSubscription;
+  final gemini = Gemini.instance;
+  String answer = '';
+
   final _isLoadingStreamController = StreamController();
-  _chatStreamResponse(ChatCompletionRequest request) async {
-    _chatStreamSubscription?.cancel();
+  _chatStreamResponse(String question) async {
     _isLoadingStreamController.sink.add(true);
     try {
-      final stream =
-          await _chatGptRepository.chatGpt.createChatCompletionStream(request);
-      _chatStreamSubscription = stream?.listen(
-        (event) => setState(
-          () {
-            if (event.streamMessageEnd) {
-              _chatStreamSubscription?.cancel();
-              _isLoadingStreamController.sink.add(false);
-              // Add translated paragraph to firebase
-              _createFirebaseDatabaseItem();
-              setState(() {});
-            } else {
-              return _chatGptRepository.singleQuestionAnswer.answer.write(
-                event.choices?.first.delta?.content,
-              );
-            }
-          },
-        ),
-      );
-    } catch (error) {
-      setState(() {
-        _chatGptRepository.singleQuestionAnswer.answer.write(
-            "Error: The Diccon server is currently overloaded due to a high number of concurrent users.");
+      gemini.streamGenerateContent(question).listen((event) {
+        _isLoadingStreamController.sink.add(false);
+        setState(() {
+          answer += event.output ?? ' ';
+        });
       });
-      if (kDebugMode) {
-        print("Error occurred: $error");
-      }
+    } catch (error) {
+      DebugLog.error("Error occurred: $error");
     }
   }
 
@@ -74,39 +55,14 @@ class _TranslatedWordInSentenceBubbleState
     if (kDebugMode) {
       print("widget.message.word : ${widget.searchWord}");
     }
-    var request = await _chatGptRepository.createSingleQuestionRequest(
+    var request =
         '  Translate the English word "[${widget.searchWord}]" in this sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
         ''
-        '  Phiên âm: /[phonetic transcription in English]/'
+        '  Phiên âm: /[pronunciation in English]/'
         '  Định nghĩa: [definition in Vietnamese]'
         ''
-        '  Dịch câu: [translated sentence in Vietnamese]');
-    // create md5 from question to compare to see if that md5 is already exist in database
-    var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
-        sentence: widget.sentenceContainWord + widget.searchWord);
-    final docUser =
-        FirebaseFirestore.instance.collection("Story_v2").doc(answer);
-    await docUser.get().then((snapshot) async {
-      if (snapshot.exists) {
-        _chatGptRepository.singleQuestionAnswer.answer
-            .write(snapshot.data()?['answer'].toString());
-        setState(() {});
-      } else {
-        _chatStreamResponse(request);
-      }
-    });
-  }
-
-  Future<void> _createFirebaseDatabaseItem() async {
-    final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
-        sentence: widget.sentenceContainWord + widget.searchWord);
-    final databaseRow =
-        FirebaseFirestore.instance.collection("Story_v2").doc(answerId);
-    final json = {
-      'question': widget.sentenceContainWord,
-      'answer': _chatGptRepository.singleQuestionAnswer.answer.toString(),
-    };
-    await databaseRow.set(json);
+        '  Dịch câu: [translated sentence in Vietnamese]';
+    _chatStreamResponse(request);
   }
 
   List<Widget> _highlightWord(String text, String wordToHighlight) {
@@ -133,8 +89,8 @@ class _TranslatedWordInSentenceBubbleState
               ),
               child: Text(
                 word,
-                style: context.theme.textTheme.bodyMedium
-                    ?.copyWith(color: context.theme.colorScheme.onSurfaceVariant),
+                style: context.theme.textTheme.bodyMedium?.copyWith(
+                    color: context.theme.colorScheme.onSurfaceVariant),
               ),
             ),
           ),
@@ -157,13 +113,10 @@ class _TranslatedWordInSentenceBubbleState
   void dispose() {
     super.dispose();
     _isLoadingStreamController.close();
-    _chatStreamSubscription?.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-    final questionAnswer = _chatGptRepository.singleQuestionAnswer;
-    var answer = questionAnswer.answer.toString().trim();
     return ResponsiveApp(builder: (context) {
       return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         Padding(
@@ -184,7 +137,7 @@ class _TranslatedWordInSentenceBubbleState
                     padding: const EdgeInsets.all(12.0),
                     child: Wrap(
                       children: _highlightWord(
-                          widget.sentenceContainWord, widget.searchWord),
+                          widget.sentenceContainWord.upperCaseFirstLetter(), widget.searchWord),
                     ),
                   ),
                   Padding(
