@@ -1,13 +1,21 @@
 part of 'dictionary_bloc.dart';
 
-class DictionaryTools {
+class ChatListParams {
+  final String currentWord;
+  final List<Widget> chatList;
   final bool showTranslateFromSentence;
   final bool showSynonyms;
   final bool showAntonyms;
   final bool showRefresh;
   final bool showImage;
+  final bool showSuggestionWords;
+  final List<String> suggestionWords;
 
-  DictionaryTools({
+  ChatListParams({
+    required this.showSuggestionWords,
+    required this.suggestionWords,
+    required this.currentWord,
+    required this.chatList,
     required this.showTranslateFromSentence,
     required this.showSynonyms,
     required this.showAntonyms,
@@ -15,63 +23,53 @@ class DictionaryTools {
     required this.showImage,
   });
 
-  factory DictionaryTools.init() {
-    return DictionaryTools(
-      showTranslateFromSentence: true,
-      showSynonyms: false,
-      showAntonyms: false,
-      showRefresh: false,
-      showImage: false,
-    );
-  }
-
-  DictionaryTools copyWith({
+  ChatListParams copyWith({
+    String? currentWord,
+    List<Widget>? chatList,
     bool? showTranslateFromSentence,
     bool? showSynonyms,
     bool? showAntonyms,
     bool? showRefresh,
     bool? showImage,
+    bool? showSuggestionWords,
+    List<String>? suggestionWords,
   }) {
-    return DictionaryTools(
+    return ChatListParams(
+      currentWord: currentWord ?? this.currentWord,
+      chatList: chatList ?? this.chatList,
       showTranslateFromSentence:
           showTranslateFromSentence ?? this.showTranslateFromSentence,
       showSynonyms: showSynonyms ?? this.showSynonyms,
       showAntonyms: showAntonyms ?? this.showAntonyms,
       showRefresh: showRefresh ?? this.showRefresh,
       showImage: showImage ?? this.showImage,
+      showSuggestionWords: showSuggestionWords ?? this.showSuggestionWords,
+      suggestionWords: suggestionWords ?? this.suggestionWords,
     );
   }
 }
 
 abstract class ChatListState extends Equatable {
-  final String? currentWord;
-  final List<Widget>? chatList;
-  final DictionaryTools? tools;
+  final ChatListParams params;
 
   const ChatListState({
-    this.currentWord,
-    this.chatList,
-    this.tools,
+    required this.params,
   });
 
   @override
-  List<Object?> get props => [currentWord, chatList, tools];
+  List<Object?> get props => [params];
 }
 
 abstract class ChatListActionState extends ChatListState {
   const ChatListActionState({
-    super.currentWord,
-    super.chatList,
-    super.tools,
-  });
+    required ChatListParams params,
+  }) : super(params: params);
 }
 
 class ChatListUpdated extends ChatListState {
   const ChatListUpdated({
-    super.currentWord,
-    super.chatList,
-    super.tools,
-  });
+    required ChatListParams params,
+  }) : super(params: params);
 }
 
 class SynonymsAdded extends ChatListActionState {
@@ -79,13 +77,11 @@ class SynonymsAdded extends ChatListActionState {
 
   const SynonymsAdded({
     required this.synonyms,
-    super.currentWord,
-    super.chatList,
-    super.tools,
-  });
+    required ChatListParams params,
+  }) : super(params: params);
 
   @override
-  List<Object?> get props => [synonyms, currentWord, chatList, tools];
+  List<Object?> get props => [synonyms, params];
 }
 
 class AntonymsAdded extends ChatListActionState {
@@ -93,13 +89,11 @@ class AntonymsAdded extends ChatListActionState {
 
   const AntonymsAdded({
     required this.antonyms,
-    super.currentWord,
-    super.chatList,
-    super.tools,
-  });
+    required ChatListParams params,
+  }) : super(params: params);
 
   @override
-  List<Object?> get props => [antonyms, currentWord, chatList, tools];
+  List<Object?> get props => [antonyms, params];
 }
 
 class ImageAdded extends ChatListActionState {
@@ -107,11 +101,9 @@ class ImageAdded extends ChatListActionState {
 
   const ImageAdded({
     required this.imageUrl,
-    super.currentWord,
-    super.chatList,
-    super.tools,
-  });
+    required ChatListParams params,
+  }) : super(params: params);
 
   @override
-  List<Object?> get props => [imageUrl, currentWord, chatList, tools];
+  List<Object?> get props => [imageUrl, params];
 }

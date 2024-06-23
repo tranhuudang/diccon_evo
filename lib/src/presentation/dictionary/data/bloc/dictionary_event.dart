@@ -47,3 +47,13 @@ class ChatBotRespondingEvent extends ChatListEvent{
   final String translation;
   ChatBotRespondingEvent({required this.word, required this.translation});
 }
+
+class OpenDictionaryToolsEvent extends ChatListEvent{
+  final String word;
+  OpenDictionaryToolsEvent({required this.word});
+}
+
+class GetWordSuggestionEvent extends ChatListEvent{
+  final String word;
+  GetWordSuggestionEvent({required this.word});
+}
