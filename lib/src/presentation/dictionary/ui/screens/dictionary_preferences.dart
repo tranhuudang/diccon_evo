@@ -18,15 +18,9 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
     "Nguồn gốc",
     "Loại từ",
     "Ghi chú về cách sử dụng",
-    "Từ liên quan",
     "Từ đồng âm",
-    "Biến thể vùng miền",
-    "Bối cảnh văn hóa hoặc lịch sử",
-    "Từ tạo thành từ này",
-    "Động từ thành ngữ",
+    "Cụm động từ",
     "Viết tắt",
-    "Khái niệm liên quan",
-    "Tần suất sử dụng",
     "Lưu ý về cách sử dụng",
   ];
   List<String> listSpecializedFields = [

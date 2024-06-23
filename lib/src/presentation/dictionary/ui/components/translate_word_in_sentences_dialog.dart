@@ -27,7 +27,7 @@ class _TranslateWordInSentenceDialogState extends State<TranslateWordInSentenceD
   Widget build(BuildContext context) {
     final dictionaryBloc = context.read<ChatListBloc>();
     return AlertDialog(
-     title:  Text('Translate word from sentences'.i18n, style: context.theme.textTheme.titleMedium,),
+     title:  Text('Translate word from sentence'.i18n, style: context.theme.textTheme.titleMedium,),
       content: Form(
         key: _formKey,
         child: SizedBox(

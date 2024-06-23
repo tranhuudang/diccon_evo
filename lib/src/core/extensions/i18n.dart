@@ -41,9 +41,12 @@ extension Localization on Object {
     //   "en_us": "",
     //   "vi_vi": "",
     // },
-    "Your feedback matters! Help us improve your learning experience by sharing your thoughts. We appreciate your input and use it to make our app better for you.": {
-      "en_us": "Your feedback matters! Help us improve your learning experience by sharing your thoughts. We appreciate your input and use it to make our app better for you.",
-      "vi_vi": "Đánh giá của bạn rất quan trọng đối với chúng tôi! Hãy giúp chúng tôi cải thiện trải nghiệm học tập của bạn bằng cách chia sẻ ý kiến của bạn. Chúng tôi rất coi trọng những góp ý của bạn và sử dụng nó để làm cho ứng dụng của chúng tôi tốt hơn đối với bạn.",
+    "Your feedback matters! Help us improve your learning experience by sharing your thoughts. We appreciate your input and use it to make our app better for you.":
+        {
+      "en_us":
+          "Your feedback matters! Help us improve your learning experience by sharing your thoughts. We appreciate your input and use it to make our app better for you.",
+      "vi_vi":
+          "Đánh giá của bạn rất quan trọng đối với chúng tôi! Hãy giúp chúng tôi cải thiện trải nghiệm học tập của bạn bằng cách chia sẻ ý kiến của bạn. Chúng tôi rất coi trọng những góp ý của bạn và sử dụng nó để làm cho ứng dụng của chúng tôi tốt hơn đối với bạn.",
     },
     "Feedback": {
       "en_us": "Feedback",
@@ -464,6 +467,18 @@ extension Localization on Object {
       "en_us": "Pronunciation:",
       "vi_vi": "Phiên âm:",
     },
+    "Translate word from sentence": {
+      "en_us": "Translate word from sentence",
+      "vi_vi": "Dịch từ trong ngữ cảnh",
+    },
+    "Enter sentence": {
+      "en_us": "Enter sentence that contain the word",
+      "vi_vi": "Nhập câu chứa từ cần dịch",
+    },
+    "Enter word to translate": {
+      "en_us": "Enter word",
+      "vi_vi": "Nhập từ",
+    },
     "Capture your text": {
       "en_us": "Capture your text",
       "vi_vi": "Dịch từ hình ảnh",
@@ -516,6 +531,10 @@ extension Localization on Object {
       "en_us": "Translate now",
       "vi_vi": "Dịch ngay",
     },
+    "Translate": {
+      "en_us": "Translate",
+      "vi_vi": "Dịch",
+    },
     "Take a picture": {
       "en_us": "Take a picture",
       "vi_vi": "Dịch từ máy ảnh",
@@ -565,8 +584,10 @@ extension Localization on Object {
 
     /// Dialogue
     "dialogue_corner_welcoming": {
-      "en_us": "Welcome to our delightful English-Vietnamese dialogue corner! Dive in and discover a treasure trove of common phrases, beautifully translated between English and Vietnamese.",
-      "vi_vi": "Chào mừng bạn đến với góc đối thoại Anh-Việt thú vị của chúng tôi! Hãy khám phá kho tàng các cụm từ thông dụng, được dịch một cách hoàn hảo giữa tiếng Anh và tiếng Việt."
+      "en_us":
+          "Welcome to our delightful English-Vietnamese dialogue corner! Dive in and discover a treasure trove of common phrases, beautifully translated between English and Vietnamese.",
+      "vi_vi":
+          "Chào mừng bạn đến với góc đối thoại Anh-Việt thú vị của chúng tôi! Hãy khám phá kho tàng các cụm từ thông dụng, được dịch một cách hoàn hảo giữa tiếng Anh và tiếng Việt."
     },
     "Dialogue": {
       "en_us": "Dialogue",
@@ -858,10 +879,7 @@ extension Localization on Object {
       "en_us": "Derived Terms",
       "vi_vi": "Từ tạo thành từ này"
     },
-    "Động từ thành ngữ": {
-      "en_us": "Phrasal Verbs",
-      "vi_vi": "Động từ thành ngữ"
-    },
+    "Cụm động từ": {"en_us": "Phrasal Verbs", "vi_vi": "Cụm động từ"},
     "Viết tắt": {"en_us": "Abbreviations", "vi_vi": "Viết tắt"},
     "Khái niệm liên quan": {
       "en_us": "Related Concepts",
