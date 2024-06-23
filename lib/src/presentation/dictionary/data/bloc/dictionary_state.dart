@@ -10,6 +10,7 @@ class ChatListParams {
   final bool showImage;
   final bool showSuggestionWords;
   final List<String> suggestionWords;
+  final String imageUrl;
 
   ChatListParams({
     required this.showSuggestionWords,
@@ -21,6 +22,7 @@ class ChatListParams {
     required this.showAntonyms,
     required this.showRefresh,
     required this.showImage,
+    required this.imageUrl,
   });
 
   ChatListParams copyWith({
@@ -33,8 +35,10 @@ class ChatListParams {
     bool? showImage,
     bool? showSuggestionWords,
     List<String>? suggestionWords,
+    String? imageUrl
   }) {
     return ChatListParams(
+      imageUrl: imageUrl ?? this.imageUrl,
       currentWord: currentWord ?? this.currentWord,
       chatList: chatList ?? this.chatList,
       showTranslateFromSentence:
@@ -62,14 +66,14 @@ abstract class ChatListState extends Equatable {
 
 abstract class ChatListActionState extends ChatListState {
   const ChatListActionState({
-    required ChatListParams params,
-  }) : super(params: params);
+    required super.params,
+  });
 }
 
 class ChatListUpdated extends ChatListState {
   const ChatListUpdated({
-    required ChatListParams params,
-  }) : super(params: params);
+    required super.params,
+  });
 }
 
 class SynonymsAdded extends ChatListActionState {
@@ -77,8 +81,8 @@ class SynonymsAdded extends ChatListActionState {
 
   const SynonymsAdded({
     required this.synonyms,
-    required ChatListParams params,
-  }) : super(params: params);
+    required super.params,
+  });
 
   @override
   List<Object?> get props => [synonyms, params];
@@ -89,8 +93,8 @@ class AntonymsAdded extends ChatListActionState {
 
   const AntonymsAdded({
     required this.antonyms,
-    required ChatListParams params,
-  }) : super(params: params);
+    required super.params,
+  });
 
   @override
   List<Object?> get props => [antonyms, params];
@@ -101,8 +105,8 @@ class ImageAdded extends ChatListActionState {
 
   const ImageAdded({
     required this.imageUrl,
-    required ChatListParams params,
-  }) : super(params: params);
+    required super.params,
+  });
 
   @override
   List<Object?> get props => [imageUrl, params];

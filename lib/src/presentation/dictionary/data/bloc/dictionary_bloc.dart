@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/dictionary_bubble_definition.dart';
-import 'package:diccon_evo/src/presentation/dictionary/ui/components/safety_bubble.dart';
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/translated_word_in_sentence_result_bubble.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,22 +30,25 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           showSuggestionWords: false,
           suggestionWords: [],
           currentWord: '',
+          imageUrl: '',
         ))) {
     on<AddTranslationEvent>(_addTranslation);
     on<AddUserMessageEvent>(_addUserMessage);
     on<AddSorryMessageEvent>(_addSorryMessage);
     on<GetSynonymsEvent>(_addSynonymsList);
     on<GetAntonymsEvent>(_addAntonymsList);
-    on<GetImageEvent>(_addImage);
+    on<ShowImageEvent>(_addImage);
     on<CreateNewChatListEvent>(_createNewChatList);
     on<AddTranslateWordFromSentenceEvent>(_addTranslateWordFromSentence);
     on<ChatBotRespondingEvent>(_chatBotResponding);
     on<OpenDictionaryToolsEvent>(_openDictionaryTools);
+    on<ResetDictionaryToolsEvent>(_resetDictionaryTools);
     on<GetWordSuggestionEvent>(_getWordSuggestion);
   }
 
   final gemini = Gemini.instance;
   final ScrollController chatListController = ScrollController();
+  final ImageHandler _imageProvider = ImageHandler();
   final settingBloc = SettingBloc();
   final TextEditingController textController = TextEditingController();
   bool _isReportedAboutDisconnection = false;
@@ -55,25 +57,32 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   final suggestionWordListDb = SuggestionDatabase.instance;
   final EnglishToVietnameseDictionaryRepository dictionaryRepository =
       EnglishToVietnameseDictionaryRepositoryImpl();
+  List<String> _listAntonyms = [];
+  List<String> _listSynonyms = [];
 
   Future<void> _addImage(
-      GetImageEvent event, Emitter<ChatListState> emit) async {
-    final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
-      ..insert(0, ImageBubble(imageUrl: event.imageUrl));
-    emit(ChatListUpdated(
-      params: state.params.copyWith(chatList: updatedChatList),
-    ));
+      ShowImageEvent event, Emitter<ChatListState> emit) async {
+    if (state.params.imageUrl.isNotEmpty) {
+      final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+        ..insert(0, ImageBubble(imageUrl: state.params.imageUrl));
+      emit(ChatListUpdated(
+        params: state.params.copyWith(
+            chatList: updatedChatList, showImage: false, imageUrl: ''),
+      ));
+    }
   }
 
   void _addSynonymsList(
       GetSynonymsEvent event, Emitter<ChatListState> emit) async {
-    var listSynonyms =
-        await dictionaryRepository.getSynonyms(event.providedWord);
-    final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
-      ..insert(0, BrickWallButtons(listString: listSynonyms));
-    emit(ChatListUpdated(
-      params: state.params.copyWith(chatList: updatedChatList),
-    ));
+    if (_listSynonyms.isNotEmpty) {
+      final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+        ..insert(0, BrickWallButtons(listString: _listSynonyms));
+      emit(ChatListUpdated(
+        params: state.params
+            .copyWith(chatList: updatedChatList, showSynonyms: false),
+      ));
+      _listSynonyms = [];
+    }
   }
 
   void _addTranslateWordFromSentence(AddTranslateWordFromSentenceEvent event,
@@ -90,18 +99,20 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addAntonymsList(
       GetAntonymsEvent event, Emitter<ChatListState> emit) async {
-    var listAntonyms =
-        await dictionaryRepository.getAntonyms(event.providedWord);
-    final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
-      ..insert(
-          0,
-          BrickWallButtons(
-              textColor: Colors.orange,
-              borderColor: Colors.orangeAccent,
-              listString: listAntonyms));
-    emit(ChatListUpdated(
-      params: state.params.copyWith(chatList: updatedChatList),
-    ));
+    if (_listAntonyms.isNotEmpty) {
+      final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+        ..insert(
+            0,
+            BrickWallButtons(
+                textColor: Colors.orange,
+                borderColor: Colors.orangeAccent,
+                listString: _listAntonyms));
+      emit(ChatListUpdated(
+        params: state.params
+            .copyWith(chatList: updatedChatList, showAntonyms: false),
+      ));
+      _listAntonyms = [];
+    }
   }
 
   void _addSorryMessage(
@@ -138,6 +149,19 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   Future<void> _addTranslation(
       AddTranslationEvent event, Emitter<ChatListState> emit) async {
     {
+      textController.clear();
+
+      /// Add left bubble as user message
+      add(AddUserMessageEvent(providedWord: event.providedWord));
+
+      FocusNode textFieldFocusNode = FocusNode();
+      if (defaultTargetPlatform.isMobile()) {
+        // Remove focus out of TextField in DictionaryView
+        textFieldFocusNode.unfocus();
+      } else {
+        // On desktop we request focus, not on mobile
+        textFieldFocusNode.requestFocus();
+      }
       emit(ChatListUpdated(
           params: state.params.copyWith(showSuggestionWords: false)));
       add(OpenDictionaryToolsEvent(word: event.providedWord));
@@ -302,7 +326,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   FutureOr<void> _chatBotResponding(
       ChatBotRespondingEvent event, Emitter<ChatListState> emit) {
-    if (state.params.chatList != null && state.params.chatList!.isNotEmpty) {
+    if (state.params.chatList.isNotEmpty) {
       final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
         ..[0] = DictionaryBubbleDefinition(
             word: event.word, translation: event.translation);
@@ -349,17 +373,35 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   FutureOr<void> _openDictionaryTools(
       OpenDictionaryToolsEvent event, Emitter<ChatListState> emit) async {
     // Get list of synonyms and antonyms
-    var listSynonyms = await dictionaryRepository.getSynonyms(event.word);
-    var listAntonyms = await dictionaryRepository.getAntonyms(event.word);
+    _listSynonyms = await dictionaryRepository.getSynonyms(event.word);
+    _listAntonyms = await dictionaryRepository.getAntonyms(event.word);
 
-    var showSynonyms = listSynonyms.isNotEmpty;
-    var showAntonyms = listAntonyms.isNotEmpty;
-    print("----------------------------------$showAntonyms");
+    /// Find image to show
+    final imageUrl = await _imageProvider.getImageFromPixabay(event.word);
+    if (imageUrl.isNotEmpty) {
+      emit(ChatListUpdated(
+        params: state.params.copyWith(imageUrl: imageUrl, showImage: true),
+      ));
+    }
 
     // Emit the updated state with the new tools configuration
     emit(ChatListUpdated(
-      params: state.params
-          .copyWith(showSynonyms: showSynonyms, showAntonyms: showAntonyms),
+      params: state.params.copyWith(
+          showSynonyms: _listSynonyms.isNotEmpty,
+          showAntonyms: _listAntonyms.isNotEmpty),
+    ));
+  }
+
+  FutureOr<void> _resetDictionaryTools(
+      ResetDictionaryToolsEvent event, Emitter<ChatListState> emit) async {
+    emit(ChatListUpdated(
+      params: state.params.copyWith(
+          showSynonyms: false,
+          showAntonyms: false,
+          showSuggestionWords: false,
+          showImage: false,
+          showRefresh: false,
+          showTranslateFromSentence: true),
     ));
   }
 

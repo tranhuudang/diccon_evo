@@ -75,11 +75,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                       prefixIcon: const Icon(Icons.search),
                       hintText: "Search in dictionary".i18n,
                       onTextFieldTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DictionaryView(
-                                    word: '', buildContext: context)));
+                        context.pushNamed(RouterConstants.dictionary);
                       },
                       onSubmitted: (enteredString) {},
                     ),

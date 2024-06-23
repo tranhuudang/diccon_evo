@@ -1,8 +1,5 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:wave_divider/wave_divider.dart';
 
 import '../../../presentation.dart';
 

@@ -25,9 +25,8 @@ class GetAntonymsEvent extends ChatListEvent {
   GetAntonymsEvent({required this.providedWord, required this.itemOnPressed});
 }
 
-class GetImageEvent extends ChatListEvent {
-  final String imageUrl;
-  GetImageEvent({required this.imageUrl});
+class ShowImageEvent extends ChatListEvent {
+  ShowImageEvent();
 }
 
 class AddSorryMessageEvent extends ChatListEvent {
@@ -53,7 +52,13 @@ class OpenDictionaryToolsEvent extends ChatListEvent{
   OpenDictionaryToolsEvent({required this.word});
 }
 
+class ResetDictionaryToolsEvent extends ChatListEvent{
+  ResetDictionaryToolsEvent();
+}
+
 class GetWordSuggestionEvent extends ChatListEvent{
   final String word;
   GetWordSuggestionEvent({required this.word});
 }
+
+

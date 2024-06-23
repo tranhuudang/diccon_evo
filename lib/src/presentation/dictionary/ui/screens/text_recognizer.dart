@@ -1,5 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../presentation.dart';
@@ -11,8 +12,9 @@ class TextRecognizerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textRecognizerBloc = context.read<TextRecognizerBloc>();
+    final dictionaryChatListBloc = context.read<ChatListBloc>();
     return Scaffold(
-      appBar: AppBar(),
+        appBar: AppBar(),
         body: BlocBuilder<TextRecognizerBloc, TextRecognizerState>(
             builder: (context, state) {
           return ListView(
@@ -38,8 +40,7 @@ class TextRecognizerView extends StatelessWidget {
                       )
                     : ColorFiltered(
                         colorFilter: ColorFilter.mode(
-                            context.theme.colorScheme.primary,
-                            BlendMode.srcIn),
+                            context.theme.colorScheme.primary, BlendMode.srcIn),
                         child: Image(
                           image: AssetImage(
                               LocalDirectory.textRecognizerIllustration),
@@ -79,8 +80,7 @@ class TextRecognizerView extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(32),
                       ),
-                      child:
-                          Section(title: 'Recognized Text'.i18n, children: [
+                      child: Section(title: 'Recognized Text'.i18n, children: [
                         /// RAW result
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,22 +94,17 @@ class TextRecognizerView extends StatelessWidget {
                             SelectableText(
                                 state.params.googleTranslatedContent),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8),
                                   child: FilledButton.icon(
                                       onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DictionaryView(
-                                                        word: state.params
-                                                            .rawContent,
-                                                        buildContext:
-                                                            context)));
+                                        context.pushNamed(RouterConstants.dictionary);
+                                        dictionaryChatListBloc.add(
+                                            AddTranslationEvent(
+                                                providedWord:
+                                                    state.params.rawContent));
                                       },
                                       icon: const Icon(Icons.translate),
                                       label: Text("Send to dictionary".i18n)),

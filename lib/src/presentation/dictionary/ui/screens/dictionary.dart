@@ -1,78 +1,11 @@
 import 'package:diccon_evo/src/presentation/dictionary/ui/components/translate_word_in_sentences_dialog.dart';
-import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import '../../../../core/core.dart';
-import '../../../../data/data.dart';
-import '../../../../domain/domain.dart';
 
-class DictionaryView extends StatefulWidget {
-  final String? word;
-  final BuildContext? buildContext;
-  const DictionaryView({super.key, this.word = "", this.buildContext});
-
-  @override
-  State<DictionaryView> createState() => _DictionaryViewState();
-}
-
-class _DictionaryViewState extends State<DictionaryView> {
-  final ImageHandler _imageProvider = ImageHandler();
-  String _imageUrl = '';
-  bool _hasImages = false;
-  String _currentSearchWord = '';
-
-  void _handleSubmitted(String searchWord, BuildContext context) async {
-    _currentSearchWord = searchWord;
-    var chatListBloc = context.read<ChatListBloc>();
-    chatListBloc.textController.clear();
-
-    /// Add left bubble as user message
-    chatListBloc.add(AddUserMessageEvent(providedWord: searchWord));
-    try {
-      /// Right bubble represent machine reply
-      chatListBloc.add(
-        AddTranslationEvent(
-          providedWord: searchWord,
-        ),
-      );
-    } catch (e) {
-      if (kDebugMode) {
-        print("Exception is thrown when searching in dictionary");
-      }
-
-      /// When a word can't be found. It'll show a message to notify that error.
-      chatListBloc.add(AddSorryMessageEvent());
-    }
-    FocusNode textFieldFocusNode = FocusNode();
-    if (defaultTargetPlatform.isMobile()) {
-      // Remove focus out of TextField in DictionaryView
-      textFieldFocusNode.unfocus();
-    } else {
-      // On desktop we request focus, not on mobile
-      textFieldFocusNode.requestFocus();
-    }
-
-    /// Find image to show
-    _imageUrl = await _imageProvider.getImageFromPixabay(searchWord);
-    if (_imageUrl.isNotEmpty) {
-      setState(() {
-        _hasImages = true;
-      });
-    } else {
-      setState(() {
-        _hasImages = false;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.word != "") {
-      _handleSubmitted(widget.word!, widget.buildContext!);
-    }
-  }
+class DictionaryView extends StatelessWidget {
+  const DictionaryView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +50,11 @@ class _DictionaryViewState extends State<DictionaryView> {
                       reverse: true,
                       padding: const EdgeInsets.only(
                           top: 80, bottom: 120, left: 16, right: 16),
-                      itemCount: state.params.chatList?.length ?? 0,
+                      itemCount: state.params.chatList.length ?? 0,
                       addAutomaticKeepAlives: true,
                       controller: chatListBloc.chatListController,
                       itemBuilder: (BuildContext context, int index) {
-                        return state.params.chatList?[index];
+                        return state.params.chatList[index];
                       },
                     );
                   default:
@@ -203,7 +136,8 @@ class _DictionaryViewState extends State<DictionaryView> {
                       textColor: context.theme.colorScheme.onPrimary,
                       backgroundColor: context.theme.colorScheme.primary,
                       onPressed: (String clickedWord) {
-                        _handleSubmitted(clickedWord, context);
+                        chatListBloc.add(
+                            AddTranslationEvent(providedWord: clickedWord));
                       },
                     );
                   }).toList(),
@@ -212,9 +146,10 @@ class _DictionaryViewState extends State<DictionaryView> {
                 SuggestedItem(
                   onPressed: (String a) {
                     chatListBloc.add(GetSynonymsEvent(
-                      providedWord: _currentSearchWord,
+                      providedWord: state.params.currentWord,
                       itemOnPressed: (clickedWord) {
-                        _handleSubmitted(clickedWord, context);
+                        chatListBloc.add(
+                            AddTranslationEvent(providedWord: clickedWord));
                       },
                     ));
                   },
@@ -224,19 +159,20 @@ class _DictionaryViewState extends State<DictionaryView> {
                 SuggestedItem(
                   onPressed: (String a) {
                     chatListBloc.add(GetAntonymsEvent(
-                      providedWord: _currentSearchWord,
+                      providedWord: state.params.currentWord,
                       itemOnPressed: (clickedWord) {
-                        _handleSubmitted(clickedWord, context);
+                        chatListBloc.add(
+                            AddTranslationEvent(providedWord: clickedWord));
                       },
                     ));
                   },
                   title: 'Antonyms'.i18n,
                 ),
-              if (_hasImages)
+              if (state.params.showImage)
                 SuggestedItem(
                   title: 'Images'.i18n,
                   onPressed: (String a) {
-                    chatListBloc.add(GetImageEvent(imageUrl: _imageUrl));
+                    chatListBloc.add(ShowImageEvent());
                   },
                 ),
               SuggestedItem(
@@ -270,7 +206,8 @@ class _DictionaryViewState extends State<DictionaryView> {
               searchTextController: chatListBloc.textController,
               hintText: "Send a message".i18n,
               onSubmitted: (providedWord) {
-                _handleSubmitted(providedWord, context);
+                chatListBloc
+                    .add(AddTranslationEvent(providedWord: providedWord));
               },
               onChanged: (currentValue) async {
                 chatListBloc.add(GetWordSuggestionEvent(word: currentValue));
