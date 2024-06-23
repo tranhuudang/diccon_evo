@@ -25,13 +25,7 @@ class OpenAIKeySelector {
       ApiKeys.openAiKey = Env.openaiApiKey;
       return 1;
     }
-    // Local backup key
-    bool isBackupKeyValid = await checkApiKeyValidity(Env.openaiApiKeyBackup);
-    if (isBackupKeyValid) {
-      DebugLog.info('Using backup API Key');
-      ApiKeys.openAiKey = Env.openaiApiKeyBackup;
-      return 2;
-    }
+
     DebugLog.info('Getting key from cloud...');
     // Primary Cloud Key
     String rawPrimaryKeyFromCloud =
