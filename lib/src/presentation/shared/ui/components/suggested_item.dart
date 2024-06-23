@@ -24,7 +24,7 @@ class SuggestedItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(32),
             border: Border.all(
               width: 1,
-              color: context.theme.colorScheme.primary,
+              color: context.theme.colorScheme.secondary,
             )
           ),
           child: Padding(

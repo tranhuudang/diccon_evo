@@ -8,9 +8,10 @@ class AddUserMessageEvent extends ChatListEvent {
   AddUserMessageEvent({required this.providedWord});
 }
 
-class AddTranslationEvent extends ChatListEvent {
+class GetTranslationEvent extends ChatListEvent {
   final String providedWord;
-  AddTranslationEvent({required this.providedWord});
+  final bool? forceRegenerate;
+  GetTranslationEvent({this.forceRegenerate = false, required this.providedWord});
 }
 
 class GetSynonymsEvent extends ChatListEvent {
@@ -50,6 +51,10 @@ class ChatBotRespondingEvent extends ChatListEvent{
 class OpenDictionaryToolsEvent extends ChatListEvent{
   final String word;
   OpenDictionaryToolsEvent({required this.word});
+}
+
+class RefreshAnswerEvent extends ChatListEvent{
+  RefreshAnswerEvent();
 }
 
 class ResetDictionaryToolsEvent extends ChatListEvent{

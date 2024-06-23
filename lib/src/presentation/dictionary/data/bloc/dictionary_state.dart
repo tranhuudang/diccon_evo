@@ -6,7 +6,7 @@ class ChatListParams {
   final bool showTranslateFromSentence;
   final bool showSynonyms;
   final bool showAntonyms;
-  final bool showRefresh;
+  final bool showRefreshAnswer;
   final bool showImage;
   final bool showSuggestionWords;
   final List<String> suggestionWords;
@@ -20,7 +20,7 @@ class ChatListParams {
     required this.showTranslateFromSentence,
     required this.showSynonyms,
     required this.showAntonyms,
-    required this.showRefresh,
+    required this.showRefreshAnswer,
     required this.showImage,
     required this.imageUrl,
   });
@@ -45,7 +45,7 @@ class ChatListParams {
           showTranslateFromSentence ?? this.showTranslateFromSentence,
       showSynonyms: showSynonyms ?? this.showSynonyms,
       showAntonyms: showAntonyms ?? this.showAntonyms,
-      showRefresh: showRefresh ?? this.showRefresh,
+      showRefreshAnswer: showRefresh ?? this.showRefreshAnswer,
       showImage: showImage ?? this.showImage,
       showSuggestionWords: showSuggestionWords ?? this.showSuggestionWords,
       suggestionWords: suggestionWords ?? this.suggestionWords,

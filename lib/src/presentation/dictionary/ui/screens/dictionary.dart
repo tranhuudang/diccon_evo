@@ -128,6 +128,10 @@ class DictionaryView extends StatelessWidget {
               const SizedBox(
                 width: 16,
               ),
+              if (state.params.showRefreshAnswer)
+                IconButton.filledTonal(onPressed: (){
+                  chatListBloc.add(RefreshAnswerEvent());
+                }, icon:  const Icon(Icons.refresh)),
               if (state.params.showSuggestionWords)
                 Row(
                   children: state.params.suggestionWords.map((String word) {
@@ -137,7 +141,7 @@ class DictionaryView extends StatelessWidget {
                       backgroundColor: context.theme.colorScheme.primary,
                       onPressed: (String clickedWord) {
                         chatListBloc.add(
-                            AddTranslationEvent(providedWord: clickedWord));
+                            GetTranslationEvent(providedWord: clickedWord));
                       },
                     );
                   }).toList(),
@@ -149,7 +153,7 @@ class DictionaryView extends StatelessWidget {
                       providedWord: state.params.currentWord,
                       itemOnPressed: (clickedWord) {
                         chatListBloc.add(
-                            AddTranslationEvent(providedWord: clickedWord));
+                            GetTranslationEvent(providedWord: clickedWord));
                       },
                     ));
                   },
@@ -162,7 +166,7 @@ class DictionaryView extends StatelessWidget {
                       providedWord: state.params.currentWord,
                       itemOnPressed: (clickedWord) {
                         chatListBloc.add(
-                            AddTranslationEvent(providedWord: clickedWord));
+                            GetTranslationEvent(providedWord: clickedWord));
                       },
                     ));
                   },
@@ -207,7 +211,7 @@ class DictionaryView extends StatelessWidget {
               hintText: "Send a message".i18n,
               onSubmitted: (providedWord) {
                 chatListBloc
-                    .add(AddTranslationEvent(providedWord: providedWord));
+                    .add(GetTranslationEvent(providedWord: providedWord));
               },
               onChanged: (currentValue) async {
                 chatListBloc.add(GetWordSuggestionEvent(word: currentValue));

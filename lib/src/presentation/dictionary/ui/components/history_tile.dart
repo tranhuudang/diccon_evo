@@ -30,7 +30,7 @@ class HistoryTile extends StatelessWidget {
       child: ListTile(
         onTap: () {
           chatListBloc.add(AddUserMessageEvent(providedWord: word));
-          chatListBloc.add(AddTranslationEvent(providedWord: word));
+          chatListBloc.add(GetTranslationEvent(providedWord: word));
           Navigator.pop(context);
         },
         title: Text(

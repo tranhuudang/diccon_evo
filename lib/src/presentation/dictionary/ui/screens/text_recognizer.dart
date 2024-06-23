@@ -102,7 +102,7 @@ class TextRecognizerView extends StatelessWidget {
                                       onPressed: () {
                                         context.pushNamed(RouterConstants.dictionary);
                                         dictionaryChatListBloc.add(
-                                            AddTranslationEvent(
+                                            GetTranslationEvent(
                                                 providedWord:
                                                     state.params.rawContent));
                                       },

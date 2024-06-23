@@ -25,14 +25,14 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           showTranslateFromSentence: true,
           showSynonyms: false,
           showAntonyms: false,
-          showRefresh: false,
+          showRefreshAnswer: false,
           showImage: false,
           showSuggestionWords: false,
           suggestionWords: [],
           currentWord: '',
           imageUrl: '',
         ))) {
-    on<AddTranslationEvent>(_addTranslation);
+    on<GetTranslationEvent>(_getTranslation);
     on<AddUserMessageEvent>(_addUserMessage);
     on<AddSorryMessageEvent>(_addSorryMessage);
     on<GetSynonymsEvent>(_addSynonymsList);
@@ -44,6 +44,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<OpenDictionaryToolsEvent>(_openDictionaryTools);
     on<ResetDictionaryToolsEvent>(_resetDictionaryTools);
     on<GetWordSuggestionEvent>(_getWordSuggestion);
+    on<RefreshAnswerEvent>(_refreshAnswer);
   }
 
   final gemini = Gemini.instance;
@@ -70,6 +71,13 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
             chatList: updatedChatList, showImage: false, imageUrl: ''),
       ));
     }
+  }
+
+  Future<void> _refreshAnswer(
+      RefreshAnswerEvent event, Emitter<ChatListState> emit) async {
+    add(GetTranslationEvent(
+        providedWord: state.params.currentWord, forceRegenerate: true));
+    emit(ChatListUpdated(params: state.params.copyWith(showRefresh: false)));
   }
 
   void _addSynonymsList(
@@ -146,8 +154,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     ));
   }
 
-  Future<void> _addTranslation(
-      AddTranslationEvent event, Emitter<ChatListState> emit) async {
+  Future<void> _getTranslation(
+      GetTranslationEvent event, Emitter<ChatListState> emit) async {
     {
       textController.clear();
 
@@ -213,13 +221,22 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         emit(ChatListUpdated(
           params: state.params.copyWith(chatList: updatedChatList),
         ));
-        final isHavingData =
-            await _getFirestoreData(word: event.providedWord, lang: 'en to vi');
-        if (!isHavingData) {
+
+        /// Retrieve data from firebase if it already exists in it
+        if (event.forceRegenerate!) {
           _getGeminiResponse(
               requestQuestion: question,
               word: event.providedWord,
               lang: 'en to vi');
+        } else {
+          final isHavingData = await _getFirestoreData(
+              word: event.providedWord, lang: 'en to vi');
+          if (!isHavingData) {
+            _getGeminiResponse(
+                requestQuestion: question,
+                word: event.providedWord,
+                lang: 'en to vi');
+          }
         }
       }
 
@@ -236,10 +253,23 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           question = InAppStrings.getViToEnSingleWordTranslateQuestion(
               event.providedWord);
         }
-        _getGeminiResponse(
-            requestQuestion: question,
-            word: event.providedWord,
-            lang: 'vi to en');
+
+        /// Retrieve data from firebase if it already exists in it
+        if (event.forceRegenerate!) {
+          _getGeminiResponse(
+              requestQuestion: question,
+              word: event.providedWord,
+              lang: 'vi to en');
+        } else {
+          final isHavingData = await _getFirestoreData(
+              word: event.providedWord, lang: 'vi to en');
+          if (!isHavingData) {
+            _getGeminiResponse(
+                requestQuestion: question,
+                word: event.providedWord,
+                lang: 'vi to en');
+          }
+        }
         final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
           ..insert(
               0,
@@ -331,7 +361,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         ..[0] = DictionaryBubbleDefinition(
             word: event.word, translation: event.translation);
       emit(ChatListUpdated(
-        params: state.params.copyWith(chatList: updatedChatList),
+        params: state.params.copyWith(
+            chatList: updatedChatList,
+            showRefresh: true,
+            currentWord: event.word),
       ));
     }
   }
