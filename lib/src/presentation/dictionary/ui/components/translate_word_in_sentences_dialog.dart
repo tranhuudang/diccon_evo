@@ -57,7 +57,7 @@ class _TranslateWordInSentenceDialogState extends State<TranslateWordInSentenceD
                   child: FilledButton(
                     onPressed: (){
                       if (_formKey.currentState!.validate()) {
-                        dictionaryBloc.add(AddTranslateWordFromSentence(word: wordController.text, sentence: sentenceController.text));
+                        dictionaryBloc.add(AddTranslateWordFromSentenceEvent(word: wordController.text, sentence: sentenceController.text));
                         context.pop();
                       }
                     },

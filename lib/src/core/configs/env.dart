@@ -20,4 +20,7 @@ abstract class Env {
 
   @EnviedField(varName: 'API_MASTER_KEY', obfuscate: true)
   static final String apiMasterKey = _Env.apiMasterKey;
+
+  @EnviedField(varName: 'GEMINI_API_KEY', obfuscate: true)
+  static final String apiGeminiKey = _Env.apiGeminiKey;
 }

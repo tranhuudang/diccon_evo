@@ -38,7 +38,7 @@ class DictionaryBottomMenu extends StatelessWidget {
                                           .i18n,
                                   action: () {
                                     // TODO: we should clear suggestion resetSuggestion();
-                                    chatListBloc.add(CreateNewChatList());
+                                    chatListBloc.add(CreateNewChatListEvent());
                                     // We using Navigator.pop instead of context.pop as it causing error
                                     Navigator.pop(context);
                                   },

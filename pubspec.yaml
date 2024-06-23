@@ -2,7 +2,7 @@ name: diccon_evo
 description: A new Diccon that work on many platforms.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 6.3.2+114
+version: 7.0.0+115
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
@@ -102,6 +102,7 @@ dependencies:
   next_audio_recorder: ^1.0.1
   encrypt: ^5.0.3
   flutter_gemini: ^2.0.4
+  equatable: ^2.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -136,6 +137,6 @@ msix_config:
   publisher_display_name: Zeroboy
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
-  msix_version: 4.3.2.0
+  msix_version: 5.0.0.0
   logo_path: D:\Development\Github\diccon_evo\assets\icon.ico
   store: true

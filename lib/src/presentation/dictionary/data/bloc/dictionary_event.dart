@@ -3,47 +3,47 @@ part of 'dictionary_bloc.dart';
 @immutable
 abstract class ChatListEvent {}
 
-class AddUserMessage extends ChatListEvent {
+class AddUserMessageEvent extends ChatListEvent {
   final String providedWord;
-  AddUserMessage({required this.providedWord});
+  AddUserMessageEvent({required this.providedWord});
 }
 
-class AddTranslation extends ChatListEvent {
+class AddTranslationEvent extends ChatListEvent {
   final String providedWord;
-  AddTranslation({required this.providedWord});
+  AddTranslationEvent({required this.providedWord});
 }
 
-class AddSynonyms extends ChatListEvent {
-  final String providedWord;
-  final Function(String) itemOnPressed;
-  AddSynonyms({required this.providedWord, required this.itemOnPressed});
-}
-
-class AddAntonyms extends ChatListEvent {
+class GetSynonymsEvent extends ChatListEvent {
   final String providedWord;
   final Function(String) itemOnPressed;
-  AddAntonyms({required this.providedWord, required this.itemOnPressed});
+  GetSynonymsEvent({required this.providedWord, required this.itemOnPressed});
 }
 
-class AddImage extends ChatListEvent {
+class GetAntonymsEvent extends ChatListEvent {
+  final String providedWord;
+  final Function(String) itemOnPressed;
+  GetAntonymsEvent({required this.providedWord, required this.itemOnPressed});
+}
+
+class GetImageEvent extends ChatListEvent {
   final String imageUrl;
-  AddImage({required this.imageUrl});
+  GetImageEvent({required this.imageUrl});
 }
 
-class AddSorryMessage extends ChatListEvent {
-  AddSorryMessage();
+class AddSorryMessageEvent extends ChatListEvent {
+  AddSorryMessageEvent();
 }
 
-class CreateNewChatList extends ChatListEvent {}
+class CreateNewChatListEvent extends ChatListEvent {}
 
-class AddTranslateWordFromSentence extends ChatListEvent {
+class AddTranslateWordFromSentenceEvent extends ChatListEvent {
   final String word;
   final String sentence;
-  AddTranslateWordFromSentence({required this.word, required this.sentence});
+  AddTranslateWordFromSentenceEvent({required this.word, required this.sentence});
 }
 
-class ChatBotResponding extends ChatListEvent{
+class ChatBotRespondingEvent extends ChatListEvent{
   final String word;
   final String translation;
-  ChatBotResponding({required this.word, required this.translation});
+  ChatBotRespondingEvent({required this.word, required this.translation});
 }
