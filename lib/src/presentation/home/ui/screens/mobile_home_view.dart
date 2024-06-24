@@ -25,6 +25,8 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   static const appcastURL =
       'https://raw.githubusercontent.com/tranhuudang/diccon_evo/master/version.xml';
   final upgrader = Upgrader(
+    languageCode: 'vi',
+    debugDisplayAlways: true,
     storeController: UpgraderStoreController(
       onAndroid: () => UpgraderAppcastStore(appcastURL: appcastURL),
     ),
