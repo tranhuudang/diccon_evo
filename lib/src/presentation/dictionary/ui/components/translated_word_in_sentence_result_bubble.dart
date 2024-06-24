@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:wave_divider/wave_divider.dart';
-import '../../../../data/data.dart';
 
 class TranslatedWordInSentenceBubble extends StatefulWidget {
   final String searchWord;

@@ -1,6 +1,7 @@
+import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/peering/components/join_a_group.dart';
+import 'package:diccon_evo/src/presentation/peering/components/your_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../presentation.dart';
@@ -9,13 +10,15 @@ class CreateGroupScreen extends StatelessWidget {
   final TextEditingController groupNameController = TextEditingController();
   final TextEditingController membersController = TextEditingController();
 
+  CreateGroupScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Group'),
+        title: const Text('Create Group'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -24,13 +27,34 @@ class CreateGroupScreen extends StatelessWidget {
               children: [
                 TextField(
                   controller: groupNameController,
-                  decoration: InputDecoration(hintText: 'Group Name'),
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 16, right: 50),
+                    hintText: 'Group name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                  ),
                 ),
+                8.height,
                 TextField(
                   controller: membersController,
-                  decoration: InputDecoration(hintText: 'Member IDs (comma-separated)'),
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 16, right: 50),
+                    hintText: 'Member IDs (comma-separated)',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                  ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
@@ -46,11 +70,12 @@ class CreateGroupScreen extends StatelessWidget {
                       // Show an error message or handle empty fields
                     }
                   },
-                  child: Text('Create Group'),
+                  child: const Text('Create Group'),
                 ),
               ],
             ),
-            JoinAGroup()
+            const JoinAGroupSection(),
+            const YourIdSection()
           ],
         ),
       ),

@@ -1,18 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 import '../../presentation.dart';
-class JoinAGroup extends StatefulWidget {
-  const JoinAGroup({
+class JoinAGroupSection extends StatefulWidget {
+  const JoinAGroupSection({
     super.key,
   });
 
   @override
-  State<JoinAGroup> createState() => _JoinAGroupState();
+  State<JoinAGroupSection> createState() => _JoinAGroupSectionState();
 }
 
-class _JoinAGroupState extends State<JoinAGroup> {
+class _JoinAGroupSectionState extends State<JoinAGroupSection> {
   final TextEditingController groupJoinController = TextEditingController();
 
   @override
@@ -20,15 +19,22 @@ class _JoinAGroupState extends State<JoinAGroup> {
     return Section(
       title: 'Join a group',
       children: [
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextField(
           controller: groupJoinController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.only(left: 16, right: 50),
             hintText: 'Enter group ID',
-            border: OutlineInputBorder(),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32)),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.all(Radius.circular(32)),
+            ),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         FilledButton(
           onPressed: () async {
             String groupId = groupJoinController.text.trim();
@@ -45,12 +51,12 @@ class _JoinAGroupState extends State<JoinAGroup> {
               } else {
                 // Handle the case where the group ID doesn't exist
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Group ID not found')),
+                  const SnackBar(content: Text('Group ID not found')),
                 );
               }
             }
           },
-          child: Text('Join'),
+          child: const Text('Join'),
         ),
       ],
     );

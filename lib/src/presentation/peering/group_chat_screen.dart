@@ -8,7 +8,7 @@ class GroupChatScreen extends StatelessWidget {
   final String groupName;
   final TextEditingController messageController = TextEditingController();
 
-  GroupChatScreen({required this.groupId, required this.groupName});
+  GroupChatScreen({super.key, required this.groupId, required this.groupName});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class GroupChatScreen extends StatelessWidget {
                         builder: (context) =>
                             GroupInfoScreen(groupId: groupId, userId: userId)));
               },
-              icon: Icon(Icons.more_vert))
+              icon: const Icon(Icons.more_vert))
         ],
       ),
       body: Column(
@@ -38,8 +38,9 @@ class GroupChatScreen extends StatelessWidget {
                   .orderBy('timestamp', descending: true)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData)
-                  return Center(child: CircularProgressIndicator());
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
                 List<DocumentSnapshot> docs = snapshot.data!.docs;
 
@@ -64,13 +65,13 @@ class GroupChatScreen extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: messageController,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(left: 16, right: 50),
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 16, right: 50),
                       hintText: 'Enter a message',
-                      border: const OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(32)),
                       ),
-                      disabledBorder: const OutlineInputBorder(
+                      disabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.all(Radius.circular(32)),
                       ),
@@ -78,7 +79,7 @@ class GroupChatScreen extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
                     final userId = auth.currentUser?.uid;
@@ -105,7 +106,7 @@ class Message extends StatelessWidget {
   final String text;
   final String sender;
 
-  Message({required this.text, required this.sender});
+  const Message({super.key, required this.text, required this.sender});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:diccon_evo/src/presentation/peering/components/your_id.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../presentation.dart';
 import 'components/join_a_group.dart';
@@ -10,7 +9,7 @@ import 'group_chat_screen.dart'; // Import the new screen
 class GroupListScreen extends StatelessWidget {
   final String userId;
 
-  GroupListScreen({required this.userId});
+  const GroupListScreen({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +19,28 @@ class GroupListScreen extends StatelessWidget {
           .where('members', arrayContains: userId)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData)
-          return Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
         List<DocumentSnapshot> docs = snapshot.data!.docs;
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Groups'),
+            title: const Text('Groups'),
           ),
           body: SingleChildScrollView(
             child: Column(
               children: [
                 if (docs.isEmpty)
                   Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
                         Section(
                           title: 'Create new group',
                           children: [
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             ColorFiltered(
                               colorFilter: ColorFilter.mode(
                                   context.theme.colorScheme.primary,
@@ -51,11 +51,11 @@ class GroupListScreen extends StatelessWidget {
                                 height: 140,
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Welcome to groups, let\'s create your new group and share awesome things with your friends while you learn',
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.start,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             FilledButton(
                               onPressed: () {
                                 Navigator.push(
@@ -66,17 +66,18 @@ class GroupListScreen extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: Text('Create a new group'),
+                              child: const Text('Create a new group'),
                             ),
                           ],
                         ),
-                        JoinAGroup(),
+                        const JoinAGroupSection(),
+                        const YourIdSection(),
                       ],
                     ),
                   ),
                 if (docs.isNotEmpty)
                   ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     shrinkWrap: true,
                     children: docs.map(
                       (doc) {
@@ -116,7 +117,7 @@ class GroupListScreen extends StatelessWidget {
           ),
           floatingActionButton: docs.isNotEmpty
               ? FloatingActionButton(
-                  child: Icon(Icons.add),
+                  child: const Icon(Icons.add),
                   onPressed: () {
                     Navigator.push(
                       context,

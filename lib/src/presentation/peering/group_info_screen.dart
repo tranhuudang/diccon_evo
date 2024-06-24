@@ -1,12 +1,11 @@
 import 'package:diccon_evo/src/presentation/presentation.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GroupInfoScreen extends StatefulWidget {
   final String groupId;
   final String userId;
 
-  GroupInfoScreen({required this.groupId, required this.userId});
+  const GroupInfoScreen({super.key, required this.groupId, required this.userId});
 
   @override
   _GroupInfoScreenState createState() => _GroupInfoScreenState();
@@ -81,7 +80,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Group Info'),
+        title: const Text('Group Info'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -89,13 +88,13 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
             .doc(widget.groupId)
             .snapshots(),
         builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
 
           DocumentSnapshot groupDoc = snapshot.data!;
           List<String> members = List<String>.from(groupDoc['members']);
 
           return SingleChildScrollView(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,10 +103,10 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                   children: [
                     Row(
                       children: [
-                        Text('Group Id'),
+                        const Text('Group Id'),
 
                         TextButton.icon(
-                            icon: Icon(Icons.copy),
+                            icon: const Icon(Icons.copy),
                             onPressed: (){}, label: Text(widget.groupId)),
                       ],
                     ),
@@ -116,12 +115,12 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                       decoration: InputDecoration(
                         labelText: 'Group Name',
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.save),
+                          icon: const Icon(Icons.save),
                           onPressed: _updateGroupName,
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                   ],
                 ),
 
@@ -137,25 +136,25 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                           title: Text(memberId),
                           trailing: widget.userId != memberId
                               ? IconButton(
-                            icon: Icon(Icons.remove_circle),
+                            icon: const Icon(Icons.remove_circle),
                             onPressed: () => _removeMember(memberId),
                           )
                               : null,
                         );
                       },
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextField(
                       controller: newMemberController,
                       decoration: InputDecoration(
                         labelText: 'Add New Member ID',
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.add),
+                          icon: const Icon(Icons.add),
                           onPressed: _addMember,
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                   ],
                 ),
                 Center(
@@ -167,7 +166,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white
                     ),
-                    child: Text('Delete Group'),
+                    child: const Text('Delete Group'),
                   ),
                 ),
               ],
