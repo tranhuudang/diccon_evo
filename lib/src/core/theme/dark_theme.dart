@@ -7,7 +7,7 @@ ThemeData darkTheme({required ColorScheme colorScheme}) {
   return ThemeData(
     scaffoldBackgroundColor: Platform.isWindows ? colorScheme.surface : Colors.black,
     cardTheme: CardTheme(
-      color: Colors.grey.withOpacity(.05),
+      color: Colors.grey.withOpacity(.1),
       margin: const EdgeInsets.only(bottom: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),

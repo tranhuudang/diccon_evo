@@ -1,10 +1,14 @@
 import 'package:diccon_evo/src/presentation/home/ui/components/dialogue_tab.dart';
+import 'package:diccon_evo/src/presentation/peering/group_list_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:go_router/go_router.dart';
 import 'package:upgrader/upgrader.dart';
+
+import '../components/your_peers_tab.dart';
 
 class MobileHomeView extends StatefulWidget {
   const MobileHomeView({super.key});
@@ -18,7 +22,13 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
   int currentTabIndex = 0;
   int titleTabIndex = 0;
-  List<String> tabTitleList = ['Stories', 'Dialogue', 'Chatbot', 'Practice'];
+  List<String> tabTitleList = [
+    'Stories',
+    'Your peers',
+    'Dialogue',
+    'Chatbot',
+    'Practice'
+  ];
   final tabController = PageController();
   final scrollController = ScrollController();
 
@@ -166,6 +176,23 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                                 onTap: () {
                                   context.pushNamed(
                                       RouterConstants.readingChamber);
+                                },
+                              ),
+                              InkWell(
+                                highlightColor: Colors.transparent,
+                                child: const YourPeersTab(),
+                                onTap: () {
+                                  FirebaseAuth auth = FirebaseAuth.instance;
+                                  final userId = auth.currentUser?.uid;
+                                  if (userId?.isEmpty != null) {
+                                    // todo: navigation to your peers screen
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GroupListScreen(
+                                                    userId: userId!)));
+                                  }
                                 },
                               ),
                               InkWell(
