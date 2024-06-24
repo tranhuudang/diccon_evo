@@ -22,24 +22,46 @@ class StoryClickableWords extends StatefulWidget {
 
 class _StoryClickableWordsState extends State<StoryClickableWords> {
   // New method to find the sentence containing the clicked word
-  String getSentenceContainingWord(String clickedWord, List<String> words) {
-    for (var i = 0; i < words.length; i++) {
-      if (words[i] == clickedWord) {
-        // Find the boundaries of the sentence
-        int start = i;
-        int end = i;
-        while (start > 0 && !words[start - 1].endsWith('.')) {
-          start--;
-        }
-        while (end < words.length - 1 && !words[end].endsWith('.')) {
-          end++;
-        }
 
-        // Extract the sentence
-        return words.sublist(start, end + 1).join(' ');
-      }
+  String getSentenceContainingWord(
+      String clickedWord, List<String> words, int clickedWordIndex) {
+    bool isSentenceBoundary(String word) {
+      return (word.endsWith('.') &&
+          !word.endsWith('Mrs.') &&
+          !word.endsWith('Mr.'));
     }
-    return '';
+
+    // Ensure the clicked word at the given index matches the clicked word
+    if (clickedWordIndex < 0 ||
+        clickedWordIndex >= words.length ||
+        words[clickedWordIndex] != clickedWord) {
+      return '';
+    }
+
+    // Find the boundaries of the sentence
+    int start = clickedWordIndex;
+    int end = clickedWordIndex;
+
+    // Move backwards to find the start of the sentence
+    while (start > 0 && !isSentenceBoundary(words[start - 1])) {
+      start--;
+    }
+
+    // Move forwards to find the end of the sentence
+    while (end < words.length - 1 && !isSentenceBoundary(words[end])) {
+      end++;
+    }
+
+    // Include the end boundary word in the sentence
+    if (end < words.length && isSentenceBoundary(words[end])) {
+      end++;
+    } else if (end == words.length - 1 && !isSentenceBoundary(words[end])) {
+      // If at the end of the list and the last word is not a sentence boundary, include it
+      end++;
+    }
+
+    // Extract the sentence
+    return words.sublist(start, end).join(' ');
   }
 
   @override
@@ -57,7 +79,7 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
                         ..onTap = () {
                           if (widget.onWordTap != null) {
                             String sentence =
-                                getSentenceContainingWord(words[i], words);
+                                getSentenceContainingWord(words[i], words, i);
                             widget.onWordTap!(words[i], sentence);
                             // New: Get the sentence and do something with it
                             if (kDebugMode) {
@@ -80,7 +102,7 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
                       ..onTap = () {
                         if (widget.onWordTap != null) {
                           String sentence =
-                              getSentenceContainingWord(words[i], words);
+                              getSentenceContainingWord(words[i], words, i);
                           widget.onWordTap!(words[i], sentence);
                           if (kDebugMode) {
                             print(
