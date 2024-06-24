@@ -103,6 +103,7 @@ dependencies:
   encrypt: ^5.0.3
   flutter_gemini: ^2.0.4
   equatable: ^2.0.5
+  upgrader: ^10.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
