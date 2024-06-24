@@ -95,6 +95,7 @@ class CreateGroupScreen extends StatelessWidget {
       'text': 'Welcome to $groupName!',
       'sender': 'System',
       'timestamp': FieldValue.serverTimestamp(),
+      'isFile': false
     });
   }
 }

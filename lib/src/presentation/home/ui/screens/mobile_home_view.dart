@@ -170,16 +170,14 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                             },
                             controller: tabController,
                             children: [
-                              InkWell(
-                                highlightColor: Colors.transparent,
+                              GestureDetector(
                                 child: const StoriesTab(),
                                 onTap: () {
                                   context.pushNamed(
                                       RouterConstants.readingChamber);
                                 },
                               ),
-                              InkWell(
-                                highlightColor: Colors.transparent,
+                              GestureDetector(
                                 child: const YourPeersTab(),
                                 onTap: () {
                                   FirebaseAuth auth = FirebaseAuth.instance;
@@ -195,22 +193,19 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                                   }
                                 },
                               ),
-                              InkWell(
-                                highlightColor: Colors.transparent,
+                              GestureDetector(
                                 child: const DialogueTab(),
                                 onTap: () {
                                   context.pushNamed(RouterConstants.dialogue);
                                 },
                               ),
-                              InkWell(
-                                highlightColor: Colors.transparent,
+                              GestureDetector(
                                 child: const ChatbotTab(),
                                 onTap: () {
                                   context.pushNamed(RouterConstants.chatbot);
                                 },
                               ),
-                              InkWell(
-                                highlightColor: Colors.transparent,
+                              GestureDetector(
                                 child: const PracticeTab(),
                                 onTap: () {
                                   context

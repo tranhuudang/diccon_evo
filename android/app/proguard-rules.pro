@@ -7,3 +7,4 @@
 -keep class io.flutter.plugins.**  { *; }
 -keep public class com.google.firebase.** {*;}
 -keep class com.google.android.gms.internal.** {*;}
+-keep class androidx.lifecycle.DefaultLifecycleObserver

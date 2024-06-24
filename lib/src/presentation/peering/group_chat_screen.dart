@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/presentation/peering/group_info_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
 class GroupChatScreen extends StatelessWidget {
   final String groupId;
@@ -48,6 +53,7 @@ class GroupChatScreen extends StatelessWidget {
                     .map((doc) => Message(
                           text: doc['text'],
                           sender: doc['sender'],
+                          isFile: doc['isFile'] ?? false,
                         ))
                     .toList();
 
@@ -62,6 +68,34 @@ class GroupChatScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.attach_file),
+                  onPressed: () async {
+                    // Request storage permission
+                    PermissionStatus status =
+                    await Permission.storage.request();
+
+                    if (status.isGranted) {
+                      FilePickerResult? result =
+                      await FilePicker.platform.pickFiles();
+
+                      if (result != null) {
+                        PlatformFile file = result.files.first;
+                        if (file.size <= 10 * 1024 * 1024) {
+                          // 10MB limit
+                          await uploadFile(file, groupId);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    'File size exceeds 10MB limit. Please select a smaller file.')),
+                          );
+                        }
+                      }
+                    }
+                  },
+                ),
+                
                 Expanded(
                   child: TextField(
                     controller: messageController,
@@ -86,11 +120,10 @@ class GroupChatScreen extends StatelessWidget {
                     if (userId?.isEmpty != null) {
                       if (messageController.text.isNotEmpty) {
                         await sendMessage(groupId, messageController.text,
-                            auth.currentUser?.displayName ?? 'Anonymous'); // Replace 'User' with actual user ID
+                            auth.currentUser?.displayName ?? 'Anonymous');
                         messageController.clear();
                       }
                     }
-
                   },
                 ),
               ],
@@ -100,28 +133,61 @@ class GroupChatScreen extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> uploadFile(PlatformFile file, String groupId) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child('ChatFiles').child(file.name);
+    UploadTask uploadTask = ref.putFile(File(file.path!));
+
+    final TaskSnapshot taskSnapshot = await uploadTask;
+    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    await sendMessage(groupId, downloadUrl,
+        FirebaseAuth.instance.currentUser?.displayName ?? 'Anonymous',
+        isFile: true);
+  }
 }
 
 class Message extends StatelessWidget {
   final String text;
   final String sender;
+  final bool isFile;
 
-  const Message({super.key, required this.text, required this.sender});
+  const Message(
+      {super.key,
+      required this.text,
+      required this.sender,
+      this.isFile = false});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(sender),
-      subtitle: Text(text),
+      subtitle: isFile
+          ? InkWell(
+              child: Text('File: $text', style: TextStyle(color: Colors.blue)),
+              onTap: () => launchURL(text),
+            )
+          : Text(text),
     );
+  }
+
+  void launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
-Future<void> sendMessage(String groupId, String text, String senderId) async {
+Future<void> sendMessage(String groupId, String text, String senderId,
+    {bool isFile = false}) async {
   await FirebaseFirestore.instance.collection('Messages').add({
     'group_id': groupId,
     'text': text,
     'sender': senderId,
     'timestamp': FieldValue.serverTimestamp(),
+    'isFile': isFile,
   });
 }
