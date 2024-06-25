@@ -98,7 +98,10 @@ class CreateGroupScreen extends StatelessWidget {
       'senderName': 'System',
       'senderId': 'System',
       'timestamp': FieldValue.serverTimestamp(),
-      'isFile': false
+      'isImage': false,
+      'isVideo': false,
+      'isFile': false,
+      'isAudio': false,
     });
   }
 }

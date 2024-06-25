@@ -1,9 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/presentation/dictionary/dictionary.dart';
+import 'package:diccon_evo/src/presentation/peering/components/file_bubble.dart';
+import 'package:diccon_evo/src/presentation/peering/components/video_bubble.dart';
 import 'package:diccon_evo/src/presentation/peering/data/bloc/group_bloc.dart';
 import 'package:diccon_evo/src/presentation/peering/group_info_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wave_divider/wave_divider.dart';
+import '../presentation.dart';
 import 'components/group_bubble.dart';
 
 class GroupChatScreen extends StatelessWidget {
@@ -61,19 +67,30 @@ class GroupChatScreen extends StatelessWidget {
 
                     List<DocumentSnapshot> docs = snapshot.data!.docs;
 
-                    List<Widget> messages = docs
-                        .map((doc) => Message(
-                              text: doc['text'],
-                              isFile: doc['isFile'] ?? false,
-                              senderId: doc['senderId'],
-                              senderName: doc['senderName'],
-                            ))
-                        .toList();
-
-                    return ListView(
+                    return ListView.builder(
+                      addAutomaticKeepAlives: true,
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       reverse: true,
-                      children: messages,
+                      itemCount: docs.length,
+                      itemBuilder: (context, index) {
+                        var doc = docs[index];
+                        return doc['isImage']
+                            ? ImageBubble(imageUrl: doc['text'])
+                            : doc['isVideo']
+                                ? VideoBubble(videoUrl: doc['text'])
+                                : doc['isAudio']
+                                    ?
+                                    // audio
+                                    Container()
+                                    : doc['isFile']
+                                        ? FileBubble(downloadUrl: doc['text'])
+                                        : GroupTextMessageBubble(
+                                            text: doc['text'],
+                                            isFile: doc['isImage'] ?? false,
+                                            senderId: doc['senderId'],
+                                            senderName: doc['senderName'],
+                                          );
+                      },
                     );
                   },
                 ),
@@ -83,13 +100,70 @@ class GroupChatScreen extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     state.params.isUploadingAttachFile
-                        ? const CircularProgressIndicator()
+                        ? SizedBox(width: 50, height: 50, child: const CircularProgressIndicator())
                         : IconButton(
-                            icon: const Icon(Icons.attach_file),
-                            onPressed: () async {
-                              groupChatBloc.add(SendAttachFileEvent(groupId));
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return SizedBox(
+                                        height: 260,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: ListView(
+                                            //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              ListTile(
+                                                leading:
+                                                    const Icon(Icons.image),
+                                                title: Text('Add Image'.i18n),
+                                                onTap: () {
+                                                  groupChatBloc.add(
+                                                      AddImageEvent(groupId));
+                                                  // We using Navigator.pop instead of context.pop as it causing error
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              ListTile(
+                                                leading: const Icon(Icons
+                                                    .video_collection_outlined),
+                                                title: Text('Add Video'.i18n),
+                                                onTap: () {
+                                                  groupChatBloc.add(
+                                                      AddVideoEvent(groupId));
+
+                                                  // We using Navigator.pop instead of context.pop as it causing error
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              ListTile(
+                                                leading: const Icon(
+                                                    Icons.audio_file_outlined),
+                                                title: Text('Add Audio'.i18n),
+                                                onTap: () {
+                                                  groupChatBloc.add(
+                                                      AddAudioEvent(groupId));
+                                                  // We using Navigator.pop instead of context.pop as it causing error
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              ListTile(
+                                                leading: const Icon(
+                                                    Icons.attach_file),
+                                                title: Text('Add File'.i18n),
+                                                onTap: () {
+                                                  groupChatBloc.add(
+                                                      AddFileEvent(groupId));
+                                                  // We using Navigator.pop instead of context.pop as it causing error
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ));
+                                  });
                             },
-                          ),
+                            icon: const Icon(Icons.add_circle_outline)),
                     Expanded(
                       child: TextField(
                         controller: groupChatBloc.messageController,
@@ -124,13 +198,13 @@ class GroupChatScreen extends StatelessWidget {
   }
 }
 
-class Message extends StatelessWidget {
+class GroupTextMessageBubble extends StatelessWidget {
   final String text;
   final String senderId;
   final String senderName;
   final bool isFile;
 
-  const Message(
+  const GroupTextMessageBubble(
       {super.key,
       required this.text,
       required this.senderId,
