@@ -7,9 +7,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 
-import 'components/guest_bubble.dart';
+import 'components/group_bubble.dart';
 
 class GroupChatScreen extends StatelessWidget {
   final String groupId;

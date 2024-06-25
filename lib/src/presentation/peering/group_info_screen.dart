@@ -1,5 +1,7 @@
+import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
 class GroupInfoScreen extends StatefulWidget {
   final String groupId;
@@ -110,15 +112,29 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                             onPressed: (){}, label: Text(widget.groupId)),
                       ],
                     ),
-                    TextField(
-                      controller: groupNameController,
-                      decoration: InputDecoration(
-                        labelText: 'Group Name',
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.save),
-                          onPressed: _updateGroupName,
+                    Row(
+                      children: [
+                        Text('Group name'),
+                        8.width,
+                        Expanded(
+                          child: TextField(
+                            controller: groupNameController,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.only(left: 16, right: 50),
+                              hintText: 'Enter a message',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        8.width,
+                        FilledButton(onPressed: _updateGroupName, child: Text('Update'))
+                      ],
                     ),
                     const SizedBox(height: 16),
                   ],
@@ -133,7 +149,8 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                       itemBuilder: (context, index) {
                         String memberId = members[index];
                         return ListTile(
-                          title: Text(memberId),
+                          title: widget.userId == memberId ? Text('You'): Text(memberId),
+                          leading: Text('${index + 1}'),
                           trailing: widget.userId != memberId
                               ? IconButton(
                             icon: const Icon(Icons.remove_circle),
@@ -144,15 +161,28 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                       },
                     ),
                     const SizedBox(height: 16),
-                    TextField(
-                      controller: newMemberController,
-                      decoration: InputDecoration(
-                        labelText: 'Add New Member ID',
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: _addMember,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: newMemberController,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.only(left: 16, right: 50),
+                              hintText: 'Add a new member ID',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        8.width,
+                        FilledButton(onPressed: _addMember, child: Text('Add')),
+                        
+                      ],
                     ),
                     const SizedBox(height: 16),
                   ],

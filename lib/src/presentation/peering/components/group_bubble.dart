@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/peering/components/video_webview.dart';
+import 'package:diccon_evo/src/presentation/shared/ui/utils/border_radius_missing.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:http/http.dart' as http;
@@ -68,14 +69,8 @@ class _GroupUserBubbleState extends State<GroupUserBubble> {
                 minWidth: 30.sw,
               ),
               decoration: BoxDecoration(
-                color: context.theme.colorScheme.secondary,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
-                  topRight: Radius.circular(0.0),
-                  bottomLeft: Radius.circular(16.0),
-                  bottomRight: Radius.circular(16.0),
-                ),
-              ),
+                  color: context.theme.colorScheme.secondary,
+                  borderRadius: BorderRadiusMissing.topRight),
               child: widget.isFile
                   ? _isLoading
                       ? const SizedBox(
@@ -86,12 +81,7 @@ class _GroupUserBubbleState extends State<GroupUserBubble> {
                           ? Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(16.0),
-                                    topRight: Radius.circular(0.0),
-                                    bottomLeft: Radius.circular(16.0),
-                                    bottomRight: Radius.circular(16.0),
-                                  ),
+                                  borderRadius: BorderRadiusMissing.topRight,
                                   child: CachedNetworkImage(
                                       imageUrl: widget.text)),
                             )
@@ -214,12 +204,7 @@ class _GroupGuestBubbleState extends State<GroupGuestBubble> {
                 ),
                 decoration: BoxDecoration(
                   color: context.theme.colorScheme.secondaryContainer,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(0.0),
-                    topRight: Radius.circular(16.0),
-                    bottomLeft: Radius.circular(16.0),
-                    bottomRight: Radius.circular(16.0),
-                  ),
+                  borderRadius: BorderRadiusMissing.topLeft,
                 ),
                 child: widget.isFile
                     ? _isLoading
@@ -231,12 +216,7 @@ class _GroupGuestBubbleState extends State<GroupGuestBubble> {
                             ? Padding(
                                 padding: const EdgeInsets.all(2.0),
                                 child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(16.0),
-                                      topRight: Radius.circular(0.0),
-                                      bottomLeft: Radius.circular(16.0),
-                                      bottomRight: Radius.circular(16.0),
-                                    ),
+                                    borderRadius: BorderRadiusMissing.topLeft,
                                     child: CachedNetworkImage(
                                         imageUrl: widget.text)),
                               )
@@ -246,16 +226,15 @@ class _GroupGuestBubbleState extends State<GroupGuestBubble> {
                                     child: TextButton.icon(
                                       icon: Icon(
                                         Icons.play_circle,
-                                        color: context
-                                            .theme.colorScheme.onSurface,
+                                        color:
+                                            context.theme.colorScheme.onSurface,
                                       ),
                                       onPressed: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                VideoWebView(
-                                                    url: widget.text),
+                                                VideoWebView(url: widget.text),
                                           ),
                                         );
                                       },
@@ -264,8 +243,8 @@ class _GroupGuestBubbleState extends State<GroupGuestBubble> {
                                         style: context
                                             .theme.textTheme.labelLarge
                                             ?.copyWith(
-                                                color: context.theme
-                                                    .colorScheme.onSurface),
+                                                color: context.theme.colorScheme
+                                                    .onSurface),
                                       ),
                                     ),
                                   )
