@@ -7,7 +7,7 @@ import 'package:diccon_evo/src/presentation/peering/group_info_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../presentation.dart';
-import 'components/group_bubble.dart';
+import 'components/text_bubble.dart';
 
 class GroupChatScreen extends StatelessWidget {
   final String groupId;
@@ -72,20 +72,27 @@ class GroupChatScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var doc = docs[index];
                         return doc['isImage']
-                            ? ImageBubble(imageUrl: doc['text'])
+                            ? ImageBubble(
+                                imageUrl: doc['text'],
+                                senderId: doc['senderId'],
+                              )
                             : doc['isVideo']
-                                ? VideoBubble(videoUrl: doc['text'])
+                                ? VideoBubble(
+                                    videoUrl: doc['text'],
+                                    senderId: doc['senderId'],
+                                  )
                                 : doc['isAudio']
                                     ?
                                     // audio
                                     Container()
                                     : doc['isFile']
-                                        ? FileBubble(downloadUrl: doc['text'])
-                                        : GroupTextMessageBubble(
-                                            text: doc['text'],
-                                            isFile: doc['isImage'] ?? false,
+                                        ? FileBubble(
+                                            downloadUrl: doc['text'],
                                             senderId: doc['senderId'],
-                                            senderName: doc['senderName'],
+                                          )
+                                        : TextBubble(
+                                            text: doc['text'],
+                                            senderId: doc['senderId'],
                                           );
                       },
                     );
@@ -97,7 +104,10 @@ class GroupChatScreen extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     state.params.isUploadingAttachFile
-                        ? const SizedBox(width: 50, height: 50, child: CircularProgressIndicator())
+                        ? const SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator())
                         : IconButton(
                             onPressed: () {
                               showModalBottomSheet(
@@ -163,6 +173,10 @@ class GroupChatScreen extends StatelessWidget {
                             icon: const Icon(Icons.add_circle_outline)),
                     Expanded(
                       child: TextField(
+                        onSubmitted: (String text){
+                          groupChatBloc
+                              .add(SendTextMessageEvent(groupId: groupId));
+                        },
                         controller: groupChatBloc.messageController,
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(left: 16, right: 50),
@@ -177,13 +191,6 @@ class GroupChatScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: () {
-                        groupChatBloc
-                            .add(SendTextMessageEvent(groupId: groupId));
-                      },
-                    ),
                   ],
                 ),
               ),
@@ -192,39 +199,5 @@ class GroupChatScreen extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class GroupTextMessageBubble extends StatelessWidget {
-  final String text;
-  final String senderId;
-  final String senderName;
-  final bool isFile;
-
-  const GroupTextMessageBubble(
-      {super.key,
-      required this.text,
-      required this.senderId,
-      required this.senderName,
-      this.isFile = false});
-
-  @override
-  Widget build(BuildContext context) {
-    if (senderId == FirebaseAuth.instance.currentUser!.uid) {
-      return GroupUserBubble(
-        text: text,
-        senderId: senderId,
-        senderName: senderName,
-        isFile: isFile,
-      );
-    } else {
-      return GroupGuestBubble(
-        onTap: () {},
-        text: text,
-        senderId: senderId,
-        senderName: senderName,
-        isFile: isFile,
-      );
-    }
   }
 }

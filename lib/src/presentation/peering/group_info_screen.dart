@@ -186,17 +186,22 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                     const SizedBox(height: 16),
                   ],
                 ),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: (){
+                Section(
+                  title: 'Manage group',
+                  children: [
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: (){
 
-                      _deleteGroup();},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white
+                          _deleteGroup();},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white
+                        ),
+                        child: const Text('Delete Group'),
+                      ),
                     ),
-                    child: const Text('Delete Group'),
-                  ),
+                  ],
                 ),
               ],
             ),

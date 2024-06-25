@@ -1,23 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class FileBubble extends StatefulWidget {
+class FileBubble extends StatelessWidget {
   final String downloadUrl;
+  final String senderId;
   const FileBubble({
     super.key,
     required this.downloadUrl,
+    required this.senderId,
   });
 
-  @override
-  State<FileBubble> createState() => _FileBubbleState();
-}
-
-class _FileBubbleState extends State<FileBubble> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: FirebaseAuth.instance.currentUser!.uid == senderId
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: [
           Container(
               constraints: BoxConstraints(
@@ -30,14 +30,21 @@ class _FileBubbleState extends State<FileBubble> {
                     BorderRadius.circular(8), // Replace BorderRadiusMissing
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Implement download functionality
-                  },
-                  child: const Text('Download'),
-                ),
-              )),
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton.icon(
+                    icon: Icon(
+                      Icons.download_for_offline_outlined,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    onPressed: () {
+                      // Implement download functionality
+                    },
+                    label: Text(
+                      'Download',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary),
+                    ),
+                  )))
         ],
       ),
     );
