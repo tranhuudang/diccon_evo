@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 class VideoWebView extends StatefulWidget {
   final String url;
-
   const VideoWebView({super.key, required this.url});
 
   @override

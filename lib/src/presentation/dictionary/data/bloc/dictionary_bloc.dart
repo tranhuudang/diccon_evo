@@ -65,7 +65,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       ShowImageEvent event, Emitter<ChatListState> emit) async {
     if (state.params.imageUrl.isNotEmpty) {
       final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
-        ..insert(0, ImageBubble(imageUrl: state.params.imageUrl));
+        ..insert(0, DictionaryImageBubble(imageUrl: state.params.imageUrl));
       emit(ChatListUpdated(
         params: state.params.copyWith(
             chatList: updatedChatList, showImage: false, imageUrl: ''),

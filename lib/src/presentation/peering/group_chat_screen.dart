@@ -7,6 +7,7 @@ import 'package:diccon_evo/src/presentation/peering/group_info_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../presentation.dart';
+import 'components/image_bubble.dart';
 import 'components/text_bubble.dart';
 
 class GroupChatScreen extends StatelessWidget {
@@ -75,11 +76,13 @@ class GroupChatScreen extends StatelessWidget {
                             ? ImageBubble(
                                 imageUrl: doc['text'],
                                 senderId: doc['senderId'],
+                                senderName: doc['senderName'],
                               )
                             : doc['isVideo']
                                 ? VideoBubble(
                                     videoUrl: doc['text'],
                                     senderId: doc['senderId'],
+                                    senderName: doc['senderName'],
                                   )
                                 : doc['isAudio']
                                     ?
@@ -89,10 +92,12 @@ class GroupChatScreen extends StatelessWidget {
                                         ? FileBubble(
                                             downloadUrl: doc['text'],
                                             senderId: doc['senderId'],
+                                            senderName: doc['senderName'],
                                           )
                                         : TextBubble(
                                             text: doc['text'],
                                             senderId: doc['senderId'],
+                                            senderName: doc['senderName'],
                                           );
                       },
                     );
@@ -173,7 +178,7 @@ class GroupChatScreen extends StatelessWidget {
                             icon: const Icon(Icons.add_circle_outline)),
                     Expanded(
                       child: TextField(
-                        onSubmitted: (String text){
+                        onSubmitted: (String text) {
                           groupChatBloc
                               .add(SendTextMessageEvent(groupId: groupId));
                         },
