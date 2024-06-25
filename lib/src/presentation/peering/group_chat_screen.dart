@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/presentation/dictionary/dictionary.dart';
 import 'package:diccon_evo/src/presentation/peering/components/file_bubble.dart';
 import 'package:diccon_evo/src/presentation/peering/components/video_bubble.dart';
 import 'package:diccon_evo/src/presentation/peering/data/bloc/group_bloc.dart';
 import 'package:diccon_evo/src/presentation/peering/group_info_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wave_divider/wave_divider.dart';
 import '../presentation.dart';
 import 'components/group_bubble.dart';
 
@@ -69,7 +66,7 @@ class GroupChatScreen extends StatelessWidget {
 
                     return ListView.builder(
                       addAutomaticKeepAlives: true,
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       reverse: true,
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
@@ -100,7 +97,7 @@ class GroupChatScreen extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     state.params.isUploadingAttachFile
-                        ? SizedBox(width: 50, height: 50, child: const CircularProgressIndicator())
+                        ? const SizedBox(width: 50, height: 50, child: CircularProgressIndicator())
                         : IconButton(
                             onPressed: () {
                               showModalBottomSheet(

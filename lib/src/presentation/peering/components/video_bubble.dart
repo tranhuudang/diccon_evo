@@ -1,7 +1,6 @@
 import 'package:diccon_evo/src/presentation/peering/components/video_webview.dart';
 import 'package:flutter/material.dart';
 
-import 'group_bubble.dart';
 
 class VideoBubble extends StatelessWidget {
   final String videoUrl;

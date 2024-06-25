@@ -35,7 +35,7 @@ class _FileBubbleState extends State<FileBubble> {
                   onPressed: () {
                     // Implement download functionality
                   },
-                  child: Text('Download'),
+                  child: const Text('Download'),
                 ),
               )),
         ],

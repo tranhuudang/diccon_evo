@@ -3,7 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class VideoWebView extends StatefulWidget {
   final String url;
 
-  const VideoWebView({required this.url});
+  const VideoWebView({super.key, required this.url});
 
   @override
   State<VideoWebView> createState() => _VideoWebViewState();
@@ -23,7 +23,7 @@ class _VideoWebViewState extends State<VideoWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Video Player')),
+      appBar: AppBar(title: const Text('Video Player')),
       body:  WebViewWidget(
         controller: _controller,
       ),

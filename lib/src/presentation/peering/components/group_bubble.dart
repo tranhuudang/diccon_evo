@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:cached_network_image/cached_network_image.dart';
 
 class GroupUserBubble extends StatefulWidget {
   final String text;
@@ -126,13 +123,13 @@ class _GroupUserBubbleState extends State<GroupUserBubble> {
                               onPressed: () {
                                 // Implement download functionality
                               },
-                              child: Text('Download'),
+                              child: const Text('Download'),
                             ),
                           );
                         }
                       } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        return const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Text('Error loading file'),
                         );
                       }
@@ -279,7 +276,7 @@ class _GroupGuestBubbleState extends State<GroupGuestBubble> {
                                       onPressed: () {
                                         // Implement download functionality
                                       },
-                                      child: Text('Download'),
+                                      child: const Text('Download'),
                                     ),
                                   )
                     : Padding(

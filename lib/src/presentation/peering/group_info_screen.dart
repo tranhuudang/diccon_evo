@@ -1,7 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
 
 class GroupInfoScreen extends StatefulWidget {
   final String groupId;
@@ -114,7 +113,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                     ),
                     Row(
                       children: [
-                        Text('Group name'),
+                        const Text('Group name'),
                         8.width,
                         Expanded(
                           child: TextField(
@@ -133,7 +132,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                           ),
                         ),
                         8.width,
-                        FilledButton(onPressed: _updateGroupName, child: Text('Update'))
+                        FilledButton(onPressed: _updateGroupName, child: const Text('Update'))
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -149,7 +148,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                       itemBuilder: (context, index) {
                         String memberId = members[index];
                         return ListTile(
-                          title: widget.userId == memberId ? Text('You'): Text(memberId),
+                          title: widget.userId == memberId ? const Text('You'): Text(memberId),
                           leading: Text('${index + 1}'),
                           trailing: widget.userId != memberId
                               ? IconButton(
@@ -180,7 +179,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                           ),
                         ),
                         8.width,
-                        FilledButton(onPressed: _addMember, child: Text('Add')),
+                        FilledButton(onPressed: _addMember, child: const Text('Add')),
                         
                       ],
                     ),
