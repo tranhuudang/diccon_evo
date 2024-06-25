@@ -83,9 +83,11 @@ class CreateGroupScreen extends StatelessWidget {
   }
 
   Future<void> createGroup(String groupName, List<String> members) async {
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     DocumentReference groupRef = await FirebaseFirestore.instance.collection('Groups').add({
       'name': groupName,
       'members': members,
+      'creator': userId,
       'created_at': FieldValue.serverTimestamp(),
     });
 
@@ -93,7 +95,8 @@ class CreateGroupScreen extends StatelessWidget {
     await FirebaseFirestore.instance.collection('Messages').add({
       'group_id': groupRef.id,
       'text': 'Welcome to $groupName!',
-      'sender': 'System',
+      'senderName': 'System',
+      'senderId': 'System',
       'timestamp': FieldValue.serverTimestamp(),
       'isFile': false
     });

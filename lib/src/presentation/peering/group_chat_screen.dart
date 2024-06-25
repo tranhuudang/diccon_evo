@@ -7,6 +7,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
+
+import 'components/guest_bubble.dart';
 
 class GroupChatScreen extends StatelessWidget {
   final String groupId;
@@ -52,12 +55,14 @@ class GroupChatScreen extends StatelessWidget {
                 List<Widget> messages = docs
                     .map((doc) => Message(
                           text: doc['text'],
-                          sender: doc['sender'],
                           isFile: doc['isFile'] ?? false,
+                          senderId: doc['senderId'],
+                          senderName: doc['senderName'],
                         ))
                     .toList();
 
                 return ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   reverse: true,
                   children: messages,
                 );
@@ -73,11 +78,11 @@ class GroupChatScreen extends StatelessWidget {
                   onPressed: () async {
                     // Request storage permission
                     PermissionStatus status =
-                    await Permission.storage.request();
+                        await Permission.storage.request();
 
                     if (status.isGranted) {
                       FilePickerResult? result =
-                      await FilePicker.platform.pickFiles();
+                          await FilePicker.platform.pickFiles();
 
                       if (result != null) {
                         PlatformFile file = result.files.first;
@@ -95,7 +100,6 @@ class GroupChatScreen extends StatelessWidget {
                     }
                   },
                 ),
-                
                 Expanded(
                   child: TextField(
                     controller: messageController,
@@ -119,8 +123,14 @@ class GroupChatScreen extends StatelessWidget {
                     final userId = auth.currentUser?.uid;
                     if (userId?.isEmpty != null) {
                       if (messageController.text.isNotEmpty) {
-                        await sendMessage(groupId, messageController.text,
-                            auth.currentUser?.displayName ?? 'Anonymous');
+                        await sendMessage(
+                          groupId: groupId,
+                          text: messageController.text,
+                          senderName:
+                              auth.currentUser?.displayName ?? 'Anonymous',
+                          senderId:
+                              FirebaseAuth.instance.currentUser?.uid ?? '',
+                        );
                         messageController.clear();
                       }
                     }
@@ -142,34 +152,48 @@ class GroupChatScreen extends StatelessWidget {
     final TaskSnapshot taskSnapshot = await uploadTask;
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-    await sendMessage(groupId, downloadUrl,
-        FirebaseAuth.instance.currentUser?.displayName ?? 'Anonymous',
+    await sendMessage(
+        groupId: groupId,
+        text: downloadUrl,
+        senderName:
+            FirebaseAuth.instance.currentUser?.displayName ?? 'Anonymous',
+        senderId: FirebaseAuth.instance.currentUser?.uid ?? '',
         isFile: true);
   }
 }
 
 class Message extends StatelessWidget {
   final String text;
-  final String sender;
+  final String senderId;
+  final String senderName;
   final bool isFile;
 
   const Message(
       {super.key,
       required this.text,
-      required this.sender,
+      required this.senderId,
+      required this.senderName,
       this.isFile = false});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(sender),
-      subtitle: isFile
-          ? InkWell(
-              child: Text('File: $text', style: TextStyle(color: Colors.blue)),
-              onTap: () => launchURL(text),
-            )
-          : Text(text),
-    );
+    if (senderId == FirebaseAuth.instance.currentUser!.uid) {
+      return GroupUserBubble(
+        text: text,
+        senderId: senderId,
+        senderName: senderName,
+        isFile: isFile,
+      );
+    } else {
+      return GroupGuestBubble(
+        onTap: () {},
+        text: text,
+        senderId: senderId,
+        senderName: senderName,
+        isFile: isFile,
+      );
+
+    }
   }
 
   void launchURL(String url) async {
@@ -181,12 +205,17 @@ class Message extends StatelessWidget {
   }
 }
 
-Future<void> sendMessage(String groupId, String text, String senderId,
-    {bool isFile = false}) async {
+Future<void> sendMessage(
+    {required String groupId,
+    required String text,
+    required String senderId,
+    required String senderName,
+    bool isFile = false}) async {
   await FirebaseFirestore.instance.collection('Messages').add({
     'group_id': groupId,
     'text': text,
-    'sender': senderId,
+    'senderId': senderId,
+    'senderName': senderName,
     'timestamp': FieldValue.serverTimestamp(),
     'isFile': isFile,
   });
