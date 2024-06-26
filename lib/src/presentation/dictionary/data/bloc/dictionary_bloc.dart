@@ -345,7 +345,12 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       if (snapshot.exists) {
         add(ChatBotRespondingEvent(
             word: word,
-            translation: snapshot.data()?['answer'].toString() ?? ''));
+            translation: snapshot
+                    .data()?['answer']
+                    .toString()
+                    .replaceAll('[', '')
+                    .replaceAll(']', '') ??
+                ''));
         return true;
       } else {
         return false;

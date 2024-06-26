@@ -18,12 +18,10 @@ class BottomSheetTranslation extends StatefulWidget {
       required this.sentenceContainWord});
 
   @override
-  State<BottomSheetTranslation> createState() =>
-      _BottomSheetTranslationState();
+  State<BottomSheetTranslation> createState() => _BottomSheetTranslationState();
 }
 
-class _BottomSheetTranslationState
-    extends State<BottomSheetTranslation> {
+class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   final _isLoadingStreamController = StreamController();
   bool _isEditing = false;
   bool _isEditor = false;
@@ -57,7 +55,7 @@ class _BottomSheetTranslationState
     _checkIfSentenceTranslationOnFirestore();
   }
 
-  _checkIfWordDefinitionOnFirestore() async{
+  _checkIfWordDefinitionOnFirestore() async {
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord + widget.searchWord);
@@ -67,7 +65,12 @@ class _BottomSheetTranslationState
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         setState(() {
-          wordDefinitionAnswer = snapshot.data()?['answer'].toString() ?? '';
+          wordDefinitionAnswer = snapshot
+                  .data()?['answer']
+                  .toString()
+                  .replaceAll('[', '')
+                  .replaceAll(']', '') ??
+              '';
         });
       } else {
         _getGeminiAnswerForWord();
@@ -75,7 +78,7 @@ class _BottomSheetTranslationState
     });
   }
 
-  _checkIfSentenceTranslationOnFirestore() async{
+  _checkIfSentenceTranslationOnFirestore() async {
     // create md5 from question to compare to see if that md5 is already exist in database
     var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
         sentence: widget.sentenceContainWord);
@@ -85,7 +88,8 @@ class _BottomSheetTranslationState
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         setState(() {
-          sentenceTranslationAnswer = snapshot.data()?['answer'].toString() ?? '';
+          sentenceTranslationAnswer =
+              snapshot.data()?['answer'].toString() ?? '';
         });
       } else {
         _getGeminiAnswerForSentence();
@@ -125,9 +129,8 @@ class _BottomSheetTranslationState
           sentenceTranslationAnswer += value.output!;
         });
       }).onDone(() {
-        sentenceTranslationAnswer = sentenceTranslationAnswer
-            .replaceAll('[', '')
-            .replaceAll(']', '');
+        sentenceTranslationAnswer =
+            sentenceTranslationAnswer.replaceAll('[', '').replaceAll(']', '');
         _createFirebaseDatabaseItemForSentence();
       });
     } catch (e) {
@@ -309,7 +312,8 @@ class _BottomSheetTranslationState
                               setState(() {
                                 _isEditing = false;
                               });
-                              wordDefinitionAnswer = _editingController.text.trim();
+                              wordDefinitionAnswer =
+                                  _editingController.text.trim();
                               _updateFirebaseDatabaseItem(wordDefinitionAnswer);
                               sentenceTranslationAnswer =
                                   _editingControllerForSentence.text.trim();
