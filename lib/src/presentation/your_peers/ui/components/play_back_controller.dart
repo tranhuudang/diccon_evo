@@ -5,9 +5,7 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:wavy_slider/wavy_slider.dart';
 
 class PlayBackController extends StatefulWidget {
@@ -74,7 +72,7 @@ class _PlayBackControllerState extends State<PlayBackController> {
           return Row(
             children: [
               _isLoading
-                  ? LinearProgressIndicator()
+                  ? const LinearProgressIndicator()
                   : notPlayingAndNotPausing
                       ? buildPlayButton()
                       : Row(

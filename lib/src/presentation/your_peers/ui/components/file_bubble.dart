@@ -36,18 +36,18 @@ class FileBubble extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('File Already Downloaded'),
+                title: const Text('File Already Downloaded'),
                 content: Text('The file has already been downloaded to:\n$filePath'),
                 actions: [
                   TextButton(
-                    child: Text('Open'),
+                    child: const Text('Open'),
                     onPressed: () {
                       OpenFile.open(filePath);
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text('OK'),
+                    child: const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -80,7 +80,7 @@ class FileBubble extends StatelessWidget {
     } else {
       // Show a permission denied message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Storage permission denied')),
+        const SnackBar(content: Text('Storage permission denied')),
       );
     }
   }

@@ -10,12 +10,12 @@ class AudioBubble extends StatelessWidget {
   final String senderName;
 
   const AudioBubble({
-    Key? key,
+    super.key,
     required this.audioUrl,
     required this.senderId,
     required this.senderName,
     required this.fileName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class AudioBubble extends StatelessWidget {
                     : MainAxisAlignment.start,
             children: [
               Container(
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 235,
                   minWidth: 235,
                 ),
