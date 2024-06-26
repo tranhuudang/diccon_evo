@@ -57,15 +57,22 @@ class CreateGroupScreen extends StatelessWidget {
                   onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
                     String groupName = groupNameController.text.trim();
-                    List<String> members = membersController.text.trim().split(',');
-                    print('uid');
-                    print(auth.currentUser?.uid );
+                    List<String> members = membersController.text.trim().isEmpty
+                        ? []
+                        : membersController.text.trim().split(',').map((e) => e.trim()).toList();
+
+                    // Insert current user's ID if not already present
                     members.insert(0, auth.currentUser?.uid ?? '');
+
+                    // Filter out any empty strings from members
+                    members = members.where((member) => member.isNotEmpty).toList();
+
                     if (groupName.isNotEmpty && members.isNotEmpty) {
                       await createGroup(groupName, members);
                       Navigator.pop(context); // Return to the previous screen
                     } else {
                       // Show an error message or handle empty fields
+                      // For example, ScaffoldMessenger.of(context).showSnackBar(...)
                     }
                   },
                   child: const Text('Create Group'),
