@@ -5,3 +5,4 @@ export 'text_bubble.dart';
 export 'video_bubble.dart';
 export 'video_webview.dart';
 export 'your_id.dart';
+export 'audio_bubble.dart';

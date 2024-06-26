@@ -1,7 +1,7 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import '../components/components.dart';
 import '../../../presentation.dart';
 
 class CreateGroupScreen extends StatelessWidget {

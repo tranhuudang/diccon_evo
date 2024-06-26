@@ -89,7 +89,7 @@ class InAppStrings {
               '[Part of speech of the word "[${word.trim()}]"] in English';
         } else if (topic.trim() == 'Ghi chú về cách sử dụng' ||
             topic.trim() == 'Usage Notes') {
-          listString += '' 
+          listString += ''
               '● ${topic.trim()}'
               '[Part of speech of the word "[${word.trim()}]"] in English';
         } else if (topic.trim() == 'Từ đồng âm' || topic.trim() == 'Homonyms') {

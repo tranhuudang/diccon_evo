@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'components.dart';
 
 class VideoBubble extends StatelessWidget {
+  final String fileName;
   final String senderId;
   final String videoUrl;
   final String senderName;
@@ -11,7 +12,7 @@ class VideoBubble extends StatelessWidget {
   const VideoBubble({
     super.key,
     required this.videoUrl,
-    required this.senderId, required this.senderName,
+    required this.senderId, required this.senderName, required this.fileName,
   });
 
   @override
@@ -59,9 +60,9 @@ class VideoBubble extends StatelessWidget {
                       );
                     },
                     label: Text(
-                      'Watch video',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary),
+                      '${'Watch'.i18n} $fileName',
+                      style: context.theme.textTheme.labelLarge?.copyWith(
+                          color: context.theme.colorScheme.onPrimary),
                     ),
                   ),
                 ),

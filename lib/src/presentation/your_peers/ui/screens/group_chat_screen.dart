@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/presentation/your_peers/ui/components/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../presentation.dart';
+import '../components/components.dart';
 
 class GroupChatScreen extends StatelessWidget {
   final String groupId;
@@ -66,33 +68,45 @@ class GroupChatScreen extends StatelessWidget {
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
                         var doc = docs[index];
-                        return doc['isImage']
-                            ? ImageBubble(
-                                imageUrl: doc['text'],
-                                senderId: doc['senderId'],
-                                senderName: doc['senderName'],
-                              )
-                            : doc['isVideo']
-                                ? VideoBubble(
-                                    videoUrl: doc['text'],
-                                    senderId: doc['senderId'],
-                                    senderName: doc['senderName'],
-                                  )
-                                : doc['isAudio']
-                                    ?
-                                    // audio
-                                    Container()
-                                    : doc['isFile']
-                                        ? FileBubble(
-                                            downloadUrl: doc['text'],
-                                            senderId: doc['senderId'],
-                                            senderName: doc['senderName'],
-                                          )
-                                        : TextBubble(
-                                            text: doc['text'],
-                                            senderId: doc['senderId'],
-                                            senderName: doc['senderName'],
-                                          );
+                        if (doc['isImage']) {
+                          return ImageBubble(
+                            imageUrl: doc['text'],
+                            senderId: doc['senderId'],
+                            senderName: doc['senderName'],
+                          );
+                        }
+                        if (doc['isVideo']) {
+                          final fileName = extractFileName(doc['text']);
+                          return VideoBubble(
+                            fileName: fileName,
+                            videoUrl: doc['text'],
+                            senderId: doc['senderId'],
+                            senderName: doc['senderName'],
+                          );
+                        }
+                        if (doc['isFile']) {
+                          final fileName = extractFileName(doc['text']);
+                          return FileBubble(
+                            fileName: fileName,
+                            downloadUrl: doc['text'],
+                            senderId: doc['senderId'],
+                            senderName: doc['senderName'],
+                          );
+                        }
+                        if (doc['isAudio']) {
+                          final fileName = extractFileName(doc['text']);
+                          return AudioBubble(
+                            fileName: fileName,
+                            audioUrl: doc['text'],
+                            senderId: doc['senderId'],
+                            senderName: doc['senderName'],
+                          );
+                        }
+                        return TextBubble(
+                          text: doc['text'],
+                          senderId: doc['senderId'],
+                          senderName: doc['senderName'],
+                        );
                       },
                     );
                   },

@@ -106,6 +106,7 @@ dependencies:
   upgrader: ^10.3.0
   file_picker: ^8.0.5
   webview_flutter: ^4.8.0
+  open_file_plus: ^3.4.1+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

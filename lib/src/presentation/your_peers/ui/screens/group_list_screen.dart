@@ -1,6 +1,7 @@
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../presentation.dart';
+import '../components/components.dart';
 
 class GroupListScreen extends StatelessWidget {
   final String userId;
