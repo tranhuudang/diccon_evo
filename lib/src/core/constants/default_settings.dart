@@ -11,6 +11,7 @@ class DefaultSettings{
   static const dictionaryResponseVietnameseConstant= 'Phiên âm, Định nghĩa, Ví dụ';
   static const dictionaryResponseEnglishConstant = 'Pronunciation, Definition, Examples';
   static final Settings settings = Settings(
+    dictionaryEngine: DictionaryEngine.stream.name,
     numberOfSynonyms: 10,
     numberOfAntonyms: 10,
     readingFontSize: 16,

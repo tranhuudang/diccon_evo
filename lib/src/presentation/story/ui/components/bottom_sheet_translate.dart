@@ -88,8 +88,12 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         setState(() {
-          sentenceTranslationAnswer =
-              snapshot.data()?['answer'].toString() ?? '';
+          sentenceTranslationAnswer = snapshot
+                  .data()?['answer']
+                  .toString()
+                  .replaceAll('[', '')
+                  .replaceAll(']', '') ??
+              '';
         });
       } else {
         _getGeminiAnswerForSentence();
@@ -104,14 +108,26 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         'Định nghĩa: [definition in Vietnamese]';
 
     try {
-      gemini.streamGenerateContent(question).listen((value) {
+      // gemini.streamGenerateContent(question).listen((value) {
+      //   setState(() {
+      //     wordDefinitionAnswer += value.output!;
+      //   });
+      // }).onDone(() {
+      //   wordDefinitionAnswer =
+      //       wordDefinitionAnswer.replaceAll('[', '').replaceAll(']', '');
+      //   _createFirebaseDatabaseItemForWord();
+      // });
+      gemini.text(question).then((onValue) {
         setState(() {
-          wordDefinitionAnswer += value.output!;
+          wordDefinitionAnswer = onValue?.output ?? '';
+          wordDefinitionAnswer =
+              wordDefinitionAnswer.replaceAll('[', '').replaceAll(']', '');
         });
-      }).onDone(() {
-        wordDefinitionAnswer =
-            wordDefinitionAnswer.replaceAll('[', '').replaceAll(']', '');
-        _createFirebaseDatabaseItemForWord();
+
+        _createFirebaseDatabaseItemForWord(
+            word: widget.searchWord,
+            sentenceContainWord: widget.sentenceContainWord,
+            translatedWord: wordDefinitionAnswer);
       });
     } catch (e) {
       print(e);
@@ -123,15 +139,30 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     final question =
         'Translate the English sentence "[${widget.sentenceContainWord}]" to Vietnamese and provide the response in the following format:'
         '[translated sentence in Vietnamese]';
+
+    /// Type 1
     try {
-      gemini.streamGenerateContent(question).listen((value) {
+      /// Type 1
+      // gemini.streamGenerateContent(question).listen((value) {
+      //   setState(() {
+      //     sentenceTranslationAnswer += value.output!;
+      //   });
+      // }).onDone(() {
+      //   sentenceTranslationAnswer =
+      //       sentenceTranslationAnswer.replaceAll('[', '').replaceAll(']', '');
+      //   _createFirebaseDatabaseItemForSentence();
+      // });
+      /// Type 2
+      gemini.text(question).then((onValue) {
         setState(() {
-          sentenceTranslationAnswer += value.output!;
+          sentenceTranslationAnswer = onValue?.output ?? '';
+          sentenceTranslationAnswer =
+              sentenceTranslationAnswer.replaceAll('[', '').replaceAll(']', '');
         });
-      }).onDone(() {
-        sentenceTranslationAnswer =
-            sentenceTranslationAnswer.replaceAll('[', '').replaceAll(']', '');
-        _createFirebaseDatabaseItemForSentence();
+
+        _createFirebaseDatabaseItemForSentence(
+            sentence: widget.sentenceContainWord,
+            translatedSentence: sentenceTranslationAnswer);
       });
     } catch (e) {
       print(e);
@@ -139,29 +170,33 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     }
   }
 
-  Future<void> _createFirebaseDatabaseItemForWord() async {
+  Future<void> _createFirebaseDatabaseItemForWord(
+      {required String word,
+      required String sentenceContainWord,
+      required String translatedWord}) async {
     final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
-        sentence: widget.sentenceContainWord + widget.searchWord);
+        sentence: sentenceContainWord + word);
     final databaseRow = FirebaseFirestore.instance
         .collection(FirebaseConstant.firestore.story)
         .doc(answerId);
     final json = {
       'question':
-          "${widget.searchWord.upperCaseFirstLetter()} - in the sentence: ${widget.sentenceContainWord}",
-      'answer': wordDefinitionAnswer,
+          "${word.upperCaseFirstLetter()} - in the sentence: ${sentenceContainWord}",
+      'answer': translatedWord,
     };
     await databaseRow.set(json);
   }
 
-  Future<void> _createFirebaseDatabaseItemForSentence() async {
-    final answerId = Md5Generator.composeMd5IdForStoryFirebaseDb(
-        sentence: widget.sentenceContainWord);
+  Future<void> _createFirebaseDatabaseItemForSentence(
+      {required String sentence, required String translatedSentence}) async {
+    final answerId =
+        Md5Generator.composeMd5IdForStoryFirebaseDb(sentence: sentence);
     final databaseRow = FirebaseFirestore.instance
         .collection(FirebaseConstant.firestore.story)
         .doc(answerId);
     final json = {
-      'question': widget.sentenceContainWord,
-      'answer': sentenceTranslationAnswer,
+      'question': sentence,
+      'answer': translatedSentence,
     };
     await databaseRow.set(json);
   }

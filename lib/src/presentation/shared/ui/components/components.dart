@@ -9,7 +9,6 @@ export 'rectangle_button.dart';
 export 'search_box.dart';
 export 'section.dart';
 export 'suggested_item.dart';
-export 'switch_translation_bar.dart';
 export 'tips_box.dart';
 export 'voice_listening_bottom_sheet.dart';
 export 'word_meaning.dart';

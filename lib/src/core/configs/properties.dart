@@ -40,6 +40,8 @@ class Properties {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setDouble(
         SharedPreferencesKey.readingFontSize, newSetting.readingFontSize);
+    await prefs.setString(
+        SharedPreferencesKey.dictionaryEngine, newSetting.dictionaryEngine);
     await prefs.setDouble(SharedPreferencesKey.readingFontSizeSliderValue,
         newSetting.readingFontSizeSliderValue);
     await prefs.setInt(
@@ -81,6 +83,7 @@ class Properties {
     var prefs = await SharedPreferences.getInstance();
     complete.complete(prefs);
     var savedSetting = settings.copyWith(
+
       readingFontSize: prefs.getDouble(SharedPreferencesKey.readingFontSize) ??
           settings.readingFontSize,
       openAppCount: prefs.getInt(SharedPreferencesKey.openAppCount) ??
@@ -95,6 +98,8 @@ class Properties {
           settings.numberOfSynonyms,
       numberOfAntonyms: prefs.getInt(SharedPreferencesKey.numberOfAntonyms) ??
           settings.numberOfAntonyms,
+      dictionaryEngine: prefs.getString(SharedPreferencesKey.dictionaryEngine) ??
+          settings.dictionaryEngine,
       language:
           prefs.getString(SharedPreferencesKey.language) ?? settings.language,
       dictionaryResponseSelectedListVietnamese: prefs.getString(
@@ -124,6 +129,7 @@ class Properties {
     );
     if (kDebugMode) {
       print("New setting is saved with these bellow customs:");
+      print("DictionaryEngine: ${settings.dictionaryEngine}");
       print("numberOfSynonyms: ${settings.numberOfSynonyms}");
       print("numberOfAntonyms: ${settings.numberOfAntonyms}");
       print("numberOfEssentialLeft: ${settings.numberOfEssentialLeft}");

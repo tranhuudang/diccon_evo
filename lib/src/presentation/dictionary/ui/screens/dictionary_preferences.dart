@@ -2,6 +2,8 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../domain/entities/settings/settings.dart';
+
 class DictionaryPreferences extends StatefulWidget {
   const DictionaryPreferences({super.key});
 
@@ -50,7 +52,7 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
     "Hàng hải",
     "Giao thông vận tải",
   ];
-
+  DictionaryEngine? _selectedEngine = DictionaryEngine.stream;
   @override
   void initState() {
     super.initState();
@@ -81,8 +83,13 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
               }
             },
             builder: (context, state) {
+              final dictionaryPrefBloc =
+                  context.read<DictionaryPreferencesBloc>();
               return Column(
                 children: [
+                  Section(title: 'Engine'.i18n, children: [
+                    
+                  ]),
                   Section(
                     title: "Customize the AI response format.".i18n,
                     children: [
@@ -142,7 +149,8 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                             if (state.listSelectedVietnamese.contains(item)) {
                               isSelected = true;
                             }
-                            if (DefaultSettings.dictionaryResponseEnglishConstant
+                            if (DefaultSettings
+                                    .dictionaryResponseEnglishConstant
                                     .contains(item) ||
                                 DefaultSettings
                                     .dictionaryResponseVietnameseConstant
@@ -190,9 +198,10 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                               label: Text(item.i18n),
                               selected: isSelected,
                               onSelected: (selected) {
-                                if (state.listSelectedVietnamese.contains(item)) {
-                                  dictionaryPreferencesBloc
-                                      .add(RemoveItemInList(itemToRemove: item));
+                                if (state.listSelectedVietnamese
+                                    .contains(item)) {
+                                  dictionaryPreferencesBloc.add(
+                                      RemoveItemInList(itemToRemove: item));
                                 } else {
                                   dictionaryPreferencesBloc.add(
                                       AddItemToSelectedList(itemToAdd: item));

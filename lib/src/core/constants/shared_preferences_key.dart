@@ -1,5 +1,6 @@
 class SharedPreferencesKey {
   static String get readingFontSize => 'readingFontSize';
+  static String get dictionaryEngine => 'dictionaryEngine';
   static String get dictionaryResponseType => 'dictionaryResponseType';
   static String get translationChoice => 'translationChoice';
   static String get readingFontSizeSliderValue => 'readingFontSizeSliderValue';

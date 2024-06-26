@@ -287,29 +287,37 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       {required String requestQuestion,
       required String word,
       required String lang}) {
-    gemini.streamGenerateContent(requestQuestion, safetySettings: [
-      SafetySetting(
-          category: SafetyCategory.dangerous,
-          threshold: SafetyThreshold.blockNone),
-      SafetySetting(
-          category: SafetyCategory.harassment,
-          threshold: SafetyThreshold.blockNone),
-      SafetySetting(
-          category: SafetyCategory.hateSpeech,
-          threshold: SafetyThreshold.blockNone),
-      SafetySetting(
-          category: SafetyCategory.sexuallyExplicit,
-          threshold: SafetyThreshold.blockNone)
-    ]).listen((event) {
-      DebugLog.info('Gemini finish reason: ${event.finishReason}');
-      currentResponseContent += event.output ?? ' ';
-      add(ChatBotRespondingEvent(
-          translation: currentResponseContent, word: word));
-    }).onDone(() {
-      _createFirebaseDatabaseItem(
-          lang: lang, word: word, translation: currentResponseContent);
-      currentResponseContent = '';
-    });
+    // gemini.streamGenerateContent(requestQuestion, safetySettings: [
+    //   SafetySetting(
+    //       category: SafetyCategory.dangerous,
+    //       threshold: SafetyThreshold.blockNone),
+    //   SafetySetting(
+    //       category: SafetyCategory.harassment,
+    //       threshold: SafetyThreshold.blockNone),
+    //   SafetySetting(
+    //       category: SafetyCategory.hateSpeech,
+    //       threshold: SafetyThreshold.blockNone),
+    //   SafetySetting(
+    //       category: SafetyCategory.sexuallyExplicit,
+    //       threshold: SafetyThreshold.blockNone)
+    // ]).listen((event) {
+    //   DebugLog.info('Gemini finish reason: ${event.finishReason}');
+    //   currentResponseContent += event.output ?? ' ';
+    //   add(ChatBotRespondingEvent(
+    //       translation: currentResponseContent, word: word));
+    // }).onDone(() {
+    //   _createFirebaseDatabaseItem(
+    //       lang: lang, word: word, translation: currentResponseContent);
+    //   currentResponseContent = '';
+    // });
+    try {
+      gemini.text(requestQuestion).then((onValue) {
+        add(ChatBotRespondingEvent(
+            translation: onValue?.output ?? '', word: word));
+      });
+    } catch (e) {
+      DebugLog.error(e.toString());
+    }
   }
 
   Future<void> _createFirebaseDatabaseItem(

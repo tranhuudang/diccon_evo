@@ -22,13 +22,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
   int currentTabIndex = 0;
   int titleTabIndex = 0;
-  List<String> tabTitleList = [
-    'Stories',
-    // todo: remove comment when we release this function 'Your peers',
-    'Dialogue',
-    'Chatbot',
-    'Practice'
-  ];
+  late List<String> tabTitleList;
   final tabController = PageController();
   final scrollController = ScrollController();
 
@@ -44,6 +38,22 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode){
+      tabTitleList = [
+        'Stories',
+        'Your peers',
+        'Dialogue',
+        'Chatbot',
+        'Practice'
+      ];
+    } else {
+      tabTitleList = [
+        'Stories',
+        'Dialogue',
+        'Chatbot',
+        'Practice'
+      ];
+    }
     Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
     Color statusBarColor = systemBrightness == Brightness.light
         ? Colors.white

@@ -49,6 +49,9 @@ mixin _$Settings {
   String get dictionaryResponseSelectedListVietnamese =>
       throw _privateConstructorUsedError;
 
+  /// Stream for fast, timeBomb for slow
+  String get dictionaryEngine => throw _privateConstructorUsedError;
+
   /// Custom for response in dictionary
   String get dictionaryResponseSelectedListEnglish =>
       throw _privateConstructorUsedError;
@@ -94,6 +97,7 @@ abstract class $SettingsCopyWith<$Res> {
       double readingFontSizeSliderValue,
       String language,
       String dictionaryResponseSelectedListVietnamese,
+      String dictionaryEngine,
       String dictionaryResponseSelectedListEnglish,
       String translationLanguageTarget,
       double windowsWidth,
@@ -126,6 +130,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? readingFontSizeSliderValue = null,
     Object? language = null,
     Object? dictionaryResponseSelectedListVietnamese = null,
+    Object? dictionaryEngine = null,
     Object? dictionaryResponseSelectedListEnglish = null,
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
@@ -175,6 +180,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
               dictionaryResponseSelectedListVietnamese
           ? _value.dictionaryResponseSelectedListVietnamese
           : dictionaryResponseSelectedListVietnamese // ignore: cast_nullable_to_non_nullable
+              as String,
+      dictionaryEngine: null == dictionaryEngine
+          ? _value.dictionaryEngine
+          : dictionaryEngine // ignore: cast_nullable_to_non_nullable
               as String,
       dictionaryResponseSelectedListEnglish: null ==
               dictionaryResponseSelectedListEnglish
@@ -227,6 +236,7 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       double readingFontSizeSliderValue,
       String language,
       String dictionaryResponseSelectedListVietnamese,
+      String dictionaryEngine,
       String dictionaryResponseSelectedListEnglish,
       String translationLanguageTarget,
       double windowsWidth,
@@ -257,6 +267,7 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? readingFontSizeSliderValue = null,
     Object? language = null,
     Object? dictionaryResponseSelectedListVietnamese = null,
+    Object? dictionaryEngine = null,
     Object? dictionaryResponseSelectedListEnglish = null,
     Object? translationLanguageTarget = null,
     Object? windowsWidth = null,
@@ -307,6 +318,10 @@ class __$$SettingImplCopyWithImpl<$Res>
           ? _value.dictionaryResponseSelectedListVietnamese
           : dictionaryResponseSelectedListVietnamese // ignore: cast_nullable_to_non_nullable
               as String,
+      dictionaryEngine: null == dictionaryEngine
+          ? _value.dictionaryEngine
+          : dictionaryEngine // ignore: cast_nullable_to_non_nullable
+              as String,
       dictionaryResponseSelectedListEnglish: null ==
               dictionaryResponseSelectedListEnglish
           ? _value.dictionaryResponseSelectedListEnglish
@@ -354,6 +369,7 @@ class _$SettingImpl implements _Setting {
       required this.readingFontSizeSliderValue,
       required this.language,
       required this.dictionaryResponseSelectedListVietnamese,
+      required this.dictionaryEngine,
       required this.dictionaryResponseSelectedListEnglish,
       required this.translationLanguageTarget,
       required this.windowsWidth,
@@ -404,6 +420,10 @@ class _$SettingImpl implements _Setting {
   @override
   final String dictionaryResponseSelectedListVietnamese;
 
+  /// Stream for fast, timeBomb for slow
+  @override
+  final String dictionaryEngine;
+
   /// Custom for response in dictionary
   @override
   final String dictionaryResponseSelectedListEnglish;
@@ -436,7 +456,7 @@ class _$SettingImpl implements _Setting {
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, themeColor: $themeColor, selectedTab: $selectedTab, continueWithoutLogin: $continueWithoutLogin)';
+    return 'Settings(themeMode: $themeMode, numberOfSynonyms: $numberOfSynonyms, numberOfAntonyms: $numberOfAntonyms, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, readingFontSize: $readingFontSize, numberOfEssentialLeft: $numberOfEssentialLeft, readingFontSizeSliderValue: $readingFontSizeSliderValue, language: $language, dictionaryResponseSelectedListVietnamese: $dictionaryResponseSelectedListVietnamese, dictionaryEngine: $dictionaryEngine, dictionaryResponseSelectedListEnglish: $dictionaryResponseSelectedListEnglish, translationLanguageTarget: $translationLanguageTarget, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, themeColor: $themeColor, selectedTab: $selectedTab, continueWithoutLogin: $continueWithoutLogin)';
   }
 
   @override
@@ -468,6 +488,8 @@ class _$SettingImpl implements _Setting {
                     dictionaryResponseSelectedListVietnamese) ||
                 other.dictionaryResponseSelectedListVietnamese ==
                     dictionaryResponseSelectedListVietnamese) &&
+            (identical(other.dictionaryEngine, dictionaryEngine) ||
+                other.dictionaryEngine == dictionaryEngine) &&
             (identical(other.dictionaryResponseSelectedListEnglish,
                     dictionaryResponseSelectedListEnglish) ||
                 other.dictionaryResponseSelectedListEnglish ==
@@ -499,6 +521,7 @@ class _$SettingImpl implements _Setting {
       readingFontSizeSliderValue,
       language,
       dictionaryResponseSelectedListVietnamese,
+      dictionaryEngine,
       dictionaryResponseSelectedListEnglish,
       translationLanguageTarget,
       windowsWidth,
@@ -526,6 +549,7 @@ abstract class _Setting implements Settings {
       required final double readingFontSizeSliderValue,
       required final String language,
       required final String dictionaryResponseSelectedListVietnamese,
+      required final String dictionaryEngine,
       required final String dictionaryResponseSelectedListEnglish,
       required final String translationLanguageTarget,
       required final double windowsWidth,
@@ -576,6 +600,10 @@ abstract class _Setting implements Settings {
 
   /// Custom for response in dictionary
   String get dictionaryResponseSelectedListVietnamese;
+  @override
+
+  /// Stream for fast, timeBomb for slow
+  String get dictionaryEngine;
   @override
 
   /// Custom for response in dictionary

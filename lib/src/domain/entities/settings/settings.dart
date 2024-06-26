@@ -25,6 +25,8 @@ class Settings with _$Settings {
     required String language,
     /// Custom for response in dictionary
     required String dictionaryResponseSelectedListVietnamese,
+    /// Stream for fast, timeBomb for slow
+    required String dictionaryEngine,
     /// Custom for response in dictionary
     required String dictionaryResponseSelectedListEnglish,
     /// Save target translate language with defined language in , currently support:
