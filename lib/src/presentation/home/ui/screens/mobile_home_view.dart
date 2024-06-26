@@ -1,5 +1,6 @@
 import 'package:diccon_evo/src/presentation/home/ui/components/dialogue_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
@@ -176,22 +177,23 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                                       RouterConstants.readingChamber);
                                 },
                               ),
-                              GestureDetector(
-                                child: const YourPeersTab(),
-                                onTap: () {
-                                  FirebaseAuth auth = FirebaseAuth.instance;
-                                  final userId = auth.currentUser?.uid;
-                                  if (userId?.isEmpty != null) {
-                                    // todo: navigation to your peers screen
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                GroupListScreen(
-                                                    userId: userId!)));
-                                  }
-                                },
-                              ),
+                              if (kDebugMode)
+                                GestureDetector(
+                                  child: const YourPeersTab(),
+                                  onTap: () {
+                                    FirebaseAuth auth = FirebaseAuth.instance;
+                                    final userId = auth.currentUser?.uid;
+                                    if (userId?.isEmpty != null) {
+                                      // todo: navigation to your peers screen
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  GroupListScreen(
+                                                      userId: userId!)));
+                                    }
+                                  },
+                                ),
                               GestureDetector(
                                 child: const DialogueTab(),
                                 onTap: () {

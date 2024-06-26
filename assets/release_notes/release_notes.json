@@ -1,5 +1,15 @@
 [
   {
+    "version": "756",
+    "date": "26-06-2024",
+    "changesNote": [
+      "Cải thiện chất lượng câu trả lời trong từ điển",
+      "Hệ thống thông báo khi có phiên bản mới",
+      "Cải thiện hiệu năng từ điển",
+      "Sử dụng hệ thống AI mới"
+    ]
+  },
+  {
     "version": "709",
     "date": "21-06-2024",
     "changesNote": [
