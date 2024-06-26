@@ -1,5 +1,4 @@
 import 'package:diccon_evo/src/presentation/home/ui/components/dialogue_tab.dart';
-import 'package:diccon_evo/src/presentation/peering/group_list_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';

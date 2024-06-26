@@ -64,7 +64,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   Future<void> _addImage(
       ShowImageEvent event, Emitter<ChatListState> emit) async {
     if (state.params.imageUrl.isNotEmpty) {
-      final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+      final updatedChatList = List<Widget>.from(state.params.chatList)
         ..insert(0, DictionaryImageBubble(imageUrl: state.params.imageUrl));
       emit(ChatListUpdated(
         params: state.params.copyWith(
@@ -83,7 +83,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   void _addSynonymsList(
       GetSynonymsEvent event, Emitter<ChatListState> emit) async {
     if (_listSynonyms.isNotEmpty) {
-      final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+      final updatedChatList = List<Widget>.from(state.params.chatList)
         ..insert(0, BrickWallButtons(listString: _listSynonyms));
       emit(ChatListUpdated(
         params: state.params
@@ -95,7 +95,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addTranslateWordFromSentence(AddTranslateWordFromSentenceEvent event,
       Emitter<ChatListState> emit) async {
-    final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+    final updatedChatList = List<Widget>.from(state.params.chatList)
       ..insert(
           0,
           TranslatedWordInSentenceBubble(
@@ -108,7 +108,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   void _addAntonymsList(
       GetAntonymsEvent event, Emitter<ChatListState> emit) async {
     if (_listAntonyms.isNotEmpty) {
-      final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+      final updatedChatList = List<Widget>.from(state.params.chatList)
         ..insert(
             0,
             BrickWallButtons(
@@ -125,7 +125,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addSorryMessage(
       AddSorryMessageEvent event, Emitter<ChatListState> emit) {
-    final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+    final updatedChatList = List<Widget>.from(state.params.chatList)
       ..insert(
           0,
           const Row(
@@ -139,7 +139,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   void _addUserMessage(AddUserMessageEvent event, Emitter<ChatListState> emit) {
     final refinedWord = event.providedWord.trim().upperCaseFirstLetter();
-    final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+    final updatedChatList = List<Widget>.from(state.params.chatList)
       ..insert(
           0,
           UserBubble(
@@ -180,7 +180,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         print("[Internet Connection] $isInternetConnected");
       }
       if (!isInternetConnected && !_isReportedAboutDisconnection) {
-        final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+        final updatedChatList = List<Widget>.from(state.params.chatList)
           ..insert(0, const NoInternetBubble());
         emit(ChatListUpdated(
           params: state.params.copyWith(chatList: updatedChatList),
@@ -213,7 +213,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
               event.providedWord);
         }
 
-        final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+        final updatedChatList = List<Widget>.from(state.params.chatList)
           ..insert(
               0,
               DictionaryBubbleDefinition(

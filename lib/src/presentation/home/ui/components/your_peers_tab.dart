@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wave_divider/wave_divider.dart';
 
 import '../../../../core/core.dart';
-import '../../../peering/group_list_screen.dart';
+import '../../../presentation.dart';
 
 class YourPeersTab extends StatelessWidget {
   const YourPeersTab({

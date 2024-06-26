@@ -1,10 +1,6 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/presentation/peering/components/your_id.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../presentation.dart';
-import 'components/join_a_group.dart';
-import 'create_group_screen.dart';
-import 'group_chat_screen.dart'; // Import the new screen
+import '../../../presentation.dart';
 
 class GroupListScreen extends StatelessWidget {
   final String userId;

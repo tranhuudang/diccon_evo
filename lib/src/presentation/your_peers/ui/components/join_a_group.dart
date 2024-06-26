@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../presentation.dart';
+import '../../../presentation.dart';
 class JoinAGroupSection extends StatefulWidget {
   const JoinAGroupSection({
     super.key,

@@ -1,7 +1,7 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/presentation/peering/components/video_webview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'components.dart';
 
 class VideoBubble extends StatelessWidget {
   final String senderId;

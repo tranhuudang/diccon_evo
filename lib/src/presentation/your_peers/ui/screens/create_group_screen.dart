@@ -1,10 +1,8 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/presentation/peering/components/join_a_group.dart';
-import 'package:diccon_evo/src/presentation/peering/components/your_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../presentation.dart';
+import '../../../presentation.dart';
 
 class CreateGroupScreen extends StatelessWidget {
   final TextEditingController groupNameController = TextEditingController();
