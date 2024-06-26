@@ -77,16 +77,49 @@ class InAppStrings {
         DefaultSettings.dictionaryResponseEnglishConstant, '');
     var listString = '';
     if (listTopic2.trim().replaceAll(',', '').length > 2) {
-      listTopic2.split(',').forEach((word) {
-        if (word.length > 2) {
+      listTopic2.split(',').forEach((topic) {
+        if (topic.trim() == 'Nguồn gốc' || topic.trim() == 'Etymology') {
           listString += ''
-              '● ${word.trim()}'
+              '● ${topic.trim()}'
+              '[Etymology of the word "[${word.trim()}]"] in English';
+        } else if (topic.trim() == 'Loại từ' ||
+            topic.trim() == 'Part of Speech') {
+          listString += ''
+              '● ${topic.trim()}'
+              '[Part of speech of the word "[${word.trim()}]"] in English';
+        } else if (topic.trim() == 'Ghi chú về cách sử dụng' ||
+            topic.trim() == 'Usage Notes') {
+          listString += '' 
+              '● ${topic.trim()}'
+              '[Part of speech of the word "[${word.trim()}]"] in English';
+        } else if (topic.trim() == 'Từ đồng âm' || topic.trim() == 'Homonyms') {
+          listString += ''
+              '● ${topic.trim()}'
+              '[List of Homonyms of the word "[${word.trim()}]"] in English';
+        } else if (topic.trim() == 'Cụm động từ' ||
+            topic.trim() == 'Phrasal Verbs') {
+          listString += ''
+              '● ${topic.trim()}'
+              '[Phrasal Verbs from the word "[${word.trim()}]"] in English';
+        } else if (topic.trim() == 'Viết tắt' ||
+            topic.trim() == 'Abbreviations') {
+          listString += ''
+              '● ${topic.trim()}'
+              '[Part of speech of the word "[${word.trim()}]"] in English';
+        } else if (topic.trim() == 'Lưu ý về cách sử dụng' ||
+            topic.trim() == 'Notes on Usage') {
+          listString += ''
+              '● ${topic.trim()}'
+              '[Notes on Usage of the word "[${word.trim()}] in English"]';
+        } else if (topic.length > 2) {
+          listString += ''
+              '● ${topic.trim()}'
               ''
-              'Definition: [definition in ${word.trim().i18nEnglish}] context in English]'
+              'Definition: [definition in ${topic.trim().i18nEnglish}] context in English]'
               'Example:'
               ''
-              '1.  [Example sentence in ${word.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])'
-              '2.  [Example sentence in ${word.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])';
+              '1.  [Example sentence in ${topic.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])'
+              '2.  [Example sentence in ${topic.trim().i18nEnglish} in Vietnamese] ([Example sentence in English])';
         }
       });
     }
