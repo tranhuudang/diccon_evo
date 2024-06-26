@@ -17,9 +17,9 @@ class GroupInfoScreen extends StatelessWidget {
           GroupInfoBloc(groupId, userId)..add(LoadGroupInfoEvent(groupId)),
       child: BlocConsumer<GroupInfoBloc, GroupInfoState>(
         listenWhen: (previous, current) => current is GroupInfoActionState,
-        buildWhen: (previous, current) => current is !GroupInfoActionState,
-        listener: (context, state){
-          if (state is GroupNameChangedState){
+        buildWhen: (previous, current) => current is! GroupInfoActionState,
+        listener: (context, state) {
+          if (state is GroupNameChangedState) {
             context.showSnackBar(content: 'Group name has changed');
           }
         },
@@ -152,7 +152,8 @@ class GroupInfoScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     FilledButton(
                       onPressed: () {
-                        context.read<GroupInfoBloc>().add(AddMemberEvent(groupId,
+                        context.read<GroupInfoBloc>().add(AddMemberEvent(
+                            groupId,
                             groupInfoBloc.addMemberTextController.text.trim()));
                       },
                       child: const Text('Add'),
@@ -168,7 +169,9 @@ class GroupInfoScreen extends StatelessWidget {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      context.read<GroupInfoBloc>().add(DeleteGroupEvent(groupId));
+                      context
+                          .read<GroupInfoBloc>()
+                          .add(DeleteGroupEvent(groupId));
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(

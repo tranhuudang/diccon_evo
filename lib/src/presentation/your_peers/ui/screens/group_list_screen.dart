@@ -74,7 +74,7 @@ class GroupListScreen extends StatelessWidget {
                   ),
                 if (docs.isNotEmpty)
                   ListView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     shrinkWrap: true,
                     children: docs.map(
