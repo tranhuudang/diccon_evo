@@ -24,7 +24,7 @@ class GroupListScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Groups'),
+            title: const Text('Your peers'),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -74,6 +74,7 @@ class GroupListScreen extends StatelessWidget {
                   ),
                 if (docs.isNotEmpty)
                   ListView(
+                    physics: NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     shrinkWrap: true,
                     children: docs.map(
@@ -85,26 +86,30 @@ class GroupListScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    GroupChatScreen(groupId: doc.id, groupName: doc['name'],),
+                                builder: (context) => GroupChatScreen(
+                                  groupId: doc.id,
+                                  groupName: doc['name'],
+                                ),
                               ),
                             );
                           },
                           child: Card(
-
                               child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                Text(doc['name'], style: context.theme.textTheme.titleMedium,),
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  doc['name'],
+                                  style: context.theme.textTheme.titleMedium,
+                                ),
                                 8.height,
                                 Text(numberOfMembers > 1
                                     ? '$numberOfMembers members'
                                     : '$numberOfMembers member')
-                                                            ],
-                                                          ),
-                              )),
+                              ],
+                            ),
+                          )),
                         );
                       },
                     ).toList(),
