@@ -24,7 +24,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   int titleTabIndex = 0;
   List<String> tabTitleList = [
     'Stories',
-    'Your peers',
+    // todo: remove comment when we release this function 'Your peers',
     'Dialogue',
     'Chatbot',
     'Practice'
