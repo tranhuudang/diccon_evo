@@ -8,8 +8,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
-part 'group_event.dart';
-part 'group_state.dart';
+
+part 'group_chat_event.dart';
+part 'group_chat_state.dart';
 
 class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
   GroupChatBloc()

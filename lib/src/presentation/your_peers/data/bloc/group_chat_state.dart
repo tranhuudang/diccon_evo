@@ -1,4 +1,4 @@
-part of 'group_bloc.dart';
+part of 'group_chat_bloc.dart';
 
 class GroupChatParams {
   final bool isUploadingAttachFile;
