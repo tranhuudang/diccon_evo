@@ -3,13 +3,11 @@
     <channel>
         <title>Diccon Advanced Dictionary</title>
         <item>
-            <title>Version 7.0.5</title>
-            <description>-Cải thiện chất lượng câu trả lời trong từ điển
-            -Thêm tùy chọn bộ máy xử lí từ điển
-            </description>
+            <title>Version 7.0.6</title>
+            <description>-Cải thiện chất lượng câu trả lời trong từ điển\n-Thêm tùy chọn bộ máy xử lí từ điển</description>
             <pubDate>Mon, 27 Jun 2024 12:00:00 +0000</pubDate>
             <enclosure url="https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo"
-                sparkle:version="7.0.5" sparkle:os="android" />
+                sparkle:version="7.0.6" sparkle:os="android" />
         </item>
     </channel>
 </rss>
