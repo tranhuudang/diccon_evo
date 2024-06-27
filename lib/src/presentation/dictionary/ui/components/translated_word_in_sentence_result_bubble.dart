@@ -30,10 +30,10 @@ class _TranslatedWordInSentenceBubbleState
   _chatStreamResponse(String question) async {
     _isLoadingStreamController.sink.add(true);
     try {
-      gemini.streamGenerateContent(question).listen((event) {
+      gemini.text(question).then((value) {
         _isLoadingStreamController.sink.add(false);
         setState(() {
-          answer += event.output ?? ' ';
+          answer = value?.output ?? '';
         });
       });
     } catch (error) {

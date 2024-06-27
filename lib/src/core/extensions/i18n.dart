@@ -479,6 +479,14 @@ extension Localization on Object {
       "en_us": "Recommend",
       "vi_vi": "Khuyến nghị",
     },
+    "in the sentence": {
+      "en_us": "in the sentence",
+      "vi_vi": "trong câu",
+    },
+    "The meaning of": {
+      "en_us": "The meaning of",
+      "vi_vi": "Nghĩa của từ",
+    },
     "Faster but less reliable and stable.": {
       "en_us": "Faster but less reliable and stable.",
       "vi_vi": "Nhanh hơn nhưng giảm độ tin cậy và sự ổn định.",

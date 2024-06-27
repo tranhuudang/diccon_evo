@@ -117,6 +117,12 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     final updatedChatList = List<Widget>.from(state.params.chatList)
       ..insert(
           0,
+          UserBubble(
+              message:
+                  '${'The meaning of'.i18n} ${event.word} ${'in the sentence'.i18n}: ${event.sentence}',
+              onTap: () {}))
+      ..insert(
+          0,
           TranslatedWordInSentenceBubble(
               searchWord: event.word, sentenceContainWord: event.sentence));
     emit(ChatListUpdated(
