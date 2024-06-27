@@ -18,26 +18,18 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
   String _decodedContent = '';
   int _workingKeyNunber = 0;
   int _documentCount = 0;
-  bool _isLoading = false;
 
-  Future<void> _countDocuments() async {
-    // Todo: fix this function, currently it not able to get the number of document in FirebaseStore
-    setState(() {
-      _isLoading = true;
-    });
-
+  Future<void> _countDocumentsDictionary() async {
     try {
       AggregateQuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection(FirebaseConstant.firestore.dictionary).count().get();
+          .collection(FirebaseConstant.firestore.dictionary)
+          .count()
+          .get();
       setState(() {
         _documentCount = querySnapshot.count ?? 1;
-        DebugLog.info("Dictionary_V2: $_documentCount");
-        _isLoading = false;
+        DebugLog.info("Dictionary: $_documentCount");
       });
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
       DebugLog.info("Error getting documents: $e");
     }
   }
@@ -142,27 +134,23 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
                   ],
                 ),
                 Text('Current working Open AI API key is: $_workingKeyNunber'),
-                const Text('We have 4 type:\n'
-                    ' -1 is primary key.\n'
-                    ' -2 is local backup key.\n'
-                    ' -3 is primary cloud key.\n'
-                    ' -4 is cloud backup key.')
+                const Text('We have 2 type:\n'
+                    ' -1 is local key.\n'
+                    ' -2 is cloud key.')
               ]),
           Section(title: 'Document', children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Number of documents: $_documentCount',
+                  'Dictionary: $_documentCount',
                   style: const TextStyle(fontSize: 20),
                 ),
                 const SizedBox(height: 20),
-                _isLoading
-                    ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: _countDocuments,
-                        child: const Text('Check Document Count'),
-                      ),
+                ElevatedButton(
+                  onPressed: _countDocumentsDictionary,
+                  child: const Text('Check Document Count'),
+                ),
               ],
             ),
           ]),
