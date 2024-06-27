@@ -37,19 +37,7 @@ class OpenAIKeySelector {
     if (primaryKeyFromCloudValid) {
       DebugLog.info('Using primary API Key from Cloud');
       ApiKeys.openAiKey = primaryKeyFromCloud;
-      return 3;
-    }
-    // Backup Cloud Key
-    String rawBackupKeyFromCloud =
-        await _getOpenApiKeyFromFirestore(from: 'primary');
-    String backupKeyFromCloud =
-        EncryptApi.decode(encodedContent: rawBackupKeyFromCloud);
-    bool backupKeyFromCloudValid =
-        await checkApiKeyValidity(backupKeyFromCloud);
-    if (backupKeyFromCloudValid) {
-      DebugLog.info('Using backup API Key from Cloud');
-      ApiKeys.openAiKey = backupKeyFromCloud;
-      return 4;
+      return 2;
     }
 
     ApiKeys.openAiKey = Env.openaiApiKey;
