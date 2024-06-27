@@ -10,7 +10,7 @@ class Firestore{
   final String dialogue = 'Dialogue';
   final String statistics = 'Statistics';
   final String dialogueAnalysis = 'DialogueAnalysis';
-  final String dictionary = 'Dictionary_v2';
+  final String dictionary = 'Dictionary_v3';
   final String editor = 'Editor';
   final String feedback = 'Feedback';
   final String login = 'Login';

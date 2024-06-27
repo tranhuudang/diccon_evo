@@ -24,11 +24,11 @@ class Settings with _$Settings {
     /// to [Locale('en', 'US')] to change value of the app
     required String language,
     /// Custom for response in dictionary
-    required String dictionaryResponseSelectedListVietnamese,
+    required String dictionarySpecializedVietnamese,
     /// Stream for fast, timeBomb for slow
     required String dictionaryEngine,
     /// Custom for response in dictionary
-    required String dictionaryResponseSelectedListEnglish,
+    required String dictionarySpecializedEnglish,
     /// Save target translate language with defined language in , currently support:
     /// englishToVietnamese, vietnameseToEnglish, autoDetect
     required String translationLanguageTarget,

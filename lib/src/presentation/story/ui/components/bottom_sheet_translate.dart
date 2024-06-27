@@ -181,7 +181,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
         .doc(answerId);
     final json = {
       'question':
-          "${word.upperCaseFirstLetter()} - in the sentence: ${sentenceContainWord}",
+          "${word.upperCaseFirstLetter()} - in the sentence: $sentenceContainWord",
       'answer': translatedWord,
     };
     await databaseRow.set(json);

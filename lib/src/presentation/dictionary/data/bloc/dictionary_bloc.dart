@@ -31,8 +31,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           suggestionWords: [],
           currentWord: '',
           imageUrl: '',
+          showSpecialized: false,
+          showRefreshSpecialized: false,
         ))) {
-    on<GetTranslationEvent>(_getTranslation);
+    on<GetBasicTranslationEvent>(_getBasicTranslation);
     on<AddUserMessageEvent>(_addUserMessage);
     on<AddSorryMessageEvent>(_addSorryMessage);
     on<GetSynonymsEvent>(_addSynonymsList);
@@ -40,11 +42,16 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     on<ShowImageEvent>(_addImage);
     on<CreateNewChatListEvent>(_createNewChatList);
     on<AddTranslateWordFromSentenceEvent>(_addTranslateWordFromSentence);
-    on<ChatBotRespondingEvent>(_chatBotResponding);
+    on<ChatBotBasicDefinitionRespondingEvent>(
+        _chatBotBasicDefinitionResponding);
     on<OpenDictionaryToolsEvent>(_openDictionaryTools);
     on<ResetDictionaryToolsEvent>(_resetDictionaryTools);
+    on<GetSpecializedTranslationEvent>(_getSpecializedTranslation);
     on<GetWordSuggestionEvent>(_getWordSuggestion);
     on<RefreshAnswerEvent>(_refreshAnswer);
+    on<RefreshSpecializedAnswerEvent>(_refreshSpecializedAnswer);
+    on<ChatBotSpecializedDefinitionRespondingEvent>(
+        _chatBotSpecializedDefinitionResponding);
   }
 
   final gemini = Gemini.instance;
@@ -54,7 +61,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   final TextEditingController textController = TextEditingController();
   bool _isReportedAboutDisconnection = false;
   final _wordHistoryBloc = WordHistoryBloc();
-  String currentResponseContent = '';
+  bool isCurrentBasicResponseCompleted = false;
+  bool isCurrentSpecializedResponseCompleted = false;
+  String currentBasicDefinitionResponseContent = '';
+  String currentSpecializedDefinitionResponseContent = '';
   final suggestionWordListDb = SuggestionDatabase.instance;
   final EnglishToVietnameseDictionaryRepository dictionaryRepository =
       EnglishToVietnameseDictionaryRepositoryImpl();
@@ -75,9 +85,18 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   Future<void> _refreshAnswer(
       RefreshAnswerEvent event, Emitter<ChatListState> emit) async {
-    add(GetTranslationEvent(
+    add(GetBasicTranslationEvent(
         providedWord: state.params.currentWord, forceRegenerate: true));
     emit(ChatListUpdated(params: state.params.copyWith(showRefresh: false)));
+  }
+
+  Future<void> _refreshSpecializedAnswer(
+      RefreshSpecializedAnswerEvent event, Emitter<ChatListState> emit) async {
+    add(GetSpecializedTranslationEvent(
+        providedWord: state.params.currentWord, forceRegenerate: true));
+    emit(ChatListUpdated(
+        params: state.params
+            .copyWith(showRefresh: false, showRefreshSpecialized: false)));
   }
 
   void _addSynonymsList(
@@ -137,6 +156,146 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     ));
   }
 
+  Future<void> _getSpecializedTranslation(
+      GetSpecializedTranslationEvent event, Emitter<ChatListState> emit) async {
+    {
+      currentSpecializedDefinitionResponseContent = '';
+      textController.clear();
+
+      /// Add left bubble as user message
+      //add(AddUserMessageEvent(providedWord: event.providedWord));
+
+      FocusNode textFieldFocusNode = FocusNode();
+      if (defaultTargetPlatform.isMobile()) {
+        // Remove focus out of TextField in DictionaryView
+        textFieldFocusNode.unfocus();
+      } else {
+        // On desktop we request focus, not on mobile
+        textFieldFocusNode.requestFocus();
+      }
+      emit(ChatListUpdated(
+          params: state.params
+              .copyWith(showSuggestionWords: false, showSpecialized: false)));
+      add(OpenDictionaryToolsEvent(word: event.providedWord));
+      Settings currentSetting = Properties.instance.settings;
+      bool isInternetConnected =
+          await InternetConnectionChecker().hasConnection;
+      if (kDebugMode) {
+        print("[Internet Connection] $isInternetConnected");
+      }
+      if (!isInternetConnected && !_isReportedAboutDisconnection) {
+        final updatedChatList = List<Widget>.from(state.params.chatList)
+          ..insert(0, const NoInternetBubble());
+        emit(ChatListUpdated(
+          params: state.params.copyWith(chatList: updatedChatList),
+        ));
+        _isReportedAboutDisconnection = true;
+      }
+
+      final languageIdentifier = LanguageIdentifier();
+      String identifyLanguageResult =
+          languageIdentifier.undeterminedLanguageCode;
+      if (currentSetting.translationLanguageTarget ==
+          TranslationLanguageTarget.autoDetect.title()) {
+        identifyLanguageResult =
+            languageIdentifier.identifyLanguage(event.providedWord);
+      }
+      String specializedDefinitionQuestion = '';
+
+      if ((identifyLanguageResult == languageIdentifier.englishLanguageCode &&
+              currentSetting.translationLanguageTarget ==
+                  TranslationLanguageTarget.englishToVietnamese.title()) ||
+          (identifyLanguageResult == languageIdentifier.englishLanguageCode &&
+              currentSetting.translationLanguageTarget ==
+                  TranslationLanguageTarget.autoDetect.title())) {
+        if (event.providedWord.split(' ').length > 2) {
+          specializedDefinitionQuestion =
+              InAppStrings.getEnToViParagraphTranslateQuestion(
+                  event.providedWord);
+        } else {
+          specializedDefinitionQuestion =
+              InAppStrings.getEnToViSingleSpecializedWordTranslateQuestion(
+                  event.providedWord);
+        }
+
+        final updatedChatList = List<Widget>.from(state.params.chatList)
+          ..insert(
+              0,
+              DictionaryBubbleDefinition(
+                word: event.providedWord,
+                translation: '',
+              ));
+        emit(ChatListUpdated(
+          params: state.params.copyWith(chatList: updatedChatList),
+        ));
+
+        /// Retrieve data from firebase if it already exists in it
+        if (event.forceRegenerate!) {
+          _getGeminiResponseForSpecializedWordDefinition(
+              requestQuestion: specializedDefinitionQuestion,
+              word: event.providedWord,
+              lang: 'en to vi');
+        } else {
+          final isHavingSpecializedDefinitionData =
+              await _getFirestoreDataForSpecializedWordDefinition(
+                  word: event.providedWord, lang: 'en to vi');
+          if (!isHavingSpecializedDefinitionData) {
+            _getGeminiResponseForSpecializedWordDefinition(
+                requestQuestion: specializedDefinitionQuestion,
+                word: event.providedWord,
+                lang: 'en to vi');
+          }
+        }
+      }
+
+      if (currentSetting.translationLanguageTarget ==
+              TranslationLanguageTarget.vietnameseToEnglish.title() ||
+          (identifyLanguageResult ==
+                  languageIdentifier.vietnameseLanguageCode &&
+              currentSetting.translationLanguageTarget ==
+                  TranslationLanguageTarget.autoDetect.title())) {
+        if (event.providedWord.split(' ').length > 2) {
+          specializedDefinitionQuestion =
+              InAppStrings.getViToEnParagraphTranslateQuestion(
+                  event.providedWord);
+        } else {
+          specializedDefinitionQuestion =
+              InAppStrings.getViToEnSingleSpecializedWordTranslateQuestion(
+                  event.providedWord);
+        }
+
+        /// Retrieve data from firebase if it already exists in it
+        if (event.forceRegenerate!) {
+          _getGeminiResponseForSpecializedWordDefinition(
+              requestQuestion: specializedDefinitionQuestion,
+              word: event.providedWord,
+              lang: 'vi to en');
+        } else {
+          final isHavingData =
+              await _getFirestoreDataForSpecializedWordDefinition(
+                  word: event.providedWord, lang: 'vi to en');
+          if (!isHavingData) {
+            _getGeminiResponseForSpecializedWordDefinition(
+                requestQuestion: specializedDefinitionQuestion,
+                word: event.providedWord,
+                lang: 'vi to en');
+          }
+        }
+        final updatedChatList = List<Widget>.from(state.params.chatList)
+          ..insert(
+              0,
+              DictionaryBubbleDefinition(
+                word: event.providedWord,
+                translation: '',
+              ));
+
+        emit(ChatListUpdated(
+          params: state.params.copyWith(chatList: updatedChatList),
+        ));
+      }
+    }
+  }
+
   void _addUserMessage(AddUserMessageEvent event, Emitter<ChatListState> emit) {
     final refinedWord = event.providedWord.trim().upperCaseFirstLetter();
     final updatedChatList = List<Widget>.from(state.params.chatList)
@@ -154,9 +313,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     ));
   }
 
-  Future<void> _getTranslation(
-      GetTranslationEvent event, Emitter<ChatListState> emit) async {
+  Future<void> _getBasicTranslation(
+      GetBasicTranslationEvent event, Emitter<ChatListState> emit) async {
     {
+      currentBasicDefinitionResponseContent = '';
       textController.clear();
 
       /// Add left bubble as user message
@@ -171,7 +331,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         textFieldFocusNode.requestFocus();
       }
       emit(ChatListUpdated(
-          params: state.params.copyWith(showSuggestionWords: false)));
+          params: state.params.copyWith(
+              showSuggestionWords: false,
+              showSpecialized: false,
+              showRefreshSpecialized: false)));
       add(OpenDictionaryToolsEvent(word: event.providedWord));
       Settings currentSetting = Properties.instance.settings;
       bool isInternetConnected =
@@ -197,7 +360,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
             languageIdentifier.identifyLanguage(event.providedWord);
       }
 
-      String question = '';
+      String basicDefinitionQuestion = '';
 
       if ((identifyLanguageResult == languageIdentifier.englishLanguageCode &&
               currentSetting.translationLanguageTarget ==
@@ -206,34 +369,39 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
               currentSetting.translationLanguageTarget ==
                   TranslationLanguageTarget.autoDetect.title())) {
         if (event.providedWord.split(' ').length > 2) {
-          question = InAppStrings.getEnToViParagraphTranslateQuestion(
-              event.providedWord);
+          basicDefinitionQuestion =
+              InAppStrings.getEnToViParagraphTranslateQuestion(
+                  event.providedWord);
         } else {
-          question = InAppStrings.getEnToViSingleWordTranslateQuestion(
-              event.providedWord);
+          basicDefinitionQuestion =
+              InAppStrings.getEnToViSingleBasicWordTranslateQuestion(
+                  event.providedWord);
         }
 
         final updatedChatList = List<Widget>.from(state.params.chatList)
           ..insert(
               0,
               DictionaryBubbleDefinition(
-                  word: event.providedWord, translation: ''));
+                word: event.providedWord,
+                translation: '',
+              ));
         emit(ChatListUpdated(
           params: state.params.copyWith(chatList: updatedChatList),
         ));
 
         /// Retrieve data from firebase if it already exists in it
         if (event.forceRegenerate!) {
-          _getGeminiResponse(
-              requestQuestion: question,
+          _getGeminiResponseForBasicWordDefinition(
+              requestQuestion: basicDefinitionQuestion,
               word: event.providedWord,
               lang: 'en to vi');
         } else {
-          final isHavingData = await _getFirestoreData(
-              word: event.providedWord, lang: 'en to vi');
-          if (!isHavingData) {
-            _getGeminiResponse(
-                requestQuestion: question,
+          final isHavingBasicDefinitionData =
+              await _getFirestoreDataForBasicWordDefinition(
+                  word: event.providedWord, lang: 'en to vi');
+          if (!isHavingBasicDefinitionData) {
+            _getGeminiResponseForBasicWordDefinition(
+                requestQuestion: basicDefinitionQuestion,
                 word: event.providedWord,
                 lang: 'en to vi');
           }
@@ -247,34 +415,38 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
               currentSetting.translationLanguageTarget ==
                   TranslationLanguageTarget.autoDetect.title())) {
         if (event.providedWord.split(' ').length > 2) {
-          question = InAppStrings.getViToEnParagraphTranslateQuestion(
-              event.providedWord);
+          basicDefinitionQuestion =
+              InAppStrings.getViToEnParagraphTranslateQuestion(
+                  event.providedWord);
         } else {
-          question = InAppStrings.getViToEnSingleWordTranslateQuestion(
-              event.providedWord);
+          basicDefinitionQuestion =
+              InAppStrings.getViToEnSingleBasicWordTranslateQuestion(
+                  event.providedWord);
         }
 
         /// Retrieve data from firebase if it already exists in it
         if (event.forceRegenerate!) {
-          _getGeminiResponse(
-              requestQuestion: question,
+          _getGeminiResponseForBasicWordDefinition(
+              requestQuestion: basicDefinitionQuestion,
               word: event.providedWord,
               lang: 'vi to en');
         } else {
-          final isHavingData = await _getFirestoreData(
+          final isHavingData = await _getFirestoreDataForBasicWordDefinition(
               word: event.providedWord, lang: 'vi to en');
           if (!isHavingData) {
-            _getGeminiResponse(
-                requestQuestion: question,
+            _getGeminiResponseForBasicWordDefinition(
+                requestQuestion: basicDefinitionQuestion,
                 word: event.providedWord,
                 lang: 'vi to en');
           }
         }
-        final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+        final updatedChatList = List<Widget>.from(state.params.chatList)
           ..insert(
               0,
               DictionaryBubbleDefinition(
-                  word: event.providedWord, translation: ''));
+                word: event.providedWord,
+                translation: '',
+              ));
 
         emit(ChatListUpdated(
           params: state.params.copyWith(chatList: updatedChatList),
@@ -283,7 +455,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     }
   }
 
-  _getGeminiResponse(
+  _getGeminiResponseForBasicWordDefinition(
       {required String requestQuestion,
       required String word,
       required String lang}) {
@@ -307,13 +479,15 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
               threshold: SafetyThreshold.blockNone)
         ]).listen((event) {
           DebugLog.info('Gemini finish reason: ${event.finishReason}');
-          currentResponseContent += event.output ?? ' ';
-          add(ChatBotRespondingEvent(
-              translation: currentResponseContent, word: word));
+          currentBasicDefinitionResponseContent += event.output ?? ' ';
+          add(ChatBotBasicDefinitionRespondingEvent(
+              basicDefinition: currentBasicDefinitionResponseContent,
+              word: word));
         }).onDone(() {
-          _createFirebaseDatabaseItem(
-              lang: lang, word: word, translation: currentResponseContent);
-          currentResponseContent = '';
+          _createFirebaseDatabaseItemForBasicDefinition(
+              lang: lang,
+              word: word,
+              translation: currentBasicDefinitionResponseContent);
         });
       } catch (e) {
         DebugLog.error(e.toString());
@@ -322,8 +496,10 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       /// Solution 2: Time bomb engine
       try {
         gemini.text(requestQuestion).then((onValue) {
-          add(ChatBotRespondingEvent(
-              translation: onValue?.output ?? '', word: word));
+          add(ChatBotBasicDefinitionRespondingEvent(
+              basicDefinition: onValue?.output ?? '', word: word));
+          _createFirebaseDatabaseItemForBasicDefinition(
+              lang: lang, word: word, translation: onValue?.output ?? '');
         });
       } catch (e) {
         DebugLog.error(e.toString());
@@ -331,15 +507,65 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     }
   }
 
-  Future<void> _createFirebaseDatabaseItem(
+  _getGeminiResponseForSpecializedWordDefinition(
+      {required String requestQuestion,
+      required String word,
+      required String lang}) {
+    DictionaryEngine currentDictionaryEngine =
+        Properties.instance.settings.dictionaryEngine.toDictionaryEngine;
+    if (currentDictionaryEngine == DictionaryEngine.stream) {
+      /// Solution 1: stream engine
+      try {
+        gemini.streamGenerateContent(requestQuestion, safetySettings: [
+          SafetySetting(
+              category: SafetyCategory.dangerous,
+              threshold: SafetyThreshold.blockNone),
+          SafetySetting(
+              category: SafetyCategory.harassment,
+              threshold: SafetyThreshold.blockNone),
+          SafetySetting(
+              category: SafetyCategory.hateSpeech,
+              threshold: SafetyThreshold.blockNone),
+          SafetySetting(
+              category: SafetyCategory.sexuallyExplicit,
+              threshold: SafetyThreshold.blockNone)
+        ]).listen((event) {
+          DebugLog.info('Gemini finish reason: ${event.finishReason}');
+          currentSpecializedDefinitionResponseContent += event.output ?? ' ';
+          add(ChatBotSpecializedDefinitionRespondingEvent(
+              specializedDefinition:
+                  currentSpecializedDefinitionResponseContent,
+              word: word));
+        }).onDone(() {
+          _createFirebaseDatabaseItemForSpecializedDefinition(
+              lang: lang,
+              word: word,
+              translation: currentSpecializedDefinitionResponseContent);
+        });
+      } catch (e) {
+        DebugLog.error(e.toString());
+      }
+    } else {
+      /// Solution 2: Time bomb engine
+      try {
+        gemini.text(requestQuestion).then((onValue) {
+          add(ChatBotSpecializedDefinitionRespondingEvent(
+              specializedDefinition: onValue?.output ?? '', word: word));
+          _createFirebaseDatabaseItemForSpecializedDefinition(
+              lang: lang, word: word, translation: onValue?.output ?? '');
+        });
+      } catch (e) {
+        DebugLog.error(e.toString());
+      }
+    }
+  }
+
+  Future<void> _createFirebaseDatabaseItemForBasicDefinition(
       {required String lang,
       required String word,
       required String translation}) async {
-    final currentSettings = Properties.instance.settings;
     final answerId = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
-        lang: lang,
-        word: word,
-        options: currentSettings.dictionaryResponseSelectedListVietnamese);
+        lang: lang, word: word);
     final databaseRow = firestore.FirebaseFirestore.instance
         .collection(FirebaseConstant.firestore.dictionary)
         .doc(answerId);
@@ -350,26 +576,48 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     await databaseRow.set(json);
   }
 
-  Future<bool> _getFirestoreData(
-      {required String word, required String lang}) async {
+  Future<void> _createFirebaseDatabaseItemForSpecializedDefinition(
+      {required String lang,
+      required String word,
+      required String translation}) async {
     final currentSettings = Properties.instance.settings;
-    var answer = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
+    final answerId = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
         lang: lang,
         word: word,
-        options: currentSettings.dictionaryResponseSelectedListVietnamese);
+        options: currentSettings.dictionarySpecializedVietnamese);
+    final databaseRow = firestore.FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.dictionary)
+        .doc(answerId);
+    final json = {
+      'question': word,
+      'answer': translation,
+      'specialize': currentSettings.dictionarySpecializedVietnamese
+    };
+    await databaseRow.set(json);
+  }
+
+  Future<bool> _getFirestoreDataForBasicWordDefinition(
+      {required String word, required String lang}) async {
+    var answer = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
+        lang: lang, word: word);
     final docUser = firestore.FirebaseFirestore.instance
         .collection(FirebaseConstant.firestore.dictionary)
         .doc(answer);
     bool isHavingData = await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
-        add(ChatBotRespondingEvent(
+        final snapshotAnswer = snapshot
+                .data()?['answer']
+                .toString()
+                .replaceAll('[', '')
+                .replaceAll(']', '') ??
+            '';
+        currentBasicDefinitionResponseContent = snapshotAnswer;
+        add(
+          ChatBotBasicDefinitionRespondingEvent(
             word: word,
-            translation: snapshot
-                    .data()?['answer']
-                    .toString()
-                    .replaceAll('[', '')
-                    .replaceAll(']', '') ??
-                ''));
+            basicDefinition: snapshotAnswer,
+          ),
+        );
         return true;
       } else {
         return false;
@@ -378,16 +626,74 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     return isHavingData;
   }
 
-  FutureOr<void> _chatBotResponding(
-      ChatBotRespondingEvent event, Emitter<ChatListState> emit) {
+  Future<bool> _getFirestoreDataForSpecializedWordDefinition(
+      {required String word, required String lang}) async {
+    final currentSettings = Properties.instance.settings;
+    var answer = Md5Generator.composeMd5IdForWordDefinitionFirebaseDb(
+        lang: lang,
+        word: word,
+        options: currentSettings.dictionarySpecializedVietnamese);
+    final docUser = firestore.FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.dictionary)
+        .doc(answer);
+    bool isHavingData = await docUser.get().then((snapshot) async {
+      if (snapshot.exists) {
+        final snapshotAnswer = snapshot
+                .data()?['answer']
+                .toString()
+                .replaceAll('[', '')
+                .replaceAll(']', '') ??
+            '';
+        currentSpecializedDefinitionResponseContent = snapshotAnswer;
+        add(
+          ChatBotSpecializedDefinitionRespondingEvent(
+            word: word,
+            specializedDefinition: snapshotAnswer,
+          ),
+        );
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return isHavingData;
+  }
+
+  FutureOr<void> _chatBotBasicDefinitionResponding(
+      ChatBotBasicDefinitionRespondingEvent event,
+      Emitter<ChatListState> emit) {
     if (state.params.chatList.isNotEmpty) {
-      final updatedChatList = List<Widget>.from(state.params.chatList ?? [])
+      final updatedChatList = List<Widget>.from(state.params.chatList)
         ..[0] = DictionaryBubbleDefinition(
-            word: event.word, translation: event.translation);
+          word: event.word,
+          translation: event.basicDefinition,
+        );
+      emit(ChatListUpdated(
+        params: state.params.copyWith(
+          chatList: updatedChatList,
+          showRefresh: true,
+          currentWord: event.word,
+          showSpecialized: true,
+        ),
+      ));
+    }
+  }
+
+  FutureOr<void> _chatBotSpecializedDefinitionResponding(
+      ChatBotSpecializedDefinitionRespondingEvent event,
+      Emitter<ChatListState> emit) {
+    if (state.params.chatList.isNotEmpty) {
+      final updatedChatList = List<Widget>.from(state.params.chatList)
+        ..[0] = DictionaryBubbleDefinition(
+          word: event.word,
+          translation: event.specializedDefinition,
+        );
       emit(ChatListUpdated(
         params: state.params.copyWith(
             chatList: updatedChatList,
-            showRefresh: true,
+            showRefresh: false,
+            showRefreshSpecialized: true,
+            showSpecialized: false,
             currentWord: event.word),
       ));
     }
@@ -464,7 +770,8 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
   FutureOr<void> _createNewChatList(
       CreateNewChatListEvent event, Emitter<ChatListState> emit) {
-    currentResponseContent = '';
+    currentBasicDefinitionResponseContent = '';
+    currentSpecializedDefinitionResponseContent = '';
     textController.clear();
     final defaultListChat = [const DictionaryWelcome()];
     emit(ChatListUpdated(

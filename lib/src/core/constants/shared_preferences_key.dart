@@ -9,10 +9,10 @@ class SharedPreferencesKey {
   static String get openAppCount => 'openAppCount';
   static String get language => 'language';
   static String get translationLanguageTarget => 'translationLanguageTarget';
-  static String get dictionaryResponseSelectedListEnglish =>
-      'dictionaryResponseSelectedListEnglish';
-  static String get dictionaryResponseSelectedListVietnamese =>
-      'dictionaryResponseSelectedListVietnamese';
+  static String get dictionarySpecializedEnglish =>
+      'dictionarySpecializedEnglish';
+  static String get dictionarySpecializedVietnamese =>
+      'dictionarySpecializedVietnamese';
   static String get essentialLeft => 'essentialLeft';
   static String get widthOfWindowSize => 'widthOfWindowSize';
   static String get heightOfWindowSize => 'heightOfWindowSize';

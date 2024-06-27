@@ -5,8 +5,10 @@ class ChatListParams {
   final List<Widget> chatList;
   final bool showTranslateFromSentence;
   final bool showSynonyms;
+  final bool showSpecialized;
   final bool showAntonyms;
   final bool showRefreshAnswer;
+  final bool showRefreshSpecialized;
   final bool showImage;
   final bool showSuggestionWords;
   final List<String> suggestionWords;
@@ -16,7 +18,9 @@ class ChatListParams {
     required this.showSuggestionWords,
     required this.suggestionWords,
     required this.currentWord,
+    required this.showSpecialized,
     required this.chatList,
+    required this.showRefreshSpecialized,
     required this.showTranslateFromSentence,
     required this.showSynonyms,
     required this.showAntonyms,
@@ -32,6 +36,8 @@ class ChatListParams {
     bool? showSynonyms,
     bool? showAntonyms,
     bool? showRefresh,
+    bool? showRefreshSpecialized,
+    bool? showSpecialized,
     bool? showImage,
     bool? showSuggestionWords,
     List<String>? suggestionWords,
@@ -40,12 +46,14 @@ class ChatListParams {
     return ChatListParams(
       imageUrl: imageUrl ?? this.imageUrl,
       currentWord: currentWord ?? this.currentWord,
+      showSpecialized: showSpecialized ?? this.showSpecialized,
       chatList: chatList ?? this.chatList,
       showTranslateFromSentence:
           showTranslateFromSentence ?? this.showTranslateFromSentence,
       showSynonyms: showSynonyms ?? this.showSynonyms,
       showAntonyms: showAntonyms ?? this.showAntonyms,
       showRefreshAnswer: showRefresh ?? this.showRefreshAnswer,
+      showRefreshSpecialized: showRefreshSpecialized ?? this.showRefreshSpecialized,
       showImage: showImage ?? this.showImage,
       showSuggestionWords: showSuggestionWords ?? this.showSuggestionWords,
       suggestionWords: suggestionWords ?? this.suggestionWords,

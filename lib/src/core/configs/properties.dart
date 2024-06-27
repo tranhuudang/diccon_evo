@@ -12,20 +12,6 @@ class Properties {
 
   static Future<void> initialize() async {
     instance.settings = await instance._getSettings();
-    // Reset to default response format for some old version
-    instance._resetResponseFormat();
-  }
-
-  _resetResponseFormat() {
-    if (!instance.settings.dictionaryResponseSelectedListVietnamese
-        .startsWith(DefaultSettings.dictionaryResponseVietnameseConstant)) {
-      DebugLog.info('Reset dictionary response format.');
-      instance.saveSettings(instance.settings.copyWith(
-          dictionaryResponseSelectedListVietnamese:
-              DefaultSettings.dictionaryResponseVietnameseConstant,
-          dictionaryResponseSelectedListEnglish:
-              DefaultSettings.dictionaryResponseEnglishConstant));
-    }
   }
 
   Future<void> saveSettings(Settings newSettings) async {
@@ -54,11 +40,11 @@ class Properties {
     await prefs.setString(SharedPreferencesKey.translationLanguageTarget,
         newSetting.translationLanguageTarget);
     await prefs.setString(
-        SharedPreferencesKey.dictionaryResponseSelectedListEnglish,
-        newSetting.dictionaryResponseSelectedListEnglish);
+        SharedPreferencesKey.dictionarySpecializedEnglish,
+        newSetting.dictionarySpecializedEnglish);
     await prefs.setString(
-        SharedPreferencesKey.dictionaryResponseSelectedListVietnamese,
-        newSetting.dictionaryResponseSelectedListVietnamese);
+        SharedPreferencesKey.dictionarySpecializedVietnamese,
+        newSetting.dictionarySpecializedVietnamese);
     await prefs.setInt(
         SharedPreferencesKey.essentialLeft, newSetting.numberOfEssentialLeft);
     await prefs.setDouble(
@@ -102,12 +88,12 @@ class Properties {
           settings.dictionaryEngine,
       language:
           prefs.getString(SharedPreferencesKey.language) ?? settings.language,
-      dictionaryResponseSelectedListVietnamese: prefs.getString(
-              SharedPreferencesKey.dictionaryResponseSelectedListVietnamese) ??
-          settings.dictionaryResponseSelectedListVietnamese,
-      dictionaryResponseSelectedListEnglish: prefs.getString(
-              SharedPreferencesKey.dictionaryResponseSelectedListEnglish) ??
-          settings.dictionaryResponseSelectedListEnglish,
+      dictionarySpecializedVietnamese: prefs.getString(
+              SharedPreferencesKey.dictionarySpecializedVietnamese) ??
+          settings.dictionarySpecializedVietnamese,
+      dictionarySpecializedEnglish: prefs.getString(
+              SharedPreferencesKey.dictionarySpecializedEnglish) ??
+          settings.dictionarySpecializedEnglish,
       numberOfEssentialLeft: prefs.getInt(SharedPreferencesKey.essentialLeft) ??
           settings.numberOfEssentialLeft,
       windowsWidth: prefs.getDouble(SharedPreferencesKey.widthOfWindowSize) ??
@@ -138,9 +124,9 @@ class Properties {
           "readingFontSizeSliderValue: ${settings.readingFontSizeSliderValue}");
       print("language: ${settings.language}");
       print(
-          "dictionaryResponseSelectedListVietnamese: ${settings.dictionaryResponseSelectedListVietnamese}");
+          "dictionaryResponseSelectedListVietnamese: ${settings.dictionarySpecializedVietnamese}");
       print(
-          "dictionaryResponseSelectedListEnglish: ${settings.dictionaryResponseSelectedListEnglish}");
+          "dictionaryResponseSelectedListEnglish: ${settings.dictionarySpecializedEnglish}");
       print("windowsWidth: ${settings.windowsWidth}");
       print("windowsHeight: ${settings.windowsHeight}");
       print("themeMode: ${settings.themeMode}");

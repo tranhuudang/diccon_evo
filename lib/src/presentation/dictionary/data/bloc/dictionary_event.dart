@@ -8,10 +8,16 @@ class AddUserMessageEvent extends ChatListEvent {
   AddUserMessageEvent({required this.providedWord});
 }
 
-class GetTranslationEvent extends ChatListEvent {
+class GetBasicTranslationEvent extends ChatListEvent {
   final String providedWord;
   final bool? forceRegenerate;
-  GetTranslationEvent({this.forceRegenerate = false, required this.providedWord});
+  GetBasicTranslationEvent({this.forceRegenerate = false, required this.providedWord});
+}
+
+class GetSpecializedTranslationEvent extends ChatListEvent {
+  final String providedWord;
+  final bool? forceRegenerate;
+  GetSpecializedTranslationEvent({this.forceRegenerate = false, required this.providedWord});
 }
 
 class GetSynonymsEvent extends ChatListEvent {
@@ -42,10 +48,16 @@ class AddTranslateWordFromSentenceEvent extends ChatListEvent {
   AddTranslateWordFromSentenceEvent({required this.word, required this.sentence});
 }
 
-class ChatBotRespondingEvent extends ChatListEvent{
+class ChatBotBasicDefinitionRespondingEvent extends ChatListEvent{
   final String word;
-  final String translation;
-  ChatBotRespondingEvent({required this.word, required this.translation});
+  final String basicDefinition;
+  ChatBotBasicDefinitionRespondingEvent({required this.word, required this.basicDefinition});
+}
+
+class ChatBotSpecializedDefinitionRespondingEvent extends ChatListEvent{
+  final String word;
+  final String specializedDefinition;
+  ChatBotSpecializedDefinitionRespondingEvent({required this.word, required this.specializedDefinition});
 }
 
 class OpenDictionaryToolsEvent extends ChatListEvent{
@@ -55,6 +67,10 @@ class OpenDictionaryToolsEvent extends ChatListEvent{
 
 class RefreshAnswerEvent extends ChatListEvent{
   RefreshAnswerEvent();
+}
+
+class RefreshSpecializedAnswerEvent extends ChatListEvent{
+  RefreshSpecializedAnswerEvent();
 }
 
 class ResetDictionaryToolsEvent extends ChatListEvent{

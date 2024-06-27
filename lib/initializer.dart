@@ -26,7 +26,7 @@ class _Initializer {
     // OpenAI
     OpenAITimer.init();
     await OpenAIKeySelector.init();
-    Gemini.init(apiKey: Env.apiGeminiKey);
+    Gemini.init(apiKey: Env.apiGeminiKey ,enableDebugging:  true);
   }
   /// Initialize In-app Purchase
   static Future<void> _initializeInAppPurchase() async{

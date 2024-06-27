@@ -33,7 +33,7 @@ class Md5Generator {
   }
 
   static String composeMd5IdForWordDefinitionFirebaseDb(
-      {required String word, required String options, required String lang}) {
+      {required String word,  String options = '', required String lang}) {
     word = word.trim().toLowerCase();
     options = options.trim();
     var composeString = word + options + lang;

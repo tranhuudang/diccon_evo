@@ -51,7 +51,7 @@ class _PlayBackControllerState extends State<PlayBackController> {
         localFilePath = filePath;
       });
     } catch (e) {
-      print('Error downloading audio file: $e');
+      DebugLog.error('Error downloading audio file: $e');
     } finally {
       setState(() {
         _isLoading = false;

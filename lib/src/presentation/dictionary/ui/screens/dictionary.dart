@@ -50,7 +50,7 @@ class DictionaryView extends StatelessWidget {
                       reverse: true,
                       padding: const EdgeInsets.only(
                           top: 80, bottom: 120, left: 16, right: 16),
-                      itemCount: state.params.chatList.length ?? 0,
+                      itemCount: state.params.chatList.length,
                       addAutomaticKeepAlives: true,
                       controller: chatListBloc.chatListController,
                       itemBuilder: (BuildContext context, int index) {
@@ -132,6 +132,10 @@ class DictionaryView extends StatelessWidget {
                 IconButton.filledTonal(onPressed: (){
                   chatListBloc.add(RefreshAnswerEvent());
                 }, icon:  const Icon(Icons.refresh)),
+              if (state.params.showRefreshSpecialized)
+                IconButton.filledTonal(onPressed: (){
+                  chatListBloc.add(RefreshSpecializedAnswerEvent());
+                }, icon:  const Icon(Icons.refresh, color: Colors.orange,)),
               if (state.params.showSuggestionWords)
                 Row(
                   children: state.params.suggestionWords.map((String word) {
@@ -141,10 +145,19 @@ class DictionaryView extends StatelessWidget {
                       backgroundColor: context.theme.colorScheme.primary,
                       onPressed: (String clickedWord) {
                         chatListBloc.add(
-                            GetTranslationEvent(providedWord: clickedWord));
+                            GetBasicTranslationEvent(providedWord: clickedWord));
                       },
                     );
                   }).toList(),
+                ),
+              if (state.params.showSpecialized)
+                SuggestedItem(
+                  textColor: context.theme.colorScheme.surface,
+                  backgroundColor: context.theme.colorScheme.surfaceTint,
+                  onPressed: (String a) {
+                    chatListBloc.add(GetSpecializedTranslationEvent(providedWord: state.params.currentWord));
+                  },
+                  title: Properties.instance.settings.dictionarySpecializedVietnamese.i18n,
                 ),
               if (state.params.showSynonyms)
                 SuggestedItem(
@@ -153,7 +166,7 @@ class DictionaryView extends StatelessWidget {
                       providedWord: state.params.currentWord,
                       itemOnPressed: (clickedWord) {
                         chatListBloc.add(
-                            GetTranslationEvent(providedWord: clickedWord));
+                            GetBasicTranslationEvent(providedWord: clickedWord));
                       },
                     ));
                   },
@@ -166,7 +179,7 @@ class DictionaryView extends StatelessWidget {
                       providedWord: state.params.currentWord,
                       itemOnPressed: (clickedWord) {
                         chatListBloc.add(
-                            GetTranslationEvent(providedWord: clickedWord));
+                            GetBasicTranslationEvent(providedWord: clickedWord));
                       },
                     ));
                   },
@@ -211,7 +224,7 @@ class DictionaryView extends StatelessWidget {
               hintText: "Send a message".i18n,
               onSubmitted: (providedWord) {
                 chatListBloc
-                    .add(GetTranslationEvent(providedWord: providedWord));
+                    .add(GetBasicTranslationEvent(providedWord: providedWord));
               },
               onChanged: (currentValue) async {
                 chatListBloc.add(GetWordSuggestionEvent(word: currentValue));

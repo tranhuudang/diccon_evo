@@ -36,7 +36,7 @@ class BrickWallButtons extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {
                       chatListBloc.add(AddUserMessageEvent(providedWord: item));
-                      chatListBloc.add(GetTranslationEvent(providedWord: item));
+                      chatListBloc.add(GetBasicTranslationEvent(providedWord: item));
                     },
                     child: Text(
                       item,

@@ -2,7 +2,6 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../domain/entities/settings/settings.dart';
 
 class DictionaryPreferences extends StatefulWidget {
   const DictionaryPreferences({super.key});
@@ -14,9 +13,6 @@ class DictionaryPreferences extends StatefulWidget {
 class _DictionaryPreferencesState extends State<DictionaryPreferences> {
   final dictionaryPreferencesBloc = DictionaryPreferencesBloc();
   List<String> listChoices = [
-    "Phiên âm",
-    "Định nghĩa",
-    "Ví dụ",
     "Nguồn gốc",
     "Loại từ",
     "Ghi chú về cách sử dụng",
@@ -83,8 +79,6 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
               }
             },
             builder: (context, state) {
-              final dictionaryPrefBloc =
-                  context.read<DictionaryPreferencesBloc>();
               return Column(
                 children: [
                   Section(title: 'Generate Engine'.i18n, children: [
@@ -127,48 +121,47 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                   Section(
                     title: "Customize response format".i18n,
                     children: [
+                      // Default list
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Wrap(
                           spacing: 3,
                           runSpacing: 3,
-                          children:
-                              state.params.listSelectedVietnamese.map((item) {
-                            if (DefaultSettings
-                                    .dictionaryResponseEnglishConstant
-                                    .contains(item) ||
-                                DefaultSettings
-                                    .dictionaryResponseVietnameseConstant
-                                    .contains(item)) {
-                              return ActionChip(
-                                backgroundColor: context
-                                    .theme.colorScheme.secondary
-                                    .withOpacity(.5),
-                                label: Text(
-                                  item.i18n,
-                                  style: TextStyle(
-                                      color: context
-                                          .theme.colorScheme.onSecondary),
-                                ),
-                                onPressed: () {},
-                              );
-                            } else {
-                              return ActionChip(
-                                backgroundColor:
-                                    context.theme.colorScheme.secondary,
-                                label: Text(
-                                  item.i18n,
-                                  style: TextStyle(
-                                      color: context
-                                          .theme.colorScheme.onSecondary),
-                                ),
-                                onPressed: () => dictionaryPreferencesBloc
-                                    .add(RemoveItemInList(itemToRemove: item)),
-                              );
-                            }
+                          children: DefaultSettings
+                              .dictionaryResponseVietnameseConstant
+                              .split(',')
+                              .map((item) {
+                            return ActionChip(
+                              backgroundColor: context
+                                  .theme.colorScheme.secondary
+                                  .withOpacity(.5),
+                              label: Text(
+                                item.i18n,
+                                style: TextStyle(
+                                    color:
+                                        context.theme.colorScheme.onSecondary),
+                              ),
+                              onPressed: () {},
+                            );
                           }).toList(),
                         ),
                       ),
+                      // Specialized meaning
+                      if (state.params.specializedVietnamese.isNotEmpty)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ActionChip(
+                            backgroundColor:
+                                context.theme.colorScheme.secondary,
+                            label: Text(
+                              state.params.specializedVietnamese.i18n,
+                              style: TextStyle(
+                                  color: context.theme.colorScheme.onSecondary),
+                            ),
+                            onPressed: () => dictionaryPreferencesBloc
+                                .add(RemoveDictionarySpecialized()),
+                          ),
+                        ),
                       Text(
                           'The complexity of the response will significantly increase the time it takes for the application to reply.'
                               .i18n,
@@ -186,8 +179,10 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   "Word details".i18n,
-                                  style: context.theme.textTheme.titleMedium?.copyWith(
-                                      color: context.theme.colorScheme.primary),
+                                  style: context.theme.textTheme.titleMedium
+                                      ?.copyWith(
+                                          color: context
+                                              .theme.colorScheme.primary),
                                 ),
                               ),
                               16.height,
@@ -198,7 +193,7 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                                   runSpacing: 3,
                                   children: listChoices.map((item) {
                                     bool isSelected = false;
-                                    if (state.params.listSelectedVietnamese
+                                    if (state.params.specializedVietnamese
                                         .contains(item)) {
                                       isSelected = true;
                                     }
@@ -218,13 +213,14 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                                         label: Text(item.i18n),
                                         selected: isSelected,
                                         onSelected: (selected) {
-                                          if (state.params.listSelectedVietnamese
+                                          if (state.params.specializedVietnamese
                                               .contains(item)) {
                                             dictionaryPreferencesBloc.add(
-                                                RemoveItemInList(itemToRemove: item));
+                                                RemoveDictionarySpecialized());
                                           } else {
                                             dictionaryPreferencesBloc.add(
-                                                AddItemToSelectedList(itemToAdd: item));
+                                                AddItemToSpecialized(
+                                                    itemToAdd: item));
                                           }
                                         },
                                       );
@@ -253,7 +249,7 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                           runSpacing: 3,
                           children: listSpecializedFields.map((item) {
                             bool isSelected = false;
-                            if (state.params.listSelectedVietnamese
+                            if (state.params.specializedVietnamese
                                 .contains(item)) {
                               isSelected = true;
                             }
@@ -261,13 +257,13 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                               label: Text(item.i18n),
                               selected: isSelected,
                               onSelected: (selected) {
-                                if (state.params.listSelectedVietnamese
+                                if (state.params.specializedVietnamese
                                     .contains(item)) {
-                                  dictionaryPreferencesBloc.add(
-                                      RemoveItemInList(itemToRemove: item));
+                                  dictionaryPreferencesBloc
+                                      .add(RemoveDictionarySpecialized());
                                 } else {
                                   dictionaryPreferencesBloc.add(
-                                      AddItemToSelectedList(itemToAdd: item));
+                                      AddItemToSpecialized(itemToAdd: item));
                                 }
                               },
                             );

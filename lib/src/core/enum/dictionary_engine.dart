@@ -1,4 +1,3 @@
-import 'package:diccon_evo/src/core/core.dart';
 
 enum DictionaryEngine{
   stream,

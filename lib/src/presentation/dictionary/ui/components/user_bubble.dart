@@ -22,7 +22,7 @@ class UserBubble extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
+                  vertical: 4.0,
                 ),
                 child: Container(
                   constraints:  BoxConstraints(
