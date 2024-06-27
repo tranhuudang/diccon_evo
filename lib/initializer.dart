@@ -24,7 +24,6 @@ class _Initializer {
       WindowManager.instance.setTitle(DefaultSettings.appName);
     }
     // OpenAI
-    OpenAITimer.init();
     await OpenAIKeySelector.init();
     Gemini.init(apiKey: Env.apiGeminiKey ,enableDebugging:  true);
   }

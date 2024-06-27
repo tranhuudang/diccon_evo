@@ -87,28 +87,6 @@ class ChatbotBloc extends Bloc<ChatbotEvent, ChatbotState> {
           },
         ));
     textController.clear();
-    // Use timer to limit number of request per minute, so that open ai not break
-    var openAITimer = OpenAITimer();
-    openAITimer.trackRequest();
-    var waitingSecondsLeft = openAITimer.secondsUntilNextRequest();
-    if (kDebugMode) {
-      print('Delay $waitingSecondsLeft second to wait open ai before continue');
-    }
-    bool needRemoveTimerWidget = false;
-    if (waitingSecondsLeft != 0) {
-      needRemoveTimerWidget = true;
-      listConversations.insert(
-          0, WaitTimerWidget(initialNumber: waitingSecondsLeft));
-      emit(ChatbotUpdated(conversation: listConversations, isResponding: true));
-    }
-
-    await Future.delayed(
-        Duration(seconds: openAITimer.secondsUntilNextRequest()));
-    if (needRemoveTimerWidget) {
-      listConversations.removeAt(0);
-      emit(ChatbotUpdated(conversation: listConversations, isResponding: true));
-      needRemoveTimerWidget = false;
-    }
     // Check internet connection before create request to chatbot
     bool isInternetConnected = await InternetConnectionChecker().hasConnection;
     if (kDebugMode) {
