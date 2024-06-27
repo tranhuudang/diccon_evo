@@ -463,9 +463,29 @@ extension Localization on Object {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
     },
+    "The complexity of the response will significantly increase the time it takes for the application to reply.": {
+      "en_us": "The complexity of the response will significantly increase the time it takes for the application to reply.",
+      "vi_vi": "Mức độ phức tạp trong câu trả lời sẽ làm tăng thêm đáng kể thời gian để ứng dụng trả lời.",
+    },
     "Pronunciation:": {
       "en_us": "Pronunciation:",
       "vi_vi": "Phiên âm:",
+    },
+    "Generate Engine": {
+      "en_us": "Generate Engine",
+      "vi_vi": "Bộ máy trả lời",
+    },
+    "Recommend": {
+      "en_us": "Recommend",
+      "vi_vi": "Khuyến nghị",
+    },
+    "Faster but less reliable and stable.": {
+      "en_us": "Faster but less reliable and stable.",
+      "vi_vi": "Nhanh hơn nhưng giảm độ tin cậy và sự ổn định.",
+    },
+    "Slower but more accurate and precise.": {
+      "en_us": "Slower but more accurate and precise.",
+      "vi_vi": "Chậm hơn nhưng đúng đắn và chính xác hơn.",
     },
     "Translate word from sentence": {
       "en_us": "Translate word from sentence",
@@ -843,17 +863,17 @@ extension Localization on Object {
       "vi_vi":
           "Bạn đã đạt đến giới hạn tối đa là 7 lựa chọn trong sự lựa chọn của bạn. Vui lòng xem xét lại các lựa chọn của bạn và thực hiện bất kỳ điều chỉnh cần thiết trước khi tiếp tục."
     },
-    "Customize the AI response format.": {
-      "en_us": "Customize the AI response format.",
+    "Customize response format": {
+      "en_us": "Customize response format",
       "vi_vi": "Cấu trúc câu trả lời AI"
     },
     "Release notes": {"en_us": "Release notes", "vi_vi": "Thông tin phiên bản"},
-    "Available options": {
-      "en_us": "Available options",
-      "vi_vi": "Những lựa chọn sẵn có"
+    "Word details": {
+      "en_us": "Word details",
+      "vi_vi": "Độ chi tiết"
     },
-    "Specialized Meanings": {
-      "en_us": "Specialized Meanings",
+    "Specialized meanings": {
+      "en_us": "Specialized meanings",
       "vi_vi": "Chuyên ngành"
     },
     "Phiên âm": {"en_us": "Pronunciation", "vi_vi": "Phát âm"},

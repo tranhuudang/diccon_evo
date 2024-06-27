@@ -287,36 +287,47 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       {required String requestQuestion,
       required String word,
       required String lang}) {
-    // gemini.streamGenerateContent(requestQuestion, safetySettings: [
-    //   SafetySetting(
-    //       category: SafetyCategory.dangerous,
-    //       threshold: SafetyThreshold.blockNone),
-    //   SafetySetting(
-    //       category: SafetyCategory.harassment,
-    //       threshold: SafetyThreshold.blockNone),
-    //   SafetySetting(
-    //       category: SafetyCategory.hateSpeech,
-    //       threshold: SafetyThreshold.blockNone),
-    //   SafetySetting(
-    //       category: SafetyCategory.sexuallyExplicit,
-    //       threshold: SafetyThreshold.blockNone)
-    // ]).listen((event) {
-    //   DebugLog.info('Gemini finish reason: ${event.finishReason}');
-    //   currentResponseContent += event.output ?? ' ';
-    //   add(ChatBotRespondingEvent(
-    //       translation: currentResponseContent, word: word));
-    // }).onDone(() {
-    //   _createFirebaseDatabaseItem(
-    //       lang: lang, word: word, translation: currentResponseContent);
-    //   currentResponseContent = '';
-    // });
-    try {
-      gemini.text(requestQuestion).then((onValue) {
-        add(ChatBotRespondingEvent(
-            translation: onValue?.output ?? '', word: word));
-      });
-    } catch (e) {
-      DebugLog.error(e.toString());
+    DictionaryEngine currentDictionaryEngine =
+        Properties.instance.settings.dictionaryEngine.toDictionaryEngine;
+    if (currentDictionaryEngine == DictionaryEngine.stream) {
+      /// Solution 1: stream engine
+      try {
+        gemini.streamGenerateContent(requestQuestion, safetySettings: [
+          SafetySetting(
+              category: SafetyCategory.dangerous,
+              threshold: SafetyThreshold.blockNone),
+          SafetySetting(
+              category: SafetyCategory.harassment,
+              threshold: SafetyThreshold.blockNone),
+          SafetySetting(
+              category: SafetyCategory.hateSpeech,
+              threshold: SafetyThreshold.blockNone),
+          SafetySetting(
+              category: SafetyCategory.sexuallyExplicit,
+              threshold: SafetyThreshold.blockNone)
+        ]).listen((event) {
+          DebugLog.info('Gemini finish reason: ${event.finishReason}');
+          currentResponseContent += event.output ?? ' ';
+          add(ChatBotRespondingEvent(
+              translation: currentResponseContent, word: word));
+        }).onDone(() {
+          _createFirebaseDatabaseItem(
+              lang: lang, word: word, translation: currentResponseContent);
+          currentResponseContent = '';
+        });
+      } catch (e) {
+        DebugLog.error(e.toString());
+      }
+    } else {
+      /// Solution 2: Time bomb engine
+      try {
+        gemini.text(requestQuestion).then((onValue) {
+          add(ChatBotRespondingEvent(
+              translation: onValue?.output ?? '', word: word));
+        });
+      } catch (e) {
+        DebugLog.error(e.toString());
+      }
     }
   }
 

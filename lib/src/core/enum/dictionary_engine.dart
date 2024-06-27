@@ -13,7 +13,7 @@ extension DictionaryEngineExtension on String {
       case 'timeBomb':
         return DictionaryEngine.timeBomb;
       default:
-        throw FormatException(this);
+        return DictionaryEngine.stream;
     }
   }
 }

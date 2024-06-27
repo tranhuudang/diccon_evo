@@ -52,7 +52,7 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
     "Hàng hải",
     "Giao thông vận tải",
   ];
-  DictionaryEngine? _selectedEngine = DictionaryEngine.stream;
+
   @override
   void initState() {
     super.initState();
@@ -87,18 +87,53 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                   context.read<DictionaryPreferencesBloc>();
               return Column(
                 children: [
-                  Section(title: 'Engine'.i18n, children: [
-                    
+                  Section(title: 'Generate Engine'.i18n, children: [
+                    // Create two radio buttons to select DictionaryEngine
+                    RadioListTile<DictionaryEngine>(
+                      title: Text('Stream'.i18n),
+                      subtitle: Text(
+                          'Faster but less reliable and stable.'.i18n,
+                          style: context.theme.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.textTheme.bodyMedium?.color
+                                ?.withOpacity(.5),
+                          )),
+                      value: DictionaryEngine.stream,
+                      groupValue: state.params.dictionaryEngine,
+                      onChanged: (DictionaryEngine? value) {
+                        if (value != null) {
+                          dictionaryPreferencesBloc.add(
+                              ChangeDictionaryEngine(dictionaryEngine: value));
+                        }
+                      },
+                    ),
+                    RadioListTile<DictionaryEngine>(
+                      title: Text('${'Time-bomb'.i18n} (${'Recommend'.i18n})'),
+                      subtitle: Text(
+                          'Slower but more accurate and precise.'.i18n,
+                          style: context.theme.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.textTheme.bodyMedium?.color
+                                ?.withOpacity(.5),
+                          )),
+                      value: DictionaryEngine.timeBomb,
+                      groupValue: state.params.dictionaryEngine,
+                      onChanged: (DictionaryEngine? value) {
+                        if (value != null) {
+                          dictionaryPreferencesBloc.add(
+                              ChangeDictionaryEngine(dictionaryEngine: value));
+                        }
+                      },
+                    ),
                   ]),
                   Section(
-                    title: "Customize the AI response format.".i18n,
+                    title: "Customize response format".i18n,
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Wrap(
                           spacing: 3,
                           runSpacing: 3,
-                          children: state.listSelectedVietnamese.map((item) {
+                          children:
+                              state.params.listSelectedVietnamese.map((item) {
                             if (DefaultSettings
                                     .dictionaryResponseEnglishConstant
                                     .contains(item) ||
@@ -134,56 +169,83 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                           }).toList(),
                         ),
                       ),
-                    ],
-                  ),
-                  Section(
-                    title: "Available options".i18n,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: listChoices.map((item) {
-                            bool isSelected = false;
-                            if (state.listSelectedVietnamese.contains(item)) {
-                              isSelected = true;
-                            }
-                            if (DefaultSettings
-                                    .dictionaryResponseEnglishConstant
-                                    .contains(item) ||
-                                DefaultSettings
-                                    .dictionaryResponseVietnameseConstant
-                                    .contains(item)) {
-                              return ChoiceChip(
-                                label: Text(item.i18n),
-                                selected: isSelected,
-                                onSelected: (selected) {},
-                              );
-                            } else {
-                              return ChoiceChip(
-                                label: Text(item.i18n),
-                                selected: isSelected,
-                                onSelected: (selected) {
-                                  if (state.listSelectedVietnamese
-                                      .contains(item)) {
-                                    dictionaryPreferencesBloc.add(
-                                        RemoveItemInList(itemToRemove: item));
-                                  } else {
-                                    dictionaryPreferencesBloc.add(
-                                        AddItemToSelectedList(itemToAdd: item));
-                                  }
-                                },
-                              );
-                            }
-                          }).toList(),
+                      Text(
+                          'The complexity of the response will significantly increase the time it takes for the application to reply.'
+                              .i18n,
+                          style: context.theme.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.textTheme.bodyMedium?.color
+                                ?.withOpacity(.5),
+                          )),
+                      IgnorePointer(
+                        child: Opacity(
+                          opacity: .2,
+                          child: Column(
+                            children: [
+                              16.height,
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Word details".i18n,
+                                  style: context.theme.textTheme.titleMedium?.copyWith(
+                                      color: context.theme.colorScheme.primary),
+                                ),
+                              ),
+                              16.height,
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Wrap(
+                                  spacing: 3,
+                                  runSpacing: 3,
+                                  children: listChoices.map((item) {
+                                    bool isSelected = false;
+                                    if (state.params.listSelectedVietnamese
+                                        .contains(item)) {
+                                      isSelected = true;
+                                    }
+                                    if (DefaultSettings
+                                            .dictionaryResponseEnglishConstant
+                                            .contains(item) ||
+                                        DefaultSettings
+                                            .dictionaryResponseVietnameseConstant
+                                            .contains(item)) {
+                                      return ChoiceChip(
+                                        label: Text(item.i18n),
+                                        selected: isSelected,
+                                        onSelected: (selected) {},
+                                      );
+                                    } else {
+                                      return ChoiceChip(
+                                        label: Text(item.i18n),
+                                        selected: isSelected,
+                                        onSelected: (selected) {
+                                          if (state.params.listSelectedVietnamese
+                                              .contains(item)) {
+                                            dictionaryPreferencesBloc.add(
+                                                RemoveItemInList(itemToRemove: item));
+                                          } else {
+                                            dictionaryPreferencesBloc.add(
+                                                AddItemToSelectedList(itemToAdd: item));
+                                          }
+                                        },
+                                      );
+                                    }
+                                  }).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                  Section(
-                    title: "Specialized Meanings".i18n,
-                    children: [
+                      16.height,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Specialized meanings".i18n,
+                          style: context.theme.textTheme.titleMedium?.copyWith(
+                              color: context.theme.colorScheme.primary),
+                        ),
+                      ),
+                      16.height,
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Wrap(
@@ -191,14 +253,15 @@ class _DictionaryPreferencesState extends State<DictionaryPreferences> {
                           runSpacing: 3,
                           children: listSpecializedFields.map((item) {
                             bool isSelected = false;
-                            if (state.listSelectedVietnamese.contains(item)) {
+                            if (state.params.listSelectedVietnamese
+                                .contains(item)) {
                               isSelected = true;
                             }
                             return ChoiceChip(
                               label: Text(item.i18n),
                               selected: isSelected,
                               onSelected: (selected) {
-                                if (state.listSelectedVietnamese
+                                if (state.params.listSelectedVietnamese
                                     .contains(item)) {
                                   dictionaryPreferencesBloc.add(
                                       RemoveItemInList(itemToRemove: item));
