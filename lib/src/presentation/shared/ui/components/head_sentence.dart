@@ -17,7 +17,7 @@ class HeadSentence extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: listText.map((text) {
-        return Text(text.i18n, style: textStyle,);
+        return Text(text, style: textStyle,);
       }).toList(),
     );
   }
