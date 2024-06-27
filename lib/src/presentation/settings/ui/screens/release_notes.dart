@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:diccon_evo/src/data/data.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ReleaseNotes extends StatefulWidget {
@@ -14,12 +15,16 @@ class ReleaseNotes extends StatefulWidget {
 
 class _ReleaseNotesState extends State<ReleaseNotes> {
   List<ReleaseNote> releaseNotes = [];
+  bool isLoading = true;
 
   Future<void> loadReleaseNotes() async {
     final String response =
-        await rootBundle.loadString(LocalDirectory.releaseNotes);
+    await rootBundle.loadString(LocalDirectory.releaseNotes);
     final List<dynamic> data = json.decode(response);
-    releaseNotes = data.map((json) => ReleaseNote.fromJson(json)).toList();
+    setState(() {
+      releaseNotes = data.map((json) => ReleaseNote.fromJson(json)).toList();
+      isLoading = false;
+    });
   }
 
   @override
@@ -36,7 +41,9 @@ class _ReleaseNotesState extends State<ReleaseNotes> {
           "Release notes".i18n,
         ),
       ),
-      body: ListView.builder(
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
         itemCount: releaseNotes.length,
         itemBuilder: (BuildContext context, int index) {
           return ReleaseNotesItem(

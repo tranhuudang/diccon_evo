@@ -3,15 +3,13 @@
     <channel>
         <title>Diccon Advanced Dictionary</title>
         <item>
-            <title>Version 7.0.4</title>
+            <title>Version 7.0.5</title>
             <description>-Cải thiện chất lượng câu trả lời trong từ điển
-            -Hệ thống thông báo khi có phiên bản mới
-            -Cải thiện hiệu năng từ điển
-            -Sử dụng hệ thống AI mới
+            -Thêm tùy chọn bộ máy xử lí từ điển
             </description>
-            <pubDate>Mon, 24 Jun 2024 12:00:00 +0000</pubDate>
+            <pubDate>Mon, 27 Jun 2024 12:00:00 +0000</pubDate>
             <enclosure url="https://play.google.com/store/apps/details?id=com.zeroboy.diccon_evo"
-                sparkle:version="7.0.4" sparkle:os="android" />
+                sparkle:version="7.0.5" sparkle:os="android" />
         </item>
     </channel>
 </rss>
