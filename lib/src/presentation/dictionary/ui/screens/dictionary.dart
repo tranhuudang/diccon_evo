@@ -150,7 +150,7 @@ class DictionaryView extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-              if (state.params.showSpecialized)
+              if (state.params.showSpecialized && Properties.instance.settings.dictionarySpecializedVietnamese.isNotEmpty)
                 SuggestedItem(
                   textColor: context.theme.colorScheme.surface,
                   backgroundColor: context.theme.colorScheme.surfaceTint,
