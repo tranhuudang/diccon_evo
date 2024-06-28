@@ -42,14 +42,12 @@ class _MobileHomeViewState extends State<MobileHomeView> {
       tabTitleList = [
         'Stories',
         'Your peers',
-        'Dialogue',
         'Chatbot',
         'Practice'
       ];
     } else {
       tabTitleList = [
         'Stories',
-        'Dialogue',
         'Chatbot',
         'Practice'
       ];
@@ -204,12 +202,6 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                                     }
                                   },
                                 ),
-                              GestureDetector(
-                                child: const DialogueTab(),
-                                onTap: () {
-                                  context.pushNamed(RouterConstants.dialogue);
-                                },
-                              ),
                               GestureDetector(
                                 child: const ChatbotTab(),
                                 onTap: () {

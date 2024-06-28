@@ -633,17 +633,17 @@ extension Localization on Object {
       "en_us": "Seen",
       "vi_vi": "Đã xem",
     },
-    "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.":
+    "Provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.":
         {
       "en_us":
-          "This tab provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.",
+          "Provides a list of dual-language English and Vietnamese dialogues on various topics. Feel free to explore and use them for your language practice.",
       "vi_vi":
-          "Tab này cung cấp danh sách các đối thoại song ngữ Anh-Việt trên nhiều chủ đề khác nhau. Hãy thoải mái khám phá và sử dụng chúng cho việc luyện tập ngôn ngữ của bạn.",
+          "Cung cấp danh sách các đối thoại song ngữ Anh-Việt trên nhiều chủ đề khác nhau. Hãy thoải mái khám phá và sử dụng chúng cho việc luyện tập ngôn ngữ của bạn.",
     },
 
-    "Open Dialogue List": {
-      "en_us": "Open Dialogue List",
-      "vi_vi": "Mở Danh Sách Đối Thoại",
+    "Dialogue Duo: English-Vietnamese Edition": {
+      "en_us": "Dialogue Duo: English-Vietnamese Edition",
+      "vi_vi": "Đối Thoại Song Ngữ: Phiên Bản Anh-Việt",
     },
     "Thank you for your feedbacks!": {
       "en_us": "Thank you for your feedbacks!",

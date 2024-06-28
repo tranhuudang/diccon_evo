@@ -14,7 +14,7 @@ class YourPeersTab extends StatelessWidget {
     return Column(
       children: [
         Text(
-            'This tab provides a list of groups you are part of. You can create new groups, join existing ones, and chat with your peers.'
+            'Provides a list of groups you are part of. You can create new groups, join existing ones, and chat with your peers.'
                 .i18n),
         Row(
           children: [
