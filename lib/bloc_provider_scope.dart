@@ -1,3 +1,4 @@
+import 'package:diccon_evo/src/presentation/dialogue/data/bloc/list_dialogue_bloc.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/presentation/story/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,7 @@ class BlocProviderScope extends StatelessWidget {
           BlocProvider<VoiceBloc>(create: (context) => VoiceBloc()),
           BlocProvider<GroupChatBloc>(create: (context) => GroupChatBloc()),
           BlocProvider<DictionaryPreferencesBloc>(create: (context) => DictionaryPreferencesBloc()),
+          BlocProvider<ListDialogueBloc>(create: (context) => ListDialogueBloc()),
         ],
         child: child,);
   }

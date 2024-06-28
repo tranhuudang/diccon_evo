@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/domain.dart';
+import '../utils/md5_generator.dart';
 
 class Properties {
   // Ensures end-users cannot initialize the class
@@ -10,8 +13,23 @@ class Properties {
   static final Properties _instance = Properties._();
   static Properties get instance => _instance;
 
+  static bool isEditor = false;
+
   static Future<void> initialize() async {
     instance.settings = await instance._getSettings();
+    instance._checkIfUserIsEditor();
+  }
+
+  Future<void> _checkIfUserIsEditor() async {
+    final authUser = FirebaseAuth.instance.currentUser;
+    final userId = Md5Generator.composeMd5IdForFirebaseDbPremium(
+        userEmail: authUser?.email ?? '');
+    final editorDoc = await firestore.FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.editor)
+        .doc(userId)
+        .get();
+
+      isEditor = editorDoc.exists;
   }
 
   Future<void> saveSettings(Settings newSettings) async {

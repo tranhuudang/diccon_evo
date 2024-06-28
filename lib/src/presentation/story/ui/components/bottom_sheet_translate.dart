@@ -24,7 +24,6 @@ class BottomSheetTranslation extends StatefulWidget {
 class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   final _isLoadingStreamController = StreamController();
   bool _isEditing = false;
-  bool _isEditor = false;
   final gemini = Gemini.instance;
   String wordDefinitionAnswer = '';
   String sentenceTranslationAnswer = '';
@@ -33,24 +32,11 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   final TextEditingController _editingControllerForSentence =
       TextEditingController();
 
-  Future<void> _checkIfUserIsEditor() async {
-    final authUser = FirebaseAuth.instance.currentUser;
-    final userId = Md5Generator.composeMd5IdForFirebaseDbPremium(
-        userEmail: authUser?.email ?? '');
-    final editorDoc = await FirebaseFirestore.instance
-        .collection(FirebaseConstant.firestore.editor)
-        .doc(userId)
-        .get();
 
-    setState(() {
-      _isEditor = editorDoc.exists;
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    _checkIfUserIsEditor();
     _checkIfWordDefinitionOnFirestore();
     _checkIfSentenceTranslationOnFirestore();
   }
@@ -385,7 +371,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                           ],
                         ),
                       ),
-                      if (_isEditor)
+                      if (Properties.isEditor)
                         Column(
                           children: [
                             IconButton(

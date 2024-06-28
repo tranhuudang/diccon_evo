@@ -1,16 +1,15 @@
-import 'dart:io';
-
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
+import 'package:diccon_evo/src/presentation/dialogue/ui/screens/add_new_dialogue.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart'; // Import for rootBundle
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/bloc/list_dialogue_bloc.dart';
+import '../../data/bloc/list_dialogue_event.dart';
+import '../../data/bloc/list_dialogue_state.dart';
 import 'package:search_page/search_page.dart';
 import 'package:wave_divider/wave_divider.dart';
-import '../../../../domain/domain.dart';
-import '../../../presentation.dart';
 import 'dialogue.dart';
+import '../../../../domain/domain.dart';
 
 class ListDialogueView extends StatefulWidget {
   const ListDialogueView({super.key});
@@ -20,46 +19,10 @@ class ListDialogueView extends StatefulWidget {
 }
 
 class _ListDialogueViewState extends State<ListDialogueView> {
-  List<Conversation> conversations = [];
-  List<Conversation> backupConversations = [];
-  String readStateFileContents = '';
-  late File _readStateFile;
-  bool _isReversed = false;
-
   @override
   void initState() {
     super.initState();
-    _loadConversations();
-    _loadDialogueReadState();
-  }
-
-  Future<void> _loadDialogueReadState() async {
-    _readStateFile = await _getDialogueReadStateFile();
-    if (await _readStateFile.exists()) {
-      readStateFileContents = await _readStateFile.readAsString();
-    }
-  }
-
-  Future<File> _getDialogueReadStateFile() async {
-    final directory = await getApplicationCacheDirectory();
-    File file = File('${directory.path}/dialogue_read_state.txt');
-    DebugLog.info('Read dialog read state file in ${file.path}');
-    return file;
-  }
-
-  Future<void> _loadConversations() async {
-    try {
-      String data =
-          await rootBundle.loadString('assets/dialogue/dialogue.json');
-      List<dynamic> jsonList = jsonDecode(data);
-      setState(() {
-        conversations =
-            jsonList.map((json) => Conversation.fromJson(json)).toList();
-      });
-      backupConversations = conversations;
-    } catch (e) {
-      DebugLog.info('Error loading asset dialogue data: $e');
-    }
+    context.read<ListDialogueBloc>().add(LoadConversations());
   }
 
   @override
@@ -68,42 +31,38 @@ class _ListDialogueViewState extends State<ListDialogueView> {
       appBar: AppBar(
         title: Text('Dialogue'.i18n),
         actions: [
+          if (Properties.isEditor)
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddNewDialogue()));
+              },
+              icon: const Icon(Icons.add),
+            ),
           IconButton(
-              onPressed: () => showSearchPage(context),
-              icon: const Icon(Icons.search)),
+            onPressed: () => showSearchPage(context),
+            icon: const Icon(Icons.search),
+          ),
           PopupMenuButton(
-            //splashRadius: 10.0,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: context.theme.dividerColor),
               borderRadius: BorderRadius.circular(16.0),
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                  child: Text("Seen".i18n),
-                  onTap: () {
-                    conversations = conversations.where((conversation) {
-                      final conversationMd5 =
-                          Md5Generator.composeMd5IdForDialogueReadState(
-                              fromConversationDescription:
-                                  conversation.description);
-                      return readStateFileContents.contains(conversationMd5);
-                    }).toList();
-                    setState(() {
-                      _isReversed = false;
-                    });
-                  }),
-              // Todo: Create function to get most popular dialogue
-              // PopupMenuItem(child: Text("Most popular".i18n), onTap: () {
-              //
-              // }),
+                child: Text("Seen".i18n),
+                onTap: () {
+                  // Implement Seen functionality
+                },
+              ),
               PopupMenuItem(
-                  child: Text("Newest".i18n),
-                  onTap: () {
-                    setState(() {
-                      conversations = backupConversations;
-                      _isReversed = true;
-                    });
-                  }),
+                child: Text("Newest".i18n),
+                onTap: () {
+                  // Implement Newest functionality
+                },
+              ),
               const PopupMenuItem(
                 enabled: false,
                 height: 0,
@@ -112,80 +71,88 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                 ),
               ),
               PopupMenuItem(
-                  child: Text("All".i18n),
-                  onTap: () {
-                    setState(() {
-                      _isReversed = false;
-                      conversations = backupConversations;
-                    });
-                  }),
+                child: Text("All".i18n),
+                onTap: () {
+                  // Implement All functionality
+                },
+              ),
             ],
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// Sub sentence
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Text(
-                'dialogue_corner_welcoming'.i18n,
-                style: context.theme.textTheme.bodyMedium
-                    ?.copyWith(color: context.theme.colorScheme.onSurface),
-              ),
-            ),
-            const WaveDivider(
-              thickness: .3,
-            ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              reverse: _isReversed,
-              itemCount: conversations.length,
-              itemBuilder: (context, index) {
-                final conversation = conversations[index];
-                final conversationMd5 =
-                    Md5Generator.composeMd5IdForDialogueReadState(
-                        fromConversationDescription: conversation.description);
-                bool isRead = readStateFileContents.contains(conversationMd5);
-                return ListTile(
-                  title: Text(conversation.title),
-                  subtitle: Text(
-                    conversation.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: context.theme.textTheme.bodyMedium?.copyWith(
-                        color: context.theme.textTheme.bodyMedium?.color
-                            ?.withOpacity(.5)),
+      body: BlocBuilder<ListDialogueBloc, ListDialogueState>(
+        builder: (context, state) {
+          if (state is ListDialogueLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is ListDialogueError) {
+            return Center(child: Text(state.error));
+          } else if (state is ListDialogueLoaded) {
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 24),
+                    child: Text(
+                      'dialogue_corner_welcoming'.i18n,
+                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                          color: context.theme.colorScheme.onSurface),
+                    ),
                   ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DialogueView(
-                                  conversation: conversation,
-                                  listConversation: conversations,
-                                  isRead: isRead,
-                                )));
-                  },
-                  trailing: isRead
-                      ? Icon(
-                          Icons.check_circle_outline,
-                          color: context.theme.colorScheme.primary,
-                        )
-                      : const SizedBox.shrink(),
-                );
-              },
-            ),
-          ],
-        ),
+                  const WaveDivider(
+                    thickness: .3,
+                  ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state.conversations.length,
+                    itemBuilder: (context, index) {
+                      final conversation = state.conversations[index];
+                      return ListTile(
+                        title: Text(conversation.title),
+                        subtitle: Text(
+                          conversation.description,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.theme.textTheme.bodyMedium?.copyWith(
+                              color: context.theme.textTheme.bodyMedium?.color
+                                  ?.withOpacity(.5)),
+                        ),
+                        trailing: state.haveReadDialogueDescriptionList.contains(conversation.description)
+                            ? Icon(Icons.check, color: context.theme.colorScheme.primary,)
+                            : null,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DialogueView(
+                                conversation: conversation,
+                                listConversation: state.conversations,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          }
+          return SizedBox.shrink();
+        },
       ),
     );
   }
 
   Future<void> showSearchPage(BuildContext context) async {
+    List<Conversation> conversations =
+        context.read<ListDialogueBloc>().state is ListDialogueLoaded
+            ? (context.read<ListDialogueBloc>().state as ListDialogueLoaded)
+                .conversations
+            : [];
+
     showSearch(
       context: context,
       delegate: SearchPage<Conversation>(
@@ -202,15 +169,14 @@ class _ListDialogueViewState extends State<ListDialogueView> {
         ],
         builder: (conversation) => ListTile(
           title: Text(conversation.title),
-          titleTextStyle: context.theme.textTheme.titleMedium,
           subtitle: Opacity(
-              opacity: .5,
-              child: Text(
-                conversation.description,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              )),
-          subtitleTextStyle: context.theme.textTheme.bodyMedium,
+            opacity: .5,
+            child: Text(
+              conversation.description,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           onTap: () {
             Navigator.push(
               context,
@@ -218,7 +184,6 @@ class _ListDialogueViewState extends State<ListDialogueView> {
                 builder: (context) => DialogueView(
                   conversation: conversation,
                   listConversation: conversations,
-                  isRead: false,
                 ),
               ),
             );
