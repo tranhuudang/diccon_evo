@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
-import '../ui/components/conversation_wait_timer.dart';
 
 /// Events
 @immutable

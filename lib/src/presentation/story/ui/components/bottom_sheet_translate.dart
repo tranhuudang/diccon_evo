@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';

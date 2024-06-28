@@ -5,4 +5,13 @@ abstract class ListDialogueEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadConversations extends ListDialogueEvent {}
+class LoadConversationsEvent extends ListDialogueEvent {
+  final bool forceReload;
+  LoadConversationsEvent({this.forceReload = false});
+}
+
+class GetSeenConversationEvent extends ListDialogueEvent {}
+
+class GetUnreadConversationEvent extends ListDialogueEvent {}
+
+class GetAllConversationEvent extends ListDialogueEvent {}

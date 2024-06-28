@@ -9,33 +9,79 @@ class ListDialogueBloc extends Bloc<ListDialogueEvent, ListDialogueState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   ListDialogueBloc() : super(ListDialogueInitial()) {
-    on<LoadConversations>(_onLoadConversations);
+    on<LoadConversationsEvent>(_onLoadConversations);
+    on<GetSeenConversationEvent>(_onGetSeenConversation);
+    on<GetUnreadConversationEvent>(_onGetUnreadConversation);
+    on<GetAllConversationEvent>(_onGetAllConversation);
+  }
+
+  List<Conversation> _tempConversations = [];
+  List<String> _tempHaveReadDialogueDescriptionList = [];
+
+  Future<void> _onGetSeenConversation(
+      GetSeenConversationEvent event, Emitter<ListDialogueState> emit) async {
+    final seenConversationList = _tempConversations
+        .where((item) =>
+            _tempHaveReadDialogueDescriptionList.contains(item.description))
+        .toList();
+    emit(ListDialogueLoaded(
+        seenConversationList, _tempHaveReadDialogueDescriptionList));
+  }
+
+
+  Future<void> _onGetAllConversation(
+      GetAllConversationEvent event, Emitter<ListDialogueState> emit) async {
+    emit(ListDialogueLoaded(
+        _tempConversations, _tempHaveReadDialogueDescriptionList));
+  }
+
+  Future<void> _onGetUnreadConversation(
+      GetUnreadConversationEvent event, Emitter<ListDialogueState> emit) async {
+    final unreadConversationList = _tempConversations
+        .where((item) =>
+            !_tempHaveReadDialogueDescriptionList.contains(item.description))
+        .toList();
+    emit(ListDialogueLoaded(
+        unreadConversationList, _tempHaveReadDialogueDescriptionList));
   }
 
   Future<void> _onLoadConversations(
-      LoadConversations event, Emitter<ListDialogueState> emit) async {
-    emit(ListDialogueLoading());
+      LoadConversationsEvent event, Emitter<ListDialogueState> emit) async {
+    if (_tempConversations.isNotEmpty && event.forceReload == false) {
+      emit(ListDialogueLoaded(
+          _tempConversations, _tempHaveReadDialogueDescriptionList));
+    } else {
+      emit(ListDialogueLoading());
 
-    try {
-      // Fetch read conversations
-      List<String> haveReadDialogueDescriptionList = [];
-      if (FirebaseAuth.instance.currentUser?.uid != null) {
-        final userId = FirebaseAuth.instance.currentUser!.uid;
-        final userDoc = await _firestore.collection('Users').doc(userId).get();
+      try {
+        // Fetch read conversations
+        List<String> haveReadDialogueDescriptionList = [];
+        if (FirebaseAuth.instance.currentUser?.uid != null) {
+          final userId = FirebaseAuth.instance.currentUser!.uid;
+          final userDoc =
+              await _firestore.collection('Users').doc(userId).get();
 
-         haveReadDialogueDescriptionList = userDoc.exists
-            ? List<String>.from(userDoc.data()?['readDialogueDescriptions'] ?? [])
-            : [];
+          haveReadDialogueDescriptionList = userDoc.exists
+              ? List<String>.from(
+                  userDoc.data()?['readDialogueDescriptions'] ?? [])
+              : [];
+        }
+        QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
+            .collection('Dialogue')
+            .doc('Conversations')
+            .collection('Conversations')
+            .get();
+        List<Conversation> conversations = snapshot.docs
+            .map((doc) => Conversation.fromJson(doc.data()))
+            .toList();
+        _tempConversations = conversations;
+        _tempHaveReadDialogueDescriptionList =
+            haveReadDialogueDescriptionList.reversed.toList();
+        emit(ListDialogueLoaded(
+            _tempConversations, _tempHaveReadDialogueDescriptionList));
+      } catch (e) {
+        emit(ListDialogueError('Error loading conversations: $e'));
       }
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-      await _firestore.collection('Dialogue').doc('Conversations').collection('Conversations').get();
-      List<Conversation> conversations = snapshot.docs
-          .map((doc) => Conversation.fromJson(doc.data()))
-          .toList();
-
-      emit(ListDialogueLoaded(conversations, haveReadDialogueDescriptionList));
-    } catch (e) {
-      emit(ListDialogueError('Error loading conversations: $e'));
     }
   }
 }

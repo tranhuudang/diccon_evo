@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddNewDialogue extends StatefulWidget {
-  const AddNewDialogue({Key? key}) : super(key: key);
+  const AddNewDialogue({super.key});
 
   @override
   _AddNewDialogueState createState() => _AddNewDialogueState();
@@ -26,7 +26,7 @@ class _AddNewDialogueState extends State<AddNewDialogue> {
               .collection('Conversations')
               .add(conversation);
         }
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Conversations added successfully')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Conversations added successfully')));
         _formKey.currentState!.reset();
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error adding conversations: $e')));
@@ -43,7 +43,7 @@ class _AddNewDialogueState extends State<AddNewDialogue> {
             .doc('Conversations')
             .collection('Conversations')
             .add(conversation);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Conversation added successfully')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Conversation added successfully')));
         _formKey.currentState!.reset();
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error adding conversation: $e')));
@@ -55,7 +55,7 @@ class _AddNewDialogueState extends State<AddNewDialogue> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Conversations'),
+        title: const Text('Add Conversations'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -65,7 +65,7 @@ class _AddNewDialogueState extends State<AddNewDialogue> {
             children: [
               TextFormField(
                 controller: _listController,
-                decoration: InputDecoration(labelText: 'List of Conversations (JSON format)'),
+                decoration: const InputDecoration(labelText: 'List of Conversations (JSON format)'),
                 maxLines: 5,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -79,15 +79,15 @@ class _AddNewDialogueState extends State<AddNewDialogue> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _addListOfConversations,
-                child: Text('Add List of Conversations'),
+                child: const Text('Add List of Conversations'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _singleController,
-                decoration: InputDecoration(labelText: 'Single Conversation (JSON format)'),
+                decoration: const InputDecoration(labelText: 'Single Conversation (JSON format)'),
                 maxLines: 5,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -101,10 +101,10 @@ class _AddNewDialogueState extends State<AddNewDialogue> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _addSingleConversation,
-                child: Text('Add Single Conversation'),
+                child: const Text('Add Single Conversation'),
               ),
             ],
           ),

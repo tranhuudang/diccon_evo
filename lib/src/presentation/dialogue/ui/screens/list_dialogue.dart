@@ -1,5 +1,4 @@
 import 'package:diccon_evo/src/core/core.dart';
-import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/presentation/dialogue/ui/screens/add_new_dialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,11 +21,12 @@ class _ListDialogueViewState extends State<ListDialogueView> {
   @override
   void initState() {
     super.initState();
-    context.read<ListDialogueBloc>().add(LoadConversations());
+    context.read<ListDialogueBloc>().add(LoadConversationsEvent());
   }
 
   @override
   Widget build(BuildContext context) {
+    final listDialogBloc = context.read<ListDialogueBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Dialogue'.i18n),
@@ -42,6 +42,12 @@ class _ListDialogueViewState extends State<ListDialogueView> {
               icon: const Icon(Icons.add),
             ),
           IconButton(
+            onPressed: () {
+              listDialogBloc.add(LoadConversationsEvent(forceReload: true));
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+          IconButton(
             onPressed: () => showSearchPage(context),
             icon: const Icon(Icons.search),
           ),
@@ -52,15 +58,15 @@ class _ListDialogueViewState extends State<ListDialogueView> {
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Text("Seen".i18n),
+                child: Text("Read".i18n),
                 onTap: () {
-                  // Implement Seen functionality
+                  listDialogBloc.add(GetSeenConversationEvent());
                 },
               ),
               PopupMenuItem(
-                child: Text("Newest".i18n),
+                child: Text("Unread".i18n),
                 onTap: () {
-                  // Implement Newest functionality
+                  listDialogBloc.add(GetUnreadConversationEvent());
                 },
               ),
               const PopupMenuItem(
@@ -73,7 +79,7 @@ class _ListDialogueViewState extends State<ListDialogueView> {
               PopupMenuItem(
                 child: Text("All".i18n),
                 onTap: () {
-                  // Implement All functionality
+                  listDialogBloc.add(GetAllConversationEvent());
                 },
               ),
             ],
@@ -83,64 +89,75 @@ class _ListDialogueViewState extends State<ListDialogueView> {
       body: BlocBuilder<ListDialogueBloc, ListDialogueState>(
         builder: (context, state) {
           if (state is ListDialogueLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is ListDialogueError) {
             return Center(child: Text(state.error));
           } else if (state is ListDialogueLoaded) {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 24),
-                    child: Text(
-                      'dialogue_corner_welcoming'.i18n,
-                      style: context.theme.textTheme.bodyMedium?.copyWith(
-                          color: context.theme.colorScheme.onSurface),
+            return RefreshIndicator(
+              displacement: 60,
+              onRefresh: () async {
+                await Future.delayed(const Duration(seconds: 1));
+                listDialogBloc.add(LoadConversationsEvent(forceReload: true));
+              },
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 24),
+                      child: Text(
+                        'dialogue_corner_welcoming'.i18n,
+                        style: context.theme.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.colorScheme.onSurface),
+                      ),
                     ),
-                  ),
-                  const WaveDivider(
-                    thickness: .3,
-                  ),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: state.conversations.length,
-                    itemBuilder: (context, index) {
-                      final conversation = state.conversations[index];
-                      return ListTile(
-                        title: Text(conversation.title),
-                        subtitle: Text(
-                          conversation.description,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: context.theme.textTheme.bodyMedium?.copyWith(
-                              color: context.theme.textTheme.bodyMedium?.color
-                                  ?.withOpacity(.5)),
-                        ),
-                        trailing: state.haveReadDialogueDescriptionList.contains(conversation.description)
-                            ? Icon(Icons.check, color: context.theme.colorScheme.primary,)
-                            : null,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DialogueView(
-                                conversation: conversation,
-                                listConversation: state.conversations,
+                    const WaveDivider(
+                      thickness: .3,
+                    ),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: state.conversations.length,
+                      itemBuilder: (context, index) {
+                        final conversation = state.conversations[index];
+                        return ListTile(
+                          title: Text(conversation.title),
+                          subtitle: Text(
+                            conversation.description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.theme.textTheme.bodyMedium?.copyWith(
+                                color: context.theme.textTheme.bodyMedium?.color
+                                    ?.withOpacity(.5)),
+                          ),
+                          trailing: state.haveReadDialogueDescriptionList
+                                  .contains(conversation.description)
+                              ? Icon(
+                                  Icons.check,
+                                  color: context.theme.colorScheme.primary,
+                                )
+                              : null,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DialogueView(
+                                  conversation: conversation,
+                                  listConversation: state.conversations,
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             );
           }
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         },
       ),
     );

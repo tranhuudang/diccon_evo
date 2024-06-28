@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_page/search_page.dart';
-import 'package:upgrader/upgrader.dart';
 import 'package:wave_divider/wave_divider.dart';
 import '../../../../domain/domain.dart';
 import '../../data/bloc/dialogue_bloc.dart';
@@ -32,7 +31,7 @@ class DialogueView extends StatelessWidget {
           builder: (context, state) {
             final dialogueBloc = context.read<DialogueBloc>();
             if (state is DialogueLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (state is DialogueError) {
               return Center(child: Text(state.error));
             } else {
@@ -70,7 +69,7 @@ class DialogueView extends StatelessWidget {
                         var dialogue = conversation.dialogue[index];
                         return Column(
                           children: [
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Row(
                               children: [
                                 Container(
@@ -103,7 +102,7 @@ class DialogueView extends StatelessWidget {
                                 const Spacer(),
                               ],
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -150,9 +149,9 @@ class DialogueView extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     const WaveDivider(thickness: .3),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     if (state is NumberOfLikesState && state.numberOfLikes > 1)
                       Text(
                         '${state.numberOfLikes} people find this dialogue helpful.',
@@ -164,7 +163,7 @@ class DialogueView extends StatelessWidget {
                                   ?.withOpacity(.5),
                             ),
                       ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     if (state is! FeedbackGivenState)
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -173,7 +172,7 @@ class DialogueView extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
-                                Text('Do you find this dialogue is helpful?'),
+                                const Text('Do you find this dialogue is helpful?'),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -184,7 +183,7 @@ class DialogueView extends StatelessWidget {
                                                 conversation.description));
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                               content: Text(
                                                   'Thank you for your feedback!')),
                                         );
@@ -199,7 +198,7 @@ class DialogueView extends StatelessWidget {
                                                 conversation.description));
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                               content: Text(
                                                   'Thank you for your feedback!')),
                                         );
@@ -232,7 +231,7 @@ class DialogueView extends StatelessWidget {
         searchLabel: 'Find a conversation',
         searchStyle: Theme.of(context).textTheme.titleMedium,
         suggestion: Center(child: Text('Search with hashtag: $hashtag')),
-        failure: Center(child: Text('No matching conversation found')),
+        failure: const Center(child: Text('No matching conversation found')),
         filter: (conversation) => [
           conversation.title,
           conversation.hashtags.toString(),
