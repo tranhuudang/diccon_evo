@@ -24,7 +24,7 @@ class GroupListScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Your peers'),
+            title: Text('Your peers'.i18n),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -35,7 +35,7 @@ class GroupListScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Section(
-                          title: 'Create new group',
+                          title: 'Create new group'.i18n,
                           children: [
                             const SizedBox(height: 8),
                             ColorFiltered(
@@ -48,8 +48,8 @@ class GroupListScreen extends StatelessWidget {
                                 height: 140,
                               ),
                             ),
-                            const Text(
-                              'Welcome to groups, let\'s create your new group and share awesome things with your friends while you learn',
+                            Text(
+                              "Welcome to groups, let's create your new group and share awesome things with your friends while you learn".i18n,
                               textAlign: TextAlign.start,
                             ),
                             const SizedBox(height: 16),
@@ -63,7 +63,7 @@ class GroupListScreen extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: const Text('Create a new group'),
+                              child: Text('Create'.i18n),
                             ),
                           ],
                         ),

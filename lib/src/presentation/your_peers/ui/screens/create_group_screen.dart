@@ -20,24 +20,24 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Group'),
+        title: Text('Create Group'.i18n),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Section(
-              title: 'Create new group',
+              title: 'Create new group'.i18n,
               children: [
                 TextField(
                   controller: groupNameController,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 16, right: 50),
-                    hintText: 'Group name',
-                    border: OutlineInputBorder(
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 16, right: 50),
+                    hintText: 'Group name'.i18n,
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(32)),
                     ),
-                    disabledBorder: OutlineInputBorder(
+                    disabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.all(Radius.circular(32)),
                     ),
@@ -46,13 +46,13 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 8.height,
                 TextField(
                   controller: membersController,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 16, right: 50),
-                    hintText: 'Member IDs (comma-separated)',
-                    border: OutlineInputBorder(
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 16, right: 50),
+                    hintText: 'Member IDs (comma-separated)'.i18n,
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(32)),
                     ),
-                    disabledBorder: OutlineInputBorder(
+                    disabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.all(Radius.circular(32)),
                     ),
@@ -81,7 +81,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                       // For example, ScaffoldMessenger.of(context).showSnackBar(...)
                     }
                   },
-                  child: const Text('Create Group'),
+                  child: Text('Create Group'.i18n),
                 ),
               ],
             ),

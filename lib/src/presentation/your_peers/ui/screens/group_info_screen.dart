@@ -47,7 +47,7 @@ class GroupInfoScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Group Info'),
+        title:  Text('Group Info'.i18n),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -55,11 +55,11 @@ class GroupInfoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Section(
-              title: 'Info',
+              title: 'Info'.i18n,
               children: [
                 Row(
                   children: [
-                    const Text('Group Id'),
+                    Text('Group Id'.i18n),
                     TextButton.icon(
                       icon: const Icon(Icons.copy),
                       onPressed: () {},
@@ -67,9 +67,9 @@ class GroupInfoScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Align(
+                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('Group name'),
+                  child: Text('Group name'.i18n),
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -77,13 +77,13 @@ class GroupInfoScreen extends StatelessWidget {
                     Expanded(
                       child: TextField(
                         controller: groupInfoBloc.groupNameController,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 16, right: 50),
-                          hintText: 'Enter a message',
-                          border: OutlineInputBorder(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 16, right: 50),
+                          hintText: 'Enter a name'.i18n,
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(32)),
                           ),
-                          disabledBorder: OutlineInputBorder(
+                          disabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius: BorderRadius.all(Radius.circular(32)),
                           ),
@@ -96,7 +96,7 @@ class GroupInfoScreen extends StatelessWidget {
                         context.read<GroupInfoBloc>().add(UpdateGroupNameEvent(
                             groupId, groupInfoBloc.groupNameController.text));
                       },
-                      child: const Text('Update'),
+                      child: Text('Update'.i18n),
                     ),
                   ],
                 ),
@@ -114,7 +114,7 @@ class GroupInfoScreen extends StatelessWidget {
                     String memberId = members[index];
                     return ListTile(
                       title: userId == memberId
-                          ? const Text('You')
+                          ? Text('You'.i18n)
                           : Text(memberId),
                       leading: Text('${index + 1}'),
                       trailing: userId != memberId
@@ -136,13 +136,13 @@ class GroupInfoScreen extends StatelessWidget {
                     Expanded(
                       child: TextField(
                         controller: groupInfoBloc.addMemberTextController,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 16, right: 50),
-                          hintText: 'Add a new member ID',
-                          border: OutlineInputBorder(
+                        decoration:  InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 16, right: 50),
+                          hintText: 'Add a new member ID'.i18n,
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(32)),
                           ),
-                          disabledBorder: OutlineInputBorder(
+                          disabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius: BorderRadius.all(Radius.circular(32)),
                           ),
@@ -156,7 +156,7 @@ class GroupInfoScreen extends StatelessWidget {
                             groupId,
                             groupInfoBloc.addMemberTextController.text.trim()));
                       },
-                      child: const Text('Add'),
+                      child: Text('Add'.i18n),
                     ),
                   ],
                 ),
@@ -178,7 +178,7 @@ class GroupInfoScreen extends StatelessWidget {
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text('Delete Group'),
+                    child: Text('Delete Group'.i18n),
                   ),
                 ),
               ],

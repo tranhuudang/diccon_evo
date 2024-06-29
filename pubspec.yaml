@@ -109,6 +109,7 @@ dependencies:
   open_file_plus: ^3.4.1+1
   flutter_image_compress: ^2.3.0
   video_compress: ^3.1.2
+  dio: ^5.4.3+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

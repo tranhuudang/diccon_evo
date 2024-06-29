@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diccon_evo/src/core/core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../presentation.dart';
+
 class JoinAGroupSection extends StatefulWidget {
   const JoinAGroupSection({
     super.key,
@@ -17,18 +19,18 @@ class _JoinAGroupSectionState extends State<JoinAGroupSection> {
   @override
   Widget build(BuildContext context) {
     return Section(
-      title: 'Join a group',
+      title: 'Join a group'.i18n,
       children: [
         const SizedBox(height: 8),
         TextField(
           controller: groupJoinController,
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.only(left: 16, right: 50),
-            hintText: 'Enter group ID',
-            border: OutlineInputBorder(
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(left: 16, right: 50),
+            hintText: 'Enter group ID'.i18n,
+            border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(32)),
             ),
-            disabledBorder: OutlineInputBorder(
+            disabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
               borderRadius: BorderRadius.all(Radius.circular(32)),
             ),
@@ -39,11 +41,13 @@ class _JoinAGroupSectionState extends State<JoinAGroupSection> {
           onPressed: () async {
             String groupId = groupJoinController.text.trim();
             if (groupId.isNotEmpty) {
-              DocumentReference groupRef = FirebaseFirestore.instance.collection('Groups').doc(groupId);
+              DocumentReference groupRef =
+                  FirebaseFirestore.instance.collection('Groups').doc(groupId);
               DocumentSnapshot groupSnapshot = await groupRef.get();
               String? userId = FirebaseAuth.instance.currentUser?.uid;
               if (groupSnapshot.exists) {
-                List<String> members = List<String>.from(groupSnapshot['members']);
+                List<String> members =
+                    List<String>.from(groupSnapshot['members']);
                 if (!members.contains(userId)) {
                   members.add(userId!);
                   await groupRef.update({'members': members});
@@ -51,12 +55,12 @@ class _JoinAGroupSectionState extends State<JoinAGroupSection> {
               } else {
                 // Handle the case where the group ID doesn't exist
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Group ID not found')),
+                  SnackBar(content: Text('Group ID not found'.i18n)),
                 );
               }
             }
           },
-          child: const Text('Join'),
+          child: Text('Join'.i18n),
         ),
       ],
     );

@@ -456,11 +456,135 @@ extension Localization on Object {
       "en_us": "Your peers",
       "vi_vi": "Nhóm",
     },
-    "Feel free to share your questions, ideas, and tips. We're here to learn and support each other.": {
-      "en_us": "Feel free to share your questions, ideas, and tips. We're here to learn and support each other.",
-      "vi_vi": "Hãy thoải mái chia sẻ câu hỏi, ý tưởng và mẹo học của bạn. Chúng ta ở đây để học hỏi và hỗ trợ lẫn nhau.",
+    "Create new group": {
+      "en_us": "Create new group",
+      "vi_vi": "Tạo nhóm mới",
     },
-
+    "Create": {
+      "en_us": "Create",
+      "vi_vi": "Tạo",
+    },
+    "Group Info": {
+      "en_us": "Group Info",
+      "vi_vi": "Thông tin nhóm",
+    },
+    "Info": {
+      "en_us": "Info",
+      "vi_vi": "Thông tin",
+    },
+    "Group Id": {
+      "en_us": "Group Id",
+      "vi_vi": "ID của nhóm",
+    },
+    "Group name": {
+      "en_us": "Group name",
+      "vi_vi": "Tên nhóm",
+    },
+    "Enter a name": {
+      "en_us": "Enter a name",
+      "vi_vi": "Nhập tên nhóm",
+    },
+    "Update": {
+      "en_us": "Update",
+      "vi_vi": "Cập nhật",
+    },
+    "Members": {
+      "en_us": "Members",
+      "vi_vi": "Thành viên",
+    },
+    "You": {
+      "en_us": "You",
+      "vi_vi": "Bạn",
+    },
+    "Add a new member ID": {
+      "en_us": "Add a new member ID",
+      "vi_vi": "Nhập ID của thành viên mới",
+    },
+    "Add": {
+      "en_us": "Add",
+      "vi_vi": "Thêm",
+    },
+    "Manage group": {
+      "en_us": "Manage group",
+      "vi_vi": "Quản lý nhóm",
+    },
+    "Delete Group": {
+      "en_us": "Delete Group",
+      "vi_vi": "Xóa nhóm",
+    },
+    "Add Image": {
+      "en_us": "Add Image",
+      "vi_vi": "Thêm ảnh",
+    },
+    "Add Video": {
+      "en_us": "Add Video",
+      "vi_vi": "Thêm video",
+    },
+    "Add Audio": {
+      "en_us": "Add Audio",
+      "vi_vi": "Thêm âm thanh",
+    },
+    "Add File": {
+      "en_us": "Add File",
+      "vi_vi": "Thêm tệp tin",
+    },
+    "Enter a message": {
+      "en_us": "Enter a message",
+      "vi_vi": "Nhập tin nhắn",
+    },
+    "Create Group": {
+      "en_us": "Create Group",
+      "vi_vi": "Tạo nhóm",
+    },
+    "Member IDs (comma-separated)": {
+      "en_us": "Member IDs (comma-separated)",
+      "vi_vi": "ID các thành viên (phân tách bởi dấu phẩy)",
+    },
+    "Your Id": {
+      "en_us": "Your Id",
+      "vi_vi": "ID của bạn",
+    },
+    "Join a group": {
+      "en_us": "Join a group",
+      "vi_vi": "Tham gia vào một nhóm",
+    },
+    "Group ID not found": {
+      "en_us": "Group ID not found",
+      "vi_vi": "Không tìm thấy ID của nhóm này",
+    },
+    "Join": {
+      "en_us": "Join",
+      "vi_vi": "Tham gia",
+    },
+    "Provides a list of groups you are part of. You can create new groups, join existing ones, and chat with your peers.":
+        {
+      "en_us":
+          "List of groups you are part of. You can create new groups, join existing ones, and chat with your peers.",
+      "vi_vi":
+          "Danh sách các nhóm bạn đang tham gia. Bạn có thể tạo nhóm mới, tham gia các nhóm hiện có và trò chuyện với bạn bè của mình.",
+    },
+    "Connect with your peers through group chats.": {
+      "en_us": "Connect with your peers through group chats.",
+      "vi_vi": "Kết nối với bạn bè của bạn qua các cuộc trò chuyện nhóm.",
+    },
+    "See your groups": {
+      "en_us": "See your groups",
+      "vi_vi": "Xem nhóm của bạn",
+    },
+    "Welcome to groups, let's create your new group and share awesome things with your friends while you learn":
+        {
+      "en_us":
+          "Welcome to groups, let's create your new group and share awesome things with your friends while you learn",
+      "vi_vi":
+          "Chào mừng bạn, hãy tạo nhóm mới của bạn và chia sẻ những điều tuyệt vời với bạn bè của bạn trong khi học.",
+    },
+    "Feel free to share your questions, ideas, and tips. We're here to learn and support each other.":
+        {
+      "en_us":
+          "Feel free to share your questions, ideas, and tips. We're here to learn and support each other.",
+      "vi_vi":
+          "Hãy thoải mái chia sẻ câu hỏi, ý tưởng và mẹo học của bạn. Chúng ta ở đây để học hỏi và hỗ trợ lẫn nhau.",
+    },
 
     /// Dictionary
 
@@ -474,9 +598,12 @@ extension Localization on Object {
       "en_us": "Word wisdom in your pocket",
       "vi_vi": "Tra cứu với tùy chọn của riêng bạn",
     },
-    "The complexity of the response will significantly increase the time it takes for the application to reply.": {
-      "en_us": "The complexity of the response will significantly increase the time it takes for the application to reply.",
-      "vi_vi": "Mức độ phức tạp trong câu trả lời sẽ làm tăng thêm đáng kể thời gian để ứng dụng trả lời.",
+    "The complexity of the response will significantly increase the time it takes for the application to reply.":
+        {
+      "en_us":
+          "The complexity of the response will significantly increase the time it takes for the application to reply.",
+      "vi_vi":
+          "Mức độ phức tạp trong câu trả lời sẽ làm tăng thêm đáng kể thời gian để ứng dụng trả lời.",
     },
     "Pronunciation:": {
       "en_us": "Pronunciation:",
@@ -887,10 +1014,7 @@ extension Localization on Object {
       "vi_vi": "Cấu trúc câu trả lời AI"
     },
     "Release notes": {"en_us": "Release notes", "vi_vi": "Thông tin phiên bản"},
-    "Word details": {
-      "en_us": "Word details",
-      "vi_vi": "Độ chi tiết"
-    },
+    "Word details": {"en_us": "Word details", "vi_vi": "Độ chi tiết"},
     "Specialized meanings": {
       "en_us": "Specialized meanings",
       "vi_vi": "Chuyên ngành"

@@ -220,13 +220,13 @@ class GroupChatScreen extends StatelessWidget {
                               .add(SendTextMessageEvent(groupId: groupId));
                         },
                         controller: groupChatBloc.messageController,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 16, right: 50),
-                          hintText: 'Enter a message',
-                          border: OutlineInputBorder(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 16, right: 50),
+                          hintText: 'Enter a message'.i18n,
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(32)),
                           ),
-                          disabledBorder: OutlineInputBorder(
+                          disabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius: BorderRadius.all(Radius.circular(32)),
                           ),

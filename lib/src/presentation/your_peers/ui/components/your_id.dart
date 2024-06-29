@@ -1,7 +1,9 @@
+import 'package:diccon_evo/src/core/core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 import '../../../presentation.dart';
+
 class YourIdSection extends StatefulWidget {
   const YourIdSection({
     super.key,
@@ -14,9 +16,9 @@ class YourIdSection extends StatefulWidget {
 class _YourIdSectionState extends State<YourIdSection> {
   String yourId = '';
 
-  _getYourId(){
+  _getYourId() {
     String? userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId != null){
+    if (userId != null) {
       setState(() {
         yourId = userId;
       });
@@ -24,7 +26,7 @@ class _YourIdSectionState extends State<YourIdSection> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _getYourId();
   }
@@ -32,11 +34,14 @@ class _YourIdSectionState extends State<YourIdSection> {
   @override
   Widget build(BuildContext context) {
     return Section(
-      title: 'Your Id',
+      title: 'Your Id'.i18n,
       children: [
-        TextButton.icon(icon: const Icon(Icons.copy),onPressed: () async{
-          await Clipboard.setData(ClipboardData(text: yourId));
-        }, label: Text(yourId)),
+        TextButton.icon(
+            icon: const Icon(Icons.copy),
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: yourId));
+            },
+            label: Text(yourId)),
       ],
     );
   }
