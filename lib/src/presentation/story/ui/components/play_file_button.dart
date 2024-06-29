@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:wavy_slider/wavy_slider.dart';
 import '../../../../data/data.dart';
 

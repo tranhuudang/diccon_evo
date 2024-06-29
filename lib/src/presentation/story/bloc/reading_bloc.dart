@@ -1,12 +1,13 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data_providers/text_to_speech_client.dart';
 import 'package:diccon_evo/src/data/handlers/file_handler.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import '../../../core/utils/md5_generator.dart';
 import '../../../domain/domain.dart';
 
 /// Params
@@ -57,6 +58,14 @@ abstract class ReadingState {
   ReadingState({required this.params});
 }
 
+class ReadingActionState extends ReadingState {
+  ReadingActionState({required super.params});
+}
+
+class DeletedWordAndSentenceTranslationData extends ReadingActionState {
+  DeletedWordAndSentenceTranslationData({required super.params});
+}
+
 class ReadingInitState extends ReadingState {
   ReadingInitState({required super.params});
 }
@@ -69,6 +78,13 @@ class ReadingUpdatedState extends ReadingState {
 abstract class ReadingEvent {}
 
 class IncreaseFontSize extends ReadingEvent {}
+
+class DeleteTranslatedContentInThisWordAndSentenceEvent extends ReadingEvent {
+  final String word;
+  final String sentenceContainWord;
+  DeleteTranslatedContentInThisWordAndSentenceEvent(
+      {required this.word, required this.sentenceContainWord});
+}
 
 class DecreaseFontSize extends ReadingEvent {}
 
@@ -89,6 +105,8 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     on<IncreaseFontSize>(_increaseFontSize);
     on<DecreaseFontSize>(_decreaseFontSize);
     on<DownloadAudio>(_downloadAudio);
+    on<DeleteTranslatedContentInThisWordAndSentenceEvent>(
+        _deleteTranslatedContentInThisWordAndSentence);
   }
 
   FutureOr<void> _initReadingBloc(
@@ -141,6 +159,65 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     }
   }
 
+  FutureOr<void> _deleteTranslatedContentInThisWordAndSentence(
+      DeleteTranslatedContentInThisWordAndSentenceEvent event,
+      Emitter<ReadingState> emit) async {
+    bool isDeleteWordTranslationCompleted =
+        await _deleteWordDefinitionOnFirestore(
+            word: event.word, sentenceContainWord: event.sentenceContainWord);
+    bool isDeleteSentenceTranslationCompleted =
+        await _deleteSentenceTranslationOnFirestore(
+            sentenceContainWord: event.sentenceContainWord);
+    if (isDeleteWordTranslationCompleted &&
+        isDeleteSentenceTranslationCompleted) {
+      emit(DeletedWordAndSentenceTranslationData(params: state.params));
+    }
+  }
+
+  Future<bool> _deleteWordDefinitionOnFirestore(
+      {required String word, required String sentenceContainWord}) async {
+    // create md5 from question to compare to see if that md5 is already exist in database
+    var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
+        sentence: sentenceContainWord + word);
+    final docUser = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answer);
+    await docUser.get().then((snapshot) async {
+      if (snapshot.exists) {
+        docUser.delete().then((_) {
+          DebugLog.info('Delete data row successfully!');
+          return true;
+        }).catchError((error) {
+          DebugLog.error("Failed to delete document: $error");
+          return false;
+        });
+      }
+    });
+    return false;
+  }
+
+  Future<bool> _deleteSentenceTranslationOnFirestore(
+      {required String sentenceContainWord}) async {
+    // create md5 from question to compare to see if that md5 is already exist in database
+    var answer = Md5Generator.composeMd5IdForStoryFirebaseDb(
+        sentence: sentenceContainWord);
+    final docUser = FirebaseFirestore.instance
+        .collection(FirebaseConstant.firestore.story)
+        .doc(answer);
+    await docUser.get().then((snapshot) async {
+      if (snapshot.exists) {
+        docUser.delete().then((_) {
+          DebugLog.info('Delete data row successfully!');
+          return true;
+        }).catchError((error) {
+          DebugLog.error("Failed to delete document: $error");
+          return false;
+        });
+      }
+    });
+    return false;
+  }
+
   FutureOr<void> _downloadAudio(
       DownloadAudio event, Emitter<ReadingState> emit) async {
     emit(
@@ -177,4 +254,3 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     );
   }
 }
- 

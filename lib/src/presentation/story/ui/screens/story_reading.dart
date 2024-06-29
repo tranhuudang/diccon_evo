@@ -58,7 +58,16 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     final settingBloc = context.read<SettingBloc>();
     final readingBloc = context.read<ReadingBloc>();
     return SafeArea(
-      child: BlocBuilder<ReadingBloc, ReadingState>(
+      child: BlocConsumer<ReadingBloc, ReadingState>(
+        listener: (context, state) {
+          if (state is DeletedWordAndSentenceTranslationData) {
+            context.showAlertDialogWithoutAction(
+                title: 'Deleted Translation'.i18n,
+                content:
+                    'Completed delete translation data of this word and sentence contain that word'
+                        .i18n);
+          }
+        },
         builder: (context, state) {
           switch (state) {
             default:

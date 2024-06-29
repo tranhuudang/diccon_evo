@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/utils/md5_generator.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
+import 'package:diccon_evo/src/presentation/story/bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:wave_divider/wave_divider.dart';
 
@@ -31,8 +33,6 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
   final TextEditingController _editingControllerForSentence =
       TextEditingController();
 
-
-
   @override
   void initState() {
     super.initState();
@@ -50,12 +50,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         setState(() {
-          wordDefinitionAnswer = snapshot
-                  .data()?['answer']
-                  .toString()
-                  .replaceAll('[', '')
-                  .replaceAll(']', '') ??
-              '';
+          wordDefinitionAnswer = snapshot.data()?['answer'] ?? '';
         });
       } else {
         _getGeminiAnswerForWord();
@@ -73,12 +68,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
     await docUser.get().then((snapshot) async {
       if (snapshot.exists) {
         setState(() {
-          sentenceTranslationAnswer = snapshot
-                  .data()?['answer']
-                  .toString()
-                  .replaceAll('[', '')
-                  .replaceAll(']', '') ??
-              '';
+          sentenceTranslationAnswer = snapshot.data()?['answer'] ?? '';
         });
       } else {
         _getGeminiAnswerForSentence();
@@ -105,8 +95,10 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       gemini.text(question).then((onValue) {
         setState(() {
           wordDefinitionAnswer = onValue?.output ?? '';
-          wordDefinitionAnswer =
-              wordDefinitionAnswer.replaceAll('[', '').replaceAll(']', '');
+          wordDefinitionAnswer = wordDefinitionAnswer
+              .replaceAll('[', '')
+              .replaceAll(']', '')
+              .trim();
         });
 
         _createFirebaseDatabaseItemForWord(
@@ -115,8 +107,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
             translatedWord: wordDefinitionAnswer);
       });
     } catch (e) {
-      print(e);
-      return '';
+      DebugLog.error(e.toString());
     }
   }
 
@@ -141,8 +132,10 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
       gemini.text(question).then((onValue) {
         setState(() {
           sentenceTranslationAnswer = onValue?.output ?? '';
-          sentenceTranslationAnswer =
-              sentenceTranslationAnswer.replaceAll('[', '').replaceAll(']', '');
+          sentenceTranslationAnswer = sentenceTranslationAnswer
+              .replaceAll('[', '')
+              .replaceAll(']', '')
+              .trim();
         });
 
         _createFirebaseDatabaseItemForSentence(
@@ -150,8 +143,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
             translatedSentence: sentenceTranslationAnswer);
       });
     } catch (e) {
-      print(e);
-      return '';
+      DebugLog.error(e.toString());
     }
   }
 
@@ -265,6 +257,7 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
 
   @override
   Widget build(BuildContext context) {
+    final readingBloc = context.read<ReadingBloc>();
     return SingleChildScrollView(
       padding: const EdgeInsets.only(left: 28, right: 28, bottom: 42),
       child: Column(
@@ -382,6 +375,16 @@ class _BottomSheetTranslationState extends State<BottomSheetTranslation> {
                                 setState(() {
                                   _isEditing = true;
                                 });
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () {
+                                readingBloc.add(
+                                    DeleteTranslatedContentInThisWordAndSentenceEvent(
+                                        word: widget.searchWord,
+                                        sentenceContainWord:
+                                            widget.sentenceContainWord));
                               },
                             ),
                           ],

@@ -59,7 +59,7 @@ class GroupListScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        CreateGroupScreen(), // Pass userId to CreateGroupScreen
+                                        const CreateGroupScreen(), // Pass userId to CreateGroupScreen
                                   ),
                                 );
                               },
@@ -124,7 +124,7 @@ class GroupListScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              CreateGroupScreen()), // Navigate to the new screen
+                              const CreateGroupScreen()), // Navigate to the new screen
                     );
                   },
                 )

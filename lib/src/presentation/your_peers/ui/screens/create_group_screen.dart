@@ -6,7 +6,7 @@ import '../../../presentation.dart';
 
 class CreateGroupScreen extends StatefulWidget {
 
-  CreateGroupScreen({super.key});
+  const CreateGroupScreen({super.key});
 
   @override
   State<CreateGroupScreen> createState() => _CreateGroupScreenState();
