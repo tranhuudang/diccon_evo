@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../utils.dart';
+
 part 'group_chat_event.dart';
 part 'group_chat_state.dart';
 
@@ -85,11 +87,20 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
 
       if (result != null) {
         PlatformFile file = result.files.first;
-        if (file.size <= 10 * 1024 * 1024) {
-          // 10MB limit
+        if (file.size <= 5 * 1024 * 1024) {
+          // 5MB limit for image
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: true)));
-          await uploadFile(file, event.groupId, isImage: true);
+          // Compress image
+          final compressedFileData =
+              await compressImage(path: file.path!, quality: 30);
+          PlatformFile compressedFile = PlatformFile(
+            bytes: compressedFileData,
+            name: file.name,
+            size: compressedFileData!.lengthInBytes,
+          );
+          // Upload compressed file
+          await uploadFile(compressedFile, event.groupId, isImage: true);
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: false)));
         } else {
@@ -170,7 +181,7 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
   }) async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child('ChatFiles').child(file.name);
-    UploadTask uploadTask = ref.putFile(File(file.path!));
+    UploadTask uploadTask = ref.putData(file.bytes!);
 
     final TaskSnapshot taskSnapshot = await uploadTask;
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
