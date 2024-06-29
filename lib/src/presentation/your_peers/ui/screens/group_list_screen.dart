@@ -104,8 +104,8 @@ class GroupListScreen extends StatelessWidget {
                                 ),
                                 8.height,
                                 Text(numberOfMembers > 1
-                                    ? '$numberOfMembers members'
-                                    : '$numberOfMembers member')
+                                    ? '$numberOfMembers ${'members'.i18n}'
+                                    : '$numberOfMembers ${'member'.i18n}')
                               ],
                             ),
                           )),

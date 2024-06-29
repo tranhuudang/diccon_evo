@@ -104,7 +104,7 @@ class GroupInfoScreen extends StatelessWidget {
               ],
             ),
             Section(
-              title: 'Members',
+              title: 'Members'.i18n,
               children: [
                 ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -164,7 +164,7 @@ class GroupInfoScreen extends StatelessWidget {
               ],
             ),
             Section(
-              title: 'Manage group',
+              title: 'Manage group'.i18n,
               children: [
                 Center(
                   child: ElevatedButton(

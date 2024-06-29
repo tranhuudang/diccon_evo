@@ -504,6 +504,14 @@ extension Localization on Object {
       "en_us": "Add",
       "vi_vi": "Thêm",
     },
+    "member": {
+      "en_us": "member",
+      "vi_vi": "thành viên",
+    },
+    "members": {
+      "en_us": "members",
+      "vi_vi": "thành viên",
+    },
     "Manage group": {
       "en_us": "Manage group",
       "vi_vi": "Quản lý nhóm",
