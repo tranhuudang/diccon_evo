@@ -118,9 +118,13 @@ class GroupChatScreen extends StatelessWidget {
                   children: <Widget>[
                     state.params.isUploadingAttachFile
                         ? const SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator())
+                      width: 48,
+                      height: 48,
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
                         : IconButton(
                             onPressed: () {
                               showModalBottomSheet(
