@@ -76,7 +76,7 @@ class _PlayFileButtonState extends State<PlayFileButton> {
                 visible: isPlayingOrIsPausing ? true : false,
                 child: WavySlider(
                   backgroundColor: Colors.black.withOpacity(.3),
-                  width: 36.screenWidth,
+                  //width: 60.screenWidth,
                   value: currentPosition,
                   color: context.theme.colorScheme.primary,
                   waveHeight: 8,

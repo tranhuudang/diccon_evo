@@ -72,10 +72,6 @@ class IncreaseFontSize extends ReadingEvent {}
 
 class DecreaseFontSize extends ReadingEvent {}
 
-class PageScrollingUp extends ReadingEvent {}
-
-class PageScrollingDown extends ReadingEvent {}
-
 class InitReadingBloc extends ReadingEvent {
   final Story story;
   InitReadingBloc({required this.story});
@@ -92,8 +88,6 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     on<InitReadingBloc>(_initReadingBloc);
     on<IncreaseFontSize>(_increaseFontSize);
     on<DecreaseFontSize>(_decreaseFontSize);
-    on<PageScrollingDown>(_pageScrollingDown);
-    on<PageScrollingUp>(_pageScrollingUp);
     on<DownloadAudio>(_downloadAudio);
   }
 
@@ -106,9 +100,8 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
         cacheDir.path, '${event.story.title.removeSpecialCharacters()}.mp3');
     File audioFile = File(filePath);
     if (await audioFile.exists()) {
-      if (kDebugMode) {
-        print('Audio of "${event.story.title}" story is exist in cache folder');
-      }
+      DebugLog.info(
+          'Audio of "${event.story.title}" story is exist in cache folder');
       emit(
         ReadingUpdatedState(
           params: state.params.copyWith(
@@ -148,21 +141,6 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     }
   }
 
-  FutureOr<void> _pageScrollingUp(
-      PageScrollingUp event, Emitter<ReadingState> emit) {
-    emit(ReadingUpdatedState(
-        params: state.params.copyWith(isBottomAppBarVisible: true)));
-  }
-
-  FutureOr<void> _pageScrollingDown(
-      PageScrollingDown event, Emitter<ReadingState> emit) {
-    emit(
-      ReadingUpdatedState(
-        params: state.params.copyWith(isBottomAppBarVisible: false),
-      ),
-    );
-  }
-
   FutureOr<void> _downloadAudio(
       DownloadAudio event, Emitter<ReadingState> emit) async {
     emit(
@@ -173,22 +151,18 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     final tts = TextToSpeechApiClient();
     final dir = await getApplicationCacheDirectory();
     final fileName = '${event.story.title.removeSpecialCharacters()}.mp3';
-    final filePath =
-        join(dir.path, fileName);
+    final filePath = join(dir.path, fileName);
     try {
-      if (kDebugMode) {
-        print('Downloading audio from github');
-      }
-      var isDownloadGithubSuccess = await FileHandler(filePath).downloadToResources(
-          "${OnlineDirectory.storiesAudioURL}$fileName");
-      if (!isDownloadGithubSuccess){
+      DebugLog.info('Downloading audio...');
+      var isDownloadGithubSuccess = await FileHandler(filePath)
+          .downloadToResources("${OnlineDirectory.storiesAudioURL}$fileName");
+      if (!isDownloadGithubSuccess) {
         await tts.convertTextToSpeech(
             fromText: event.story.content, toFilePath: filePath);
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('[ERROR] Can not download audio file from github, try to convert text to speech using open ai api');
-      }
+      DebugLog.error(
+          'Can not download audio file, try to convert text to speech using open ai api');
       await tts.convertTextToSpeech(
           fromText: event.story.content, toFilePath: filePath);
     }
@@ -203,3 +177,4 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     );
   }
 }
+ 

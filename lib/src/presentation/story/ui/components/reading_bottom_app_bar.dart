@@ -67,63 +67,6 @@ class _ReadingBottomAppBarState extends State<ReadingBottomAppBar> {
                   ],
                 );
               }),
-            const Spacer(),
-            IconButton(
-                onPressed: () {
-                  var brightness =
-                      Properties.instance.settings.themeMode.toThemeMode();
-                  if (brightness == ThemeMode.light) {
-                    settingBloc
-                        .add(ChangeThemeModeEvent(themeMode: ThemeMode.dark));
-                  } else {
-                    settingBloc
-                        .add(ChangeThemeModeEvent(themeMode: ThemeMode.light));
-                  }
-                },
-                icon: Properties.instance.settings.themeMode.toThemeMode() ==
-                        ThemeMode.light
-                    ? const Icon(Icons.light_mode_outlined)
-                    : const Icon(Icons.dark_mode_outlined)),
-            PopupMenuButton(
-              icon: Icon(
-                Icons.format_size,
-                color: context.theme.colorScheme.primary,
-              ),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: context.theme.dividerColor),
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: Row(
-                    children: [
-                      const Icon(Icons.plus_one),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text("Increase".i18n),
-                    ],
-                  ),
-                  onTap: () {
-                    readingBloc.add(IncreaseFontSize());
-                  },
-                ),
-                PopupMenuItem(
-                  child: Row(
-                    children: [
-                      const Icon(Icons.exposure_minus_1),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text("Decrease".i18n),
-                    ],
-                  ),
-                  onTap: () {
-                    readingBloc.add(DecreaseFontSize());
-                  },
-                ),
-              ],
-            ),
           ],
         ),
       );
