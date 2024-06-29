@@ -2,14 +2,16 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diccon_evo/src/core/core.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:video_compress/video_compress.dart';
 
-import '../utils.dart';
+import '../../../../core/utils/compressor.dart';
 
 part 'group_chat_event.dart';
 part 'group_chat_state.dart';
@@ -38,7 +40,7 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
       if (result != null) {
         PlatformFile file = result.files.first;
         if (file.size <= 10 * 1024 * 1024) {
-          // 10MB limit
+          // 10MB limit for file
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: true)));
           await uploadFile(file, event.groupId, isFile: true);
@@ -62,11 +64,14 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
 
       if (result != null) {
         PlatformFile file = result.files.first;
-        if (file.size <= 10 * 1024 * 1024) {
-          // 10MB limit
+        if (file.size <= 20 * 1024 * 1024) {
+          // 20MB limit for video
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: true)));
-          await uploadFile(file, event.groupId, isVideo: true);
+          // Compress video
+          final compressedVideo = await Compressor.compressVideo(
+              file: file, quality: VideoQuality.MediumQuality);
+          await uploadFile(compressedVideo, event.groupId, isVideo: true);
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: false)));
         } else {
@@ -92,15 +97,9 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: true)));
           // Compress image
-          final compressedFileData =
-              await compressImage(path: file.path!, quality: 30);
-          PlatformFile compressedFile = PlatformFile(
-            bytes: compressedFileData,
-            name: file.name,
-            size: compressedFileData!.lengthInBytes,
-          );
+          final compressedImage = await Compressor.compressImage(file: file);
           // Upload compressed file
-          await uploadFile(compressedFile, event.groupId, isImage: true);
+          await uploadFile(compressedImage, event.groupId, isImage: true);
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: false)));
         } else {
@@ -121,8 +120,8 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
 
       if (result != null) {
         PlatformFile file = result.files.first;
-        if (file.size <= 10 * 1024 * 1024) {
-          // 10MB limit
+        if (file.size <= 5 * 1024 * 1024) {
+          // 5MB limit for audio
           emit(GroupChatLoaded(state.chatList,
               params: state.params.copyWith(isUploadingMediaFile: true)));
           await uploadFile(file, event.groupId, isAudio: true);
@@ -181,8 +180,13 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
   }) async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child('ChatFiles').child(file.name);
-    UploadTask uploadTask = ref.putData(file.bytes!);
-
+    late UploadTask uploadTask;
+    if (isImage) {
+      uploadTask = ref.putData(file.bytes!);
+    } else {
+      //if (isVideo || isFile || isAudio)
+      uploadTask = ref.putFile(File(file.path!));
+    }
     final TaskSnapshot taskSnapshot = await uploadTask;
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
