@@ -3,6 +3,7 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/presentation/your_peers/ui/components/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import '../../../presentation.dart';
 import '../components/components.dart';
 
@@ -61,54 +62,78 @@ class GroupChatScreen extends StatelessWidget {
 
                     List<DocumentSnapshot> docs = snapshot.data!.docs;
 
-                    return ListView.builder(
-                      addAutomaticKeepAlives: true,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      reverse: true,
-                      itemCount: docs.length,
-                      itemBuilder: (context, index) {
-                        var doc = docs[index];
-                        if (doc['isImage']) {
-                          return ImageBubble(
-                            imageUrl: doc['text'],
-                            senderId: doc['senderId'],
-                            senderName: doc['senderName'],
+                    return docs.isEmpty
+                        ? Center(
+                            child: SizedBox(
+                              width: 70.w,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Illustration(
+                                    assetImage:
+                                        LocalDirectory.commonIllustration,
+                                  ),
+                                  8.height,
+                                  Opacity(
+                                    opacity: 0.5,
+                                    child: Text(
+                                      "Feel free to share your questions, ideas, and tips. We're here to learn and support each other."
+                                          .i18n,
+                                      style: context.theme.textTheme.bodyMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            addAutomaticKeepAlives: true,
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            reverse: true,
+                            itemCount: docs.length,
+                            itemBuilder: (context, index) {
+                              var doc = docs[index];
+                              if (doc['isImage']) {
+                                return ImageBubble(
+                                  imageUrl: doc['text'],
+                                  senderId: doc['senderId'],
+                                  senderName: doc['senderName'],
+                                );
+                              }
+                              if (doc['isVideo']) {
+                                final fileName = extractFileName(doc['text']);
+                                return VideoBubble(
+                                  fileName: fileName,
+                                  videoUrl: doc['text'],
+                                  senderId: doc['senderId'],
+                                  senderName: doc['senderName'],
+                                );
+                              }
+                              if (doc['isFile']) {
+                                final fileName = extractFileName(doc['text']);
+                                return FileBubble(
+                                  fileName: fileName,
+                                  downloadUrl: doc['text'],
+                                  senderId: doc['senderId'],
+                                  senderName: doc['senderName'],
+                                );
+                              }
+                              if (doc['isAudio']) {
+                                final fileName = extractFileName(doc['text']);
+                                return AudioBubble(
+                                  fileName: fileName,
+                                  audioUrl: doc['text'],
+                                  senderId: doc['senderId'],
+                                  senderName: doc['senderName'],
+                                );
+                              }
+                              return TextBubble(
+                                text: doc['text'],
+                                senderId: doc['senderId'],
+                                senderName: doc['senderName'],
+                              );
+                            },
                           );
-                        }
-                        if (doc['isVideo']) {
-                          final fileName = extractFileName(doc['text']);
-                          return VideoBubble(
-                            fileName: fileName,
-                            videoUrl: doc['text'],
-                            senderId: doc['senderId'],
-                            senderName: doc['senderName'],
-                          );
-                        }
-                        if (doc['isFile']) {
-                          final fileName = extractFileName(doc['text']);
-                          return FileBubble(
-                            fileName: fileName,
-                            downloadUrl: doc['text'],
-                            senderId: doc['senderId'],
-                            senderName: doc['senderName'],
-                          );
-                        }
-                        if (doc['isAudio']) {
-                          final fileName = extractFileName(doc['text']);
-                          return AudioBubble(
-                            fileName: fileName,
-                            audioUrl: doc['text'],
-                            senderId: doc['senderId'],
-                            senderName: doc['senderName'],
-                          );
-                        }
-                        return TextBubble(
-                          text: doc['text'],
-                          senderId: doc['senderId'],
-                          senderName: doc['senderName'],
-                        );
-                      },
-                    );
                   },
                 ),
               ),
@@ -118,13 +143,13 @@ class GroupChatScreen extends StatelessWidget {
                   children: <Widget>[
                     state.params.isUploadingAttachFile
                         ? const SizedBox(
-                      width: 48,
-                      height: 48,
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
+                            width: 48,
+                            height: 48,
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
                         : IconButton(
                             onPressed: () {
                               showModalBottomSheet(

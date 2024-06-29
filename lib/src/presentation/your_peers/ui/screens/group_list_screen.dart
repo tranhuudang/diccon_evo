@@ -68,7 +68,6 @@ class GroupListScreen extends StatelessWidget {
                           ],
                         ),
                         const JoinAGroupSection(),
-                        const YourIdSection(),
                       ],
                     ),
                   ),

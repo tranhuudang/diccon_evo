@@ -1,5 +1,13 @@
 [
   {
+    "version": "Test",
+    "date": "27-06-2024",
+    "changesNote": [
+      "Cải thiện chất lượng câu trả lời trong từ điển",
+      "Thêm lựa chọn thay đổi bộ xử lí từ điển"
+    ]
+  },
+  {
     "version": "763",
     "date": "27-06-2024",
     "changesNote": [

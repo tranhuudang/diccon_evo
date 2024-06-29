@@ -451,6 +451,17 @@ extension Localization on Object {
       "vi_vi": "song ngữ",
     },
 
+    /// Your peers
+    "Your peers": {
+      "en_us": "Your peers",
+      "vi_vi": "Nhóm",
+    },
+    "Feel free to share your questions, ideas, and tips. We're here to learn and support each other.": {
+      "en_us": "Feel free to share your questions, ideas, and tips. We're here to learn and support each other.",
+      "vi_vi": "Hãy thoải mái chia sẻ câu hỏi, ý tưởng và mẹo học của bạn. Chúng ta ở đây để học hỏi và hỗ trợ lẫn nhau.",
+    },
+
+
     /// Dictionary
 
     "SubWordInDictionaryWelcomeBox": {

@@ -4,11 +4,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../components/components.dart';
 import '../../../presentation.dart';
 
-class CreateGroupScreen extends StatelessWidget {
-  final TextEditingController groupNameController = TextEditingController();
-  final TextEditingController membersController = TextEditingController();
+class CreateGroupScreen extends StatefulWidget {
 
   CreateGroupScreen({super.key});
+
+  @override
+  State<CreateGroupScreen> createState() => _CreateGroupScreenState();
+}
+
+class _CreateGroupScreenState extends State<CreateGroupScreen> {
+  final TextEditingController groupNameController = TextEditingController();
+  final TextEditingController membersController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,19 +100,6 @@ class CreateGroupScreen extends StatelessWidget {
       'members': members,
       'creator': userId,
       'created_at': FieldValue.serverTimestamp(),
-    });
-
-    // Optionally, add an initial welcome message
-    await FirebaseFirestore.instance.collection('Messages').add({
-      'group_id': groupRef.id,
-      'text': 'Welcome to $groupName!',
-      'senderName': 'System',
-      'senderId': 'System',
-      'timestamp': FieldValue.serverTimestamp(),
-      'isImage': false,
-      'isVideo': false,
-      'isFile': false,
-      'isAudio': false,
     });
   }
 }
