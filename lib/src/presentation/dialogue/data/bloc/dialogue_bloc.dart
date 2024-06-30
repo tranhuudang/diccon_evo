@@ -90,9 +90,9 @@ class DialogueBloc extends Bloc<DialogueEvent, DialogueState> {
       String description) async {
     final conversationMd5 = Md5Generator.composeMd5IdForDialogueReadState(
         fromConversationDescription: description);
-    final dialogRef = _firestore.collection('dialogue').doc('statistics');
+    final dialogRef = _firestore.collection('Dialogue').doc('Statistics');
     final favouriteRef =
-        dialogRef.collection('dialogueAnalysis').doc(conversationMd5);
+        dialogRef.collection('DialogueAnalysis').doc(conversationMd5);
     final favouriteSnapshot = await favouriteRef.get();
     if (!favouriteSnapshot.exists) {
       await favouriteRef.set({

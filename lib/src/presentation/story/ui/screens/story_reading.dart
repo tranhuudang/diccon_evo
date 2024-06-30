@@ -24,7 +24,6 @@ class StoryReadingView extends StatefulWidget {
 class _StoryReadingViewState extends State<StoryReadingView> {
   final _storyBookmarkBloc = StoryBookmarkBloc();
   late ReadingBloc _readingBloc;
-  bool isTranslating = false;
   final _storyRepository = StoryRepositoryImpl();
   List<Story> _listStories = [];
   late final _streamIsBookmarkController = StreamController<bool>();
