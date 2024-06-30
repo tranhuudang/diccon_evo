@@ -109,21 +109,21 @@ class _DesktopHomeViewState extends State<DesktopHomeView> with WindowListener {
                   icon: const Icon(UniconsLine.books),
                   selectedIcon: const Icon(UniconsLine.book_open),
                   label: Text('Library'.i18n)),
-              NavigationRailDestination(
-                icon: const FaIcon(FontAwesomeIcons.comments),
-                selectedIcon: const FaIcon(FontAwesomeIcons.solidComments),
-                label: Text('Dialogue'.i18n),
-              ),
-              NavigationRailDestination(
-                icon: const FaIcon(FontAwesomeIcons.lightbulb),
-                selectedIcon: const FaIcon(FontAwesomeIcons.solidLightbulb),
-                label: Text('Chatbot'.i18n),
-              ),
-              NavigationRailDestination(
-                icon: const Icon(Icons.directions_run_outlined),
-                selectedIcon: const Icon(Icons.directions_run),
-                label: Text('Practice'.i18n),
-              ),
+              // NavigationRailDestination(
+              //   icon: const FaIcon(FontAwesomeIcons.comments),
+              //   selectedIcon: const FaIcon(FontAwesomeIcons.solidComments),
+              //   label: Text('Dialogue'.i18n),
+              // ),
+              // NavigationRailDestination(
+              //   icon: const FaIcon(FontAwesomeIcons.lightbulb),
+              //   selectedIcon: const FaIcon(FontAwesomeIcons.solidLightbulb),
+              //   label: Text('Chatbot'.i18n),
+              // ),
+              // NavigationRailDestination(
+              //   icon: const Icon(Icons.directions_run_outlined),
+              //   selectedIcon: const Icon(Icons.directions_run),
+              //   label: Text('Practice'.i18n),
+              // ),
             ],
             trailing: buildTabletTrailingButtons(context),
           ),

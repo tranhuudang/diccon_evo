@@ -2,7 +2,8 @@ name: diccon_evo
 description: A new Diccon that work on many platforms.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 7.0.7+122
+version: 7.0.9+124
+
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
@@ -141,6 +142,6 @@ msix_config:
   publisher_display_name: Zeroboy
   identity_name: 24555Zeroboy.DicconEvo
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
-  msix_version: 5.0.4.0
+  msix_version: 5.0.6.0
   logo_path: D:\Development\Github\diccon_evo\assets\icon.ico
   store: true
