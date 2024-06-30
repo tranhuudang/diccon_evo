@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -29,6 +32,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   late final _streamIsBookmarkController = StreamController<bool>();
   bool _isListStoriesShouldChanged = false;
   late final _controller = ScrollController();
+  Set<String> _clickedWords = Set();
 
   Future<void> getListStoryBookmark() async {
     _listStories = await _storyRepository.readStoryBookmark();
@@ -37,11 +41,70 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     }
   }
 
+  Future<void> fetchClickedWordsFromFirestore() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      return; // Handle unauthenticated user
+    }
+
+    final storyId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+        sentence: widget.story.shortDescription);
+    final docRef = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userId)
+        .collection('Story')
+        .doc(storyId);
+
+    final docSnapshot = await docRef.get();
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data();
+      if (data != null && data['lookedUpWords'] != null) {
+        setState(() {
+          _clickedWords = Set<String>.from(data['lookedUpWords']);
+        });
+      }
+    }
+  }
+
+  Future<void> saveClickedWordToFirestore(String word) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      return; // Handle unauthenticated user
+    }
+
+    final storyId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+        sentence: widget.story.shortDescription);
+    final docRef = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userId)
+        .collection('Story')
+        .doc(storyId);
+
+    // Create the document if it doesn't exist
+    final docSnapshot = await docRef.get();
+    if (!docSnapshot.exists) {
+      await docRef.set({
+        'lookedUpWords': []
+      });
+    }
+
+    // Now update the document with the new word
+    await docRef.update({
+      'lookedUpWords': FieldValue.arrayUnion([word])
+    });
+
+    setState(() {
+      _clickedWords.add(word);
+    });
+  }
+
+
   @override
   void initState() {
     super.initState();
     _readingBloc = context.read<ReadingBloc>();
     getListStoryBookmark();
+    fetchClickedWordsFromFirestore();
     _readingBloc.add(InitReadingBloc(story: widget.story));
   }
 
@@ -229,6 +292,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                               children: [
                                 if (paragraph.isNotEmpty)
                                   StoryClickableWords(
+                                    clickedWords: _clickedWords,
                                     text: paragraph,
                                     style: context.theme.textTheme.bodyMedium
                                         ?.copyWith(
@@ -237,6 +301,10 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                           .theme.colorScheme.onBackground,
                                     ),
                                     onWordTap: (String word, String sentence) {
+                                      saveClickedWordToFirestore(word);
+                                      setState(() {
+                                        _clickedWords.add(word);
+                                      });
                                       final refinedWord =
                                           word.removeSpecialCharacters();
                                       final refinedSentence = sentence.trim();

@@ -8,12 +8,14 @@ class StoryClickableWords extends StatefulWidget {
   final String text;
   final TextStyle? style;
   final Function(String word, String sentence)? onWordTap;
+  final Set<String> clickedWords;
 
   const StoryClickableWords({
     super.key,
     required this.text,
     this.onWordTap,
     this.style,
+    required this.clickedWords,
   });
 
   @override
@@ -74,21 +76,27 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
               children: [
                 for (var i = 0; i < words.length; i++)
                   TextSpan(
-                      text: '${words[i]} ',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          if (widget.onWordTap != null) {
-                            String sentence =
-                                getSentenceContainingWord(words[i], words, i);
-                            widget.onWordTap!(words[i], sentence);
-                            // New: Get the sentence and do something with it
-                            if (kDebugMode) {
-                              print(
-                                  'Clicked word: ${words[i]}, Sentence: $sentence');
-                            }
+                    text: '${words[i]} ',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        if (widget.onWordTap != null) {
+                          String sentence =
+                              getSentenceContainingWord(words[i], words, i);
+                          widget.onWordTap!(words[i], sentence);
+                          // New: Get the sentence and do something with it
+                          if (kDebugMode) {
+                            print(
+                                'Clicked word: ${words[i]}, Sentence: $sentence');
                           }
-                        },
-                      style: widget.style),
+                        }
+                      },
+                    style: widget.clickedWords.contains(words[i])
+                        ? widget.style?.copyWith(
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                            color: context.theme.colorScheme.onSurface)
+                        : widget.style,
+                  )
               ],
             ),
           )
