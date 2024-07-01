@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
-import '../../bloc/story_history_list_bloc.dart';
+import '../../bloc/story_history_bloc.dart';
 
 class StoryListHistoryView extends StatefulWidget {
   const StoryListHistoryView({super.key});
@@ -12,12 +12,10 @@ class StoryListHistoryView extends StatefulWidget {
 }
 
 class _StoryListHistoryViewState extends State<StoryListHistoryView> {
-  final _storyHistoryBloc = StoryHistoryBloc();
-
   @override
   Widget build(BuildContext context) {
+    final storyHistoryBloc = context.read<StoryHistoryBloc>();
     return BlocConsumer<StoryHistoryBloc, StoryHistoryState>(
-      bloc: _storyHistoryBloc,
       listener: (BuildContext context, StoryHistoryState state) {},
       buildWhen: (previous, current) => current is! StoryHistoryActionState,
       listenWhen: (previous, current) => current is StoryHistoryActionState,
@@ -31,7 +29,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                 ),
                 actions: [
                   IconButton(
-                      onPressed: () => _storyHistoryBloc.add(
+                      onPressed: () => storyHistoryBloc.add(
                           StoryHistorySortAlphabet(stories: state.stories)),
                       icon: const Icon(Icons.sort_by_alpha)),
                   PopupMenuButton(
@@ -44,17 +42,17 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                       PopupMenuItem(
                         child: Text("Elementary".i18n),
                         onTap: () =>
-                            _storyHistoryBloc.add(StoryHistorySortElementary()),
+                            storyHistoryBloc.add(StoryHistorySortElementary()),
                       ),
                       PopupMenuItem(
                         child: Text("Intermediate".i18n),
-                        onTap: () => _storyHistoryBloc
+                        onTap: () => storyHistoryBloc
                             .add(StoryHistorySortIntermediate()),
                       ),
                       PopupMenuItem(
                         child: Text("Advanced".i18n),
                         onTap: () =>
-                            _storyHistoryBloc.add(StoryHistorySortAdvanced()),
+                            storyHistoryBloc.add(StoryHistorySortAdvanced()),
                       ),
                       const PopupMenuItem(
                         enabled: false,
@@ -63,8 +61,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                       ),
                       PopupMenuItem(
                         child: Text("All".i18n),
-                        onTap: () =>
-                            _storyHistoryBloc.add(StoryHistoryGetAll()),
+                        onTap: () => storyHistoryBloc.add(StoryHistoryGetAll()),
                       ),
                       const PopupMenuItem(
                         enabled: false,
@@ -73,12 +70,12 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                       ),
                       PopupMenuItem(
                         child: Text("Reverse List".i18n),
-                        onTap: () => _storyHistoryBloc.add(
+                        onTap: () => storyHistoryBloc.add(
                             StoryHistorySortReverse(stories: state.stories)),
                       ),
                       PopupMenuItem(
                         child: Text("Clear all".i18n),
-                        onTap: () => _storyHistoryBloc.add(StoryHistoryClear()),
+                        onTap: () => storyHistoryBloc.add(StoryHistoryClear()),
                       ),
                     ],
                   ),
@@ -189,7 +186,7 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
               ),
             );
           default:
-            _storyHistoryBloc.add(StoryHistoryLoad());
+            storyHistoryBloc.add(FetchStoryHistoryFromFirestore());
             return Scaffold(
               appBar: AppBar(
                 title: Text(

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
-import '../../bloc/story_history_list_bloc.dart';
+import '../../bloc/story_history_bloc.dart';
 
 class ReadingTile extends StatelessWidget {
   final String? tag;
@@ -27,7 +27,6 @@ class ReadingTile extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         onTap: () {
-          storyHistoryBloc.add(StoryHistoryAdd(story: story));
           onTap();
         },
         child: Container(

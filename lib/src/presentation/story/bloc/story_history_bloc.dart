@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
 import '../../../data/data.dart';
+
 /// States
 abstract class StoryHistoryState {}
 
@@ -24,16 +28,15 @@ class StoryHistoryUpdated extends StoryHistoryState {
   StoryHistoryUpdated({required this.stories});
 }
 
-
 /// Events
 abstract class StoryHistoryEvent {}
-
-class StoryHistoryLoad extends StoryHistoryEvent {}
 
 class StoryHistorySortAlphabet extends StoryHistoryEvent {
   final List<Story> stories;
   StoryHistorySortAlphabet({required this.stories});
 }
+
+class FetchStoryHistoryFromFirestore extends StoryHistoryEvent {}
 
 class StoryHistorySortReverse extends StoryHistoryEvent {
   final List<Story> stories;
@@ -50,45 +53,36 @@ class StoryHistoryGetAll extends StoryHistoryEvent {}
 
 class StoryHistoryClear extends StoryHistoryEvent {}
 
-class StoryHistoryAdd extends StoryHistoryEvent {
-  Story story;
-  StoryHistoryAdd({required this.story});
-}
 
 /// Bloc
 
-class StoryHistoryBloc
-    extends Bloc<StoryHistoryEvent, StoryHistoryState> {
+class StoryHistoryBloc extends Bloc<StoryHistoryEvent, StoryHistoryState> {
   StoryHistoryBloc()
       : super(StoryHistoryUninitialState(stories: List<Story>.empty())) {
-    on<StoryHistoryLoad>(_loadHistoryList);
     on<StoryHistorySortAlphabet>(_sortAlphabet);
     on<StoryHistorySortReverse>(_sortReverse);
     on<StoryHistorySortElementary>(_sortElementary);
     on<StoryHistorySortIntermediate>(_sortIntermediate);
     on<StoryHistorySortAdvanced>(_sortAdvanced);
+    on<FetchStoryHistoryFromFirestore>(_fetchStoryHistoryFromFirestore);
     on<StoryHistoryGetAll>(_all);
-    on<StoryHistoryAdd>(_add);
     on<StoryHistoryClear>(_clear);
   }
   final _storyRepository = StoryRepositoryImpl();
-  var _loadedStoryHistoryList = List<Story>.empty();
+  List<Story> _loadedStoryHistoryList = [];
 
-  FutureOr<void> _loadHistoryList(
-      StoryHistoryLoad event, Emitter<StoryHistoryState> emit) async {
-    try {
-      _loadedStoryHistoryList = await _storyRepository.readStoryHistory();
+  FutureOr<void> _fetchStoryHistoryFromFirestore(
+      FetchStoryHistoryFromFirestore event,
+      Emitter<StoryHistoryState> emit) async {
+    if (_loadedStoryHistoryList.isEmpty) {
+      _loadedStoryHistoryList = await _storyRepository.getStoryHistory();
       if (_loadedStoryHistoryList.isEmpty) {
         emit(StoryHistoryEmptyState());
       } else {
-        emit(
-            StoryHistoryUpdated(stories: _loadedStoryHistoryList));
+        emit(StoryHistoryUpdated(stories: _loadedStoryHistoryList));
       }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      emit(StoryHistoryErrorState());
+    } else {
+      emit(StoryHistoryUpdated(stories: _loadedStoryHistoryList));
     }
   }
 
@@ -146,13 +140,5 @@ class StoryHistoryBloc
       StoryHistoryClear event, Emitter<StoryHistoryState> emit) {
     _storyRepository.deleteAllStoryHistory();
     emit(StoryHistoryEmptyState());
-  }
-
-  FutureOr<void> _add(
-      StoryHistoryAdd event, Emitter<StoryHistoryState> emit) async {
-    await _storyRepository.saveReadStoryToHistory(event.story);
-    if (kDebugMode) {
-      print("${event.story.title} is added to history file.");
-    }
   }
 }

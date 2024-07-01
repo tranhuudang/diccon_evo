@@ -74,7 +74,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     /// Remove local file
     await FileHandler(LocalDirectory.wordHistoryFileName).deleteOnUserData();
-    await FileHandler(LocalDirectory.storyHistoryFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.storyBookmarkFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.topicHistoryFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.essentialFavouriteFileName)
@@ -89,7 +88,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     ));
     await UserHandler().downloadUserDataFile();
     await UserHandler().uploadUserDataFile(LocalDirectory.wordHistoryFileName);
-    await UserHandler().uploadUserDataFile(LocalDirectory.storyHistoryFileName);
     await UserHandler()
         .uploadUserDataFile(LocalDirectory.storyBookmarkFileName);
     await UserHandler().uploadUserDataFile(LocalDirectory.topicHistoryFileName);
@@ -150,7 +148,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     /// Remove local file
     await FileHandler(LocalDirectory.wordHistoryFileName).deleteOnUserData();
-    await FileHandler(LocalDirectory.storyHistoryFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.storyBookmarkFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.topicHistoryFileName).deleteOnUserData();
     await FileHandler(LocalDirectory.essentialFavouriteFileName)

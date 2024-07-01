@@ -59,8 +59,7 @@ class UserHandler {
           jsonDecode(File(file.path).readAsStringSync());
 
       /// Syncing story history and bookmark
-      if (ref.name == LocalDirectory.storyHistoryFileName ||
-          ref.name == LocalDirectory.storyBookmarkFileName) {
+      if (ref.name == LocalDirectory.storyBookmarkFileName) {
         for (var story in cloudJsonFile) {
           bool isArticleExist = localJsonFile
               .any((storyInLocal) => storyInLocal['title'] == story["title"]);

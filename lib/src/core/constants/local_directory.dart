@@ -41,7 +41,6 @@ class LocalDirectory {
       "assets/essential/3000_essential_words.json";
   static const String wordHistoryFileName = 'dictionary_history.json';
   static const String topicHistoryFileName = 'topic_history.json';
-  static const String storyHistoryFileName = 'story_history.json';
   static const String storyBookmarkFileName = 'story_bookmark.json';
   static const String essentialFavouriteFileName = 'essential_favourite.json';
   static const String extendStoryFileName = 'extend_story.json';
