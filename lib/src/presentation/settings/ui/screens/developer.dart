@@ -3,6 +3,7 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/core/utils/encrypt_api.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:flutter/services.dart';
+import 'package:wave_divider/wave_divider.dart';
 
 class DeveloperScreen extends StatefulWidget {
   const DeveloperScreen({super.key});
@@ -18,6 +19,7 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
   String _decodedContent = '';
   int _workingKeyNunber = 0;
   int _documentCount = 0;
+  int _storyCount = 0;
 
   Future<void> _countDocumentsDictionary() async {
     try {
@@ -28,6 +30,21 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
       setState(() {
         _documentCount = querySnapshot.count ?? 1;
         DebugLog.info("Dictionary: $_documentCount");
+      });
+    } catch (e) {
+      DebugLog.info("Error getting documents: $e");
+    }
+  }
+
+  Future<void> _countDocumentsStory() async {
+    try {
+      AggregateQuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection(FirebaseConstant.firestore.story)
+          .count()
+          .get();
+      setState(() {
+        _storyCount = querySnapshot.count ?? 1;
+        DebugLog.info("Story: $_storyCount");
       });
     } catch (e) {
       DebugLog.info("Error getting documents: $e");
@@ -138,18 +155,34 @@ class _DeveloperScreenState extends State<DeveloperScreen> {
                     ' -1 is local key.\n'
                     ' -2 is cloud key.')
               ]),
-          Section(title: 'Document', children: [
+          Section(title: 'Document Count'.i18n, children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Dictionary: $_documentCount',
-                  style: const TextStyle(fontSize: 20),
+                Row(
+                  children: [
+                    Text(
+                      'Dictionary: $_documentCount',
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: _countDocumentsDictionary,
+                      child: Text('Check'.i18n),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _countDocumentsDictionary,
-                  child: const Text('Check Document Count'),
+                Row(
+                  children: [
+                    Text(
+                      'Story: $_storyCount',
+                    ),
+                    const Spacer(), 
+                    ElevatedButton(
+                      onPressed: _countDocumentsStory,
+                      child: Text('Check'.i18n),
+                    ),
+                  ],
                 ),
               ],
             ),
