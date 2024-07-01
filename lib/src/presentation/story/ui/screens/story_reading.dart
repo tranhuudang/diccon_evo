@@ -42,6 +42,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
     _readingBloc = context.read<ReadingBloc>();
     getListStoryBookmark();
     _readingBloc.add(InitReadingBloc(story: widget.story));
+    _readingBloc.add(AddToHistory(story: widget.story));
     _readingBloc.add(FetchClickedWordsFromFirestore(
         storyDescription: widget.story.shortDescription));
   }

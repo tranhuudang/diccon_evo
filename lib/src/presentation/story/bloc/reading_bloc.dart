@@ -111,6 +111,11 @@ class InitReadingBloc extends ReadingEvent {
   InitReadingBloc({required this.story});
 }
 
+class AddToHistory extends ReadingEvent {
+  final Story story;
+  AddToHistory({required this.story});
+}
+
 class DownloadAudio extends ReadingEvent {
   final Story story;
   DownloadAudio({required this.story});
@@ -123,6 +128,7 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     on<IncreaseFontSize>(_increaseFontSize);
     on<DecreaseFontSize>(_decreaseFontSize);
     on<DownloadAudio>(_downloadAudio);
+    on<AddToHistory>(_addToHistory);
     on<FetchClickedWordsFromFirestore>(_fetchClickedWordsFromFirestore);
     on<AddClickedWordToFirestore>(_addClickedWordToFirestore);
     on<DeleteTranslatedContentInThisWordAndSentenceEvent>(
@@ -176,6 +182,30 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
       Properties.instance.settings = Properties.instance.settings.copyWith(
           readingFontSize: Properties.instance.settings.readingFontSize - 2);
       Properties.instance.saveSettings(Properties.instance.settings);
+    }
+  }
+
+  FutureOr<void> _addToHistory(
+      AddToHistory event, Emitter<ReadingState> emit) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      return; // Handle unauthenticated user
+    } else {
+      final storyId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+          sentence: event.story.shortDescription);
+      final docRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('Story')
+          .doc(storyId);
+
+      final docSnapshot = await docRef.get();
+      if (!docSnapshot.exists) {
+        await docRef.set({
+          'isBookmark': false,
+          'timestamp' : FieldValue.serverTimestamp()
+        });
+      }
     }
   }
 

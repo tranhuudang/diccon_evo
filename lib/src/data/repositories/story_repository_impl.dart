@@ -99,8 +99,8 @@ class StoryRepositoryImpl implements StoryRepository {
       final collectionRef = FirebaseFirestore.instance
           .collection('Users')
           .doc(userId)
-          .collection('Story');
-
+          .collection('Story')
+          .orderBy('timestamp', descending: true);
       final docSnapshot = await collectionRef.get();
       for (var doc in docSnapshot.docs) {
         listStoryMd5.add(doc.id);
@@ -131,8 +131,8 @@ class StoryRepositoryImpl implements StoryRepository {
       final collectionRef = FirebaseFirestore.instance
           .collection('Users')
           .doc(userId)
-          .collection('Story');
-
+          .collection('Story')
+          .orderBy('timestamp', descending: true);
       final docSnapshot = await collectionRef.get();
       for (var doc in docSnapshot.docs) {
         if (doc.data().containsKey('isBookmark')) {
