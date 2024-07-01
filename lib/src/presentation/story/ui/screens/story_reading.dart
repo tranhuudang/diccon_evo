@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:diccon_evo/src/presentation/story/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -22,8 +23,8 @@ class StoryReadingView extends StatefulWidget {
 }
 
 class _StoryReadingViewState extends State<StoryReadingView> {
-  final _storyBookmarkBloc = StoryBookmarkBloc();
   late ReadingBloc _readingBloc;
+  late StoryHistoryBloc _historyBloc;
   final _storyRepository = StoryRepositoryImpl();
   List<Story> _listStories = [];
   late final _streamIsBookmarkController = StreamController<bool>();
@@ -39,12 +40,15 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   @override
   void initState() {
     super.initState();
-    _readingBloc = context.read<ReadingBloc>();
+    _readingBloc = context.read<ReadingBloc>()
+      ..add(InitReadingBloc(story: widget.story))
+      ..add(AddToHistory(story: widget.story))
+      ..add(FetchClickedWordsFromFirestore(
+          storyDescription: widget.story.shortDescription));
+    _historyBloc = context.read<StoryHistoryBloc>()
+      ..add(StoryHistoryForceReload());
+
     getListStoryBookmark();
-    _readingBloc.add(InitReadingBloc(story: widget.story));
-    _readingBloc.add(AddToHistory(story: widget.story));
-    _readingBloc.add(FetchClickedWordsFromFirestore(
-        storyDescription: widget.story.shortDescription));
   }
 
   @override
@@ -57,6 +61,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   Widget build(BuildContext context) {
     final settingBloc = context.read<SettingBloc>();
     final readingBloc = context.read<ReadingBloc>();
+    final bookmarkBloc = context.read<StoryBookmarkBloc>();
     return SafeArea(
       child: BlocConsumer<ReadingBloc, ReadingState>(
         listener: (context, state) {
@@ -152,10 +157,11 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                 onPressed: () {
                                   _isListStoriesShouldChanged = true;
                                   _streamIsBookmarkController.sink.add(false);
-                                  _storyBookmarkBloc.add(
+                                  bookmarkBloc.add(
                                       StoryBookmarkRemove(story: widget.story));
                                   context.showSnackBar(
                                       content: "Bookmark is removed".i18n);
+                                  bookmarkBloc.add(StoryBookmarkForceReload());
                                 },
                               )
                             : IconButton(
@@ -164,10 +170,11 @@ class _StoryReadingViewState extends State<StoryReadingView> {
                                   _isListStoriesShouldChanged = true;
 
                                   _streamIsBookmarkController.sink.add(true);
-                                  _storyBookmarkBloc.add(
+                                  bookmarkBloc.add(
                                       StoryBookmarkAdd(story: widget.story));
                                   context.showSnackBar(
                                       content: "Bookmark is added".i18n);
+                                  bookmarkBloc.add(StoryBookmarkForceReload());
                                 },
                               );
                       },

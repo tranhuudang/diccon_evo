@@ -37,6 +37,7 @@ class StoryBookmarkSortAlphabet extends StoryBookmarkEvent {
 class FetchStoryBookmarkFromFirestore extends StoryBookmarkEvent {}
 
 class StoryBookmarkSortElementary extends StoryBookmarkEvent {}
+class StoryBookmarkForceReload extends StoryBookmarkEvent {}
 
 class StoryBookmarkSortIntermediate extends StoryBookmarkEvent {}
 
@@ -67,24 +68,33 @@ class StoryBookmarkBloc extends Bloc<StoryBookmarkEvent, StoryBookmarkState> {
     on<StoryBookmarkGetAll>(_all);
     on<StoryBookmarkAdd>(_storyBookmarkAdd);
     on<StoryBookmarkRemove>(_storyBookmarkRemove);
+    on<StoryBookmarkForceReload>(_storyBookmarkForceReload);
   }
 
   final _storyRepository = StoryRepositoryImpl();
   List<Story> _loadedStoryBookmarkList = [];
+  bool _foreReload = false;
 
   FutureOr<void> _fetchStoryBookmarkFromFirestore(
       FetchStoryBookmarkFromFirestore event,
       Emitter<StoryBookmarkState> emit) async {
-    if (_loadedStoryBookmarkList.isEmpty) {
+    if (_loadedStoryBookmarkList.isEmpty || _foreReload == true) {
       _loadedStoryBookmarkList = await _storyRepository.getStoryBookmark();
       if (_loadedStoryBookmarkList.isEmpty) {
         emit(StoryBookmarkEmptyState());
       } else {
         emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
       }
+      _foreReload = false;
     } else {
       emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
     }
+  }
+
+  FutureOr<void> _storyBookmarkForceReload(
+      StoryBookmarkForceReload event, Emitter<StoryBookmarkState> emit) async {
+    _foreReload = true;
+    add(FetchStoryBookmarkFromFirestore());
   }
 
   FutureOr<void> _sortAlphabet(StoryBookmarkSortAlphabet event,

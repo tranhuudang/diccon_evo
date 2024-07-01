@@ -37,12 +37,13 @@ class FetchStoryHistoryFromFirestore extends StoryHistoryEvent {}
 
 class StoryHistorySortElementary extends StoryHistoryEvent {}
 
+class StoryHistoryForceReload extends StoryHistoryEvent {}
+
 class StoryHistorySortIntermediate extends StoryHistoryEvent {}
 
 class StoryHistorySortAdvanced extends StoryHistoryEvent {}
 
 class StoryHistoryGetAll extends StoryHistoryEvent {}
-
 
 /// Bloc
 
@@ -55,23 +56,32 @@ class StoryHistoryBloc extends Bloc<StoryHistoryEvent, StoryHistoryState> {
     on<StoryHistorySortAdvanced>(_sortAdvanced);
     on<FetchStoryHistoryFromFirestore>(_fetchStoryHistoryFromFirestore);
     on<StoryHistoryGetAll>(_all);
+    on<StoryHistoryForceReload>(_storyHistoryForceReload);
   }
   final _storyRepository = StoryRepositoryImpl();
   List<Story> _loadedStoryHistoryList = [];
+  bool _foreReload = false;
 
   FutureOr<void> _fetchStoryHistoryFromFirestore(
       FetchStoryHistoryFromFirestore event,
       Emitter<StoryHistoryState> emit) async {
-    if (_loadedStoryHistoryList.isEmpty) {
+    if (_loadedStoryHistoryList.isEmpty || _foreReload == true) {
       _loadedStoryHistoryList = await _storyRepository.getStoryHistory();
       if (_loadedStoryHistoryList.isEmpty) {
         emit(StoryHistoryEmptyState());
       } else {
         emit(StoryHistoryUpdated(stories: _loadedStoryHistoryList));
       }
+      _foreReload = false;
     } else {
       emit(StoryHistoryUpdated(stories: _loadedStoryHistoryList));
     }
+  }
+
+  FutureOr<void> _storyHistoryForceReload(
+      StoryHistoryForceReload event, Emitter<StoryHistoryState> emit) async {
+    _foreReload = true;
+    add(FetchStoryHistoryFromFirestore());
   }
 
   FutureOr<void> _sortAlphabet(
@@ -117,5 +127,4 @@ class StoryHistoryBloc extends Bloc<StoryHistoryEvent, StoryHistoryState> {
       StoryHistoryGetAll event, Emitter<StoryHistoryState> emit) async {
     emit(StoryHistoryUpdated(stories: _loadedStoryHistoryList));
   }
-
 }
