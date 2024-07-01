@@ -125,7 +125,7 @@ class HomeMenuButton extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-                      Text("Feedbacks".i18n),
+                      Text("Feedback".i18n),
                     ],
                   ),
                   onTap: () => context.pushNamed('feedbacks'),

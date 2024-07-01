@@ -39,16 +39,16 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   Widget build(BuildContext context) {
     if (kDebugMode){
       tabTitleList = [
-        'Stories',
-        'Your peers',
+        'Stories'.i18n,
+        'Your peers'.i18n,
         'Chatbot',
-        'Practice'
+        'Practice'.i18n
       ];
     } else {
       tabTitleList = [
-        'Stories',
+        'Stories'.i18n,
         'Chatbot',
-        'Practice'
+        'Practice'.i18n
       ];
     }
     Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
@@ -134,7 +134,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                                         ? 1
                                         : .5,
                                     child: Text(
-                                      title.i18n,
+                                      title,
                                       style: context.theme.textTheme.titleLarge
                                           ?.copyWith(
                                         decoration: currentTabIndex ==

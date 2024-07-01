@@ -338,10 +338,6 @@ extension Localization on Object {
       "en_us": "Search in dictionary",
       "vi_vi": "Tra cứu từ điển",
     },
-    "Feedbacks": {
-      "en_us": "Feedbacks",
-      "vi_vi": "Góp ý",
-    },
 
     /// Story
 

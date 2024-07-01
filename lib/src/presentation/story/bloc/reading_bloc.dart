@@ -34,7 +34,7 @@ class ReadingBlocParams {
       isDownloaded: false,
       fontSize: Properties.instance.settings.readingFontSize,
       audioFilePath: '',
-      clickedWords: Set(),
+      clickedWords: <String>{},
     );
   }
 

@@ -38,7 +38,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                       title: Text("Bookmarks".i18n,),
                       actions: [
                         IconButton(onPressed: (){
-                          storyBookmarkBloc.add(StoryBookmarkForceReload()); 
+                          storyBookmarkBloc.add(StoryBookmarkForceReload());
                         }, icon: const Icon(Icons.refresh)),
                         IconButton(
                             onPressed: () => storyBookmarkBloc.add(
