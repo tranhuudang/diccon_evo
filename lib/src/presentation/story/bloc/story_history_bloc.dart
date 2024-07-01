@@ -35,11 +35,6 @@ class StoryHistorySortAlphabet extends StoryHistoryEvent {
 
 class FetchStoryHistoryFromFirestore extends StoryHistoryEvent {}
 
-class StoryHistorySortReverse extends StoryHistoryEvent {
-  final List<Story> stories;
-  StoryHistorySortReverse({required this.stories});
-}
-
 class StoryHistorySortElementary extends StoryHistoryEvent {}
 
 class StoryHistorySortIntermediate extends StoryHistoryEvent {}
@@ -48,8 +43,6 @@ class StoryHistorySortAdvanced extends StoryHistoryEvent {}
 
 class StoryHistoryGetAll extends StoryHistoryEvent {}
 
-class StoryHistoryClear extends StoryHistoryEvent {}
-
 
 /// Bloc
 
@@ -57,13 +50,11 @@ class StoryHistoryBloc extends Bloc<StoryHistoryEvent, StoryHistoryState> {
   StoryHistoryBloc()
       : super(StoryHistoryUninitialState(stories: List<Story>.empty())) {
     on<StoryHistorySortAlphabet>(_sortAlphabet);
-    on<StoryHistorySortReverse>(_sortReverse);
     on<StoryHistorySortElementary>(_sortElementary);
     on<StoryHistorySortIntermediate>(_sortIntermediate);
     on<StoryHistorySortAdvanced>(_sortAdvanced);
     on<FetchStoryHistoryFromFirestore>(_fetchStoryHistoryFromFirestore);
     on<StoryHistoryGetAll>(_all);
-    on<StoryHistoryClear>(_clear);
   }
   final _storyRepository = StoryRepositoryImpl();
   List<Story> _loadedStoryHistoryList = [];
@@ -93,12 +84,6 @@ class StoryHistoryBloc extends Bloc<StoryHistoryEvent, StoryHistoryState> {
     if (listsAreEqual) {
       sorted = sorted.reversed.toList();
     }
-    emit(StoryHistoryUpdated(stories: sorted));
-  }
-
-  FutureOr<void> _sortReverse(
-      StoryHistorySortReverse event, Emitter<StoryHistoryState> emit) {
-    var sorted = event.stories.reversed.toList();
     emit(StoryHistoryUpdated(stories: sorted));
   }
 
@@ -133,9 +118,4 @@ class StoryHistoryBloc extends Bloc<StoryHistoryEvent, StoryHistoryState> {
     emit(StoryHistoryUpdated(stories: _loadedStoryHistoryList));
   }
 
-  FutureOr<void> _clear(
-      StoryHistoryClear event, Emitter<StoryHistoryState> emit) {
-    _storyRepository.deleteAllStoryHistory();
-    emit(StoryHistoryEmptyState());
-  }
 }

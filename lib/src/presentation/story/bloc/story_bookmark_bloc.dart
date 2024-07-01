@@ -36,11 +36,6 @@ class StoryBookmarkSortAlphabet extends StoryBookmarkEvent {
 
 class FetchStoryBookmarkFromFirestore extends StoryBookmarkEvent {}
 
-class StoryBookmarkSortReverse extends StoryBookmarkEvent {
-  final List<Story> stories;
-  StoryBookmarkSortReverse({required this.stories});
-}
-
 class StoryBookmarkSortElementary extends StoryBookmarkEvent {}
 
 class StoryBookmarkSortIntermediate extends StoryBookmarkEvent {}
@@ -48,8 +43,6 @@ class StoryBookmarkSortIntermediate extends StoryBookmarkEvent {}
 class StoryBookmarkSortAdvanced extends StoryBookmarkEvent {}
 
 class StoryBookmarkGetAll extends StoryBookmarkEvent {}
-
-class StoryBookmarkClear extends StoryBookmarkEvent {}
 class StoryBookmarkAdd extends StoryBookmarkEvent {
   final Story story;
   StoryBookmarkAdd({required this.story});
@@ -67,13 +60,11 @@ class StoryBookmarkBloc extends Bloc<StoryBookmarkEvent, StoryBookmarkState> {
   StoryBookmarkBloc()
       : super(StoryBookmarkUninitialState(stories: List<Story>.empty())) {
     on<StoryBookmarkSortAlphabet>(_sortAlphabet);
-    on<StoryBookmarkSortReverse>(_sortReverse);
     on<StoryBookmarkSortElementary>(_sortElementary);
     on<StoryBookmarkSortIntermediate>(_sortIntermediate);
     on<StoryBookmarkSortAdvanced>(_sortAdvanced);
     on<FetchStoryBookmarkFromFirestore>(_fetchStoryBookmarkFromFirestore);
     on<StoryBookmarkGetAll>(_all);
-    on<StoryBookmarkClear>(_clear);
     on<StoryBookmarkAdd>(_storyBookmarkAdd);
     on<StoryBookmarkRemove>(_storyBookmarkRemove);
   }
@@ -109,12 +100,6 @@ class StoryBookmarkBloc extends Bloc<StoryBookmarkEvent, StoryBookmarkState> {
     emit(StoryBookmarkUpdated(stories: sorted));
   }
 
-  FutureOr<void> _sortReverse(StoryBookmarkSortReverse event,
-      Emitter<StoryBookmarkState> emit) {
-    var sorted = event.stories.reversed.toList();
-    emit(StoryBookmarkUpdated(stories: sorted));
-  }
-
   FutureOr<void> _sortElementary(StoryBookmarkSortElementary event,
       Emitter<StoryBookmarkState> emit) {
     var elementaryOnly = _loadedStoryBookmarkList
@@ -144,12 +129,6 @@ class StoryBookmarkBloc extends Bloc<StoryBookmarkEvent, StoryBookmarkState> {
   FutureOr<void> _all(StoryBookmarkGetAll event,
       Emitter<StoryBookmarkState> emit) async {
     emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
-  }
-
-  FutureOr<void> _clear(StoryBookmarkClear event,
-      Emitter<StoryBookmarkState> emit) {
-    _storyRepository.deleteAllStoryBookmark();
-    emit(StoryBookmarkEmptyState());
   }
 
   FutureOr<void> _storyBookmarkAdd(StoryBookmarkAdd event,

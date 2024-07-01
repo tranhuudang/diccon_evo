@@ -63,20 +63,6 @@ class _StoryListHistoryViewState extends State<StoryListHistoryView> {
                         child: Text("All".i18n),
                         onTap: () => storyHistoryBloc.add(StoryHistoryGetAll()),
                       ),
-                      const PopupMenuItem(
-                        enabled: false,
-                        height: 0,
-                        child: Divider(),
-                      ),
-                      PopupMenuItem(
-                        child: Text("Reverse List".i18n),
-                        onTap: () => storyHistoryBloc.add(
-                            StoryHistorySortReverse(stories: state.stories)),
-                      ),
-                      PopupMenuItem(
-                        child: Text("Clear all".i18n),
-                        onTap: () => storyHistoryBloc.add(StoryHistoryClear()),
-                      ),
                     ],
                   ),
                 ],

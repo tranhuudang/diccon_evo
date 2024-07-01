@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:diccon_evo/src/presentation/presentation.dart';
 import 'package:diccon_evo/src/core/core.dart';
-import '../../bloc/story_bookmark_list_bloc.dart';
+import '../../bloc/story_bookmark_bloc.dart';
 
 class StoryListBookmarkView extends StatefulWidget {
   const StoryListBookmarkView({super.key});
@@ -66,22 +66,6 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                             child: Text("All".i18n),
                             onTap: () =>
                                 _storyBookmarkBloc.add(StoryBookmarkGetAll()),
-                          ),
-                          const PopupMenuItem(
-                            enabled: false,
-                            height: 0,
-                            child: Divider(),
-                          ),
-                          PopupMenuItem(
-                            child: Text("Reverse List".i18n),
-                            onTap: () => _storyBookmarkBloc.add(
-                                StoryBookmarkSortReverse(
-                                    stories: state.stories)),
-                          ),
-                          PopupMenuItem(
-                            child: Text("Clear all".i18n),
-                            onTap: () =>
-                                _storyBookmarkBloc.add(StoryBookmarkClear()),
                           ),
                         ],
                       ),

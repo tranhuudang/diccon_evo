@@ -7,7 +7,7 @@ import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
 import '../../../../data/data.dart';
 import '../../bloc/reading_bloc.dart';
-import '../../bloc/story_bookmark_list_bloc.dart';
+import '../../bloc/story_bookmark_bloc.dart';
 
 class StoryReadingView extends StatefulWidget {
   final Story story;

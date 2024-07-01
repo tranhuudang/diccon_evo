@@ -167,16 +167,4 @@ class StoryRepositoryImpl implements StoryRepository {
     // todo
     return true;
   }
-
-  @override
-  Future<bool> deleteAllStoryHistory() async {
-    // todo : implement new delete function for story history
-    return true;
-  }
-
-  @override
-  Future<bool> deleteAllStoryBookmark() async {
-    // todo:
-    return true;
-  }
 }
