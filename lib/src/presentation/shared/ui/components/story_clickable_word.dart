@@ -94,7 +94,7 @@ class _StoryClickableWordsState extends State<StoryClickableWords> {
                         ? widget.style?.copyWith(
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.bold,
-                            color: context.theme.colorScheme.onSurface)
+                            color: context.theme.colorScheme.primary)
                         : widget.style,
                   )
               ],

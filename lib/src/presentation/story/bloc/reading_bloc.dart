@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/data/data_providers/text_to_speech_client.dart';
 import 'package:diccon_evo/src/data/handlers/file_handler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,12 +18,14 @@ class ReadingBlocParams {
   final bool isDownloaded;
   final double fontSize;
   final String audioFilePath;
+  final Set<String> clickedWords;
   ReadingBlocParams({
     required this.isBottomAppBarVisible,
     required this.isDownloading,
     required this.isDownloaded,
     required this.fontSize,
     required this.audioFilePath,
+    required this.clickedWords,
   });
   static ReadingBlocParams init() {
     return ReadingBlocParams(
@@ -31,6 +34,7 @@ class ReadingBlocParams {
       isDownloaded: false,
       fontSize: Properties.instance.settings.readingFontSize,
       audioFilePath: '',
+      clickedWords: Set(),
     );
   }
 
@@ -40,6 +44,7 @@ class ReadingBlocParams {
     bool? isDownloaded,
     double? fontSize,
     String? audioFilePath,
+    Set<String>? clickedWords,
   }) {
     return ReadingBlocParams(
       isBottomAppBarVisible:
@@ -48,6 +53,7 @@ class ReadingBlocParams {
       isDownloaded: isDownloaded ?? this.isDownloaded,
       fontSize: fontSize ?? this.fontSize,
       audioFilePath: audioFilePath ?? this.audioFilePath,
+      clickedWords: clickedWords ?? this.clickedWords,
     );
   }
 }
@@ -88,6 +94,18 @@ class DeleteTranslatedContentInThisWordAndSentenceEvent extends ReadingEvent {
 
 class DecreaseFontSize extends ReadingEvent {}
 
+class FetchClickedWordsFromFirestore extends ReadingEvent {
+  final String storyDescription;
+  FetchClickedWordsFromFirestore({required this.storyDescription});
+}
+
+class AddClickedWordToFirestore extends ReadingEvent {
+  final String word;
+  final String storyDescription;
+  AddClickedWordToFirestore(
+      {required this.storyDescription, required this.word});
+}
+
 class InitReadingBloc extends ReadingEvent {
   final Story story;
   InitReadingBloc({required this.story});
@@ -105,6 +123,8 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
     on<IncreaseFontSize>(_increaseFontSize);
     on<DecreaseFontSize>(_decreaseFontSize);
     on<DownloadAudio>(_downloadAudio);
+    on<FetchClickedWordsFromFirestore>(_fetchClickedWordsFromFirestore);
+    on<AddClickedWordToFirestore>(_addClickedWordToFirestore);
     on<DeleteTranslatedContentInThisWordAndSentenceEvent>(
         _deleteTranslatedContentInThisWordAndSentence);
   }
@@ -156,6 +176,63 @@ class ReadingBloc extends Bloc<ReadingEvent, ReadingState> {
       Properties.instance.settings = Properties.instance.settings.copyWith(
           readingFontSize: Properties.instance.settings.readingFontSize - 2);
       Properties.instance.saveSettings(Properties.instance.settings);
+    }
+  }
+
+  FutureOr<void> _fetchClickedWordsFromFirestore(
+      FetchClickedWordsFromFirestore event, Emitter<ReadingState> emit) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      return; // Handle unauthenticated user
+    } else {
+      final storyId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+          sentence: event.storyDescription);
+      final docRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('Story')
+          .doc(storyId);
+
+      final docSnapshot = await docRef.get();
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data();
+        if (data != null && data['lookedUpWords'] != null) {
+          emit(ReadingUpdatedState(
+              params: state.params.copyWith(
+                  clickedWords: Set<String>.from(data['lookedUpWords']))));
+        }
+      }
+    }
+  }
+
+  FutureOr<void> _addClickedWordToFirestore(
+      AddClickedWordToFirestore event, Emitter<ReadingState> emit) async {
+    final newClickedWords = Set<String>.from(state.params.clickedWords)
+      ..add(event.word);
+    emit(ReadingUpdatedState(
+        params: state.params.copyWith(clickedWords: newClickedWords)));
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      return; // Handle unauthenticated user
+    } else {
+      final storyId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+          sentence: event.storyDescription);
+      final docRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('Story')
+          .doc(storyId);
+
+      // Create the document if it doesn't exist
+      final docSnapshot = await docRef.get();
+      if (!docSnapshot.exists) {
+        await docRef.set({'lookedUpWords': []});
+      }
+
+      // Now update the document with the new word
+      await docRef.update({
+        'lookedUpWords': FieldValue.arrayUnion([event.word])
+      });
     }
   }
 
