@@ -30,7 +30,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
   bool _isListStoriesShouldChanged = false;
 
   Future<void> getListStoryBookmark() async {
-    _listStories = await _storyRepository.readStoryBookmark();
+    _listStories = await _storyRepository.getStoryBookmark();
     if (_listStories.contains(widget.story)) {
       _streamIsBookmarkController.sink.add(true);
     }
@@ -164,7 +164,7 @@ class _StoryReadingViewState extends State<StoryReadingView> {
 
                                   _streamIsBookmarkController.sink.add(true);
                                   _storyBookmarkBloc.add(
-                                      StoryBookmarkAdd(stories: widget.story));
+                                      StoryBookmarkAdd(story: widget.story));
                                   context.showSnackBar(
                                       content: "Bookmark is added".i18n);
                                 },

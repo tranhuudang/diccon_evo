@@ -104,7 +104,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                         crossAxisCount = 1;
                       }
                       return GridView.builder(
-                        padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                         itemCount: state.stories.length,
                         gridDelegate:
                             SliverGridDelegateWithFixedCrossAxisCount(
@@ -124,7 +124,8 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                                       extra: state.stories[index]);
                               if (isBookmarkChanged != null) {
                                 if (isBookmarkChanged == true) {
-                                  _storyBookmarkBloc.add(StoryBookmarkLoad());
+                                  // todo
+                                  ///_storyBookmarkBloc.add(StoryBookmarkLoad());
                                   if (kDebugMode) {
                                     print("List Bookmark is reloaded");
                                   }
@@ -194,7 +195,7 @@ class _StoryListBookmarkViewState extends State<StoryListBookmarkView> {
                   ),
                 );
               default:
-                _storyBookmarkBloc.add(StoryBookmarkLoad());
+                _storyBookmarkBloc.add(FetchStoryBookmarkFromFirestore());
                 return Scaffold(
                   appBar: AppBar(title: Text("Bookmarks".i18n),),
                   body: const Center(

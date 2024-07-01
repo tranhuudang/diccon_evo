@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:unicons/unicons.dart';
 import 'package:wave_divider/wave_divider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 class DesktopHomeView extends StatefulWidget {

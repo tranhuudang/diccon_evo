@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diccon_evo/src/core/utils/md5_generator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:collection/collection.dart';
 import 'package:diccon_evo/src/core/core.dart';
 import 'package:diccon_evo/src/domain/domain.dart';
 import '../../../data/data.dart';
@@ -25,16 +26,15 @@ class StoryBookmarkUpdated extends StoryBookmarkState {
   StoryBookmarkUpdated({required this.stories});
 }
 
-
 /// Events
 abstract class StoryBookmarkEvent {}
-
-class StoryBookmarkLoad extends StoryBookmarkEvent {}
 
 class StoryBookmarkSortAlphabet extends StoryBookmarkEvent {
   final List<Story> stories;
   StoryBookmarkSortAlphabet({required this.stories});
 }
+
+class FetchStoryBookmarkFromFirestore extends StoryBookmarkEvent {}
 
 class StoryBookmarkSortReverse extends StoryBookmarkEvent {
   final List<Story> stories;
@@ -49,57 +49,55 @@ class StoryBookmarkSortAdvanced extends StoryBookmarkEvent {}
 
 class StoryBookmarkGetAll extends StoryBookmarkEvent {}
 
+class StoryBookmarkClear extends StoryBookmarkEvent {}
+class StoryBookmarkAdd extends StoryBookmarkEvent {
+  final Story story;
+  StoryBookmarkAdd({required this.story});
+}
+
 class StoryBookmarkRemove extends StoryBookmarkEvent {
-  Story story;
+  final Story story;
   StoryBookmarkRemove({required this.story});
 }
-class StoryBookmarkClear extends StoryBookmarkEvent {}
 
-class StoryBookmarkAdd extends StoryBookmarkEvent {
-  Story stories;
-  StoryBookmarkAdd({required this.stories});
-}
 
 /// Bloc
 
-class StoryBookmarkBloc
-    extends Bloc<StoryBookmarkEvent, StoryBookmarkState> {
+class StoryBookmarkBloc extends Bloc<StoryBookmarkEvent, StoryBookmarkState> {
   StoryBookmarkBloc()
       : super(StoryBookmarkUninitialState(stories: List<Story>.empty())) {
-    on<StoryBookmarkLoad>(_loadBookmarkList);
     on<StoryBookmarkSortAlphabet>(_sortAlphabet);
     on<StoryBookmarkSortReverse>(_sortReverse);
     on<StoryBookmarkSortElementary>(_sortElementary);
     on<StoryBookmarkSortIntermediate>(_sortIntermediate);
     on<StoryBookmarkSortAdvanced>(_sortAdvanced);
+    on<FetchStoryBookmarkFromFirestore>(_fetchStoryBookmarkFromFirestore);
     on<StoryBookmarkGetAll>(_all);
-    on<StoryBookmarkAdd>(_add);
     on<StoryBookmarkClear>(_clear);
-    on<StoryBookmarkRemove>(_removeAStory);
+    on<StoryBookmarkAdd>(_storyBookmarkAdd);
+    on<StoryBookmarkRemove>(_storyBookmarkRemove);
   }
-  final _storyRepository = StoryRepositoryImpl();
-  var _loadedStoryBookmarkList = List<Story>.empty();
 
-  FutureOr<void> _loadBookmarkList(
-      StoryBookmarkLoad event, Emitter<StoryBookmarkState> emit) async {
-    try {
-      _loadedStoryBookmarkList = await _storyRepository.readStoryBookmark();
+  final _storyRepository = StoryRepositoryImpl();
+  List<Story> _loadedStoryBookmarkList = [];
+
+  FutureOr<void> _fetchStoryBookmarkFromFirestore(
+      FetchStoryBookmarkFromFirestore event,
+      Emitter<StoryBookmarkState> emit) async {
+    if (_loadedStoryBookmarkList.isEmpty) {
+      _loadedStoryBookmarkList = await _storyRepository.getStoryBookmark();
       if (_loadedStoryBookmarkList.isEmpty) {
         emit(StoryBookmarkEmptyState());
       } else {
-        emit(
-            StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
+        emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
       }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      emit(StoryBookmarkErrorState());
+    } else {
+      emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
     }
   }
 
-  FutureOr<void> _sortAlphabet(
-      StoryBookmarkSortAlphabet event, Emitter<StoryBookmarkState> emit) {
+  FutureOr<void> _sortAlphabet(StoryBookmarkSortAlphabet event,
+      Emitter<StoryBookmarkState> emit) {
     var sorted = List.of(event.stories);
     sorted.sort((a, b) => a.title.compareTo(b.title));
 
@@ -111,14 +109,14 @@ class StoryBookmarkBloc
     emit(StoryBookmarkUpdated(stories: sorted));
   }
 
-  FutureOr<void> _sortReverse(
-      StoryBookmarkSortReverse event, Emitter<StoryBookmarkState> emit) {
+  FutureOr<void> _sortReverse(StoryBookmarkSortReverse event,
+      Emitter<StoryBookmarkState> emit) {
     var sorted = event.stories.reversed.toList();
     emit(StoryBookmarkUpdated(stories: sorted));
   }
 
-  FutureOr<void> _sortElementary(
-      StoryBookmarkSortElementary event, Emitter<StoryBookmarkState> emit) {
+  FutureOr<void> _sortElementary(StoryBookmarkSortElementary event,
+      Emitter<StoryBookmarkState> emit) {
     var elementaryOnly = _loadedStoryBookmarkList
         .where(
             (element) => element.level == Level.elementary.toLevelNameString())
@@ -126,46 +124,87 @@ class StoryBookmarkBloc
     emit(StoryBookmarkUpdated(stories: elementaryOnly));
   }
 
-  FutureOr<void> _sortIntermediate(
-      StoryBookmarkSortIntermediate event, Emitter<StoryBookmarkState> emit) {
+  FutureOr<void> _sortIntermediate(StoryBookmarkSortIntermediate event,
+      Emitter<StoryBookmarkState> emit) {
     var intermediateOnly = _loadedStoryBookmarkList
         .where((element) =>
-            element.level == Level.intermediate.toLevelNameString())
+    element.level == Level.intermediate.toLevelNameString())
         .toList();
     emit(StoryBookmarkUpdated(stories: intermediateOnly));
   }
 
-  FutureOr<void> _sortAdvanced(
-      StoryBookmarkSortAdvanced event, Emitter<StoryBookmarkState> emit) {
+  FutureOr<void> _sortAdvanced(StoryBookmarkSortAdvanced event,
+      Emitter<StoryBookmarkState> emit) {
     var advancedOnly = _loadedStoryBookmarkList
         .where((element) => element.level == Level.advanced.toLevelNameString())
         .toList();
     emit(StoryBookmarkUpdated(stories: advancedOnly));
   }
 
-  FutureOr<void> _removeAStory(
-      StoryBookmarkRemove event, Emitter<StoryBookmarkState> emit) async {
-    _storyRepository.removeAStoryInBookmark(event.story);
-    //loadedStoryBookmarkList.remove(event.story);
+  FutureOr<void> _all(StoryBookmarkGetAll event,
+      Emitter<StoryBookmarkState> emit) async {
     emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
   }
 
-  FutureOr<void> _all(
-      StoryBookmarkGetAll event, Emitter<StoryBookmarkState> emit) async {
-    emit(StoryBookmarkUpdated(stories: _loadedStoryBookmarkList));
-  }
-
-  FutureOr<void> _clear(
-      StoryBookmarkClear event, Emitter<StoryBookmarkState> emit) {
+  FutureOr<void> _clear(StoryBookmarkClear event,
+      Emitter<StoryBookmarkState> emit) {
     _storyRepository.deleteAllStoryBookmark();
     emit(StoryBookmarkEmptyState());
   }
 
-  FutureOr<void> _add(
-      StoryBookmarkAdd event, Emitter<StoryBookmarkState> emit) async {
-    await _storyRepository.saveReadStoryToBookmark(event.stories);
-    if (kDebugMode) {
-      print("${event.stories.title} is added to Bookmark file.");
+  FutureOr<void> _storyBookmarkAdd(StoryBookmarkAdd event,
+      Emitter<StoryBookmarkState> emit) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+
+    } else {
+      final storyId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+          sentence: event.story.shortDescription);
+      final docRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('Story')
+          .doc(storyId);
+
+      // Create the document if it doesn't exist
+      final docSnapshot = await docRef.get();
+      if (!docSnapshot.exists) {
+        await docRef.set({'isBookmark': true});
+      }
+
+      // Now update the document with the new word
+      await docRef.update({
+        'isBookmark': true
+      });
+      await _storyRepository.getStoryBookmark();
+    }
+  }
+
+  FutureOr<void> _storyBookmarkRemove(StoryBookmarkRemove event,
+      Emitter<StoryBookmarkState> emit) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+
+    } else {
+      final storyId = Md5Generator.composeMd5IdForStoryFirebaseDb(
+          sentence: event.story.shortDescription);
+      final docRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('Story')
+          .doc(storyId);
+
+      // Create the document if it doesn't exist
+      final docSnapshot = await docRef.get();
+      if (!docSnapshot.exists) {
+        await docRef.set({'isBookmark': false});
+      }
+
+      // Now update the document with the new word
+      await docRef.update({
+        'isBookmark': false
+      });
+      await _storyRepository.getStoryBookmark();
     }
   }
 }

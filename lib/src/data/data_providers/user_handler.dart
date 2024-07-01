@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import '../../core/constants/constants.dart';
 import '../data.dart';
 class UserHandler {
   User? currentUser = FirebaseAuth.instance.currentUser;
@@ -53,75 +51,6 @@ class UserHandler {
           await DirectoryHandler.getLocalUserDataFilePath(ref.name);
       final tempCloudfile = File(tempCloudFilePath);
       await ref.writeToFile(tempCloudfile);
-      List<dynamic> cloudJsonFile =
-          jsonDecode(File(tempCloudfile.path).readAsStringSync());
-      List<dynamic> localJsonFile =
-          jsonDecode(File(file.path).readAsStringSync());
-
-      /// Syncing story history and bookmark
-      if (ref.name == LocalDirectory.storyBookmarkFileName) {
-        for (var story in cloudJsonFile) {
-          bool isArticleExist = localJsonFile
-              .any((storyInLocal) => storyInLocal['title'] == story["title"]);
-          if (!isArticleExist) {
-            if (json is List<dynamic>) {
-              localJsonFile.add(story.toJson());
-              final encoded = jsonEncode(json);
-              await file.writeAsString(encoded);
-            }
-          }
-        }
-
-        /// Syncing word history in dictionary
-        if (ref.name == LocalDirectory.wordHistoryFileName) {
-          for (var word in cloudJsonFile) {
-            bool isWordExist = localJsonFile
-                .any((storyInLocal) => storyInLocal['word'] == word["word"]);
-            if (!isWordExist) {
-              if (json is List<dynamic>) {
-                localJsonFile.add(word.toJson());
-                final encoded = jsonEncode(json);
-                await file.writeAsString(encoded);
-              }
-            }
-          }
-        }
-
-        /// Syncing topic history in 1848 essential
-        if (ref.name == LocalDirectory.topicHistoryFileName) {
-          for (var topic in cloudJsonFile) {
-            bool isTopicExist =
-                localJsonFile.any((topicInLocal) => topicInLocal == topic);
-            if (!isTopicExist) {
-              if (json is List<dynamic>) {
-                localJsonFile.add(topic.toJson());
-                final encoded = jsonEncode(json);
-                await file.writeAsString(encoded);
-              }
-            }
-          }
-        }
-
-        /// Syncing word history in dictionary
-        if (ref.name == LocalDirectory.essentialFavouriteFileName) {
-          for (var word in cloudJsonFile) {
-            bool isWordExist = localJsonFile.any(
-                (storyInLocal) => storyInLocal['english'] == word["english"]);
-            if (!isWordExist) {
-              if (json is List<dynamic>) {
-                localJsonFile.add(word.toJson());
-                final encoded = jsonEncode(json);
-                await file.writeAsString(encoded);
-              }
-            }
-          }
-        }
-        file.writeAsStringSync(json.encode(localJsonFile));
-
-        if (kDebugMode) {
-          print("Downloaded and merged with local data: ${file.path}");
-        }
-      }
     }
   }
 

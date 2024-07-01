@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../../core/constants/constants.dart';
 import '../../core/core.dart';
 import '../../core/utils/md5_generator.dart';
 import '../../domain/domain.dart';
@@ -121,96 +120,52 @@ class StoryRepositoryImpl implements StoryRepository {
   }
 
   @override
-  Future<List<Story>> readStoryBookmark() async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        LocalDirectory.storyBookmarkFileName);
-    try {
-      final file = File(filePath);
-      if (await file.exists()) {
-        final contents = await file.readAsString();
-        final json = jsonDecode(contents);
-        if (json is List<dynamic>) {
-          final List<Story> stories =
-              json.map((e) => Story.fromJson(e)).toList().cast<Story>();
-          return stories;
-        } else {
-          return [];
+  Future<List<Story>> getStoryBookmark() async {
+    List<Story> result = [];
+    final stories = await getDefaultStories();
+    final List<String> listStoryMd5 = [];
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      DebugLog.info("Can't get story history because user is not login.");
+    } else {
+      final collectionRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('Story');
+
+      final docSnapshot = await collectionRef.get();
+      for (var doc in docSnapshot.docs) {
+        if (doc.data().containsKey('isBookmark')) {
+          if (doc['isBookmark'] == true) {
+            listStoryMd5.add(doc.id);
+          }
         }
-      } else {
-        return [];
       }
-    } catch (e) {
-      if (kDebugMode) {
-        print("Can't read story history.json. Error detail: $e");
-      }
-      return [];
+
+      // This stopIndex used to stop looping check when all needed to find stories is found.
+      int stopIndex = 0;
+      result = stories.where((story) {
+        if (stopIndex >= listStoryMd5.length) return false;
+        bool isHaving = listStoryMd5.contains(
+            Md5Generator.composeMd5IdForStoryFirebaseDb(
+                sentence: story.shortDescription));
+        if (isHaving) stopIndex++;
+        return isHaving;
+      }).toList();
     }
+    return result;
   }
 
   @override
   Future<bool> saveReadStoryToBookmark(Story story) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        LocalDirectory.storyBookmarkFileName);
-    try {
-      final file = File(filePath);
-      if (await file.exists()) {
-        final contents = await file.readAsString();
-        final json = jsonDecode(contents);
-        // Check is a story is already exists in the history
-        bool isStoryExist =
-            json.any((storyInJson) => storyInJson['title'] == story.title);
-        if (!isStoryExist) {
-          if (json is List<dynamic>) {
-            json.add(story.toJson());
-            final encoded = jsonEncode(json);
-            await file.writeAsString(encoded);
-          }
-        }
-      } else {
-        final encoded = jsonEncode([story.toJson()]);
-        await file.writeAsString(encoded);
-      }
-      return true;
-    } catch (e) {
-      if (kDebugMode) {
-        print("Can't save to story history.json. Error detail: $e");
-      }
-      return false;
-    }
+    // todo:
+    return true;
   }
 
   @override
   Future<bool> removeAStoryInBookmark(Story story) async {
-    final filePath = await DirectoryHandler.getLocalUserDataFilePath(
-        LocalDirectory.storyBookmarkFileName);
-    try {
-      final file = File(filePath);
-      if (await file.exists()) {
-        final contents = await file.readAsString();
-        List<dynamic> json = jsonDecode(contents).toList();
-        // Check is a story is already exists in the bookmark
-        bool isStoryExist =
-            json.any((storyInJson) => storyInJson['title'] == story.title);
-        if (isStoryExist) {
-          json.removeWhere(
-              (storyInJson) => storyInJson['title'] == story.title);
-          final encoded = jsonEncode(json);
-          await file.writeAsString(encoded);
-          if (kDebugMode) {
-            print(
-                "Remove a story out of ${LocalDirectory.storyBookmarkFileName}");
-          }
-        }
-      }
-
-      return true;
-    } catch (e) {
-      if (kDebugMode) {
-        print(
-            "Can't remove to story ${LocalDirectory.storyBookmarkFileName}. Error detail: $e");
-      }
-      return false;
-    }
+    // todo
+    return true;
   }
 
   @override
@@ -221,7 +176,7 @@ class StoryRepositoryImpl implements StoryRepository {
 
   @override
   Future<bool> deleteAllStoryBookmark() async {
-    return await FileHandler(LocalDirectory.storyBookmarkFileName)
-        .deleteOnUserData();
+    // todo:
+    return true;
   }
 }
