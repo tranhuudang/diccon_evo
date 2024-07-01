@@ -23,7 +23,11 @@ class DialogueBloc extends Bloc<DialogueEvent, DialogueState> {
     if (FirebaseAuth.instance.currentUser?.uid != null) {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       try {
-        final userRef = _firestore.collection('Users').doc(userId);
+        final userRef = _firestore
+            .collection('Users')
+            .doc(userId)
+            .collection('Dialogue')
+            .doc('readDialogueDescriptions');
 
         await _firestore.runTransaction((transaction) async {
           final snapshot = await transaction.get(userRef);

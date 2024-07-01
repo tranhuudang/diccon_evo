@@ -28,7 +28,6 @@ class ListDialogueBloc extends Bloc<ListDialogueEvent, ListDialogueState> {
         seenConversationList, _tempHaveReadDialogueDescriptionList));
   }
 
-
   Future<void> _onGetAllConversation(
       GetAllConversationEvent event, Emitter<ListDialogueState> emit) async {
     emit(ListDialogueLoaded(
@@ -58,8 +57,12 @@ class ListDialogueBloc extends Bloc<ListDialogueEvent, ListDialogueState> {
         List<String> haveReadDialogueDescriptionList = [];
         if (FirebaseAuth.instance.currentUser?.uid != null) {
           final userId = FirebaseAuth.instance.currentUser!.uid;
-          final userDoc =
-              await _firestore.collection('Users').doc(userId).get();
+          final userDoc = await _firestore
+              .collection('Users')
+              .doc(userId)
+              .collection('Dialogue')
+              .doc('readDialogueDescriptions')
+              .get();
 
           haveReadDialogueDescriptionList = userDoc.exists
               ? List<String>.from(
